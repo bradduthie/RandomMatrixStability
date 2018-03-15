@@ -199,12 +199,114 @@ while(iter > 0){
 }
 ```
 
-The number of stable random matrices when $\varepsilon$ does not vary was $13$, and the number of stable random matrices when it does was $48$ (several re-runs of the above code found this result to be roughly the same for $n = 8$, with smaller differences for lower $n$, and presumably larger differences for higher $n$). The effect of varying $\varepsilon$ appears to be more extreme with an increasing number of species. Hence, overall, **variation in generation time appears to be stabilising for random ecological communities**. Again, I am not sure if this is something that I can prove mathematically, and I cannot decide whether the result is interesting enough to try to publish by itself or in tandem with the above. If not, it might be another blog post. 
+The number of stable random matrices when $\varepsilon$ does not vary was $13$, and the number of stable random matrices when it does was $48$. To further investigate, it is worth looking at **how the amount of variation in generation time in a community affects stability**. Below is some code to look at stability in random communities across different magnitudes of variance in generation time for communities with eight species.
+
+```{r, echo = TRUE, eval = FALSE}
+res  <- NULL;
+mags <- 10^(0:5);
+for(i in mags){
+    nn     <- 8;
+    A1_stt <- 0;
+    A2_stt <- 0;
+    iter   <- 1000000;
+    while(iter > 0){
+        A1_dat  <- runif(n = nn * nn, min = -4, max = 4);
+        A1      <- matrix(data = A1_dat, nrow = nn, ncol = nn);
+        A2_dat  <- runif(n = nn * nn, min = -4, max = 4);
+        A2      <- matrix(data = A2_dat, nrow = nn, ncol = nn);
+        epsil   <- runif(n = nn, min = 1, max = i);
+        eps_dat <- rep(x = epsil, times = nn);
+        eps_mat <- matrix(data = epsil, nrow = nn, ncol = nn, byrow = FALSE);
+        A2      <- A2 * eps_mat;
+        A1_stb  <- max(Re(eigen(A1)$values)) < 0;
+        A2_stb  <- max(Re(eigen(A2)$values)) < 0;
+        if(A1_stb == TRUE){
+          A1_stt <- A1_stt + 1;
+        }
+        if(A2_stb == TRUE){
+          A2_stt <- A2_stt + 1;
+        }
+        iter    <- iter - 1;
+    }
+    res <- rbind(res, c(A1_stt, A2_stt));
+    print(i);
+}
+```
+
+The code below produces the following results showing the proportion of random communities that are stable as the variation in generation time increases in orders of magnitude (note that I'm using eight species, so the y-axis shows a very low proportion range).
+
+```{r, echo = TRUE, eval = TRUE}
+mag_var <- read.table(file = "var_gen_mag.csv", header = TRUE, sep = ",");
+stabi_3 <- mag_var[,3] / 1000000;
+par(mar = c(5, 5, 2, 1));
+plot(x = log10(mag_var[,1]), y = stabi_3, type = "b", lwd = 2, ylim = c(0, 0.0005),
+     xlab = "LOG Generation time variation among species", ylab = "Proportion stable",
+     cex.axis = 1.5, cex.lab = 1.5, lty = "solid");
+```
+
+**It looks like once the generation time varies by an order of magnitude of around 1000, there is little return in terms of stability.** To continue, we can simulate different sizes of communities with species numbers between 2 and 20 for identical generation times versus magnitudes of generation time variation of 1000.
+
+```{r, echo = TRUE, eval = FALSE}
+res <- NULL;
+for(i in 2:8){
+    nn     <- i;
+    A1_stt <- 0;
+    A2_stt <- 0;
+    iter   <- 1000000;
+    while(iter > 0){
+        A1_dat  <- runif(n = nn * nn, min = -4, max = 4);
+        A1      <- matrix(data = A1_dat, nrow = nn, ncol = nn);
+        A2_dat  <- runif(n = nn * nn, min = -4, max = 4);
+        A2      <- matrix(data = A2_dat, nrow = nn, ncol = nn);
+        epsil   <- runif(n = nn, min = 1, max = 1000);
+        eps_dat <- rep(x = epsil, times = nn);
+        eps_mat <- matrix(data = epsil, nrow = nn, ncol = nn, byrow = FALSE);
+        A2      <- A2 * eps_mat;
+        A1_stb  <- max(Re(eigen(A1)$values)) < 0;
+        A2_stb  <- max(Re(eigen(A2)$values)) < 0;
+        if(A1_stb == TRUE){
+          A1_stt <- A1_stt + 1;
+        }
+        if(A2_stb == TRUE){
+          A2_stt <- A2_stt + 1;
+        }
+        iter    <- iter - 1;
+    }
+    res <- rbind(res, c(A1_stt, A2_stt));
+    print(i);
+}
+```
+
+The plot below shows the result for the proportion of stable communities when generation time varies (solid line, closed points) versus when generation time varies over two orders of magnitude (dotted line, open points).
+
+```{r, echo = TRUE, eval = TRUE}
+gen_var <- read.table(file = "dif_sp_gen_var.csv", header = TRUE, sep = ",");
+stabi_1 <- gen_var[,2] / 1000000;
+stabi_2 <- gen_var[,3] / 1000000;
+par(mar = c(5, 5, 2, 1));
+plot(x = gen_var[,1], y = stabi_1, type = "b", lwd = 2, ylim = c(0, 1),
+     xlab = "Species number", ylab = "Proportion stable",
+     cex.axis = 1.5, cex.lab = 1.5, lty = "dotted");
+points(x = gen_var[,1], y = stabi_2, type = "b", lwd = 2, ylim = c(0, 1),
+       lty = "solid", pch = 20);
+legend(x = 2, y = 1, lwd = 2,
+       legend = c("Generation time varies", "Generation time does not vary"),
+       lty = c("solid", "dotted"));
+```
+
+It is difficult to see the difference between these two numbers, so the figure below shows the ratio of the proportion of stable communities given generation variation relative to no generation variation (No_gen_var:Gen_var).
+
+```{r, echo = TRUE, eval = TRUE}
+par(mar = c(5, 5, 2, 1));
+plot(x = gen_var[,1], y = stabi_2 / stabi_1, type = "b", lwd = 2, ylim = c(0, 5),
+     xlab = "Species number", ylab = "Stable ratio (var to no var)",
+     cex.axis = 1.5, cex.lab = 1.5, lty = "solid");
+```
+
+This is interesting. **As species number increases, variation in generation time appears to have a stronger influence in stabilising random communities**. Assuming that I have done this correctly, this could be a fairly high impact result -- variation in generation time is important for community stability. I have not seen this take-home message in the literatur -- at least, not presented in this way. Again, I am not sure if any of this is something that I can prove mathematically, and I cannot decide whether the result is interesting enough to try to publish by itself or in tandem with the above. If not, it might be another blog post. 
 
 Combining the two (work in progress)
 --------------------------------------------------------------------------------
-
-
 
 ```{r, echo = FALSE}
 dat       <- read.table(file = "rand_sims_var_gen.txt", header = TRUE);
