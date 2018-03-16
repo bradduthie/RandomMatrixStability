@@ -61,7 +61,7 @@ For the whole system (ecology and evolution) to be stable when traits change qui
 
 $$s\left(\boldsymbol{A} + \boldsymbol{B}\boldsymbol{D}^{-1}(-\boldsymbol{C})\right) < 0.$$
 
-I am specifically interested in the case in which $\boldsymbol{D}$ is known to be stable. Using random matrices containing element values that are real numbers uniformly distributed between $-4$ and $4$, I will show that rapid evolution is almost never stabilising and almost always destabilising when over six species and their traits $m$ are considered. To do this, I will use the following code, which finds a stable random matrix $\boldsymbol{D}$ and assigns random element values (possibly, but not necessarily stable) to $\boldsymbol{A}$, $\boldsymbol{B}$, and $\boldsymbol{C}$. I will do this for 20000 replicates of species numbers from $n = 2$ to $n = 8$.
+I am specifically interested in the case in which $\boldsymbol{D}$ is known to be stable. Using random matrices containing element values that are real numbers uniformly distributed between $-4$ and $4$, I will show that rapid evolution is almost never stabilising and almost always destabilising when over six species and their traits $m$ are considered. To do this, I will use the following code, which finds a stable random matrix $\boldsymbol{D}$ and assigns random element values (possibly, but not necessarily stable) to $\boldsymbol{A}$, $\boldsymbol{B}$, and $\boldsymbol{C}$. I will do this for 100000 replicates of species numbers from $n = 2$ to $n = 8$.
 
 ```{r, echo = TRUE}
 random_comm <- function(dm = 2, iter = 10000){
