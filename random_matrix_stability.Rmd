@@ -164,14 +164,14 @@ Hence, overall, **as species number and therefore evolving species traits increa
 The effect of variation in generation time on ecological stability
 --------------------------------------------------------------------------------
 
-Here I will only consider $\boldsymbol{A}$ and focus on the stability of ecological interactions given variation in generation time. I will use the same technique of @Patel2018 for varying ecological and evolutionary time scales, but a bit differently. I assume that the response of a particular species' growth rate (rows in $\boldsymbol{A}$) is consistently affected by a value $\varepsilon_{i}$; higher values of $\varepsilon_{i}$ correspond to shorter absolute generation times and lower values correspond to longer generation times. The matrix below $\boldsymbol{A}$ for two species $i$ and $j$ with generation times $\varepsilon_{i}$ and $\varepsilon_{j}$, respectively.
+Here I will only consider $\boldsymbol{A}$ and focus on the stability of ecological interactions given variation in generation time. I will use the same technique of @Patel2018 for varying ecological and evolutionary time scales, but a bit differently. I assume that the response of a particular species' growth rate (rows in $\boldsymbol{A}$) is consistently affected by a value $\gamma_{i}$ (I am using $\gamma_{i}$ instead of $\varepsilon_{i}$ to avoid confusing generation time variance with ecological versus evolutionary rate difference). Higher values of $\gamma_{i}$ correspond to shorter absolute generation times and lower values correspond to longer generation times. The matrix below $\boldsymbol{A}$ for two species $i$ and $j$ with generation times $\gamma_{i}$ and $\gamma_{j}$, respectively.
 
 $$\boldsymbol{A} = \begin{bmatrix}
-    \varepsilon_{i}\frac{\partial N_{i}W_{i}}{\partial N_{i}}  & \varepsilon_{i}\frac{\partial N_{i}W_{i}}{\partial N_{j}}  \\
-    \varepsilon_{j} \frac{\partial N_{j}W_{j}}{\partial N_{i}}  & \varepsilon_{j} \frac{\partial N_{j}W_{j}}{\partial N_{j}}  \\
+    \gamma_{i}\frac{\partial N_{i}W_{i}}{\partial N_{i}}  & \gamma_{i}\frac{\partial N_{i}W_{i}}{\partial N_{j}}  \\
+    \gamma_{j} \frac{\partial N_{j}W_{j}}{\partial N_{i}}  & \gamma_{j} \frac{\partial N_{j}W_{j}}{\partial N_{j}}  \\
 \end{bmatrix}.$$
 
-I will allow random values of $\varepsilon_{i}$ to vary from $1$ to $100$, modelling two orders of magnitude of generation times. I will compare the stability of two sets of random community matrices -- one in which all $\varepsilon = 1$ and another in which $\varepsilon$ varies.
+I will first allow random values of $\gamma_{i}$ to vary from $1$ to $100$, modelling two orders of magnitude of generation times. I will compare the stability of two sets of random community matrices -- one in which all $\gamma = 1$ and another in which $\gamma$ varies.
 
 ```{r, echo = TRUE, eval = FALSE}
 nn     <- 8;
@@ -183,9 +183,9 @@ while(iter > 0){
     A1      <- matrix(data = A1_dat, nrow = nn, ncol = nn);
     A2_dat  <- runif(n = nn * nn, min = -4, max = 4);
     A2      <- matrix(data = A2_dat, nrow = nn, ncol = nn);
-    epsil   <- runif(n = nn, min = 1, max = 100);
-    eps_dat <- rep(x = epsil, times = nn);
-    eps_mat <- matrix(data = epsil, nrow = nn, ncol = nn, byrow = FALSE);
+    gamval  <- runif(n = nn, min = 1, max = 100);
+    eps_dat <- rep(x = gamval, times = nn);
+    eps_mat <- matrix(data = gamval, nrow = nn, ncol = nn, byrow = FALSE);
     A2      <- A2 * eps_mat;
     A1_stb  <- max(Re(eigen(A1)$values)) < 0;
     A2_stb  <- max(Re(eigen(A2)$values)) < 0;
@@ -199,7 +199,7 @@ while(iter > 0){
 }
 ```
 
-The number of stable random matrices when $\varepsilon$ does not vary was $13$, and the number of stable random matrices when it does was $48$. To further investigate, it is worth looking at **how the amount of variation in generation time in a community affects stability**. Below is some code to look at stability in random communities across different magnitudes of variance in generation time for communities with eight species.
+The number of stable random matrices when $\gamma$ does not vary was $13$, and the number of stable random matrices when it does was $48$. To further investigate, it is worth looking at **how the amount of variation in generation time (range of $\gamma$) in a community affects stability**. Below is some code to look at stability in random communities across different magnitudes of variance in generation time for communities with eight species.
 
 ```{r, echo = TRUE, eval = FALSE}
 res  <- NULL;
@@ -208,16 +208,16 @@ for(i in mags){
     nn     <- 8;
     A1_stt <- 0;
     A2_stt <- 0;
-    iter   <- 1000000;
+    iter   <- 10000000;
     while(iter > 0){
         A1_dat  <- runif(n = nn * nn, min = -4, max = 4);
         A1      <- matrix(data = A1_dat, nrow = nn, ncol = nn);
         A2_dat  <- runif(n = nn * nn, min = -4, max = 4);
         A2      <- matrix(data = A2_dat, nrow = nn, ncol = nn);
-        epsil   <- runif(n = nn, min = 1, max = i);
-        eps_dat <- rep(x = epsil, times = nn);
-        eps_mat <- matrix(data = epsil, nrow = nn, ncol = nn, byrow = FALSE);
-        A2      <- A2 * eps_mat;
+        gamval  <- runif(n = nn, min = 1, max = i);
+        gam_dat <- rep(x = gamval, times = nn);
+        gam_mat <- matrix(data = gam_dat, nrow = nn, ncol = nn, byrow = FALSE);
+        A2      <- A2 * gam_mat;
         A1_stb  <- max(Re(eigen(A1)$values)) < 0;
         A2_stb  <- max(Re(eigen(A2)$values)) < 0;
         if(A1_stb == TRUE){
@@ -333,6 +333,91 @@ plot(x = species, y = pr_stabilised, type = "b", lwd = 2, ylim = c(0, 1),
      xlab = "Species number", ylab = "Proportion stabilised",
      cex.axis = 1.5, cex.lab = 1.5);
 ```
+
+Code to print the above is below.
+
+```{r, eval = FALSE, echo = TRUE}
+random_comm <- function(dm = 2, iter = 10000){
+  stabilised_fastevo <- NULL;
+  unstabled_fastevo  <- NULL;
+  nn           <- dm * dm;
+  tot_stabled  <- 0;
+  tot_ustabled <- 0;
+  tot_eco_stab <- 0;
+  stabilised_fastevo <- NULL;
+  unstabled_fastevo  <- NULL;
+  while(iter > 0){
+    epsil   <- runif(n = dm, min = 1, max = 1000);
+    eps_dat <- rep(x = epsil, times = dm);
+    eps_mat <- matrix(data = c(epsil, epsil), nrow = dm, ncol = dm, byrow = FALSE);
+    stabilised   <- 0;
+    unstabilised <- 0;
+    Adat <- runif(n = nn, min = -4, max = 4);
+    Bdat <- runif(n = nn, min = -4, max = 4);
+    Cdat <- runif(n = nn, min = -4, max = 4);
+    A    <- matrix(data = Adat, nrow = dm, ncol = dm) * eps_mat;
+    B    <- matrix(data = Bdat, nrow = dm, ncol = dm) * eps_mat;
+    C    <- matrix(data = Cdat, nrow = dm, ncol = dm) * eps_mat;
+    egD  <- 1;
+    while(egD >= 0){
+      Ddat <- runif(n = nn, min = -4, max = 4);
+      D    <- matrix(data = Ddat, nrow = dm, ncol = dm) * eps_mat;
+      egD  <- max(Re(eigen(D)$values))
+    }
+    eco_stable       <- max(Re(eigen(A)$values)) < 0;
+    slow_evo_maxE    <- max(Re(eigen(A + B %*% solve(D) %*% (-C))$values));
+    stable_fast_evo  <- slow_evo_maxE < 0;
+    if(eco_stable == FALSE & stable_fast_evo == TRUE){
+      list_ele <- length(stabilised_fastevo$A) + 1;
+      stabilised_fastevo$A[[list_ele]] <- A;
+      stabilised_fastevo$B[[list_ele]] <- B;
+      stabilised_fastevo$C[[list_ele]] <- C;
+      stabilised_fastevo$D[[list_ele]] <- D;
+      stabilised   <- 1;
+    }
+    if(eco_stable == TRUE & stable_fast_evo == FALSE){
+      list_ele <- length(unstabled_fastevo$A) + 1;
+      unstabled_fastevo$A[[list_ele]] <- A;
+      unstabled_fastevo$B[[list_ele]] <- B;
+      unstabled_fastevo$C[[list_ele]] <- C;
+      unstabled_fastevo$D[[list_ele]] <- D;
+      unstabilised   <- 1;
+    }
+    if(stabilised == 1){
+      tot_stabled <- tot_stabled + 1;
+    }
+    if(unstabilised == 1){
+      tot_ustabled <- tot_ustabled + 1;
+    }
+    if(eco_stable == TRUE){
+      tot_eco_stab <- tot_eco_stab + 1;
+    }
+    iter <- iter - 1;
+    if(iter %% 1000000 == 0){
+        print(c(dm, iter));
+    }
+  }
+  results <- list(ecologically_stable = tot_eco_stab, 
+                  stabilised = tot_stabled, destabilised = tot_ustabled,
+                  stabilised_all   = stabilised_fastevo, 
+                  destabilised_all = unstabled_fastevo);
+  return(results);
+}
+
+NN       <- 20;
+res_tabl <- matrix(data = 0, nrow = (NN-1), ncol = 5);
+its      <- 100000000;
+for(i in 2:NN){
+  res              <- random_comm(dm = i, iter = its); 
+  res_tabl[i-1, 1] <- i;                               # Species and traits
+  res_tabl[i-1, 2] <- res$ecologically_stable;         # Total stable
+  res_tabl[i-1, 3] <- res$destabilised;                # Total destabilised
+  res_tabl[i-1, 4] <- its - res_tabl[i-1, 2];          # Total unstable
+  res_tabl[i-1, 5] <- res$stabilised;                  # Total stabilised
+  print(i);
+}
+```
+
 
 
 
