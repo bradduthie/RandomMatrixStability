@@ -194,6 +194,9 @@ random_comm <- function(dm = 2, iter = 10000){
       tot_eco_stab <- tot_eco_stab + 1;
     }
     iter <- iter - 1;
+    if(iter %% 1000000 == 0){
+        print(c(dm, iter));
+    }
   }
   results <- list(ecologically_stable = tot_eco_stab, 
                   stabilised = tot_stabled, destabilised = tot_ustabled,
@@ -202,9 +205,9 @@ random_comm <- function(dm = 2, iter = 10000){
   return(results);
 }
 
-NN       <- 8;
+NN       <- 20;
 res_tabl <- matrix(data = 0, nrow = (NN-1), ncol = 5);
-its      <- 10000;
+its      <- 100000000;
 for(i in 2:NN){
   res              <- random_comm(dm = i, iter = its); 
   res_tabl[i-1, 1] <- i;                               # Species and traits
