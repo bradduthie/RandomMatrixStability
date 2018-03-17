@@ -26,152 +26,25 @@ csl: evolution.csl
 biblio-style: apalike
 ---
 
+The below is a draft introductory paragraph or abstract. I believe that we could get [an article on the above](https://www.nature.com/natecolevol/about/content) clearly in the space of 3500, or maybe even 1500 words. As far as I've been able to find, such an article would be novel and interesting (and mathematically correct). These notes are divided into two parts at the moment.
+
+1. [The effect of variation in generation time on community stability.](#gen_time_stability)
+2. [The effect of increasing numbers of evolutionary traits on eco-evolutionary stability.](#comment_on_Patel)
+
+I suspect that part 2 will need to branch off soon, but I don't want to forget about it.
+
 ********************************************************************************
 
 **Analyses of dynamic systems using random matrices find that stability generally decreases with increasing system size. But in ecological communities, the rate of change of species density and the magnitude of interaction effects depend on species generation time. Per capita effects of individuals from species with short generation times will be lower than individuals from species with long generation times, and densities of species with shorter generation times will change more rapidly. Interaction effects are therefore expected to be correlated within species, with some species having consistently weaker or stronger effects on others per capita. Here we show that by accounting for variation in generation time among species, community stability is substantially increased. Further, the influence of variation in generation time becomes exponentially more important as community size increases. We suggest that variation in species generation time might be a key contributor to stability of large ecological communities.**
 
 ********************************************************************************
 
-The above is a draft introductory paragraph or abstract. I believe that we could get [an article on the above](https://www.nature.com/natecolevol/about/content) clearly in the space of 3500, or maybe even 1500 words. As far as I've been able to find, such an article would be novel and interesting (and mathematically correct).
-
-Background on the key question
+<a name="gen_time_stability">The effect of variation in generation time on community stability</a>
 --------------------------------------------------------------------------------
 
-Recently, @Patel2018 demonstrated the stability criteria for eco-evolutionary systems. A key result was that an unstable (stable) ecological community could be stabilised (destabilised) by fast eco-evolutionary feedback, assuming the evolutionary system was itself stable. Likewise, @Patel2018 showed that an unstable (stable) evolutionary system could be stabilised (destabilised) by fast ecological feedback, assuming the ecological community was itself stable. **Here I am going to show why the stability criteria for eco-evolutionary systems is such that stable ecological systems are *increasingly* likely to be destablised, and unstable ecological systems are *decreasingly* likely to be stabilised, at higher numbers of species traits**. I will use a random matrix approach similar to that of Allesina and colleagues [@Allesina2011; @Allesina2012; @Allesina2015a]. The mathematical concept of what I describe below is not new, and is a similar point to what @May1971 explained nearly half a century ago (that increasing species number decreases stability). Still, this point was not, that I can find, noticed or acknowledged by @Patel2018 when coming up with their stability criteria.
+Species generation time varies by orders of magnitude within communities, potentially affecting the rate at which the density of one species affects the population growth rate of the other. Yet I've not been able to find anything on this in the literature in a random matrix context. I want to **determine if the effects of varying generation time among community members is stabilising or destabilising in an ecological system**. This work is partly inspired by the use of $\varepsilon$ by @Patel2018 and partly by @Jirsa2004 to separate generation time of different species in a community.
 
-Additionally, I want to look at random ecological matrices from the context of varying generation time, as partly inspired by the use of $\varepsilon$ by @Patel2018 and partly by @Jirsa2004 to separate generation time of different species in a community. Species generation time varies by orders of magnitude within communities, potentially affecting the rate at which the density of one species affects the population growth rate of the other. Yet I've not been able to find anything on this in the literature in a random matrix context. I want to **determine if the effects of varying generation time among community members is stabilising or destabilising in an ecological system**. Hence, the goals here are twofold. 
-
-1. Demonstrate the inherent destabilising effect of rapid evolution, which can also be interpreted as plasticity [@Patel2018], on ecological communities.
-
-2. Determine if variance in generation time stabilises or destabilises random matrices.
-
-I'm not sure if either would make a publication, or perhaps just a blog post, and whether they would need to be completely separated. I will present one a time.
-
-The destabilising effect of rapid evolution
---------------------------------------------------------------------------------
-
-Assume a community of $n$ species, each with the same evolving trait (e.g., body size). Each species $i$ therefore has its own associated trait $m_{i}$ (originally I was thinking about parental investment -- I thought that I had come up with something really interesting, then realised that @Parker1986 got there first). We can describe the dynamics of a system with two species $i$ and $j$ using the Jacobian matrix $\boldsymbol{J}$ below [@Patel2018],
-
-$$\boldsymbol{J} = \begin{bmatrix}
-    \boldsymbol{A}  & \boldsymbol{B}  \\
-    \boldsymbol{C}  & \boldsymbol{D}  \\  \end{bmatrix}
-    = \begin{bmatrix}
-    \frac{\partial N_{i}W_{i}}{\partial N_{i}}  & \frac{\partial N_{i}W_{i}}{\partial N_{j}} & \frac{\partial N_{i}W_{i}}{\partial m_{i}} & \frac{\partial N_{i}W_{i}}{\partial m_{j}}  \\
-    \frac{\partial N_{j}W_{j}}{\partial N_{i}}  & \frac{\partial N_{j}W_{j}}{\partial N_{j}} & \frac{\partial N_{j}W_{j}}{\partial m_{i}} & \frac{\partial N_{j}W_{j}}{\partial m_{j}} \\
-    \varepsilon\frac{\partial m_{i}}{\partial N_{i}}  & \varepsilon\frac{\partial m_{i}}{\partial N_{j}} & \varepsilon\frac{\partial m_{i}}{\partial m_{i}} & \varepsilon\frac{\partial m_{i}}{\partial m_{j}}  \\
-    \varepsilon\frac{\partial m_{j}}{\partial N_{i}}  & \varepsilon\frac{\partial m_{j}}{\partial N_{j}} & \varepsilon\frac{\partial m_{j}}{\partial m_{i}} & \varepsilon\frac{\partial m_{j}}{\partial m_{j}}  \\
-\end{bmatrix}.$$
-
-Note that the matrix $\boldsymbol{J}$ can be separated into four separate submatrices. The submatrix $\boldsymbol{A}$ describes the effects that the density of one species has on its own population growth (diagonal) or that of another species (off-diagonal). The submatrix $\boldsymbol{B}$ describes the effect the trait $m$ of each species has on the population growth of itself or another species. The submatrix $\boldsymbol{C}$ describes the effect that the density of a species has on a species' changing $m$, and $\boldsymbol{D}$ describes the effect that traits have on traits. The value of $\varepsilon$ defines the rate of evolutionary change relative to ecological change; here I will just assume a high value of $\varepsilon$, but the conclusions regarding an increasing number of traits' effect on a relatively slowly changing ecoogical system will be equally applicable to an incresing number of species in relativley slowly evolving system. I will therefore only assume a high value of $\varepsilon$ for now. 
-
-For the whole system (ecology and evolution) to be stable when traits change quickly relative to population densities, evolution by itself $\boldsymbol{D}$ must be stable. This is the case when all of the eigenvalues of $\boldsymbol{D}$ are negative. Additionally, for the system $\boldsymbol{J}$ as a whole to be stable, we need to consider the feedback between ecology and evolution. @Patel2018 showed that the system as a whole is stable when the following is satisfied, 
-
-$$s\left(\boldsymbol{A} + \boldsymbol{B}\boldsymbol{D}^{-1}(-\boldsymbol{C})\right) < 0.$$
-
-I am specifically interested in the case in which $\boldsymbol{D}$ is known to be stable. Using random matrices containing element values that are real numbers uniformly distributed between $-4$ and $4$, I will show that rapid evolution is almost never stabilising and almost always destabilising when over six species and their traits $m$ are considered. To do this, I will use the following code, which finds a stable random matrix $\boldsymbol{D}$ and assigns random element values (possibly, but not necessarily stable) to $\boldsymbol{A}$, $\boldsymbol{B}$, and $\boldsymbol{C}$. I will do this for 100000 replicates of species numbers from $n = 2$ to $n = 8$.
-
-```{r, echo = TRUE}
-random_comm <- function(dm = 2, iter = 10000){
-    stabilised_fastevo <- NULL;
-    unstabled_fastevo  <- NULL;
-    nn           <- dm * dm;
-    tot_stabled  <- 0;
-    tot_ustabled <- 0;
-    tot_eco_stab <- 0;
-    stabilised_fastevo <- NULL;
-    unstabled_fastevo  <- NULL;
-    while(iter > 0){
-        stabilised   <- 0;
-        unstabilised <- 0;
-        Adat <- runif(n = nn, min = -4, max = 4);
-        Bdat <- runif(n = nn, min = -4, max = 4);
-        Cdat <- runif(n = nn, min = -4, max = 4);
-        A    <- matrix(data = Adat, nrow = dm, ncol = dm);
-        B    <- matrix(data = Bdat, nrow = dm, ncol = dm);
-        C    <- matrix(data = Cdat, nrow = dm, ncol = dm);
-        egD  <- 1;
-        while(egD >= 0){
-             Ddat <- runif(n = nn, min = -4, max = 4);
-             D    <- matrix(data = Ddat, nrow = dm, ncol = dm);
-             egD  <- max(Re(eigen(D)$values))
-        }
-        eco_stable       <- max(Re(eigen(A)$values)) < 0;
-        slow_evo_maxE    <- max(Re(eigen(A + B %*% solve(D) %*% (-C))$values));
-        stable_fast_evo  <- slow_evo_maxE < 0;
-        if(eco_stable == FALSE & stable_fast_evo == TRUE){
-            list_ele <- length(stabilised_fastevo$A) + 1;
-            stabilised_fastevo$A[[list_ele]] <- A;
-            stabilised_fastevo$B[[list_ele]] <- B;
-            stabilised_fastevo$C[[list_ele]] <- C;
-            stabilised_fastevo$D[[list_ele]] <- D;
-            stabilised   <- 1;
-        }
-        if(eco_stable == TRUE & stable_fast_evo == FALSE){
-            list_ele <- length(unstabled_fastevo$A) + 1;
-            unstabled_fastevo$A[[list_ele]] <- A;
-            unstabled_fastevo$B[[list_ele]] <- B;
-            unstabled_fastevo$C[[list_ele]] <- C;
-            unstabled_fastevo$D[[list_ele]] <- D;
-            unstabilised   <- 1;
-        }
-        if(stabilised == 1){
-            tot_stabled <- tot_stabled + 1;
-        }
-        if(unstabilised == 1){
-            tot_ustabled <- tot_ustabled + 1;
-        }
-        if(eco_stable == TRUE){
-            tot_eco_stab <- tot_eco_stab + 1;
-        }
-        iter <- iter - 1;
-    }
-    results <- list(ecologically_stable = tot_eco_stab, 
-                    stabilised = tot_stabled, destabilised = tot_ustabled,
-                    stabilised_all   = stabilised_fastevo, 
-                    destabilised_all = unstabled_fastevo);
-    return(results);
-}
-```
-
-Note that the code above takes a while to run for a large number of species, and this is mostly caused by having to find a random matrix $\boldsymbol{D}$ that is stable. The code first checks whether $\boldsymbol{A}$ is stable, and if it is stable, whether or not eco-evolutionary dynamics destabilise the stable ecological community. If it is not stable, then the code checks whether eco-evolutionary dynamics stabilise the unstable ecological community. As expected [@May1971], ecological stability decreases with an increasing number of species.
-
-```{r, echo = FALSE}
-dat       <- read.table(file = "rand_sims.txt", header = TRUE);
-species   <- dat[,1];
-pr_stable <- dat[,2] / (dat[,2] + dat[,4]);
-par(mar = c(5, 5, 2, 1));
-plot(x = species, y = pr_stable, type = "b", lwd = 2, ylim = c(0, 1),
-     xlab = "Species number", ylab = "Proportion stable (n)",
-     cex.axis = 1.5, cex.lab = 1.5);
-```
-
-More interesting, the plot below shows eco-evolutionary results for ecological communities that **are** stable. The x-axis shows the number of species in the community (recall that each species has the same evolving trait potentially affecting ecology and evolution), and the y-axis shows the proportion of of these communities that are *destabilised* by eco-evolutionary dynamics. 
-
-```{r, echo = FALSE}
-pr_destabilised <- dat[,3] / dat[,2];
-par(mar = c(5, 5, 2, 1));
-plot(x = species, y = pr_destabilised, type = "b", lwd = 2, ylim = c(0, 1),
-     xlab = "Species number", ylab = "Proportion destabilised",
-     cex.axis = 1.5, cex.lab = 1.5);
-```
-
-Note that the proportion of communities that are destabilised by eco-evolutionary effects increases with increasing species number. The plot below shows the eco-evolutionary results for ecological communities that are unstable. The y-axis here shows the proportion of communities that are *stabilised* by eco-evolutionary dynamics. This decreases with increasing species number. 
-
-```{r, echo = FALSE}
-pr_stabilised <- dat[,5] / dat[,4];
-par(mar = c(5, 5, 2, 1));
-plot(x = species, y = pr_stabilised, type = "b", lwd = 2, ylim = c(0, 1),
-     xlab = "Species number", ylab = "Proportion stabilised",
-     cex.axis = 1.5, cex.lab = 1.5);
-```
-
-Hence, overall, **as species number and therefore evolving species traits increases, the probability that stable ecological communities become destabilised increases rapidly and the probability that unstable ecological communities are stabilised becomes vanishingly small**. I am not sure if I can prove this mathematically, but I don't think I need to for the point to be made effectively. What I want to figure out is whether or not this point can or should be published in the peer-reviwed literature -- else it's a blog post.
-
-
-The effect of variation in generation time on ecological stability
---------------------------------------------------------------------------------
-
-Here I will only consider $\boldsymbol{A}$ and focus on the stability of ecological interactions given variation in generation time. I will use the same technique of @Patel2018 for varying ecological and evolutionary time scales, but a bit differently. I assume that the response of a particular species' growth rate (rows in $\boldsymbol{A}$) is consistently affected by a value $\gamma_{i}$ (I am using $\gamma_{i}$ instead of $\varepsilon_{i}$ to avoid confusing generation time variance with ecological versus evolutionary rate difference). Higher values of $\gamma_{i}$ correspond to shorter absolute generation times and lower values correspond to longer generation times. The matrix below $\boldsymbol{A}$ for two species $i$ and $j$ with generation times $\gamma_{i}$ and $\gamma_{j}$, respectively.
+Here I will consider a Jacobian matrix of interacting species $\boldsymbol{A}$ and focus on the stability of ecological interactions given variation in generation time. I will use the same technique of @Patel2018 for varying ecological and evolutionary time scales, but a bit differently. I assume that the response of a particular species' growth rate (rows in $\boldsymbol{A}$) is consistently affected by a value $\gamma_{i}$ (I am using $\gamma_{i}$ instead of $\varepsilon_{i}$ to avoid confusing generation time variance with ecological versus evolutionary rate difference). Higher values of $\gamma_{i}$ correspond to shorter absolute generation times and lower values correspond to longer generation times. The matrix below $\boldsymbol{A}$ for two species $i$ and $j$ with generation times $\gamma_{i}$ and $\gamma_{j}$, respectively.
 
 $$\boldsymbol{A} = \begin{bmatrix}
     \gamma_{i}\frac{\partial N_{i}W_{i}}{\partial N_{i}}  & \gamma_{i}\frac{\partial N_{i}W_{i}}{\partial N_{j}}  \\
@@ -311,6 +184,138 @@ plot(x = gen_var[,1], y = stabi_2 / stabi_1, type = "b", lwd = 2, ylim = c(0, 5)
 ```
 
 This is interesting. **As species number increases, variation in generation time appears to have a stronger influence in stabilising random communities**. Assuming that I have done this correctly, this could be a fairly high impact result -- variation in generation time is important for community stability. I have not seen this take-home message in the literatur -- at least, not presented in this way. Again, I am not sure if any of this is something that I can prove mathematically, and I cannot decide whether the result is interesting enough to try to publish by itself or in tandem with the above. If not, it might be another blog post. 
+
+
+<a name="comment_on_Patel">The effect of increasing numbers of evolutionary traits on eco-evolutionary stability</a>
+--------------------------------------------------------------------------------
+
+Recently, @Patel2018 demonstrated the stability criteria for eco-evolutionary systems. A key result was that an unstable (stable) ecological community could be stabilised (destabilised) by fast eco-evolutionary feedback, assuming the evolutionary system was itself stable. Likewise, @Patel2018 showed that an unstable (stable) evolutionary system could be stabilised (destabilised) by fast ecological feedback, assuming the ecological community was itself stable. **Here I am going to show why the stability criteria for eco-evolutionary systems is such that stable ecological systems are *increasingly* likely to be destablised, and unstable ecological systems are *decreasingly* likely to be stabilised, at higher numbers of species traits**. I will use a random matrix approach similar to that of Allesina and colleagues [@Allesina2011; @Allesina2012; @Allesina2015a]. The mathematical concept of what I describe below is not new, and is a similar point to what @May1971 explained nearly half a century ago (that increasing species number decreases stability). Still, this point was not, that I can find, noticed or acknowledged by @Patel2018 when coming up with their stability criteria.
+
+Hence, the goal here is to demonstrate the inherent destabilising effect of rapid evolution, which can also be interpreted as plasticity [@Patel2018], on ecological communities.
+
+
+The destabilising effect of rapid evolution
+--------------------------------------------------------------------------------
+
+Assume a community of $n$ species, each with the same evolving trait (e.g., body size). Each species $i$ therefore has its own associated trait $m_{i}$ (originally I was thinking about parental investment -- I thought that I had come up with something really interesting, then realised that @Parker1986 got there first). We can describe the dynamics of a system with two species $i$ and $j$ using the Jacobian matrix $\boldsymbol{J}$ below [@Patel2018],
+
+$$\boldsymbol{J} = \begin{bmatrix}
+    \boldsymbol{A}  & \boldsymbol{B}  \\
+    \boldsymbol{C}  & \boldsymbol{D}  \\  \end{bmatrix}
+    = \begin{bmatrix}
+    \frac{\partial N_{i}W_{i}}{\partial N_{i}}  & \frac{\partial N_{i}W_{i}}{\partial N_{j}} & \frac{\partial N_{i}W_{i}}{\partial m_{i}} & \frac{\partial N_{i}W_{i}}{\partial m_{j}}  \\
+    \frac{\partial N_{j}W_{j}}{\partial N_{i}}  & \frac{\partial N_{j}W_{j}}{\partial N_{j}} & \frac{\partial N_{j}W_{j}}{\partial m_{i}} & \frac{\partial N_{j}W_{j}}{\partial m_{j}} \\
+    \varepsilon\frac{\partial m_{i}}{\partial N_{i}}  & \varepsilon\frac{\partial m_{i}}{\partial N_{j}} & \varepsilon\frac{\partial m_{i}}{\partial m_{i}} & \varepsilon\frac{\partial m_{i}}{\partial m_{j}}  \\
+    \varepsilon\frac{\partial m_{j}}{\partial N_{i}}  & \varepsilon\frac{\partial m_{j}}{\partial N_{j}} & \varepsilon\frac{\partial m_{j}}{\partial m_{i}} & \varepsilon\frac{\partial m_{j}}{\partial m_{j}}  \\
+\end{bmatrix}.$$
+
+Note that the matrix $\boldsymbol{J}$ can be separated into four separate submatrices. The submatrix $\boldsymbol{A}$ describes the effects that the density of one species has on its own population growth (diagonal) or that of another species (off-diagonal). The submatrix $\boldsymbol{B}$ describes the effect the trait $m$ of each species has on the population growth of itself or another species. The submatrix $\boldsymbol{C}$ describes the effect that the density of a species has on a species' changing $m$, and $\boldsymbol{D}$ describes the effect that traits have on traits. The value of $\varepsilon$ defines the rate of evolutionary change relative to ecological change; here I will just assume a high value of $\varepsilon$, but the conclusions regarding an increasing number of traits' effect on a relatively slowly changing ecoogical system will be equally applicable to an incresing number of species in relativley slowly evolving system. I will therefore only assume a high value of $\varepsilon$ for now. 
+
+For the whole system (ecology and evolution) to be stable when traits change quickly relative to population densities, evolution by itself $\boldsymbol{D}$ must be stable. This is the case when all of the eigenvalues of $\boldsymbol{D}$ are negative. Additionally, for the system $\boldsymbol{J}$ as a whole to be stable, we need to consider the feedback between ecology and evolution. @Patel2018 showed that the system as a whole is stable when the following is satisfied, 
+
+$$s\left(\boldsymbol{A} + \boldsymbol{B}\boldsymbol{D}^{-1}(-\boldsymbol{C})\right) < 0.$$
+
+I am specifically interested in the case in which $\boldsymbol{D}$ is known to be stable. Using random matrices containing element values that are real numbers uniformly distributed between $-4$ and $4$, I will show that rapid evolution is almost never stabilising and almost always destabilising when over six species and their traits $m$ are considered. To do this, I will use the following code, which finds a stable random matrix $\boldsymbol{D}$ and assigns random element values (possibly, but not necessarily stable) to $\boldsymbol{A}$, $\boldsymbol{B}$, and $\boldsymbol{C}$. I will do this for 100000 replicates of species numbers from $n = 2$ to $n = 8$.
+
+```{r, echo = TRUE}
+random_comm <- function(dm = 2, iter = 10000){
+    stabilised_fastevo <- NULL;
+    unstabled_fastevo  <- NULL;
+    nn           <- dm * dm;
+    tot_stabled  <- 0;
+    tot_ustabled <- 0;
+    tot_eco_stab <- 0;
+    stabilised_fastevo <- NULL;
+    unstabled_fastevo  <- NULL;
+    while(iter > 0){
+        stabilised   <- 0;
+        unstabilised <- 0;
+        Adat <- runif(n = nn, min = -4, max = 4);
+        Bdat <- runif(n = nn, min = -4, max = 4);
+        Cdat <- runif(n = nn, min = -4, max = 4);
+        A    <- matrix(data = Adat, nrow = dm, ncol = dm);
+        B    <- matrix(data = Bdat, nrow = dm, ncol = dm);
+        C    <- matrix(data = Cdat, nrow = dm, ncol = dm);
+        egD  <- 1;
+        while(egD >= 0){
+             Ddat <- runif(n = nn, min = -4, max = 4);
+             D    <- matrix(data = Ddat, nrow = dm, ncol = dm);
+             egD  <- max(Re(eigen(D)$values))
+        }
+        eco_stable       <- max(Re(eigen(A)$values)) < 0;
+        slow_evo_maxE    <- max(Re(eigen(A + B %*% solve(D) %*% (-C))$values));
+        stable_fast_evo  <- slow_evo_maxE < 0;
+        if(eco_stable == FALSE & stable_fast_evo == TRUE){
+            list_ele <- length(stabilised_fastevo$A) + 1;
+            stabilised_fastevo$A[[list_ele]] <- A;
+            stabilised_fastevo$B[[list_ele]] <- B;
+            stabilised_fastevo$C[[list_ele]] <- C;
+            stabilised_fastevo$D[[list_ele]] <- D;
+            stabilised   <- 1;
+        }
+        if(eco_stable == TRUE & stable_fast_evo == FALSE){
+            list_ele <- length(unstabled_fastevo$A) + 1;
+            unstabled_fastevo$A[[list_ele]] <- A;
+            unstabled_fastevo$B[[list_ele]] <- B;
+            unstabled_fastevo$C[[list_ele]] <- C;
+            unstabled_fastevo$D[[list_ele]] <- D;
+            unstabilised   <- 1;
+        }
+        if(stabilised == 1){
+            tot_stabled <- tot_stabled + 1;
+        }
+        if(unstabilised == 1){
+            tot_ustabled <- tot_ustabled + 1;
+        }
+        if(eco_stable == TRUE){
+            tot_eco_stab <- tot_eco_stab + 1;
+        }
+        iter <- iter - 1;
+    }
+    results <- list(ecologically_stable = tot_eco_stab, 
+                    stabilised = tot_stabled, destabilised = tot_ustabled,
+                    stabilised_all   = stabilised_fastevo, 
+                    destabilised_all = unstabled_fastevo);
+    return(results);
+}
+```
+
+Note that the code above takes a while to run for a large number of species, and this is mostly caused by having to find a random matrix $\boldsymbol{D}$ that is stable. The code first checks whether $\boldsymbol{A}$ is stable, and if it is stable, whether or not eco-evolutionary dynamics destabilise the stable ecological community. If it is not stable, then the code checks whether eco-evolutionary dynamics stabilise the unstable ecological community. As expected [@May1971], ecological stability decreases with an increasing number of species.
+
+```{r, echo = FALSE}
+dat       <- read.table(file = "rand_sims.txt", header = TRUE);
+species   <- dat[,1];
+pr_stable <- dat[,2] / (dat[,2] + dat[,4]);
+par(mar = c(5, 5, 2, 1));
+plot(x = species, y = pr_stable, type = "b", lwd = 2, ylim = c(0, 1),
+     xlab = "Species number", ylab = "Proportion stable (n)",
+     cex.axis = 1.5, cex.lab = 1.5);
+```
+
+More interesting, the plot below shows eco-evolutionary results for ecological communities that **are** stable. The x-axis shows the number of species in the community (recall that each species has the same evolving trait potentially affecting ecology and evolution), and the y-axis shows the proportion of of these communities that are *destabilised* by eco-evolutionary dynamics. 
+
+```{r, echo = FALSE}
+pr_destabilised <- dat[,3] / dat[,2];
+par(mar = c(5, 5, 2, 1));
+plot(x = species, y = pr_destabilised, type = "b", lwd = 2, ylim = c(0, 1),
+     xlab = "Species number", ylab = "Proportion destabilised",
+     cex.axis = 1.5, cex.lab = 1.5);
+```
+
+Note that the proportion of communities that are destabilised by eco-evolutionary effects increases with increasing species number. The plot below shows the eco-evolutionary results for ecological communities that are unstable. The y-axis here shows the proportion of communities that are *stabilised* by eco-evolutionary dynamics. This decreases with increasing species number. 
+
+```{r, echo = FALSE}
+pr_stabilised <- dat[,5] / dat[,4];
+par(mar = c(5, 5, 2, 1));
+plot(x = species, y = pr_stabilised, type = "b", lwd = 2, ylim = c(0, 1),
+     xlab = "Species number", ylab = "Proportion stabilised",
+     cex.axis = 1.5, cex.lab = 1.5);
+```
+
+Hence, overall, **as species number and therefore evolving species traits increases, the probability that stable ecological communities become destabilised increases rapidly and the probability that unstable ecological communities are stabilised becomes vanishingly small**. I am not sure if I can prove this mathematically, but I don't think I need to for the point to be made effectively. What I want to figure out is whether or not this point can or should be published in the peer-reviwed literature -- else it's a blog post.
+
+
+
 
 Combining the two (work in progress)
 --------------------------------------------------------------------------------
