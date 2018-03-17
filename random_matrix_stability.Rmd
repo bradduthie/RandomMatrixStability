@@ -3,15 +3,15 @@ title: "Stability concerns in random matrices"
 author: "Brad Duthie"
 bibliography: references.bib
 output:
-  html_document: default
-  pdf_document:
-    fig_caption: yes
   word_document:
     fig_caption: yes
     pandoc_args:
     - --csl
     - evolution.csl
     reference_docx: docx_template.docx
+  pdf_document:
+    fig_caption: yes
+  html_document: default
 header-includes:
 - \usepackage{amsmath}
 - \usepackage{natbib}
@@ -26,7 +26,7 @@ csl: evolution.csl
 biblio-style: apalike
 ---
 
-The below is a draft introductory paragraph or abstract. I believe that we could get [an article on the above](https://www.nature.com/natecolevol/about/content) clearly in the space of 3500, or maybe even 1500 words. As far as I've been able to find, such an article would be novel and interesting (and mathematically correct). These notes are divided into two parts at the moment.
+The below is a draft introductory paragraph or abstract. I believe that we could get [an article on the above](https://www.nature.com/natecolevol/about/content) clearly in the space of 3500, or maybe even 1500 words. As far as I've been able to find, such an article would be novel and interesting (and, I hope, mathematically correct). These notes are divided into two parts at the moment.
 
 1. [The effect of variation in generation time on community stability.](#gen_time_stability)
 2. [The effect of increasing numbers of evolutionary traits on eco-evolutionary stability.](#comment_on_Patel)
@@ -38,48 +38,20 @@ I suspect that part 2 will need to branch off soon, but I don't want to forget a
 
 ********************************************************************************
 
-**Analyses of dynamic systems using random matrices find that stability generally decreases with increasing system size. But in ecological communities, the rate that species densities change as a consequence of species interactions will depend on relative species generation times. Densities of species with relatively short generation times will change more rapidly than densities of species with longer generation times. Interaction effects are therefore expected to be correlated within species, with some species densities changing more rapidly than others in a community. Here we show that by accounting for variation in generation time among species, community stability is substantially increased. The influence of variation in generation time becomes exponentially more important as community size increases. And communities are further stabilised when the interaction effects of long-lived species are especially strong. We suggest that variation in species generation time might be a key contributor to stability of large ecological communities.**
+**Analyses of dynamic systems using random matrices find that stability generally decreases with increasing system size. But in ecological communities, the rate that species densities change as a consequence of species interactions will depend on relative species generation times. Densities of species with relatively short generation times will change more rapidly than densities of species with longer generation times. Interaction effects are therefore expected to be correlated within species, with some species densities changing more rapidly than others in a community. Here we show that by accounting for variation in generation time among species, community stability is substantially increased. Further, the influence of variation in generation time becomes exponentially more important as community size increases. We suggest that variation in species generation time might be a key contributor to stability of large ecological communities.**
 
 ********************************************************************************
 
-Species generation time varies by orders of magnitude within communities, potentially affecting the rate at which the density of one species affects the population growth rate of the other. Yet I've not been able to find anything on this in the literature in a random matrix context. I want to **determine if the effects of varying generation time among community members is stabilising or destabilising in an ecological system**. This work is partly inspired by the use of $\varepsilon$ by @Patel2018 and partly by @Jirsa2004 to separate generation time of different species in a community.
+Species generation time varies by orders of magnitude within communities, potentially affecting the rate at which the density of one species affects the population growth rate of another. Yet I've not been able to find anything on this in the literature in a random matrix context (or any other context). I want to **determine if the effects of varying generation time among community members is stabilising or destabilising in an ecological system**. This work is partly inspired by the use of $\varepsilon$ by @Patel2018 to separate the time scale of ecological versus evolutionary dynamics, and partly inspired by @Jirsa2004 to separate generation time of different species in a community.
 
-Here I will consider a Jacobian matrix of interacting species $\boldsymbol{A}$ and focus on the stability of ecological interactions given variation in generation time. I will use the same technique of @Patel2018 for varying ecological and evolutionary time scales, but a bit differently. I assume that the response of a particular species' growth rate (rows in $\boldsymbol{A}$) is consistently affected by a value $\gamma_{i}$ (I am using $\gamma_{i}$ instead of $\varepsilon_{i}$ to avoid confusing generation time variance with ecological versus evolutionary rate difference). Higher values of $\gamma_{i}$ correspond to shorter absolute generation times and lower values correspond to longer generation times. The matrix below $\boldsymbol{A}$ for two species $i$ and $j$ with generation times $\gamma_{i}$ and $\gamma_{j}$, respectively.
+Here I will consider a Jacobian matrix of interacting species $\boldsymbol{A}$ and focus on the stability of ecological interactions given variation in generation time. I will use the same technique of @Patel2018 for varying ecological and evolutionary time scales, but a bit differently. I assume that the effect that the density of any species $j$ ($N_{j}$) has on the growth rate of a focal species $i$ ($\partial N_{i}W_{i}/\partial N_{j}$) is consistently affected by a value $\gamma_{i}$ (I am using $\gamma_{i}$ instead of $\varepsilon_{i}$ to avoid confusing generation time variance with ecological versus evolutionary rate difference). Higher values of $\gamma_{i}$ correspond to shorter absolute generation times and lower values correspond to longer generation times. The matrix below $\boldsymbol{A}$ describes the dynamics for two species $i$ and $j$ with effects of generation times $\gamma_{i}$ and $\gamma_{j}$, respectively.
 
 $$\boldsymbol{A} = \begin{bmatrix}
     \gamma_{i}\frac{\partial N_{i}W_{i}}{\partial N_{i}}  & \gamma_{i}\frac{\partial N_{i}W_{i}}{\partial N_{j}}  \\
     \gamma_{j} \frac{\partial N_{j}W_{j}}{\partial N_{i}}  & \gamma_{j} \frac{\partial N_{j}W_{j}}{\partial N_{j}}  \\
 \end{bmatrix}.$$
 
-I will first allow random values of $\gamma_{i}$ to vary from $1$ to $100$, modelling two orders of magnitude of generation times. I will compare the stability of two sets of random community matrices -- one in which all $\gamma = 1$ and another in which $\gamma$ varies.
-
-```{r, echo = TRUE, eval = FALSE}
-nn     <- 8;
-A1_stt <- 0;
-A2_stt <- 0;
-iter   <- 100000;
-while(iter > 0){
-    A1_dat  <- runif(n = nn * nn, min = -4, max = 4);
-    A1      <- matrix(data = A1_dat, nrow = nn, ncol = nn);
-    A2_dat  <- runif(n = nn * nn, min = -4, max = 4);
-    A2      <- matrix(data = A2_dat, nrow = nn, ncol = nn);
-    gamval  <- runif(n = nn, min = 1, max = 100);
-    eps_dat <- rep(x = gamval, times = nn);
-    eps_mat <- matrix(data = gamval, nrow = nn, ncol = nn, byrow = FALSE);
-    A2      <- A2 * eps_mat;
-    A1_stb  <- max(Re(eigen(A1)$values)) < 0;
-    A2_stb  <- max(Re(eigen(A2)$values)) < 0;
-    if(A1_stb == TRUE){
-      A1_stt <- A1_stt + 1;
-    }
-    if(A2_stb == TRUE){
-      A2_stt <- A2_stt + 1;
-    }
-    iter    <- iter - 1;
-}
-```
-
-The number of stable random matrices when $\gamma$ does not vary was $13$, and the number of stable random matrices when it does was $48$. To further investigate, it is worth looking at **how the amount of variation in generation time (range of $\gamma$) in a community affects stability**. Below is some code to look at stability in random communities across different magnitudes of variance in generation time for communities with eight species.
+I will investigate **how the amount of variation in generation time (range of $\gamma$) in a community affects stability**. Below is some code to look at stability in random communities with eight species across different magnitudes of variance in generation time. Random values of $\gamma_{i}$ are chosen for each species $i$ from a uniform distribution $\mathcal{U}\left(1, \max(\gamma_{i})\right)$. 
 
 ```{r, echo = TRUE, eval = FALSE}
 res  <- NULL;
@@ -113,18 +85,18 @@ for(i in mags){
 }
 ```
 
-The code below produces the following results showing the proportion of random communities that are stable as the variation in generation time increases in orders of magnitude (note that I'm using eight species, so the y-axis shows a very low proportion range).
+The code above produces the following results showing the proportion of random communities that are stable as $\max(\gamma_{i})$ increases in orders of magnitude (note that I'm using eight species, so the y-axis shows a very low proportion range).
 
 ```{r, echo = TRUE, eval = TRUE}
 mag_var <- read.table(file = "var_gen_mag.csv", header = TRUE, sep = ",");
 stabi_3 <- mag_var[,3] / 10000000;
 par(mar = c(5, 5, 2, 1));
 plot(x = log10(mag_var[,1]), y = stabi_3, type = "b", lwd = 2, ylim = c(0, 0.0005),
-     xlab = "LOG Generation time variation among species", ylab = "Proportion stable",
+     xlab = expression(paste("LOG max(",gamma[i],")")), ylab = "Proportion stable",
      cex.axis = 1.5, cex.lab = 1.5, lty = "solid");
 ```
 
-**It looks like once the generation time varies by an order of magnitude of around 1000, there is little return in terms of stability.** To continue, we can simulate different sizes of communities with species numbers between 2 and 20 for identical generation times versus magnitudes of generation time variation of 1000.
+**Once the generation time varies by an order of magnitude of around 1000, there is little return in terms of stability.** To continue, we can simulate different sizes of communities with species numbers between 2 and 8 for identical generation times versus magnitudes of generation time variation of 1000.
 
 ```{r, echo = TRUE, eval = FALSE}
 res <- NULL;
@@ -157,19 +129,19 @@ for(i in 2:8){
 }
 ```
 
-The plot below shows the result for the proportion of stable communities when generation time varies (solid line, closed points) versus when generation time varies over two orders of magnitude (dotted line, open points).
+The plot below shows the result for the proportion of stable random communities when generation time varies (solid line, closed points) versus when generation time varies over two orders of magnitude (dotted line, open points).
 
 ```{r, echo = TRUE, eval = TRUE}
 gen_var <- read.table(file = "dif_sp_gen_var.csv", header = TRUE, sep = ",");
 stabi_1 <- gen_var[,2] / 1000000;
 stabi_2 <- gen_var[,3] / 1000000;
 par(mar = c(5, 5, 2, 1));
-plot(x = gen_var[,1], y = stabi_1, type = "b", lwd = 2, ylim = c(0, 1),
+plot(x = gen_var[,1], y = stabi_1, type = "b", lwd = 2, ylim = c(0, 0.3),
      xlab = "Species number", ylab = "Proportion stable",
      cex.axis = 1.5, cex.lab = 1.5, lty = "dotted");
-points(x = gen_var[,1], y = stabi_2, type = "b", lwd = 2, ylim = c(0, 1),
+points(x = gen_var[,1], y = stabi_2, type = "b", lwd = 2, ylim = c(0, 0.3),
        lty = "solid", pch = 20);
-legend(x = 2, y = 1, lwd = 2,
+legend(x = 4, y = 0.3, lwd = 2,
        legend = c("Generation time varies", "Generation time does not vary"),
        lty = c("solid", "dotted"));
 ```
@@ -183,7 +155,10 @@ plot(x = gen_var[,1], y = stabi_2 / stabi_1, type = "b", lwd = 2, ylim = c(0, 5)
      cex.axis = 1.5, cex.lab = 1.5, lty = "solid");
 ```
 
-This is interesting. **As species number increases, variation in generation time appears to have a stronger influence in stabilising random communities**. Assuming that I have done this correctly, this could be a fairly high impact result -- variation in generation time is important for community stability. I have not seen this take-home message in the literatur -- at least, not presented in this way. Again, I am not sure if any of this is something that I can prove mathematically, and I cannot decide whether the result is interesting enough to try to publish by itself or in tandem with the above. If not, it might be another blog post. 
+**As species number increases, variation in generation time appears to have a stronger influence in stabilising random communities**. In other words, all else being equal, variation in generation time becomes more important for stabilising system dynamics as the size of the system increases.
+
+
+********************************************************************************
 
 
 <a name="comment_on_Patel">The effect of increasing numbers of evolutionary traits on eco-evolutionary stability</a>
