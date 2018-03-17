@@ -33,14 +33,14 @@ The below is a draft introductory paragraph or abstract. I believe that we could
 
 I suspect that part 2 will need to branch off soon, but I don't want to forget about it.
 
-********************************************************************************
-
-**Analyses of dynamic systems using random matrices find that stability generally decreases with increasing system size. But in ecological communities, the rate of change of species density and the magnitude of interaction effects depend on species generation time. Per capita effects of individuals from species with short generation times will be lower than individuals from species with long generation times, and densities of species with shorter generation times will change more rapidly. Interaction effects are therefore expected to be correlated within species, with some species having consistently weaker or stronger effects on others per capita. Here we show that by accounting for variation in generation time among species, community stability is substantially increased. Further, the influence of variation in generation time becomes exponentially more important as community size increases. We suggest that variation in species generation time might be a key contributor to stability of large ecological communities.**
-
-********************************************************************************
-
 <a name="gen_time_stability">The effect of variation in generation time on community stability</a>
 --------------------------------------------------------------------------------
+
+********************************************************************************
+
+**Analyses of dynamic systems using random matrices find that stability generally decreases with increasing system size. But in ecological communities, the rate that species densities change as a consequence of species interactions will depend on relative species generation times. Densities of species with relatively short generation times will change more rapidly than densities of species with longer generation times. Interaction effects are therefore expected to be correlated within species, with some species densities changing more rapidly than others in a community. Here we show that by accounting for variation in generation time among species, community stability is substantially increased. The influence of variation in generation time becomes exponentially more important as community size increases. And communities are further stabilised when the interaction effects of long-lived species are especially strong. We suggest that variation in species generation time might be a key contributor to stability of large ecological communities.**
+
+********************************************************************************
 
 Species generation time varies by orders of magnitude within communities, potentially affecting the rate at which the density of one species affects the population growth rate of the other. Yet I've not been able to find anything on this in the literature in a random matrix context. I want to **determine if the effects of varying generation time among community members is stabilising or destabilising in an ecological system**. This work is partly inspired by the use of $\varepsilon$ by @Patel2018 and partly by @Jirsa2004 to separate generation time of different species in a community.
 
@@ -191,11 +191,7 @@ This is interesting. **As species number increases, variation in generation time
 
 Recently, @Patel2018 demonstrated the stability criteria for eco-evolutionary systems. A key result was that an unstable (stable) ecological community could be stabilised (destabilised) by fast eco-evolutionary feedback, assuming the evolutionary system was itself stable. Likewise, @Patel2018 showed that an unstable (stable) evolutionary system could be stabilised (destabilised) by fast ecological feedback, assuming the ecological community was itself stable. **Here I am going to show why the stability criteria for eco-evolutionary systems is such that stable ecological systems are *increasingly* likely to be destablised, and unstable ecological systems are *decreasingly* likely to be stabilised, at higher numbers of species traits**. I will use a random matrix approach similar to that of Allesina and colleagues [@Allesina2011; @Allesina2012; @Allesina2015a]. The mathematical concept of what I describe below is not new, and is a similar point to what @May1971 explained nearly half a century ago (that increasing species number decreases stability). Still, this point was not, that I can find, noticed or acknowledged by @Patel2018 when coming up with their stability criteria.
 
-Hence, the goal here is to demonstrate the inherent destabilising effect of rapid evolution, which can also be interpreted as plasticity [@Patel2018], on ecological communities.
-
-
-The destabilising effect of rapid evolution
---------------------------------------------------------------------------------
+**Hence, the goal here is to demonstrate the inherent destabilising effect of rapid evolution, which can also be interpreted as plasticity [@Patel2018], on ecological communities.**
 
 Assume a community of $n$ species, each with the same evolving trait (e.g., body size). Each species $i$ therefore has its own associated trait $m_{i}$ (originally I was thinking about parental investment -- I thought that I had come up with something really interesting, then realised that @Parker1986 got there first). We can describe the dynamics of a system with two species $i$ and $j$ using the Jacobian matrix $\boldsymbol{J}$ below [@Patel2018],
 
@@ -313,123 +309,6 @@ plot(x = species, y = pr_stabilised, type = "b", lwd = 2, ylim = c(0, 1),
 ```
 
 Hence, overall, **as species number and therefore evolving species traits increases, the probability that stable ecological communities become destabilised increases rapidly and the probability that unstable ecological communities are stabilised becomes vanishingly small**. I am not sure if I can prove this mathematically, but I don't think I need to for the point to be made effectively. What I want to figure out is whether or not this point can or should be published in the peer-reviwed literature -- else it's a blog post.
-
-
-
-
-Combining the two (work in progress)
---------------------------------------------------------------------------------
-
-```{r, echo = FALSE}
-dat       <- read.table(file = "rand_sims_var_gen.txt", header = TRUE);
-species   <- dat[,1];
-pr_stable <- dat[,2] / (dat[,2] + dat[,4]);
-par(mar = c(5, 5, 2, 1));
-plot(x = species, y = pr_stable, type = "b", lwd = 2, ylim = c(0, 1),
-     xlab = "Species number", ylab = "Proportion stable (n)",
-     cex.axis = 1.5, cex.lab = 1.5);
-```
-
-```{r, echo = FALSE}
-pr_destabilised <- dat[,3] / dat[,2];
-par(mar = c(5, 5, 2, 1));
-plot(x = species, y = pr_destabilised, type = "b", lwd = 2, ylim = c(0, 1),
-     xlab = "Species number", ylab = "Proportion destabilised",
-     cex.axis = 1.5, cex.lab = 1.5);
-```
-
-```{r, echo = FALSE}
-pr_stabilised <- dat[,5] / dat[,4];
-par(mar = c(5, 5, 2, 1));
-plot(x = species, y = pr_stabilised, type = "b", lwd = 2, ylim = c(0, 1),
-     xlab = "Species number", ylab = "Proportion stabilised",
-     cex.axis = 1.5, cex.lab = 1.5);
-```
-
-Code to print the above is below.
-
-```{r, eval = FALSE, echo = TRUE}
-random_comm <- function(dm = 2, iter = 10000){
-  stabilised_fastevo <- NULL;
-  unstabled_fastevo  <- NULL;
-  nn           <- dm * dm;
-  tot_stabled  <- 0;
-  tot_ustabled <- 0;
-  tot_eco_stab <- 0;
-  stabilised_fastevo <- NULL;
-  unstabled_fastevo  <- NULL;
-  while(iter > 0){
-    epsil   <- runif(n = dm, min = 1, max = 1000);
-    eps_dat <- rep(x = epsil, times = dm);
-    eps_mat <- matrix(data = c(epsil, epsil), nrow = dm, ncol = dm, byrow = FALSE);
-    stabilised   <- 0;
-    unstabilised <- 0;
-    Adat <- runif(n = nn, min = -4, max = 4);
-    Bdat <- runif(n = nn, min = -4, max = 4);
-    Cdat <- runif(n = nn, min = -4, max = 4);
-    A    <- matrix(data = Adat, nrow = dm, ncol = dm) * eps_mat;
-    B    <- matrix(data = Bdat, nrow = dm, ncol = dm) * eps_mat;
-    C    <- matrix(data = Cdat, nrow = dm, ncol = dm) * eps_mat;
-    egD  <- 1;
-    while(egD >= 0){
-      Ddat <- runif(n = nn, min = -4, max = 4);
-      D    <- matrix(data = Ddat, nrow = dm, ncol = dm) * eps_mat;
-      egD  <- max(Re(eigen(D)$values))
-    }
-    eco_stable       <- max(Re(eigen(A)$values)) < 0;
-    slow_evo_maxE    <- max(Re(eigen(A + B %*% solve(D) %*% (-C))$values));
-    stable_fast_evo  <- slow_evo_maxE < 0;
-    if(eco_stable == FALSE & stable_fast_evo == TRUE){
-      list_ele <- length(stabilised_fastevo$A) + 1;
-      stabilised_fastevo$A[[list_ele]] <- A;
-      stabilised_fastevo$B[[list_ele]] <- B;
-      stabilised_fastevo$C[[list_ele]] <- C;
-      stabilised_fastevo$D[[list_ele]] <- D;
-      stabilised   <- 1;
-    }
-    if(eco_stable == TRUE & stable_fast_evo == FALSE){
-      list_ele <- length(unstabled_fastevo$A) + 1;
-      unstabled_fastevo$A[[list_ele]] <- A;
-      unstabled_fastevo$B[[list_ele]] <- B;
-      unstabled_fastevo$C[[list_ele]] <- C;
-      unstabled_fastevo$D[[list_ele]] <- D;
-      unstabilised   <- 1;
-    }
-    if(stabilised == 1){
-      tot_stabled <- tot_stabled + 1;
-    }
-    if(unstabilised == 1){
-      tot_ustabled <- tot_ustabled + 1;
-    }
-    if(eco_stable == TRUE){
-      tot_eco_stab <- tot_eco_stab + 1;
-    }
-    iter <- iter - 1;
-    if(iter %% 1000000 == 0){
-        print(c(dm, iter));
-    }
-  }
-  results <- list(ecologically_stable = tot_eco_stab, 
-                  stabilised = tot_stabled, destabilised = tot_ustabled,
-                  stabilised_all   = stabilised_fastevo, 
-                  destabilised_all = unstabled_fastevo);
-  return(results);
-}
-
-NN       <- 20;
-res_tabl <- matrix(data = 0, nrow = (NN-1), ncol = 5);
-its      <- 100000000;
-for(i in 2:NN){
-  res              <- random_comm(dm = i, iter = its); 
-  res_tabl[i-1, 1] <- i;                               # Species and traits
-  res_tabl[i-1, 2] <- res$ecologically_stable;         # Total stable
-  res_tabl[i-1, 3] <- res$destabilised;                # Total destabilised
-  res_tabl[i-1, 4] <- its - res_tabl[i-1, 2];          # Total unstable
-  res_tabl[i-1, 5] <- res$stabilised;                  # Total stabilised
-  print(i);
-}
-```
-
 
 
 
