@@ -157,6 +157,43 @@ plot(x = gen_var[,1], y = stabi_2 / stabi_1, type = "b", lwd = 2, ylim = c(0, 5)
 
 **As species number increases, variation in generation time appears to have a stronger influence in stabilising random communities**. In other words, all else being equal, variation in generation time becomes more important for stabilising system dynamics as the size of the system increases.
 
+<!---   
+
+Switch code so that the same matrix is checked for stability before and after generation change is added. Then record number stabilised versus unstabilised. Show a plot with the proportion stabilised by varying generation time.
+
+```{r, echo = TRUE, eval = FALSE}
+tot_res <- NULL;
+res     <- NULL;
+for(i in 2:8){
+    nn             <- i;
+    A1_stt         <- 0;
+    A2_stt         <- 0;
+    iter           <- 1000000;
+    tot_res[[i-1]] <- matrix(data = 0, nrow = iter, ncol = 2);
+    while(iter > 0){
+        A1_dat  <- runif(n = nn * nn, min = -4, max = 4);
+        A1      <- matrix(data = A1_dat, nrow = nn, ncol = nn);
+        epsil   <- runif(n = nn, min = 1, max = 1000);
+        eps_dat <- rep(x = epsil, times = nn);
+        eps_mat <- matrix(data = epsil, nrow = nn, ncol = nn, byrow = FALSE);
+        A2      <- A1 * eps_mat;
+        A1_stb  <- max(Re(eigen(A1)$values)) < 0;
+        A2_stb  <- max(Re(eigen(A2)$values)) < 0;
+        if(A1_stb == TRUE){
+          A1_stt                  <- A1_stt + 1;
+          tot_res[[i-1]][iter, 1] <- 1;
+        }
+        if(A2_stb == TRUE){
+          A2_stt                  <- A2_stt + 1;
+          tot_res[[i-1]][iter, 2] <- 1;
+        }
+        iter    <- iter - 1;
+    }
+    res <- rbind(res, c(A1_stt, A2_stt));
+    print(i);
+}
+```
+--->
 
 ********************************************************************************
 
