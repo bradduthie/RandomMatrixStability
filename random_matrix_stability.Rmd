@@ -3,15 +3,15 @@ title: "Stability concerns in random matrices"
 author: "Brad Duthie"
 bibliography: references.bib
 output:
+  html_document: default
+  pdf_document:
+    fig_caption: yes
   word_document:
     fig_caption: yes
     pandoc_args:
     - --csl
     - evolution.csl
     reference_docx: docx_template.docx
-  pdf_document:
-    fig_caption: yes
-  html_document: default
 header-includes:
 - \usepackage{amsmath}
 - \usepackage{natbib}
@@ -205,7 +205,7 @@ for(i in 1:7){
 }
 ```
 
-Rather than show the ratio of stable to unstable matrices given variation in generation time, it is perhaps more intuitive to compare the proportion of random matrices stabilised versus the proportion of random matrices destabilised by varying generation time for different species numbers. The figure below shows the proportion of matrices stabilised (solid lines) and destabilised (dashed lines) by variation in generation time.
+Rather than show the ratio of stable to unstable matrices given variation in generation time, it is perhaps more intuitive to compare the proportion of random matrices stabilised versus the proportion of random matrices destabilised by varying generation time for different species numbers. The figure below shows the proportion of matrices stabilised (solid lines) and destabilised (dashed lines) by variation in generation time. Shading shows the proportion of communities that are expected to be stable in the absence of variation in generation time.
 
 ```{r, echo = TRUE, eval = TRUE}
 gen_var     <- read.table(file = "full_data.csv", header = TRUE, sep = ",");
@@ -217,7 +217,8 @@ par(mar = c(5, 5, 2, 1));
 plot(x = gen_var[,1], y = destablised, type = "b", lwd = 2, ylim = c(0, 0.02),
      xlab = "Species number", ylab = "Proportion of communities",
      cex.axis = 1.5, cex.lab = 1.5, lty = "dashed");
-polygon(x = c(gen_var[,1], rev(gen_var[,1]), -1), y = c(stable, rep(-1, 8)), 
+polygon(x = c(gen_var[,1], rev(gen_var[,1]), -1), 
+        y = c(stable + destablised, rep(-1, 8)), 
         col = "grey", border = NA);
 box();
 points(x = gen_var[,1], y = destablised, type = "b", lwd = 2, lty = "dashed");
@@ -227,6 +228,29 @@ legend(x = 5.25, y = 0.02, lwd = 2, cex = 1.25,
        legend = c("Stabilised", "Destabilised"),
        lty = c("solid", "dashed"));
 ```
+
+
+We can also look see this a bit more clearly when we specifically look at how variation in generation time changes random matrices across different species numbers. Specifically, the figure below shows only results for stable matrices. Points on the line show the proportion of random matrices that are stable *because of variation in generation time*. In other words, given that a random matrix is stable, what is the probability that it would be unstable if not for the effect of variation in generation time.
+
+```{r, echo = TRUE, eval = TRUE}
+par(mar = c(5, 5, 2, 1));
+y1 <- stabilised / (stable + stabilised);
+plot(x = gen_var[,1], y = y1, type = "b", lwd = 2, ylim = c(0, 1),
+     xlab = "Species number", ylab = "Pr stable due to Var(gen)",
+     cex.axis = 1.5, cex.lab = 1.5, lty = "solid");
+```
+
+As the number of species increases, the probability that the whole community is stable because of variation in generation time (i.e., it would not be otherwise) increases. Likewise, we can look at the probability that if a whole community is unstable, it is unstable because of variation in generation time. *Note the y-axis difference*.
+
+```{r, echo = TRUE, eval = TRUE}
+par(mar = c(5, 5, 2, 1));
+y1 <- destablised / (unstable + destablised);
+plot(x = gen_var[,1], y = y1, type = "b", lwd = 2, ylim = c(0, 0.02),
+     xlab = "Species number", ylab = "Pr unstable due to Var(gen)",
+     cex.axis = 1.5, cex.lab = 1.5, lty = "solid");
+```
+
+Unstable communities are rarely unstable due to variation in generation time, and as the number of species increases, the probability that unstability will be caused by such variation becomes vanishingly small. **Hence, for large communities, variation in generation time is highly likely to be a critical reason for community stability**.
 
 ********************************************************************************
 
