@@ -96,73 +96,14 @@ plot(x = log10(mag_var[,1]), y = stabi_3, type = "b", lwd = 2, ylim = c(0, 0.000
      cex.axis = 1.5, cex.lab = 1.5, lty = "solid");
 ```
 
-**Once the generation time varies by an order of magnitude of around 1000, there is little return in terms of stability.** To continue, we can simulate different sizes of communities with species numbers between 2 and 8 for identical generation times versus magnitudes of generation time variation of 1000.
+**Once the generation time varies by an order of magnitude of around 1000, there is little return in terms of stability.** To continue, we can simulate different sizes of communities with species numbers between 2 and 14 for identical generation times versus magnitudes of generation time variation of 1000.
 
-```{r, echo = TRUE, eval = FALSE}
-res <- NULL;
-for(i in 2:8){
-    nn     <- i;
-    A1_stt <- 0;
-    A2_stt <- 0;
-    iter   <- 1000000;
-    while(iter > 0){
-        A1_dat  <- runif(n = nn * nn, min = -4, max = 4);
-        A1      <- matrix(data = A1_dat, nrow = nn, ncol = nn);
-        A2_dat  <- runif(n = nn * nn, min = -4, max = 4);
-        A2      <- matrix(data = A2_dat, nrow = nn, ncol = nn);
-        epsil   <- runif(n = nn, min = 1, max = 1000);
-        eps_dat <- rep(x = epsil, times = nn);
-        eps_mat <- matrix(data = epsil, nrow = nn, ncol = nn, byrow = FALSE);
-        A2      <- A2 * eps_mat;
-        A1_stb  <- max(Re(eigen(A1)$values)) < 0;
-        A2_stb  <- max(Re(eigen(A2)$values)) < 0;
-        if(A1_stb == TRUE){
-          A1_stt <- A1_stt + 1;
-        }
-        if(A2_stb == TRUE){
-          A2_stt <- A2_stt + 1;
-        }
-        iter    <- iter - 1;
-    }
-    res <- rbind(res, c(A1_stt, A2_stt));
-    print(i);
-}
-```
-
-The plot below shows the result for the proportion of stable random communities when generation time varies (solid line, closed points) versus when generation time varies over two orders of magnitude (dotted line, open points).
-
-```{r, echo = TRUE, eval = TRUE}
-gen_var <- read.table(file = "dif_sp_gen_var.csv", header = TRUE, sep = ",");
-stabi_1 <- gen_var[,2] / 1000000;
-stabi_2 <- gen_var[,3] / 1000000;
-par(mar = c(5, 5, 2, 1));
-plot(x = gen_var[,1], y = stabi_1, type = "b", lwd = 2, ylim = c(0, 0.3),
-     xlab = "Species number", ylab = "Proportion stable",
-     cex.axis = 1.5, cex.lab = 1.5, lty = "dotted");
-points(x = gen_var[,1], y = stabi_2, type = "b", lwd = 2, ylim = c(0, 0.3),
-       lty = "solid", pch = 20);
-legend(x = 4, y = 0.3, lwd = 2,
-       legend = c("Generation time varies", "Generation time does not vary"),
-       lty = c("solid", "dotted"));
-```
-
-It is difficult to see the difference between these two numbers, so the figure below shows the ratio of the proportion of stable communities given generation variation relative to no generation variation (No_gen_var:Gen_var).
-
-```{r, echo = TRUE, eval = TRUE}
-par(mar = c(5, 5, 2, 1));
-plot(x = gen_var[,1], y = stabi_2 / stabi_1, type = "b", lwd = 2, ylim = c(0, 5),
-     xlab = "Species number", ylab = "Stable ratio (var to no var)",
-     cex.axis = 1.5, cex.lab = 1.5, lty = "solid");
-```
-
-**As species number increases, variation in generation time appears to have a stronger influence in stabilising random communities**. In other words, all else being equal, variation in generation time becomes more important for stabilising system dynamics as the size of the system increases.
-
-**A better way of doing this** is actually to check *the same* random matrices before and after the variation in generation time is added. Below is some code to do this. Unlike the above, the same matrix is initialised, and its stability is checked before and after the variation in generation time is added. Following 1000000 simulated matrices for each number of species, matrices are categorised in one of four ways: (1) Unstable before and after the addition of variance in generation time, (2) stable before and after the addition of variance in generation time, (3) stable before but not after the addition of variation in generation time (destabilised), and (4) unstable before but not after the addition of variation in generation time (stabilised).
+To investigate the effect of variation in generation time, I will check the stability of random matrices before and after the variation in generation time is added. Following 1000000 simulated matrices for each number of species, matrices are categorised in one of four ways: (1) Unstable before and after the addition of variance in generation time, (2) stable before and after the addition of variance in generation time, (3) stable before but not after the addition of variation in generation time (destabilised), and (4) unstable before but not after the addition of variation in generation time (stabilised).
 
 ```{r, echo = TRUE, eval = FALSE}
 tot_res <- NULL;
 res     <- NULL;
-for(i in 2:8){
+for(i in 2:14){
     nn             <- i;
     A1_stt         <- 0;
     A2_stt         <- 0;
@@ -191,8 +132,8 @@ for(i in 2:8){
     print(i);
 }
 
-all_res <- matrix(data = 0, nrow = 7, ncol = 5);
-for(i in 1:7){
+all_res <- matrix(data = 0, nrow = 13, ncol = 5);
+for(i in 1:19){
     unstables <- tot_res[[i]][,1] == FALSE & tot_res[[i]][,2] == FALSE;
     stables   <- tot_res[[i]][,1] == TRUE  & tot_res[[i]][,2] == TRUE;
     unstabled <- tot_res[[i]][,1] == TRUE  & tot_res[[i]][,2] == FALSE;
@@ -205,12 +146,39 @@ for(i in 1:7){
 }
 ```
 
-Rather than show the ratio of stable to unstable matrices given variation in generation time, it is perhaps more intuitive to compare the proportion of random matrices stabilised versus the proportion of random matrices destabilised by varying generation time for different species numbers. The figure below shows the proportion of matrices stabilised (solid lines) and destabilised (dashed lines) by variation in generation time. Shading shows the proportion of communities that are expected to be stable in the absence of variation in generation time.
+We can first show the stability of random matrices before and after variation in generation time is added. The plot below shows the result for the proportion of stable random communities when generation time varies (solid line, closed points) versus when generation time varies over two orders of magnitude (dotted line, open points).
 
 ```{r, echo = TRUE, eval = TRUE}
-gen_var     <- read.table(file = "full_data.csv", header = TRUE, sep = ",");
-gen_var     <- gen_var[1:13,];
-tot_sim     <- sum(gen_var[1,2:5]);
+gen_var  <- read.table(file = "full_data.csv", header = TRUE, sep = ",");
+gen_var  <- gen_var[1:13,];
+tot_sim  <- sum(gen_var[1,2:5]);
+before_v <- gen_var[,3] / tot_sim;
+after_v  <- ((gen_var[,3] - gen_var[,4]) + gen_var[,5]) / tot_sim;
+par(mar = c(5, 5, 2, 1));
+plot(x = gen_var[,1], y = before_v, type = "b", lwd = 2, ylim = c(0, 0.3),
+     xlab = "Species number", ylab = "Proportion stable",
+     cex.axis = 1.5, cex.lab = 1.5, lty = "dotted");
+points(x = gen_var[,1], y = after_v, type = "b", lwd = 2, ylim = c(0, 0.3),
+       lty = "solid", pch = 20);
+legend(x = 4, y = 0.3, lwd = 2,
+       legend = c("Generation time varies", "Generation time does not vary"),
+       lty = c("solid", "dotted"));
+```
+
+It is difficult to see the difference between these two numbers, so the figure below shows the ratio of the proportion of stable communities given generation variation relative to no generation variation (Gen_var : No_gen_var).
+
+```{r, echo = TRUE, eval = TRUE}
+par(mar = c(5, 5, 2, 1));
+plot(x = gen_var[,1], y = after_v / before_v, type = "b", lwd = 2, ylim = c(0, 20),
+     xlab = "Species number", ylab = "Stable ratio (var to no var)",
+     cex.axis = 1.5, cex.lab = 1.5, lty = "solid");
+```
+
+**As species number increases, variation in generation time appears to have a stronger influence in stabilising random communities**. In other words, all else being equal, variation in generation time becomes more important for stabilising system dynamics as the size of the system increases.
+
+Rather than show the ratio of stable to unstable matrices given variation in generation time, **it is perhaps more intuitive to compare the proportion of random matrices stabilised versus the proportion of random matrices destabilised by varying generation time for different species numbers.** The figure below shows the proportion of matrices stabilised (solid lines) and destabilised (dashed lines) by variation in generation time. Shading shows the proportion of communities that are expected to be stable in the absence of variation in generation time.
+
+```{r, echo = TRUE, eval = TRUE}
 unstable    <- gen_var[,2] / tot_sim;
 stable      <- gen_var[,3] / tot_sim;
 destablised <- gen_var[,4] / tot_sim;
@@ -232,7 +200,7 @@ legend(x = 9, y = 0.02, lwd = 2, cex = 1.5,
 ```
 
 
-We can also look see this a bit more clearly when we specifically look at how variation in generation time changes random matrices across different species numbers. Specifically, the figure below shows only results for stable matrices. Points on the line show the proportion of random matrices that are stable *because of variation in generation time*. In other words, given that a random matrix is stable, what is the probability that it would be unstable if not for the effect of variation in generation time.
+We can also look see this a bit more clearly when we specifically look at how variation in generation time changes random matrices across different species numbers. Specifically, the figure below shows only results for stable matrices. Points on the line show the proportion of random matrices that are stable *because of variation in generation time*. In other words, given that a random matrix is stable, what is the probability that it would be unstable if not for the effect of variation in generation time?
 
 ```{r, echo = TRUE, eval = TRUE}
 par(mar = c(5, 5, 2, 1));
