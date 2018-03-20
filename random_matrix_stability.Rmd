@@ -103,7 +103,7 @@ To investigate the effect of variation in generation time, I will check the stab
 ```{r, echo = TRUE, eval = FALSE}
 tot_res <- NULL;
 res     <- NULL;
-for(i in 2:14){
+for(i in 2:15){
     nn             <- i;
     A1_stt         <- 0;
     A2_stt         <- 0;
@@ -132,8 +132,8 @@ for(i in 2:14){
     print(i);
 }
 
-all_res <- matrix(data = 0, nrow = 13, ncol = 5);
-for(i in 1:19){
+all_res <- matrix(data = 0, nrow = 14, ncol = 5);
+for(i in 1:14){
     unstables <- tot_res[[i]][,1] == FALSE & tot_res[[i]][,2] == FALSE;
     stables   <- tot_res[[i]][,1] == TRUE  & tot_res[[i]][,2] == TRUE;
     unstabled <- tot_res[[i]][,1] == TRUE  & tot_res[[i]][,2] == FALSE;
