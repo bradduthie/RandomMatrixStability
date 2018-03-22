@@ -42,13 +42,7 @@ Part 2 includes a lot of the messy notes used to get part 1, and might eventuall
 
 ********************************************************************************
 
-Coexistence of species rich ecological communities in nature remains a long-standing puzzle in ecology [@Hutchinson1961; @May1972; @Allesina2012; @Grilli2017].
-
-
-
-
-Species generation time varies by orders of magnitude within communities, potentially affecting the rate at which the density of one species affects the population growth rate of another.
-
+Understanding the stability and therefore persistence of species rich ecological communities in nature remains a long-standing puzzle in ecology [@Hutchinson1961; @May1972; @Allesina2012; @Grilli2017]. The general conditions under which such communities return to equilibrium when perturbed (i.e., are stabilised) are well-established, as is the knowledge that stabilisation becomes increasingly unlikely as community size increases [@May1972]. Recently, analyses of random communities have investigated the effects of community structure, finding, e.g., that predator-prey interactions [@Allesina2012], increasing numbers of species interaction partners [@Allesina2015], correlations between interaction strengths [@Tang2014a], and higher order species interactions can be stabilising [@Allesina2011; @Levine2017]. All such investigations assume that the rates at which interacting species affect one another are uniform. But generation times can vary by orders of magnitude between interacting species, causing response time in species dynamics to vary following perturbation.
 
 
 
