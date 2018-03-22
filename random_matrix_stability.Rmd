@@ -26,12 +26,34 @@ csl: evolution.csl
 biblio-style: apalike
 ---
 
-The below is a draft introductory paragraph or abstract. I believe that we could get [an article on the above](https://www.nature.com/natecolevol/about/content) clearly in the space of 3500, or maybe even 1500 words. As far as I've been able to find, such an article would be novel and interesting (and, I hope, mathematically correct). These notes are divided into two parts at the moment.
+These notes are divided into three parts at the moment. Part 1 is an initial start to a [brief communcation](https://www.nature.com/natecolevol/about/content) for Nature Ecology and Evolution. My goal, at the moment, is to write something short and to the point; the point is something fairly simple, and I think can be expressed in 1500 words. As far as I've been able to find, such an letter would be novel and interesting (and, I hope, mathematically correct). The most likely group that would have discovered this already would be the [Allesina lab](https://allesinalab.uchicago.edu/), which works a lot with random matrices, but I've not seen anything about generation time variation published by them. 
 
-1. [The effect of variation in generation time on community stability.](#gen_time_stability)
-2. [The effect of increasing numbers of evolutionary traits on eco-evolutionary stability.](#comment_on_Patel)
+1. [Variation in generation time drives stability in large random communities](#working_draft)
+2. [The effect of variation in generation time on community stability.](#gen_time_stability)
+3. [The effect of increasing numbers of evolutionary traits on eco-evolutionary stability.](#comment_on_Patel)
 
-I suspect that part 2 will need to branch off soon, but I don't want to forget about it.
+Part 2 includes a lot of the messy notes used to get part 1, and might eventually be developed into supporting information. I suspect that part 3 will need to branch off soon, as the take-home message of it is quite different, but I don't want to forget about it.
+
+<a name = "working_draft">Variation in generation time drives stability in large random communities</a>
+
+********************************************************************************
+
+**Analyses of dynamic systems using random matrices find that stability generally decreases with increasing system size. But in ecological communities, the rate that species densities change as a consequence of species interactions will depend on relative species generation times. Here we show that variation in generation time becomes increasingly important for community stabilisation with increasing community size, and is therefore a potentially key contributor to the stability of large ecosystems.**
+
+********************************************************************************
+
+Coexistence of species rich ecological communities in nature remains a long-standing puzzle in ecology [@Hutchinson1961; @May1972; @Allesina2012; @Grilli2017].
+
+
+
+
+Species generation time varies by orders of magnitude within communities, potentially affecting the rate at which the density of one species affects the population growth rate of another.
+
+
+
+
+
+
 
 <a name="gen_time_stability">The effect of variation in generation time on community stability</a>
 --------------------------------------------------------------------------------
@@ -169,7 +191,7 @@ It is difficult to see the difference between these two numbers, so the figure b
 
 ```{r, echo = TRUE, eval = TRUE}
 par(mar = c(5, 5, 2, 1));
-plot(x = gen_var[,1], y = after_v / before_v, type = "b", lwd = 2, ylim = c(0, 20),
+plot(x = gen_var[,1], y = after_v / before_v, type = "b", lwd = 2, ylim = c(0, 40),
      xlab = "Species number", ylab = "Stable ratio (var to no var)",
      cex.axis = 1.5, cex.lab = 1.5, lty = "solid");
 ```
