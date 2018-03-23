@@ -41,11 +41,11 @@ Part 2 includes a lot of the messy notes used to get part 1, and might eventuall
 
 ```{r, echo = FALSE}
 library(knitr);
-dat  <- read.table(file = "full_data.csv", header = TRUE, sep = ",");
-dat  <- cbind(dat, (dat[,3] - dat[,4]) + dat[,5]);
+dat  <- read.table(file = "mat_dat.csv", header = TRUE, sep = ",");
+dat  <- cbind(dat, (dat[,3] - dat[,5]) + dat[,4]);
 rownames(dat) <- NULL;
-colnames(dat) <- c("Species ($\\{S}$)", "Unstable", "Stable", "Stabilised", 
-                   "Destabilised", "Stable ($\\{Var(gamma)}$)")
+colnames(dat) <- c("Species (S)", "Unstable", "Stable", "Stabilised", 
+                   "Destabilised", "Stable ($\\ Var(\u03b3)$ )")
 ```
 
 ********************************************************************************
@@ -64,35 +64,40 @@ In communities of interacting species, the density of any species $j$ ($N_{j}$) 
 
 ********************************************************************************
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, caption = "Stability results from 100 million simulations of random interaction matrices for 2-15 species (S). Columns 2 and 3 report the number of stable and unstable communities in the absence of variation in species generation time (all $\\u03b3 = 1$). Columns 4 and 5 report the number of unstable communities stabilised or stable communities destabilised by $\\ Var(\u03b3)$, respectively. Column 6 reports the total number of communities that are stable given $\\ Var(\u03b3)$ (compare to column 3)."}
 kable(dat);
 ```
 
 **Table 1:** Stability results from 100 million simulations of random interaction matrices for 2-15 species ($S$). Columns 2 and 3 report the number of stable and unstable communities in the absence of variation in species generation time (all $\gamma = 1$). Columns 4 and 5 report the number of unstable communities stabilised or stable communities destabilised by $Var(\gamma)$, respectively. Column 6 reports the total number of communities that are stable given $Var(\gamma)$ (compare to column 3).
 
-| Species ($S$) | Unstable  | Stable   | Stabilised   | Destabilised | Stable ($Var(\gamma)$) |
-|---------------|-----------|----------|--------------|--------------|------------------------|
-| 2             | 73788328  | 23789690 | 1210228      | 1211754      | 23788164               |
-| 3             | 87850079  | 9449619  | 1613996      | 1086306      | 9977309                |
-| 4             | 94978045  | 3153446  | 1224826      | 643683       | 3734589                |
-| 5             | 98173012  | 878074   | 662411       | 286503       | 1253982                |
-| 6             | 99415760  | 204708   | 279491       | 100041       | 384158                 |
-| 7             | 99837320  | 39806    | 95472        | 27402        | 107876                 |
-| 8             | 99959849  | 6356     | 27660        | 6135         | 27881                  |
-| 9             | 99991252  | 887      | 6693         | 1168         | 6412                   |
-| 10            | 99998284  | 106      | 1439         | 171          | 1374                   |
-| 11            | 99999719  | 10       | 255          | 16           | 249                    |
-| 12            | 99999951  | 0        | 46           | 3            | 43                     |
-| 13            | 99999994  | 0        | 5            | 1            | 4                      |
-| 14            | 99999998  | 0        | 2            | 0            | 2                      |
-| 15            | 100000000 | 0        | 0            | 0            | 0                      |
-
-
 ********************************************************************************
 
+
+```{r, echo = FALSE}
+bar_dat                      <- t(cbind(dat[,3], dat[,6]));
+log_bar_dat                  <- log(bar_dat);
+log_bar_dat[log_bar_dat < 0] <- 0;
+barplot(log_bar_dat, beside = TRUE, col = c("grey60", "grey80"),
+        names.arg = dat[,1], ylim = c(0, 25), xlab = "Species number (S)",
+        ylab = "Ln number of stable communities", cex.lab = 1.25, 
+        cex.axis = 1.25, xlim = c(1, 42));
+legend("topleft", c("\u03b3 = 1", "\u03b3 = [1, 1000]"), pch=15, 
+       col=c("grey60","grey80"), cex = 1.5);
+box(lwd = 2);
+par(new = TRUE);
+y1     <- dat[,4] / (dat[,3] + dat[,4]);
+x1     <- 2:15;
+x1_adj <- c(0.27, 0.25, 0.23, 0.21, 0.21, 0.20, 0.19, 0.18, 0.17, 0.16, 0.15,
+            0.14, 0.13, 0.12);
+plot(x = x1 + x1_adj, y = y1, xaxt = "n", yaxt = "n", lwd = 2, ylim = c(0, 1),
+     xlab = "", ylab = "", type = "b", xlim = c(2, 15));
+
+#plot(x = gen_var[,1], y = y1, type = "b", lwd = 2, ylim = c(0, 1),
+#     ylab = "Pr. stable due to Var(\u03b3)",
+#     cex.axis = 1.5, cex.lab = 1.5, lty = "solid");
+```
+
 **Figure 1:** 
-
-
 
 ********************************************************************************
 
@@ -271,6 +276,9 @@ y1 <- stabilised / (stable + stabilised);
 plot(x = gen_var[,1], y = y1, type = "b", lwd = 2, ylim = c(0, 1),
      xlab = "Species number", ylab = "Pr stable due to Var(gen)",
      cex.axis = 1.5, cex.lab = 1.5, lty = "solid");
+print(stabilised);
+print(stable);
+print(y1);
 ```
 
 As the number of species increases, the probability that the whole community is stable because of variation in generation time (i.e., it would not be otherwise) increases. Likewise, we can look at the probability that if a whole community is unstable, it is unstable because of variation in generation time. *Note the y-axis difference*.
