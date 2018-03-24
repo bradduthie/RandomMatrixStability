@@ -54,9 +54,20 @@ colnames(dat) <- c("Species (S)", "Unstable", "Stable", "Stabilised",
 
 ********************************************************************************
 
-Understanding the stability and therefore persistence of species rich ecological communities in nature remains a long-standing puzzle in ecology [@Hutchinson1961; @May1972; @Allesina2012; @Grilli2017]. The general conditions under which such communities return to equilibrium densities when perturbed (i.e., are stabilised) are well-established, as is the knowledge that stabilisation becomes increasingly unlikely as community size increases [@May1972]. Recently, analyses of random communities have investigated the effects of community structure, finding, e.g., that predator-prey interactions [@Allesina2012], increasing numbers of species interaction partners [@Allesina2015], correlations between interaction strengths [@Tang2014a], and higher order species interactions can be stabilising [@Allesina2011; @Levine2017]. All such investigations assume that the rates at which interacting species affect one another are uniform. But generation times can vary by orders of magnitude between interacting species, causing response time in species dynamics to vary following perturbation. We find that this variation becomes increasingly more likely to stabilise rather than destabilise simulated communities as species number ($S$) increases, and that the probability that community stability is solely caused by variation in generation time is near unity for randomly assembled communities of $S > 10$.
+Understanding the stability and therefore persistence of species rich ecological communities in nature remains a long-standing puzzle in ecology [@Hutchinson1961; @May1972; @Allesina2012; @Grilli2017]. The general conditions under which such communities return to equilibrium densities when perturbed (i.e., are stabilised) are well-established, as is the knowledge that stabilisation becomes increasingly unlikely as community size increases [@May1972]. Recently, analyses of random communities have investigated the effects of community structure, finding, e.g., that predator-prey interactions [@Allesina2012], increasing numbers of species interaction partners [@Allesina2015], correlations between interaction strengths [@Tang2014a], and higher order species interactions can be stabilising [@Allesina2011; @Levine2017]. These investigations assume that the rates at which interacting species affect one another are uniform. But generation times can vary by orders of magnitude between interacting species, causing response time in species dynamics to vary following perturbation. We find that this variation becomes increasingly more likely to stabilise rather than destabilise simulated communities as species number ($S$) increases, and that the probability that community stability is solely caused by variation in generation time is near unity for randomly assembled communities of $S > 10$.
 
-In communities of interacting species, the density of any species $j$ ($N_{j}$) can affect species $i$'s mean fitness ($W_{i}$), and therefore its population growth rate [$\partial N_{i}W_{i}/\partial N_{j}$; @Patel2018].
+In communities of interacting species, the density of any species $j$ ($N_{j}$) can affect species $i$'s mean fitness ($W_{i}$), and therefore its population growth rate [$N_{i}W_{i}$; @Patel2018]. But the time scale on which species $i$'s growth rate changes ($\gamma_{i}$) in response to the density of another species will vary depending on species $i$'s life history. Short-lived species can experience tens to hundreds of generations during the same time scale that long-lived species experience a single generation. Such timescale differences can have profound consequences for ecological system dynamics [@Hastings2004]. In ecological communities, species with short generation times can be expected to respond more quickly to changes in species densities (higher $\gamma_{i}$), while species with long generation times will respond consistently more slowly (lower $\gamma_{i}$). The relative speed at which the growth rate of species $i$ is affected by a change in the density species of $j$ can therefore be modulated by $\gamma_{i}$ and expressed as $\gamma_{i} \times \partial N_{i}W_{i}/\partial N_{j}$. For large communities, it is convenient to represent these interactions for all $i$ and $j$ pairs using a Jacobian matrix,
+
+$$\boldsymbol{A} = \begin{bmatrix}
+    \gamma_{i}\frac{\partial N_{i}W_{i}}{\partial N_{i}}  & \cdots & \gamma_{i}\frac{\partial N_{i}W_{i}}{\partial N_{S}}  \\
+    \vdots & \ddots & \vdots \\
+    \gamma_{S} \frac{\partial N_{S}W_{S}}{\partial N_{i}}  & \cdots & \gamma_{S} \frac{\partial N_{S}W_{S}}{\partial N_{S}}  \\
+\end{bmatrix}.$$
+
+A community is stable if the real components of all eigenvalues of $\boldsymbol{A}$ are negative. 
+
+We examined the stability of 100 million random communities in which $S = [2, 15]$ before and after the addition of variatince in $\gamma_{i}$.
+
 
 **References**
 
@@ -81,7 +92,7 @@ par(oma = c(4, 4, 1, 4), mar = c(0.5, 0.5, 0.5, 0.5), lwd = 1);
 barplot(log_bar_dat, beside = TRUE, col = c("grey60", "grey80"),
         names.arg = dat[,1], ylim = c(0, 25), xlab = "Species number (S)",
         ylab = "Ln number of stable communities", cex.lab = 1.25, 
-        cex.axis = 1.25, xlim = c(1, 42), cex.names = 1.25);
+        cex.axis = 1.25, xlim = c(1, 42), cex.names = 1);
 legend("topleft", c("\u03b3 = 1", "\u03b3 = [1, 1000]"), pch=15, 
        col=c("grey60","grey80"), cex = 1.5);
 box(lwd = 2);
@@ -99,7 +110,7 @@ mtext(expression(paste("Pr. stable due to Var(",gamma,")")), outer = TRUE,
       side = 4, line = 2.2, cex = 1.25);
 ```
 
-**Figure 1:** 
+**Figure 1:** Stability of random communities when generation time ($\gamma$) varies and when it does not for 2-15 species (x-axis). Bars compare the $\ln$ total number of communities found to be stable out of 100 million before (dark grey) and after (light grey) $Var(\gamma)$ is added to a community (left y-axis). Points show the proportion of these random communities in which stability is a direct consequence of $Var(\gamma)$. 
 
 ********************************************************************************
 
