@@ -77,24 +77,26 @@ kable(dat);
 bar_dat                      <- t(cbind(dat[,3], dat[,6]));
 log_bar_dat                  <- log(bar_dat);
 log_bar_dat[log_bar_dat < 0] <- 0;
+par(oma = c(4, 4, 1, 4), mar = c(0.5, 0.5, 0.5, 0.5), lwd = 1);
 barplot(log_bar_dat, beside = TRUE, col = c("grey60", "grey80"),
         names.arg = dat[,1], ylim = c(0, 25), xlab = "Species number (S)",
         ylab = "Ln number of stable communities", cex.lab = 1.25, 
-        cex.axis = 1.25, xlim = c(1, 42));
+        cex.axis = 1.25, xlim = c(1, 42), cex.names = 1.25);
 legend("topleft", c("\u03b3 = 1", "\u03b3 = [1, 1000]"), pch=15, 
        col=c("grey60","grey80"), cex = 1.5);
 box(lwd = 2);
 par(new = TRUE);
 y1     <- dat[,4] / (dat[,3] + dat[,4]);
-x1     <- 2:15;
-x1_adj <- c(0.27, 0.25, 0.23, 0.21, 0.21, 0.20, 0.19, 0.18, 0.17, 0.16, 0.15,
-            0.14, 0.13, 0.12);
-plot(x = x1 + x1_adj, y = y1, xaxt = "n", yaxt = "n", lwd = 2, ylim = c(0, 1),
-     xlab = "", ylab = "", type = "b", xlim = c(2, 15));
-
-#plot(x = gen_var[,1], y = y1, type = "b", lwd = 2, ylim = c(0, 1),
-#     ylab = "Pr. stable due to Var(\u03b3)",
-#     cex.axis = 1.5, cex.lab = 1.5, lty = "solid");
+x1     <- seq(from = 2.315, length = 14, by = 0.95)
+plot(x = x1, y = y1, xaxt = "n", yaxt = "n", lwd = 2, ylim = c(0, 1),
+     xlab = "", ylab = "", type = "b", xlim = c(2, 15), pch = 20, cex = 1.25);
+axis(side = 4, at = seq(from = 0, to = 1, by = 0.2), cex.axis = 1.25);
+mtext(expression(paste("Species number (S)")), outer = TRUE, side = 1,
+      line = 2, cex = 1.25);
+mtext(expression(paste("Ln number of stable communities")), outer = TRUE, 
+      side = 2, line = 2, cex = 1.25);
+mtext(expression(paste("Pr. stable due to Var(",gamma,")")), outer = TRUE, 
+      side = 4, line = 2.2, cex = 1.25);
 ```
 
 **Figure 1:** 
