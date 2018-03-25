@@ -35,7 +35,16 @@ For the final paper, I am strongly considering changing the simulations a bit to
 3. Mutualist network created as above, but with all signs forced to be positive (again, except the diagonal).
 4. Predator-prey network created as above, but forcing the sign of a_ij to be the opposite of a_ji.
 
-If the below conclusions hold for all of the above, then I think the results can be made even stronger. The best to present would probably be 1, with 2-4 mentioned and then shown in the supporting information.
+If the below conclusions hold for all of the above, then I think the results can be made even stronger. The best to present would probably be 1, with 2-4 mentioned and then shown in the supporting information. It also would be useful to look at feasibility criteria established by @Dougoud2018, who very recently made the point that some of May and Allesina's criteria allows for negative species densities when stable. Feasibility criteria are as follows,
+
+$$x^{*} = -\left(\theta I + (CS)^{-\delta}A\right)^{-1}r.$$
+The above is not nearly as nasty as it looks, especially because it is entirely reasonable to simply use convenient values to parameterise it. The variable $x^{*}$ is just the vector of species abundances at equilibrium (we need all of them to be positive). The matrix $I$ is just the identity matrix (1s on the diagonal, 0s on the off-diagonal elements), and the value $\theta$ is just the strength of intraspecific competition -- we can just set this to $\theta = -1$ (as others have). The variable $C$ is just the connectance of the community, which we will also set to 1 for convenience (lower values would mean that some species don't interact with one another, corresponding to an off-diagonal matrix element of 0). And $\delta$ just affects the strength of interactions -- which we can set to $\delta = 0$ for strong interactions. Hence, the whole $(CS)^{-\delta} = 1$, so we're just adding the diagonal matrix of -1s ($\theta I$) to $A$, which has a diagonal of all zeros and an off diagonal effecting species interactions,
+
+$$x^{*} = -\left(\theta I + A\right)^{-1}r.$$
+
+To check the feasibility criteria, all that needs to be done is to invert $(\theta I + A)$ and multiply the matrix by the vector of growth rates $r$, which we can also just set to 1. So really, we're just multiplying $(\theta I + A)$ by a vector of ones and checking to make sure that all the values are positive. This isn't much extra work, but it will probably go a long way toward satisfying any reviewers familiar with @Dougoud2018.
+
+Hence, the below is going to be refined quite a bit, but I highly doubt any of the major conclusions will change.
 
 ********************************************************************************
 

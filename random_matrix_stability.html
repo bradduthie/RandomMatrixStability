@@ -132,7 +132,11 @@ $(document).ready(function () {
 <li>Mutualist network created as above, but with all signs forced to be positive (again, except the diagonal).</li>
 <li>Predator-prey network created as above, but forcing the sign of a_ij to be the opposite of a_ji.</li>
 </ol>
-<p>If the below conclusions hold for all of the above, then I think the results can be made even stronger. The best to present would probably be 1, with 2-4 mentioned and then shown in the supporting information.</p>
+<p>If the below conclusions hold for all of the above, then I think the results can be made even stronger. The best to present would probably be 1, with 2-4 mentioned and then shown in the supporting information. It also would be useful to look at feasibility criteria established by <span class="citation">Dougoud et al. (<a href="#ref-Dougoud2018">2018</a>)</span>, who very recently made the point that some of May and Allesina’s criteria allows for negative species densities when stable. Feasibility criteria are as follows,</p>
+<p><span class="math display">\[x^{*} = -\left(\theta I + (CS)^{-\delta}A\right)^{-1}r.\]</span> The above is not nearly as nasty as it looks, especially because it is entirely reasonable to simply use convenient values to parameterise it. The variable <span class="math inline">\(x^{*}\)</span> is just the vector of species abundances at equilibrium (we need all of them to be positive). The matrix <span class="math inline">\(I\)</span> is just the identity matrix (1s on the diagonal, 0s on the off-diagonal elements), and the value <span class="math inline">\(\theta\)</span> is just the strength of intraspecific competition – we can just set this to <span class="math inline">\(\theta = -1\)</span> (as others have). The variable <span class="math inline">\(C\)</span> is just the connectance of the community, which we will also set to 1 for convenience (lower values would mean that some species don’t interact with one another, corresponding to an off-diagonal matrix element of 0). And <span class="math inline">\(\delta\)</span> just affects the strength of interactions – which we can set to <span class="math inline">\(\delta = 0\)</span> for strong interactions. Hence, the whole <span class="math inline">\((CS)^{-\delta} = 1\)</span>, so we’re just adding the diagonal matrix of -1s (<span class="math inline">\(\theta I\)</span>) to <span class="math inline">\(A\)</span>, which has a diagonal of all zeros and an off diagonal effecting species interactions,</p>
+<p><span class="math display">\[x^{*} = -\left(\theta I + A\right)^{-1}r.\]</span></p>
+<p>To check the feasibility criteria, all that needs to be done is to invert <span class="math inline">\((\theta I + A)\)</span> and multiply the matrix by the vector of growth rates <span class="math inline">\(r\)</span>, which we can also just set to 1. So really, we’re just multiplying <span class="math inline">\((\theta I + A)\)</span> by a vector of ones and checking to make sure that all the values are positive. This isn’t much extra work, but it will probably go a long way toward satisfying any reviewers familiar with <span class="citation">Dougoud et al. (<a href="#ref-Dougoud2018">2018</a>)</span>.</p>
+<p>Hence, the below is going to be refined quite a bit, but I highly doubt any of the major conclusions will change.</p>
 <hr />
 <div id="variation-in-generation-time-drives-stability-in-large-random-communities" class="section level1">
 <h1><a name="working_draft">Variation in generation time drives stability in large random communities</a></h1>
@@ -160,6 +164,9 @@ $(document).ready(function () {
 </div>
 <div id="ref-Allesina2015">
 <p>Allesina, S., J. Grilli, G. Barabás, S. Tang, J. Aljadeff, and A. Maritan. 2015. Predicting the stability of large structured food webs. Nature Communications 6:7842.</p>
+</div>
+<div id="ref-Dougoud2018">
+<p>Dougoud, M., L. Vinckenbosch, R. Rohr, L.-F. Bersier, and C. Mazza. 2018. The feasibility of equilibria in large ecosystems: a primary but neglected concept in the complexity-stability debate. PLOS Computational Biology 14:e1005988.</p>
 </div>
 <div id="ref-Grilli2017">
 <p>Grilli, J., M. Adorisio, S. Suweis, G. Barabás, J. R. Banavar, S. Allesina, and A. Maritan. 2017. Feasibility and coexistence of large ecological communities. Nature Communications 8.</p>
