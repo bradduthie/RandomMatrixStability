@@ -26,13 +26,7 @@ csl: evolution.csl
 biblio-style: apalike
 ---
 
-These notes are divided into three parts at the moment. Part 1 is an initial start to a [brief communcation](https://www.nature.com/natecolevol/about/content) for Nature Ecology and Evolution. My goal, at the moment, is to write something short and to the point; the point is something fairly simple, and I think can be expressed in 1500 words. As far as I've been able to find, such an letter would be novel and interesting (and, I hope, mathematically correct). The most likely group that would have discovered this already would be the [Allesina lab](https://allesinalab.uchicago.edu/), which works a lot with random matrices, but I've not seen anything about generation time variation published by them. 
-
-1. [Variation in generation time drives stability in large random communities](#working_draft)
-2. [The effect of variation in generation time on community stability.](#gen_time_stability)
-3. [The effect of increasing numbers of evolutionary traits on eco-evolutionary stability.](#comment_on_Patel)
-
-Part 2 includes a lot of the messy notes used to get part 1, and might eventually be developed into supporting information. I suspect that part 3 will need to branch off soon, as the take-home message of it is quite different, but I don't want to forget about it.
+**AUTHOR'S NOTE:** This is an initial draft of a potential [brief communcation](https://www.nature.com/natecolevol/about/content) for *Nature Ecology and Evolution*. I think that the take-home message can be expressed in 1500 words. As far as I've been able to find, such an letter would be novel and interesting. The most likely group that would have discovered this already would be the [Allesina lab](https://allesinalab.uchicago.edu/), which works a lot with random matrices, but I've not seen anything about generation time variation published by them. In developing this theory, I also came up with some brief comments on [the effect of increasing numbers of evolutionary traits on eco-evolutionary stability.](#comment_on_Patel), making the simple point after reading @Patel2018 that ecological systems are increasingly likely to be destablised, and unstable ecological systems are decreasingly likely to be stabilised, at higher numbers of evolving species traits.
 
 ********************************************************************************
 
@@ -66,9 +60,10 @@ $$\boldsymbol{A} = \begin{bmatrix}
 
 A community is stable if the real components of all eigenvalues of $\boldsymbol{A}$ are negative. 
 
-We examined the stability of 100 million random communities in which $S$ ranged between 2-15 before and after the addition of variation in $\gamma_{i}$. Elements of $\boldsymbol{A}$ were selected from a random uniform distribution $\mathcal{U}\left(-4, 4\right)$, and variation in \gamma_{i} was generated with a random uniform distribution of $\mathcal{U}\left(1, 1000\right)$ (see Supporting Information S1). Random communities were categorised in one of four ways (Table 1): (1) Unstable before and after the addition of variance in $\gamma_{i}$ (unstable), (2) stable before and after the addition of variance in $\gamma_{i}$ (stable), (3) unstable before but not after the addition of variation in $\gamma_{i}$ (stabilised), and (4) stable before but not after the addition of variation in $\gamma_{i}$ (destabilised; Table 1).
+We examined the stability of 100 million random communities in which $S$ ranged between 2-15 before and after the addition of variation in $\gamma_{i}$. Elements of $\boldsymbol{A}$ were selected from a random uniform distribution $\mathcal{U}\left(-4, 4\right)$, and variation in \gamma_{i} was generated with a random uniform distribution of $\mathcal{U}\left(1, 1000\right)$ (see [Supporting Information S1](#SI_1)). Random communities were categorised in one of four ways (Table 1): (1) Unstable before and after the addition of variance in $\gamma_{i}$ (unstable), (2) stable before and after the addition of variance in $\gamma_{i}$ (stable), (3) unstable before but not after the addition of variation in $\gamma_{i}$ (stabilised), and (4) stable before but not after the addition of variation in $\gamma_{i}$ (destabilised; Table 1).
 
 As $S$ increases, so does the effect of variation in $\gamma_{i}$ on increasing system stability (Figure 1). At high $S$, nearly all stable communities were only stable due to the effect of variation in $\gamma_{i}$, which rarely destabilised species rich communities (Supporting Information S1). All else being equal, variation in generation time therefore becomes more influential in stabilising random communities as community size increases, meaning that variation in generation time might be an important contributor to stability in large communities. 
+
 
 **References**
 
@@ -83,7 +78,6 @@ kable(dat);
 **Table 1:** Stability results from 100 million simulations of random interaction matrices for 2-15 species ($S$). Columns 2 and 3 report the number of stable and unstable communities in the absence of variation in species generation time (all $\gamma = 1$). Columns 4 and 5 report the number of unstable communities stabilised or stable communities destabilised by $Var(\gamma)$, respectively. Column 6 reports the total number of communities that are stable given $Var(\gamma)$ (compare to column 3).
 
 ********************************************************************************
-
 
 ```{r, echo = FALSE}
 bar_dat                      <- t(cbind(dat[,3], dat[,6]));
@@ -115,27 +109,22 @@ mtext(expression(paste("Pr. stable due to Var(",gamma,")")), outer = TRUE,
 
 ********************************************************************************
 
-<a name="gen_time_stability">The effect of variation in generation time on community stability</a>
+<a name="gen_time_stability">Variation in generation time drives stability in large random communities: Supporting Information S1</a>
 --------------------------------------------------------------------------------
 
 ********************************************************************************
 
-**Analyses of dynamic systems using random matrices find that stability generally decreases with increasing system size. But in ecological communities, the rate that species densities change as a consequence of species interactions will depend on relative species generation times. Densities of species with relatively short generation times will change more rapidly than densities of species with longer generation times. Interaction effects are therefore expected to be correlated within species, with some species densities changing more rapidly than others in a community. Here we show that by accounting for variation in generation time among species, community stability is substantially increased. Further, the influence of variation in generation time becomes exponentially more important as community size increases. We suggest that variation in species generation time might be a key contributor to stability of large ecological communities.**
+1. [**Effect of different variation in $\gamma$**](#SI_1)
+2. [**Destabilisation with increasing $S$**](#SI_2)
+3. [**Code underlying random matrix simulation**](#SI_3)
 
 ********************************************************************************
 
-Species generation time varies by orders of magnitude within communities, potentially affecting the rate at which the density of one species affects the population growth rate of another. Yet I've not been able to find anything on this in the literature in a random matrix context (or any other context). I want to **determine if the effects of varying generation time among community members is stabilising or destabilising in an ecological system**. This work is partly inspired by the use of $\varepsilon$ by @Patel2018 to separate the time scale of ecological versus evolutionary dynamics, and partly inspired by @Jirsa2004 to separate generation time of different species in a community.
+<a name="SI_1">**Effect of different variation in $\gamma$**</a>
 
-Here I will consider a Jacobian matrix of interacting species $\boldsymbol{A}$ and focus on the stability of ecological interactions given variation in generation time. I will use the same technique of @Patel2018 for varying ecological and evolutionary time scales, but a bit differently. I assume that the effect that the density of any species $j$ ($N_{j}$) has on the growth rate of a focal species $i$ ($\partial N_{i}W_{i}/\partial N_{j}$) is consistently affected by a value $\gamma_{i}$ (I am using $\gamma_{i}$ instead of $\varepsilon_{i}$ to avoid confusing generation time variance with ecological versus evolutionary rate difference). Higher values of $\gamma_{i}$ correspond to shorter absolute generation times and lower values correspond to longer generation times. The matrix below $\boldsymbol{A}$ describes the dynamics for two species $i$ and $j$ with effects of generation times $\gamma_{i}$ and $\gamma_{j}$, respectively.
+Below shows how the amount of variation in generation time (range of $\gamma_{i}$) in a community affects stability. Random communities of $S=8$ species are simulated 1 million times across different magnitudes of variance in $\gamma_{i}$. Random values of $\gamma_{i}$ are chosen for each species $i$ from a uniform distribution $\mathcal{U}\left(1, \max(\gamma_{i})\right)$, where $\max(\gamma_{i})$ ranges from 1 to 100000.
 
-$$\boldsymbol{A} = \begin{bmatrix}
-    \gamma_{i}\frac{\partial N_{i}W_{i}}{\partial N_{i}}  & \gamma_{i}\frac{\partial N_{i}W_{i}}{\partial N_{j}}  \\
-    \gamma_{j} \frac{\partial N_{j}W_{j}}{\partial N_{i}}  & \gamma_{j} \frac{\partial N_{j}W_{j}}{\partial N_{j}}  \\
-\end{bmatrix}.$$
-
-I will investigate **how the amount of variation in generation time (range of $\gamma$) in a community affects stability**. Below is some code to look at stability in random communities with eight species across different magnitudes of variance in generation time. Random values of $\gamma_{i}$ are chosen for each species $i$ from a uniform distribution $\mathcal{U}\left(1, \max(\gamma_{i})\right)$. 
-
-```{r, echo = TRUE, eval = FALSE}
+```{r, echo = FALSE, eval = FALSE}
 res  <- NULL;
 mags <- 10^(0:5);
 for(i in mags){
@@ -166,10 +155,7 @@ for(i in mags){
     print(i);
 }
 ```
-
-The code above produces the following results showing the proportion of random communities that are stable as $\max(\gamma_{i})$ increases in orders of magnitude (note that I'm using eight species, so the y-axis shows a very low proportion range).
-
-```{r, echo = TRUE, eval = TRUE}
+```{r, echo = FALSE, eval = TRUE}
 mag_var <- read.table(file = "var_gen_mag.csv", header = TRUE, sep = ",");
 stabi_3 <- mag_var[,3] / 10000000;
 par(mar = c(5, 5, 2, 1));
@@ -178,271 +164,36 @@ plot(x = log10(mag_var[,1]), y = stabi_3, type = "b", lwd = 2, ylim = c(0, 0.000
      cex.axis = 1.5, cex.lab = 1.5, lty = "solid");
 ```
 
-**Once the generation time varies by an order of magnitude of around 1000, there is little return in terms of stability.** To continue, we can simulate different sizes of communities with species numbers between 2 and 14 for identical generation times versus magnitudes of generation time variation of 1000.
-
-To investigate the effect of variation in generation time, I will check the stability of random matrices before and after the variation in generation time is added. Following 1000000 simulated matrices for each number of species, matrices are categorised in one of four ways: (1) Unstable before and after the addition of variance in generation time, (2) stable before and after the addition of variance in generation time, (3) stable before but not after the addition of variation in generation time (destabilised), and (4) unstable before but not after the addition of variation in generation time (stabilised).
-
-```{r, echo = TRUE, eval = FALSE}
-tot_res <- NULL;
-res     <- NULL;
-for(i in 2:15){
-    nn             <- i;
-    A1_stt         <- 0;
-    A2_stt         <- 0;
-    iter           <- 100000000;
-    tot_res[[i-1]] <- matrix(data = 0, nrow = iter, ncol = 2);
-    while(iter > 0){
-        A1_dat  <- runif(n = nn * nn, min = -4, max = 4);
-        A1      <- matrix(data = A1_dat, nrow = nn, ncol = nn);
-        epsil   <- runif(n = nn, min = 1, max = 1000);
-        eps_dat <- rep(x = epsil, times = nn);
-        eps_mat <- matrix(data = epsil, nrow = nn, ncol = nn, byrow = FALSE);
-        A2      <- A1 * eps_mat;
-        A1_stb  <- max(Re(eigen(A1)$values)) < 0;
-        A2_stb  <- max(Re(eigen(A2)$values)) < 0;
-        if(A1_stb == TRUE){
-          A1_stt                  <- A1_stt + 1;
-          tot_res[[i-1]][iter, 1] <- 1;
-        }
-        if(A2_stb == TRUE){
-          A2_stt                  <- A2_stt + 1;
-          tot_res[[i-1]][iter, 2] <- 1;
-        }
-        iter    <- iter - 1;
-    }
-    res <- rbind(res, c(A1_stt, A2_stt));
-    print(i);
-}
-
-all_res <- matrix(data = 0, nrow = 14, ncol = 5);
-for(i in 1:14){
-    unstables <- tot_res[[i]][,1] == FALSE & tot_res[[i]][,2] == FALSE;
-    stables   <- tot_res[[i]][,1] == TRUE  & tot_res[[i]][,2] == TRUE;
-    unstabled <- tot_res[[i]][,1] == TRUE  & tot_res[[i]][,2] == FALSE;
-    stabled   <- tot_res[[i]][,1] == FALSE & tot_res[[i]][,2] == TRUE;
-    all_res[i, 1] <- i;
-    all_res[i, 2] <- sum(unstables);
-    all_res[i, 3] <- sum(stables);
-    all_res[i, 4] <- sum(unstabled);
-    all_res[i, 5] <- sum(stabled);
-}
-```
-
-We can first show the stability of random matrices before and after variation in generation time is added. The plot below shows the result for the proportion of stable random communities when generation time varies (solid line, closed points) versus when generation time varies over two orders of magnitude (dotted line, open points).
-
-```{r, echo = TRUE, eval = TRUE}
-gen_var  <- read.table(file = "full_data.csv", header = TRUE, sep = ",");
-gen_var  <- gen_var[1:13,];
-tot_sim  <- sum(gen_var[1,2:5]);
-before_v <- gen_var[,3] / tot_sim;
-after_v  <- ((gen_var[,3] - gen_var[,4]) + gen_var[,5]) / tot_sim;
-par(mar = c(5, 5, 2, 1));
-plot(x = gen_var[,1], y = before_v, type = "b", lwd = 2, ylim = c(0, 0.3),
-     xlab = "Species number", ylab = "Proportion stable",
-     cex.axis = 1.5, cex.lab = 1.5, lty = "dotted");
-points(x = gen_var[,1], y = after_v, type = "b", lwd = 2, ylim = c(0, 0.3),
-       lty = "solid", pch = 20);
-legend(x = 4, y = 0.3, lwd = 2,
-       legend = c("Generation time varies", "Generation time does not vary"),
-       lty = c("solid", "dotted"));
-```
-
-It is difficult to see the difference between these two numbers, so the figure below shows the ratio of the proportion of stable communities given generation variation relative to no generation variation (Gen_var : No_gen_var).
-
-```{r, echo = TRUE, eval = TRUE}
-par(mar = c(5, 5, 2, 1));
-plot(x = gen_var[,1], y = after_v / before_v, type = "b", lwd = 2, ylim = c(0, 40),
-     xlab = "Species number", ylab = "Stable ratio (var to no var)",
-     cex.axis = 1.5, cex.lab = 1.5, lty = "solid");
-```
-
-**As species number increases, variation in generation time appears to have a stronger influence in stabilising random communities**. In other words, all else being equal, variation in generation time becomes more important for stabilising system dynamics as the size of the system increases.
-
-Rather than show the ratio of stable to unstable matrices given variation in generation time, **it is perhaps more intuitive to compare the proportion of random matrices stabilised versus the proportion of random matrices destabilised by varying generation time for different species numbers.** The figure below shows the proportion of matrices stabilised (solid lines) and destabilised (dashed lines) by variation in generation time. Shading shows the proportion of communities that are expected to be stable in the absence of variation in generation time.
-
-```{r, echo = TRUE, eval = TRUE}
-unstable    <- gen_var[,2] / tot_sim;
-stable      <- gen_var[,3] / tot_sim;
-destablised <- gen_var[,4] / tot_sim;
-stabilised  <- gen_var[,5] / tot_sim;
-par(mar = c(5, 5, 2, 1));
-plot(x = gen_var[,1], y = destablised, type = "b", lwd = 2, ylim = c(0, 0.02),
-     xlab = "Species number", ylab = "Proportion of communities",
-     cex.axis = 1.5, cex.lab = 1.5, lty = "dashed");
-polygon(x = c(gen_var[,1], rev(gen_var[,1]), -4), 
-        y = c(stable + destablised, rep(-1, dim(gen_var)[1] + 1)), 
-        col = "grey", border = NA);
-box();
-points(x = gen_var[,1], y = destablised, type = "b", lwd = 2, lty = "dashed");
-points(x = gen_var[,1], y = stabilised, type = "b", lwd = 2, ylim = c(0, 0.02),
-       lty = "solid", pch = 20);
-legend(x = 9, y = 0.02, lwd = 2, cex = 1.5,
-       legend = c("Stabilised", "Destabilised"),
-       lty = c("solid", "dashed"));
-```
+Figure S1-1: The proportion of random $S=8$ communities that are stable as $\max(\gamma_{i})$ increases over 5 orders of magnitude. Each point represents a proportion calculated from 1 million random simulated matrices.
 
 
-We can also look see this a bit more clearly when we specifically look at how variation in generation time changes random matrices across different species numbers. Specifically, the figure below shows only results for stable matrices. Points on the line show the proportion of random matrices that are stable *because of variation in generation time*. In other words, given that a random matrix is stable, what is the probability that it would be unstable if not for the effect of variation in generation time?
-
-```{r, echo = TRUE, eval = TRUE}
-par(mar = c(5, 5, 2, 1));
-y1 <- stabilised / (stable + stabilised);
-plot(x = gen_var[,1], y = y1, type = "b", lwd = 2, ylim = c(0, 1),
-     xlab = "Species number", ylab = "Pr stable due to Var(gen)",
-     cex.axis = 1.5, cex.lab = 1.5, lty = "solid");
-print(stabilised);
-print(stable);
-print(y1);
-```
-
-As the number of species increases, the probability that the whole community is stable because of variation in generation time (i.e., it would not be otherwise) increases. Likewise, we can look at the probability that if a whole community is unstable, it is unstable because of variation in generation time. *Note the y-axis difference*.
-
-```{r, echo = TRUE, eval = TRUE}
-par(mar = c(5, 5, 2, 1));
-y1 <- destablised / (unstable + destablised);
-plot(x = gen_var[,1], y = y1, type = "b", lwd = 2, ylim = c(0, 0.02),
-     xlab = "Species number", ylab = "Pr unstable due to Var(gen)",
-     cex.axis = 1.5, cex.lab = 1.5, lty = "solid");
-```
-
-Unstable communities are rarely unstable due to variation in generation time, and as the number of species increases, the probability that unstability will be caused by such variation becomes vanishingly small. **Hence, for large communities, variation in generation time is highly likely to be a critical reason for community stability**.
+Once the generation time varies by an order of magnitude of around 1000, there is little increase in terms of stability. Magnitudes higher than $\gamma_{i} = 1000$ are also likely to be biologically unrealistic for most communities.
 
 ********************************************************************************
 
+<a name="SI_2">**Destabilisation with increasing $S$**</a>
 
-<a name="comment_on_Patel">The effect of increasing numbers of evolutionary traits on eco-evolutionary stability</a>
---------------------------------------------------------------------------------
+Here we use the data from Table 1 in the main text to show that the proportion of already stable communities that are destabilised by the addition of variance in $\gamma_{i}$ decreases with increasing $S$.
 
-Recently, @Patel2018 demonstrated the stability criteria for eco-evolutionary systems. A key result was that an unstable (stable) ecological community could be stabilised (destabilised) by fast eco-evolutionary feedback, assuming the evolutionary system was itself stable. Likewise, @Patel2018 showed that an unstable (stable) evolutionary system could be stabilised (destabilised) by fast ecological feedback, assuming the ecological community was itself stable. **Here I am going to show why the stability criteria for eco-evolutionary systems is such that stable ecological systems are *increasingly* likely to be destablised, and unstable ecological systems are *decreasingly* likely to be stabilised, at higher numbers of species traits**. I will use a random matrix approach similar to that of Allesina and colleagues [@Allesina2011; @Allesina2012; @Allesina2015a]. The mathematical concept of what I describe below is not new, and is a similar point to what @May1971 explained nearly half a century ago (that increasing species number decreases stability). Still, this point was not, that I can find, noticed or acknowledged by @Patel2018 when coming up with their stability criteria.
-
-**Hence, the goal here is to demonstrate the inherent destabilising effect of rapid evolution, which can also be interpreted as plasticity [@Patel2018], on ecological communities.**
-
-Assume a community of $n$ species, each with the same evolving trait (e.g., body size). Each species $i$ therefore has its own associated trait $m_{i}$ (originally I was thinking about parental investment -- I thought that I had come up with something really interesting, then realised that @Parker1986 got there first). We can describe the dynamics of a system with two species $i$ and $j$ using the Jacobian matrix $\boldsymbol{J}$ below [@Patel2018],
-
-$$\boldsymbol{J} = \begin{bmatrix}
-    \boldsymbol{A}  & \boldsymbol{B}  \\
-    \boldsymbol{C}  & \boldsymbol{D}  \\  \end{bmatrix}
-    = \begin{bmatrix}
-    \frac{\partial N_{i}W_{i}}{\partial N_{i}}  & \frac{\partial N_{i}W_{i}}{\partial N_{j}} & \frac{\partial N_{i}W_{i}}{\partial m_{i}} & \frac{\partial N_{i}W_{i}}{\partial m_{j}}  \\
-    \frac{\partial N_{j}W_{j}}{\partial N_{i}}  & \frac{\partial N_{j}W_{j}}{\partial N_{j}} & \frac{\partial N_{j}W_{j}}{\partial m_{i}} & \frac{\partial N_{j}W_{j}}{\partial m_{j}} \\
-    \varepsilon\frac{\partial m_{i}}{\partial N_{i}}  & \varepsilon\frac{\partial m_{i}}{\partial N_{j}} & \varepsilon\frac{\partial m_{i}}{\partial m_{i}} & \varepsilon\frac{\partial m_{i}}{\partial m_{j}}  \\
-    \varepsilon\frac{\partial m_{j}}{\partial N_{i}}  & \varepsilon\frac{\partial m_{j}}{\partial N_{j}} & \varepsilon\frac{\partial m_{j}}{\partial m_{i}} & \varepsilon\frac{\partial m_{j}}{\partial m_{j}}  \\
-\end{bmatrix}.$$
-
-Note that the matrix $\boldsymbol{J}$ can be separated into four separate submatrices. The submatrix $\boldsymbol{A}$ describes the effects that the density of one species has on its own population growth (diagonal) or that of another species (off-diagonal). The submatrix $\boldsymbol{B}$ describes the effect the trait $m$ of each species has on the population growth of itself or another species. The submatrix $\boldsymbol{C}$ describes the effect that the density of a species has on a species' changing $m$, and $\boldsymbol{D}$ describes the effect that traits have on traits. The value of $\varepsilon$ defines the rate of evolutionary change relative to ecological change; here I will just assume a high value of $\varepsilon$, but the conclusions regarding an increasing number of traits' effect on a relatively slowly changing ecoogical system will be equally applicable to an incresing number of species in relativley slowly evolving system. I will therefore only assume a high value of $\varepsilon$ for now. 
-
-For the whole system (ecology and evolution) to be stable when traits change quickly relative to population densities, evolution by itself $\boldsymbol{D}$ must be stable. This is the case when all of the eigenvalues of $\boldsymbol{D}$ are negative. Additionally, for the system $\boldsymbol{J}$ as a whole to be stable, we need to consider the feedback between ecology and evolution. @Patel2018 showed that the system as a whole is stable when the following is satisfied, 
-
-$$s\left(\boldsymbol{A} + \boldsymbol{B}\boldsymbol{D}^{-1}(-\boldsymbol{C})\right) < 0.$$
-
-I am specifically interested in the case in which $\boldsymbol{D}$ is known to be stable. Using random matrices containing element values that are real numbers uniformly distributed between $-4$ and $4$, I will show that rapid evolution is almost never stabilising and almost always destabilising when over six species and their traits $m$ are considered. To do this, I will use the following code, which finds a stable random matrix $\boldsymbol{D}$ and assigns random element values (possibly, but not necessarily stable) to $\boldsymbol{A}$, $\boldsymbol{B}$, and $\boldsymbol{C}$. I will do this for 100000 replicates of species numbers from $n = 2$ to $n = 8$.
-
-```{r, echo = TRUE}
-random_comm <- function(dm = 2, iter = 10000){
-    stabilised_fastevo <- NULL;
-    unstabled_fastevo  <- NULL;
-    nn           <- dm * dm;
-    tot_stabled  <- 0;
-    tot_ustabled <- 0;
-    tot_eco_stab <- 0;
-    stabilised_fastevo <- NULL;
-    unstabled_fastevo  <- NULL;
-    while(iter > 0){
-        stabilised   <- 0;
-        unstabilised <- 0;
-        Adat <- runif(n = nn, min = -4, max = 4);
-        Bdat <- runif(n = nn, min = -4, max = 4);
-        Cdat <- runif(n = nn, min = -4, max = 4);
-        A    <- matrix(data = Adat, nrow = dm, ncol = dm);
-        B    <- matrix(data = Bdat, nrow = dm, ncol = dm);
-        C    <- matrix(data = Cdat, nrow = dm, ncol = dm);
-        egD  <- 1;
-        while(egD >= 0){
-             Ddat <- runif(n = nn, min = -4, max = 4);
-             D    <- matrix(data = Ddat, nrow = dm, ncol = dm);
-             egD  <- max(Re(eigen(D)$values))
-        }
-        eco_stable       <- max(Re(eigen(A)$values)) < 0;
-        slow_evo_maxE    <- max(Re(eigen(A + B %*% solve(D) %*% (-C))$values));
-        stable_fast_evo  <- slow_evo_maxE < 0;
-        if(eco_stable == FALSE & stable_fast_evo == TRUE){
-            list_ele <- length(stabilised_fastevo$A) + 1;
-            stabilised_fastevo$A[[list_ele]] <- A;
-            stabilised_fastevo$B[[list_ele]] <- B;
-            stabilised_fastevo$C[[list_ele]] <- C;
-            stabilised_fastevo$D[[list_ele]] <- D;
-            stabilised   <- 1;
-        }
-        if(eco_stable == TRUE & stable_fast_evo == FALSE){
-            list_ele <- length(unstabled_fastevo$A) + 1;
-            unstabled_fastevo$A[[list_ele]] <- A;
-            unstabled_fastevo$B[[list_ele]] <- B;
-            unstabled_fastevo$C[[list_ele]] <- C;
-            unstabled_fastevo$D[[list_ele]] <- D;
-            unstabilised   <- 1;
-        }
-        if(stabilised == 1){
-            tot_stabled <- tot_stabled + 1;
-        }
-        if(unstabilised == 1){
-            tot_ustabled <- tot_ustabled + 1;
-        }
-        if(eco_stable == TRUE){
-            tot_eco_stab <- tot_eco_stab + 1;
-        }
-        iter <- iter - 1;
-    }
-    results <- list(ecologically_stable = tot_eco_stab, 
-                    stabilised = tot_stabled, destabilised = tot_ustabled,
-                    stabilised_all   = stabilised_fastevo, 
-                    destabilised_all = unstabled_fastevo);
-    return(results);
-}
-```
-
-Note that the code above takes a while to run for a large number of species, and this is mostly caused by having to find a random matrix $\boldsymbol{D}$ that is stable. The code first checks whether $\boldsymbol{A}$ is stable, and if it is stable, whether or not eco-evolutionary dynamics destabilise the stable ecological community. If it is not stable, then the code checks whether eco-evolutionary dynamics stabilise the unstable ecological community. As expected [@May1971], ecological stability decreases with an increasing number of species.
-
-```{r, echo = FALSE}
-dat       <- read.table(file = "rand_sims.txt", header = TRUE);
-species   <- dat[,1];
-pr_stable <- dat[,2] / (dat[,2] + dat[,4]);
+```{r, echo = FALSE, eval = TRUE}
 par(mar = c(5, 5, 2, 1));
-plot(x = species, y = pr_stable, type = "b", lwd = 2, ylim = c(0, 1),
-     xlab = "Species number", ylab = "Proportion stable (n)",
-     cex.axis = 1.5, cex.lab = 1.5);
+y1 <- dat[,5] / (dat[,2] + dat[,5]);
+plot(x = dat[,1], y = y1, type = "b", lwd = 2, ylim = c(0, 0.02),
+     xlab = "Species number (S)", 
+     ylab = expression(paste("Pr. unstable due to Var(",gamma,")")),
+     cex.axis = 1.5, cex.lab = 1.5, lty = "solid");
 ```
 
-More interesting, the plot below shows eco-evolutionary results for ecological communities that **are** stable. The x-axis shows the number of species in the community (recall that each species has the same evolving trait potentially affecting ecology and evolution), and the y-axis shows the proportion of of these communities that are *destabilised* by eco-evolutionary dynamics. 
+Unstable communities are rarely unstable due to variation in generation time, and as the number of species increases, the probability that unstability will be caused by such variation becomes vanishingly small. Hence, for large communities, variation in generation time might be critical for community stability.
 
-```{r, echo = FALSE}
-pr_destabilised <- dat[,3] / dat[,2];
-par(mar = c(5, 5, 2, 1));
-plot(x = species, y = pr_destabilised, type = "b", lwd = 2, ylim = c(0, 1),
-     xlab = "Species number", ylab = "Proportion destabilised",
-     cex.axis = 1.5, cex.lab = 1.5);
+********************************************************************************
+
+<a name="SI_3">**Code underlying random matrix simulation**</a>
+
+
+```{r}
+# Will add code here.
 ```
 
-Note that the proportion of communities that are destabilised by eco-evolutionary effects increases with increasing species number. The plot below shows the eco-evolutionary results for ecological communities that are unstable. The y-axis here shows the proportion of communities that are *stabilised* by eco-evolutionary dynamics. This decreases with increasing species number. 
 
-```{r, echo = FALSE}
-pr_stabilised <- dat[,5] / dat[,4];
-par(mar = c(5, 5, 2, 1));
-plot(x = species, y = pr_stabilised, type = "b", lwd = 2, ylim = c(0, 1),
-     xlab = "Species number", ylab = "Proportion stabilised",
-     cex.axis = 1.5, cex.lab = 1.5);
-```
-
-Hence, overall, **as species number and therefore evolving species traits increases, the probability that stable ecological communities become destabilised increases rapidly and the probability that unstable ecological communities are stabilised becomes vanishingly small**. I am not sure if I can prove this mathematically, but I don't think I need to for the point to be made effectively. What I want to figure out is whether or not this point can or should be published in the peer-reviwed literature -- else it's a blog post.
-
-
-
-References
---------------------------------------------------------------------------------
-
-<div id="refs"></div>
-
-
-
-
-
-
+********************************************************************************
