@@ -28,6 +28,15 @@ biblio-style: apalike
 
 **AUTHOR'S NOTE:** This is an initial draft of a potential [brief communcation](https://www.nature.com/natecolevol/about/content) for *Nature Ecology and Evolution*. I think that the take-home message can be expressed in 1500 words. As far as I've been able to find, such an letter would be novel and interesting. The most likely group that would have discovered this already would be the [Allesina lab](https://allesinalab.uchicago.edu/), which works a lot with random matrices, but I've not seen anything about generation time variation published by them. In developing this theory, I also came up with some brief comments on [the effect of increasing numbers of evolutionary traits on eco-evolutionary stability.](#comment_on_Patel), making the simple point after reading @Patel2018 that ecological systems are increasingly likely to be destablised, and unstable ecological systems are decreasingly likely to be stabilised, at higher numbers of evolving species traits.
 
+For the final paper, I am strongly considering changing the simulations a bit to consider 3-5 scenarios. This isn't going to change anything about the general conclusions, I don't think. What it will do is make the simulations more consistent with what others have tried in the past:
+
+1. Random network but with elements drawn from a normal distribution with N(0, 0.4) and the diagonal elements of the matrix being forced at -1 (helping out stability a bit -- since in all stable matrices, diagonal elements must be negative).
+2. Competitive network with elements drawn from N(0, 0.4) and diagonals at -1, but when sampling form the normal distribution returns positive values, the sign is reversed so all values are negative.
+3. Mutualist network created as above, but with all signs forced to be positive (again, except the diagonal).
+4. Predator-prey network created as above, but forcing the sign of a_ij to be the opposite of a_ji.
+
+If the below conclusions hold for all of the above, then I think the results can be made even stronger. The best to present would probably be 1, with 2-4 mentioned and then shown in the supporting information.
+
 ********************************************************************************
 
 <a name = "working_draft">Variation in generation time drives stability in large random communities</a>
@@ -60,9 +69,12 @@ $$\boldsymbol{A} = \begin{bmatrix}
 
 A community is stable if the real components of all eigenvalues of $\boldsymbol{A}$ are negative. 
 
-We examined the stability of 100 million random communities in which $S$ ranged between 2-15 before and after the addition of variation in $\gamma_{i}$. Elements of $\boldsymbol{A}$ were selected from a random uniform distribution $\mathcal{U}\left(-4, 4\right)$, and variation in $\gamma_{i}$ was generated with a random uniform distribution such that $\gamma_{i} = \mathcal{U}\left(1, 1000\right)$ (see [Supporting Information S1](#SI_1)). Random communities were categorised in one of four ways (Table 1): (1) Unstable before and after the addition of variance in $\gamma_{i}$ (unstable), (2) stable before and after the addition of variance in $\gamma_{i}$ (stable), (3) unstable before but not after the addition of variation in $\gamma_{i}$ (stabilised), and (4) stable before but not after the addition of variation in $\gamma_{i}$ (destabilised; Table 1).
+We examined the stability of 100 million random communities in which $S$ ranged between 2-15 before and after the addition of variation in $\gamma_{i}$. Elements of $\boldsymbol{A}$ were selected from a random uniform distribution $\mathcal{U}\left(-4, 4\right)$, and variation in $\gamma_{i}$ was generated with a random uniform distribution such that $\gamma_{i} = \mathcal{U}\left(1, 1000\right)$ (see [Supporting Information S1](#SI_1)). For simplicity, we assumed complete connectance of simulated communities (i.e., elements of $\boldsymbol{A}$ were allowed to be nonzero with a probability of $C = 1$), but this did not effect our general conclusions. Random communities were categorised in one of four ways (Table 1): (1) Unstable before and after the addition of variance in $\gamma_{i}$ (unstable), (2) stable before and after the addition of variance in $\gamma_{i}$ (stable), (3) unstable before but not after the addition of variation in $\gamma_{i}$ (stabilised), and (4) stable before but not after the addition of variation in $\gamma_{i}$ (destabilised; Table 1).
 
 We found that as $S$ increases, so does the effect of variation in $\gamma_{i}$ on increasing system stability (Figure 1). At high $S$, nearly all stable communities were only stable due to the effect of variation in $\gamma_{i}$, which rarely destabilised species rich communities ([Supporting Information S1](#SI_2)). All else being equal, variation in generation time therefore becomes more influential in stabilising random communities as community size increases, meaning that variation in generation time might be an important contributor to stability in large communities. 
+
+More broadly, individual processes within complex dynamic systems might respond relatively slowly or quickly to perturbations in the system. We show that accounting for this variation becomes more important with increasing system size. 
+
 
 
 **References**
@@ -193,6 +205,12 @@ Unstable communities are rarely unstable due to variation in generation time, an
 
 ```{r}
 # Will add code here.
+# For consistency with Dougoud, maybe run some simulations under their parameter
+# values:
+# C = 1, elements = N(0, 0.4), and theta = -1 (diag).
+# Can then force competitive (folded normal to all negative values), or
+# mutualistic networks -- alongside the random ones. Could do a predator-prey
+# one as well forcing matrix signs to differ.
 ```
 
 
