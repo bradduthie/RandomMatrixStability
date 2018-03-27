@@ -44,7 +44,83 @@ $$x^{*} = -\left(\theta I + A\right)^{-1}r.$$
 
 To check the feasibility criteria, all that needs to be done is to invert $(\theta I + A)$ and multiply the matrix by the vector of growth rates $r$, which we can also just set to 1. So really, we're just multiplying $-(\theta I + A)$ by a vector of ones and checking to make sure that all the values are positive. This isn't much extra work, but it will probably go a long way toward satisfying any reviewers familiar with @Dougoud2018.
 
-Hence, the below is going to be refined quite a bit, but I highly doubt any of the major conclusions will change.
+A lot is going to change.
+
+```{r, echo = FALSE, fig.height = 10, fig.width = 10}
+random      <- read.csv(file = "sim_results/random_community.csv");
+competition <- read.csv(file = "sim_results/competitor_community.csv");
+mutualism   <- read.csv(file = "sim_results/mutualist_community.csv");
+pred_prey   <- read.csv(file = "sim_results/predator_prey_community.csv");
+# ==============================================================================
+par(mfrow = c(2, 2));
+# ==============================================================================
+dat      <- random;
+Sp       <- dat[,1];
+stab_nov <- dat[,3] + dat[,4];
+stab_var <- dat[,3] + dat[,5];
+feas_nov <- dat[,7] + dat[,8];
+feas_var <- dat[,7] + dat[,9];
+plot(x = Sp, y = stab_nov / 100000, type = "l", lwd = 2, ylim = c(0,1),
+     cex.lab = 1.5, cex.axis = 1.5, xlab = "Species Number (S)",
+     ylab = "Proportion stable or feasible");
+points(x = Sp, y = stab_var / 100000, type = "l", lwd = 2, lty = "dashed");
+points(x = Sp, y = feas_nov / 100000, type = "l", lwd = 2, col = "red");
+points(x = Sp, y = feas_var / 100000, type = "l", lwd = 2, col = "red",
+       lty = "dashed");
+legend(x = 40, y = 0.9, col = c("black", "black", "red", "red"), cex = 1.2,
+       legend = c(expression(paste("Stable, no Var(",gamma,")")),
+                             expression(paste("Stable, Var(",gamma,")")),
+                             expression(paste("Feasible, no Var(",gamma,")")),
+                             expression(paste("Feasible, Var(",gamma,")"))),
+       lty = c("solid", "dashed", "solid", "dashed"), lwd = 2);
+text(x = 60, y = 0.98, labels = "Random", cex = 2);
+# ==============================================================================
+dat      <- competition;
+stab_nov <- dat[,3] + dat[,4];
+stab_var <- dat[,3] + dat[,5];
+feas_nov <- dat[,7] + dat[,8];
+feas_var <- dat[,7] + dat[,9];
+plot(x = Sp, y = stab_nov / 100000, type = "l", lwd = 2, ylim = c(0,1),
+     cex.lab = 1.5, cex.axis = 1.5, xlab = "Species Number (S)",
+     ylab = "Proportion stable or feasible");
+points(x = Sp, y = stab_var / 100000, type = "l", lwd = 2, lty = "dashed");
+points(x = Sp, y = feas_nov / 100000, type = "l", lwd = 2, col = "red");
+points(x = Sp, y = feas_var / 100000, type = "l", lwd = 2, col = "red",
+       lty = "dashed");
+text(x = 60, y = 0.98, labels = "Competitive", cex = 2);
+# ==============================================================================
+dat      <- mutualism;
+stab_nov <- dat[,3] + dat[,4];
+stab_var <- dat[,3] + dat[,5];
+feas_nov <- dat[,7] + dat[,8];
+feas_var <- dat[,7] + dat[,9];
+plot(x = Sp, y = stab_nov / 100000, type = "l", lwd = 2, ylim = c(0,1),
+     cex.lab = 1.5, cex.axis = 1.5, xlab = "Species Number (S)",
+     ylab = "Proportion stable or feasible");
+points(x = Sp, y = stab_var / 100000, type = "l", lwd = 2, lty = "dashed");
+points(x = Sp, y = feas_nov / 100000, type = "l", lwd = 2, col = "red");
+points(x = Sp, y = feas_var / 100000, type = "l", lwd = 2, col = "red",
+       lty = "dashed");
+text(x = 60, y = 0.98, labels = "Mutualist", cex = 2);
+# ==============================================================================
+dat      <- pred_prey;
+stab_nov <- dat[,3] + dat[,4];
+stab_var <- dat[,3] + dat[,5];
+feas_nov <- dat[,7] + dat[,8];
+feas_var <- dat[,7] + dat[,9];
+plot(x = Sp, y = stab_nov / 100000, type = "l", lwd = 2, ylim = c(0,1),
+     cex.lab = 1.5, cex.axis = 1.5, xlab = "Species Number (S)",
+     ylab = "Proportion stable or feasible");
+points(x = Sp, y = stab_var / 100000, type = "l", lwd = 2, lty = "dashed");
+points(x = Sp, y = feas_nov / 100000, type = "l", lwd = 2, col = "red");
+points(x = Sp, y = feas_var / 100000, type = "l", lwd = 2, col = "red",
+       lty = "dashed");
+text(x = 60, y = 0.98, labels = "Predator-prey", cex = 2);
+# ==============================================================================
+```
+
+
+
 
 ********************************************************************************
 
