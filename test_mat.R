@@ -1,4 +1,4 @@
-rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 10, eps_max = 1000){
+rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 10, eps_max = 999){
     tot_res <- NULL;
     fea_res <- NULL;
     for(i in 2:max_sp){
@@ -20,7 +20,10 @@ rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 10, eps_max = 1000){
             eps_dat  <- rep(x = epsil, times = nn);
             eps_mat  <- matrix(data = epsil, nrow = nn, ncol = nn, 
                                byrow = FALSE);
+            avg_mat  <- matrix(data = mean(1:eps_max), nrow = nn, ncol = nn, 
+                               byrow = FALSE);
             A2       <- A1 * eps_mat;
+            A1       <- A1 * avg_mat;
             A1_stb   <- max(Re(eigen(A1)$values)) < 0;
             A2_stb   <- max(Re(eigen(A2)$values)) < 0;
             A1_fea   <- min(-1*solve(A1) %*% r_vec) > 0;
@@ -191,7 +194,160 @@ text(x = 60, y = 0.98, labels = "Predator-prey", cex = 2);
 
 
 
+mat <- matrix(data = rnorm(n = 4, mean = 0, sd = 0.4), nrow = 2);
+diag(mat) <- -1;
+plot(mat, xlim = c(-0.5, 0.5), ylim = c(-1.25, 1.25), asp = 1, pch = 20)
+points(Re(eigen(mat)$vector));
+abline(h = 0, lty = "dotted", lwd = 0.8);
+abline(v = 0, lty = "dotted", lwd = 0.8);
 
+
+
+
+
+
+plot(x = 0, y = 0, type = "n", xlim = c(-0.3, 0.3), ylim = c(-2.5, 2.5),
+     xlab = "Real component", ylab = "Imaginary component", cex.lab = 1.25);
+abline(h = 0, lty = "dotted", lwd = 0.8);
+abline(v = 0, lty = "dotted", lwd = 0.8);
+
+iter     <- 10000;
+while(iter > 0){
+    mat1       <- matrix(data = rnorm(n = 16, mean = 0, sd = 0.4), nrow = 4);
+    diag(mat1) <- -1;
+    mat2       <- mat1;
+    mat2[1,]   <- mat2[1,] * runif(n = 1, min = 1, max = 1000);
+    mat1_e     <- eigen(mat1)$values;
+    mat2_e     <- eigen(mat2)$values;
+    stab1      <- max(Re(mat1_e)) < 0;
+    stab2      <- max(Re(mat2_e)) < 0;
+    if(stab1 == TRUE & stab2 == FALSE){
+        arrows(x0 = Re(mat1_e), x1 = Re(mat2_e), y0 = Im(mat1_e), y1 = Im(mat2_e),
+               length = 0.05, lwd = 2, col = "red");
+        #break;
+    }
+    if(stab1 == FALSE & stab2 == TRUE){
+        arrows(x0 = Re(mat1_e), x1 = Re(mat2_e), y0 = Im(mat1_e), y1 = Im(mat2_e),
+               length = 0.05, lwd = 2, col = "blue");
+        #break;
+    }
+    iter <- iter - 1;
+}
+
+
+
+get_rand_eigs <- function(int_type = 0, iter = 1000){
+    nn             <- 20;
+    eigres         <- matrix(data = 0, ncol = 82, nrow = iter);
+    eigres[,1]     <- int_type;
+    while(iter > 0){
+        r_vec     <- runif(n = nn, min = 1, max = rmx);
+        A1_dat    <- rnorm(n = nn * nn, mean = 0, sd = 0.4);
+        A1        <- matrix(data = A1_dat, nrow = nn, ncol = nn);
+        A1        <- species_interactions(mat = A1, type = int_type);
+        diag(A1)  <- -1;
+        epsil     <- runif(n = nn, min = 1, max = eps_max);
+        eps_dat   <- rep(x = epsil, times = nn);
+        eps_mat   <- matrix(data = epsil, nrow = nn, ncol = nn, 
+                            byrow = FALSE);
+        avg_mat   <- matrix(data = mean(1:eps_max), nrow = nn, ncol = nn, 
+                            byrow = FALSE);
+        A2        <- A1 * eps_mat;
+        A1        <- A1 * avg_mat;
+        mat1_e    <- eigen(A1)$values;
+        mat2_e    <- eigen(A2)$values;
+        real_mat1 <- Re(mat1_e);
+        imag_mat1 <- Im(mat1_e);
+        real_mat2 <- Re(mat2_e);
+        imag_mat2 <- Im(mat2_e);
+        stab1     <- max(real_mat1) < 0;
+        stab2     <- max(real_mat2) < 0;
+        if(stab1 == FALSE & stab2 == FALSE){
+            eigres[iter,2] <- 1;
+        }
+        if(stab1 == TRUE & stab2 == TRUE){
+            eigres[iter,2] <- 2;
+        }
+        if(stab1 == TRUE & stab2 == FALSE){
+            eigres[iter,2] <- 3;
+        }
+        if(stab1 == FALSE & stab2 == TRUE){
+            eigres[iter,2] <- 4;
+        }
+        eigres[iter,3:22]  <- real_mat1;
+        eigres[iter,23:42] <- imag_mat1;
+        eigres[iter,43:62] <- real_mat2;
+        eigres[iter,63:82] <- imag_mat2;
+        iter    <- iter - 1;
+    }
+    return(eigres);
+}
+
+plot_eig_set <- function(eigres){
+    par(mfrow = c(2,2), mar = c(5, 5, 1, 1));
+    x0 <- min(cbind(eigres[,3:22], eigres[,43:62]));
+    x1 <- max(cbind(eigres[,3:22], eigres[,43:62]));
+    plot(x = 0, y = 0, type = "n", xlim = c(x0, x1), ylim = c(-1500, 1500),
+         xlab = "Real component", ylab = "Imaginary component", cex.lab = 1.25);
+    abline(h = 0, lty = "dotted", lwd = 0.8);
+    abline(v = 0, lty = "dotted", lwd = 0.8);
+    if(1 %in% eigres[,2]){
+        row <- which(eigres[,2] == 1)[1];
+        m1r <- eigres[row,3:22];
+        m1i <- eigres[row,23:42];
+        m2r <- eigres[row,43:62];
+        m2i <- eigres[row,63:82];
+        points(x = m1r, y = m1i, pch = 20, cex = 1.5, col = "black");
+        points(x = m2r, y = m2i, pch = 20, cex = 1.5, col = "red");
+    }
+    text(x = x0 + (x1 - x0)*0.2, y = 1500, "Unstable", cex = 1.5);
+    plot(x = 0, y = 0, type = "n", xlim = c(x0, x1), ylim = c(-1500, 1500),
+         xlab = "Real component", ylab = "Imaginary component", cex.lab = 1.25);
+    abline(h = 0, lty = "dotted", lwd = 0.8);
+    abline(v = 0, lty = "dotted", lwd = 0.8);
+    if(2 %in% eigres[,2]){
+        row <- which(eigres[,2] == 2)[1];
+        m1r <- eigres[row,3:22];
+        m1i <- eigres[row,23:42];
+        m2r <- eigres[row,43:62];
+        m2i <- eigres[row,63:82];
+        points(x = m1r, y = m1i, pch = 20, cex = 1.5, col = "black");
+        points(x = m2r, y = m2i, pch = 20, cex = 1.5, col = "red");
+    }
+    text(x = x0 + (x1 - x0)*0.2, y = 1500, "Stable", cex = 1.5);
+    plot(x = 0, y = 0, type = "n", xlim = c(x0, x1), ylim = c(-1500, 1500),
+         xlab = "Real component", ylab = "Imaginary component", cex.lab = 1.25);
+    abline(h = 0, lty = "dotted", lwd = 0.8);
+    abline(v = 0, lty = "dotted", lwd = 0.8);
+    if(3 %in% eigres[,2]){
+        row <- which(eigres[,2] == 3)[1];
+        m1r <- eigres[row,3:22];
+        m1i <- eigres[row,23:42];
+        m2r <- eigres[row,43:62];
+        m2i <- eigres[row,63:82];
+        points(x = m1r, y = m1i, pch = 20, cex = 1.5, col = "black");
+        points(x = m2r, y = m2i, pch = 20, cex = 1.5, col = "red");
+    }
+    text(x = x0 + (x1 - x0)*0.2, y = 1500, "Destabilised", cex = 1.5);
+    plot(x = 0, y = 0, type = "n", xlim =c(x0, x1), ylim = c(-1500, 1500),
+         xlab = "Real component", ylab = "Imaginary component", cex.lab = 1.25);
+    abline(h = 0, lty = "dotted", lwd = 0.8);
+    abline(v = 0, lty = "dotted", lwd = 0.8);
+    if(4 %in% eigres[,2]){
+        row <- which(eigres[,2] == 4)[1];
+        m1r <- eigres[row,3:22];
+        m1i <- eigres[row,23:42];
+        m2r <- eigres[row,43:62];
+        m2i <- eigres[row,63:82];
+        points(x = m1r, y = m1i, pch = 20, cex = 1.5, col = "black");
+        points(x = m2r, y = m2i, pch = 20, cex = 1.5, col = "red");
+    }
+    text(x = x0 + (x1 - x0)*0.2, y = 1500, "Stabilised", cex = 1.5);
+}
+
+
+eres <- get_rand_eigs(int_type = 1);
+plot_eig_set(eres);
 
 
 
