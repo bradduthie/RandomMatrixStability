@@ -345,11 +345,68 @@ plot_eig_set <- function(eigres){
     text(x = x0 + (x1 - x0)*0.2, y = 1500, "Stabilised", cex = 1.5);
 }
 
+get_rand_feas <- function(int_type = 0, iter = 1000){
+    nn             <- 20;
+    eigres         <- matrix(data = 0, ncol = 42, nrow = iter);
+    eigres[,1]     <- int_type;
+    while(iter > 0){
+        r_vec     <- runif(n = nn, min = 1, max = rmx);
+        A1_dat    <- rnorm(n = nn * nn, mean = 0, sd = 0.4);
+        A1        <- matrix(data = A1_dat, nrow = nn, ncol = nn);
+        A1        <- species_interactions(mat = A1, type = int_type);
+        diag(A1)  <- -1;
+        avg_mat   <- matrix(data = mean(1:eps_max), nrow = nn, ncol = nn, 
+                            byrow = FALSE);
+        A1        <- A1 * avg_mat;
+        mat1_e    <- eigen(A1)$values;
+        real_mat1 <- Re(mat1_e);
+        imag_mat1 <- Im(mat1_e);
+        stab1     <- max(real_mat1) < 0;
+        A1_fea    <- min(-1*solve(A1) %*% r_vec) > 0;
+        if(stab1 == TRUE & A1_fea == FALSE){
+            eigres[iter,2] <- 1;
+        }
+        if(stab1 == TRUE & A1_fea == TRUE){
+            eigres[iter,2] <- 2;
+        }
+        eigres[iter,3:22]  <- real_mat1;
+        eigres[iter,23:42] <- imag_mat1;
+        iter    <- iter - 1;
+    }
+    return(eigres);
+}
 
-eres <- get_rand_eigs(int_type = 1);
+
+plot_feas_set <- function(eigres){
+    par(mfrow = c(1,2), mar = c(5, 5, 1, 1));
+    x0 <- min(eigres[,3:22]);
+    x1 <- max(eigres[,3:22]);
+    plot(x = 0, y = 0, type = "n", xlim = c(x0, x1), ylim = c(-1500, 1500),
+         xlab = "Real component", ylab = "Imaginary component", cex.lab = 1.25);
+    abline(h = 0, lty = "dotted", lwd = 0.8);
+    abline(v = 0, lty = "dotted", lwd = 0.8);
+    if(1 %in% eigres[,2]){
+        row <- which(eigres[,2] == 1)[1];
+        m1r <- eigres[row,3:22];
+        m1i <- eigres[row,23:42];
+        points(x = m1r, y = m1i, pch = 20, cex = 1.5, col = "black");
+    }
+    text(x = x0 + (x1 - x0)*0.2, y = 1500, "Stable", cex = 1.5);
+    plot(x = 0, y = 0, type = "n", xlim = c(x0, x1), ylim = c(-1500, 1500),
+         xlab = "Real component", ylab = "Imaginary component", cex.lab = 1.25);
+    abline(h = 0, lty = "dotted", lwd = 0.8);
+    abline(v = 0, lty = "dotted", lwd = 0.8);
+    if(2 %in% eigres[,2]){
+        row <- which(eigres[,2] == 2)[1];
+        m1r <- eigres[row,3:22];
+        m1i <- eigres[row,23:42];
+        points(x = m1r, y = m1i, pch = 20, cex = 1.5, col = "black");
+    }
+    text(x = x0 + (x1 - x0)*0.2, y = 1500, "Feasible", cex = 1.5);
+}
+
+
+eres <- get_rand_eigs(int_type = 2, iter = 10000);
 plot_eig_set(eres);
-
-
-
 
 
