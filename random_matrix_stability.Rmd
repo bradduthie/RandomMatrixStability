@@ -26,25 +26,20 @@ csl: evolution.csl
 biblio-style: apalike
 ---
 
-**AUTHOR'S NOTE:** This is an initial draft of a potential [brief communcation](https://www.nature.com/natecolevol/about/content) for *Nature Ecology and Evolution*. I think that the take-home message can be expressed in 1500 words. As far as I've been able to find, such an letter would be novel and interesting. The most likely group that would have discovered this already would be the [Allesina lab](https://allesinalab.uchicago.edu/), which works a lot with random matrices, but I've not seen anything about generation time variation published by them. In developing this theory, I also came up with some brief comments on [the effect of increasing numbers of evolutionary traits on eco-evolutionary stability.](#comment_on_Patel), making the simple point after reading @Patel2018 that ecological systems are increasingly likely to be destablised, and unstable ecological systems are decreasingly likely to be stabilised, at higher numbers of evolving species traits.
+********************************************************************************
 
-For the final paper, I am strongly considering changing the simulations a bit to consider 3-5 scenarios. This isn't going to change anything about the general conclusions, I don't think. What it will do is make the simulations more consistent with what others have tried in the past:
+**NEW AUTHORS NOTE:** After analysing the new results, I am thinking that a different angle is needed for a strong publication. To recap what has happened:
 
-1. Random network but with elements drawn from a normal distribution with N(0, 0.4) and the diagonal elements of the matrix being forced at -1 (helping out stability a bit -- since in all stable matrices, diagonal elements must be negative).
-2. Competitive network with elements drawn from N(0, 0.4) and diagonals at -1, but when sampling form the normal distribution returns positive values, the sign is reversed so all values are negative.
-3. Mutualist network created as above, but with all signs forced to be positive (again, except the diagonal).
-4. Predator-prey network created as above, but forcing the sign of a_ij to be the opposite of a_ji.
+- I started analysing random communities of simulated species using matrices and a mathematical trick similar to that used in @Patel2018 in attempt to see if variation in generation time among species will stabilise or destabilise large communities.
+- I initially found variation in generation time to be highly stabilising, and, in particular, as species richness increased, the overwhelming number of stable random communties were stable *due to variation in generation time* (and would otherwise be unstable). Results are summarised in [this figure](#old_fig_1) and [this table](#old_tab_1).
+- I then read the very recent paper by @Dougoud2018, who showed that the classic stability criteria used by @May1972 and @Allesina2012 (among others) have been flawed. Some "stable" communities in these studies are stable (i.e., return to equilibrium values if perturbed) at *negative* species densities. @Dougoud2018 demonstrate how to check whether or not random communities are "feasible", meaning that they are stable and have species densities that are all positive (and hence, sensible ecological communities).
+- I applied the criteria of @Dougoud2018 to my random communities under the same parameter values that they and others have used; I also looked at communities characterised only by competitive, mutualistic, and predator-prey interactions.
+- Strangely, variation in generation time has the exact *opposite* effect in random, competitive, and predator-prey communities; variation in generation time therefore *increases* stability but *decreases* feasibility (i.e., variation in generation time shifts communities toward being "stable" with negative species densities and away from being "stable" with positive species densities). The overall effect is therefore to make real ecological communities less stable.
+- I am still working out what this means conceptually by multiplying each row of the matrix by a single number, the shape of the matrix is somehow being changed to decrease the eigenvalues.
+- The exception to this is mutualistic communities -- variation in generation time had zero effect on mutualist community stability.
+- **I am tempted to broaden these results to make a more general point about complex dynamic systems**: "Variation in process time increases stability but decreases feasibility in complex systems", with a focus on biological systems. There might be some types of systems where negative values are actually meaningful (e.g., phenotypes in evolving systems, gene regulatory networks? Suggestions very welcome), just not in ecological ones where species densities obviously cannot be negative.
 
-If the below conclusions hold for all of the above, then I think the results can be made even stronger. The best to present would probably be 1, with 2-4 mentioned and then shown in the supporting information. It also would be useful to look at feasibility criteria established by @Dougoud2018, who very recently made the point that some of May and Allesina's criteria allows for negative species densities when stable. Feasibility criteria are as follows,
-
-$$x^{*} = -\left(\theta I + (CS)^{-\delta}A\right)^{-1}r.$$
-The above is not nearly as nasty as it looks, especially because it is entirely reasonable to simply use convenient values to parameterise it. The variable $x^{*}$ is just the vector of species abundances at equilibrium (we need all of them to be positive). The matrix $I$ is just the identity matrix (1s on the diagonal, 0s on the off-diagonal elements), and the value $\theta$ is just the strength of intraspecific competition -- we can just set this to $\theta = -1$ (as others have). The variable $C$ is just the connectance of the community, which we will also set to 1 for convenience (lower values would mean that some species don't interact with one another, corresponding to an off-diagonal matrix element of 0). And $\delta$ just affects the strength of interactions -- which we can set to $\delta = 0$ for strong interactions. Hence, the whole $(CS)^{-\delta} = 1$, so we're just adding the diagonal matrix of -1s ($\theta I$) to $A$, which has a diagonal of all zeros and an off diagonal effecting species interactions,
-
-$$x^{*} = -\left(\theta I + A\right)^{-1}r.$$
-
-To check the feasibility criteria, all that needs to be done is to invert $(\theta I + A)$ and multiply the matrix by the vector of growth rates $r$, which we can also just set to 1. So really, we're just multiplying $-(\theta I + A)$ by a vector of ones and checking to make sure that all the values are positive. This isn't much extra work, but it will probably go a long way toward satisfying any reviewers familiar with @Dougoud2018.
-
-A lot is going to change.
+The plot below shows the story for the effect of variation in generation time on stability and feasibility.
 
 ```{r, echo = FALSE, fig.height = 10, fig.width = 10}
 random      <- read.csv(file = "sim_results/random_community.csv");
@@ -119,8 +114,405 @@ text(x = 60, y = 0.98, labels = "Predator-prey", cex = 2);
 # ==============================================================================
 ```
 
+And here's the same plot with the axes shifted a bit.
+
+```{r, echo = FALSE, fig.height = 10, fig.width = 10}
+random      <- read.csv(file = "sim_results/random_community.csv");
+competition <- read.csv(file = "sim_results/competitor_community.csv");
+mutualism   <- read.csv(file = "sim_results/mutualist_community.csv");
+pred_prey   <- read.csv(file = "sim_results/predator_prey_community.csv");
+# ==============================================================================
+par(mfrow = c(2, 2));
+# ==============================================================================
+dat      <- random;
+Sp       <- dat[,1];
+stab_nov <- dat[,3] + dat[,4];
+stab_var <- dat[,3] + dat[,5];
+feas_nov <- dat[,7] + dat[,8];
+feas_var <- dat[,7] + dat[,9];
+plot(x = Sp, y = stab_nov / 100000, type = "l", lwd = 2, ylim = c(0,1),
+     cex.lab = 1.5, cex.axis = 1.5, xlab = "Species Number (S)",
+     ylab = "Proportion stable or feasible", xlim = c(0, 30));
+points(x = Sp, y = stab_var / 100000, type = "l", lwd = 2, lty = "dashed");
+points(x = Sp, y = feas_nov / 100000, type = "l", lwd = 2, col = "red");
+points(x = Sp, y = feas_var / 100000, type = "l", lwd = 2, col = "red",
+       lty = "dashed");
+legend(x = 12, y = 0.9, col = c("black", "black", "red", "red"), cex = 1.2,
+       legend = c(expression(paste("Stable, no Var(",gamma,")")),
+                             expression(paste("Stable, Var(",gamma,")")),
+                             expression(paste("Feasible, no Var(",gamma,")")),
+                             expression(paste("Feasible, Var(",gamma,")"))),
+       lty = c("solid", "dashed", "solid", "dashed"), lwd = 2);
+text(x = 17, y = 0.98, labels = "Random", cex = 2);
+# ==============================================================================
+dat      <- competition;
+stab_nov <- dat[,3] + dat[,4];
+stab_var <- dat[,3] + dat[,5];
+feas_nov <- dat[,7] + dat[,8];
+feas_var <- dat[,7] + dat[,9];
+plot(x = Sp, y = stab_nov / 100000, type = "l", lwd = 2, ylim = c(0,1),
+     cex.lab = 1.5, cex.axis = 1.5, xlab = "Species Number (S)",
+     ylab = "Proportion stable or feasible", xlim = c(0, 30));
+points(x = Sp, y = stab_var / 100000, type = "l", lwd = 2, lty = "dashed");
+points(x = Sp, y = feas_nov / 100000, type = "l", lwd = 2, col = "red");
+points(x = Sp, y = feas_var / 100000, type = "l", lwd = 2, col = "red",
+       lty = "dashed");
+text(x = 15, y = 0.98, labels = "Competitive", cex = 2);
+# ==============================================================================
+dat      <- mutualism;
+stab_nov <- dat[,3] + dat[,4];
+stab_var <- dat[,3] + dat[,5];
+feas_nov <- dat[,7] + dat[,8];
+feas_var <- dat[,7] + dat[,9];
+plot(x = Sp, y = stab_nov / 100000, type = "l", lwd = 2, ylim = c(0,1),
+     cex.lab = 1.5, cex.axis = 1.5, xlab = "Species Number (S)",
+     ylab = "Proportion stable or feasible", xlim = c(0, 10));
+points(x = Sp, y = stab_var / 100000, type = "l", lwd = 2, lty = "dashed");
+points(x = Sp, y = feas_nov / 100000, type = "l", lwd = 2, col = "red");
+points(x = Sp, y = feas_var / 100000, type = "l", lwd = 2, col = "red",
+       lty = "dashed");
+text(x = 6, y = 0.98, labels = "Mutualist", cex = 2);
+# ==============================================================================
+dat      <- pred_prey;
+stab_nov <- dat[,3] + dat[,4];
+stab_var <- dat[,3] + dat[,5];
+feas_nov <- dat[,7] + dat[,8];
+feas_var <- dat[,7] + dat[,9];
+plot(x = Sp, y = stab_nov / 100000, type = "l", lwd = 2, ylim = c(0,1),
+     cex.lab = 1.5, cex.axis = 1.5, xlab = "Species Number (S)",
+     ylab = "Proportion stable or feasible");
+points(x = Sp, y = stab_var / 100000, type = "l", lwd = 2, lty = "dashed");
+points(x = Sp, y = feas_nov / 100000, type = "l", lwd = 2, col = "red");
+points(x = Sp, y = feas_var / 100000, type = "l", lwd = 2, col = "red",
+       lty = "dashed");
+text(x = 60, y = 0.98, labels = "Predator-prey", cex = 2);
+# ==============================================================================
+```
+
+We can delve a bit deeper into this mess by looking at the distribution of eigenvalues in sample communities that are unstable, stable, destabilised, or stabilised. The plot below shows these examples for communities where species number $S = 20$. This gives the same type of plots as shown in @Allesina2012. Black points show eigenvalues before variation in generation time is added, and red points show eigenvalues after variation in generation time is added. The shift is not typically drastic, but sometimes causes the sign of the real components (x-axis) to flip, thereby potentially affecting stability. Immediately below shows plots for a random community; where not points are plot in any of the below, no examples exist.
+
+```{r, echo = FALSE}
+rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 10, eps_max = 999){
+    tot_res <- NULL;
+    fea_res <- NULL;
+    for(i in 2:max_sp){
+        nn             <- i;
+        A1_stt         <- 0;
+        A2_stt         <- 0;
+        A1_fet         <- 0;
+        A2_fet         <- 0;
+        iter           <- iters;
+        tot_res[[i-1]] <- matrix(data = 0, nrow = iter, ncol = 2);
+        fea_res[[i-1]] <- matrix(data = 0, nrow = iter, ncol = 2);
+        while(iter > 0){
+            r_vec    <- runif(n = nn, min = 1, max = rmx);
+            A1_dat   <- rnorm(n = nn * nn, mean = 0, sd = 0.4);
+            A1       <- matrix(data = A1_dat, nrow = nn, ncol = nn);
+            A1       <- species_interactions(mat = A1, type = int_type);
+            diag(A1) <- -1;
+            epsil    <- runif(n = nn, min = 1, max = eps_max);
+            eps_dat  <- rep(x = epsil, times = nn);
+            eps_mat  <- matrix(data = epsil, nrow = nn, ncol = nn, 
+                               byrow = FALSE);
+            avg_mat  <- matrix(data = mean(1:eps_max), nrow = nn, ncol = nn, 
+                               byrow = FALSE);
+            A2       <- A1 * eps_mat;
+            A1       <- A1 * avg_mat;
+            A1_stb   <- max(Re(eigen(A1)$values)) < 0;
+            A2_stb   <- max(Re(eigen(A2)$values)) < 0;
+            A1_fea   <- min(-1*solve(A1) %*% r_vec) > 0;
+            A2_fea   <- min(-1*solve(A2) %*% r_vec) > 0;
+            if(A1_stb == TRUE){
+                tot_res[[i-1]][iter, 1] <- 1;
+            }
+            if(A2_stb == TRUE){
+                tot_res[[i-1]][iter, 2] <- 1;
+            }
+            if(A1_fea == TRUE){
+                fea_res[[i-1]][iter, 1] <- 1;
+            }
+            if(A2_fea == TRUE){
+                fea_res[[i-1]][iter, 2] <- 1;
+            }
+            iter    <- iter - 1;
+        }
+        print(i);
+    }
+    all_res <- summarise_randmat(tot_res = tot_res, fea_res = fea_res);
+    return(all_res);
+}
 
 
+species_interactions <- function(mat, type = 0){
+    if(type == 1){
+        mat[mat > 0] <- -1*mat[mat > 0];
+    }
+    if(type == 2){
+        mat[mat < 0] <- -1*mat[mat < 0];
+    }
+    if(type == 3){
+        for(i in 1:dim(mat)[1]){
+            for(j in 1:dim(mat)[2]){
+                if(mat[i, j] * mat[j, i] > 0){
+                    mat[j, i] <- -1 * mat[j, i];
+                }
+            }
+        }
+    }
+    return(mat);
+}
+
+
+summarise_randmat <- function(tot_res, fea_res){
+    sims    <- length(tot_res);
+    all_res <- matrix(data = 0, nrow = sims, ncol = 9);
+    for(i in 1:sims){
+        unstables <- tot_res[[i]][,1] == FALSE & tot_res[[i]][,2] == FALSE;
+        stables   <- tot_res[[i]][,1] == TRUE  & tot_res[[i]][,2] == TRUE;
+        unstabled <- tot_res[[i]][,1] == TRUE  & tot_res[[i]][,2] == FALSE;
+        stabled   <- tot_res[[i]][,1] == FALSE & tot_res[[i]][,2] == TRUE;
+        non_feas  <- fea_res[[i]][,1] == FALSE & fea_res[[i]][,2] == FALSE;
+        feasibl   <- fea_res[[i]][,1] == TRUE  & fea_res[[i]][,2] == TRUE;
+        unfeased  <- fea_res[[i]][,1] == TRUE  & fea_res[[i]][,2] == FALSE;
+        feased    <- fea_res[[i]][,1] == FALSE & fea_res[[i]][,2] == TRUE;
+        all_res[i, 1] <- i + 1;
+        all_res[i, 2] <- sum(unstables);
+        all_res[i, 3] <- sum(stables);
+        all_res[i, 4] <- sum(unstabled);
+        all_res[i, 5] <- sum(stabled);
+        all_res[i, 6] <- sum(non_feas);
+        all_res[i, 7] <- sum(feasibl);
+        all_res[i, 8] <- sum(unfeased);
+        all_res[i, 9] <- sum(feased);
+    }
+    return(all_res);
+}
+
+get_rand_eigs <- function(int_type = 0, iter = 1000){
+    nn             <- 20;
+    eigres         <- matrix(data = 0, ncol = 82, nrow = iter);
+    eigres[,1]     <- int_type;
+    while(iter > 0){
+        r_vec     <- runif(n = nn, min = 1, max = 1000);
+        A1_dat    <- rnorm(n = nn * nn, mean = 0, sd = 0.4);
+        A1        <- matrix(data = A1_dat, nrow = nn, ncol = nn);
+        A1        <- species_interactions(mat = A1, type = int_type);
+        diag(A1)  <- -1;
+        epsil     <- runif(n = nn, min = 1, max = 999);
+        eps_dat   <- rep(x = epsil, times = nn);
+        eps_mat   <- matrix(data = epsil, nrow = nn, ncol = nn, 
+                            byrow = FALSE);
+        avg_mat   <- matrix(data = mean(1:999), nrow = nn, ncol = nn, 
+                            byrow = FALSE);
+        A2        <- A1 * eps_mat;
+        A1        <- A1 * avg_mat;
+        mat1_e    <- eigen(A1)$values;
+        mat2_e    <- eigen(A2)$values;
+        real_mat1 <- Re(mat1_e);
+        imag_mat1 <- Im(mat1_e);
+        real_mat2 <- Re(mat2_e);
+        imag_mat2 <- Im(mat2_e);
+        stab1     <- max(real_mat1) < 0;
+        stab2     <- max(real_mat2) < 0;
+        if(stab1 == FALSE & stab2 == FALSE){
+            eigres[iter,2] <- 1;
+        }
+        if(stab1 == TRUE & stab2 == TRUE){
+            eigres[iter,2] <- 2;
+        }
+        if(stab1 == TRUE & stab2 == FALSE){
+            eigres[iter,2] <- 3;
+        }
+        if(stab1 == FALSE & stab2 == TRUE){
+            eigres[iter,2] <- 4;
+        }
+        eigres[iter,3:22]  <- real_mat1;
+        eigres[iter,23:42] <- imag_mat1;
+        eigres[iter,43:62] <- real_mat2;
+        eigres[iter,63:82] <- imag_mat2;
+        iter    <- iter - 1;
+    }
+    return(eigres);
+}
+
+plot_eig_set <- function(eigres){
+    par(mfrow = c(2,2), mar = c(5, 5, 1, 1));
+    x0 <- min(cbind(eigres[,3:22], eigres[,43:62]));
+    x1 <- max(cbind(eigres[,3:22], eigres[,43:62]));
+    plot(x = 0, y = 0, type = "n", xlim = c(x0, x1), ylim = c(-1500, 1500),
+         xlab = "Real component", ylab = "Imaginary component", cex.lab = 1.25);
+    abline(h = 0, lty = "dotted", lwd = 0.8);
+    abline(v = 0, lty = "dotted", lwd = 0.8);
+    if(1 %in% eigres[,2]){
+        row <- which(eigres[,2] == 1)[1];
+        m1r <- eigres[row,3:22];
+        m1i <- eigres[row,23:42];
+        m2r <- eigres[row,43:62];
+        m2i <- eigres[row,63:82];
+        points(x = m1r, y = m1i, pch = 20, cex = 1.5, col = "black");
+        points(x = m2r, y = m2i, pch = 20, cex = 1.5, col = "red");
+    }
+    text(x = x0 + (x1 - x0)*0.2, y = 1500, "Unstable", cex = 1.5);
+    plot(x = 0, y = 0, type = "n", xlim = c(x0, x1), ylim = c(-1500, 1500),
+         xlab = "Real component", ylab = "Imaginary component", cex.lab = 1.25);
+    abline(h = 0, lty = "dotted", lwd = 0.8);
+    abline(v = 0, lty = "dotted", lwd = 0.8);
+    if(2 %in% eigres[,2]){
+        row <- which(eigres[,2] == 2)[1];
+        m1r <- eigres[row,3:22];
+        m1i <- eigres[row,23:42];
+        m2r <- eigres[row,43:62];
+        m2i <- eigres[row,63:82];
+        points(x = m1r, y = m1i, pch = 20, cex = 1.5, col = "black");
+        points(x = m2r, y = m2i, pch = 20, cex = 1.5, col = "red");
+    }
+    text(x = x0 + (x1 - x0)*0.2, y = 1500, "Stable", cex = 1.5);
+    plot(x = 0, y = 0, type = "n", xlim = c(x0, x1), ylim = c(-1500, 1500),
+         xlab = "Real component", ylab = "Imaginary component", cex.lab = 1.25);
+    abline(h = 0, lty = "dotted", lwd = 0.8);
+    abline(v = 0, lty = "dotted", lwd = 0.8);
+    if(3 %in% eigres[,2]){
+        row <- which(eigres[,2] == 3)[1];
+        m1r <- eigres[row,3:22];
+        m1i <- eigres[row,23:42];
+        m2r <- eigres[row,43:62];
+        m2i <- eigres[row,63:82];
+        points(x = m1r, y = m1i, pch = 20, cex = 1.5, col = "black");
+        points(x = m2r, y = m2i, pch = 20, cex = 1.5, col = "red");
+    }
+    text(x = x0 + (x1 - x0)*0.2, y = 1500, "Destabilised", cex = 1.5);
+    plot(x = 0, y = 0, type = "n", xlim =c(x0, x1), ylim = c(-1500, 1500),
+         xlab = "Real component", ylab = "Imaginary component", cex.lab = 1.25);
+    abline(h = 0, lty = "dotted", lwd = 0.8);
+    abline(v = 0, lty = "dotted", lwd = 0.8);
+    if(4 %in% eigres[,2]){
+        row <- which(eigres[,2] == 4)[1];
+        m1r <- eigres[row,3:22];
+        m1i <- eigres[row,23:42];
+        m2r <- eigres[row,43:62];
+        m2i <- eigres[row,63:82];
+        points(x = m1r, y = m1i, pch = 20, cex = 1.5, col = "black");
+        points(x = m2r, y = m2i, pch = 20, cex = 1.5, col = "red");
+    }
+    text(x = x0 + (x1 - x0)*0.2, y = 1500, "Stabilised", cex = 1.5);
+}
+```
+
+```{r, echo = FALSE, fig.height = 10, fig.width = 10}
+eres <- get_rand_eigs(int_type = 0, iter = 10000);
+plot_eig_set(eres);
+```
+
+Below shows plots for competitive communities.
+
+```{r, echo = FALSE, fig.height = 10, fig.width = 10}
+eres <- get_rand_eigs(int_type = 1, iter = 10000);
+plot_eig_set(eres);
+```
+
+Below shows plots for mutualist communities.
+
+```{r, echo = FALSE, fig.height = 10, fig.width = 10}
+eres <- get_rand_eigs(int_type = 2, iter = 10000);
+plot_eig_set(eres);
+```
+
+Below shows plots for predator-prey communities.
+
+```{r, echo = FALSE, fig.height = 10, fig.width = 10}
+eres <- get_rand_eigs(int_type = 3, iter = 10000);
+plot_eig_set(eres);
+```
+
+What I would like to explore is some sort of pattern in these points that links to the previous plot showing probability of stabilisation versus destabilisation of generation time, but I'm stuck for now. What I can do is look at stable versus feasible systems; the latter seem pretty much the same, except that real eigenvalues in feasible systems are all lower values. Below shows one example for a predator-prey community of $S = 20$.
+
+```{r, echo = FALSE, fig.height = 6, fig.width = 10}
+get_rand_feas <- function(int_type = 0, iter = 1000){
+    nn             <- 20;
+    eigres         <- matrix(data = 0, ncol = 42, nrow = iter);
+    eigres[,1]     <- int_type;
+    while(iter > 0){
+        r_vec     <- runif(n = nn, min = 1, max = 10);
+        A1_dat    <- rnorm(n = nn * nn, mean = 0, sd = 0.4);
+        A1        <- matrix(data = A1_dat, nrow = nn, ncol = nn);
+        A1        <- species_interactions(mat = A1, type = int_type);
+        diag(A1)  <- -1;
+        avg_mat   <- matrix(data = mean(1:999), nrow = nn, ncol = nn, 
+                            byrow = FALSE);
+        A1        <- A1 * avg_mat;
+        mat1_e    <- eigen(A1)$values;
+        real_mat1 <- Re(mat1_e);
+        imag_mat1 <- Im(mat1_e);
+        stab1     <- max(real_mat1) < 0;
+        A1_fea    <- min(-1*solve(A1) %*% r_vec) > 0;
+        if(stab1 == TRUE & A1_fea == FALSE){
+            eigres[iter,2] <- 1;
+        }
+        if(stab1 == TRUE & A1_fea == TRUE){
+            eigres[iter,2] <- 2;
+        }
+        eigres[iter,3:22]  <- real_mat1;
+        eigres[iter,23:42] <- imag_mat1;
+        iter    <- iter - 1;
+    }
+    return(eigres);
+}
+
+
+plot_feas_set <- function(eigres){
+    par(mfrow = c(1,2), mar = c(5, 5, 1, 1));
+    x0 <- min(eigres[,3:22]);
+    x1 <- max(eigres[,3:22]);
+    plot(x = 0, y = 0, type = "n", xlim = c(x0, x1), ylim = c(-1500, 1500),
+         xlab = "Real component", ylab = "Imaginary component", cex.lab = 1.25);
+    abline(h = 0, lty = "dotted", lwd = 0.8);
+    abline(v = 0, lty = "dotted", lwd = 0.8);
+    if(1 %in% eigres[,2]){
+        row <- which(eigres[,2] == 1)[1];
+        m1r <- eigres[row,3:22];
+        m1i <- eigres[row,23:42];
+        points(x = m1r, y = m1i, pch = 20, cex = 1.5, col = "black");
+    }
+    text(x = x0 + (x1 - x0)*0.2, y = 1500, "Stable", cex = 1.5);
+    plot(x = 0, y = 0, type = "n", xlim = c(x0, x1), ylim = c(-1500, 1500),
+         xlab = "Real component", ylab = "Imaginary component", cex.lab = 1.25);
+    abline(h = 0, lty = "dotted", lwd = 0.8);
+    abline(v = 0, lty = "dotted", lwd = 0.8);
+    if(2 %in% eigres[,2]){
+        row <- which(eigres[,2] == 2)[1];
+        m1r <- eigres[row,3:22];
+        m1i <- eigres[row,23:42];
+        points(x = m1r, y = m1i, pch = 20, cex = 1.5, col = "black");
+    }
+    text(x = x0 + (x1 - x0)*0.2, y = 1500, "Feasible", cex = 1.5);
+}
+fea_test <- get_rand_feas(iter = 10000, int_type = 3);
+plot_feas_set(fea_test)
+```
+
+
+
+
+
+********************************************************************************
+
+**AUTHOR'S NOTE:** This is an initial draft of a potential [brief communcation](https://www.nature.com/natecolevol/about/content) for *Nature Ecology and Evolution*. I think that the take-home message can be expressed in 1500 words. As far as I've been able to find, such an letter would be novel and interesting. The most likely group that would have discovered this already would be the [Allesina lab](https://allesinalab.uchicago.edu/), which works a lot with random matrices, but I've not seen anything about generation time variation published by them. In developing this theory, I also came up with some brief comments on [the effect of increasing numbers of evolutionary traits on eco-evolutionary stability.](#comment_on_Patel), making the simple point after reading @Patel2018 that ecological systems are increasingly likely to be destablised, and unstable ecological systems are decreasingly likely to be stabilised, at higher numbers of evolving species traits.
+
+For the final paper, I am strongly considering changing the simulations a bit to consider 3-5 scenarios. This isn't going to change anything about the general conclusions, I don't think. What it will do is make the simulations more consistent with what others have tried in the past:
+
+1. Random network but with elements drawn from a normal distribution with N(0, 0.4) and the diagonal elements of the matrix being forced at -1 (helping out stability a bit -- since in all stable matrices, diagonal elements must be negative).
+2. Competitive network with elements drawn from N(0, 0.4) and diagonals at -1, but when sampling form the normal distribution returns positive values, the sign is reversed so all values are negative.
+3. Mutualist network created as above, but with all signs forced to be positive (again, except the diagonal).
+4. Predator-prey network created as above, but forcing the sign of a_ij to be the opposite of a_ji.
+
+If the below conclusions hold for all of the above, then I think the results can be made even stronger. The best to present would probably be 1, with 2-4 mentioned and then shown in the supporting information. It also would be useful to look at feasibility criteria established by @Dougoud2018, who very recently made the point that some of May and Allesina's criteria allows for negative species densities when stable. Feasibility criteria are as follows,
+
+$$x^{*} = -\left(\theta I + (CS)^{-\delta}A\right)^{-1}r.$$
+The above is not nearly as nasty as it looks, especially because it is entirely reasonable to simply use convenient values to parameterise it. The variable $x^{*}$ is just the vector of species abundances at equilibrium (we need all of them to be positive). The matrix $I$ is just the identity matrix (1s on the diagonal, 0s on the off-diagonal elements), and the value $\theta$ is just the strength of intraspecific competition -- we can just set this to $\theta = -1$ (as others have). The variable $C$ is just the connectance of the community, which we will also set to 1 for convenience (lower values would mean that some species don't interact with one another, corresponding to an off-diagonal matrix element of 0). And $\delta$ just affects the strength of interactions -- which we can set to $\delta = 0$ for strong interactions. Hence, the whole $(CS)^{-\delta} = 1$, so we're just adding the diagonal matrix of -1s ($\theta I$) to $A$, which has a diagonal of all zeros and an off diagonal effecting species interactions,
+
+$$x^{*} = -\left(\theta I + A\right)^{-1}r.$$
+
+To check the feasibility criteria, all that needs to be done is to invert $(\theta I + A)$ and multiply the matrix by the vector of growth rates $r$, which we can also just set to 1. So really, we're just multiplying $-(\theta I + A)$ by a vector of ones and checking to make sure that all the values are positive. This isn't much extra work, but it will probably go a long way toward satisfying any reviewers familiar with @Dougoud2018.
 
 ********************************************************************************
 
@@ -168,13 +560,15 @@ More broadly, individual processes within complex dynamic systems might respond 
 
 ********************************************************************************
 
+<a name = "old_tab_1">**Table 1:**</a> Stability results from 100 million simulations of random interaction matrices for 2-15 species ($S$). Columns 2 and 3 report the number of stable and unstable communities in the absence of variation in species generation time (all $\gamma = 1$). Columns 4 and 5 report the number of unstable communities stabilised or stable communities destabilised by $Var(\gamma)$, respectively. Column 6 reports the total number of communities that are stable given $Var(\gamma)$ (compare to column 3).
+
 ```{r, echo = FALSE, caption = "Stability results from 100 million simulations of random interaction matrices for 2-15 species (S). Columns 2 and 3 report the number of stable and unstable communities in the absence of variation in species generation time (all $\\u03b3 = 1$). Columns 4 and 5 report the number of unstable communities stabilised or stable communities destabilised by $\\ Var(\u03b3)$, respectively. Column 6 reports the total number of communities that are stable given $\\ Var(\u03b3)$ (compare to column 3)."}
 kable(dat);
 ```
 
-**Table 1:** Stability results from 100 million simulations of random interaction matrices for 2-15 species ($S$). Columns 2 and 3 report the number of stable and unstable communities in the absence of variation in species generation time (all $\gamma = 1$). Columns 4 and 5 report the number of unstable communities stabilised or stable communities destabilised by $Var(\gamma)$, respectively. Column 6 reports the total number of communities that are stable given $Var(\gamma)$ (compare to column 3).
-
 ********************************************************************************
+
+<a name = "old_fig_1">**Figure 1:**</a> Stability of random communities when generation time ($\gamma$) varies and when it does not for 2-15 species (x-axis). Bars compare the $\ln$ total number of communities found to be stable out of 100 million before (dark grey) and after (light grey) $Var(\gamma)$ is added to a community (left y-axis). Points show the proportion of these random communities in which stability is a direct consequence of $Var(\gamma)$. 
 
 ```{r, echo = FALSE}
 bar_dat                      <- t(cbind(dat[,3], dat[,6]));
@@ -201,8 +595,6 @@ mtext(expression(paste("Ln number of stable communities")), outer = TRUE,
 mtext(expression(paste("Pr. stable due to Var(",gamma,")")), outer = TRUE, 
       side = 4, line = 2.2, cex = 1.25);
 ```
-
-**Figure 1:** Stability of random communities when generation time ($\gamma$) varies and when it does not for 2-15 species (x-axis). Bars compare the $\ln$ total number of communities found to be stable out of 100 million before (dark grey) and after (light grey) $Var(\gamma)$ is added to a community (left y-axis). Points show the proportion of these random communities in which stability is a direct consequence of $Var(\gamma)$. 
 
 ********************************************************************************
 
