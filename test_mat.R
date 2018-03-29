@@ -406,7 +406,122 @@ plot_feas_set <- function(eigres){
 }
 
 
-eres <- get_rand_eigs(int_type = 2, iter = 10000);
+eres <- get_rand_eigs(int_type = 0, iter = 10000);
 plot_eig_set(eres);
+
+
+
+
+
+
+get_var_change <- function(int_type = 0, iter = 1000){
+    m_changes      <- NULL;
+    nn             <- 20;
+    eigres         <- matrix(data = 0, ncol = 82, nrow = iter);
+    eigtests       <- matrix(data = 0, nrow = iter, ncol = 21);
+    eigres[,1]     <- int_type;
+    while(iter > 0){
+        r_vec     <- runif(n = nn, min = 1, max = rmx);
+        A1_dat    <- rnorm(n = nn * nn, mean = 0, sd = 0.4);
+        A1        <- matrix(data = A1_dat, nrow = nn, ncol = nn);
+        A1        <- species_interactions(mat = A1, type = int_type);
+        diag(A1)  <- -1;
+        epsil     <- runif(n = nn, min = 1, max = eps_max);
+        eps_dat   <- rep(x = epsil, times = nn);
+        eps_mat   <- matrix(data = epsil, nrow = nn, ncol = nn, 
+                            byrow = FALSE);
+        avg_mat   <- matrix(data = mean(1:eps_max), nrow = nn, ncol = nn, 
+                            byrow = FALSE);
+        A2        <- A1 * eps_mat;
+        A1        <- A1 * avg_mat;
+        mat1_e    <- eigen(A1)$values;
+        mat2_e    <- eigen(A2)$values;
+        real_mat1 <- Re(mat1_e);
+        imag_mat1 <- Im(mat1_e);
+        real_mat2 <- Re(mat2_e);
+        imag_mat2 <- Im(mat2_e);
+        stab1     <- max(real_mat1) < 0;
+        stab2     <- max(real_mat2) < 0;
+        mchange   <- solve(t(A1) %*% A1) %*% t(A1) %*% A2;
+        m_changes[[iter]] <- mchange;
+        if(stab1 == FALSE & stab2 == FALSE){
+            eigres[iter,2]    <- 1;
+            eigtests[iter,1]  <- 1;
+        }
+        if(stab1 == TRUE & stab2 == TRUE){
+            eigres[iter,2] <- 2;
+            eigtests[iter,1]  <- 2;
+        }
+        if(stab1 == TRUE & stab2 == FALSE){
+            eigres[iter,2] <- 3;
+            eigtests[iter,1]  <- 3;
+        }
+        if(stab1 == FALSE & stab2 == TRUE){
+            eigres[iter,2] <- 4;
+            eigtests[iter,1]  <- 4;
+        }
+        eigtests[iter,2:21] <- eigen(mchange)$values;
+        eigres[iter,3:22]   <- real_mat1;
+        eigres[iter,23:42]  <- imag_mat1;
+        eigres[iter,43:62]  <- real_mat2;
+        eigres[iter,63:82]  <- imag_mat2;
+        iter    <- iter - 1;
+    }
+    return(list(eigres = eigres, mchanges = m_changes, eigtests = eigtests));
+}
+
+plot_var_change <- function(dat){
+    eigres   <- dat$eigres;
+    mchanges <- dat$mchanges;
+    par(mfrow = c(2,2), mar = c(2, 2, 1, 1));
+    if(1 %in% eigres[,2]){
+        use_it <- which(eigres[,2] == 1)[1];
+        plot(mchanges[[use_it]], xlab = "", ylab = "");
+        abline(h = 0, lty = "dotted", lwd = 0.8);
+        abline(v = 0, lty = "dotted", lwd = 0.8);
+    }
+    if(2 %in% eigres[,2]){
+        use_it <- which(eigres[,2] == 2)[1];
+        plot(mchanges[[use_it]], xlab = "", ylab = "");
+        abline(h = 0, lty = "dotted", lwd = 0.8);
+        abline(v = 0, lty = "dotted", lwd = 0.8);
+    }
+    if(3 %in% eigres[,2]){
+        use_it <- which(eigres[,2] == 3)[1];
+        plot(mchanges[[use_it]], xlab = "", ylab = "");
+        abline(h = 0, lty = "dotted", lwd = 0.8);
+        abline(v = 0, lty = "dotted", lwd = 0.8);
+    }
+    if(4 %in% eigres[,2]){
+        use_it <- which(eigres[,2] == 4)[1];
+        plot(mchanges[[use_it]], xlab = "", ylab = "");
+        abline(h = 0, lty = "dotted", lwd = 0.8);
+        abline(v = 0, lty = "dotted", lwd = 0.8);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
