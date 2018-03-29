@@ -490,9 +490,14 @@ fea_test <- get_rand_feas(iter = 10000, int_type = 3);
 plot_feas_set(fea_test)
 ```
 
+I also looked at the matrices that decribe the *changes* between the community matrix with no variation in generation time ($A_{1}$) versus after the addition of generation time ($A_{2}$), which can be described by the transforming matrix ($B$), where,
 
+$$A_{2} = A_{1}B$$
+$$A_{1}^{t} A_{2} = A_{1}^{t} A_{1}B$$
+$$(A^{t}_{1}A_{1})^{-1}A_{1}^{t} A_{2} = (A^{t}_{1}A_{1})^{-1}A_{1}^{t} A_{1}B$$
 
-
+$$B = (A^{t}_{1}A_{1})^{-1}A_{1}^{t} A_{2}$$
+The transforming matrix B does not appear to have any clear properties when $A_{2}$ stabilises versus destabilises -- its values appear the same, as do the eigenvalues after decomposition. Weird.
 
 ********************************************************************************
 
