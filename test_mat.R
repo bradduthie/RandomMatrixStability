@@ -1,6 +1,7 @@
-rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 10, eps_max = 999){
+rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, eps_max = 999){
     tot_res <- NULL;
     fea_res <- NULL;
+    nea_res <- NULL;
     for(i in 2:max_sp){
         nn             <- i;
         A1_stt         <- 0;
@@ -10,8 +11,9 @@ rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 10, eps_max = 999){
         iter           <- iters;
         tot_res[[i-1]] <- matrix(data = 0, nrow = iter, ncol = 2);
         fea_res[[i-1]] <- matrix(data = 0, nrow = iter, ncol = 2);
+        nea_res[[i-1]] <- matrix(data = 0, nrow = iter, ncol = 2);
         while(iter > 0){
-            r_vec    <- runif(n = nn, min = 1, max = rmx);
+            r_vec    <- rnorm(n = nn, mean = 0, sd = rmx);
             A1_dat   <- rnorm(n = nn * nn, mean = 0, sd = 0.4);
             A1       <- matrix(data = A1_dat, nrow = nn, ncol = nn);
             A1       <- species_interactions(mat = A1, type = int_type);
@@ -24,10 +26,13 @@ rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 10, eps_max = 999){
                                byrow = FALSE);
             A2       <- A1 * eps_mat;
             A1       <- A1 * avg_mat;
+            #r_vec    <- r_vec * epsil / 100;
             A1_stb   <- max(Re(eigen(A1)$values)) < 0;
             A2_stb   <- max(Re(eigen(A2)$values)) < 0;
             A1_fea   <- min(-1*solve(A1) %*% r_vec) > 0;
             A2_fea   <- min(-1*solve(A2) %*% r_vec) > 0;
+            A1_nea   <- max(-1*solve(A1) %*% r_vec) < 0;
+            A2_nea   <- max(-1*solve(A2) %*% r_vec) < 0;
             if(A1_stb == TRUE){
                 tot_res[[i-1]][iter, 1] <- 1;
             }
@@ -40,11 +45,18 @@ rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 10, eps_max = 999){
             if(A2_fea == TRUE){
                 fea_res[[i-1]][iter, 2] <- 1;
             }
+            if(A1_nea == TRUE){
+                nea_res[[i-1]][iter, 1] <- 1;
+            }
+            if(A2_nea == TRUE){
+                nea_res[[i-1]][iter, 2] <- 1;
+            }
             iter    <- iter - 1;
         }
         print(i);
     }
-    all_res <- summarise_randmat(tot_res = tot_res, fea_res = fea_res);
+    all_res <- summarise_randmat(tot_res = tot_res, fea_res = fea_res, 
+                                 nea_res = nea_res);
     return(all_res);
 }
 
@@ -69,9 +81,9 @@ species_interactions <- function(mat, type = 0){
 }
 
 
-summarise_randmat <- function(tot_res, fea_res){
+summarise_randmat <- function(tot_res, fea_res, nea_res){
     sims    <- length(tot_res);
-    all_res <- matrix(data = 0, nrow = sims, ncol = 9);
+    all_res <- matrix(data = 0, nrow = sims, ncol = 13);
     for(i in 1:sims){
         unstables <- tot_res[[i]][,1] == FALSE & tot_res[[i]][,2] == FALSE;
         stables   <- tot_res[[i]][,1] == TRUE  & tot_res[[i]][,2] == TRUE;
@@ -81,15 +93,23 @@ summarise_randmat <- function(tot_res, fea_res){
         feasibl   <- fea_res[[i]][,1] == TRUE  & fea_res[[i]][,2] == TRUE;
         unfeased  <- fea_res[[i]][,1] == TRUE  & fea_res[[i]][,2] == FALSE;
         feased    <- fea_res[[i]][,1] == FALSE & fea_res[[i]][,2] == TRUE;
-        all_res[i, 1] <- i + 1;
-        all_res[i, 2] <- sum(unstables);
-        all_res[i, 3] <- sum(stables);
-        all_res[i, 4] <- sum(unstabled);
-        all_res[i, 5] <- sum(stabled);
-        all_res[i, 6] <- sum(non_feas);
-        all_res[i, 7] <- sum(feasibl);
-        all_res[i, 8] <- sum(unfeased);
-        all_res[i, 9] <- sum(feased);
+        non_neas  <- nea_res[[i]][,1] == FALSE & nea_res[[i]][,2] == FALSE;
+        neasibl   <- nea_res[[i]][,1] == TRUE  & nea_res[[i]][,2] == TRUE;
+        unneased  <- nea_res[[i]][,1] == TRUE  & nea_res[[i]][,2] == FALSE;
+        neased    <- nea_res[[i]][,1] == FALSE & nea_res[[i]][,2] == TRUE;
+        all_res[i, 1]  <- i + 1;
+        all_res[i, 2]  <- sum(unstables);
+        all_res[i, 3]  <- sum(stables);
+        all_res[i, 4]  <- sum(unstabled);
+        all_res[i, 5]  <- sum(stabled);
+        all_res[i, 6]  <- sum(non_feas);
+        all_res[i, 7]  <- sum(feasibl);
+        all_res[i, 8]  <- sum(unfeased);
+        all_res[i, 9]  <- sum(feased);
+        all_res[i, 10] <- sum(non_neas);
+        all_res[i, 11] <- sum(neasibl);
+        all_res[i, 12] <- sum(unneased);
+        all_res[i, 13] <- sum(neased);
     }
     return(all_res);
 }
@@ -121,6 +141,12 @@ plot(dat[,1], pr_destab, type = "l", lwd = 2, ylim = c(0, 1));
 points(dat[,1], pr_stabld, type = "l", lwd = 2, col = "red");
 points(dat[,1], pr_defeas, type = "l", lwd = 2, col = "black", lty = "dashed");
 points(dat[,1], pr_feased, type = "l", lwd = 2, col = "red", lty = "dashed");
+
+
+pr_destab <- dat[,4] / (dat[,4] + dat[,3]);
+pr_stabld <- dat[,5] / (dat[,5] + dat[,2]);
+pr_defeas <- dat[,8] / (dat[,8] + dat[,7]);
+pr_feased <- dat[,9] / (dat[,9] + dat[,6]);
 
 
 
@@ -511,7 +537,33 @@ plot_var_change <- function(dat){
 
 
 
+dat      <- random;
 
+
+Sp       <- dat[,1];
+stab_nov <- dat[,3]  + dat[,4];
+stab_var <- dat[,3]  + dat[,5];
+feas_nov <- dat[,7]  + dat[,8];
+feas_var <- dat[,7]  + dat[,9];
+#neas_nov <- dat[,11] + dat[,12];
+#neas_var <- dat[,11]  + dat[,13];
+plot(x = Sp, y = stab_nov / 100000, type = "l", lwd = 2, ylim = c(0,0.2),
+     cex.lab = 1.5, cex.axis = 1.5, xlab = "Species Number (S)",
+     ylab = "Proportion stable or feasible");
+points(x = Sp, y = stab_var / 100000, type = "l", lwd = 2, lty = "dashed");
+points(x = Sp, y = feas_nov / 100000, type = "l", lwd = 2, col = "red");
+points(x = Sp, y = feas_var / 100000, type = "l", lwd = 2, col = "red",
+       lty = "dashed");
+#points(x = Sp, y = neas_nov / 100000, type = "l", lwd = 2, col = "blue");
+#points(x = Sp, y = neas_var / 100000, type = "l", lwd = 2, col = "blue",
+#       lty = "dashed");
+legend(x = 40, y = 0.9, col = c("black", "black", "red", "red"), cex = 1.2,
+       legend = c(expression(paste("Stable, no Var(",gamma,")")),
+                  expression(paste("Stable, Var(",gamma,")")),
+                  expression(paste("Feasible, no Var(",gamma,")")),
+                  expression(paste("Feasible, Var(",gamma,")"))),
+       lty = c("solid", "dashed", "solid", "dashed"), lwd = 2);
+text(x = 60, y = 0.98, labels = "Random", cex = 2);
 
 
 
