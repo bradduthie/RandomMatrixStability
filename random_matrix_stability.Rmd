@@ -28,6 +28,15 @@ biblio-style: apalike
 
 ********************************************************************************
 
+**UPDATE 30 MAR**: 
+
+It appears that one of the assumptions that I was making was rather badly thought out. In checking for feasibility, I simulated random intrinsic species growth rates that were sampled from a uniform distribution $\mathcal{U}\left(0, 1\right)$. I thought this would be reasonable at first because species intrinsic population growth rates surely would need to be positive for a species to avoid extinction; this of course is not the case. A simple counter-example is that of an obligate mutualist. In the absence of a mutualist partner, the obligate mutualist *by definition* should have a negative intrinsic growth rate. Hence, the more appropriate sampling for elements of the vector $\textbf{r}$ should be something like $\mathcal{U}\left(-1, 1\right)$. When doing it this way, variation in generation time appears to have no effect, rather than a negative effect, on feasibility. More simulations of this are needed to confirm. To answer the obvious question, sampling from something like $\mathcal{U}\left(-1, 0\right)$ to get elements for $\textbf{r}$ *does not* appear to increase feasibility at first glance, but I'm simulating more communities to double-check.
+
+**Note**: @Song2018, rehashing @May1972, point out that "stable communities will only emerge as long as a derived measure of com- munity complexity is below a certain threshold" defined by $\sigma\sqrt{S \times C}$, "where $\sigma$ represents the standard deviation of the distribution of interaction strengths, S corresponds to the number of species in the community, and C corresponds to the connectance in the community". I believe that $Var(\gamma_{i})$ would be independent of all of these parameters (not modifying the *strength* of interactions or the *connectance*, but the speed of system components). 
+
+Nevertheless, @Song2018 state that as long as $\sigma\sqrt{S \times C} < 1$, the system will be stable regardless of other parameters in the system. I believe that the simulations with $Var(\gamma_{i})$ now show otherwise, but I need to make sure. In the simulations that I have run $S \times C = S$ because $C = 1$ (I've not tried anything else). Is the standard deviation of interaction strengths changing as a consequence of $\sqrt{Var(\gamma_{i})}$? 
+
+
 **NEW AUTHORS NOTE:** After analysing the new results, I am thinking that a different angle is needed for a strong publication. To recap what has happened:
 
 - I started analysing random communities of simulated species using matrices and a mathematical trick similar to that used in @Patel2018 in attempt to see if variation in generation time among species will stabilise or destabilise large communities.
