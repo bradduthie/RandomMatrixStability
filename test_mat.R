@@ -1,3 +1,58 @@
+
+plot_eigen_c <- function(eigen_list, xlim = c(-2000, 500), ylim = c(-800, 800)){
+    coords1 <- expand.grid(real = xlim[1]:xlim[2], imag = ylim[1]:ylim[2]);
+    coords2 <- expand.grid(real = xlim[1]:xlim[2], imag = ylim[1]:ylim[2]);
+    heat1   <- rep(0, length = dim(coords1)[1]);
+    heat2   <- rep(0, length = dim(coords2)[1]);
+    el1     <- eigen_list$eig_1;
+    el2     <- eigen_list$eig_2;
+    for(i in 1:dim(coords1)[1]){
+        rightRe1  <- el1[,1] == coords1[i,1];
+        rightIm1  <- el1[,2] == coords1[i,2];
+        heat1[i]  <- sum(rightRe1 == TRUE & rightIm1 == TRUE);
+        rightRe2  <- el2[,1] == coords2[i,1];
+        rightIm2  <- el2[,2] == coords2[i,2];
+        heat2[i]  <- sum(rightRe2 == TRUE & rightIm2 == TRUE);
+        if(i %% 5000 == 0){
+            pct <- round((i / dim(coords1)[1]) * 100, digits = 2);
+            print(paste(pct, "percent complete"));
+        }
+    }
+    pl1 <- cbind(coords1, heat1);
+    pl2 <- cbind(coords2, heat2);
+    return(list(A1 = pl1, A2 = pl2));
+}
+
+eigen_cloud <- function(nn, iters, int_type = 0, rmx = 0.4, eps_max = 999){
+    e_coord1 <- NULL;
+    e_coord2 <- NULL;
+    iter     <- iters;
+    while(iter > 0){
+        A1_dat   <- rnorm(n = nn * nn, mean = 0, sd = 0.4);
+        A1       <- matrix(data = A1_dat, nrow = nn, ncol = nn);
+        A1       <- species_interactions(mat = A1, type = int_type);
+        diag(A1) <- -1;
+        epsil    <- runif(n = nn, min = 1, max = eps_max);
+        eps_dat  <- rep(x = epsil, times = nn);
+        eps_mat  <- matrix(data = epsil, nrow = nn, ncol = nn, 
+                          byrow = FALSE);
+        avg_mat  <- matrix(data = mean(1:eps_max), nrow = nn, ncol = nn, 
+                           byrow = FALSE);
+        A2       <- A1 * eps_mat;
+        A1       <- A1 * avg_mat;
+        Re_A1    <- Re(eigen(A1)$values);
+        Im_A1    <- Im(eigen(A1)$values);
+        Re_A2    <- Re(eigen(A2)$values);
+        Im_A2    <- Im(eigen(A2)$values);
+        e_coord1 <- rbind(e_coord1, cbind(Re_A1, Im_A1));
+        e_coord2 <- rbind(e_coord2, cbind(Re_A2, Im_A2));
+        iter     <- iter - 1;
+    }
+    e_coord1 <- round(e_coord1);
+    e_coord2 <- round(e_coord2);
+    return(list(eig_1 = e_coord1, eig_2 = e_coord2));
+}    
+    
 rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, eps_max = 999){
     tot_res <- NULL;
     fea_res <- NULL;
@@ -564,6 +619,233 @@ legend(x = 40, y = 0.9, col = c("black", "black", "red", "red"), cex = 1.2,
                   expression(paste("Feasible, Var(",gamma,")"))),
        lty = c("solid", "dashed", "solid", "dashed"), lwd = 2);
 text(x = 60, y = 0.98, labels = "Random", cex = 2);
+
+
+
+
+
+
+
+
+
+
+
+
+
+#===============================================================================
+
+
+
+
+
+
+
+#===============================================================================
+
+
+rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, pr_dev = 1){
+    tot_res <- NULL;
+    fea_res <- NULL;
+    nea_res <- NULL;
+    for(i in 1:pr_dev){
+        nn             <- max_sp;
+        A1_stt         <- 0;
+        A2_stt         <- 0;
+        iter           <- iters;
+        tot_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 2);
+        fea_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 2);
+        nea_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 2);
+        while(iter > 0){
+            r_vec    <- rnorm(n = nn, mean = 0, sd = rmx);
+            A1_dat   <- rnorm(n = nn * nn, mean = 0, sd = 0.4);
+            A1       <- matrix(data = A1_dat, nrow = nn, ncol = nn);
+            A1       <- species_interactions(mat = A1, type = int_type);
+            diag(A1) <- -1;
+            epsil    <- rnorm(n = nn, mean = 0, sd = pr_dev+100);
+            eps_mat  <- matrix(data = exp(epsil), nrow = nn, ncol = nn, 
+                               byrow = FALSE);
+            avg_mat  <- matrix(data = mean(exp(epsil)), nrow = nn, ncol = nn, 
+                               byrow = FALSE);
+            A2       <- A1 * eps_mat;
+            A1       <- A1 * avg_mat;
+            A1_stb   <- max(Re(eigen(A1)$values)) < 0;
+            A2_stb   <- max(Re(eigen(A2)$values)) < 0;
+            if(A1_stb == TRUE){
+                tot_res[[i]][iter, 1] <- 1;
+            }
+            if(A2_stb == TRUE){
+                tot_res[[i]][iter, 2] <- 1;
+            }
+            iter    <- iter - 1;
+        }
+        print(i);
+    }
+    all_res <- summarise_randmat(tot_res = tot_res, fea_res = fea_res, 
+                                 nea_res = nea_res);
+    return(all_res);
+}
+
+
+species_interactions <- function(mat, type = 0){
+    if(type == 1){
+        mat[mat > 0] <- -1*mat[mat > 0];
+    }
+    if(type == 2){
+        mat[mat < 0] <- -1*mat[mat < 0];
+    }
+    if(type == 3){
+        for(i in 1:dim(mat)[1]){
+            for(j in 1:dim(mat)[2]){
+                if(mat[i, j] * mat[j, i] > 0){
+                    mat[j, i] <- -1 * mat[j, i];
+                }
+            }
+        }
+    }
+    return(mat);
+}
+
+
+summarise_randmat <- function(tot_res, fea_res, nea_res){
+    sims    <- length(tot_res);
+    all_res <- matrix(data = 0, nrow = sims, ncol = 9);
+    for(i in 1:sims){
+        unstables <- tot_res[[i]][,1] == FALSE & tot_res[[i]][,2] == FALSE;
+        stables   <- tot_res[[i]][,1] == TRUE  & tot_res[[i]][,2] == TRUE;
+        unstabled <- tot_res[[i]][,1] == TRUE  & tot_res[[i]][,2] == FALSE;
+        stabled   <- tot_res[[i]][,1] == FALSE & tot_res[[i]][,2] == TRUE;
+        non_feas  <- fea_res[[i]][,1] == FALSE & fea_res[[i]][,2] == FALSE;
+        feasibl   <- fea_res[[i]][,1] == TRUE  & fea_res[[i]][,2] == TRUE;
+        unfeased  <- fea_res[[i]][,1] == TRUE  & fea_res[[i]][,2] == FALSE;
+        feased    <- fea_res[[i]][,1] == FALSE & fea_res[[i]][,2] == TRUE;
+        all_res[i, 1]  <- i;
+        all_res[i, 2]  <- sum(unstables);
+        all_res[i, 3]  <- sum(stables);
+        all_res[i, 4]  <- sum(unstabled);
+        all_res[i, 5]  <- sum(stabled);
+        all_res[i, 6]  <- sum(non_feas);
+        all_res[i, 7]  <- sum(feasibl);
+        all_res[i, 8]  <- sum(unfeased);
+        all_res[i, 9]  <- sum(feased);
+    }
+    return(all_res);
+}
+
+
+
+
+
+
+
+###############################################################
+
+
+
+rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4){
+  tot_res <- NULL;
+  fea_res <- NULL;
+  nea_res <- NULL;
+  for(i in 2:max_sp){
+    nn             <- i;
+    A1_stt         <- 0;
+    A2_stt         <- 0;
+    A1_fet         <- 0;
+    A2_fet         <- 0;
+    iter           <- iters;
+    tot_res[[i-1]] <- matrix(data = 0, nrow = iter, ncol = 2);
+    fea_res[[i-1]] <- matrix(data = 0, nrow = iter, ncol = 2);
+    nea_res[[i-1]] <- matrix(data = 0, nrow = iter, ncol = 2);
+    while(iter > 0){
+      r_vec    <- rnorm(n = nn, mean = 0, sd = rmx);
+      A1_dat   <- rnorm(n = nn * nn, mean = 0, sd = 0.4);
+      A1       <- matrix(data = A1_dat, nrow = nn, ncol = nn);
+      A1       <- species_interactions(mat = A1, type = int_type);
+      diag(A1) <- -1;
+      
+      SA1      <- sign(A1);
+      Sadj     <- apply(X = -SA1, MARGIN = 1, FUN = sum);
+      mnadj    <- 1 - min(Sadj);
+      Sadj     <- exp(Sadj + mnadj);
+
+      eps_mat  <- matrix(data = Sadj, nrow = nn, ncol = nn, 
+                         byrow = FALSE);
+      avg_mat  <- matrix(data = mean(Sadj), nrow = nn, ncol = nn, 
+                         byrow = FALSE);
+      A2       <- A1 * eps_mat;
+      A1       <- A1 * avg_mat;
+      A1_stb   <- max(Re(eigen(A1)$values)) < 0;
+      A2_stb   <- max(Re(eigen(A2)$values)) < 0;
+      #A1_fea   <- min(-1*solve(A1) %*% r_vec) > 0;
+      #A2_fea   <- min(-1*solve(A2) %*% r_vec) > 0;
+      if(A1_stb == TRUE){
+        tot_res[[i-1]][iter, 1] <- 1;
+      }
+      if(A2_stb == TRUE){
+        tot_res[[i-1]][iter, 2] <- 1;
+      }
+      #if(A1_fea == TRUE){
+      #  fea_res[[i-1]][iter, 1] <- 1;
+      #}
+      #if(A2_fea == TRUE){
+      #  fea_res[[i-1]][iter, 2] <- 1;
+      #}
+      iter    <- iter - 1;
+    }
+    print(i);
+  }
+  all_res <- summarise_randmat(tot_res = tot_res, fea_res = fea_res, 
+                               nea_res = nea_res);
+  return(all_res);
+}
+
+
+species_interactions <- function(mat, type = 0){
+  if(type == 1){
+    mat[mat > 0] <- -1*mat[mat > 0];
+  }
+  if(type == 2){
+    mat[mat < 0] <- -1*mat[mat < 0];
+  }
+  if(type == 3){
+    for(i in 1:dim(mat)[1]){
+      for(j in 1:dim(mat)[2]){
+        if(mat[i, j] * mat[j, i] > 0){
+          mat[j, i] <- -1 * mat[j, i];
+        }
+      }
+    }
+  }
+  return(mat);
+}
+
+
+summarise_randmat <- function(tot_res, fea_res, nea_res){
+  sims    <- length(tot_res);
+  all_res <- matrix(data = 0, nrow = sims, ncol = 13);
+  for(i in 1:sims){
+    unstables <- tot_res[[i]][,1] == FALSE & tot_res[[i]][,2] == FALSE;
+    stables   <- tot_res[[i]][,1] == TRUE  & tot_res[[i]][,2] == TRUE;
+    unstabled <- tot_res[[i]][,1] == TRUE  & tot_res[[i]][,2] == FALSE;
+    stabled   <- tot_res[[i]][,1] == FALSE & tot_res[[i]][,2] == TRUE;
+    non_feas  <- fea_res[[i]][,1] == FALSE & fea_res[[i]][,2] == FALSE;
+    feasibl   <- fea_res[[i]][,1] == TRUE  & fea_res[[i]][,2] == TRUE;
+    unfeased  <- fea_res[[i]][,1] == TRUE  & fea_res[[i]][,2] == FALSE;
+    feased    <- fea_res[[i]][,1] == FALSE & fea_res[[i]][,2] == TRUE;
+    all_res[i, 1]  <- i + 1;
+    all_res[i, 2]  <- sum(unstables);
+    all_res[i, 3]  <- sum(stables);
+    all_res[i, 4]  <- sum(unstabled);
+    all_res[i, 5]  <- sum(stabled);
+    all_res[i, 6]  <- sum(non_feas);
+    all_res[i, 7]  <- sum(feasibl);
+    all_res[i, 8]  <- sum(unfeased);
+    all_res[i, 9]  <- sum(feased);
+  }
+  return(all_res);
+}
+
+
+
 
 
 
