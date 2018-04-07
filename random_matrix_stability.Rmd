@@ -28,6 +28,21 @@ biblio-style: apalike
 
 ********************************************************************************
 
+**UPDATE 7 APR**:
+
+Currently, I am having 1 million simulations run for four community types (random, competitor, mutualist, predator-prey). But the manuscript itself is likely to focus genearally on **stability of complex systems as a consequence of variation in the response rate of individual components** (that will not be the title). It will be in the form of a [general 1500 word letter](https://www.nature.com/nature/for-authors/formatting-guide#a1), with an appropriate [introductory summary paragraph](http://s3-service-broker-live-19ea8b98-4d41-4cb4-be4c-d68f4963b7dd.s3.amazonaws.com/uploads/ckeditor/attachments/7808/2c_Summary_para.pdf). At least two key results will be emphasised:
+
+1. **System stability increases with variation in component response rate. And stable large complex systems are almost certain to be dependent upon this variation for preserving their stability** As sub-points, this is generally true for random, competitor, and predator-prey, but not mutualist systems. Further, feasibility is not increased by this variation, but it can be argued that no ecological system is isolated from other processes (evolutionary, social, economic). The importance of the bold result needs to be emphasised while also acknowledging the nuance, and further acknowledging that *most* stable systems will be actually *destabilised* by variation in component response rate. Paradoxically, initial analysis appears to reveal that *addition* of such variation is more likely to destabilise already stable complex systems than it is to stabilise existing unstable complex systems. But overall, **complex systems with variation in component response rate are more likely to be stable than systems with no such variation**. The logic behind this needs to be made clear.
+2. **System stability increases when component response rate is correlated with component interaction type**. For example, if components that typically respond positively to increases in other components (e.g., a generalist top level predator in a community) tend to move respond more or less quickly than other types of components, the whole system is highly likely to be stabilised (more so than just given general variance as discussed in 1 above). Simulations for this are still running, but if this is even more stabilising, then it would be worth including in the manuscript.
+
+Other key results will come if I can think of other interesting ways to vary component response rate.
+
+Key figures of this paper will include:
+
+1. Before and after side-by-side histograms of system stability proportion (or count), with overlayed line showing the percentage of systems that are stable *due to* variation in component time.
+2. A heat map of eigenvalues before and after variation over many simulations.
+
+
 **UPDATE 30 MAR**: 
 
 It appears that one of the assumptions that I was making was rather badly thought out. In checking for feasibility, I simulated random intrinsic species growth rates that were sampled from a uniform distribution $\mathcal{U}\left(0, 1\right)$. I thought this would be reasonable at first because species intrinsic population growth rates surely would need to be positive for a species to avoid extinction; this of course is not the case. A simple counter-example is that of an obligate mutualist. In the absence of a mutualist partner, the obligate mutualist *by definition* should have a negative intrinsic growth rate. Hence, the more appropriate sampling for elements of the vector $\textbf{r}$ should be something like $\mathcal{U}\left(-1, 1\right)$. When doing it this way, variation in generation time appears to have no effect, rather than a negative effect, on feasibility. More simulations of this are needed to confirm. To answer the obvious question, sampling from something like $\mathcal{U}\left(-1, 0\right)$ to get elements for $\textbf{r}$ *does not* appear to increase feasibility at first glance, but I'm simulating more communities to double-check.
@@ -51,10 +66,10 @@ Nevertheless, @Song2018 state that as long as $\sigma\sqrt{S \times C} < 1$, the
 The plot below shows the story for the effect of variation in generation time on stability and feasibility.
 
 ```{r, echo = FALSE, fig.height = 10, fig.width = 10}
-random      <- read.csv(file = "sim_results/random_community.csv");
-competition <- read.csv(file = "sim_results/competitor_community.csv");
-mutualism   <- read.csv(file = "sim_results/mutualist_community.csv");
-pred_prey   <- read.csv(file = "sim_results/predator_prey_community.csv");
+random      <- read.csv(file = "sim_results_old/random_community.csv");
+competition <- read.csv(file = "sim_results_old/competitor_community.csv");
+mutualism   <- read.csv(file = "sim_results_old/mutualist_community.csv");
+pred_prey   <- read.csv(file = "sim_results_old/predator_prey_community.csv");
 # ==============================================================================
 par(mfrow = c(2, 2));
 # ==============================================================================
@@ -126,10 +141,10 @@ text(x = 60, y = 0.98, labels = "Predator-prey", cex = 2);
 And here's the same plot with the axes shifted a bit.
 
 ```{r, echo = FALSE, fig.height = 10, fig.width = 10}
-random      <- read.csv(file = "sim_results/random_community.csv");
-competition <- read.csv(file = "sim_results/competitor_community.csv");
-mutualism   <- read.csv(file = "sim_results/mutualist_community.csv");
-pred_prey   <- read.csv(file = "sim_results/predator_prey_community.csv");
+random      <- read.csv(file = "sim_results_old/random_community.csv");
+competition <- read.csv(file = "sim_results_old/competitor_community.csv");
+mutualism   <- read.csv(file = "sim_results_old/mutualist_community.csv");
+pred_prey   <- read.csv(file = "sim_results_old/predator_prey_community.csv");
 # ==============================================================================
 par(mfrow = c(2, 2));
 # ==============================================================================
