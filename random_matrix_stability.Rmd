@@ -28,6 +28,10 @@ biblio-style: apalike
 
 ********************************************************************************
 
+[Working draft of the manuscript](#ms)
+
+********************************************************************************
+
 **UPDATE 8 APR**:
 
 Here's a working outline of the manuscript:
@@ -760,3 +764,13 @@ I will investigate **how the amount of variation in generation time (range of $\
 
 
 ********************************************************************************
+
+<a name="ms">The manuscript draft</a>
+
+********************************************************************************
+
+**The stability of a complex system generally decreases with increasing system size, as is demonstrated by random matrix theory [@May1972; @Allesina2012]. This counter-intuitive result, first shown by May [@May1972], is broadly relevant for understanding the dynamics and persistence of systems such as chemical, biological, and social networks. Much attention has especially been given to the stability of ecological communities such as food webs or mutualist networks, with recent work investigating how different community structures affect stability [@Allesina2012]. But more broadly, stabilising mechanisms in complex systems remain under-explored, and the effect of variation in the response rate of individual system components remains unexplored. Here I show that when components of a complex system respond to system dynamics at different rates, system stability is strongly increased. This increase in stability is driven by the correlation between a focal component's response rate and the number of other components in the system that have a negative or positive effect on it. When variation in component response rate ($\gamma$) is included in random interaction matrices, the effect of such emerging correlations necessarily increases stability. Further, these effects become increasingly more important as system size increases. My results therefore reveal a previously unconsidered driver of system stability that is likely to be pervasive across all complex systems. Future research in complex systems should therefore account for the varying response rates of individual system components when assessing whole system stability.** 
+
+
+
+
