@@ -28,6 +28,21 @@ biblio-style: apalike
 
 ********************************************************************************
 
+**UPDATE 8 APR**:
+
+Here's a working outline of the manuscript:
+
+1. Introductory [summary paragraph](http://s3-service-broker-live-19ea8b98-4d41-4cb4-be4c-d68f4963b7dd.s3.amazonaws.com/uploads/ckeditor/attachments/7808/2c_Summary_para.pdf), which will be broadly focused on complex system stability.
+2. Go back to @May1972 and note how the original ecological result has been broadened for systems such as evolutionary networks, gene regulatory networks, economics, etc. (references needed). Perhaps make the broader point that even local systems have different elements of different types of systems. 
+3. Briefly point out the advances that have been made in terms of network structures (e.g., random versus competitive interactions), but then hit the point that different components of complex systems are expected to respond on different time scales [e.g. @Patel2018], and no one has looked at how this might affect stability of systems more broadly. The current paper is going to show that variation in component response rate increases stability.
+4. A paragraph with some broad explanation of the idea of matrix stability, along the lines of @Allesina2012. This will effectively explain the idea of random matrix theory to the reader.
+5. A paragraph introducing, mathematically, how I am adding varying rates of component response -- multipling each row $i$ by a scalar $\gamma_{i}$. First this will be done with some simple function giving $Var(\gamma_{i})$, then in a more structured way such that random components that are more likely to be positively influenced by other components having faster or slower rates (higher or lower $\gamma_{i}$) of response. A sentence or two is needed to suggest what this might mean biologically (e.g., generalist predators have longer generation times than their prey). 
+6. A paragraph explaining the results of the random matrices, with brief mention of other types of systems (e.g., predator-prey, mutualist, competitor) presented in supporting information. The obvious increase in stability with different variation of $\gamma_{i}$ will be presented, along with an intuitive explanation of why this is the case (still waiting on simulations -- it would be great if correlation between positive or negative processes and response times led to increased stability, as appears to be the case. I could then argue that $Var(\gamma_{i})$ has a minimum such correlation of zero, and can only increase in stabilisation by having an absolute value of correlation being greater than zero). At least two [key figures](#fig_ideas) will be included, likely with four panels (1. without variation, 2. with unstructured variation, and 3. and 4. with structured variation).
+7. Some sort of mention is needed for a couple odd results; first, that in mutualist networks, stability is not affected -- perhaps because of the lack of variance in component response rate given number of interaction types (note, I think, competitive networks can have indirect positives due to intransitive effects). Second, *feasibility* is not increased, so pure ecological networks might not be affected by this (but emphasise that *pure* ecological networks don't really exist in nature -- they are incorporated into evolutionary, economic, social, systems).
+8. Some bold statement is needed here -- something to the effect of the argument that nearly all large stable complex systems will be stable *due to* the variation simulated in this paper. The odds that it would be stable without such variation becomes vanishingly small as system size increases.
+
+
+
 **UPDATE 7 APR**:
 
 Currently, I am having 1 million simulations run for four community types (random, competitor, mutualist, predator-prey). But the manuscript itself is likely to focus genearally on **stability of complex systems as a consequence of variation in the response rate of individual components** (that will not be the title). It will be in the form of a [general 1500 word letter](https://www.nature.com/nature/for-authors/formatting-guide#a1), with an appropriate [introductory summary paragraph](http://s3-service-broker-live-19ea8b98-4d41-4cb4-be4c-d68f4963b7dd.s3.amazonaws.com/uploads/ckeditor/attachments/7808/2c_Summary_para.pdf). At least two key results will be emphasised:
@@ -37,11 +52,14 @@ Currently, I am having 1 million simulations run for four community types (rando
 
 Other key results will come if I can think of other interesting ways to vary component response rate.
 
-Key figures of this paper will include:
+<a name="fig_ideas">Key figures</a> of this paper will include:
 
 1. Before and after side-by-side histograms of system stability proportion (or count), with overlayed line showing the percentage of systems that are stable *due to* variation in component time.
 2. A heat map of eigenvalues before and after variation over many simulations.
 
+The manuscript overall is going to need to be very general, not just ecology focused. I will need to talk about complex systems such as evolutionary systems, social systems, and financial systems (the last one here is a very clear case where negative values are allowed, so feasibility is not as big of a deal). 
+
+Relevant papers [here](https://www.nature.com/articles/nature16948), and [here](http://science.sciencemag.org/content/337/6092/349)? I also need to add some code to skip feasibility analyses when matrices have determinant of zero (are singular), as part of the feasibility analysis requires matrix inversion.
 
 **UPDATE 30 MAR**: 
 
@@ -703,6 +721,27 @@ plot(x = dat[,1], y = y1, type = "b", lwd = 2, ylim = c(0, 0.02),
 ```
 
 Unstable communities are rarely unstable due to variation in generation time, and as the number of species increases, the probability that unstability will be caused by such variation becomes vanishingly small. Hence, for large communities, variation in generation time might be critical for community stability.
+
+**OLD STUFF**
+
+I'm adding some stuff from [earlier](https://raw.githubusercontent.com/bradduthie/random_matrix_stability/e1314dfc13353aa301f34782827c092b0c5c7b52/random_matrix_stability.Rmd?token=AFSzia2ycJ9XXiZYYMrWG9PrWVHCXRheks5a03EvwA%3D%3D) back in now, as it might be used in the writing again. Note that the language underlying all of this needs to be adjusted to be about complex systems more generally.
+
+********************************************************************************
+
+**Analyses of dynamic systems using random matrices find that stability generally decreases with increasing system size. But in ecological communities, the rate that species densities change as a consequence of species interactions will depend on relative species generation times. Densities of species with relatively short generation times will change more rapidly than densities of species with longer generation times. Interaction effects are therefore expected to be correlated within species, with some species densities changing more rapidly than others in a community. Here we show that by accounting for variation in generation time among species, community stability is substantially increased. Further, the influence of variation in generation time becomes exponentially more important as community size increases. We suggest that variation in species generation time might be a key contributor to stability of large ecological communities.**
+
+********************************************************************************
+
+Species generation time varies by orders of magnitude within communities, potentially affecting the rate at which the density of one species affects the population growth rate of another. Yet I've not been able to find anything on this in the literature in a random matrix context (or any other context). I want to **determine if the effects of varying generation time among community members is stabilising or destabilising in an ecological system**. This work is partly inspired by the use of $\varepsilon$ by @Patel2018 to separate the time scale of ecological versus evolutionary dynamics, and partly inspired by @Jirsa2004 to separate generation time of different species in a community.
+
+Here I will consider a Jacobian matrix of interacting species $\boldsymbol{A}$ and focus on the stability of ecological interactions given variation in generation time. I will use the same technique of @Patel2018 for varying ecological and evolutionary time scales, but a bit differently. I assume that the effect that the density of any species $j$ ($N_{j}$) has on the growth rate of a focal species $i$ ($\partial N_{i}W_{i}/\partial N_{j}$) is consistently affected by a value $\gamma_{i}$ (I am using $\gamma_{i}$ instead of $\varepsilon_{i}$ to avoid confusing generation time variance with ecological versus evolutionary rate difference). Higher values of $\gamma_{i}$ correspond to shorter absolute generation times and lower values correspond to longer generation times. The matrix below $\boldsymbol{A}$ describes the dynamics for two species $i$ and $j$ with effects of generation times $\gamma_{i}$ and $\gamma_{j}$, respectively.
+
+$$\boldsymbol{A} = \begin{bmatrix}
+    \gamma_{i}\frac{\partial N_{i}W_{i}}{\partial N_{i}}  & \gamma_{i}\frac{\partial N_{i}W_{i}}{\partial N_{j}}  \\
+    \gamma_{j} \frac{\partial N_{j}W_{j}}{\partial N_{i}}  & \gamma_{j} \frac{\partial N_{j}W_{j}}{\partial N_{j}}  \\
+\end{bmatrix}.$$
+
+I will investigate **how the amount of variation in generation time (range of $\gamma$) in a community affects stability**.
 
 ********************************************************************************
 
