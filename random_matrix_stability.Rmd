@@ -34,6 +34,8 @@ biblio-style: apalike
 
 **UPDATE 8 APR**:
 
+**New result -- a correlation between the number of positive or negative values in a row of the Jacobian matrix (e.g., corresponding to a species that is generally positively affected by increases in other species -- generalist predator, or generally negatively affected by increases in other species -- a producer or resource), and the response rate of that row (e.g., species generation), is *highly* stabilising, and I believe that I can dig into the matrices and show that *this* is the mechanism that is tweaked when $Var(\gamma_{i})$ is included. In other words, variation in generation time inevitably increases or decreases the correlation (from zero) between sum of row signs and *types* of interactions and generation time -- which I will now generalise to something like reaction rate.** I will present these results in figures soon. I will also show that 1. general variation in $\gamma_{i}$ changes the correlation between sign counts and generation rate and 2. when this correlation is higher or lower, eigen values are more likely to all be negative.
+
 Here's a working outline of the manuscript:
 
 1. Introductory [summary paragraph](http://s3-service-broker-live-19ea8b98-4d41-4cb4-be4c-d68f4963b7dd.s3.amazonaws.com/uploads/ckeditor/attachments/7808/2c_Summary_para.pdf), which will be broadly focused on complex system stability.
@@ -44,6 +46,26 @@ Here's a working outline of the manuscript:
 6. A paragraph explaining the results of the random matrices, with brief mention of other types of systems (e.g., predator-prey, mutualist, competitor) presented in supporting information. The obvious increase in stability with different variation of $\gamma_{i}$ will be presented, along with an intuitive explanation of why this is the case (still waiting on simulations -- it would be great if correlation between positive or negative processes and response times led to increased stability, as appears to be the case. I could then argue that $Var(\gamma_{i})$ has a minimum such correlation of zero, and can only increase in stabilisation by having an absolute value of correlation being greater than zero). At least two [key figures](#fig_ideas) will be included, likely with four panels (1. without variation, 2. with unstructured variation, and 3. and 4. with structured variation).
 7. Some sort of mention is needed for a couple odd results; first, that in mutualist networks, stability is not affected -- perhaps because of the lack of variance in component response rate given number of interaction types (note, I think, competitive networks can have indirect positives due to intransitive effects). Second, *feasibility* is not increased, so pure ecological networks might not be affected by this (but emphasise that *pure* ecological networks don't really exist in nature -- they are incorporated into evolutionary, economic, social, systems).
 8. Some bold statement is needed here -- something to the effect of the argument that nearly all large stable complex systems will be stable *due to* the variation simulated in this paper. The odds that it would be stable without such variation becomes vanishingly small as system size increases.
+
+**Here's the correlation codes:**
+
+```{r, eval = FALSE}
+SA1      <- sign(A1);
+Sadj     <- apply(X = SA1, MARGIN = 1, FUN = sum);
+mnadj    <- 1 - min(Sadj);
+Sadj     <- exp(Sadj + mnadj);
+```
+
+The above is saved as `random_pos.csv`. The rate of change $\gamma_{i}$ in row $i$ equals the sum values in the row, plus the minimum number of values (e.g., four positive and three negative value equals one, plus whatever is the minimum -- if -3, then the end value should be four).
+
+```{r, eval = FALSE}
+SA1      <- sign(A1);
+Sadj     <- apply(X = -SA1, MARGIN = 1, FUN = sum);
+mnadj    <- 1 - min(Sadj);
+Sadj     <- exp(Sadj + mnadj);
+```
+
+The above is saved as `random_neg.csv`. The rate of change $\gamma_{i}$ in row $i$ equals the opposite of the sum values in the row, plus the minimum number of values.
 
 
 
