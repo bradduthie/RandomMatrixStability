@@ -856,14 +856,17 @@ summarise_randmat <- function(tot_res, fea_res, nea_res){
 
 
 
+SA1      <- sign(A1);
+Sadj     <- apply(X = -SA1, MARGIN = 1, FUN = sum);
+mnadj    <- 1 - min(Sadj);
+Sadj     <- exp(Sadj + mnadj);
+
 
 
 
 rand_cov_res <- function(nn, iters, int_type = 0, rmx = 0.4, eps_max = 999){
-    A2_stt         <- 0;
-    A2_fet         <- 0;
     iter           <- iters;
-    cols           <- 2 + 2*nn;
+    cols           <- 4 + 2*nn;
     res_mat        <- matrix(data = 0, nrow = iters, ncol = cols);
     while(iter > 0){
         A1_dat   <- rnorm(n = nn * nn, mean = 0, sd = 0.4);
@@ -878,9 +881,9 @@ rand_cov_res <- function(nn, iters, int_type = 0, rmx = 0.4, eps_max = 999){
         ceig_res <- cor_eigens(A2, eps_mat);
         A2_real  <- Re(eigen(A2)$values);
         A2_imag  <- Im(eigen(A2)$values);
-        res_mat[iter, 1:2]               <- ceig_res;
-        res_mat[iter, 3:(nn+2)]          <- A2_real;
-        res_mat[iter, (nn+3):(2*nn + 2)] <- A2_imag;
+        res_mat[iter, 1:4]               <- ceig_res;
+        res_mat[iter, 5:(nn+4)]          <- A2_real;
+        res_mat[iter, (nn+5):(2*nn + 4)] <- A2_imag;
         iter    <- iter - 1;
     }
     return(res_mat);
@@ -890,9 +893,11 @@ cor_eigens <- function(A2, eps_mat){
     epses    <- eps_mat[,1];
     SA2      <- sign(A2);
     Sadj     <- apply(X = -SA2, MARGIN = 1, FUN = sum);
+    var_ep   <- var(epses);
+    var_Sadj <- var(Sadj);
     cov_ep   <- cov(Sadj, epses);
     cor_ep   <- cor(Sadj, epses);
-    cor_res  <- c(cov_ep, cor_ep);
+    cor_res  <- c(var_ep, var_Sadj, cov_ep, cor_ep);
     return(cor_res);
 }
 
@@ -919,6 +924,245 @@ species_interactions <- function(mat, type = 0){
 
 
 
+min_eig <- apply(rand_vals[,5:20], 1, max);
+is_stab <- min_eig < 0;
+
+
+
+
+
+mnadj    <- 1 - min(Sadj);
+Sadj     <- Sadj + mnadj;
+
+
+
+
+Re(eigen(exp(Sadj) * A2)$values);
+
+
+
+tmat  <- matrix(data = 0, nrow = 10000, ncol = 25);
+
+for(i in 1:dim(tmat)[1]){
+    r_vec <- runif(n = 8, min = 1, max = 999);
+    stbb  <- max(Re(eigen(r_vec * A2)$values)) < 0;
+    tmat[i, 1] <- stbb;
+    tmat[i, 2:9] <- r_vec;
+    tmat[i, 10:17] <- Re(eigen(r_vec*A2)$values);
+    tmat[i, 18:25] <- Im(eigen(r_vec*A2)$values);
+}
+
+x0 <- min(tmat[,10:17]);
+x1 <- max(tmat[,10:17]);
+y0 <- min(tmat[,18:25]);
+y1 <- max(tmat[,18:25]);
+
+
+
+plot(x = Re(eigen(A2)$values), y = Im(eigen(A2)$values), xlim = c(x0, x1),
+     ylim = c(y0, y1));
+
+
+
+
+plot(x = Re(eigen(500*A2)$values), y = Im(eigen(500*A2)$values), xlim = c(-1000000, 100000),
+     ylim = c(-500000, 500000), cex = 0.6);
+for(i in 1:1000){#dim(tmat)[1]){
+    if(tmat[i,1] == 1){
+        points(x = tmat[i, 10:17], y = tmat[i, 18:25], col = "red", cex = 0.6);
+    }
+    if(tmat[i,1] == 0){
+        points(x = tmat[i, 10:17], y = tmat[i, 18:25], col = "blue", cex = 0.6);
+    }
+}
+points(x = Re(eigen(500*A2)$values), y = Im(eigen(500*A2)$values), cex = 2, pch = 20);
+abline(v = 0, lwd = 2, col = "orange");
+
+
+stables <- tmat[tmat[,1] == 1,];
+unstabl <- tmat[tmat[,1] == 0,];
+
+hist(unstabl[,2:9],  breaks = 1000)
+
+
+mn_r <- apply(tmat[,2:9],1,max);
+mn_e <- apply(tmat[,10:17],1,max);
+
+
+
+
+plot(x = Re(eigen(500*A2)$values), y = Im(eigen(500*A2)$values), xlim = c(-1000000, 10000),
+     ylim = c(-2000000, 2000000), cex = 0.6);
+
+        points(x = tmat[17, 10:17], y = tmat[17, 18:25], col = "red", cex = 0.6);
+
+        points(x = tmat[16, 10:17], y = tmat[16, 18:25], col = "blue", cex = 0.6);
+
+points(x = Re(eigen(500*A2)$values), y = Im(eigen(500*A2)$values),cex = 0.6);
+abline(v = 0, lwd = 2, col = "orange");
+
+
+
+
+
+
+##############################################################################
+
+A1_dat   <- rnorm(n = nn * nn, mean = 0, sd = 0.4);
+A1       <- matrix(data = A1_dat, nrow = nn, ncol = nn);
+A1       <- species_interactions(mat = A1, type = int_type);
+diag(A1) <- -1;
+Re(eigen(A1)$values)
+
+
+
+tmat  <- matrix(data = 0, nrow = 1000, ncol = 25);
+
+for(i in 1:dim(tmat)[1]){
+    r_vec <- runif(n = 8, min = 0, max = 1);
+    stbb  <- max(Re(eigen(r_vec * A1)$values)) < 0;
+    tmat[i, 1] <- stbb;
+    tmat[i, 2:9] <- r_vec;
+    tmat[i, 10:17] <- Re(eigen(r_vec*A1)$values);
+    tmat[i, 18:25] <- Im(eigen(r_vec*A1)$values);
+}
+
+
+x0 <- min(tmat[,10:17]);
+x1 <- max(tmat[,10:17]);
+y0 <- min(tmat[,18:25]);
+y1 <- max(tmat[,18:25]);
+
+plot(x = Re(eigen(A1)$values), y = Im(eigen(A1)$values), xlim = c(x0, x1), 
+     ylim = c(y0, y1), cex = 0.6);
+for(i in 1:1000){#dim(tmat)[1]){
+    if(tmat[i,1] == 1){
+        points(x = tmat[i, 10:17], y = tmat[i, 18:25], col = "red", cex = 0.6);
+    }
+    if(tmat[i,1] == 0){
+        points(x = tmat[i, 10:17], y = tmat[i, 18:25], col = "blue", cex = 0.6);
+    }
+}
+points(x = Re(eigen(500*A2)$values), y = Im(eigen(500*A2)$values), cex = 2, pch = 20);
+abline(v = 0, lwd = 2, col = "orange");
+
+stables <- tmat[tmat[,1] == 1,];
+unstabl <- tmat[tmat[,1] == 0,];
+
+mn_stabl <- apply(stables[,2:9],1,min);
+mn_unstb <- apply(unstabl[,2:9],1,min);
+
+mx_stabl <- apply(stables[,2:9],1,max);
+mx_unstb <- apply(unstabl[,2:9],1,max);
+
+av_stabl <- apply(stables[,2:9],1,mean);
+av_unstb <- apply(unstabl[,2:9],1,mean);
+
+vr_stabl <- apply(stables[,2:9],1,var);
+vr_unstb <- apply(unstabl[,2:9],1,var);
+
+
+
+mx_eig <- apply(tmat[,10:17],1,max);
+vr_all <- apply(tmat[,2:9],1,var);
+
+mn_all <- apply(tmat[,2:9],1,min);
+
+
+plot(mn_all,mx_eig, xlab = "Minimum component response rate", ylab = "Maximum real eigenvalue", cex.lab = 1.5, cex.axis = 1.5, cex = 0.6)
+abline(h = 0, lwd = 2, lty = "dotted", col = "red")
+model <- lm(mx_eig ~ mn_all + I(mn_all^2) + I(mn_all^3))
+xx <- seq(from = 0, to =0.6, length = 1000)
+yy <- -0.013983 + -0.195314*xx + 1.357474 * xx^2 + -1.878256 * xx^3
+points(xx, yy, type = "l", col = "blue")
+
+
+av_all <- apply(tmat[,2:9],1,mean);
+
+plot(av_all,mx_eig, xlab = "Mean component response rate", ylab = "Maximum real eigenvalue", cex.lab = 1.5, cex.axis = 1.5, cex = 0.6)
+abline(h = 0, lwd = 2, lty = "dotted", col = "red")
+model <- lm(mx_eig ~ av_all)
+xx <- seq(from = 0, to =0.6, length = 1000)
+yy <- -0.013983 + -0.195314*xx + 1.357474 * xx^2 + -1.878256 * xx^3
+points(xx, yy, type = "l", col = "blue")
+
+
+
+
+
+
+################################################################################
+# GENETIC ALGORITHM:
+nn       <- 24;
+A1_dat   <- rnorm(n = nn * nn, mean = 0, sd = 0.4);
+A1       <- matrix(data = A1_dat, nrow = nn, ncol = nn);
+A1       <- species_interactions(mat = A1, type = int_type);
+diag(A1) <- -1;
+
+rind  <- runif(n = nn*1000, min = 0, max = 1);
+inds  <- matrix(data = rind, nrow = 1000, ncol = nn);
+
+ress  <- NULL;
+iters <- 2000;
+iter  <- iters;
+while(iter > 0){
+    ivar  <- rep(x = 0, length = dim(inds)[1]);
+    ifit  <- rep(x = 0, length = dim(inds)[1]);
+    isst  <- rep(x = 0, length = dim(inds)[1]);
+    for(i in 1:dim(inds)[1]){
+        ifit[i] <- -1*max(Re(eigen(inds[i,]*A1)$values));
+        ivar[i] <- var(inds[i,]);
+        isst[i] <- max(Re(eigen(inds[i,]*A1)$values)) < 0;
+    }
+    most_fit <- order(ifit, decreasing = TRUE)[1:20];
+    parents  <- inds[most_fit,];
+    new_gen  <- matrix(data = t(parents), nrow = 1000, ncol = nn, byrow = TRUE)
+    mu_dat   <- rbinom(n = nn*1000, size = 1, prob = 0.2);
+    mu_dat2  <- rnorm(n = nn*1000, mean = 0, sd = 0.02);
+    mu_dat2[mu_dat2 < 0] <- -mu_dat2[mu_dat2 < 0];
+    mu_dat3  <- mu_dat * mu_dat2;
+    mu_mat   <- matrix(data = mu_dat3, nrow = 1000, ncol = nn);
+    new_gen  <- new_gen + mu_mat;
+    new_gen  <- crossover(inds = new_gen, pr = 0.1);
+    inds     <- new_gen;
+    gen_res  <- c(mean(ifit), mean(ivar), sum(isst)/1000);
+    ress     <- rbind(ress, gen_res);
+    print(c(iters - iter, gen_res));
+    iter <- iter - 1;
+}
+
+crossover <- function(inds, pr = 0.1){
+    crossed <- floor(dim(inds)[1] * pr);
+    cross1  <- sample(x = 1:dim(inds)[1], size = crossed);
+    cross2  <- sample(x = 1:dim(inds)[1], size = crossed);
+    for(i in 1:length(cross1)){
+        fromv   <- sample(x = 1:dim(inds)[2], size = 1);
+        tov     <- sample(x = 1:dim(inds)[2], size = 1);
+        temp                   <- inds[cross1[i],fromv:tov];
+        inds[cross1[i],fromv:tov] <- inds[cross2[i],fromv:tov];
+        inds[cross2[i],fromv:tov] <- temp;
+    }
+    return(inds);
+}
+
+
+plot(x = 1:iters, y = ress[,2], type = "l", lwd = 2);
+################################################################################
+
+
+for(i in 1:dim(tmat)[1]){
+    r_vec <- runif(n = 8, min = 0, max = 1);
+    stbb  <- max(Re(eigen(r_vec * A1)$values)) < 0;
+    tmat[i, 1] <- stbb;
+    tmat[i, 2:9] <- r_vec;
+    tmat[i, 10:17] <- Re(eigen(r_vec*A1)$values);
+    tmat[i, 18:25] <- Im(eigen(r_vec*A1)$values);
+}
+
+
+
+
+###############################################################################
 
 
 
@@ -926,6 +1170,18 @@ species_interactions <- function(mat, type = 0){
 
 
 
+plot(x = Re(eigen(500*A2)$values), y = Im(eigen(500*A2)$values), xlim = c(-1000, 1000),
+     ylim = c(-5000, 5000), cex = 0.6);
+for(i in 1:1000){#dim(tmat)[1]){
+    if(tmat[i,1] == 1){
+        points(x = tmat[i, 10:17], y = tmat[i, 18:25], col = "red", cex = 0.6);
+    }
+    if(tmat[i,1] == 0){
+        points(x = tmat[i, 10:17], y = tmat[i, 18:25], col = "blue", cex = 0.6);
+    }
+}
+points(x = Re(eigen(500*A2)$values), y = Im(eigen(500*A2)$values), cex = 0.6);
+abline(v = 0, lwd = 2, col = "orange");
 
 
 
