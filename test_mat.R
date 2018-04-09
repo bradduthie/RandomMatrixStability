@@ -852,6 +852,82 @@ summarise_randmat <- function(tot_res, fea_res, nea_res){
 
 
 
+###############################################################
+
+
+
+
+
+
+rand_cov_res <- function(nn, iters, int_type = 0, rmx = 0.4, eps_max = 999){
+    A2_stt         <- 0;
+    A2_fet         <- 0;
+    iter           <- iters;
+    cols           <- 2 + 2*nn;
+    res_mat        <- matrix(data = 0, nrow = iters, ncol = cols);
+    while(iter > 0){
+        A1_dat   <- rnorm(n = nn * nn, mean = 0, sd = 0.4);
+        A1       <- matrix(data = A1_dat, nrow = nn, ncol = nn);
+        A1       <- species_interactions(mat = A1, type = int_type);
+        diag(A1) <- -1;
+        epsil    <- runif(n = nn, min = 1, max = eps_max);
+        eps_dat  <- rep(x = epsil, times = nn);
+        eps_mat  <- matrix(data = epsil, nrow = nn, ncol = nn, 
+                           byrow = FALSE);
+        A2       <- A1 * eps_mat;
+        ceig_res <- cor_eigens(A2, eps_mat);
+        A2_real  <- Re(eigen(A2)$values);
+        A2_imag  <- Im(eigen(A2)$values);
+        res_mat[iter, 1:2]               <- ceig_res;
+        res_mat[iter, 3:(nn+2)]          <- A2_real;
+        res_mat[iter, (nn+3):(2*nn + 2)] <- A2_imag;
+        iter    <- iter - 1;
+    }
+    return(res_mat);
+}
+
+cor_eigens <- function(A2, eps_mat){
+    epses    <- eps_mat[,1];
+    SA2      <- sign(A2);
+    Sadj     <- apply(X = -SA2, MARGIN = 1, FUN = sum);
+    cov_ep   <- cov(Sadj, epses);
+    cor_ep   <- cor(Sadj, epses);
+    cor_res  <- c(cov_ep, cor_ep);
+    return(cor_res);
+}
+
+species_interactions <- function(mat, type = 0){
+    if(type == 1){
+        mat[mat > 0] <- -1*mat[mat > 0];
+    }
+    if(type == 2){
+        mat[mat < 0] <- -1*mat[mat < 0];
+    }
+    if(type == 3){
+        for(i in 1:dim(mat)[1]){
+            for(j in 1:dim(mat)[2]){
+                if(mat[i, j] * mat[j, i] > 0){
+                    mat[j, i] <- -1 * mat[j, i];
+                }
+            }
+        }
+    }
+    return(mat);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
