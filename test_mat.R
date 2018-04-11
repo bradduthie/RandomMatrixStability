@@ -145,6 +145,106 @@ rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, eps_max = 999){
 ################################################################################
 ################################################################################
 
+evolve_gamma <- function(nn = 24, iters = 1000){
+    iter     <- iters;
+    ress     <- NULL;
+    countt   <- 1;
+    while(iter > 0){
+        A1_dat   <- rnorm(n = nn * nn, mean = 0, sd = 0.4);
+        A1       <- matrix(data = A1_dat, nrow = nn, ncol = nn);
+        A1       <- species_interactions(mat = A1, type = 0);
+        diag(A1) <- -1;
+        is_stab  <- max(Re(eigen(A1)$values)) < 0;
+        if(is_stab == FALSE){
+            tmat <- rand_mat_ga(A1, max_it = 100, converg = 0.00001);
+            if(tmat$find_st == TRUE & dim(tmat$indist)[1] > 4){
+                ress[[countt]] <- tmat$indist;
+                countt         <- countt + 1;
+            }
+        }
+        iter <- iter - 1;
+        print(c(iter, is_stab));
+    }
+    return(ress);
+}
+
+rand_mat_ga <- function(A1, max_it = 20, converg = 0.01){
+    nn       <- dim(A1)[1];
+    rind     <- runif(n = nn*1000, min = 0, max = 1);
+    inds     <- matrix(data = rind, nrow = 1000, ncol = nn);
+    lastf    <- -10;
+    ccrit    <- 10;
+    find_st  <- 0;
+    iter     <- max_it;
+    indist   <- NULL;
+    while(iter > 0 & find_st < 1 & ccrit > converg){
+        ivar  <- rep(x = 0, length = dim(inds)[1]);
+        ifit  <- rep(x = 0, length = dim(inds)[1]);
+        isst  <- rep(x = 0, length = dim(inds)[1]);
+        for(i in 1:dim(inds)[1]){
+            ifit[i] <- -1*max(Re(eigen(inds[i,]*A1)$values));
+            ivar[i] <- var(inds[i,]);
+            isst[i] <- max(Re(eigen(inds[i,]*A1)$values)) < 0;
+        }
+        mn       <- apply(X = inds, MAR = 1, FUN = mean);
+        sd       <- apply(X = inds, MAR = 1, FUN = sd);
+        sk       <- apply(X = inds, MAR = 1, FUN = skew);
+        kt       <- apply(X = inds, MAR = 1, FUN = kurt);
+        indist   <- rbind(indist, c(mn, sd, sk, kt));
+        most_fit <- order(ifit, decreasing = TRUE)[1:20];
+        parents  <- inds[most_fit,];
+        new_gen  <- matrix(data = t(parents), nrow = 1000, ncol = nn, 
+                           byrow = TRUE);
+        mu_dat   <- rbinom(n = nn*1000, size = 1, prob = 0.3);
+        mu_dat2  <- rnorm(n = nn*1000, mean = 0, sd = 0.02);
+        mu_dat2[mu_dat2 < 0] <- -mu_dat2[mu_dat2 < 0];
+        mu_dat2[mu_dat2 > 1] <- 1 - mu_dat2[mu_dat2 > 1] %% 1;
+        mu_dat3  <- mu_dat * mu_dat2;
+        mu_mat   <- matrix(data = mu_dat3, nrow = 1000, ncol = nn);
+        new_gen  <- new_gen + mu_mat;
+        new_gen  <- crossover(inds = new_gen, pr = 0.2);
+        inds     <- new_gen;
+        find_st  <- max(isst);
+        newf     <- mean(ifit);
+        ccrit    <- newf - lastf;
+        lastf    <- newf;
+        iter     <- iter - 1;
+    }
+    return(list(indist = indist, find_st = find_st));
+}
+
+crossover <- function(inds, pr = 0.1){
+    crossed <- floor(dim(inds)[1] * pr);
+    cross1  <- sample(x = 1:dim(inds)[1], size = crossed);
+    cross2  <- sample(x = 1:dim(inds)[1], size = crossed);
+    for(i in 1:length(cross1)){
+        fromv   <- sample(x = 1:dim(inds)[2], size = 1);
+        tov     <- sample(x = 1:dim(inds)[2], size = 1);
+        temp                   <- inds[cross1[i],fromv:tov];
+        inds[cross1[i],fromv:tov] <- inds[cross2[i],fromv:tov];
+        inds[cross2[i],fromv:tov] <- temp;
+    }
+    return(inds);
+}
+
+skew <- function(vals){
+    dat <- (vals - mean(vals)) / sd(vals);
+    dat <- dat * dat * dat;
+    mea <- mean(dat);
+    return(mea);
+}
+
+kurt <- function(vals){
+    dat <- (vals - mean(vals)) / sd(vals);
+    dat <- dat * dat * dat * dat;
+    mea <- mean(dat);
+    return(mea);
+}
+
+################################################################################
+################################################################################
+################################################################################
+
 
 
 
