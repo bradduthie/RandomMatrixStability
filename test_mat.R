@@ -4,9 +4,10 @@
 
 summarise_randmat <- function(tot_res, fea_res){
     sims    <- length(tot_res);
-    all_res <- matrix(data = 0, nrow = sims, ncol = 17);
+    all_res <- matrix(data = 0, nrow = sims, ncol = 53);
     for(i in 1:sims){
         all_res[i, 1]  <- i + 1;
+        # Stable and unstable
         all_res[i, 2]  <- sum(tot_res[[i]][,1] == FALSE);
         all_res[i, 3]  <- sum(tot_res[[i]][,1] == TRUE);
         all_res[i, 4]  <- sum(tot_res[[i]][,2] == FALSE);
@@ -15,15 +16,94 @@ summarise_randmat <- function(tot_res, fea_res){
         all_res[i, 7]  <- sum(tot_res[[i]][,3] == TRUE);
         all_res[i, 8]  <- sum(tot_res[[i]][,4] == FALSE);
         all_res[i, 9]  <- sum(tot_res[[i]][,4] == TRUE);
-        all_res[i, 10] <- sum(fea_res[[i]][,1] == FALSE);
-        all_res[i, 11] <- sum(fea_res[[i]][,1] == TRUE);
-        all_res[i, 12] <- sum(fea_res[[i]][,2] == FALSE);
-        all_res[i, 13] <- sum(fea_res[[i]][,2] == TRUE);
-        all_res[i, 14] <- sum(fea_res[[i]][,3] == FALSE);
-        all_res[i, 15] <- sum(fea_res[[i]][,3] == TRUE);
-        all_res[i, 16] <- sum(fea_res[[i]][,4] == FALSE);
-        all_res[i, 17] <- sum(fea_res[[i]][,4] == TRUE);
+        all_res[i, 10] <- sum(tot_res[[i]][,5] == FALSE);
+        all_res[i, 11] <- sum(tot_res[[i]][,5] == TRUE);
+        all_res[i, 12] <- sum(tot_res[[i]][,6] == FALSE);
+        all_res[i, 13] <- sum(tot_res[[i]][,6] == TRUE);
+        all_res[i, 14] <- sum(tot_res[[i]][,7] == FALSE);
+        all_res[i, 15] <- sum(tot_res[[i]][,7] == TRUE);
+        # Stabilised and destabilised
+        all_res[i, 16] <- sum(tot_res[[i]][,1] == FALSE & 
+                                  tot_res[[i]][,2] == TRUE);
+        all_res[i, 17] <- sum(tot_res[[i]][,1] == FALSE & 
+                                  tot_res[[i]][,3] == TRUE);
+        all_res[i, 18] <- sum(tot_res[[i]][,1] == FALSE & 
+                                  tot_res[[i]][,4] == TRUE);
+        all_res[i, 19] <- sum(tot_res[[i]][,1] == FALSE & 
+                                  tot_res[[i]][,5] == TRUE);
+        all_res[i, 20] <- sum(tot_res[[i]][,1] == FALSE & 
+                                  tot_res[[i]][,6] == TRUE);
+        all_res[i, 21] <- sum(tot_res[[i]][,1] == FALSE & 
+                                  tot_res[[i]][,7] == TRUE);
+        all_res[i, 22] <- sum(tot_res[[i]][,1] == TRUE & 
+                                  tot_res[[i]][,2] == FALSE);
+        all_res[i, 23] <- sum(tot_res[[i]][,1] == TRUE & 
+                                  tot_res[[i]][,3] == FALSE);
+        all_res[i, 24] <- sum(tot_res[[i]][,1] == TRUE & 
+                                  tot_res[[i]][,4] == FALSE);
+        all_res[i, 25] <- sum(tot_res[[i]][,1] == TRUE & 
+                                  tot_res[[i]][,5] == FALSE);
+        all_res[i, 26] <- sum(tot_res[[i]][,1] == TRUE & 
+                                  tot_res[[i]][,6] == FALSE);
+        all_res[i, 27] <- sum(tot_res[[i]][,1] == TRUE & 
+                                  tot_res[[i]][,7] == FALSE);
+        # Feasible and infeasible
+        all_res[i, 28]  <- sum(fea_res[[i]][,1] == FALSE);
+        all_res[i, 29]  <- sum(fea_res[[i]][,1] == TRUE);
+        all_res[i, 30]  <- sum(fea_res[[i]][,2] == FALSE);
+        all_res[i, 31]  <- sum(fea_res[[i]][,2] == TRUE);
+        all_res[i, 32]  <- sum(fea_res[[i]][,3] == FALSE);
+        all_res[i, 33]  <- sum(fea_res[[i]][,3] == TRUE);
+        all_res[i, 34]  <- sum(fea_res[[i]][,4] == FALSE);
+        all_res[i, 35]  <- sum(fea_res[[i]][,4] == TRUE);
+        all_res[i, 36] <- sum(fea_res[[i]][,5] == FALSE);
+        all_res[i, 37] <- sum(fea_res[[i]][,5] == TRUE);
+        all_res[i, 38] <- sum(fea_res[[i]][,6] == FALSE);
+        all_res[i, 39] <- sum(fea_res[[i]][,6] == TRUE);
+        all_res[i, 40] <- sum(fea_res[[i]][,7] == FALSE);
+        all_res[i, 41] <- sum(fea_res[[i]][,7] == TRUE);
+        # Feased and defeased
+        all_res[i, 42] <- sum(fea_res[[i]][,1] == FALSE & 
+                                  fea_res[[i]][,2] == TRUE);
+        all_res[i, 43] <- sum(fea_res[[i]][,1] == FALSE & 
+                                  fea_res[[i]][,3] == TRUE);
+        all_res[i, 44] <- sum(fea_res[[i]][,1] == FALSE & 
+                                  fea_res[[i]][,4] == TRUE);
+        all_res[i, 45] <- sum(fea_res[[i]][,1] == FALSE & 
+                                  fea_res[[i]][,5] == TRUE);
+        all_res[i, 46] <- sum(fea_res[[i]][,1] == FALSE & 
+                                  fea_res[[i]][,6] == TRUE);
+        all_res[i, 47] <- sum(fea_res[[i]][,1] == FALSE & 
+                                  fea_res[[i]][,7] == TRUE);
+        all_res[i, 48] <- sum(fea_res[[i]][,1] == TRUE & 
+                                  fea_res[[i]][,2] == FALSE);
+        all_res[i, 49] <- sum(fea_res[[i]][,1] == TRUE & 
+                                  fea_res[[i]][,3] == FALSE);
+        all_res[i, 50] <- sum(fea_res[[i]][,1] == TRUE & 
+                                  fea_res[[i]][,4] == FALSE);
+        all_res[i, 51] <- sum(fea_res[[i]][,1] == TRUE & 
+                                  fea_res[[i]][,5] == FALSE);
+        all_res[i, 52] <- sum(fea_res[[i]][,1] == TRUE & 
+                                  fea_res[[i]][,6] == FALSE);
+        all_res[i, 53] <- sum(fea_res[[i]][,1] == TRUE & 
+                                  fea_res[[i]][,7] == FALSE);   
     }
+    cnames <- c("N", "A1_unstable", "A1_stable", "A2_unstable", "A2_stable",
+                "A3_unstable", "A3_stable", "A4_unstable", "A4_stable", 
+                "A5_unstable", "A5_stable", "A6_unstable", "A6_stable", 
+                "A7_unstable", "A7_stable", "A2_stabilised", "A2_destabilised",
+                "A3_stabilised", "A3_destabilised", "A4_stabilised", 
+                "A4_destabilised", "A5_stabilised", "A5_destabilised",
+                "A6_stabilised", "A6_destabilised", "A7_stabilised", 
+                "A7_destabilised", "A1_infeasible", "A1_feasible", 
+                "A2_infeasible", "A2_feasible", "A3_infeasible", "A3_feasible", 
+                "A4_infeasible", "A4_feasible", "A5_infeasible", "A5_feasible",
+                "A6_infeasible", "A6_feasible", "A7_infeasible", "A7_feasible", 
+                "A2_made_feasible", "A2_made_infeasible", "A3_made_feasible", 
+                "A3_made_infeasible", "A4_made_feasible", "A4_made_infeasible", 
+                "A5_made_feasible", "A5_made_infeasible", "A6_made_feasible", 
+                "A6_made_infeasible", "A7_made_feasible", "A7_made_infeasible");
+    colnames(all_res) <- cnames;
     return(all_res);
 }
 
@@ -58,16 +138,29 @@ make_gammas <- function(nn = 10, distribution = 1, mn = 10, sdd = 1){
     }
     if(distribution == 2){
         dat          <- runif(n = nn, min = 0, max = 20);
-        dat          <- sdd * (dat / sd(dat));
+        dat          <- sdd * ((dat - mean(dat)) / sd(dat));
+        dat          <- dat + mn;
     }
     if(distribution == 3){
-        dat          <- sdd * rexp(n = nn);
+        dat          <- rexp(n = nn);
+        dat          <- sdd * ((dat - mean(dat)) / sd(dat));
+        dat          <- dat + mn;
     }
     if(distribution == 4){
         dat          <- 1 - (sdd * rexp(n = nn));
         dat          <- dat - min(dat);
         dat          <- dat - mean(dat) + mn;
         dat[dat < 0] <- -dat[dat < 0];
+    }
+    if(distribution == 5){
+        dat          <- rbeta(n = nn, shape1 = 0.5, shape2 = 0.5);
+        dat          <- sdd * ((dat - mean(dat)) / sd(dat));
+        dat          <- dat + mn;
+    }
+    if(distribution == 6){
+        dat          <- rgamma(n = nn, shape = 2, scale = 2);
+        dat          <- sdd * ((dat - mean(dat)) / sd(dat));
+        dat          <- dat + mn;
     }
     return(dat);
 }
@@ -79,13 +172,9 @@ rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, eps_max = 999){
     fea_res <- NULL;
     for(i in 2:max_sp){
         nn             <- i;
-        A1_stt         <- 0;
-        A2_stt         <- 0;
-        A1_fet         <- 0;
-        A2_fet         <- 0;
         iter           <- iters;
-        tot_res[[i-1]] <- matrix(data = 0, nrow = iter, ncol = 4);
-        fea_res[[i-1]] <- matrix(data = 0, nrow = iter, ncol = 4);
+        tot_res[[i-1]] <- matrix(data = 0, nrow = iter, ncol = 7);
+        fea_res[[i-1]] <- matrix(data = 0, nrow = iter, ncol = 7);
         while(iter > 0){
             r_vec    <- rnorm(n = nn, mean = 0, sd = rmx);
             A1_dat   <- rnorm(n = nn * nn, mean = 0, sd = 0.4);
@@ -97,18 +186,29 @@ rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, eps_max = 999){
             gam2     <- make_gammas(nn = i, distribution = 2);
             gam3     <- make_gammas(nn = i, distribution = 3);
             gam4     <- make_gammas(nn = i, distribution = 4);
+            gam5     <- make_gammas(nn = i, distribution = 5);
+            gam6     <- make_gammas(nn = i, distribution = 6);
             A2       <- A1 * gam1;
             A3       <- A1 * gam2;
             A4       <- A1 * gam3;
+            A5       <- A1 * gam4;
+            A6       <- A1 * gam5;
+            A7       <- A1 * gam6;
             A1       <- A1 * gam0;
             A1_stb   <- max(Re(eigen(A1)$values)) < 0;
             A2_stb   <- max(Re(eigen(A2)$values)) < 0;
             A3_stb   <- max(Re(eigen(A3)$values)) < 0;
             A4_stb   <- max(Re(eigen(A4)$values)) < 0;
+            A5_stb   <- max(Re(eigen(A5)$values)) < 0;
+            A6_stb   <- max(Re(eigen(A6)$values)) < 0;
+            A7_stb   <- max(Re(eigen(A7)$values)) < 0;
             A1_fea   <- min(-1*solve(A1) %*% r_vec) > 0;
             A2_fea   <- min(-1*solve(A2) %*% r_vec) > 0;
             A3_fea   <- min(-1*solve(A3) %*% r_vec) > 0;
             A4_fea   <- min(-1*solve(A4) %*% r_vec) > 0;
+            A5_fea   <- min(-1*solve(A5) %*% r_vec) > 0;
+            A6_fea   <- min(-1*solve(A6) %*% r_vec) > 0;
+            A7_fea   <- min(-1*solve(A7) %*% r_vec) > 0;
             if(A1_stb == TRUE){
                 tot_res[[i-1]][iter, 1] <- 1;
             }
@@ -120,6 +220,15 @@ rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, eps_max = 999){
             }
             if(A4_stb == TRUE){
                 tot_res[[i-1]][iter, 4] <- 1;
+            }
+            if(A5_stb == TRUE){
+                tot_res[[i-1]][iter, 5] <- 1;
+            }
+            if(A6_stb == TRUE){
+                tot_res[[i-1]][iter, 6] <- 1;
+            }
+            if(A7_stb == TRUE){
+                tot_res[[i-1]][iter, 7] <- 1;
             }
             if(A1_fea == TRUE){
                 fea_res[[i-1]][iter, 1] <- 1;
@@ -133,12 +242,48 @@ rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, eps_max = 999){
             if(A4_fea == TRUE){
                 fea_res[[i-1]][iter, 4] <- 1;
             }
+            if(A5_fea == TRUE){
+                fea_res[[i-1]][iter, 5] <- 1;
+            }
+            if(A6_fea == TRUE){
+                fea_res[[i-1]][iter, 6] <- 1;
+            }
+            if(A7_fea == TRUE){
+                fea_res[[i-1]][iter, 7] <- 1;
+            }
             iter    <- iter - 1;
         }
         print(i);
     }
     all_res <- summarise_randmat(tot_res = tot_res, fea_res = fea_res);
     return(all_res);
+}
+
+
+show_gammas <- function(nn = 1000000){
+    y1 <- make_gammas(nn = nn, distribution = 1);
+    y2 <- make_gammas(nn = nn, distribution = 2);
+    y3 <- make_gammas(nn = nn, distribution = 3);
+    y4 <- make_gammas(nn = nn, distribution = 4);
+    y5 <- make_gammas(nn = nn, distribution = 5);
+    y6 <- make_gammas(nn = nn, distribution = 6);
+    par(mfrow = c(3, 2), oma = c(6, 6, 1, 1), mar = c(4, 0.5, 0.5, 0.5));
+    hist(y1, breaks = 1000, yaxt = "n", main = "", xlab = "", cex.axis = 1.5);
+    box();
+    hist(y2, breaks = 1000, yaxt = "n", main = "", xlab = "", cex.axis = 1.5);
+    box();
+    hist(y3, breaks = 1000, yaxt = "n", main = "", xlab = "", cex.axis = 1.5);
+    box();
+    hist(y4, breaks = 1000, yaxt = "n", main = "", xlab = "", cex.axis = 1.5);
+    box();
+    hist(y5, breaks = 1000, yaxt = "n", main = "", xlab = "", cex.axis = 1.5);
+    box();
+    hist(y6, breaks = 1000, yaxt = "n", main = "", xlab = "", cex.axis = 1.5);
+    box();
+    mtext(expression(paste("Component ",gamma[i]," value")),
+          outer=TRUE,side=1,line=3.0,cex=2);
+    mtext(expression(paste("Relative frequency")),
+          outer=TRUE,side=2,line=2.5,cex=2);
 }
 
 ################################################################################
@@ -187,10 +332,10 @@ rand_mat_ga <- function(A1, max_it = 20, converg = 0.01){
             isst[i] <- max(Re(eigen(inds[i,]*A1)$values)) < 0;
         }
         mn       <- apply(X = inds, MAR = 1, FUN = mean);
-        sd       <- apply(X = inds, MAR = 1, FUN = sd);
+        sdd      <- apply(X = inds, MAR = 1, FUN = sd);
         sk       <- apply(X = inds, MAR = 1, FUN = skew);
         kt       <- apply(X = inds, MAR = 1, FUN = kurt);
-        indist   <- rbind(indist, c(mn, sd, sk, kt));
+        indist   <- rbind(indist, c(mn, sdd, sk, kt));
         most_fit <- order(ifit, decreasing = TRUE)[1:20];
         parents  <- inds[most_fit,];
         new_gen  <- matrix(data = t(parents), nrow = 1000, ncol = nn, 
@@ -204,7 +349,7 @@ rand_mat_ga <- function(A1, max_it = 20, converg = 0.01){
         new_gen  <- new_gen + mu_mat;
         new_gen  <- crossover(inds = new_gen, pr = 0.2);
         inds     <- new_gen;
-        find_st  <- max(isst);
+        find_st  <- min(isst);
         newf     <- mean(ifit);
         ccrit    <- newf - lastf;
         lastf    <- newf;
