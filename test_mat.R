@@ -167,7 +167,8 @@ make_gammas <- function(nn = 10, distribution = 1, mn = 10, sdd = 1){
 
 
 
-rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, eps_max = 999){
+rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, gamma_sd = 1, 
+                         gamma_mn = 10){
     tot_res <- NULL;
     fea_res <- NULL;
     for(i in 2:max_sp){
@@ -181,13 +182,20 @@ rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, eps_max = 999){
             A1       <- matrix(data = A1_dat, nrow = nn, ncol = nn);
             A1       <- species_interactions(mat = A1, type = int_type);
             diag(A1) <- -1;
-            gam0     <- make_gammas(nn = i, distribution = 0);
-            gam1     <- make_gammas(nn = i, distribution = 1);
-            gam2     <- make_gammas(nn = i, distribution = 2);
-            gam3     <- make_gammas(nn = i, distribution = 3);
-            gam4     <- make_gammas(nn = i, distribution = 4);
-            gam5     <- make_gammas(nn = i, distribution = 5);
-            gam6     <- make_gammas(nn = i, distribution = 6);
+            gam0     <- make_gammas(nn = i, distribution = 0, sdd = gamma_sd,
+                                    mn = gamma_mn);
+            gam1     <- make_gammas(nn = i, distribution = 1, sdd = gamma_sd,
+                                    mn = gamma_mn);
+            gam2     <- make_gammas(nn = i, distribution = 2, sdd = gamma_sd,
+                                    mn = gamma_mn);
+            gam3     <- make_gammas(nn = i, distribution = 3, sdd = gamma_sd,
+                                    mn = gamma_mn);
+            gam4     <- make_gammas(nn = i, distribution = 4, sdd = gamma_sd,
+                                    mn = gamma_mn);
+            gam5     <- make_gammas(nn = i, distribution = 5, sdd = gamma_sd,
+                                    mn = gamma_mn);
+            gam6     <- make_gammas(nn = i, distribution = 6, sdd = gamma_sd,
+                                    mn = gamma_mn);
             A2       <- A1 * gam1;
             A3       <- A1 * gam2;
             A4       <- A1 * gam3;
