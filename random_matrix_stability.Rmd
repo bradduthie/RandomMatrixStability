@@ -28,7 +28,7 @@ biblio-style: apalike
 
 ********************************************************************************
 
-[Working draft of the manuscript](#ms)
+[Working draft of the manuscript](https://bradduthie.github.io/random_matrix_stability/ms.html)
 
 ********************************************************************************
 
@@ -110,10 +110,10 @@ Nevertheless, @Song2018 state that as long as $\sigma\sqrt{S \times C} < 1$, the
 The plot below shows the story for the effect of variation in generation time on stability and feasibility.
 
 ```{r, echo = FALSE, fig.height = 10, fig.width = 10}
-random      <- read.csv(file = "sim_results_old/random_community.csv");
-competition <- read.csv(file = "sim_results_old/competitor_community.csv");
-mutualism   <- read.csv(file = "sim_results_old/mutualist_community.csv");
-pred_prey   <- read.csv(file = "sim_results_old/predator_prey_community.csv");
+random      <- read.csv(file = "sim_results_old/oldest/random_community.csv");
+competition <- read.csv(file = "sim_results_old/oldest/competitor_community.csv");
+mutualism   <- read.csv(file = "sim_results_old/oldest/mutualist_community.csv");
+pred_prey   <- read.csv(file = "sim_results_old/oldest/predator_prey_community.csv");
 # ==============================================================================
 par(mfrow = c(2, 2));
 # ==============================================================================
@@ -185,10 +185,10 @@ text(x = 60, y = 0.98, labels = "Predator-prey", cex = 2);
 And here's the same plot with the axes shifted a bit.
 
 ```{r, echo = FALSE, fig.height = 10, fig.width = 10}
-random      <- read.csv(file = "sim_results_old/random_community.csv");
-competition <- read.csv(file = "sim_results_old/competitor_community.csv");
-mutualism   <- read.csv(file = "sim_results_old/mutualist_community.csv");
-pred_prey   <- read.csv(file = "sim_results_old/predator_prey_community.csv");
+random      <- read.csv(file = "sim_results_old/oldest/random_community.csv");
+competition <- read.csv(file = "sim_results_old/oldest/competitor_community.csv");
+mutualism   <- read.csv(file = "sim_results_old/oldest/mutualist_community.csv");
+pred_prey   <- read.csv(file = "sim_results_old/oldest/predator_prey_community.csv");
 # ==============================================================================
 par(mfrow = c(2, 2));
 # ==============================================================================
