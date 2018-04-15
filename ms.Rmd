@@ -38,7 +38,7 @@ biblio-style: apalike
 
 ********************************************************************************
 
-**Figure 1**
+**Figure 1: Distributions of component response rate ($\boldsymbol{\gamma}$) values in complex systems. The stabilities of simulated complex systems with these $\gamma$ distributions are compared to otherwise identical complex systems with a fixed component response rate of $\boldsymbol{\gamma = 10}$ across different system sizes ($\boldsymbol{S}$; i.e., component numbers) and $\boldsymbol{\gamma}$ standard deviations ($\boldsymbol{\sigma_{\gamma} = \{1, 2, 4, 8\}}$). All distributions shown below are mean-centred at $\boldsymbol{\mu = 10}$. Distributions are as follows: (a) normal, (b) uniform, (c) exponential, (d) reversed exponential (built from 1 minus an exponential distribution, which is then mean-centred and standardised), beta ($\boldsymbol{\alpha = 0.5}$ and $\boldsymbol{\beta = 0.5}$), and gamma ($\boldsymbol{k = 2}$ and $\boldsymbol{\theta = 2}$). Each panel shows 1 million randomly generated \boldsymbol{$\gamma$} values.**
 
 ```{r, eval = TRUE, echo = FALSE, fig.height = 8}
 make_gammas <- function(nn = 10, distribution = 1, mn = 10, sdd = 1){
@@ -85,19 +85,43 @@ show_gammas <- function(nn = 1000000){
     y5 <- make_gammas(nn = nn, distribution = 5);
     y6 <- make_gammas(nn = nn, distribution = 6);
     par(mfrow = c(3, 2), oma = c(6, 6, 1, 1), mar = c(4, 0.5, 0.5, 0.5));
-    hist(y1, breaks = 1000, yaxt = "n", main = "", xlab = "", cex.axis = 1.5);
+    h1 <- hist(y1, breaks = 1000, plot = FALSE);
+    hist(y1, breaks = 1000, yaxt = "n", main = "", xlab = "", cex.axis = 1.5,
+         ylim = c(0, max(h1$counts)*1.2));
+    mtext("a", adj = 0, line = -2.3, cex = 2, 
+          at = par("usr")[1]+0.90*diff(par("usr")[1:2]));
     box();
-    hist(y2, breaks = 1000, yaxt = "n", main = "", xlab = "", cex.axis = 1.5);
+    h2 <- hist(y2, breaks = 1000, plot = FALSE);
+    hist(y2, breaks = 1000, yaxt = "n", main = "", xlab = "", cex.axis = 1.5,
+         ylim = c(0, max(h2$counts)*1.2));
+    mtext("b", adj = 0, line = -2.3, cex = 2, 
+          at = par("usr")[1]+0.90*diff(par("usr")[1:2]));
     box();
-    hist(y3, breaks = 1000, yaxt = "n", main = "", xlab = "", cex.axis = 1.5);
+    h3 <- hist(y3, breaks = 1000, plot = FALSE);
+    hist(y3, breaks = 1000, yaxt = "n", main = "", xlab = "", cex.axis = 1.5,
+         ylim = c(0, max(h3$counts)*1.2));
+    mtext("c", adj = 0, line = -2.3, cex = 2, 
+          at = par("usr")[1]+0.90*diff(par("usr")[1:2]));
     box();
-    hist(y4, breaks = 1000, yaxt = "n", main = "", xlab = "", cex.axis = 1.5);
+    h4 <- hist(y4, breaks = 1000, plot = FALSE);
+    hist(y4, breaks = 1000, yaxt = "n", main = "", xlab = "", cex.axis = 1.5,
+         ylim = c(0, max(h4$counts)*1.2));
+    mtext("d", adj = 0, line = -2.3, cex = 2, 
+          at = par("usr")[1]+0.90*diff(par("usr")[1:2]));
     box();
-    hist(y5, breaks = 1000, yaxt = "n", main = "", xlab = "", cex.axis = 1.5);
+    h5 <- hist(y5, breaks = 1000, plot = FALSE);
+    hist(y5, breaks = 1000, yaxt = "n", main = "", xlab = "", cex.axis = 1.5,
+         ylim = c(0, max(h5$counts)*1.2));
+    mtext("e", adj = 0, line = -2.3, cex = 2, 
+          at = par("usr")[1]+0.90*diff(par("usr")[1:2]));
     box();
-    hist(y6, breaks = 1000, yaxt = "n", main = "", xlab = "", cex.axis = 1.5);
+    h6 <- hist(y6, breaks = 1000, plot = FALSE);
+    hist(y6, breaks = 1000, yaxt = "n", main = "", xlab = "", cex.axis = 1.5,
+         ylim = c(0, max(h6$counts)*1.2));
+    mtext("f", adj = 0, line = -2.3, cex = 2, 
+          at = par("usr")[1]+0.90*diff(par("usr")[1:2]));
     box();
-    mtext(expression(paste("Component ",gamma[i]," value")),
+    mtext(expression(paste("Component ",gamma," value")),
           outer=TRUE,side=1,line=3.0,cex=2);
     mtext(expression(paste("Relative frequency")),
           outer=TRUE,side=2,line=2.5,cex=2);
