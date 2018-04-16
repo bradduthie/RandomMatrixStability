@@ -133,34 +133,22 @@ make_gammas <- function(nn = 10, distribution = 1, mn = 10, sdd = 1){
         dat          <- rep(x = mn, times = nn);
     }
     if(distribution == 1){
-        dat          <- rnorm(n = nn, mean = mn, sd = sdd);
-        dat[dat < 0] <- -dat[dat < 0];
+        dat             <- runif(n = nn, min = 0, max = 2*mn);
     }
     if(distribution == 2){
-        dat          <- runif(n = nn, min = 0, max = 20);
-        dat          <- sdd * ((dat - mean(dat)) / sd(dat));
-        dat          <- dat + mn;
-    }
-    if(distribution == 3){
         dat          <- rexp(n = nn);
         dat          <- sdd * ((dat - mean(dat)) / sd(dat));
-        dat          <- dat + mn;
+        dat          <- dat - min(dat) + min(abs(dat));
     }
-    if(distribution == 4){
-        dat          <- 1 - (sdd * rexp(n = nn));
-        dat          <- dat - min(dat);
-        dat          <- dat - mean(dat) + mn;
-        dat[dat < 0] <- -dat[dat < 0];
-    }
-    if(distribution == 5){
+    if(distribution == 3){
         dat          <- rbeta(n = nn, shape1 = 0.5, shape2 = 0.5);
         dat          <- sdd * ((dat - mean(dat)) / sd(dat));
-        dat          <- dat + mn;
+        dat          <- dat - min(dat) + min(abs(dat));
     }
-    if(distribution == 6){
+    if(distribution == 4){
         dat          <- rgamma(n = nn, shape = 2, scale = 2);
         dat          <- sdd * ((dat - mean(dat)) / sd(dat));
-        dat          <- dat + mn;
+        dat          <- dat - min(dat) + min(abs(dat));
     }
     return(dat);
 }
@@ -172,30 +160,20 @@ rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, gamma_sd = 1,
     tot_res <- NULL;
     fea_res <- NULL;
     for(i in 2:max_sp){
-        nn             <- i;
         iter           <- iters;
         tot_res[[i-1]] <- matrix(data = 0, nrow = iter, ncol = 7);
         fea_res[[i-1]] <- matrix(data = 0, nrow = iter, ncol = 7);
         while(iter > 0){
-            r_vec    <- rnorm(n = nn, mean = 0, sd = rmx);
-            A1_dat   <- rnorm(n = nn * nn, mean = 0, sd = 0.4);
-            A1       <- matrix(data = A1_dat, nrow = nn, ncol = nn);
+            r_vec    <- rnorm(n = i, mean = 0, sd = rmx);
+            A1_dat   <- rnorm(n = i * i, mean = 0, sd = 0.4);
+            A1       <- matrix(data = A1_dat, nrow = i, ncol = i);
             A1       <- species_interactions(mat = A1, type = int_type);
             diag(A1) <- -1;
-            gam0     <- make_gammas(nn = i, distribution = 0, sdd = gamma_sd,
-                                    mn = gamma_mn);
-            gam1     <- make_gammas(nn = i, distribution = 1, sdd = gamma_sd,
-                                    mn = gamma_mn);
-            gam2     <- make_gammas(nn = i, distribution = 2, sdd = gamma_sd,
-                                    mn = gamma_mn);
-            gam3     <- make_gammas(nn = i, distribution = 3, sdd = gamma_sd,
-                                    mn = gamma_mn);
-            gam4     <- make_gammas(nn = i, distribution = 4, sdd = gamma_sd,
-                                    mn = gamma_mn);
-            gam5     <- make_gammas(nn = i, distribution = 5, sdd = gamma_sd,
-                                    mn = gamma_mn);
-            gam6     <- make_gammas(nn = i, distribution = 6, sdd = gamma_sd,
-                                    mn = gamma_mn);
+            gam0     <- make_gammas(nn = i, distribution = 0, sdd = gamma_sd);
+            gam1     <- make_gammas(nn = i, distribution = 1, sdd = gamma_sd);
+            gam2     <- make_gammas(nn = i, distribution = 2, sdd = gamma_sd);
+            gam3     <- make_gammas(nn = i, distribution = 3, sdd = gamma_sd);
+            gam4     <- make_gammas(nn = i, distribution = 4, sdd = gamma_sd);
             A2       <- A1 * gam1;
             A3       <- A1 * gam2;
             A4       <- A1 * gam3;
@@ -268,14 +246,12 @@ rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, gamma_sd = 1,
 }
 
 
-show_gammas <- function(nn = 1000000){
-    y1 <- make_gammas(nn = nn, distribution = 1);
-    y2 <- make_gammas(nn = nn, distribution = 2);
-    y3 <- make_gammas(nn = nn, distribution = 3);
-    y4 <- make_gammas(nn = nn, distribution = 4);
-    y5 <- make_gammas(nn = nn, distribution = 5);
-    y6 <- make_gammas(nn = nn, distribution = 6);
-    par(mfrow = c(3, 2), oma = c(6, 6, 1, 1), mar = c(4, 0.5, 0.5, 0.5));
+show_gammas <- function(nn = 1000000, sdd = 1, mn = 10){
+    y1 <- make_gammas(nn = nn, distribution = 1, sdd = sdd, mn = mn);
+    y2 <- make_gammas(nn = nn, distribution = 2, sdd = sdd, mn = mn);
+    y3 <- make_gammas(nn = nn, distribution = 3, sdd = sdd, mn = mn);
+    y4 <- make_gammas(nn = nn, distribution = 4, sdd = sdd, mn = mn);
+    par(mfrow = c(2, 2), oma = c(6, 6, 1, 1), mar = c(4, 0.5, 0.5, 0.5));
     hist(y1, breaks = 1000, yaxt = "n", main = "", xlab = "", cex.axis = 1.5);
     box();
     hist(y2, breaks = 1000, yaxt = "n", main = "", xlab = "", cex.axis = 1.5);
@@ -284,11 +260,7 @@ show_gammas <- function(nn = 1000000){
     box();
     hist(y4, breaks = 1000, yaxt = "n", main = "", xlab = "", cex.axis = 1.5);
     box();
-    hist(y5, breaks = 1000, yaxt = "n", main = "", xlab = "", cex.axis = 1.5);
-    box();
-    hist(y6, breaks = 1000, yaxt = "n", main = "", xlab = "", cex.axis = 1.5);
-    box();
-    mtext(expression(paste("Component ",gamma[i]," value")),
+    mtext(expression(paste("Component ",gamma," value")),
           outer=TRUE,side=1,line=3.0,cex=2);
     mtext(expression(paste("Relative frequency")),
           outer=TRUE,side=2,line=2.5,cex=2);
