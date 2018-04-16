@@ -38,7 +38,7 @@ biblio-style: apalike
 
 ********************************************************************************
 
-**Figure 1: Distributions of component response rate ($\boldsymbol{\gamma}$) values in complex systems. The stabilities of simulated complex systems with these $\gamma$ distributions are compared to otherwise identical complex systems with a fixed component response rate of $\boldsymbol{\gamma = 10}$ across different system sizes ($\boldsymbol{S}$; i.e., component numbers) and $\boldsymbol{\gamma}$ standard deviations ($\boldsymbol{\sigma_{\gamma} = \{1, 2, 4, 8\}}$). All distributions shown below are mean-centred at $\boldsymbol{\mu = 10}$. Distributions are as follows: (a) normal, (b) uniform, (c) exponential, (d) reversed exponential (built from 1 minus an exponential distribution, which is then mean-centred and standardised), beta ($\boldsymbol{\alpha = 0.5}$ and $\boldsymbol{\beta = 0.5}$), and gamma ($\boldsymbol{k = 2}$ and $\boldsymbol{\theta = 2}$). Each panel shows 1 million randomly generated \boldsymbol{$\gamma$} values.**
+**Figure 1: Distributions of component response rate ($\boldsymbol{\gamma}$) values in complex systems. The stabilities of simulated complex systems with these $\gamma$ distributions are compared to otherwise identical complex systems with a fixed component response rate of $\boldsymbol{\gamma = 100}$ across different system sizes ($\boldsymbol{S}$; i.e., component numbers) and $\boldsymbol{\gamma}$ standard deviations ($\boldsymbol{\sigma_{\gamma} = \{1, 4, 8, 12\}}$). All distributions shown below are mean-centred at $\boldsymbol{\mu = 100}$. Distributions are as follows: (a) normal, (b) uniform, (c) exponential, (d) reversed exponential (built from 1 minus an exponential distribution, which is then mean-centred and standardised), beta ($\boldsymbol{\alpha = 0.5}$ and $\boldsymbol{\beta = 0.5}$), and gamma ($\boldsymbol{k = 2}$ and $\boldsymbol{\theta = 2}$). Each panel shows 1 million randomly generated \boldsymbol{$\gamma$} values.**
 
 ```{r, eval = TRUE, echo = FALSE, fig.height = 8}
 make_gammas <- function(nn = 10, distribution = 1, mn = 10, sdd = 1){
@@ -126,7 +126,7 @@ show_gammas <- function(nn = 1000000){
     mtext(expression(paste("Relative frequency")),
           outer=TRUE,side=2,line=2.5,cex=2);
 }
-show_gammas();
+show_gammas(mn = 100);
 ```
 
 ********************************************************************************
