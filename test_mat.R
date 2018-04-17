@@ -66,15 +66,15 @@ summarise_randmat <- function(tot_res, fea_res){
     }
     cnames <- c("N", "A0_unstable", "A0_stable", "A1_unstable", "A1_stable", 
                 "A2_unstable", "A2_stable", "A3_unstable", "A3_stable", 
-                "A4_unstable", "A4_stable", "A1_stabilised", "A1_destabilised",
-                "A2_stabilised", "A2_destabilised", "A3_stabilised", 
-                "A3_destabilised", "A4_stabilised", "A4_destabilised", 
+                "A4_unstable", "A4_stable", "A1_stabilised", "A2_stabilised",
+                "A3_stabilised", "A4_stabilised", "A1_destabilised",
+                "A2_destabilised", "A3_destabilised", "A4_destabilised", 
                 "A0_infeasible", "A0_feasible", "A1_infeasible", "A1_feasible", 
                 "A2_infeasible", "A2_feasible", "A3_infeasible", "A3_feasible", 
-                "A4_infeasible", "A4_feasible", "A1_made_feasible", 
-                "A1_made_infeasible", "A2_made_feasible", "A2_made_infeasible", 
-                "A3_made_feasible", "A3_made_infeasible", "A4_made_feasible", 
-                "A4_made_infeasible");
+                "A4_infeasible", "A4_feasible", "A1_made_feasible",
+                "A2_made_feasible", "A3_made_feasible", "A4_made_feasible",
+                "A1_made_infeasible",  "A2_made_infeasible", 
+                "A3_made_infeasible", "A4_made_infeasible");
     colnames(all_res) <- cnames;
     return(all_res);
 }
@@ -236,6 +236,114 @@ show_gammas <- function(nn = 1000000, sdd = 1, mn = 10){
           outer=TRUE,side=2,line=2.5,cex=2);
 }
 
+
+################################################################################
+################################################################################
+################################################################################
+
+
+eigen_image  <- function(eigen_list){
+    reigs <- round(eigen_list, digits = 2);
+    x0    <- min(reigs[,1]);
+    x1    <- max(reigs[,1]);
+    if(x0 > -1){
+        x0 <- -1;
+    }
+    if(x1 < 1){
+        x1 <- 1;
+    }
+    y0    <- min(reigs[,2]);
+    y1    <- max(reigs[,2]);
+    if(y0 > -1){
+        y0 <- -1;
+    }
+    if(y1 < 1){
+        y1 <- 1;
+    }
+    xcoord <- seq(from = x0, to = x1, by = 0.01);
+    ycoord <- seq(from = y0, to = y1, by = 0.01);
+    hmat   <- matrix(data = 0, ncol = length(xcoord), nrow = length(ycoord));
+    for(xx in 1:length(xcoord)){
+        for(yy in 1:length(ycoord)){
+            heat           <- reigs[,1] == xcoord[xx] & reigs[,2] == ycoord[yy];
+            hmat[yy, xx]   <- sum(heat);
+        }
+        if(xx %% 100 == 0){
+            pct <- round((xx / length(xcoord) * 100), digits = 2);
+            print(paste(pct, "percent complete"));
+        }
+    }
+    return(hmat);
+}
+
+eigen_cloud <- function(sp, iters, int_type = 0, gamma_sd = 1){
+    co0  <- NULL;
+    co1  <- NULL;
+    co2  <- NULL;
+    co3  <- NULL;
+    co4  <- NULL;
+    iter <- iters;
+    while(iter > 0){
+        A0_dat   <- rnorm(n = sp * sp, mean = 0, sd = 0.4);
+        A0       <- matrix(data = A0_dat, nrow = sp, ncol = sp);
+        A0       <- species_interactions(mat = A0, type = int_type);
+        diag(A0) <- -1;
+        gam0     <- make_gammas(nn = sp, distribution = 0, sdd = gamma_sd);
+        gam1     <- make_gammas(nn = sp, distribution = 1, sdd = gamma_sd);
+        gam2     <- make_gammas(nn = sp, distribution = 2, sdd = gamma_sd);
+        gam3     <- make_gammas(nn = sp, distribution = 3, sdd = gamma_sd);
+        gam4     <- make_gammas(nn = sp, distribution = 4, sdd = gamma_sd);
+        A1       <- A0 * gam1;
+        A2       <- A0 * gam2;
+        A3       <- A0 * gam3;
+        A4       <- A0 * gam4;
+        A0       <- A0 * gam0;
+        Re_A0    <- Re(eigen(A0)$values);
+        Im_A0    <- Im(eigen(A0)$values);
+        Re_A1    <- Re(eigen(A1)$values);
+        Im_A1    <- Im(eigen(A1)$values);
+        Re_A2    <- Re(eigen(A2)$values);
+        Im_A2    <- Im(eigen(A2)$values);
+        Re_A3    <- Re(eigen(A3)$values);
+        Im_A3    <- Im(eigen(A3)$values);
+        Re_A4    <- Re(eigen(A4)$values);
+        Im_A4    <- Im(eigen(A4)$values);
+        e_coord0 <- cbind(Re_A0, Im_A0);
+        e_coord1 <- cbind(Re_A1, Im_A1);
+        e_coord2 <- cbind(Re_A2, Im_A2);
+        e_coord3 <- cbind(Re_A3, Im_A3);
+        e_coord4 <- cbind(Re_A4, Im_A4);
+        co0      <- rbind(co0, e_coord0);
+        co1      <- rbind(co1, e_coord0);
+        co2      <- rbind(co2, e_coord0);
+        co3      <- rbind(co3, e_coord0);
+        co4      <- rbind(co4, e_coord0);
+        iter     <- iter - 1;
+    }
+    return(list(d0 = co0, d1 = co1, d2 = co2, d3 = co3, d4 = co4));
+} 
+
+
+################################################################################
+################################################################################
+################################################################################
+
+################################################################################
+################################################################################
+################################################################################
+
+################################################################################
+################################################################################
+################################################################################
+
+################################################################################
+################################################################################
+################################################################################
+
+################################################################################
+################################################################################
+################################################################################
+
 ################################################################################
 ################################################################################
 ################################################################################
@@ -336,69 +444,7 @@ kurt <- function(vals){
     return(mea);
 }
 
-################################################################################
-################################################################################
-################################################################################
-
-
-
-
-
-
-
-plot_eigen_c <- function(eigen_list, xlim = c(-2000, 500), ylim = c(-800, 800)){
-    coords1 <- expand.grid(real = xlim[1]:xlim[2], imag = ylim[1]:ylim[2]);
-    coords2 <- expand.grid(real = xlim[1]:xlim[2], imag = ylim[1]:ylim[2]);
-    heat1   <- rep(0, length = dim(coords1)[1]);
-    heat2   <- rep(0, length = dim(coords2)[1]);
-    el1     <- eigen_list$eig_1;
-    el2     <- eigen_list$eig_2;
-    for(i in 1:dim(coords1)[1]){
-        rightRe1  <- el1[,1] == coords1[i,1];
-        rightIm1  <- el1[,2] == coords1[i,2];
-        heat1[i]  <- sum(rightRe1 == TRUE & rightIm1 == TRUE);
-        rightRe2  <- el2[,1] == coords2[i,1];
-        rightIm2  <- el2[,2] == coords2[i,2];
-        heat2[i]  <- sum(rightRe2 == TRUE & rightIm2 == TRUE);
-        if(i %% 5000 == 0){
-            pct <- round((i / dim(coords1)[1]) * 100, digits = 2);
-            print(paste(pct, "percent complete"));
-        }
-    }
-    pl1 <- cbind(coords1, heat1);
-    pl2 <- cbind(coords2, heat2);
-    return(list(A1 = pl1, A2 = pl2));
-}
-
-eigen_cloud <- function(nn, iters, int_type = 0, rmx = 0.4, eps_max = 999){
-    e_coord1 <- NULL;
-    e_coord2 <- NULL;
-    iter     <- iters;
-    while(iter > 0){
-        A1_dat   <- rnorm(n = nn * nn, mean = 0, sd = 0.4);
-        A1       <- matrix(data = A1_dat, nrow = nn, ncol = nn);
-        A1       <- species_interactions(mat = A1, type = int_type);
-        diag(A1) <- -1;
-        epsil    <- runif(n = nn, min = 1, max = eps_max);
-        eps_dat  <- rep(x = epsil, times = nn);
-        eps_mat  <- matrix(data = epsil, nrow = nn, ncol = nn, 
-                          byrow = FALSE);
-        avg_mat  <- matrix(data = mean(1:eps_max), nrow = nn, ncol = nn, 
-                           byrow = FALSE);
-        A2       <- A1 * eps_mat;
-        A1       <- A1 * avg_mat;
-        Re_A1    <- Re(eigen(A1)$values);
-        Im_A1    <- Im(eigen(A1)$values);
-        Re_A2    <- Re(eigen(A2)$values);
-        Im_A2    <- Im(eigen(A2)$values);
-        e_coord1 <- rbind(e_coord1, cbind(Re_A1, Im_A1));
-        e_coord2 <- rbind(e_coord2, cbind(Re_A2, Im_A2));
-        iter     <- iter - 1;
-    }
-    e_coord1 <- round(e_coord1);
-    e_coord2 <- round(e_coord2);
-    return(list(eig_1 = e_coord1, eig_2 = e_coord2));
-}    
+   
     
 rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, eps_max = 999){
     tot_res <- NULL;
