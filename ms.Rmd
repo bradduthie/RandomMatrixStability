@@ -26,6 +26,11 @@ csl: nature.csl
 biblio-style: apalike
 ---
 
+```{r, echo = FALSE}
+source(file = "R/sim_mat.R");
+source(file = "R/plot_figs.R");
+```
+
 ********************************************************************************
 
 **The stability of a complex system generally decreases with increasing system size, as is demonstrated by random matrix theory [@May1972; @Allesina2012]. This counter-intuitive result, first shown by May [@May1972], is broadly relevant for understanding the dynamics and persistence of systems such as chemical, biological, and social networks. Much attention has especially been given to the stability of ecological communities such as food webs or mutualist networks, with recent work investigating how different community structures affect stability [@Haldane2011; @Allesina2012; @Mougi2012; @Allesina2015a; @Gao2016; @Grilli2017; @Patel2018]. But more broadly, stabilising mechanisms in complex systems remain under-developed, and the effect of variation in the response rate of individual system components remains unexplored. Here I show that when components of a complex system respond to system dynamics at different rates, system stability is markedly increased. This increase in stability is especially strong when variation in component response rate ($\gamma$) is high and has a skewed distribution. Further, these effects become increasingly more important as system size increases, to the extent that the largest stable complex systems would otherwise be unstable if not for variation in $\gamma$. My results therefore reveal a previously unconsidered driver of system stability that is likely to be pervasive across all complex systems. Future research in complex systems should therefore account for the varying response rates of individual system components when assessing whole system stability.** 
@@ -38,98 +43,29 @@ biblio-style: apalike
 
 ********************************************************************************
 
-**Figure 1: Distributions of component response rate ($\boldsymbol{\gamma}$) values in complex systems. The stabilities of simulated complex systems with these $\gamma$ distributions are compared to otherwise identical complex systems with a fixed component response rate of $\boldsymbol{\gamma = 100}$ across different system sizes ($\boldsymbol{S}$; i.e., component numbers) and $\boldsymbol{\gamma}$ standard deviations ($\boldsymbol{\sigma_{\gamma} = \{1, 4, 8, 12\}}$). All distributions shown below are mean-centred at $\boldsymbol{\mu = 100}$. Distributions are as follows: (a) normal, (b) uniform, (c) exponential, (d) reversed exponential (built from 1 minus an exponential distribution, which is then mean-centred and standardised), beta ($\boldsymbol{\alpha = 0.5}$ and $\boldsymbol{\beta = 0.5}$), and gamma ($\boldsymbol{k = 2}$ and $\boldsymbol{\theta = 2}$). Each panel shows 1 million randomly generated \boldsymbol{$\gamma$} values.**
+**Figure 1: Distributions of component response rate ($\boldsymbol{\gamma}$) values in complex systems.** The stabilities of simulated complex systems with these $\gamma$ distributions are compared to otherwise identical complex systems with a fixed component response rate of $\gamma = 1$ across different system sizes ($S$; i.e., component numbers) given a unit $\gamma$ standard deviation ($\sigma_{\gamma} = 1$). Distributions are as follows: (a) uniform, (b) exponential, (c) beta ($\alpha = 0.5$ and $\beta = 0.5$), and (d) gamma ($k = 2$ and $\theta = 2$). Each panel shows 1 million randomly generated $\gamma$ values.
 
 ```{r, eval = TRUE, echo = FALSE, fig.height = 8}
-make_gammas <- function(nn = 10, distribution = 1, mn = 10, sdd = 1){
-    if(distribution == 0){
-        dat          <- rep(x = mn, times = nn);
-    }
-    if(distribution == 1){
-        dat          <- rnorm(n = nn, mean = mn, sd = sdd);
-        dat[dat < 0] <- -dat[dat < 0];
-    }
-    if(distribution == 2){
-        dat          <- runif(n = nn, min = 0, max = 20);
-        dat          <- sdd * ((dat - mean(dat)) / sd(dat));
-        dat          <- dat + mn;
-    }
-    if(distribution == 3){
-        dat          <- rexp(n = nn);
-        dat          <- sdd * ((dat - mean(dat)) / sd(dat));
-        dat          <- dat + mn;
-    }
-    if(distribution == 4){
-        dat          <- 1 - (sdd * rexp(n = nn));
-        dat          <- dat - min(dat);
-        dat          <- dat - mean(dat) + mn;
-        dat[dat < 0] <- -dat[dat < 0];
-    }
-    if(distribution == 5){
-        dat          <- rbeta(n = nn, shape1 = 0.5, shape2 = 0.5);
-        dat          <- sdd * ((dat - mean(dat)) / sd(dat));
-        dat          <- dat + mn;
-    }
-    if(distribution == 6){
-        dat          <- rgamma(n = nn, shape = 2, scale = 2);
-        dat          <- sdd * ((dat - mean(dat)) / sd(dat));
-        dat          <- dat + mn;
-    }
-    return(dat);
-}
-show_gammas <- function(nn = 1000000){
-    y1 <- make_gammas(nn = nn, distribution = 1);
-    y2 <- make_gammas(nn = nn, distribution = 2);
-    y3 <- make_gammas(nn = nn, distribution = 3);
-    y4 <- make_gammas(nn = nn, distribution = 4);
-    y5 <- make_gammas(nn = nn, distribution = 5);
-    y6 <- make_gammas(nn = nn, distribution = 6);
-    par(mfrow = c(3, 2), oma = c(6, 6, 1, 1), mar = c(4, 0.5, 0.5, 0.5));
-    h1 <- hist(y1, breaks = 1000, plot = FALSE);
-    hist(y1, breaks = 1000, yaxt = "n", main = "", xlab = "", cex.axis = 1.5,
-         ylim = c(0, max(h1$counts)*1.2));
-    mtext("a", adj = 0, line = -2.3, cex = 2, 
-          at = par("usr")[1]+0.90*diff(par("usr")[1:2]));
-    box();
-    h2 <- hist(y2, breaks = 1000, plot = FALSE);
-    hist(y2, breaks = 1000, yaxt = "n", main = "", xlab = "", cex.axis = 1.5,
-         ylim = c(0, max(h2$counts)*1.2));
-    mtext("b", adj = 0, line = -2.3, cex = 2, 
-          at = par("usr")[1]+0.90*diff(par("usr")[1:2]));
-    box();
-    h3 <- hist(y3, breaks = 1000, plot = FALSE);
-    hist(y3, breaks = 1000, yaxt = "n", main = "", xlab = "", cex.axis = 1.5,
-         ylim = c(0, max(h3$counts)*1.2));
-    mtext("c", adj = 0, line = -2.3, cex = 2, 
-          at = par("usr")[1]+0.90*diff(par("usr")[1:2]));
-    box();
-    h4 <- hist(y4, breaks = 1000, plot = FALSE);
-    hist(y4, breaks = 1000, yaxt = "n", main = "", xlab = "", cex.axis = 1.5,
-         ylim = c(0, max(h4$counts)*1.2));
-    mtext("d", adj = 0, line = -2.3, cex = 2, 
-          at = par("usr")[1]+0.90*diff(par("usr")[1:2]));
-    box();
-    h5 <- hist(y5, breaks = 1000, plot = FALSE);
-    hist(y5, breaks = 1000, yaxt = "n", main = "", xlab = "", cex.axis = 1.5,
-         ylim = c(0, max(h5$counts)*1.2));
-    mtext("e", adj = 0, line = -2.3, cex = 2, 
-          at = par("usr")[1]+0.90*diff(par("usr")[1:2]));
-    box();
-    h6 <- hist(y6, breaks = 1000, plot = FALSE);
-    hist(y6, breaks = 1000, yaxt = "n", main = "", xlab = "", cex.axis = 1.5,
-         ylim = c(0, max(h6$counts)*1.2));
-    mtext("f", adj = 0, line = -2.3, cex = 2, 
-          at = par("usr")[1]+0.90*diff(par("usr")[1:2]));
-    box();
-    mtext(expression(paste("Component ",gamma," value")),
-          outer=TRUE,side=1,line=3.0,cex=2);
-    mtext(expression(paste("Relative frequency")),
-          outer=TRUE,side=2,line=2.5,cex=2);
-}
-show_gammas(mn = 100);
+show_gammas();
 ```
 
 ********************************************************************************
 
+```{r, eval = TRUE, echo = FALSE}
+eig_cloud <- eigen_cloud(sp = 20, iters = 1000);
+Pr_D0     <- sum(eig_cloud$d0[,1] < 0) / length(eig_cloud$d0[,1]);
+Pr_D1     <- sum(eig_cloud$d1[,1] < 0) / length(eig_cloud$d1[,1]);
+Pr_D2     <- sum(eig_cloud$d2[,1] < 0) / length(eig_cloud$d2[,1]);
+Pr_D3     <- sum(eig_cloud$d3[,1] < 0) / length(eig_cloud$d3[,1]);
+Pr_D4     <- sum(eig_cloud$d4[,1] < 0) / length(eig_cloud$d4[,1]);
+```
+
+**Figure 2: Distributions of eigenvalues across different distributions of component response rate  ($\boldsymbol{\gamma}$) values.** Panels show 100000 random communities for $S = 20$ and $C = 1$, where off-diagonal elements are randomly sampled from a standard normal distribution $N(0, 1)$, diagonal elements are $-1$, and each row of elements is multiplied by a random scalar value $\gamma$ sampled from one of four distributions (black points in all sub-panels):  **a**, uniform $\Pr(\gamma) = 1/\sqrt{12}$ for $x \in [0, \sqrt{12}]$. **b**, exponential $\Pr(\gamma) = e^{-\lambda}$ for $\lambda = 1$. **c**, beta $\Pr(\gamma) = \frac{x^{\alpha = 1}(1-x)^{\beta - 1}}{B(\alpha, \beta)}$, where $B(\alpha, \beta) = \frac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha + \beta)}$ for $\alpha = 0.5$ and $\beta = 0.5$. **d**, gamma $\Pr(\gamma) = \frac{1}{\Gamma(k)\theta^{k}}x^{k-1}e^{\frac{-x}{\theta}}$ for $k = 2$ and $\theta = 2$. Eigenvalues associated with each $\gamma$ distribution are compared with otherwise identical communities in which $\gamma = 1$ (pink points in all sub-panels). In all distributions, $SD(\gamma) = 1$; note that $\gamma$ distributions cannot be mean standardised without changing the sign of some community matrix elements, but the sign of eigenvalues (and therefore community stability) is unaffected by multiplying elements by any scalar value. Proportions of real components of eigenvalues (x-axis) below 0 are (a) `r Pr_D1`, (b) `r Pr_D2`, (c) `r Pr_D3`, (d) `r Pr_D4`, as compared to `r Pr_D0` when $\gamma = 1$.
+
+```{r, eval = TRUE, echo = FALSE, fig.height = 8}
+eig_plot(ecl = eig_cloud);
+```
+
+********************************************************************************
 
 
