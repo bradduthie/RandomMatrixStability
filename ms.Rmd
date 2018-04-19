@@ -1,5 +1,5 @@
 ---
-title: "Stability concerns in random matrices"
+title: "Component response rate variation drives stability in large complex systems"
 author: "Brad Duthie"
 bibliography: references.bib
 output:
@@ -52,7 +52,7 @@ show_gammas();
 ********************************************************************************
 
 ```{r, eval = TRUE, echo = FALSE}
-eig_cloud <- eigen_cloud(sp = 20, iters = 1000);
+eig_cloud <- eigen_cloud(sp = 20, iters = 10000);
 Pr_D0     <- sum(eig_cloud$d0[,1] < 0) / length(eig_cloud$d0[,1]);
 Pr_D1     <- sum(eig_cloud$d1[,1] < 0) / length(eig_cloud$d1[,1]);
 Pr_D2     <- sum(eig_cloud$d2[,1] < 0) / length(eig_cloud$d2[,1]);
