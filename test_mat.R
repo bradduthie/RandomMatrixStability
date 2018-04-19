@@ -100,12 +100,13 @@ species_interactions <- function(mat, type = 0){
 }
 
 
-make_gammas <- function(nn = 10, distribution = 1, mn = 10, sdd = 1){
+make_gammas <- function(nn = 10, distribution = 1, mn = 1, sdd = 1){
     if(distribution == 0){
         dat          <- rep(x = mn, times = nn);
     }
     if(distribution == 1){
-        dat             <- runif(n = nn, min = 0, max = 2*mn);
+        mval         <- sdd * sqrt(12);
+        dat          <- runif(n = nn, min = 0, max = mval);
     }
     if(distribution == 2){
         dat          <- rexp(n = nn);
@@ -244,45 +245,52 @@ show_gammas <- function(nn = 1000000, sdd = 1, mn = 10){
 ################################################################################
 ################################################################################
 
-
-image(-1*egi$hmat, col = heat.colors(2000));
-
-make_e_image <- function(ei_ret){
-     hmat   <- ei_ret$hmat;
-     xcoord <- ei_ret$xcoord;
-     ycoord <- ei_ret$ycoord;
-     adj_ei <- -1 * log(hmat + 0.001);
-     xaxis  <- which(xcoord == 0) / length(xcoord);
-     yaxis  <- which(ycoord == 0) / length(ycoord);
-     coomat <- matrix(data = 0, nrow = dim(hmat)[1], ncol = dim(hmat)[2]);
-     coomat[,xaxis] <- 1;
-     coomat[yaxis,] <- 1;
-     image(adj_ei, col = heat.colors(2000), axes = FALSE);
-     abline(h = xaxis, lwd = 2);
-     abline(v = yaxis, lwd = 2);
-     box();
+eig_plot <- function(ecl){
+     xlims <- c(min(ecl$d1[,1]), max(ecl$d1[,1]));
+     ylims <- c(min(ecl$d1[,2]), max(ecl$d1[,2]));
+     tpink <- "#FFC0CB14"
+     par(mfrow = c(2, 2), mar = c(1, 1, 1, 1), oma = c(5, 5, 1, 1));
+     # Uniform distribution (a)
+     plot(x = ecl$d0[,1], y = ecl$d0[,2], pch = 4, col = "pink", cex = 0.3, 
+          xlim = xlims, ylim = ylims, cex.axis = 1.5, xaxt = "n", yaxt = "n");
+     points(x = ecl$d1[,1], y = ecl$d1[,2], pch = 4, col = "blue", cex = 0.3);
+     points(x = ecl$d0[,1], y = ecl$d0[,2], pch = 4, col = tpink, cex = 0.3);
+     axis(side = 2, at = c(-4, -2, 0, 2, 4), cex.axis = 1.5);
+     abline(h = 0, lwd = 2);
+     abline(v = 0, lwd = 2);
+     text(x = -46, y = 27, labels = "a", cex = 3);
+     # Exponential distribution (b)
+     plot(x = ecl$d0[,1], y = ecl$d0[,2], pch = 4, col = "pink", cex = 0.3, 
+          xlim = xlims, ylim = ylims, cex.axis = 1.5, xaxt = "n", yaxt = "n");
+     points(x = ecl$d2[,1], y = ecl$d2[,2], pch = 4, col = "blue", cex = 0.3);
+     points(x = ecl$d0[,1], y = ecl$d0[,2], pch = 4, col = tpink, cex = 0.3);
+     abline(h = 0, lwd = 2);
+     abline(v = 0, lwd = 2);
+     text(x = -46, y = 27, labels = "b", cex = 3);
+     # U-shaped distribution (c)
+     plot(x = ecl$d0[,1], y = ecl$d0[,2], pch = 4, col = "pink", cex = 0.3, 
+          xlim = xlims, ylim = ylims, cex.axis = 1.5, xaxt = "n", yaxt = "n");
+     points(x = ecl$d3[,1], y = ecl$d3[,2], pch = 4, col = "blue", cex = 0.3);
+     points(x = ecl$d0[,1], y = ecl$d0[,2], pch = 4, col = tpink, cex = 0.3);
+     axis(side = 2, at = c(-4, -2, 0, 2, 4), cex.axis = 1.5);
+     axis(side = 1, at = c(-12, -9, -6, -3, 0, 3, 6), cex.axis = 1.5);
+     abline(h = 0, lwd = 2);
+     abline(v = 0, lwd = 2);
+     text(x = -46, y = 27, labels = "c", cex = 3);
+     # Poisson-like distribution (d)
+     plot(x = ecl$d0[,1], y = ecl$d0[,2], pch = 4, col = "pink", cex = 0.3, 
+          xlim = xlims, ylim = ylims, cex.axis = 1.5, xaxt = "n", yaxt = "n");
+     points(x = ecl$d4[,1], y = ecl$d4[,2], pch = 4, col = "blue", cex = 0.3);
+     points(x = ecl$d0[,1], y = ecl$d0[,2], pch = 4, col = tpink, cex = 0.3);
+     axis(side = 1, at = c(-12, -9, -6, -3, 0, 3, 6), cex.axis = 1.5);
+     abline(h = 0, lwd = 2);
+     abline(v = 0, lwd = 2);
+     text(x = -46, y = 27, labels = "d", cex = 3);
+     # Outer margin
+     mtext(side = 1, text = "Real", cex = 2, outer = TRUE, line = 2);
+     mtext(side = 2, text = "Imaginary", cex = 2, outer = TRUE, line = 2);
 }
 
-
-eigen_image  <- function(eigen_list){
-    reigs <- round(eigen_list, digits = 1);
-    xcoord <- seq(from = -40, to = 40, by = 0.1);
-    ycoord <- seq(from = -40, to = 40, by = 0.1);
-    hmat   <- matrix(data = 0, ncol = length(xcoord), nrow = length(ycoord));
-    for(xx in 1:length(xcoord)){
-        for(yy in 1:length(ycoord)){
-            heat           <- reigs[,1] == xcoord[xx] & reigs[,2] == ycoord[yy];
-            hmat[yy, xx]   <- sum(heat);
-        }
-        if(xx %% 100 == 0){
-            pct <- round((xx / length(xcoord) * 100), digits = 2);
-            print(paste(pct, "percent complete"));
-        }
-    }
-    colnames(hmat) <- as.character(xcoord);
-    rownames(hmat) <- as.character(ycoord);
-    return(list(xcoord = xcoord, ycoord = ycoord, hmat = hmat));
-}
 
 eigen_cloud <- function(sp, iters, int_type = 0, gamma_sd = 1){
     co0  <- NULL;
@@ -322,10 +330,10 @@ eigen_cloud <- function(sp, iters, int_type = 0, gamma_sd = 1){
         e_coord3 <- cbind(Re_A3, Im_A3);
         e_coord4 <- cbind(Re_A4, Im_A4);
         co0      <- rbind(co0, e_coord0);
-        co1      <- rbind(co1, e_coord0);
-        co2      <- rbind(co2, e_coord0);
-        co3      <- rbind(co3, e_coord0);
-        co4      <- rbind(co4, e_coord0);
+        co1      <- rbind(co1, e_coord1);
+        co2      <- rbind(co2, e_coord2);
+        co3      <- rbind(co3, e_coord3);
+        co4      <- rbind(co4, e_coord4);
         iter     <- iter - 1;
     }
     return(list(d0 = co0, d1 = co1, d2 = co2, d3 = co3, d4 = co4));
@@ -509,6 +517,94 @@ rand_mat_ga <- function(A1, max_it = 20, converg = 0.01){
 
 ################################################################################
 ################################################################################
+
+image(-1*egi$hmat, col = heat.colors(2000));
+
+make_e_image <- function(ei_ret){
+     hmat   <- ei_ret$hmat;
+     xcoord <- ei_ret$xcoord;
+     ycoord <- ei_ret$ycoord;
+     adj_ei <- -1 * log(hmat + 0.001);
+     xaxis  <- which(xcoord == 0) / length(xcoord);
+     yaxis  <- which(ycoord == 0) / length(ycoord);
+     coomat <- matrix(data = 0, nrow = dim(hmat)[1], ncol = dim(hmat)[2]);
+     coomat[,xaxis] <- 1;
+     coomat[yaxis,] <- 1;
+     image(adj_ei, col = heat.colors(2000), axes = FALSE);
+     abline(h = xaxis, lwd = 2);
+     abline(v = yaxis, lwd = 2);
+     box();
+}
+
+
+eigen_image  <- function(eigen_list){
+    reigs <- round(eigen_list, digits = 1);
+    xcoord <- seq(from = -40, to = 40, by = 0.1);
+    ycoord <- seq(from = -40, to = 40, by = 0.1);
+    hmat   <- matrix(data = 0, ncol = length(xcoord), nrow = length(ycoord));
+    for(xx in 1:length(xcoord)){
+        for(yy in 1:length(ycoord)){
+            heat           <- reigs[,1] == xcoord[xx] & reigs[,2] == ycoord[yy];
+            hmat[yy, xx]   <- sum(heat);
+        }
+        if(xx %% 100 == 0){
+            pct <- round((xx / length(xcoord) * 100), digits = 2);
+            print(paste(pct, "percent complete"));
+        }
+    }
+    colnames(hmat) <- as.character(xcoord);
+    rownames(hmat) <- as.character(ycoord);
+    return(list(xcoord = xcoord, ycoord = ycoord, hmat = hmat));
+}
+
+eigen_cloud <- function(sp, iters, int_type = 0, gamma_sd = 1){
+    co0  <- NULL;
+    co1  <- NULL;
+    co2  <- NULL;
+    co3  <- NULL;
+    co4  <- NULL;
+    iter <- iters;
+    while(iter > 0){
+        A0_dat   <- rnorm(n = sp * sp, mean = 0, sd = 0.4);
+        A0       <- matrix(data = A0_dat, nrow = sp, ncol = sp);
+        A0       <- species_interactions(mat = A0, type = int_type);
+        diag(A0) <- -1;
+        gam0     <- make_gammas(nn = sp, distribution = 0, sdd = gamma_sd);
+        gam1     <- make_gammas(nn = sp, distribution = 1, sdd = gamma_sd);
+        gam2     <- make_gammas(nn = sp, distribution = 2, sdd = gamma_sd);
+        gam3     <- make_gammas(nn = sp, distribution = 3, sdd = gamma_sd);
+        gam4     <- make_gammas(nn = sp, distribution = 4, sdd = gamma_sd);
+        A1       <- A0 * gam1;
+        A2       <- A0 * gam2;
+        A3       <- A0 * gam3;
+        A4       <- A0 * gam4;
+        A0       <- A0 * gam0;
+        Re_A0    <- Re(eigen(A0)$values);
+        Im_A0    <- Im(eigen(A0)$values);
+        Re_A1    <- Re(eigen(A1)$values);
+        Im_A1    <- Im(eigen(A1)$values);
+        Re_A2    <- Re(eigen(A2)$values);
+        Im_A2    <- Im(eigen(A2)$values);
+        Re_A3    <- Re(eigen(A3)$values);
+        Im_A3    <- Im(eigen(A3)$values);
+        Re_A4    <- Re(eigen(A4)$values);
+        Im_A4    <- Im(eigen(A4)$values);
+        e_coord0 <- cbind(Re_A0, Im_A0);
+        e_coord1 <- cbind(Re_A1, Im_A1);
+        e_coord2 <- cbind(Re_A2, Im_A2);
+        e_coord3 <- cbind(Re_A3, Im_A3);
+        e_coord4 <- cbind(Re_A4, Im_A4);
+        co0      <- rbind(co0, e_coord0);
+        co1      <- rbind(co1, e_coord0);
+        co2      <- rbind(co2, e_coord0);
+        co3      <- rbind(co3, e_coord0);
+        co4      <- rbind(co4, e_coord0);
+        iter     <- iter - 1;
+    }
+    return(list(d0 = co0, d1 = co1, d2 = co2, d3 = co3, d4 = co4));
+} 
+
+
 
 evolve_gamma <- function(nn = 24, iters = 1000){
     iter     <- iters;
