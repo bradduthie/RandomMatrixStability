@@ -107,6 +107,8 @@ eigen_cloud <- function(sp, iters, int_type = 0, gamma_sd = 1){
     return(list(d0 = co0, d1 = co1, d2 = co2, d3 = co3, d4 = co4));
 } 
 
+
+# Try adjusting all d0 matrices so that they equal d > 0 means.
 eig_plot <- function(ecl){
     xlims <- c(min(ecl$d1[,1]), max(ecl$d1[,1]));
     ylims <- c(min(ecl$d1[,2]), max(ecl$d1[,2]));
@@ -114,45 +116,96 @@ eig_plot <- function(ecl){
     par(mfrow = c(2, 2), mar = c(1, 1, 1, 1), oma = c(5, 5, 1, 1));
     # Uniform distribution (a)
     plot(x = ecl$d0[,1], y = ecl$d0[,2], pch = 4, col = "pink", cex = 0.3, 
-         xlim = xlims, ylim = ylims, cex.axis = 1.5, xaxt = "n", yaxt = "n");
+         xlim = xlims, ylim = ylims, cex.axis = 1.5, xaxt = "n", yaxt = "n",
+         asp = 1);
     points(x = ecl$d1[,1], y = ecl$d1[,2], pch = 4, col = "black", cex = 0.3);
     points(x = ecl$d0[,1], y = ecl$d0[,2], pch = 4, col = tpink, cex = 0.3);
-    axis(side = 2, at = c(-4, -2, 0, 2, 4), cex.axis = 1.5);
+    axis(side = 2, at = c(-12, -9, -6, -3, 0, 3, 6), cex.axis = 1.5);
     abline(h = 0, lwd = 2);
     abline(v = 0, lwd = 2);
     box(lwd = 2);
-    text(x = -8, y = 4.5, labels = "a", cex = 3);
+    text(x = -8, y = 6, labels = "a", cex = 3);
     # Exponential distribution (b)
     plot(x = ecl$d0[,1], y = ecl$d0[,2], pch = 4, col = "pink", cex = 0.3, 
-         xlim = xlims, ylim = ylims, cex.axis = 1.5, xaxt = "n", yaxt = "n");
+         xlim = xlims, ylim = ylims, cex.axis = 1.5, xaxt = "n", yaxt = "n",
+         asp = 1);
     points(x = ecl$d2[,1], y = ecl$d2[,2], pch = 4, col = "black", cex = 0.3);
     points(x = ecl$d0[,1], y = ecl$d0[,2], pch = 4, col = tpink, cex = 0.3);
     abline(h = 0, lwd = 2);
     abline(v = 0, lwd = 2);
     box(lwd = 2);
-    text(x = -8, y = 4.5, labels = "b", cex = 3);
+    text(x = -8, y = 6, labels = "b", cex = 3);
     # U-shaped distribution (c)
-    plot(x = ecl$d0[,1], y = ecl$d0[,2], pch = 4, col = "pink", cex = 0.3, 
-         xlim = xlims, ylim = ylims, cex.axis = 1.5, xaxt = "n", yaxt = "n");
+    plot(x = ecl$d0[,1], y = ecl$d0[,2], pch = 4, col = "pink", cex = 0.3,
+         xlim = xlims, ylim = ylims, cex.axis = 1.5, xaxt = "n", yaxt = "n",
+         asp = 1);
     points(x = ecl$d3[,1], y = ecl$d3[,2], pch = 4, col = "black", cex = 0.3);
     points(x = ecl$d0[,1], y = ecl$d0[,2], pch = 4, col = tpink, cex = 0.3);
-    axis(side = 2, at = c(-4, -2, 0, 2, 4), cex.axis = 1.5);
+    axis(side = 2, at = c(-12, -9, -6, -3, 0, 3, 6), cex.axis = 1.5);
     axis(side = 1, at = c(-12, -9, -6, -3, 0, 3, 6), cex.axis = 1.5);
     abline(h = 0, lwd = 2);
     abline(v = 0, lwd = 2);
     box(lwd = 2);
-    text(x = -8, y = 4.5, labels = "c", cex = 3);
+    text(x = -8, y = 6, labels = "c", cex = 3);
     # Poisson-like distribution (d)
     plot(x = ecl$d0[,1], y = ecl$d0[,2], pch = 4, col = "pink", cex = 0.3, 
-         xlim = xlims, ylim = ylims, cex.axis = 1.5, xaxt = "n", yaxt = "n");
+         xlim = xlims, ylim = ylims, cex.axis = 1.5, xaxt = "n", yaxt = "n",
+         asp = 1);
     points(x = ecl$d4[,1], y = ecl$d4[,2], pch = 4, col = "black", cex = 0.3);
     points(x = ecl$d0[,1], y = ecl$d0[,2], pch = 4, col = tpink, cex = 0.3);
     axis(side = 1, at = c(-12, -9, -6, -3, 0, 3, 6), cex.axis = 1.5);
     abline(h = 0, lwd = 2);
     abline(v = 0, lwd = 2);
     box(lwd = 2);
-    text(x = -8, y = 4.5, labels = "d", cex = 3);
+    text(x = -8, y = 6, labels = "d", cex = 3);
     # Outer margin
     mtext(side = 1, text = "Real", cex = 2, outer = TRUE, line = 2);
     mtext(side = 2, text = "Imaginary", cex = 2, outer = TRUE, line = 2);
 }
+
+pr_stabl_plot <- function(dat){
+    tot <- dat[1,2] + dat[1,3];
+    par(mfrow = c(2, 2), oma = c(6, 6, 1, 1), mar = c(4, 0.5, 0.5, 0.5));
+    plot(x = dat[,1], y = dat[,3] / tot, type = "l", lwd = 2, xlim = c(2, 30),
+         xaxt = "n", yaxt = "n", xlab = "");
+    points(x = dat[,1], y = dat[,5] / tot, type = "l", lwd = 2, lty = "dashed");
+    axis(side = 2, at = c(0, 0.2, 0.4, 0.6, 0.8, 1.0), cex.axis = 1.5);
+    text(x = 28.5, y = 0.95, labels = "a", cex = 4);
+    plot(x = dat[,1], y = dat[,3] / tot, type = "l", lwd = 2, xlim = c(2, 30),
+         xaxt = "n", yaxt = "n", xlab = "");
+    points(x = dat[,1], y = dat[,7] / tot, type = "l", lwd = 2, lty = "dashed");
+    text(x = 28.5, y = 0.95, labels = "b", cex = 4);
+    plot(x = dat[,1], y = dat[,3] / tot, type = "l", lwd = 2, xlim = c(2, 30),
+         xaxt = "n", yaxt = "n", xlab = "");
+    axis(side = 2, at = c(0, 0.2, 0.4, 0.6, 0.8, 1.0), cex.axis = 1.5);
+    axis(side = 1, at = c(5, 10, 15, 20, 25, 30), cex.axis = 1.5);
+    points(x = dat[,1], y = dat[,9] / tot, type = "l", lwd = 2, lty = "dashed");
+    text(x = 28.5, y = 0.95, labels = "c", cex = 4);
+    plot(x = dat[,1], y = dat[,3] / tot, type = "l", lwd = 2, xlim = c(2, 30),
+         xaxt = "n", yaxt = "n", xlab = "");
+    points(x = dat[,1], y = dat[,11] / tot, type = "l", lwd = 2, 
+           lty = "dashed");
+    axis(side = 1, at = c(5, 10, 15, 20, 25, 30), cex.axis = 1.5);
+    text(x = 28.5, y = 0.95, labels = "d", cex = 4);
+    mtext(side = 1, text = "System size (S)", cex = 2, outer = TRUE, line = 1.0);
+    mtext(side = 2, text = "Pr. Stable", cex = 2, outer = TRUE, line = 3.5);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
