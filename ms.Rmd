@@ -35,7 +35,7 @@ source(file = "R/plot_figs.R");
 
 **The stability of a complex system generally decreases with increasing system size, as is demonstrated by random matrix theory [@May1972; @Allesina2012]. This counter-intuitive result, first shown by May [@May1972], is broadly relevant for understanding the dynamics and persistence of systems such as chemical, biological, and social networks. Much attention has especially been given to the stability of ecological communities such as food webs or mutualist networks, with recent work investigating how different community structures affect stability [@Haldane2011; @Allesina2012; @Mougi2012; @Allesina2015a; @Gao2016; @Grilli2017; @Patel2018]. But more broadly, stabilising mechanisms in complex systems remain under-developed, and the effect of variation in the response rate of individual system components remains unexplored. Here I show that when components of a complex system respond to system dynamics at different rates, system stability is markedly increased. This increase in stability is especially strong when variation in component response rate ($\gamma$) is high and has a skewed distribution. Further, these effects become increasingly important as system size increases, to the extent that the largest stable complex systems would otherwise be unstable if not for variation in $\gamma$. My results therefore reveal a previously unconsidered driver of system stability that is likely to be pervasive across all complex systems. Future research in complex systems should therefore account for the varying response rates of individual system components when assessing whole system stability.** 
 
-
+********************************************************************************
 
 **References**
 
@@ -67,5 +67,32 @@ eig_plot(ecl = eig_cloud);
 ```
 
 ********************************************************************************
+
+**Figure 3: Stability of large complex systems with and without variation in component response rate ($\boldsymbol{\gamma}$).** Panels show the $\ln$ number of systems that are stable across different system sizes ($S$) given $C = 1$, and the proportion of systems in which variation in $\gamma$ is critical for system stability. For each $S$, 1 million complex systems are randomly generated and tested for stability before and after variation in $\gamma$ is included at four different distributions: **a**, uniform, **b**, exponential, **c**, beta, and **d**, gamma. Red and black bars show the number of stable systems in the absence and presence of variance in $\gamma$, respectively. Blue lines show the proportion of systems that are stable when $Var(\gamma) > 0$, but would be unstable if $Var(\gamma) = 0$.
+
+```{r, eval = TRUE, echo = FALSE, fig.height = 8}
+dat <- read.csv(file = "sim_results/C_1/random_all.csv");
+stable_N_plot(dat);
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
