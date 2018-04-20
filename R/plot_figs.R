@@ -188,16 +188,86 @@ pr_stabl_plot <- function(dat){
     axis(side = 1, at = c(5, 10, 15, 20, 25, 30), cex.axis = 1.5);
     text(x = 28.5, y = 0.95, labels = "d", cex = 4);
     mtext(side = 1, text = "System size (S)", cex = 2, outer = TRUE, line = 1.0);
-    mtext(side = 2, text = "Pr. Stable", cex = 2, outer = TRUE, line = 3.5);
+    mtext(side = 2, text = "Pr. stable", cex = 2, outer = TRUE, line = 3.5);
+}
+
+pr_feas_plot <- function(dat){
+    tot <- dat[1,2] + dat[1,3];
+    par(mfrow = c(2, 2), oma = c(6, 6, 1, 1), mar = c(4, 0.5, 0.5, 0.5));
+    plot(x = dat[,1], y = dat[,21] / tot, type = "l", lwd = 2, xlim = c(2, 30),
+         xaxt = "n", yaxt = "n", xlab = "");
+    points(x = dat[,1], y = dat[,23] / tot, type = "l", lwd = 2, 
+         lty = "dashed");
+    axis(side = 2, at = c(0, 0.05, 0.1, 0.15, 0.2), cex.axis = 1.5);
+    text(x = 28.5, y = 0.24, labels = "a", cex = 4);
+    plot(x = dat[,1], y = dat[,21] / tot, type = "l", lwd = 2, xlim = c(2, 30),
+         xaxt = "n", yaxt = "n", xlab = "");
+    points(x = dat[,1], y = dat[,25] / tot, type = "l", lwd = 2, 
+         lty = "dashed");
+    text(x = 28.5, y = 0.24, labels = "b", cex = 4);
+    plot(x = dat[,1], y = dat[,21] / tot, type = "l", lwd = 2, xlim = c(2, 30),
+         xaxt = "n", yaxt = "n", xlab = "");
+    axis(side = 2, at = c(0, 0.05, 0.1, 0.15, 0.2), cex.axis = 1.5);
+    axis(side = 1, at = c(5, 10, 15, 20, 25, 30), cex.axis = 1.5);
+    points(x = dat[,1], y = dat[,27] / tot, type = "l", lwd = 2, 
+         lty = "dashed");
+    text(x = 28.5, y = 0.24, labels = "c", cex = 4);
+    plot(x = dat[,1], y = dat[,21] / tot, type = "l", lwd = 2, xlim = c(2, 30),
+         xaxt = "n", yaxt = "n", xlab = "");
+    points(x = dat[,1], y = dat[,29] / tot, type = "l", lwd = 2, 
+           lty = "dashed");
+    axis(side = 1, at = c(5, 10, 15, 20, 25, 30), cex.axis = 1.5);
+    text(x = 28.5, y = 0.24, labels = "d", cex = 4);
+    mtext(side = 1, text = "System size (S)", cex = 2, outer = TRUE, line = 1.0);
+    mtext(side = 2, text = "Pr. feasible", cex = 2, outer = TRUE, line = 3.5);
+}
+
+pr_stabilised_plot <- function(dat){
+    par(mfrow = c(2, 2), oma = c(6, 6, 1, 1), mar = c(4, 0.5, 0.5, 0.5));
+    plot(x = dat[,1], y = dat[,12] / dat[,2], type = "l", lwd = 2, 
+         xlim = c(2, 30), xaxt = "n", yaxt = "n", xlab = "", ylim = c(0, 0.1));
+    axis(side = 2, at = c(0, 0.02, 0.04, 0.06, 0.08, 0.1), cex.axis = 1.5);
+    text(x = 28.5, y = 0.095, labels = "a", cex = 4);
+    plot(x = dat[,1], y = dat[,13] / dat[,2], type = "l", lwd = 2, 
+         xlim = c(2, 30), xaxt = "n", yaxt = "n", xlab = "", ylim = c(0, 0.1));
+    text(x = 28.5, y = 0.095, labels = "b", cex = 4);
+    plot(x = dat[,1], y = dat[,14] / dat[,2], type = "l", lwd = 2, 
+         xlim = c(2, 30), xaxt = "n", yaxt = "n", xlab = "", ylim = c(0, 0.1));
+    axis(side = 2, at = c(0, 0.02, 0.04, 0.06, 0.08, 0.1), cex.axis = 1.5);
+    axis(side = 1, at = c(5, 10, 15, 20, 25, 30), cex.axis = 1.5);
+    text(x = 28.5, y = 0.095, labels = "c", cex = 4);
+    plot(x = dat[,1], y = dat[,15] / dat[,2], type = "l", lwd = 2, 
+         xlim = c(2, 30), xaxt = "n", yaxt = "n", xlab = "", ylim = c(0, 0.1));
+    axis(side = 1, at = c(5, 10, 15, 20, 25, 30), cex.axis = 1.5);
+    text(x = 28.5, y = 0.095, labels = "d", cex = 4);
+    mtext(side = 1, text = "System size (S)", cex = 2, outer = TRUE, line = 1.0);
+    mtext(side = 2, text = "Pr. stabilised", cex = 2, outer = TRUE, line = 3.5);
 }
 
 
-
-
-
-
-
-
+pr_destabilised_plot <- function(dat){
+    par(mfrow = c(2, 2), oma = c(6, 6, 1, 1), mar = c(4, 0.5, 0.5, 0.5));
+    plot(x = dat[,1], y = dat[,16] / dat[,3], type = "l", lwd = 2, 
+         xlim = c(2, 30), xaxt = "n", yaxt = "n", xlab = "", ylim = c(0, 1));
+    axis(side = 2, at = c(0, 0.2, 0.4, 0.6, 0.8, 1), cex.axis = 1.5);
+    text(x = 3, y = 0.95, labels = "a", cex = 4);
+    plot(x = dat[,1], y = dat[,17] / dat[,3], type = "l", lwd = 2, 
+         xlim = c(2, 30), xaxt = "n", yaxt = "n", xlab = "", ylim = c(0, 1));
+    text(x = 3, y = 0.95, labels = "b", cex = 4);
+    plot(x = dat[,1], y = dat[,18] / dat[,3], type = "l", lwd = 2, 
+         xlim = c(2, 30), xaxt = "n", yaxt = "n", xlab = "", ylim = c(0, 1));
+    axis(side = 2, at = c(0, 0.2, 0.4, 0.6, 0.8, 1), cex.axis = 1.5);
+    axis(side = 1, at = c(5, 10, 15, 20, 25, 30), cex.axis = 1.5);
+    text(x = 3, y = 0.95, labels = "c", cex = 4);
+    plot(x = dat[,1], y = dat[,19] / dat[,3], type = "l", lwd = 2, 
+         xlim = c(2, 30), xaxt = "n", yaxt = "n", xlab = "", ylim = c(0, 1));
+    axis(side = 1, at = c(5, 10, 15, 20, 25, 30), cex.axis = 1.5);
+    text(x = 3, y = 0.95, labels = "d", cex = 4);
+    mtext(side = 1, text = "System size (S)", cex = 2, outer = TRUE, 
+          line = 1.0);
+    mtext(side = 2, text = "Pr. destabilised", cex = 2, outer = TRUE, 
+          line = 3.5);
+}
 
 
 
