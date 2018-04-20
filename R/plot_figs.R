@@ -269,8 +269,8 @@ pr_destabilised_plot <- function(dat){
           line = 3.5);
 }
 
-stable_N_plot <- function(dat, S = 32){
-    Ns          <- 1:S;
+stable_N_plot <- function(dat, S_s = 32){
+    Ns          <- 1:S_s;
     par(mfrow = c(2, 2), oma = c(6, 6, 1, 6), mar = c(0.5, 0.5, 0.5, 0.5));
     #=================================
     bar_dat                      <- t(cbind(dat[Ns,3], dat[Ns,5]));
@@ -286,10 +286,11 @@ stable_N_plot <- function(dat, S = 32){
     par(new = TRUE);
     y1     <- dat[1:32,12] / (dat[1:32,3] + dat[1:32,12]);
     x1     <- seq(from = 2.132, to = 15.1112, length = 32);
-    plot(x = x1, y = y1, xaxt = "n", yaxt = "n", lwd = 2, ylim = c(0, 1),
+    plot(x = x1, y = y1, xaxt = "n", yaxt = "n", lwd = 2, ylim = c(0, 1.1),
          xlab = "", ylab = "", type = "b", xlim = c(2, 15), pch = 20, 
-         cex = 1.25, col = "blue");
-    text(x = x1[31], y = 0.93, labels = "a", cex = 4);
+         cex = 1, col = "blue", yaxs="i");
+    points(x = x1, y = y1, lwd = 2, type = "l", col = "blue");
+    text(x = x1[30], y = 0.92, labels = "a", cex = 3);
     #=================================
     bar_dat                      <- t(cbind(dat[Ns,3], dat[Ns,7]));
     log_bar_dat                  <- log(bar_dat);
@@ -303,11 +304,12 @@ stable_N_plot <- function(dat, S = 32){
     par(new = TRUE);
     y1     <- dat[1:32,13] / (dat[1:32,3] + dat[1:32,13]);
     x1     <- seq(from = 2.132, to = 15.1112, length = 32);
-    plot(x = x1, y = y1, xaxt = "n", yaxt = "n", lwd = 2, ylim = c(0, 1),
+    plot(x = x1, y = y1, xaxt = "n", yaxt = "n", lwd = 2, ylim = c(0, 1.1),
          xlab = "", ylab = "", type = "b", xlim = c(2, 15), pch = 20, 
-         cex = 1.25, col = "blue");
-    axis(side = 4, at = c(0, 0.2, 0.4, 0.6, 0.8), cex.axis = 1.5);
-    text(x = x1[31], y = 0.93, labels = "b", cex = 4);
+         cex = 1, col = "blue", yaxs="i");
+    points(x = x1, y = y1, lwd = 2, type = "l", col = "blue");
+    axis(side = 4, at = c(0, 0.2, 0.4, 0.6, 0.8, 1.0), cex.axis = 1.5);
+    text(x = x1[30], y = 0.92, labels = "b", cex = 3);
     #=================================
     bar_dat                      <- t(cbind(dat[Ns,3], dat[Ns,9]));
     log_bar_dat                  <- log(bar_dat);
@@ -322,10 +324,11 @@ stable_N_plot <- function(dat, S = 32){
     par(new = TRUE);
     y1     <- dat[1:32,14] / (dat[1:32,3] + dat[1:32,14]);
     x1     <- seq(from = 2.132, to = 15.1112, length = 32);
-    plot(x = x1, y = y1, xaxt = "n", yaxt = "n", lwd = 2, ylim = c(0, 1),
+    plot(x = x1, y = y1, xaxt = "n", yaxt = "n", lwd = 2, ylim = c(0, 1.1),
          xlab = "", ylab = "", type = "b", xlim = c(2, 15), pch = 20, 
-         cex = 1.25, col = "blue");
-    text(x = x1[31], y = 0.93, labels = "c", cex = 4);
+         cex = 1, col = "blue", yaxs="i");
+    points(x = x1, y = y1, lwd = 2, type = "l", col = "blue");
+    text(x = x1[30], y = 0.92, labels = "c", cex = 3);
     #=================================
     bar_dat                      <- t(cbind(dat[Ns,3], dat[Ns,11]));
     log_bar_dat                  <- log(bar_dat);
@@ -339,11 +342,12 @@ stable_N_plot <- function(dat, S = 32){
     par(new = TRUE);
     y1     <- dat[1:32,15] / (dat[1:32,3] + dat[1:32,15]);
     x1     <- seq(from = 2.132, to = 15.1112, length = 32);
-    plot(x = x1, y = y1, xaxt = "n", yaxt = "n", lwd = 2, ylim = c(0, 1),
+    plot(x = x1, y = y1, xaxt = "n", yaxt = "n", lwd = 2, ylim = c(0, 1.1),
          xlab = "", ylab = "", type = "b", xlim = c(2, 15), pch = 20, 
-         cex = 1.25, col = "blue");
-    axis(side = 4, at = c(0, 0.2, 0.4, 0.6, 0.8), cex.axis = 1.5);
-    text(x = x1[31], y = 0.93, labels = "d", cex = 4);
+         cex = 1, col = "blue", yaxs="i");
+    points(x = x1, y = y1, lwd = 2, type = "l", col = "blue");
+    axis(side = 4, at = c(0, 0.2, 0.4, 0.6, 0.8, 1.0), cex.axis = 1.5);
+    text(x = x1[30], y = 0.93, labels = "d", cex = 3);
     #=================================
     mtext(side = 1, text = "System size (S)", cex = 2, outer = TRUE, 
           line = 3.0);

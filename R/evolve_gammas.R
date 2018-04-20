@@ -1,7 +1,6 @@
-rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, eps_max = 999){
+Evo_rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1){
     tot_res <- NULL;
     fea_res <- NULL;
-    nea_res <- NULL;
     for(i in 2:max_sp){
         nn             <- i;
         A1_stt         <- 0;
@@ -12,39 +11,32 @@ rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, eps_max = 999){
         tot_res[[i-1]] <- matrix(data = 0, nrow = iter, ncol = 3);
         fea_res[[i-1]] <- matrix(data = 0, nrow = iter, ncol = 2);
         while(iter > 0){
-            r_vec    <- rnorm(n = nn, mean = 0, sd = rmx);
-            A1_dat   <- rnorm(n = nn * nn, mean = 0, sd = 0.4);
-            A1       <- matrix(data = A1_dat, nrow = nn, ncol = nn);
-            A1       <- species_interactions(mat = A1, type = int_type);
-            diag(A1) <- -1;
-            epsil    <- runif(n = nn, min = 1, max = eps_max);
-            eps_dat  <- rep(x = epsil, times = nn);
-            eps_mat  <- matrix(data = epsil, nrow = nn, ncol = nn, 
-                               byrow = FALSE);
-            avg_mat  <- matrix(data = mean(1:eps_max), nrow = nn, ncol = nn, 
-                               byrow = FALSE);
-            A2       <- A1 * eps_mat;
-            A3_stb   <- rand_mat_ga(A1);
-            A1       <- A1 * avg_mat;
-            
-            A1_stb   <- max(Re(eigen(A1)$values)) < 0;
-            A2_stb   <- max(Re(eigen(A2)$values)) < 0;
+            r_vec    <- rnorm(n = i, mean = 0, sd = rmx);
+            A0_dat   <- rnorm(n = i * i, mean = 0, sd = 0.4);
+            A0       <- matrix(data = A0_dat, nrow = i, ncol = i);
+            A0       <- species_interactions(mat = A0, type = int_type);
+            C_dat    <- rbinom(n = i * i, size = 1, prob = C);
+            C_mat    <- matrix(data = C_dat, nrow = i, ncol = i);
+            A0       <- A0 * C_mat;
+            diag(A0) <- -1;
+            gam0     <- make_gammas(nn = i, distribution = 0, sdd = 1);
+            gam1     <- make_gammas(nn = i, distribution = 1, sdd = 1);
+            A1       <- A0 * gam1;
+            A0       <- A0 * gam0;
+            A0_stb   <- max(Re(eigen(A0)$values)) < 0;
+            A1_stb   <- rand_mat_ga(A1);
+            A0_fea   <- min(-1*solve(A0) %*% r_vec) > 0;
             A1_fea   <- min(-1*solve(A1) %*% r_vec) > 0;
-            A2_fea   <- min(-1*solve(A2) %*% r_vec) > 0;
-            
-            if(A1_stb == TRUE){
+            if(A0_stb == TRUE){
                 tot_res[[i-1]][iter, 1] <- 1;
             }
-            if(A2_stb == TRUE){
+            if(A1_stb == TRUE){
                 tot_res[[i-1]][iter, 2] <- 1;
             }
-            if(A3_stb == 1){
-                tot_res[[i-1]][iter, 3] <- 1;
-            }
-            if(A1_fea == TRUE){
+            if(A0_fea == TRUE){
                 fea_res[[i-1]][iter, 1] <- 1;
             }
-            if(A2_fea == TRUE){
+            if(A1_fea == TRUE){
                 fea_res[[i-1]][iter, 2] <- 1;
             }
             iter    <- iter - 1;
@@ -116,15 +108,31 @@ rand_mat_ga <- function(A1, max_it = 20, converg = 0.01){
         find_st  <- max(isst);
         newf     <- mean(ifit);
         ccrit    <- newf - lastf;
-        #print(c(iter, newf, lastf, mean(ivar), find_st));
         lastf    <- newf;
         iter     <- iter - 1;
     }
-    #if(find_st == 1){
-    #findit (the stable one)
-    #fileConn<-file("output.txt")
-    #writeLines(c("Hello","World"), fileConn)
-    #close(fileConn)
-    #}
+    if(find_st == 1){
+        s_row <- which(isst == 1)[1];
+        writt <- c(nn, inds[s_row,]);
+        cat(writt, file = "Evo_out.txt", append = TRUE);
+        cat("\n", file = "Evo_out.txt", append = TRUE);
+    }
     return(find_st);
 }
+
+
+crossover <- function(inds, pr = 0.1){
+    crossed <- floor(dim(inds)[1] * pr);
+    cross1  <- sample(x = 1:dim(inds)[1], size = crossed);
+    cross2  <- sample(x = 1:dim(inds)[1], size = crossed);
+    for(i in 1:length(cross1)){
+        fromv   <- sample(x = 1:dim(inds)[2], size = 1);
+        tov     <- sample(x = 1:dim(inds)[2], size = 1);
+        temp                   <- inds[cross1[i],fromv:tov];
+        inds[cross1[i],fromv:tov] <- inds[cross2[i],fromv:tov];
+        inds[cross2[i],fromv:tov] <- temp;
+    }
+    return(inds);
+}
+
+
