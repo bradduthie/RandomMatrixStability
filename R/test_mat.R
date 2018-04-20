@@ -1544,8 +1544,11 @@ abline(v = 0, lwd = 2, col = "orange");
 
 
 
+12 16
 
 
+dat[,12] / (dat[,2] + dat[,12]);
+dat[,16] / (dat[,3] + dat[,1]);
 
 
 
