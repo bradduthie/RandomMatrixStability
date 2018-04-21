@@ -35,6 +35,26 @@ source(file = "R/plot_figs.R");
 
 **The stability of a complex system generally decreases with increasing system size, as is demonstrated by random matrix theory [@May1972; @Allesina2012]. This counter-intuitive result, first shown by May [@May1972], is broadly relevant for understanding the dynamics and persistence of systems such as chemical, biological, and social networks. Much attention has especially been given to the stability of ecological communities such as food webs or mutualist networks, with recent work investigating how different community structures affect stability [@Haldane2011; @Allesina2012; @Mougi2012; @Allesina2015a; @Gao2016; @Grilli2017; @Patel2018]. But more broadly, stabilising mechanisms in complex systems remain under-developed, and the effect of variation in the response rate of individual system components remains unexplored. Here I show that when components of a complex system respond to system dynamics at different rates, system stability is markedly increased. This increase in stability is especially strong when variation in component response rate ($\gamma$) is high and has a skewed distribution. Further, these effects become increasingly important as system size increases, to the extent that the largest stable complex systems would otherwise be unstable if not for variation in $\gamma$. My results therefore reveal a previously unconsidered driver of system stability that is likely to be pervasive across all complex systems. Future research in complex systems should therefore account for the varying response rates of individual system components when assessing whole system stability.** 
 
+<!---
+
+@Koch1999 Suggests that the results of @May1972 can apply to neuroscience
+
+@May2008 Suggests that random matrix theory can apply to banking
+--->
+
+<!---
+
+2. Go back to @May1972 and note how the original ecological result has been broadened for systems such as evolutionary networks, gene regulatory networks, economics, etc. (references needed). Perhaps make the broader point that even local systems have different elements of different types of systems. 
+3. Briefly point out the advances that have been made in terms of network structures (e.g., random versus competitive interactions), but then hit the point that different components of complex systems are expected to respond on different time scales [e.g. @Patel2018], and no one has looked at how this might affect stability of systems more broadly. The current paper is going to show that variation in component response rate increases stability.
+4. A paragraph with some broad explanation of the idea of matrix stability, along the lines of @Allesina2012. This will effectively explain the idea of random matrix theory to the reader.
+5. A paragraph introducing, mathematically, how I am adding varying rates of component response -- multipling each row $i$ by a scalar $\gamma_{i}$. First this will be done with some simple function giving $Var(\gamma_{i})$, then in a more structured way such that random components that are more likely to be positively influenced by other components having faster or slower rates (higher or lower $\gamma_{i}$) of response. A sentence or two is needed to suggest what this might mean biologically (e.g., generalist predators have longer generation times than their prey). 
+6. A paragraph explaining the results of the random matrices, with brief mention of other types of systems (e.g., predator-prey, mutualist, competitor) presented in supporting information. The obvious increase in stability with different variation of $\gamma_{i}$ will be presented, along with an intuitive explanation of why this is the case (still waiting on simulations -- it would be great if correlation between positive or negative processes and response times led to increased stability, as appears to be the case. I could then argue that $Var(\gamma_{i})$ has a minimum such correlation of zero, and can only increase in stabilisation by having an absolute value of correlation being greater than zero). At least two [key figures](#fig_ideas) will be included, likely with four panels (1. without variation, 2. with unstructured variation, and 3. and 4. with structured variation).
+7. Some sort of mention is needed for a couple odd results; first, that in mutualist networks, stability is not affected -- perhaps because of the lack of variance in component response rate given number of interaction types (note, I think, competitive networks can have indirect positives due to intransitive effects). Second, *feasibility* is not increased, so pure ecological networks might not be affected by this (but emphasise that *pure* ecological networks don't really exist in nature -- they are incorporated into evolutionary, economic, social, systems).
+8. Some bold statement is needed here -- something to the effect of the argument that nearly all large stable complex systems will be stable *due to* the variation simulated in this paper. The odds that it would be stable without such variation becomes vanishingly small as system size increases.
+
+--->
+
+
 ********************************************************************************
 
 **References**
