@@ -1,15 +1,16 @@
 
 rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, gamma_sd = 1, 
                          gamma_mn = 1, C = 1){
-  tot_res <- NULL;
-  fea_res <- NULL;
-  vars_t  <- NULL;
+  tot_res  <- NULL;
+  fea_res  <- NULL;
+  vars_t   <- NULL;
+  off_cors <- NULL;
   for(i in 2:max_sp){
     iter           <- iters;
     tot_res[[i-1]] <- matrix(data = 0, nrow = iter, ncol = 7);
     fea_res[[i-1]] <- matrix(data = 0, nrow = iter, ncol = 7);
     while(iter > 0){
-      r_vec    <- runif(n = i, min = -1, max = 0); #rnorm(n = i, mean = 0, sd = rmx);
+      r_vec    <- rnorm(n = i, mean = 0, sd = rmx);
       A0_dat   <- rnorm(n = i * i, mean = 0, sd = 0.4);
       A0       <- matrix(data = A0_dat, nrow = i, ncol = i);
       A0       <- species_interactions(mat = A0, type = int_type);
@@ -29,8 +30,8 @@ rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, gamma_sd = 1,
       A1       <- A0 * gam1;
       A2       <- A0 * gam1;
       A3       <- A0 * gam0;
-      diag(A2) <- gam0;
-      diag(A3) <- gam1;
+      diag(A2) <- -1 * gam0;
+      diag(A3) <- -1 * gam1;
       
 
       A4       <- A0 * gam4;
@@ -78,18 +79,31 @@ rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, gamma_sd = 1,
       if(A4_fea == TRUE){
         fea_res[[i-1]][iter, 5] <- 1;
       }
-      v0      <- get_var_A(A0);
-      v1      <- get_var_A(A1);
-      v2      <- get_var_A(A2);
-      v3      <- get_var_A(A3);
-      v4      <- get_var_A(A4);
-      vars_t  <- rbind(vars_t, c(i, v0, v1, v2, v3, v4));
+      
+      stbs     <- c(A0_stb, A1_stb, A2_stb, A3_stb, A4_stb);
+      
+      v0       <- get_var_A(A0);
+      v1       <- get_var_A(A1);
+      v2       <- get_var_A(A2);
+      v3       <- get_var_A(A3);
+      v4       <- get_var_A(A4);
+      vs       <- c(v0, v1, v2, v3, v4);
+      vars_t   <- rbind(vars_t, c(i, vs, stbs));
+      
+      o0       <- get_off_corr(A0);
+      o1       <- get_off_corr(A1);
+      o2       <- get_off_corr(A2);
+      o3       <- get_off_corr(A3);
+      o4       <- get_off_corr(A4);
+      os       <- c(o0, o1, o2, o3, o4);
+      off_cors <- rbind(off_cors, c(i, os, stbs));      
+      
       iter    <- iter - 1;
     }
     print(i);
   }
   all_res <- summarise_randmat(tot_res = tot_res, fea_res = fea_res);
-  return(list(all_res = all_res, vars_t = vars_t));
+  return(list(all_res = all_res, vars_t = vars_t, off_cors = off_cors));
 }
 
 get_var_A <- function(A){
