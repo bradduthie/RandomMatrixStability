@@ -40,6 +40,26 @@ source(file = "R/plot_figs.R");
 @Koch1999 Suggests that the results of @May1972 can apply to neuroscience
 
 @May2008 Suggests that random matrix theory can apply to banking
+
+Download: Jansen, V. A., & Kokkoris, G. D. (2003). Complexity and stability revisited. Ecology Letters, 6(6), 498-502.
+
+Hastings, H. M. (1982). The May-Wigner stability theorem. Journal of Theoretical Biology, 97(2), 155-166.
+
+Maybe see how variance in gamma modifies the general findings of May with respect to connectivity and interaction strength? -- Link to variance in off diagonals, which Tang and Allesina (frontiers 2014) finds to be important.
+
+Gray, R. T., & Robinson, P. A. (2008). Stability and synchronization of random brain networks with a distribution of connection strengths. Neurocomputing, 71(7-9), 1373-1387.
+
+Gray & Robinson 2009 Stability of random brain networks with excitatory and inhibitory connections. Neurocomputing
+
+Need to consider that the off-diagonal elements size relative to the diagonal size will affect stability -- higher relative values make things *less* stable. I think this is okay because we're multiplying diagonals and off diagonals by the same values -- this is why if we multiply the whole matrix by a scalar it only affects the magnitude and not the sign of eigenvalues. 
+
+**Idea**: Since the *variance* of the off-diagonal elements (relative to the diagonals? Perhaps the diagonal values?) affects stability -- increased variance increases stability, the relevance of $\gamma$ increases with increasing system size because the variance also increases -- more off-diagonal elements relative to diagonals, and we're essentially adding a new source of variation, $\gamma$
+
+**Idea**: Look at what happens to feasibility when r < 0 for all species. Could even potentially make the argument that this is *expected* for real communities, because in the absence of other components of the system (producers, nutrients, whatever), the growth rate of a population *must* be negative?
+
+Note further, that Allesina report on the criteria of May that \sigma \sqrt{SC} < 1, meaning that \sigma needs to be low for the random matrix to be stable. Hence, the multiplying rows by $\gamma$ is increasing the stability overall by decreasing the variance? This doesn't seem to make sense though -- really it's adding an element of variation, Var(inherent) + Var(due to \gamma).  But, also maybe should think about gamma in relation to element values. If, e.g., components with similar gammas tend to be more likely to interact, then this might be stabilising? **VARIANCE APPEARS HIGHER GIVEN VARIATION IN gamma**
+
+**Potential solution** -- The increase in variation caused by gamma creates a situation of sometimes increasing but sometimes decreasing the correlation between pairs of off diagonal elements, and sometimes increasing but sometimes decreasing total off-diagonal variation. This increase creates more extreme total variations, some of which cause leading eigenvalues to all be negative. Note that the probability of stability versus instability would be affected by creating disproportionately more extreme variation (high or low) communities that are sometimes stable? **THIS DOES NOT APPEAR TO BE THE CASE BASED ON SIMULATION**
 --->
 
 <!---
