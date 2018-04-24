@@ -33,7 +33,27 @@ source(file = "R/plot_figs.R");
 
 ********************************************************************************
 
-**The stability of a complex system generally decreases with increasing system size, as is demonstrated by random matrix theory [@May1972; @Allesina2012]. This counter-intuitive result, first shown by May [@May1972], is broadly relevant for understanding the dynamics and persistence of systems such as chemical, biological, and social networks. Much attention has especially been given to the stability of ecological communities such as food webs or mutualist networks, with recent work investigating how different community structures affect stability [@Haldane2011; @Allesina2012; @Mougi2012; @Allesina2015a; @Gao2016; @Grilli2017; @Patel2018]. But more broadly, stabilising mechanisms in complex systems remain under-developed, and the effect of variation in the response rate of individual system components remains unexplored. Here I show that when components of a complex system respond to system dynamics at different rates, system stability is markedly increased. This increase in stability is especially strong when variation in component response rate ($\gamma$) is high and has a skewed distribution. Further, these effects become increasingly important as system size increases, to the extent that the largest stable complex systems would otherwise be unstable if not for variation in $\gamma$. My results therefore reveal a previously unconsidered driver of system stability that is likely to be pervasive across all complex systems. Future research in complex systems should therefore account for the varying response rates of individual system components when assessing whole system stability.** 
+**The stability of a complex system generally decreases with increasing system size, as is demonstrated by random matrix theory [@May1972; @Allesina2012]. This counter-intuitive result, first shown by May [@May1972], is broadly relevant for understanding the dynamics and persistence of systems such as ecological [@May1972; @Allesina2012], neurological [@Gray2008; @Gray2009], biochemical [@Rosenfeld2009; @MacArthur2010] and socio-economic [@Haldane2011; @Suweis2014; @Bardoscia2017] networks. Much attention has especially been given to the stability of ecological communities such as food webs or mutualist networks, with recent work investigating how different community structures affect stability [@Allesina2012; @Mougi2012; @Allesina2015a; @Gao2016; @Grilli2017; @Patel2018]. But more broadly, stabilising mechanisms in complex systems remain under-developed, and the effect of variation in the response rate of individual system components remains unexplored. Here I show that when components of a complex system respond to system dynamics at different rates ($\boldsymbol{\gamma}$), system stability is markedly increased. Stability increases despite higher variation among interaction strengths ($\boldsymbol{\sigma^{2}}$) due to the clustering of eigenvalues at the centre of eigenvalue distributions. This effect of variation in $\boldsymbol{\gamma}$ becomes increasingly important as system size increases, to the extent that the largest stable complex systems would otherwise be unstable if not for $\boldsymbol{Var(\gamma)}$. My results therefore reveal a previously unconsidered driver of system stability that is likely to be pervasive across all complex systems. Future research in complex systems should therefore account for the varying response rates of individual system components when assessing whole system stability.** 
+
+
+<!---
+
+2. Go back to @May1972 and explain the basic idea of random matrices as representing communities. 
+
+
+3. A paragraph with some broad explanation of the idea of matrix stability, along the lines of @Allesina2012. This will effectively explain the idea of random matrix theory to the reader. Explain the general conclusion that stability decreases whenever $\sigma\sqrt{SC} > 1$. Note how the original ecological result has been broadened for different types of networks (e.g., nestedness, predator-prey, mutualist, etc.), 
+
+4. But none of these studies have considered that different components operate on different time scales (but see [e.g. @Patel2018]). Then explain that this, intuitively, should decrease stability because it introduces another source of variation and therefore increases $\sigma$. But then explain that it also changes the distribution of eignvalues, bringing them towards the centre of the plot (figure 1). I show that this actually increases the stability of complex systems.
+
+5. A paragraph introducing, mathematically, how I am adding varying rates of component response -- multipling each row $i$ by a scalar $\gamma_{i}$. First this will be done with some simple function giving $Var(\gamma_{i})$, then in a more structured way such that random components that are more likely to be positively influenced by other components having faster or slower rates (higher or lower $\gamma_{i}$) of response. A sentence or two is needed to suggest what this might mean biologically (e.g., generalist predators have longer generation times than their prey). 
+
+6. A paragraph explaining the results of the random matrices, with brief mention of other types of systems (e.g., predator-prey, mutualist, competitor) presented in supporting information. The obvious increase in stability with different variation of $\gamma_{i}$ will be presented, along with an intuitive explanation of why this is the case (still waiting on simulations -- it would be great if correlation between positive or negative processes and response times led to increased stability, as appears to be the case. I could then argue that $Var(\gamma_{i})$ has a minimum such correlation of zero, and can only increase in stabilisation by having an absolute value of correlation being greater than zero). At least two [key figures](#fig_ideas) will be included, likely with four panels (1. without variation, 2. with unstructured variation, and 3. and 4. with structured variation).
+
+7. Some sort of mention is needed for a couple odd results; first, that in mutualist networks, stability is not affected -- perhaps because of the lack of variance in component response rate given number of interaction types (note, I think, competitive networks can have indirect positives due to intransitive effects). Second, *feasibility* is not increased, so pure ecological networks might not be affected by this (but emphasise that *pure* ecological networks don't really exist in nature -- they are incorporated into evolutionary, economic, social, systems).
+
+8. Some bold statement is needed here -- something to the effect of the argument that nearly all large stable complex systems will be stable *due to* the variation simulated in this paper. The odds that it would be stable without such variation becomes vanishingly small as system size increases.
+
+--->
 
 <!---
 
@@ -53,26 +73,12 @@ Gray & Robinson 2009 Stability of random brain networks with excitatory and inhi
 
 Need to consider that the off-diagonal elements size relative to the diagonal size will affect stability -- higher relative values make things *less* stable. I think this is okay because we're multiplying diagonals and off diagonals by the same values -- this is why if we multiply the whole matrix by a scalar it only affects the magnitude and not the sign of eigenvalues. 
 
-**Idea**: Since the *variance* of the off-diagonal elements (relative to the diagonals? Perhaps the diagonal values?) affects stability -- increased variance increases stability, the relevance of $\gamma$ increases with increasing system size because the variance also increases -- more off-diagonal elements relative to diagonals, and we're essentially adding a new source of variation, $\gamma$
-
-**Idea**: Look at what happens to feasibility when r < 0 for all species. Could even potentially make the argument that this is *expected* for real communities, because in the absence of other components of the system (producers, nutrients, whatever), the growth rate of a population *must* be negative?
-
 Note further, that Allesina report on the criteria of May that \sigma \sqrt{SC} < 1, meaning that \sigma needs to be low for the random matrix to be stable. Hence, the multiplying rows by $\gamma$ is increasing the stability overall by decreasing the variance? This doesn't seem to make sense though -- really it's adding an element of variation, Var(inherent) + Var(due to \gamma).  But, also maybe should think about gamma in relation to element values. If, e.g., components with similar gammas tend to be more likely to interact, then this might be stabilising? **VARIANCE APPEARS HIGHER GIVEN VARIATION IN gamma**
 
 **Potential solution** -- The increase in variation caused by gamma creates a situation of sometimes increasing but sometimes decreasing the correlation between pairs of off diagonal elements, and sometimes increasing but sometimes decreasing total off-diagonal variation. This increase creates more extreme total variations, some of which cause leading eigenvalues to all be negative. Note that the probability of stability versus instability would be affected by creating disproportionately more extreme variation (high or low) communities that are sometimes stable? **THIS DOES NOT APPEAR TO BE THE CASE BASED ON SIMULATION**
 --->
 
-<!---
 
-2. Go back to @May1972 and note how the original ecological result has been broadened for systems such as evolutionary networks, gene regulatory networks, economics, etc. (references needed). Perhaps make the broader point that even local systems have different elements of different types of systems. 
-3. Briefly point out the advances that have been made in terms of network structures (e.g., random versus competitive interactions), but then hit the point that different components of complex systems are expected to respond on different time scales [e.g. @Patel2018], and no one has looked at how this might affect stability of systems more broadly. The current paper is going to show that variation in component response rate increases stability.
-4. A paragraph with some broad explanation of the idea of matrix stability, along the lines of @Allesina2012. This will effectively explain the idea of random matrix theory to the reader.
-5. A paragraph introducing, mathematically, how I am adding varying rates of component response -- multipling each row $i$ by a scalar $\gamma_{i}$. First this will be done with some simple function giving $Var(\gamma_{i})$, then in a more structured way such that random components that are more likely to be positively influenced by other components having faster or slower rates (higher or lower $\gamma_{i}$) of response. A sentence or two is needed to suggest what this might mean biologically (e.g., generalist predators have longer generation times than their prey). 
-6. A paragraph explaining the results of the random matrices, with brief mention of other types of systems (e.g., predator-prey, mutualist, competitor) presented in supporting information. The obvious increase in stability with different variation of $\gamma_{i}$ will be presented, along with an intuitive explanation of why this is the case (still waiting on simulations -- it would be great if correlation between positive or negative processes and response times led to increased stability, as appears to be the case. I could then argue that $Var(\gamma_{i})$ has a minimum such correlation of zero, and can only increase in stabilisation by having an absolute value of correlation being greater than zero). At least two [key figures](#fig_ideas) will be included, likely with four panels (1. without variation, 2. with unstructured variation, and 3. and 4. with structured variation).
-7. Some sort of mention is needed for a couple odd results; first, that in mutualist networks, stability is not affected -- perhaps because of the lack of variance in component response rate given number of interaction types (note, I think, competitive networks can have indirect positives due to intransitive effects). Second, *feasibility* is not increased, so pure ecological networks might not be affected by this (but emphasise that *pure* ecological networks don't really exist in nature -- they are incorporated into evolutionary, economic, social, systems).
-8. Some bold statement is needed here -- something to the effect of the argument that nearly all large stable complex systems will be stable *due to* the variation simulated in this paper. The odds that it would be stable without such variation becomes vanishingly small as system size increases.
-
---->
 
 
 ********************************************************************************
@@ -83,40 +89,71 @@ Note further, that Allesina report on the criteria of May that \sigma \sqrt{SC} 
 
 ********************************************************************************
 
-**Figure 1: Distributions of component response rate ($\boldsymbol{\gamma}$) values in complex systems.** The stabilities of simulated complex systems with these $\gamma$ distributions are compared to otherwise identical complex systems with a fixed component response rate of $\gamma = 1$ across different system sizes ($S$; i.e., component numbers) given a unit $\gamma$ standard deviation ($\sigma_{\gamma} = 1$). Distributions are as follows: (a) uniform, (b) exponential, (c) beta ($\alpha = 0.5$ and $\beta = 0.5$), and (d) gamma ($k = 2$ and $\theta = 2$). Each panel shows 1 million randomly generated $\gamma$ values.
+**Figure 1: Distributions of eigenvalues before (a) and after (b) introducing variation in component response rate ($\boldsymbol{\gamma}$) in complex systems.** Each panel show the same system where $S = 1000$, $C = 1$, and $\sigma = 0.4$. **a.** Eigenvalues plotted in the absence of $Var(\gamma)$ where $E[\gamma] = d = 1$, versus **b.** eigenvalues plotted given $\gamma \sim \mathcal{U}(0, 2)$, which increases the variance of interaction strengths ($\sigma^{2}$) but clusters eigenvalues toward the distribution's centre (-1, 0). Black and red elipses in both panels show the circle centred on the distribution in panels a and b, respectively, which have a radius of $\sigma \sqrt{SC}$.
 
-```{r, eval = TRUE, echo = FALSE, fig.height = 8}
-show_gammas();
+```{r, eval = TRUE, echo = FALSE, fig.height = 6, fig.width = 9}
+A_comp <- NULL;
+A_dat  <- rnorm(n = 1000000, mean = 0, sd = 0.4);
+A_mat  <- matrix(data = A_dat, nrow = 1000);
+C_dat  <- rbinom(n = 1000 * 1000, size = 1, prob = 1);
+C_mat  <- matrix(data = C_dat, nrow = 1000, ncol = 1000);
+A_mat     <- A_mat * C_mat;
+gammas <- runif(n = 1000, min = 0, max = 2);
+mu_gam <- mean(gammas);
+diag(A_mat) <- -1;
+A1     <- gammas * A_mat;
+A0     <- mu_gam * A_mat;
+A0_e   <- eigen(A0)$values;
+A0_r   <- Re(A0_e);
+A0_i   <- Im(A0_e);
+A1_e   <- eigen(A1)$values;
+A1_r   <- Re(A1_e);
+A1_i   <- Im(A1_e);
+
+A0_vm       <- A0;
+diag(A0_vm) <- NA;
+A0vec       <- as.vector(A0_vm);
+A0vec       <- A0vec[is.na(A0vec) == FALSE];
+A1_vm       <- A1;
+diag(A1_vm) <- NA;
+A1vec       <- as.vector(A1_vm);
+A1vec       <- A1vec[is.na(A1vec) == FALSE];
+
+par(mfrow = c(1, 2), mar = c(0.5, 0.5, 0.5, 0.5), oma = c(5, 5, 0, 0));
+plot(A0_r, A0_i, xlim = c(-16.5, 15.5), ylim = c(-16.5,15.5), pch = 4, cex = 0.7,
+     xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, asp = 1);
+vl <- seq(from = 0, to = 2*pi, by = 0.001);
+x0 <- sqrt(1000) * sd(A0vec) * cos(vl) + mean(diag(A0));
+y0 <- sqrt(1000) * sd(A0vec) * sin(vl);
+x1 <- sqrt(1000) * sd(A1vec) * cos(vl) + mean(diag(A1));
+y1 <- sqrt(1000) * sd(A1vec) * sin(vl);
+text(x = -15.5, y = 19, labels = "a", cex = 2);
+points(x = x0, y = y0, type = "l", lwd = 3);
+points(x = x1, y = y1, type = "l", col = "red", lwd = 3, lty = "dashed");
+plot(A1_r, A1_i, xlim = c(-16.5, 15.5), ylim = c(-16.5,15.5), pch = 4, cex = 0.7,
+     xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, asp = 1, col = "red",
+     yaxt = "n");
+text(x = -15.5, y = 19, labels = "b", cex = 2);
+points(x = x1, y = y1, type = "l", col = "red", lwd = 3)
+points(x = x0, y = y0, type = "l", lwd = 3, lty = "dashed");
+mtext(side = 1, "Real", outer = TRUE, line = 3, cex = 2);
+mtext(side = 2, "Imaginary", outer = TRUE, line = 2.5, cex = 2);
 ```
 
 ********************************************************************************
 
-```{r, eval = TRUE, echo = FALSE}
-eig_cloud <- eigen_cloud(sp = 20, iters = 10000);
-Pr_D0     <- sum(eig_cloud$d0[,1] < 0) / length(eig_cloud$d0[,1]);
-Pr_D1     <- sum(eig_cloud$d1[,1] < 0) / length(eig_cloud$d1[,1]);
-Pr_D2     <- sum(eig_cloud$d2[,1] < 0) / length(eig_cloud$d2[,1]);
-Pr_D3     <- sum(eig_cloud$d3[,1] < 0) / length(eig_cloud$d3[,1]);
-Pr_D4     <- sum(eig_cloud$d4[,1] < 0) / length(eig_cloud$d4[,1]);
-```
 
-**Figure 2: Distributions of eigenvalues across different distributions of component response rate  ($\boldsymbol{\gamma}$) values.** Panels show 100000 random communities for $S = 20$ and $C = 1$, where off-diagonal elements are randomly sampled from a standard normal distribution $N(0, 1)$, diagonal elements are $-1$, and each row of elements is multiplied by a random scalar value $\gamma$ sampled from one of four distributions (black points in all sub-panels):  **a**, uniform $\Pr(\gamma = x) = 1/\sqrt{12}$ where $x \in [0, \sqrt{12}]$. **b**, exponential $\Pr(\gamma = x) = e^{-x}$ where $x \geq 0$. **c**, beta $\Pr(\gamma = x) = \frac{x^{\alpha - 1}(1-x)^{\beta - 1}}{B(\alpha, \beta)}$ where $x \in [0, 1]$, and where $B(\alpha, \beta) = \frac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha + \beta)}$ for $\alpha = 0.5$ and $\beta = 0.5$. **d**, gamma $\Pr(\gamma = x) = \frac{1}{\Gamma(k)\theta^{k}}x^{k-1}e^{\frac{-x}{\theta}}$ for $k = 2$ and $\theta = 2$, where $x \in [0, 1]$. Eigenvalues associated with each $\gamma$ distribution are compared with otherwise identical communities in which $\gamma = 1$ (pink points in all sub-panels). In all distributions, $SD(\gamma) = 1$; note that $\gamma$ distributions cannot be mean standardised without changing the sign of some community matrix elements, but the sign of eigenvalues (and therefore community stability) is unaffected by multiplying elements by any scalar value. Proportions of real components of eigenvalues (x-axis) below 0 are (a) `r Pr_D1`, (b) `r Pr_D2`, (c) `r Pr_D3`, (d) `r Pr_D4`, as compared to `r Pr_D0` when $\gamma = 1$.
+**Figure 2: Stability of large complex systems with and without variation in component response rate ($\boldsymbol{\gamma}$).** The $\ln$ number of systems that are stable across different system sizes ($S$) given $C = 1$, and the proportion of systems in which variation in $\gamma$ is critical for system stability. For each $S$, 1 million complex systems are randomly generated. Stability of each complex system is tested given variation in $\gamma$ by randomly sampling $\gamma \sim \mathcal{U}(0, 2)$. Stability given $Var(\gamma)$ is then compared to stability in an otherwise identical system in which $\gamma = E[\mathcal{U}(0, 2)]$ for all components. Red and black bars show the number of stable systems in the absence and presence of variance in $\gamma$, respectively. Blue lines show the proportion of systems that are stable when $Var(\gamma) > 0$, but would be unstable if $Var(\gamma) = 0$.
 
 ```{r, eval = TRUE, echo = FALSE, fig.height = 8}
-eig_plot(ecl = eig_cloud);
+#dat <- read.csv(file = "sim_results/C_1/random_all.csv");
+#stable_N_plot(dat);
 ```
+
 
 ********************************************************************************
 
-**Figure 3: Stability of large complex systems with and without variation in component response rate ($\boldsymbol{\gamma}$).** Panels show the $\ln$ number of systems that are stable across different system sizes ($S$) given $C = 1$, and the proportion of systems in which variation in $\gamma$ is critical for system stability. For each $S$, 1 million complex systems are randomly generated and tested for stability before and after variation in $\gamma$ is included at four different distributions: **a**, uniform, **b**, exponential, **c**, beta, and **d**, gamma. Red and black bars show the number of stable systems in the absence and presence of variance in $\gamma$, respectively. Blue lines show the proportion of systems that are stable when $Var(\gamma) > 0$, but would be unstable if $Var(\gamma) = 0$.
-
-```{r, eval = TRUE, echo = FALSE, fig.height = 8}
-dat <- read.csv(file = "sim_results/C_1/random_all.csv");
-stable_N_plot(dat);
-```
-
-
-
+**Figure 3: Distributions of variation in component response time evolved to generate stable systems**
 
 
 
