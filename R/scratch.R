@@ -642,10 +642,16 @@ points(x = x0, y = y0, type = "l", col = "red", lwd = 3)
 
 
 
+
+
+
 A_comp <- NULL;
 A_dat  <- rnorm(n = 1000000, mean = 0, sd = 0.4);
 A_mat  <- matrix(data = A_dat, nrow = 1000);
-gammas <- runif(n = 1000, min = 0, max = 1);
+C_dat  <- rbinom(n = 1000 * 1000, size = 1, prob = 1);
+C_mat  <- matrix(data = C_dat, nrow = 1000, ncol = 1000);
+A_mat     <- A_mat * C_mat;
+gammas <- runif(n = 1000, min = 0, max = 2);
 mu_gam <- mean(gammas);
 diag(A_mat) <- -1;
 A1     <- gammas * A_mat;
@@ -667,20 +673,20 @@ A1vec       <- as.vector(A1_vm);
 A1vec       <- A1vec[is.na(A1vec) == FALSE];
 
 par(mfrow = c(1, 2), mar = c(0.5, 0.5, 0.5, 0.5), oma = c(5, 5, 0, 0));
-plot(A0_r, A0_i, xlim = c(-8.75, 8.25), ylim = c(-8.5,8.5), pch = 4, cex = 0.7,
+plot(A0_r, A0_i, xlim = c(-16.75, 16.25), ylim = c(-16.5,16.5), pch = 4, cex = 0.7,
      xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, asp = 1);
 vl <- seq(from = 0, to = 2*pi, by = 0.001);
 x0 <- sqrt(1000) * sd(A0vec) * cos(vl) + mean(diag(A0));
 y0 <- sqrt(1000) * sd(A0vec) * sin(vl);
 x1 <- sqrt(1000) * sd(A1vec) * cos(vl) + mean(diag(A1));
 y1 <- sqrt(1000) * sd(A1vec) * sin(vl);
-text(x = -9.5, y = 8, labels = "a", cex = 2);
+text(x = -19, y = 14, labels = "a", cex = 2);
 points(x = x0, y = y0, type = "l", lwd = 3);
 points(x = x1, y = y1, type = "l", col = "red", lwd = 3, lty = "dashed");
-plot(A1_r, A1_i, xlim = c(-8.75, 8.25), ylim = c(-8.5,8.5), pch = 4, cex = 0.7,
+plot(A1_r, A1_i, xlim = c(-16.75, 16.25), ylim = c(-16.5,16.5), pch = 4, cex = 0.7,
      xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, asp = 1, col = "red",
      yaxt = "n");
-text(x = -9.5, y = 8, labels = "b", cex = 2);
+text(x = -19, y = 14, labels = "b", cex = 2);
 points(x = x1, y = y1, type = "l", col = "red", lwd = 3)
 points(x = x0, y = y0, type = "l", lwd = 3, lty = "dashed");
 mtext(side = 1, "Real", outer = TRUE, line = 3, cex = 2);
