@@ -145,9 +145,10 @@ mtext(side = 2, "Imaginary", outer = TRUE, line = 2.5, cex = 2);
 
 **Figure 2: Stability of large complex systems with and without variation in component response rate ($\boldsymbol{\gamma}$).** The $\ln$ number of systems that are stable across different system sizes ($S$) given $C = 1$, and the proportion of systems in which variation in $\gamma$ is critical for system stability. For each $S$, 1 million complex systems are randomly generated. Stability of each complex system is tested given variation in $\gamma$ by randomly sampling $\gamma \sim \mathcal{U}(0, 2)$. Stability given $Var(\gamma)$ is then compared to stability in an otherwise identical system in which $\gamma = E[\mathcal{U}(0, 2)]$ for all components. Red and black bars show the number of stable systems in the absence and presence of variance in $\gamma$, respectively. Blue lines show the proportion of systems that are stable when $Var(\gamma) > 0$, but would be unstable if $Var(\gamma) = 0$.
 
-```{r, eval = TRUE, echo = FALSE, fig.height = 8}
-#dat <- read.csv(file = "sim_results/C_1/random_all.csv");
-#stable_N_plot(dat);
+```{r, eval = TRUE, echo = FALSE, fig.width = 9, fig.height = 7}
+dat <- read.csv(file = "sim_results/C_1/random_all.csv");
+dat <- dat[,-1];
+plot_stables(dat);
 ```
 
 
