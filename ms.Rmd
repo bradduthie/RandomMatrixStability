@@ -35,8 +35,12 @@ source(file = "R/plot_figs.R");
 
 **The stability of a complex system generally decreases with increasing system size, as is demonstrated by random matrix theory [@May1972; @Allesina2012]. This counter-intuitive result, first shown by May [@May1972], is broadly relevant for understanding the dynamics and persistence of systems such as ecological [@May1972; @Allesina2012], neurological [@Gray2008; @Gray2009], biochemical [@Rosenfeld2009; @MacArthur2010] and socio-economic [@Haldane2011; @Suweis2014; @Bardoscia2017] networks. Much attention has especially been given to the stability of ecological communities such as food webs or mutualist networks, with recent work investigating how different community structures affect stability [@Allesina2012; @Mougi2012; @Allesina2015a; @Gao2016; @Grilli2017; @Patel2018]. But more broadly, stabilising mechanisms in complex systems remain under-developed, and the effect of variation in the response rate of individual system components remains unexplored. Here I show that when components of a complex system respond to system dynamics at different rates ($\boldsymbol{\gamma}$), system stability is markedly increased. Stability increases despite higher variation among interaction strengths ($\boldsymbol{\sigma^{2}}$) due to the clustering of eigenvalues at the centre of eigenvalue distributions. This effect of variation in $\boldsymbol{\gamma}$ becomes increasingly important as system size increases, to the extent that the largest stable complex systems would otherwise be unstable if not for $\boldsymbol{Var(\gamma)}$. My results therefore reveal a previously unconsidered driver of system stability that is likely to be pervasive across all complex systems. Future research in complex systems should therefore account for the varying response rates of individual system components when assessing whole system stability.** 
 
+In 1972, May [@May1972] first demonstrated that randomly assembled systems of sufficient complexity are almost inevitably unstable given infinitesimally small perturbations. Complexity in this case is defined by the size of the system (i.e., the number of interacting components; $S$), its inter-connectivity (i.e., the probability that one component will affect another; $C$), and the variance of interaction strengths ($\sigma^{2}$)[@Allesina2012]. May's finding that the probability of local stability falls to near zero given a sufficiently high threshold of $\sigma\sqrt{SC}$ has profound consequences across multiple disciplines, raising the question of how complex systems in, e.g., ecology[@Mougi2012; @Allesina2012; @Allesina2015; @Grilli2017] or banking [@May2008; @Haldane2011; @Bardoscia2017] are predicted to persist or change.
 
 <!---
+
+Part of the answer might be that communities aren't actually random ....
+
 
 2. Go back to @May1972 and explain the basic idea of random matrices as representing communities. 
 
@@ -89,9 +93,7 @@ Note further, that Allesina report on the criteria of May that \sigma \sqrt{SC} 
 
 ********************************************************************************
 
-**Figure 1: Distributions of eigenvalues before (a) and after (b) introducing variation in component response rate ($\boldsymbol{\gamma}$) in complex systems.** Each panel show the same system where $S = 1000$, $C = 1$, and $\sigma = 0.4$. **a.** Eigenvalues plotted in the absence of $Var(\gamma)$ where $E[\gamma] = d = 1$, versus **b.** eigenvalues plotted given $\gamma \sim \mathcal{U}(0, 2)$, which increases the variance of interaction strengths ($\sigma^{2}$) but clusters eigenvalues toward the distribution's centre (-1, 0). Black and red elipses in both panels show the circle centred on the distribution in panels a and b, respectively, which have a radius of $\sigma \sqrt{SC}$.
-
-```{r, eval = TRUE, echo = FALSE, fig.height = 6, fig.width = 9}
+```{r, echo = FALSE}
 A_comp <- NULL;
 A_dat  <- rnorm(n = 1000000, mean = 0, sd = 0.4);
 A_mat  <- matrix(data = A_dat, nrow = 1000);
@@ -118,7 +120,11 @@ A1_vm       <- A1;
 diag(A1_vm) <- NA;
 A1vec       <- as.vector(A1_vm);
 A1vec       <- A1vec[is.na(A1vec) == FALSE];
+```
 
+**Figure 1: Distributions of eigenvalues before (a) and after (b) introducing variation in component response rate ($\boldsymbol{\gamma}$) in complex systems.** Each panel show the same system where $S = 1000$, $C = 1$, and $\sigma = 0.4$. **a.** Eigenvalues plotted in the absence of $Var(\gamma)$ where $E[\gamma] = d = 1$, versus **b.** eigenvalues plotted given $\gamma \sim \mathcal{U}(0, 2)$, which increases the variance of interaction strengths ($\sigma^{2}$) but clusters eigenvalues toward the distribution's centre (-1, 0). Black and red elipses in both panels show the circle centred on the distribution in panels a and b, respectively, which have a radius of $\sigma \sqrt{SC}$. Proportions of $\Re(\lambda) < 0$ are `r sum(A0_r < 0) / length(A0_r)` and `r sum(A1_r < 0) / length(A1_r)` for a and b, respectively.
+
+```{r, eval = TRUE, echo = FALSE, fig.height = 6, fig.width = 9}
 par(mfrow = c(1, 2), mar = c(0.5, 0.5, 0.5, 0.5), oma = c(5, 5, 0, 0));
 plot(A0_r, A0_i, xlim = c(-16.5, 15.5), ylim = c(-16.5,15.5), pch = 4, cex = 0.7,
      xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, asp = 1);
