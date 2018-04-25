@@ -368,10 +368,10 @@ plot_stables <- function(dat, S_s = 32){
     log_bar_dat                  <- log(bar_dat);
     log_bar_dat[log_bar_dat < 0] <- 0; 
     barplot(log_bar_dat, beside = TRUE, col = c("grey80", "grey40"),
-            names.arg = dat[Ns,1], ylim = c(0, 15), xlab = "",
+            names.arg = dat[Ns,1], ylim = c(0, 16), xlab = "",
             ylab = "Ln number of stable communities", cex.lab = 1, 
             cex.axis = 1.25, xlim = c(1, 94), cex.names = 1, yaxt = "n");
-    axis(side = 2, at = c(0, 2, 4, 6, 8, 10, 12), cex.axis = 1.5);
+    axis(side = 2, at = c(0, 2, 4, 6, 8, 10, 12, 14), cex.axis = 1.5);
     box(lwd = 2);
     par(new = TRUE);
     y1     <- dat[1:S_s,6] / (dat[1:S_s,5]);
