@@ -101,8 +101,8 @@ gamma2 <- c(1/18, rep(1 + (17/18)/999, 999));
 #gamma2 <- c(1/40, rep(1 + (39/40)/999, 999));
 mu_gam <- mean(gammas);
 diag(A_mat) <- -1;
-A1     <- gamma1 * A_mat;
-A0     <- gamma2 * A_mat;
+A0     <- gamma1 * A_mat;
+A1     <- gamma2 * A_mat;
 A0_e   <- eigen(A0)$values;
 A0_r   <- Re(A0_e);
 A0_i   <- Im(A0_e);
@@ -192,6 +192,83 @@ mtext(side = 2, "Imaginary", outer = TRUE, line = 2.5, cex = 2);
 ```
 
 I have added the blue vertical line where the x-axis equals zero. In **a**, the lowest real eigenvalue is `r min(A0_r)` and the highest is `r max(A0_r)`, while in **b**, the lowest real eigenvalue is `r min(A1_r)` and the highest is `r max(A1_r)`. But note the clump in **b**. Instead of being uniform, there are low values and high values. Overall, there are `r sum(A0_r < 0)` eigenvalues in **a** where the real component is less than zero, and there are `r sum(A1_r < 0)` eigenvalues in **b** where the real component is less than zero. Overall, because the mean is forced such that $E[\Re{(\lambda_{1})}] = 1$ (the mean on the x-axis is exactly -1 in both panels), the smaller circle on the inside created where the subset of $\gamma$ values is very low has a small probability of pulling real eigenvalues to the left of 0, and in smaller systems (lower $S$), these eigenvalues can be the leading one, thereby stabilising the system.
+
+Note that the sum of the real components of all eigenvalues needs to equal the sum of the diagonal of a matrix [@Allesina2015]. So we can break the two haves of the matrix represented by **b** above into the upper half where the sum equals `r sum(diag(A1[1:500, 1:500]))`, and the lower half where the sum equals `r sum(diag(A1[501:1000, 501:1000]))`. We can then partition the eigenvalues in each half, $\lambda_{upper}$ and $\lambda_{lower}$. 
+
+We can also note that the values of the off diagonals in the upper half of the matrix are multiplied by 1.95, so $\sigma_{upper} = \sigma(1.95) = 1.95$ and $\sigma_{lower} = \sigma(0.05) = 0.05$. This effectively creates two circles, one with a radius of $1.95\sqrt{SC}$; this is shown explicitly below with the red circles.
+
+```{r, eval = TRUE, echo = FALSE, fig.height = 6, fig.width = 9}
+A_comp <- NULL;
+A_dat  <- rnorm(n = 1000000, mean = 0, sd = 0.4);
+A_mat  <- matrix(data = A_dat, nrow = 1000);
+C_dat  <- rbinom(n = 1000 * 1000, size = 1, prob = 1);
+C_mat  <- matrix(data = C_dat, nrow = 1000, ncol = 1000);
+A_mat  <- A_mat * C_mat;
+gammas <- c(rep(0.05, 500), rep(1.95, 500));
+mu_gam <- mean(gammas);
+diag(A_mat) <- -1;
+A1     <- gammas * A_mat;
+A0     <- mu_gam * A_mat;
+A0_e   <- eigen(A0)$values;
+A0_r   <- Re(A0_e);
+A0_i   <- Im(A0_e);
+A1_e   <- eigen(A1)$values;
+A1_r   <- Re(A1_e);
+A1_i   <- Im(A1_e);
+
+A0_vm       <- A0;
+diag(A0_vm) <- NA;
+A0vec       <- as.vector(A0_vm);
+A0vec       <- A0vec[is.na(A0vec) == FALSE];
+A1_vm       <- A1;
+diag(A1_vm) <- NA;
+A1vec       <- as.vector(A1_vm);
+A1vec       <- A1vec[is.na(A1vec) == FALSE];
+par(mfrow = c(1, 2), mar = c(0.5, 0.5, 0.5, 0.5), oma = c(5, 5, 0, 0));
+plot(A0_r, A0_i, xlim = c(-19.5, 16.5), ylim = c(-19.5,16.5), pch = 4, cex = 0.7,
+     xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, asp = 1);
+vl <- seq(from = 0, to = 2*pi, by = 0.001);
+x0 <- sqrt(1000) * sd(A0vec) * cos(vl) + mean(diag(A0));
+y0 <- sqrt(1000) * sd(A0vec) * sin(vl);
+x1 <- sqrt(1000) * sd(A1vec) * cos(vl) + mean(diag(A1));
+y1 <- sqrt(1000) * sd(A1vec) * sin(vl);
+text(x = -16.5, y = 14, labels = "a", cex = 2);
+abline(v = 0, col = "blue");
+points(x = x0, y = y0, type = "l", lwd = 3);
+points(x = x1, y = y1, type = "l", col = "red", lwd = 3, lty = "dashed");
+plot(A1_r, A1_i, xlim = c(-19.5, 16.5), ylim = c(-19.5,16.5), pch = 4, cex = 0.7,
+     xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, asp = 1, col = "red",
+     yaxt = "n");
+A1_vm       <- A1;
+diag(A1_vm) <- NA;
+A1vecU      <- as.vector(A1_vm[1:500,]);
+A1vecU      <- A1vecU[is.na(A1vecU) == FALSE];
+A1vecL      <- as.vector(A1_vm[501:1000,]);
+A1vecL      <- A1vecL[is.na(A1vecL) == FALSE];
+x0 <- sqrt(500) * sd(A1vecU) * cos(vl) + mean(diag(A1[1:500,1:500]));
+y0 <- sqrt(500) * sd(A1vecU) * sin(vl);
+x1 <- sqrt(500) * sd(A1vecL) * cos(vl) + mean(diag(A1[501:1000,501:1000]));
+y1 <- sqrt(500) * sd(A1vecL ) * sin(vl);
+text(x = -16.5, y = 14, labels = "b", cex = 2);
+abline(v = 0, col = "blue");
+points(x = x1, y = y1, type = "l", col = "orange", lwd = 2)
+points(x = x0, y = y0, type = "l", lwd = 2, lty = "solid", col = "orange");
+
+A1_vm       <- A1;
+diag(A1_vm) <- NA;
+A1vec       <- as.vector(A1_vm);
+A1vec       <- A1vec[is.na(A1vec) == FALSE];
+x3 <- sqrt(1000) * sd(A1vec) * cos(vl) + mean(diag(A1));
+y3 <- sqrt(1000) * sd(A1vec) * sin(vl);
+points(x = x3, y = y3, type = "l", col = "red", lwd = 3, lty = "dashed");
+
+mtext(side = 1, "Real", outer = TRUE, line = 3, cex = 2);
+mtext(side = 2, "Imaginary", outer = TRUE, line = 2.5, cex = 2);
+```
+
+Note that the large orange is pushed leftward (red dashed circles are identical), though I am not entirely sure why yet. It should be noted that the upper-left and lower-right squares of the matrix should be partitionable. The remaining squares have off-diagonals pulled from matching distributions, so we should really be able to think of the whole thing as a combination of the upper and lower rows, I think. 
+
+Also note how the smaller circle is pulled rightwards (centre = `r mean(x0)`) while the larger circle is pulled leftwards (centre = `r mean(x1)`), while the overall centre remains the same (red dashed circle, centre = `r mean(x3)`).
 
 **UPDATE 8 APR**:
 
