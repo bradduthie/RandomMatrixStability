@@ -650,7 +650,9 @@ A_dat  <- rnorm(n = 1000000, mean = 0, sd = 0.4);
 A_mat  <- matrix(data = A_dat, nrow = 1000);
 C_dat  <- rbinom(n = 1000 * 1000, size = 1, prob = 1);
 C_mat  <- matrix(data = C_dat, nrow = 1000, ncol = 1000);
-A_mat     <- A_mat * C_mat;
+A_mat  <- A_mat * C_mat;
+#gammas <- c(20, rep(1, 999));
+#gammas <- c(rep(1.5, 500), rep(0.5, 500))
 gammas <- runif(n = 1000, min = 0, max = 2);
 mu_gam <- mean(gammas);
 diag(A_mat) <- -1;
