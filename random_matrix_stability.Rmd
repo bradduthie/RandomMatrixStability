@@ -32,6 +32,167 @@ biblio-style: apalike
 
 ********************************************************************************
 
+**UPDATE 28 APR**:
+
+I have made some more work on [the manuscript](https://bradduthie.github.io/random_matrix_stability/ms.html). The different distributions of $\gamma$ are now not the central focus. Instead, I want to focus more on the distribution of eigenvalues and allow a uniform distribution $\gamma \sim \mathcal{U}(0, 2)$. I want to show the eigenvalues plotted out and go into a bit more detail of what is actually driving these distributions. The figure below shows one plot **a** where $\gamma = E[\gamma] \approx 1$ and one plot **b** where $\gamma \sim \mathcal{U}(0, 2)$. The sum of the eigenvalues needs to equal the sum of the rows [@Allesina2012], so the sum of the eigenvalues is identical in each.
+
+```{r, eval = TRUE, echo = FALSE, fig.height = 6, fig.width = 9}
+A_comp <- NULL;
+A_dat  <- rnorm(n = 1000000, mean = 0, sd = 0.4);
+A_mat  <- matrix(data = A_dat, nrow = 1000);
+C_dat  <- rbinom(n = 1000 * 1000, size = 1, prob = 1);
+C_mat  <- matrix(data = C_dat, nrow = 1000, ncol = 1000);
+A_mat     <- A_mat * C_mat;
+gammas <- runif(n = 1000, min = 0, max = 2);
+mu_gam <- mean(gammas);
+diag(A_mat) <- -1;
+A1     <- gammas * A_mat;
+A0     <- mu_gam * A_mat;
+A0_e   <- eigen(A0)$values;
+A0_r   <- Re(A0_e);
+A0_i   <- Im(A0_e);
+A1_e   <- eigen(A1)$values;
+A1_r   <- Re(A1_e);
+A1_i   <- Im(A1_e);
+
+A0_vm       <- A0;
+diag(A0_vm) <- NA;
+A0vec       <- as.vector(A0_vm);
+A0vec       <- A0vec[is.na(A0vec) == FALSE];
+A1_vm       <- A1;
+diag(A1_vm) <- NA;
+A1vec       <- as.vector(A1_vm);
+A1vec       <- A1vec[is.na(A1vec) == FALSE];
+par(mfrow = c(1, 2), mar = c(0.5, 0.5, 0.5, 0.5), oma = c(5, 5, 0, 0));
+plot(A0_r, A0_i, xlim = c(-16.5, 15.5), ylim = c(-16.5,15.5), pch = 4, cex = 0.7,
+     xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, asp = 1);
+vl <- seq(from = 0, to = 2*pi, by = 0.001);
+x0 <- sqrt(1000) * sd(A0vec) * cos(vl) + mean(diag(A0));
+y0 <- sqrt(1000) * sd(A0vec) * sin(vl);
+x1 <- sqrt(1000) * sd(A1vec) * cos(vl) + mean(diag(A1));
+y1 <- sqrt(1000) * sd(A1vec) * sin(vl);
+text(x = -15.5, y = 19, labels = "a", cex = 2);
+points(x = x0, y = y0, type = "l", lwd = 3);
+points(x = x1, y = y1, type = "l", col = "red", lwd = 3, lty = "dashed");
+plot(A1_r, A1_i, xlim = c(-16.5, 15.5), ylim = c(-16.5,15.5), pch = 4, cex = 0.7,
+     xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, asp = 1, col = "red",
+     yaxt = "n");
+text(x = -15.5, y = 19, labels = "b", cex = 2);
+points(x = x1, y = y1, type = "l", col = "red", lwd = 3)
+points(x = x0, y = y0, type = "l", lwd = 3, lty = "dashed");
+mtext(side = 1, "Real", outer = TRUE, line = 3, cex = 2);
+mtext(side = 2, "Imaginary", outer = TRUE, line = 2.5, cex = 2);
+```
+
+It's worth noting that the **b** in the figure above resembles the power law graph of @Allesina2015, which also has variation in the distribution of values due to the structure of connectivity ($C$). It's also worth looking at a what happens when only 1 $\gamma$ out of the 1000 total is different. The plot on below in subpanel **a** shows what happens when one $\gamma = 18$ and the rest are $\gamma = 1 - 17/999$ (causing $E[\gamma] = 1$). The plot in subpanel **b** shows what happens when one $\gamma = 1/18$ and the rest are $\gamma = 1 + (17/18)/999$ (also causing $E[\gamma] = 1$).
+
+```{r, eval = TRUE, echo = FALSE, fig.height = 6, fig.width = 9}
+A_comp <- NULL;
+A_dat  <- rnorm(n = 1000000, mean = 0, sd = 0.4);
+A_mat  <- matrix(data = A_dat, nrow = 1000);
+C_dat  <- rbinom(n = 1000 * 1000, size = 1, prob = 1);
+C_mat  <- matrix(data = C_dat, nrow = 1000, ncol = 1000);
+A_mat  <- A_mat * C_mat;
+#gamma1 <- c(4,   rep(1 - 1/333,  999));
+#gamma2 <- c(1/4, rep(1 + 1/1332, 999));
+gamma1 <- c(18,   rep(1 - 17/999,  999));
+gamma2 <- c(1/18, rep(1 + (17/18)/999, 999));
+#gamma1 <- c(40,   rep(1 - 13/333,  999));
+#gamma2 <- c(1/40, rep(1 + (39/40)/999, 999));
+mu_gam <- mean(gammas);
+diag(A_mat) <- -1;
+A1     <- gamma1 * A_mat;
+A0     <- gamma2 * A_mat;
+A0_e   <- eigen(A0)$values;
+A0_r   <- Re(A0_e);
+A0_i   <- Im(A0_e);
+A1_e   <- eigen(A1)$values;
+A1_r   <- Re(A1_e);
+A1_i   <- Im(A1_e);
+
+A0_vm       <- A0;
+diag(A0_vm) <- NA;
+A0vec       <- as.vector(A0_vm);
+A0vec       <- A0vec[is.na(A0vec) == FALSE];
+A1_vm       <- A1;
+diag(A1_vm) <- NA;
+A1vec       <- as.vector(A1_vm);
+A1vec       <- A1vec[is.na(A1vec) == FALSE];
+par(mfrow = c(1, 2), mar = c(0.5, 0.5, 0.5, 0.5), oma = c(5, 5, 0, 0));
+plot(A0_r, A0_i, xlim = c(-20.5, 15.5), ylim = c(-16.5,15.5), pch = 4, cex = 0.7,
+     xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, asp = 1);
+vl <- seq(from = 0, to = 2*pi, by = 0.001);
+x0 <- sqrt(1000) * sd(A0vec) * cos(vl) + mean(diag(A0));
+y0 <- sqrt(1000) * sd(A0vec) * sin(vl);
+x1 <- sqrt(1000) * sd(A1vec) * cos(vl) + mean(diag(A1));
+y1 <- sqrt(1000) * sd(A1vec) * sin(vl);
+text(x = -15.5, y = 16, labels = "a", cex = 2);
+points(x = x0, y = y0, type = "l", lwd = 3);
+points(x = x1, y = y1, type = "l", col = "red", lwd = 3, lty = "dashed");
+plot(A1_r, A1_i, xlim = c(-20.5, 15.5), ylim = c(-16.5,15.5), pch = 4, cex = 0.7,
+     xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, asp = 1, col = "red",
+     yaxt = "n");
+text(x = -15.5, y = 16, labels = "b", cex = 2);
+points(x = x1, y = y1, type = "l", col = "red", lwd = 3)
+points(x = x0, y = y0, type = "l", lwd = 3, lty = "dashed");
+mtext(side = 1, "Real", outer = TRUE, line = 3, cex = 2);
+mtext(side = 2, "Imaginary", outer = TRUE, line = 2.5, cex = 2);
+```
+
+This does not add a whole lot of insight into what is happening, although it does show a couple eigenvalues leaving the circle in **b**. In **a**, the lowest real eigenvalue is `r min(A0_r)` and the highest is `r max(A0_r)`, while in **b**, the lowest real eigenvalue is `r min(A1_r)` and the highest is `r max(A1_r)`. More revealing is to consider a situation where only two values of $\gamma$ exist: 0.05 and 1.95. By selecting half $\gamma$ to be each, it becomes a bit clearer to see what is going on. In the
+
+```{r, eval = TRUE, echo = FALSE, fig.height = 6, fig.width = 9}
+A_comp <- NULL;
+A_dat  <- rnorm(n = 1000000, mean = 0, sd = 0.4);
+A_mat  <- matrix(data = A_dat, nrow = 1000);
+C_dat  <- rbinom(n = 1000 * 1000, size = 1, prob = 1);
+C_mat  <- matrix(data = C_dat, nrow = 1000, ncol = 1000);
+A_mat  <- A_mat * C_mat;
+gammas <- c(rep(0.05, 500), rep(1.95, 500));
+mu_gam <- mean(gammas);
+diag(A_mat) <- -1;
+A1     <- gammas * A_mat;
+A0     <- mu_gam * A_mat;
+A0_e   <- eigen(A0)$values;
+A0_r   <- Re(A0_e);
+A0_i   <- Im(A0_e);
+A1_e   <- eigen(A1)$values;
+A1_r   <- Re(A1_e);
+A1_i   <- Im(A1_e);
+
+A0_vm       <- A0;
+diag(A0_vm) <- NA;
+A0vec       <- as.vector(A0_vm);
+A0vec       <- A0vec[is.na(A0vec) == FALSE];
+A1_vm       <- A1;
+diag(A1_vm) <- NA;
+A1vec       <- as.vector(A1_vm);
+A1vec       <- A1vec[is.na(A1vec) == FALSE];
+par(mfrow = c(1, 2), mar = c(0.5, 0.5, 0.5, 0.5), oma = c(5, 5, 0, 0));
+plot(A0_r, A0_i, xlim = c(-19.5, 15.5), ylim = c(-19.5,15.5), pch = 4, cex = 0.7,
+     xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, asp = 1);
+vl <- seq(from = 0, to = 2*pi, by = 0.001);
+x0 <- sqrt(1000) * sd(A0vec) * cos(vl) + mean(diag(A0));
+y0 <- sqrt(1000) * sd(A0vec) * sin(vl);
+x1 <- sqrt(1000) * sd(A1vec) * cos(vl) + mean(diag(A1));
+y1 <- sqrt(1000) * sd(A1vec) * sin(vl);
+text(x = -16.5, y = 14, labels = "a", cex = 2);
+abline(v = 0, col = "blue");
+points(x = x0, y = y0, type = "l", lwd = 3);
+points(x = x1, y = y1, type = "l", col = "red", lwd = 3, lty = "dashed");
+plot(A1_r, A1_i, xlim = c(-19.5, 15.5), ylim = c(-19.5,15.5), pch = 4, cex = 0.7,
+     xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, asp = 1, col = "red",
+     yaxt = "n");
+text(x = -16.5, y = 14, labels = "b", cex = 2);
+abline(v = 0, col = "blue");
+points(x = x1, y = y1, type = "l", col = "red", lwd = 3)
+points(x = x0, y = y0, type = "l", lwd = 3, lty = "dashed");
+mtext(side = 1, "Real", outer = TRUE, line = 3, cex = 2);
+mtext(side = 2, "Imaginary", outer = TRUE, line = 2.5, cex = 2);
+```
+
+I have added the blue vertical line where the x-axis equals zero. In **a**, the lowest real eigenvalue is `r min(A0_r)` and the highest is `r max(A0_r)`, while in **b**, the lowest real eigenvalue is `r min(A1_r)` and the highest is `r max(A1_r)`. But note the clump in **b**. Instead of being uniform, there are low values and high values. Overall, there are `r sum(A0_r < 0)` eigenvalues in **a** where the real component is less than zero, and there are `r sum(A1_r < 0)` eigenvalues in **b** where the real component is less than zero. Overall, because the mean is forced such that $E[\Re{(\lambda_{1})}] = 1$ (the mean on the x-axis is exactly -1 in both panels), the smaller circle on the inside created where the subset of $\gamma$ values is very low has a small probability of pulling real eigenvalues to the left of 0, and in smaller systems (lower $S$), these eigenvalues can be the leading one, thereby stabilising the system.
+
 **UPDATE 8 APR**:
 
 **New result -- a correlation between the number of positive or negative values in a row of the Jacobian matrix (e.g., corresponding to a species that is generally positively affected by increases in other species -- generalist predator, or generally negatively affected by increases in other species -- a producer or resource), and the response rate of that row (e.g., species generation), is *highly* stabilising, and I believe that I can dig into the matrices and show that *this* is the mechanism that is tweaked when $Var(\gamma_{i})$ is included. In other words, variation in generation time inevitably increases or decreases the correlation (from zero) between sum of row signs and *types* of interactions and generation time -- which I will now generalise to something like reaction rate.** I will present these results in figures soon. I will also show that 1. general variation in $\gamma_{i}$ changes the correlation between sign counts and generation rate and 2. when this correlation is higher or lower, eigen values are more likely to all be negative.
@@ -594,7 +755,8 @@ To check the feasibility criteria, all that needs to be done is to invert $(\the
 
 ```{r, echo = FALSE}
 library(knitr);
-dat  <- read.table(file = "mat_dat.csv", header = TRUE, sep = ",");
+dat  <- read.table(file = "sim_results_old/oldest/mat_dat.csv", 
+                   header = TRUE, sep = ",");
 dat  <- cbind(dat, (dat[,3] - dat[,5]) + dat[,4]);
 rownames(dat) <- NULL;
 colnames(dat) <- c("Species (S)", "Unstable", "Stable", "Stabilised", 
@@ -718,7 +880,8 @@ for(i in mags){
 }
 ```
 ```{r, echo = FALSE, eval = TRUE}
-mag_var <- read.table(file = "var_gen_mag.csv", header = TRUE, sep = ",");
+mag_var <- read.table(file = "sim_results_old/oldest/var_gen_mag.csv", 
+                      header = TRUE, sep = ",");
 stabi_3 <- mag_var[,3] / 10000000;
 par(mar = c(5, 5, 2, 1));
 plot(x = log10(mag_var[,1]), y = stabi_3, type = "b", lwd = 2, ylim = c(0, 0.0005),
