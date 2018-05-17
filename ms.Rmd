@@ -94,6 +94,67 @@ Note further, that Allesina report on the criteria of May that \sigma \sqrt{SC} 
 ********************************************************************************
 
 ```{r, echo = FALSE}
+A0 <- read.csv(file = "sim_results/bi_gamma/S200_A0.csv");
+A0 <- as.matrix(A0[,-1]);
+A1 <- read.csv(file = "sim_results/bi_gamma/S200_A1.csv");
+A1 <- as.matrix(A1[,-1]);
+
+A0_e   <- eigen(A0)$values;
+A0_r   <- Re(A0_e);
+A0_i   <- Im(A0_e);
+A1_e   <- eigen(A1)$values;
+A1_r   <- Re(A1_e);
+A1_i   <- Im(A1_e);
+
+A0_vm       <- A0;
+diag(A0_vm) <- NA;
+A0vec       <- as.vector(t(A0_vm));
+A0vec       <- A0vec[is.na(A0vec) == FALSE];
+A1_vm       <- A1;
+diag(A1_vm) <- NA;
+A1vec       <- as.vector(t(A1_vm));
+A1vec       <- A1vec[is.na(A1vec) == FALSE];
+fhalf       <- 1:(0.5*length(A1vec));
+shalf       <- (0.5*length(A1vec)+1):length(A1vec);
+pr_st       <- read.csv(file = "sim_results/bi_gamma/bi_pr_st.csv");
+pr_st       <- pr_st[,-1];
+```
+
+**Figure 1: Example distribution of eigenvalues before (a) and after (b) separating a randomly generated complex system into fast ($\boldsymbol{\gamma} = 1.95$) and slow ($\boldsymbol{\gamma} = 0.05$) component response rates.** Each panel shows the same system where $S = 200$, $C = 0.05$, and $\sigma = 0.4$, and in each case $E[\gamma] = 1$ (i.e., only the distribution of $\gamma$ differs between panels).  **a.** Eigenvalues plotted when all $\gamma = 1$; distributions of points are uniformly distributed within the grey circle with a radius of $\sigma\sqrt{SC} =$ `r round(sqrt(200) * sd(A0vec), digits =3)` centred at -1 on the real axis. **b.** Eigenvalues plotted when half $\gamma = 1.95$ and half $\gamma = 0.05$; distributions of points can be partitioned into one large circle of $\sigma\sqrt{SC} =$ `r round(sqrt(100) * sd(A1vec[fhalf]), digits = 3)` centred at $\gamma = -1.95$ and one small circle of $\sigma\sqrt{SC} =$ `r round(sqrt(100) * sd(A1vec[shalf]), digits = 3)` centred at $\gamma = -0.05$. In **a**, the maximum real eigenvalaue $\max\left(\Re(\lambda)\right) =$ `r format(max(A0_r), scientific = FALSE)`, while in **b** $\max\left(\Re(\lambda)\right) =$ `r format(max(A1_r), scientific = FALSE)`, meaning that the complex system in **b** but not **a** is stable. In 1 million randomly generated complex systems under the same parameter values, `r sum(pr_st[,1])` were stable when $\gamma = 1$ while `r sum(pr_st[,2])` were stable when $\gamma = \{1.95, 0.05\}$. Overall, complex systems that are separated into fast versus slow components tend to be more stable than otherwise identical systems with identical component response rates.
+
+```{r, eval = TRUE, echo = FALSE, fig.height = 6, fig.width = 9}
+par(mfrow = c(1, 2), mar = c(0.5, 0.5, 0.5, 0.5), oma = c(5, 5, 0, 0));
+plot(A0_r, A0_i, xlim = c(-3.7, 0.3), ylim = c(-2, 2), pch = 4, cex = 0.7,
+     xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, asp = 1);
+vl <- seq(from = 0, to = 2*pi, by = 0.001);
+A0x0 <- sqrt(200) * sd(A0vec) * cos(vl) + mean(diag(A0));
+A0y0 <- sqrt(200) * sd(A0vec) * sin(vl);
+text(x = -3.5, y = 2.25, labels = "a", cex = 2);
+points(x = A0x0, y = A0y0, type = "l", lwd = 3, col = "grey");
+points(A0_r, A0_i, pch = 4, cex = 0.7);
+
+plot(A1_r, A1_i, xlim = c(-3.7, 0.3), ylim = c(-2, 2), pch = 4, cex = 0.7,
+     xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, asp = 1, 
+     col = "black", yaxt = "n");
+
+vl <- seq(from = 0, to = 2*pi, by = 0.001);
+A0x1a <- sqrt(100) * sd(A1vec[fhalf]) * cos(vl) + mean(diag(A1)[1:100]);
+A0y1a <- sqrt(100) * sd(A1vec[fhalf]) * sin(vl);
+points(x = A0x1a, y = A0y1a, type = "l", lwd = 3, col = "grey");
+A0x1b <- sqrt(100) * sd(A1vec[shalf]) * cos(vl) + mean(diag(A1)[101:200]);
+A0y1b <- sqrt(100) * sd(A1vec[shalf]) * sin(vl);
+points(x = A0x1b, y = A0y1b, type = "l", lwd = 3, col = "grey");
+
+points(A1_r[1:100], A1_i[1:100],pch = 4, cex = 0.7);   
+
+text(x = -3.5, y = 2.25, labels = "b", cex = 2);
+mtext(side = 1, "Real", outer = TRUE, line = 3, cex = 2);
+mtext(side = 2, "Imaginary", outer = TRUE, line = 2.5, cex = 2);
+```
+
+********************************************************************************
+
+```{r, echo = FALSE}
 A_comp <- NULL;
 A_dat  <- rnorm(n = 1000000, mean = 0, sd = 0.4);
 A_mat  <- matrix(data = A_dat, nrow = 1000);
@@ -122,7 +183,7 @@ A1vec       <- as.vector(A1_vm);
 A1vec       <- A1vec[is.na(A1vec) == FALSE];
 ```
 
-**Figure 1: Distributions of eigenvalues before (a) and after (b) introducing variation in component response rate ($\boldsymbol{\gamma}$) in complex systems.** Each panel show the same system where $S = 1000$, $C = 1$, and $\sigma = 0.4$. **a.** Eigenvalues plotted in the absence of $Var(\gamma)$ where $E[\gamma] = d = 1$, versus **b.** eigenvalues plotted given $\gamma \sim \mathcal{U}(0, 2)$, which increases the variance of interaction strengths ($\sigma^{2}$) but clusters eigenvalues toward the distribution's centre (-1, 0). Black and red elipses in both panels show the circle centred on the distribution in panels a and b, respectively, which have a radius of $\sigma \sqrt{SC}$. Proportions of $\Re(\lambda) < 0$ are `r sum(A0_r < 0) / length(A0_r)` and `r sum(A1_r < 0) / length(A1_r)` for a and b, respectively.
+**Figure 2: Distributions of eigenvalues before (a) and after (b) introducing variation in component response rate ($\boldsymbol{\gamma}$) in complex systems.** Each panel show the same system where $S = 1000$, $C = 1$, and $\sigma = 0.4$. **a.** Eigenvalues plotted in the absence of $Var(\gamma)$ where $E[\gamma] = d = 1$, versus **b.** eigenvalues plotted given $\gamma \sim \mathcal{U}(0, 2)$, which increases the variance of interaction strengths ($\sigma^{2}$) but clusters eigenvalues toward the distribution's centre (-1, 0). Black and red elipses in both panels show the circle centred on the distribution in panels a and b, respectively, which have a radius of $\sigma \sqrt{SC}$. Proportions of $\Re(\lambda) < 0$ are `r sum(A0_r < 0) / length(A0_r)` and `r sum(A1_r < 0) / length(A1_r)` for a and b, respectively.
 
 ```{r, eval = TRUE, echo = FALSE, fig.height = 6, fig.width = 9}
 par(mfrow = c(1, 2), mar = c(0.5, 0.5, 0.5, 0.5), oma = c(5, 5, 0, 0));
@@ -149,7 +210,7 @@ mtext(side = 2, "Imaginary", outer = TRUE, line = 2.5, cex = 2);
 ********************************************************************************
 
 
-**Figure 2: Stability of large complex systems with and without variation in component response rate ($\boldsymbol{\gamma}$).** The $\ln$ number of systems that are stable across different system sizes ($S$) given $C = 1$, and the proportion of systems in which variation in $\gamma$ is critical for system stability. For each $S$, 1 million complex systems are randomly generated. Stability of each complex system is tested given variation in $\gamma$ by randomly sampling $\gamma \sim \mathcal{U}(0, 2)$. Stability given $Var(\gamma)$ is then compared to stability in an otherwise identical system in which $\gamma = E[\mathcal{U}(0, 2)]$ for all components. Red and black bars show the number of stable systems in the absence and presence of variance in $\gamma$, respectively. Blue lines show the proportion of systems that are stable when $Var(\gamma) > 0$, but would be unstable if $Var(\gamma) = 0$.
+**Figure 3: Stability of large complex systems with and without variation in component response rate ($\boldsymbol{\gamma}$).** The $\ln$ number of systems that are stable across different system sizes ($S$) given $C = 1$, and the proportion of systems in which variation in $\gamma$ is critical for system stability. For each $S$, 1 million complex systems are randomly generated. Stability of each complex system is tested given variation in $\gamma$ by randomly sampling $\gamma \sim \mathcal{U}(0, 2)$. Stability given $Var(\gamma)$ is then compared to stability in an otherwise identical system in which $\gamma = E[\mathcal{U}(0, 2)]$ for all components. Red and black bars show the number of stable systems in the absence and presence of variance in $\gamma$, respectively. Blue lines show the proportion of systems that are stable when $Var(\gamma) > 0$, but would be unstable if $Var(\gamma) = 0$.
 
 ```{r, eval = TRUE, echo = FALSE, fig.width = 9, fig.height = 7}
 dat <- read.csv(file = "sim_results/C_1/random_all.csv");
@@ -160,7 +221,7 @@ plot_stables(dat);
 
 ********************************************************************************
 
-**Figure 3: Distributions of variation in component response time evolved to generate stable systems**
+**Figure 4: Distributions of variation in component response time evolved to generate stable systems**
 
 
 
