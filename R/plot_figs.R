@@ -1,4 +1,4 @@
-make_gammas <- function(nn = 10, distribution = 1, mn = 1, sdd = 1){
+ make_gammas <- function(nn = 10, distribution = 1, mn = 1, sdd = 1){
     if(distribution == 0){
         dat          <- rep(x = mn, times = nn);
     }
