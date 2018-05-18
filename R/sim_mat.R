@@ -68,9 +68,6 @@ rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1){
             A0       <- A0 * C_mat;
             diag(A0) <- -1;
             gam1     <- runif(n = i, min = 0, max = 2);
-            #if(i %% 2 == 0){
-            #  gam1 <- c(rep(1.5, i/2), rep(0.5, i/2));
-            #}
             A1       <- A0 * gam1;
             A0       <- A0 * mean(gam1);
             A0_stb   <- max(Re(eigen(A0)$values)) < 0;
