@@ -59,6 +59,11 @@ sigma <- 0.4;
 
 Higher stability in systems with variation in $\gamma$ can be observed by sampling $\gamma_{i}$ values from various distributions. I now focus on a uniform distribution where $\gamma \sim \mathcal{U}(0, 2)$ (see Supporting Information for other distributions which give similar results). As with the case of $\gamma = \{1.95, 0.5\}$ (Fig. 1b), $E[\gamma] = 1$ when $\gamma \sim \mathcal{U}(0, 2)$, allowing comparison of $M$ before and after variation in component response rate. Figure 2 shows a comparison of eigenvalue distributions given $S = 1000$, $C = 1$, and $\sigma = 0.4$. As expected [@Tao2010], when $\gamma = 1$, eigenvalues are distributed uniformly in a circle centred at ($-1, 0$) with a radius of $\sigma\sqrt{SC} =$ `r round(sigma*sqrt(S*C), digits = 3)`. Uniform variation in $\gamma$ leads to a non-uniform distribution of eigenvalues, some of which are clustered tightly around the centre of the distribution, but others of which are spread outside the former radius of `r round(sigma*sqrt(S*C), digits = 3)` (red circle Fig 2b). This larger radius occurs because the addition of $Var(\gamma)$ increases the realised $\sigma$ of $M$. The clustering and spreading of eigenvalues introduced by $Var(\gamma)$ can destabilise previously stable systems or stabilise systems that are otherwise unstable. But where systems are otherwise too complex to be stable given $\gamma = 1$, the effect of $Var(\gamma)$ can often lead to stability above May's[@May1972; @Allesina2012] threshold of $\sigma\sqrt{SC} > 1$.
 
+```{r, echo = FALSE}
+dat <- read.csv(file = "sim_results/C_1/random_all.csv");
+dat <- dat[,-1];
+```
+
 To investigate the effect of $Var(\gamma)$ on system stability, I simulated random $M$ matrices at $\sigma = 0.4$ and $C = 1$ across $S$ ranging from $2-32$ (see Supporting Information for different values of $\sigma$ and $C$). One million $M$ were simulated for each $S$, and the stability of $M$ was assessed given $\gamma = 1$ versus $\gamma \sim \mathcal{U}(0, 2)$. Under these conditions, $\sigma\sqrt{SC} = 1$ given $S = 25$ when $\gamma = 1$.
 
 
