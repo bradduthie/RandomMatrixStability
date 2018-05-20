@@ -3,9 +3,10 @@ title: "Component response rate variation drives stability in large complex syst
 author: "Brad Duthie"
 bibliography: references.bib
 output:
-  html_document: default
   pdf_document:
     fig_caption: yes
+    keep_tex: yes
+  html_document: default
   word_document:
     fig_caption: yes
     pandoc_args:
@@ -25,6 +26,12 @@ linkcolor: blue
 csl: nature.csl
 biblio-style: apalike
 ---
+
+<!---
+"This will generate the intermediate files that are actually used to generate the PDF. You need only go to the directory where your .Rmd file is, gather the .tex and image directory (called filename_files) with"
+
+arxiv comand: tar cvfz filename.tgz filename.tex filename_files
+--->
 
 ```{r, echo = FALSE}
 source(file = "R/sim_mat.R");

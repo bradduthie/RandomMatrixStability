@@ -122,15 +122,15 @@ under-developed, and the effect of variation in the response rate of
 individual system components remains an open
 problem\textsuperscript{\protect\hyperlink{ref-Allesina2015}{15}}. Here
 I show that when components of a complex system respond to system
-dynamics at different rates (\(\boldsymbol{\omega}\)), the potential for
+dynamics at different rates (\(\boldsymbol{\gamma}\)), the potential for
 system stability is markedly increased. Stability increases due to the
 clustering of some eigenvalues toward the centre of eigenvalue
 distributions despite the destabilising effect of higher variation among
 interaction strengths (\(\boldsymbol{\sigma^{2}}\)). This effect of
-variation in \(\boldsymbol{\omega}\) becomes increasingly important as
+variation in \(\boldsymbol{\gamma}\) becomes increasingly important as
 system size increases, to the extent that the largest stable complex
 systems would otherwise be unstable if not for
-\(\boldsymbol{Var(\omega)}\). My results therefore reveal a previously
+\(\boldsymbol{Var(\gamma)}\). My results therefore reveal a previously
 unconsidered driver of system stability that is likely to be pervasive
 across all complex systems. Future research in complex systems should
 therefore account for the varying response rates of individual system
@@ -181,94 +181,94 @@ therefore becomes increasingly unlikely as \(S\), \(C\), and
 \(\sigma^{2}\) increase.
 
 The above stability criterion assumes that individual components respond
-to perturbations of the system at the same rate (\(\omega\)), but this
+to perturbations of the system at the same rate (\(\gamma\)), but this
 is highly unlikely in any complex system. In ecological communities, for
 example, the rate at which population density changes following
 perturbation will depend on the generation time of individuals, which
 might vary by orders of magnitude among species. Species with short
-generation times will respond quickly (high \(\omega\)) to perturbations
-relative to species with long generation times (low \(\omega\)).
+generation times will respond quickly (high \(\gamma\)) to perturbations
+relative to species with long generation times (low \(\gamma\)).
 Similarly, the speed at which individual banks respond to perturbations
 in financial networks, or individuals or institutions respond to
 perturbations in complex social networks, is likely to vary. The effect
 of such variance has not been investigated in complex systems theory.
-Intuitively, variation in \(\omega\) might be expected to decrease
+Intuitively, variation in \(\gamma\) might be expected to decrease
 system stability by introducing a new source of variation into the
 system and thereby increasing \(\sigma\). Here I show why, despite
-higher \(\sigma\), complex systems in which \(\omega\) varies actually
+higher \(\sigma\), complex systems in which \(\gamma\) varies actually
 tend to be more stable, especially when \(S\) is high.
 
 Rows in \(M\) define how a given component \(i\) is affected by other
 components of the system, meaning that the rate of component response
 time can be modelled by multiplying all row elements by a scalar value
-\(\omega_{i}\)\textsuperscript{\protect\hyperlink{ref-Patel2018}{14}}.
-The distribution of \(\omega\) over \(S\) components thereby models the
+\(\gamma_{i}\)\textsuperscript{\protect\hyperlink{ref-Patel2018}{14}}.
+The distribution of \(\gamma\) over \(S\) components thereby models the
 distribution of component response rates. An instructive example
-compares one \(M\) where \(\omega_{i} = 1\) for all \(i\) in \(S\) to
-the same \(M\) when half of \(\omega_{i} = 1.95\) and half of
-\(\omega_{i} = 0.05\). This models one system in which \(\omega\) is
-invariant and one in which \(\omega\) varies, but systems are otherwise
-identical (note \(E[\omega_{i}] = 1\) in both cases). I assume
+compares one \(M\) where \(\gamma_{i} = 1\) for all \(i\) in \(S\) to
+the same \(M\) when half of \(\gamma_{i} = 1.95\) and half of
+\(\gamma_{i} = 0.05\). This models one system in which \(\gamma\) is
+invariant and one in which \(\gamma\) varies, but systems are otherwise
+identical (note \(E[\gamma_{i}] = 1\) in both cases). I assume
 \(S = 200\), \(C = 0.05\), and \(\sigma = 0.4\); diagonal elements are
 set to \(-1\) and non-zero off-diagonal elements are drawn from
 \(\mathcal{N}(0, \sigma^{2})\). Rows are then multiplied by \(y_{i}\) to
-generate \(M\). When \(\omega_{i} = 1\), eigenvalues of \(M\) are
+generate \(M\). When \(\gamma_{i} = 1\), eigenvalues of \(M\) are
 distributed uniformly within a circle centred at (\(-1, 0\)) with a
 radius of 1.265 (Fig. 1a). Hence, the real components of eigenvalues are
-highly unlikely to all be negative when all \(\omega_{i} = 1\). But when
-\(\omega_{i}\) values are separated into two groups, eigenvalues are no
+highly unlikely to all be negative when all \(\gamma_{i} = 1\). But when
+\(\gamma_{i}\) values are separated into two groups, eigenvalues are no
 longer uniformly distributed (Fig. 1b). Instead, two distinct clusters
 of eigenvalues appear (grey circles in Fig. 1b), one centred at
 (\(-1.95, 0\)) and the other centred at (\(-0.05, 0\)). The former has a
 large radius, but the real components have shifted to the left (in
-comparison to when \(\omega = 1\)) and all \(\Re({\lambda}) < 0\). The
+comparison to when \(\gamma = 1\)) and all \(\Re({\lambda}) < 0\). The
 latter cluster has real components that have shifted to the right, but
 has a smaller radius. Overall, for 1 million randomly assembled \(M\),
 this division between slow and fast component response rates results in
-more stable systems: 0 stable given \(\omega = 1\) versus 0 stable given
-\(\omega = \{1.95, 0.5\}\).
+more stable systems: 0 stable given \(\gamma = 1\) versus 0 stable given
+\(\gamma = \{1.95, 0.5\}\).
 
-Higher stability in systems with variation in \(\omega\) can be observed
-by sampling \(\omega_{i}\) values from various distributions. I now
-focus on a uniform distribution where \(\omega \sim \mathcal{U}(0, 2)\)
+Higher stability in systems with variation in \(\gamma\) can be observed
+by sampling \(\gamma_{i}\) values from various distributions. I now
+focus on a uniform distribution where \(\gamma \sim \mathcal{U}(0, 2)\)
 (see Supporting Information for other distributions, which give similar
-results). As with the case of \(\omega = \{1.95, 0.5\}\) (Fig. 1b),
-\(E[\omega] = 1\) when \(\omega \sim \mathcal{U}(0, 2)\), allowing
+results). As with the case of \(\gamma = \{1.95, 0.5\}\) (Fig. 1b),
+\(E[\gamma] = 1\) when \(\gamma \sim \mathcal{U}(0, 2)\), allowing
 comparison of \(M\) before and after variation in component response
 rate. Figure 2 shows a comparison of eigenvalue distributions given
 \(S = 1000\), \(C = 1\), and \(\sigma = 0.4\). As
 expected\textsuperscript{\protect\hyperlink{ref-Tao2010}{17}}, when
-\(\omega = 1\), eigenvalues are distributed uniformly in a circle
+\(\gamma = 1\), eigenvalues are distributed uniformly in a circle
 centred at (\(-1, 0\)) with a radius of \(\sigma\sqrt{SC} =\) 12.649.
-Uniform variation in \(\omega\) leads to a non-uniform distribution of
+Uniform variation in \(\gamma\) leads to a non-uniform distribution of
 eigenvalues, some of which are clustered tightly around the centre of
 the distribution, but others of which are spread outside the former
 radius of 12.649 (red circle Fig 2b). This larger radius occurs because
-the addition of \(Var(\omega)\) increases the realised \(\sigma\) of
+the addition of \(Var(\gamma)\) increases the realised \(\sigma\) of
 \(M\). The clustering and spreading of eigenvalues introduced by
-\(Var(\omega)\) can destabilise previously stable systems or stabilise
+\(Var(\gamma)\) can destabilise previously stable systems or stabilise
 systems that are otherwise unstable. But where systems are otherwise too
-complex to be stable given \(\omega = 1\), the effect of \(Var(\omega)\)
+complex to be stable given \(\gamma = 1\), the effect of \(Var(\gamma)\)
 can often lead to stability above
 May's\textsuperscript{\protect\hyperlink{ref-May1972}{1},\protect\hyperlink{ref-Allesina2012}{2}}
 threshold of \(\sigma\sqrt{SC} > 1\).
 
-To investigate the effect of \(Var(\omega)\) on system stability, I
+To investigate the effect of \(Var(\gamma)\) on system stability, I
 simulated random \(M\) matrices at \(\sigma = 0.4\) and \(C = 1\) across
 \(S\) ranging from \(2-32\) (see Supporting Information for different
 values of \(\sigma\) and \(C\)). One million \(M\) were simulated for
-each \(S\), and the stability of \(M\) was assessed given \(\omega = 1\)
-versus \(\omega \sim \mathcal{U}(0, 2)\) (note that under these
+each \(S\), and the stability of \(M\) was assessed given \(\gamma = 1\)
+versus \(\gamma \sim \mathcal{U}(0, 2)\) (note that under these
 conditions, \(\sigma\sqrt{SC} = 1\) given \(S = 25\) when
-\(\omega = 1\)). I found that the number of stable random systems was
-consistently higher given \(Var(\omega)\) than when \(\omega = 1\) (Fig.
+\(\gamma = 1\)). I found that the number of stable random systems was
+consistently higher given \(Var(\gamma)\) than when \(\gamma = 1\) (Fig.
 3), and that the difference between the probabilities of observing a
 stable system increased with an increase in \(S\); i.e., the potential
-for \(Var(\omega)\) to drive stability increased with system complexity.
+for \(Var(\gamma)\) to drive stability increased with system complexity.
 For the highest values of \(S\), nearly all systems that were stable
-given \(Var(\omega)\) would not have been stable given \(\omega = 1\),
+given \(Var(\gamma)\) would not have been stable given \(\gamma = 1\),
 and the maximum observed \(S\) for which a system was stable was \(31\)
-given \(Var(\omega)\) versus \(27\) given \(\omega = 1\) (see Supporting
+given \(Var(\gamma)\) versus \(27\) given \(\gamma = 1\) (see Supporting
 Information for full results). This suggests that the stability of large
 systems might be dependent upon variation in the response rate of their
 individual components, meaning that factors such as generation time (in
@@ -277,13 +277,13 @@ communication speed (in social networks) needs to be considered when
 investigating the stability of complex systems.
 
 Some care is needed when interpreting these results. First, I emphasise
-that \(Var(\omega)\) is not stabilising per se; that is, adding
-variation in \(\omega\) to a particular system \(M\) does not
+that \(Var(\gamma)\) is not stabilising per se; that is, adding
+variation in \(\gamma\) to a particular system \(M\) does not
 necessarily increase the probability that the system will be stable (see
 Supporting Information). Rather, systems that are observed to be stable
-are more likely to vary in \(\omega\), and for this \(Var(\omega)\) to
+are more likely to vary in \(\gamma\), and for this \(Var(\gamma)\) to
 be critical to their stability. This is caused by the shift in the
-distribution of eigenvalues that occurs by introducing \(Var(\omega)\)
+distribution of eigenvalues that occurs by introducing \(Var(\gamma)\)
 (Fig. 1b, 2b), which can sometimes result in all \(\Re(\lambda) < 0\)
 but might also increase \(\Re(\lambda)\) values.
 
@@ -375,25 +375,25 @@ circular law. \emph{Annals of Probability} \textbf{38,} 2023--2065
 
 \textbf{Figure 1: Example distribution of eigenvalues before (a) and
 after (b) separating a randomly generated complex system into fast
-(\(\boldsymbol{\omega} = 1.95\)) and slow
-(\(\boldsymbol{\omega} = 0.05\)) component response rates.} Each panel
+(\(\boldsymbol{\gamma} = 1.95\)) and slow
+(\(\boldsymbol{\gamma} = 0.05\)) component response rates.} Each panel
 shows the same system where \(S = 200\), \(C = 0.05\), and
-\(\sigma = 0.4\), and in each case \(E[\omega] = 1\) (i.e., only the
-distribution of \(\omega\) differs between panels). \textbf{a.}
-Eigenvalues plotted when all \(\omega = 1\); distributions of points are
+\(\sigma = 0.4\), and in each case \(E[\gamma] = 1\) (i.e., only the
+distribution of \(\gamma\) differs between panels). \textbf{a.}
+Eigenvalues plotted when all \(\gamma = 1\); distributions of points are
 uniformly distributed within the grey circle with a radius of
 \(\sigma\sqrt{SC} =\) 1.238 centred at -1 on the real axis. \textbf{b.}
-Eigenvalues plotted when half \(\omega = 1.95\) and half
-\(\omega = 0.05\); distributions of points can be partitioned into one
+Eigenvalues plotted when half \(\gamma = 1.95\) and half
+\(\gamma = 0.05\); distributions of points can be partitioned into one
 large circle of \(\sigma\sqrt{SC} =\) 1.718 centred at
-\(\omega = -1.95\) and one small circle of \(\sigma\sqrt{SC} =\) 0.044
-centred at \(\omega = -0.05\). In a, the maximum real eigenvalaue
+\(\gamma = -1.95\) and one small circle of \(\sigma\sqrt{SC} =\) 0.044
+centred at \(\gamma = -0.05\). In a, the maximum real eigenvalaue
 \(\max\left(\Re(\lambda)\right) =\) 0.2344871, while in b
 \(\max\left(\Re(\lambda)\right) =\) -0.0002273135, meaning that the
 complex system in b but not a is stable because in b
 \(\max\left(\Re(\lambda)\right) < 0\). In 1 million randomly generated
 complex systems under the same parameter values, 0 were stable when
-\(\omega = 1\) while 0 were stable when \(\omega = \{1.95, 0.05\}\).
+\(\gamma = 1\) while 0 were stable when \(\gamma = \{1.95, 0.05\}\).
 Overall, complex systems that are separated into fast versus slow
 components tend to be more stable than otherwise identical systems with
 identical component response rates.
@@ -404,35 +404,35 @@ identical component response rates.
 
 \textbf{Figure 2: Distributions of eigenvalues before (a) and after (b)
 introducing variation in component response rate
-(\(\boldsymbol{\omega}\)) in complex systems.} Each panel show the same
+(\(\boldsymbol{\gamma}\)) in complex systems.} Each panel show the same
 system where \(S = 1000\), \(C = 1\), and \(\sigma = 0.4\). \textbf{a.}
-Eigenvalues plotted in the absence of \(Var(\omega)\) where
-\(E[\omega] = 1\), versus \textbf{b.} eigenvalues plotted given
-\(\omega \sim \mathcal{U}(0, 2)\), which increases the variance of
+Eigenvalues plotted in the absence of \(Var(\gamma)\) where
+\(E[\gamma] = 1\), versus \textbf{b.} eigenvalues plotted given
+\(\gamma \sim \mathcal{U}(0, 2)\), which increases the variance of
 interaction strengths (\(\sigma^{2}\)) but clusters eigenvalues toward
 the distribution's centre (-1, 0). Black and red elipses in both panels
 show the circle centred on the distribution in panels a and b,
 respectively, which have a radius of \(\sigma \sqrt{SC}\). Proportions
-of \(\Re(\lambda) < 0\) are 0.55 and 0.554 for a and b, respectively.
+of \(\Re(\lambda) < 0\) are 0.555 and 0.549 for a and b, respectively.
 
 \includegraphics{ms_files/figure-latex/unnamed-chunk-8-1.pdf}
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
 \textbf{Figure 3: Stability of large complex systems with and without
-variation in component response rate (\(\boldsymbol{\omega}\)).} The
+variation in component response rate (\(\boldsymbol{\gamma}\)).} The
 \(\ln\) number of systems that are stable across different system sizes
 (\(S\)) given \(C = 1\), and the proportion of systems in which
-variation in \(\omega\) is critical for system stability. For each
+variation in \(\gamma\) is critical for system stability. For each
 \(S\), 1 million complex systems are randomly generated. Stability of
-each complex system is tested given variation in \(\omega\) by randomly
-sampling \(\omega \sim \mathcal{U}(0, 2)\). Stability given
-\(Var(\omega)\) is then compared to stability in an otherwise identical
-system in which \(\omega = E[\mathcal{U}(0, 2)]\) for all components.
+each complex system is tested given variation in \(\gamma\) by randomly
+sampling \(\gamma \sim \mathcal{U}(0, 2)\). Stability given
+\(Var(\gamma)\) is then compared to stability in an otherwise identical
+system in which \(\gamma = E[\mathcal{U}(0, 2)]\) for all components.
 Light and dark grey bars show the number of stable systems in the
-absence and presence of variance in \(\omega\), respectively. The black
+absence and presence of variance in \(\gamma\), respectively. The black
 line shows the proportion of systems that are stable when
-\(Var(\omega) > 0\), but would be unstable if \(Var(\omega) = 0\).
+\(Var(\gamma) > 0\), but would be unstable if \(Var(\gamma) = 0\).
 
 \begin{verbatim}
 ## Warning in strwidth(legend, units = "user", cex = cex, font = text.font):
