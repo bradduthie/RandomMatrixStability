@@ -31,6 +31,8 @@ biblio-style: apalike
 "This will generate the intermediate files that are actually used to generate the PDF. You need only go to the directory where your .Rmd file is, gather the .tex and image directory (called filename_files) with"
 
 arxiv comand: tar cvfz filename.tgz filename.tex filename_files
+
+https://gist.github.com/JJ/ef9d3d8f1142df064bd5
 --->
 
 ```{r, echo = FALSE}
