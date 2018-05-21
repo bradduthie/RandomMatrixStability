@@ -43,6 +43,7 @@ Contents
     - [Mutualist networks](#mutualism) 
     - [Predator-prey networks](#pred-prey) 
 - [Feasilbility of complex systems](#Feasibility) 
+- [Genetic algorithm](#ga) 
 
 Code and simulations underlying Fig. 1 {#Fig1}
 ================================================================================
@@ -395,7 +396,7 @@ species_interactions <- function(mat, type = 0){
 
 This function was applied to all created matrices $M$, then the number of stable $M$ matrices was estimated [exactly as it was](#Incr_S) in the main text for random matrices for values of $S$ from 2 to 50 (100 in the case of the relatively more stable predator-prey interactions), except that only 100000 random $M$ were generated instead of 1 million. The following tables for restricted ecological communities can therefore be compared with the random $M$ results above. 
 
-**Competition** {#competition}
+<a name="competition">**Competition**</a>
 
 Results for competitor interaction networks are shown below
 
@@ -406,7 +407,7 @@ cd_tab <- cdat[,1:7];
 kable(cd_tab);
 ```
 
-**Mutualism** {#mutualism}
+<a name="mutualism">**Mutualism**</a>
 
 Results for mutualist interaction networks are shown below
 
@@ -417,7 +418,7 @@ md_tab <- mdat[,1:7];
 kable(md_tab);
 ```
 
-**Predator-prey** {#pred-prey}
+<a name="pred-prey">**Predator-prey**</a>
 
 Results for predator-prey interaction networks are shown below
 
@@ -439,6 +440,9 @@ The above is not nearly as nasty as it looks, especially because it is entirely 
 $$x^{*} = -\left(\theta I + A\right)^{-1}r.$$
 
 To check the feasibility criteria, all that needs to be done is to invert $(\theta I + A)$ and multiply the matrix by the vector of growth rates $r$, which we can also just set to 1. So really, we're just multiplying $-(\theta I + A)$ by a vector of ones and checking to make sure that all the values are positive. This isn't much extra work, but it will probably go a long way toward satisfying any reviewers familiar with @Dougoud2018.
+
+Genetic algorithm {#ga}
+================================================================================
 
 References
 ================================================================================
