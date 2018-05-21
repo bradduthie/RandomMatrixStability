@@ -32,8 +32,20 @@ source(file = "R/sim_mat.R");
 source(file = "R/plot_figs.R");
 ```
 
-Code and simulations underlying Fig. 1
-===============================================================================
+Contents
+================================================================================
+
+- [Code and simulations underlying Fig. 1](#Fig1) 
+- [Code and simulations underlying Fig. 2](#Fig2) 
+- [Stability across increasing $S$](#Incr_S}) 
+- [Stability of ecological networks](#ecological) 
+    - [Competitor networks](#competition) 
+    - [Mutualist networks](#mutualism) 
+    - [Predator-prey networks](#pred-prey) 
+- [Feasilbility of complex systems](#Feasibility) 
+
+Code and simulations underlying Fig. 1 {#Fig1}
+================================================================================
 
 The sample $M$ used for the eigenvalue distributions in Fig. 1 of the text is available on [GitHub](), and was produced with by running the following function.
 
@@ -172,7 +184,7 @@ pr_st       <- pr_st[,-1];
 The function above was run for `iters = 1000000`, and the resulting matrix `ress` was returned. Each row of `ress` represents a single $M$ given $\gamma = 1$ (column 1) versus $\gamma = \{1.95, 0.05\}$ (column 2). Values of 0 indicate that $M$ was found to be unstable (at least one real component of its eigenvalues greater than or equal to zero), whereas values of 1 indicate that $M$ was found to be stable (all real components of eigenvalues are negative). The frequencies of stable $M$ were `r sum(pr_st[,1])` given $\gamma = 1$ and `r sum(pr_st[,2])` given $\gamma = \{1.95, 0.05\}$, as reported in the main text and legend of Fig. 1.
 
 
-Code and simulations underlying Fig. 2
+Code and simulations underlying Fig. 2 {#Fig2}
 ===============================================================================
 
 Figure 2 of the main text shows how eigenvalue distributions in a system where $S = 1000$, $C = 1$, and $\sigma = 0.4$. Eigenvalues can be reproduced using the code below for when $\gamma = 1$ (panel a) and $\gamma \sim \mathcal{U}(0, 2)$ (panel b).
@@ -231,7 +243,7 @@ mtext(side = 2, "Imaginary", outer = TRUE, line = 2.5, cex = 2);
 ```
 
 
-Stability across increasing $S$
+Stability across increasing $S$ {#Incr_S}
 ===============================================================================
 
 ```{r, echo = TRUE}
@@ -349,6 +361,86 @@ summarise_randmat <- function(tot_res, fea_res){
     colnames(all_res) <- cnames;
     return(all_res);
 }
-````
+```
 
 Note that feasibility results were ommited for the table above, but are shown below.
+
+Stability of ecological networks {#ecological}
+================================================================================
+
+While the foundational work of May[@May1972] applies broadly to complex networks, much attention has been given specifically to ecological networks of interacting species. In these networks, the matrix $M$ is interpreted as a community matrix and each row and column is interpreted as a single species. The effect that the density of any species $i$ has on the population dynamics of species $j$ is found in $M_{ij}$, meaning that $M$ holds the effects of pair-wise interactions between $S$ species[@Allesina2012; @Allesina2015a; @Tang2014b]. While May's original work[@May1972] considered only randomly assembled communities, recent work has specifically looked at more restricted ecological communities including competitive networks (all off-diagonal elements of $M$ are negative), mutualist networks (all off-diagonal elements of $M$ are positive), and predator-prey networks (for any pair of $i$ and $j$, the effect of $i$ on $j$ is negative and $j$ on $i$ is positive, or vice versa)[@Allesina2011; @Allesina2012; @Allesina2015a; @Tang2014b]. In general, competitor and mutualist networks tend to be unstable, while predator-prey networks tend to be highly stabilising.
+
+I investigate competitor, mutualist, and predator-prey networks following Allesina et al.[@Allesina2012]. To create these networks, I first generated a random matrix $M$, then changed the elements of $M$ accordingly. If $M$ was a competitive network, then the sign of any positive off-diagonal elements was reversed to be negative. If $M$ was a mutualist network, then the sign of any positive off-diagonal elements was reversed to be positive. And if $M$ was a predator-prey network, then all $i$ and $j$ pairs of elements were checked; any pairs of the same sign were changed so that one was negative and the other was positive. The `species_interaction` function used to do this is below.
+
+```{r}
+species_interactions <- function(mat, type = 0){
+    if(type == 1){
+        mat[mat > 0] <- -1*mat[mat > 0];
+    }
+    if(type == 2){
+        mat[mat < 0] <- -1*mat[mat < 0];
+    }
+    if(type == 3){
+        for(i in 1:dim(mat)[1]){
+            for(j in 1:dim(mat)[2]){
+                if(mat[i, j] * mat[j, i] > 0){
+                    mat[j, i] <- -1 * mat[j, i];
+                }
+            }
+        }
+    }
+    return(mat);
+}
+```
+
+This function was applied to all created matrices $M$, then the number of stable $M$ matrices was estimated [exactly as it was](#Incr_S) in the main text for random matrices for values of $S$ from 2 to 50 (100 in the case of the relatively more stable predator-prey interactions), except that only 100000 random $M$ were generated instead of 1 million. The following tables for restricted ecological communities can therefore be compared with the random $M$ results above. 
+
+**Competition** {#competition}
+
+Results for competitor interaction networks are shown below
+
+```{r, echo = TRUE}
+cdat   <- read.csv(file = "sim_results/ecology/competition_C_1.csv");
+cdat   <- cdat[,-1];
+cd_tab <- cdat[,1:7];
+kable(cd_tab);
+```
+
+**Mutualism** {#mutualism}
+
+Results for mutualist interaction networks are shown below
+
+```{r, echo = TRUE}
+mdat   <- read.csv(file = "sim_results/ecology/mutualism_C_1.csv");
+mdat   <- mdat[,-1];
+md_tab <- mdat[,1:7];
+kable(md_tab);
+```
+
+**Predator-prey** {#pred-prey}
+
+Results for predator-prey interaction networks are shown below
+
+```{r, echo = TRUE}
+pdat   <- read.csv(file = "sim_results/ecology/pred-prey_C_1.csv");
+pdat   <- pdat[,-1];
+pd_tab <- pdat[,1:7];
+kable(pd_tab);
+```
+
+Feasilbility of complex systems {#Feasibility}
+================================================================================
+
+It also would be useful to look at feasibility criteria established by @Dougoud2018, who very recently made the point that some of May and Allesina's criteria allows for negative species densities when stable. Feasibility criteria are as follows,
+
+$$x^{*} = -\left(\theta I + (CS)^{-\delta}A\right)^{-1}r.$$
+The above is not nearly as nasty as it looks, especially because it is entirely reasonable to simply use convenient values to parameterise it. The variable $x^{*}$ is just the vector of species abundances at equilibrium (we need all of them to be positive). The matrix $I$ is just the identity matrix (1s on the diagonal, 0s on the off-diagonal elements), and the value $\theta$ is just the strength of intraspecific competition -- we can just set this to $\theta = -1$ (as others have). The variable $C$ is just the connectance of the community, which we will also set to 1 for convenience (lower values would mean that some species don't interact with one another, corresponding to an off-diagonal matrix element of 0). And $\delta$ just affects the strength of interactions -- which we can set to $\delta = 0$ for strong interactions. Hence, the whole $(CS)^{-\delta} = 1$, so we're just adding the diagonal matrix of -1s ($\theta I$) to $A$, which has a diagonal of all zeros and an off diagonal effecting species interactions,
+
+$$x^{*} = -\left(\theta I + A\right)^{-1}r.$$
+
+To check the feasibility criteria, all that needs to be done is to invert $(\theta I + A)$ and multiply the matrix by the vector of growth rates $r$, which we can also just set to 1. So really, we're just multiplying $-(\theta I + A)$ by a vector of ones and checking to make sure that all the values are positive. This isn't much extra work, but it will probably go a long way toward satisfying any reviewers familiar with @Dougoud2018.
+
+References
+================================================================================
+
+
