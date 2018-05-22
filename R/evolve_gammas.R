@@ -1,7 +1,10 @@
-Evo_rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1){
+Evo_rand_gen_var <- function(from, to, iters, int_type = 0, rmx = 0.4, C = 1){
     tot_res <- NULL;
     fea_res <- NULL;
-    for(i in 2:max_sp){
+    if(from >= to){
+        stop("Argument 'from' must be less than argument 'to'");
+    }
+    for(i in from:to){
         nn             <- i;
         A1_stt         <- 0;
         A2_stt         <- 0;
@@ -19,10 +22,8 @@ Evo_rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1){
             C_mat    <- matrix(data = C_dat, nrow = i, ncol = i);
             A0       <- A0 * C_mat;
             diag(A0) <- -1;
-            gam0     <- make_gammas(nn = i, distribution = 0, sdd = 1);
-            gam1     <- make_gammas(nn = i, distribution = 1, sdd = 1);
+            gam1     <- runif(n = i, min = 0, max = 2);
             A1       <- A0 * gam1;
-            A0       <- A0 * gam0;
             A0_stb   <- max(Re(eigen(A0)$values)) < 0;
             A1_stb   <- rand_mat_ga(A1);
             A0_fea   <- min(-1*solve(A0) %*% r_vec) > 0;
@@ -99,7 +100,7 @@ rand_mat_ga <- function(A1, max_it = 20, converg = 0.01){
         mu_dat   <- rbinom(n = nn*1000, size = 1, prob = 0.2);
         mu_dat2  <- rnorm(n = nn*1000, mean = 0, sd = 0.02);
         mu_dat2[mu_dat2 < 0] <- -mu_dat2[mu_dat2 < 0];
-        mu_dat2[mu_dat2 > 1] <- 1;
+        mu_dat2[mu_dat2 > 2] <- 2;
         mu_dat3  <- mu_dat * mu_dat2;
         mu_mat   <- matrix(data = mu_dat3, nrow = 1000, ncol = nn);
         new_gen  <- new_gen + mu_mat;
@@ -114,12 +115,11 @@ rand_mat_ga <- function(A1, max_it = 20, converg = 0.01){
     if(find_st == 1){
         s_row <- which(isst == 1)[1];
         writt <- c(nn, inds[s_row,]);
-        cat(writt, file = "Evo_out.txt", append = TRUE);
-        cat("\n", file = "Evo_out.txt", append = TRUE);
+        cat(writt, file = "evo_out4.txt", append = TRUE);
+        cat("\n", file = "evo_out4.txt", append = TRUE);
     }
     return(find_st);
 }
-
 
 crossover <- function(inds, pr = 0.1){
     crossed <- floor(dim(inds)[1] * pr);
@@ -136,3 +136,21 @@ crossover <- function(inds, pr = 0.1){
 }
 
 
+species_interactions <- function(mat, type = 0){
+    if(type == 1){
+        mat[mat > 0] <- -1*mat[mat > 0];
+    }
+    if(type == 2){
+        mat[mat < 0] <- -1*mat[mat < 0];
+    }
+    if(type == 3){
+        for(i in 1:dim(mat)[1]){
+            for(j in 1:dim(mat)[2]){
+                if(mat[i, j] * mat[j, i] > 0){
+                    mat[j, i] <- -1 * mat[j, i];
+                }
+            }
+        }
+    }
+    return(mat);
+}
