@@ -1,4 +1,11 @@
 
+
+eout <- read.csv("Evo_out.txt");
+
+dat <- eout[eout[,1] == 40,];
+
+
+
 rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, gamma_sd = 1, 
                          gamma_mn = 1, C = 1){
   tot_res  <- NULL;
