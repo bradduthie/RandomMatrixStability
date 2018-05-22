@@ -43,6 +43,7 @@ Contents
     - [Mutualist networks](#mutualism) 
     - [Predator-prey networks](#pred-prey) 
 - [Feasilbility of complex systems](#Feasibility) 
+- [Different distributions of $\gamma$](#gam_dist)
 - [Genetic algorithm](#ga) 
 
 Code and simulations underlying Fig. 1 {#Fig1}
@@ -440,6 +441,9 @@ The above is not nearly as nasty as it looks, especially because it is entirely 
 $$x^{*} = -\left(\theta I + A\right)^{-1}r.$$
 
 To check the feasibility criteria, all that needs to be done is to invert $(\theta I + A)$ and multiply the matrix by the vector of growth rates $r$, which we can also just set to 1. So really, we're just multiplying $-(\theta I + A)$ by a vector of ones and checking to make sure that all the values are positive. This isn't much extra work, but it will probably go a long way toward satisfying any reviewers familiar with @Dougoud2018.
+
+Different distributions of $\gamma$ {#gam_dist}
+================================================================================
 
 Genetic algorithm {#ga}
 ================================================================================
