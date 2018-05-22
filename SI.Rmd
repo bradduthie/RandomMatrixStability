@@ -3,9 +3,9 @@ title: "Component response rate variation drives stability in large complex syst
 author: "Brad Duthie"
 bibliography: references.bib
 output:
+  html_document: default
   pdf_document:
     fig_caption: yes
-  html_document: default
   word_document:
     fig_caption: yes
     pandoc_args:
