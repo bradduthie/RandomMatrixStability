@@ -223,21 +223,3 @@ My results show that complex systems are more likely to be stable when the respo
 
 <div id="refs"></div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
