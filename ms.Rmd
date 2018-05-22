@@ -28,6 +28,10 @@ biblio-style: apalike
 ---
 
 <!---
+Current word count: 1683
+--->
+
+<!---
 "This will generate the intermediate files that are actually used to generate the PDF. You need only go to the directory where your .Rmd file is, gather the .tex and image directory (called filename_files) with"
 
 arxiv comand: tar cvfz filename.tgz filename.tex filename_files
