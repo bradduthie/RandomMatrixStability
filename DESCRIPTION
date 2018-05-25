@@ -1,4 +1,4 @@
-Package: random_matrix_stability
+Package: RandomMatrixStability
 Type: Package
 Title: Component response rate variation drives stability in large complex systems
 Version: 0.0.1.0
