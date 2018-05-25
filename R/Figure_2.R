@@ -8,7 +8,6 @@
 #'response rate
 #'@examples
 #'plot_Fig_2();
-#'@useDynLib random_matrix_stability
 #'@export
 plot_Fig_2 <- function(){
     A_comp <- NULL;

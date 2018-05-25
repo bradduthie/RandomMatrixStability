@@ -14,7 +14,6 @@
 #'@param iters Number of random matrices to simulate
 #'@examples
 #'find_bgamma(S = 200, C = 0.05, Osd = 0.4, iters = 2);
-#'@useDynLib random_matrix_stability
 #'@export
 find_bgamma <- function(S = 200, C = 0.05, Osd = 0.4, iters = 10000){
     while(iters > 0){
@@ -56,7 +55,6 @@ find_bgamma <- function(S = 200, C = 0.05, Osd = 0.4, iters = 10000){
 #'@examples
 #'load(bi_pr_st);
 #'plot_Fig_1(A0 = A0, A1 = A1);
-#'@useDynLib random_matrix_stability
 #'@export
 plot_Fig_1 <- function(A0, A1){
     S_val       <- dim(A0)[1];
@@ -117,7 +115,6 @@ plot_Fig_1 <- function(A0, A1){
 #'@param iters Number of random matrices to simulate
 #'@examples
 #'dat <- stab_bgamma(iters = 4);
-#'@useDynLib random_matrix_stability
 #'@export
 stab_bgamma <- function(S = 200, C = 0.05, Osd = 0.4, iters = 10000){
     ress     <- matrix(data = 0, nrow = iters, ncol = 2);
