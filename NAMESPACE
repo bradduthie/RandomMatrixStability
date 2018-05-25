@@ -3,4 +3,7 @@
 export(find_bgamma)
 export(plot_Fig_1)
 export(plot_Fig_2)
+export(rand_gen_var)
+export(species_interactions)
 export(stab_bgamma)
+export(summarise_randmat)

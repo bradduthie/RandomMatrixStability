@@ -397,9 +397,11 @@ This function was applied to all created matrices $M$, then the number of stable
 
 Results for competitor interaction networks are shown below
 
+```{r}
+data(ecology);
+```
+
 ```{r, echo = FALSE}
-cdat   <- read.csv(file = "sim_results/ecology/competition_C_1.csv");
-cdat   <- cdat[,-1];
 cd_tab <- cdat[,1:7];
 kable(cd_tab);
 ```
@@ -409,8 +411,6 @@ kable(cd_tab);
 Results for mutualist interaction networks are shown below
 
 ```{r, echo = FALSE}
-mdat   <- read.csv(file = "sim_results/ecology/mutualism_C_1.csv");
-mdat   <- mdat[,-1];
 md_tab <- mdat[,1:7];
 kable(md_tab);
 ```
@@ -420,8 +420,6 @@ kable(md_tab);
 Results for predator-prey interaction networks are shown below
 
 ```{r, echo = FALSE}
-pdat   <- read.csv(file = "sim_results/ecology/pred-prey_C_1.csv");
-pdat   <- pdat[,-1];
 pd_tab <- pdat[,1:7];
 kable(pd_tab);
 ```
