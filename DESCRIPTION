@@ -1,0 +1,21 @@
+Package: random_matrix_stability
+Type: Package
+Title: Component response rate variation drives stability in large complex systems
+Version: 0.0.1.0
+Imports: grDevices, graphics, stats
+Authors@R: c(person("A. Bradley", "Duthie", email = "brad.duthie@gmail.com",
+                  role = c("aut", "cre"),
+                  comment = c(ORCID = "0000-0001-8343-4995"))
+             )
+Maintainer: A. Bradley Duthie <brad.duthie@gmail.com>
+Description: Package containing all the code and data underlying a manuscript on
+    how component response rate affects the stability of complex systems.
+URL: https://bradduthie.github.io/random_matrix_stability/
+BugReports: https://github.com/bradduthie/random_matrix_stability/issues
+Depends: R (>= 3.3.0)
+License: GPL (>=2)
+LazyData: TRUE
+Suggests: knitr,
+    rmarkdown,
+    testthat,
+RoxygenNote: 6.0.1
