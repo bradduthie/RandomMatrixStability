@@ -572,8 +572,8 @@ show_gammas();
 The same 100000 $M$ matrices were used to investigate stability when applying each of these different distributions of $\gamma$ values. The table below shows the number of $M$ that were unstable (_unst) and stable (_stbl) for the exponential (Exp), beta, and gamma distributions.
 
 ```{r, echo = TRUE}
-fordist   <- read.csv(file = "sim_results/different_distr/four_distr_rand.csv");
-kable(fordist);
+data(fourdists)
+kable(fourdists);
 ```
 
 In comparison to the uniform distribution (a), proportionally fewer random systems are found with the exponential distribution (b), while more are found with the beta (c) and gamma (d) distributions.
@@ -731,7 +731,7 @@ crossover <- function(inds, pr = 0.1){
 After all $M$ are simulated in `Evo_rand_gen_var`, the `summarise_randmat` formats the data into a table.
 
 ```{r}
-summarise_randmat <- function(tot_res, fea_res){
+summarise_randmat_ga <- function(tot_res, fea_res){
     sims    <- length(tot_res);
     all_res <- matrix(data = 0, nrow = sims, ncol = 10);
     for(i in 1:sims){
@@ -762,11 +762,20 @@ summarise_randmat <- function(tot_res, fea_res){
 Stability results from this table are shown below.
 
 ```{r, echo = FALSE}
-evo_res   <- read.csv(file = "sim_results/evolved/evo_results.csv");
+data(evo_res);
 kable(evo_res);
 ```
 
-The distribution of one of the $\gamma$ vectors at $S = 39$ is shown below (all are available on [GitHub]()).
+The distribution of one of the $\gamma$ vectors at $S = 39$ is shown below (all are available on [GitHub]()). Distributions of $\gamma$ values in vectors for the highest values of $S$ are shown below. <!--- NOTE: This needs to be updated with the new data --->
+
+```{r}
+data(evo_out);
+plot_evo_out(evo_out);
+```
+
+The distribution of $\gamma$ values found by the genetic algorithm is uniform. 
+
+
 
 **Work in progress**
 
