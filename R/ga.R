@@ -8,8 +8,7 @@
 #' attempt to find a stable solution.
 #'
 #'@return A table showing frequency of stable complex systems found
-#'@param from The lowest system size, S
-#'@param to The highest system size, S
+#'@param max_sp The maximum system component size (S) to simulate
 #'@param iters The number of iterations (complex systems) tried for each S
 #'@param int_type The type of interaction, including random (0), competitive 
 #'(1), mutualist (2), or predator-prey (3)
@@ -18,15 +17,12 @@
 #'@param C The connectedness of a complex system (i.e., the probability that an
 #'off-diagonal element does not equal zero)
 #'@examples
-#'sim <- Evo_rand_gen_var(from = 2, to = 2, iters = 1);
+#'sim <- Evo_rand_gen_var(max_sp = 2, iters = 1);
 #'@export
-Evo_rand_gen_var <- function(from, to, iters, int_type = 0, rmx = 0.4, C = 1){
+Evo_rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1){
     tot_res <- NULL;
     fea_res <- NULL;
-    if(from >= to){
-        stop("Argument 'from' must be less than argument 'to'");
-    }
-    for(i in from:to){
+    for(i in 2:max_sp){
         nn             <- i;
         A1_stt         <- 0;
         A2_stt         <- 0;
@@ -232,7 +228,7 @@ get_top_evo_out <- function(evo_out, size){
 #'@return A list of vectors of component response rates (gammas)
 #'@param evo_out Output of component response values
 #'@export
-plot_evo_out(evo_out){
+plot_evo_out <- function(evo_out){
     gammas <- get_top_evo_out(evo_out, size = 6);
     par(mfrow = c(3, 2), mar = c(0.25, 0.25, 0.25, 0.25), oma = c(5, 5, 1, 1));
     hist(gammas[[1]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
