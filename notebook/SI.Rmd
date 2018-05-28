@@ -104,7 +104,7 @@ find_bgamma <- function(S = 200, C = 0.05, Osd = 0.4, iters = 10000){
 The above function terminates when a matrix $M$ is found that is not stable when all component response rates are set to $\gamma = 1$, but is stable when half of component response rates are $1.95$ and half are $0.05$. The function is used to illustrate the concept of how fast versus slow component responses can cause a system to become stable. Simulations were run for `iter = 1000000`, but terminated once an acceptable `A0` and `A1` were found. The code below plots the eigenvalue distributions of `A0` and `A1` in panels **a** and **b**, respectively. The plot itself can be recreated with the function and code below.
 
 ```{r, echo = FALSE}
-load(bg_data);
+data(bg_data);
 plot_Fig_1 <- function(A0, A1){
     S_val       <- dim(A0)[1];
     A0_e        <- eigen(A0)$values;
