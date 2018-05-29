@@ -815,8 +815,8 @@ kable(evo_res);
 
 The distribution of one of the $\gamma$ vectors at $S = 39$ is shown below (all are available on [GitHub]()). Distributions of $\gamma$ values in vectors for the highest values of $S$ are shown below. <!--- NOTE: This needs to be updated with the new data --->
 
-```{r}
-evo_out <- scan(file = "sim_results/evolved/Evo_out.txt");
+```{r, fig.height = 9, fig.width = 6}
+evo_out <- scan(file = "sim_results/evolved/evo_out.txt");
 plot_evo_out(evo_out);
 ```
 
