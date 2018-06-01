@@ -777,6 +777,26 @@ summarise_randmat_ga <- function(tot_res, fea_res){
 Some stability results from this table are shown below. Each histogram shows a different distribution of $\gamma$ that was found to be stabilising.
 
 ```{r, echo = FALSE}
+get_top_evo_out <- function(evo_out, size){
+    highest <- max(evo_out);
+    gammas  <- NULL;
+    while(size > 0){
+        pos <- which(evo_out == highest);
+        len <- length(pos);
+        nli <- NULL;
+        for(i in 1:len){
+            start          <- pos[i] + 1;
+            end            <- pos[i] + highest;
+            gammas[[size]] <- evo_out[start:end];
+            size           <- size - 1;
+            if(size == 0){
+                break;
+            }
+        }
+        highest <- highest - 1;
+    }
+    return(gammas);
+}
 plot_evo_out <- function(evo_out){
     gammas <- get_top_evo_out(evo_out, size = 9);
     par(mfrow = c(3, 3), mar = c(0.5, 0.5, 0.5, 0.5), oma = c(5, 5, 1, 1));
@@ -802,26 +822,6 @@ plot_evo_out <- function(evo_out){
           text = expression(paste("Component response rate (",gamma,")")));
     mtext(side = 2, text = "Frequency", outer = TRUE, line = 3, cex = 1.5);
 }
-get_top_evo_out <- function(evo_out, size){
-    highest <- max(evo_out);
-    gammas  <- NULL;
-    while(size > 0){
-        pos <- which(evo_out == highest);
-        len <- length(pos);
-        nli <- NULL;
-        for(i in 1:len){
-            start          <- pos[i] + 1;
-            end            <- pos[i] + highest;
-            gammas[[size]] <- evo_out[start:end];
-            size           <- size - 1;
-            if(size == 0){
-                break;
-            }
-        }
-        highest <- highest - 1;
-    }
-    return(gammas);
-}
 evo_res <- read.csv(file = "sim_results/evolved/evo_results.csv");
 kable(evo_res);
 ```
@@ -846,41 +846,29 @@ Dougoud et al.[@Dougoud2018] define the following feasibility criteria for ecolo
 
 $$x^{*} = -\left(\theta I + (CS)^{-\delta}A\right)^{-1}r.$$
 
-The above is not nearly as nasty as it looks, especially because it is entirely reasonable to simply use convenient values to parameterise it. The variable $x^{*}$ is just the vector of species abundances at equilibrium (we need all of them to be positive). The matrix $I$ is just the identity matrix (1s on the diagonal, 0s on the off-diagonal elements), and the value $\theta$ is just the strength of intraspecific competition -- we can just set this to $\theta = -1$ (as others have). The variable $C$ is just the connectance of the community, which we will also set to 1 for convenience (lower values would mean that some species don't interact with one another, corresponding to an off-diagonal matrix element of 0). And $\delta$ just affects the strength of interactions -- which we can set to $\delta = 0$ for strong interactions. Hence, the whole $(CS)^{-\delta} = 1$, so we're just adding the diagonal matrix of -1s ($\theta I$) to $A$, which has a diagonal of all zeros and an off-diagonal effecting species interactions,
+In the above, $x^{*}$ is the vector of species abundances at equilibrium (for feasibility, all values in $x^{*}$ must be positive). The matrix $I$ is the identity matrix (1s on the diagonal, 0s on the off-diagonal elements), and the value $\theta$ is strength of intraspecific competition (diagonal elements). As I have done elsewhere, diagonal values are set to $-1$, so $\theta = -1$. The variable $C$ is just the interconnectedness of the community, which was set to $C = 1$ throughout the manuscript and supporing information, except [where otherwise noted](#connectance). The variable $\delta$ just affects the strength of interactions, which are held in $A$. In the main text, $\delta = 0$ underlying strong interactions. Hence, the whole $(CS)^{-\delta} = 1$, so in the above, a diagonal matrix of -1s ($\theta I$) is added to $A$, which has a diagonal of all zeros and an off-diagonal effecting species interactions. The above criteria is therefore reduced to the below; note that the parenthetical in both equations produces an $M$ matrix as used throughout the main text and supplemental information.
 
 $$x^{*} = -\left(\theta I + A\right)^{-1}r.$$
 
-To check the feasibility criteria, all that needs to be done is to invert $(\theta I + A)$ and multiply the matrix by the vector of growth rates $r$, which we can also just set to 1. So really, we're just multiplying $-(\theta I + A)$ by a vector of ones and checking to make sure that all the values are positive. This isn't much extra work, but it will probably go a long way toward satisfying any reviewers familiar with @Dougoud2018.
+To check the feasibility criteria, I therefore inverted $M = (\theta I + A)$ and multiplied elements by -1, then multiplied the resulting matrix by the vector of population growth rates $r$. Feasibility is satisfied if all of the elements of the resulting vector are positive.
+
+The population growth rate for an individual species $i$ is sampled from a normal distribution of $r_{i} \sim \mathcal{N}(0, 0.4^{2})$, as shown in the `rand_gen_var` function in [the section](#IncrS) on "Stability across increasing $S$" above. Hence, each component $i$ of the complex system $M$ is assumed to be a species with a growth rate of $r_{i}$. Note that negative intrinsic growth rates are not unrealistic, and will occur in obligate mutualists in the absence of a partner. 
+
+When feasibility was evaluated with and without variation in $\gamma$, there was no increase in stability for $M$ where $\gamma$ varied as compared to where $\gamma = 1$. Results below illustrate this result, which was general to all other simulations performed. 
+
+```{r, echo = FALSE}
+dat      <- read.csv(file = "sim_results/C_1/random_all.csv");
+dat      <- dat[,-1]; # Extra row-indicating column removed
+feas_tab <- cbind(dat[,1], dat[,8:13]);
+colnames(feas_tab)[1] <- "S";
+kable(feas_tab);
+```
+
+Hence, in general, $Var(\gamma)$ does not appear to affect feasibility in pure species interaction networks.
 
 
 References
 ================================================================================
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
