@@ -837,14 +837,15 @@ plot_evo_out(evo_out);
 
 The distribution of $\gamma$ values found by the genetic algorithm is uniform. A uniform distribution was used to initialise $\gamma$ values, so there is therefore no evidence that a particular distribution of $\gamma$ is likely to be found to stabilise a matrix $M$. 
 
-Feasilbility of complex systems {#Feasibility}
+Feasibility of complex systems {#Feasibility}
 ================================================================================
 
-**Work in progress**
+For complex systems in which individual system components ($S$) represent the density of some tangible quantity, it is important to consider the feasibility of the system. Feasibile equilibria assume that the values of all system components are positive at equilibrium[@Grilli2017; @Dougoud2018; @Song2018]. This is of particular interest for ecological communities because population density cannot take negative values, meaning that ecological systems need to be feasible for stability to be biologically realistic[@Dougoud2018]. Consequently, the use of random matrices and traditional stability critiera for making inferences in theoretical analyses of species networks has recently been criticised[@Dougoud2018]. While the key results in the main text are intended to be general to all complex systems, and not restricted to species networks, I have also performed a feasibility analysis on all matrices $M$. This analysis reveals that feasibility is not affected by $Var(\gamma)$, meaning that for pure interacting species networks, variation in component response time (i.e., species generation time) does not affect stability at biologically realistic species densities. Nevertheless, ecological interactions do not exist in isolation in empirical systems, but instead interact with evolutionary[@Patel2018], abiotic, or social-economic systems. The relevance of $\gamma$ for complex system stability presented in the main text should therefore not be ignored in the broader context of ecological communities.
 
-It also would be useful to look at feasibility criteria established by @Dougoud2018, who very recently made the point that some of May and Allesina's criteria allows for negative species densities when stable. Feasibility criteria are as follows,
+Dougoud et al.[@Dougoud2018] define the following feasibility criteria for ecological systems characterised by $S$ interacting species with varying densities.
 
 $$x^{*} = -\left(\theta I + (CS)^{-\delta}A\right)^{-1}r.$$
+
 The above is not nearly as nasty as it looks, especially because it is entirely reasonable to simply use convenient values to parameterise it. The variable $x^{*}$ is just the vector of species abundances at equilibrium (we need all of them to be positive). The matrix $I$ is just the identity matrix (1s on the diagonal, 0s on the off-diagonal elements), and the value $\theta$ is just the strength of intraspecific competition -- we can just set this to $\theta = -1$ (as others have). The variable $C$ is just the connectance of the community, which we will also set to 1 for convenience (lower values would mean that some species don't interact with one another, corresponding to an off-diagonal matrix element of 0). And $\delta$ just affects the strength of interactions -- which we can set to $\delta = 0$ for strong interactions. Hence, the whole $(CS)^{-\delta} = 1$, so we're just adding the diagonal matrix of -1s ($\theta I$) to $A$, which has a diagonal of all zeros and an off-diagonal effecting species interactions,
 
 $$x^{*} = -\left(\theta I + A\right)^{-1}r.$$
