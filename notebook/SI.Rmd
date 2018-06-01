@@ -1,10 +1,8 @@
 ---
 title: "Component response rate variation drives stability in large complex systems"
-subtitle: "Supplemental Information"
 author: "Brad Duthie"
 date: Biological and Environmental Sciences, University of Stirling, Stirling, UK,
   FK9 4LA alexander.duthie@stir.ac.uk
-bibliography: references.bib
 output:
   pdf_document:
     fig_caption: yes
@@ -15,6 +13,7 @@ output:
     - --csl
     - evolution.csl
     reference_docx: docx_template.docx
+bibliography: references.bib
 header-includes:
 - \usepackage{amsmath}
 - \usepackage{natbib}
@@ -26,6 +25,7 @@ linestretch: 1
 link-citations: yes
 linkcolor: blue
 csl: nature.csl
+subtitle: Supplemental Information
 biblio-style: apalike
 ---
 
@@ -72,8 +72,8 @@ Supplemental Information table of contents
     - [C = 0.7](#connect7)
     - [C = 0.9](#connect9)
 - [Different distributions of $\gamma$](#gam_dist)
-- [Feasilbility of complex systems](#Feasibility) 
 - [Genetic algorithm](#ga) 
+- [Feasilbility of complex systems](#Feasibility) 
 
 ********************************************************************************
 
