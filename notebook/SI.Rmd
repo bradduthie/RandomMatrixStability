@@ -73,7 +73,7 @@ Supplemental Information table of contents
     - [C = 0.9](#connect9)
 - [Different distributions of $\gamma$](#gam_dist)
 - [Genetic algorithm](#ga) 
-- [Feasilbility of complex systems](#Feasibility) 
+- [Feasibility of complex systems](#Feasibility)
 
 ********************************************************************************
 
