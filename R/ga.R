@@ -229,20 +229,26 @@ get_top_evo_out <- function(evo_out, size){
 #'@param evo_out Output of component response values
 #'@export
 plot_evo_out <- function(evo_out){
-    gammas <- get_top_evo_out(evo_out, size = 6);
-    par(mfrow = c(3, 2), mar = c(0.5, 0.5, 0.5, 0.5), oma = c(5, 5, 1, 1));
+    gammas <- get_top_evo_out(evo_out, size = 9);
+    par(mfrow = c(3, 3), mar = c(0.5, 0.5, 0.5, 0.5), oma = c(5, 5, 1, 1));
     hist(gammas[[1]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
-         xaxt = "n", xlim = c(0, 1.3));
+         xaxt = "n", xlim = c(0, 1.1));
     hist(gammas[[2]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
-         xaxt = "n", yaxt = "n", xlim = c(0, 1.3));
+         xaxt = "n", yaxt = "n", xlim = c(0, 1.1));
     hist(gammas[[3]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
-         xaxt = "n", xlim = c(0, 1.3));
+         xaxt = "n", yaxt = "n", xlim = c(0, 1.1));
     hist(gammas[[4]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
-         xaxt = "n", yaxt = "n", xlim = c(0, 1.3));
+         xaxt = "n", xlim = c(0, 1.1));
     hist(gammas[[5]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
-         xlim = c(0, 3));
+         xaxt = "n", yaxt = "n", xlim = c(0, 1.1));
     hist(gammas[[6]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
-         yaxt = "n", xlim = c(0, 1.3));
+         xaxt = "n", yaxt = "n", xlim = c(0, 1.1));
+    hist(gammas[[7]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
+         xlim = c(0, 1.1));
+    hist(gammas[[8]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
+         yaxt = "n", xlim = c(0, 1.1));
+    hist(gammas[[9]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
+         yaxt = "n", xlim = c(0, 1.1));
     mtext(side = 1, outer = TRUE, line = 3, cex = 1.5,
           text = expression(paste("Component response rate (",gamma,")")));
     mtext(side = 2, text = "Frequency", outer = TRUE, line = 3, cex = 1.5);
