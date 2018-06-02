@@ -6,6 +6,7 @@ date: Biological and Environmental Sciences, University of Stirling, Stirling, U
 output:
   pdf_document:
     fig_caption: yes
+    keep_tex: yes
   html_document: default
   word_document:
     fig_caption: yes
@@ -846,7 +847,7 @@ Dougoud et al.[@Dougoud2018] define the following feasibility criteria for ecolo
 
 $$x^{*} = -\left(\theta I + (CS)^{-\delta}A\right)^{-1}r.$$
 
-In the above, $x^{*}$ is the vector of species abundances at equilibrium (for feasibility, all values in $x^{*}$ must be positive). The matrix $I$ is the identity matrix (1s on the diagonal, 0s on the off-diagonal elements), and the value $\theta$ is strength of intraspecific competition (diagonal elements). As I have done elsewhere, diagonal values are set to $-1$, so $\theta = -1$. The variable $C$ is the inter-connectivity (i.e., 'connectance') of the community, which was set to $C = 1$ throughout the manuscript and supporing information, except [where otherwise noted](#connectance). The variable $\delta$ is a normalisation parameter that modulates the strength of interactions ($\sigma$ in the main text), which are held in $A$. In the main text, implicitly, $\delta = 0$ underlying strong interactions. Hence, the whole $(CS)^{-\delta} = 1$, so in the above, a diagonal matrix of -1s ($\theta I$) is added to $A$, which has a diagonal of all zeros and an off-diagonal affecting species interactions (i.e., the expression $(CS)^{-\delta}$ relates to May's[@May1972] stability criterion[@Dougoud2018] by $\frac{\sigma}{(CS)^{-\delta}}\sqrt{SC} < -1$, and hence $(CS)^{-\delta} = 1$ for the randomly simulated systems in the main text and supplemental information). The above criteria is therefore reduced to the below; note that the parenthetical in both equations produces an $M$ matrix as used throughout the main text and supplemental information,
+In the above, $x^{*}$ is the vector of species abundances at equilibrium (for feasibility, all values in $x^{*}$ must be positive). The matrix $I$ is the identity matrix (1s on the diagonal, 0s on the off-diagonal elements), and the value $\theta$ is strength of intraspecific competition (diagonal elements). As I have done elsewhere, diagonal values are set to $-1$, so $\theta = -1$. The variable $C$ is the inter-connectivity (i.e., 'connectance') of the community, which was set to $C = 1$ throughout the manuscript and supplemental information, except [where otherwise noted](#connectance). The variable $\delta$ is a normalisation parameter that modulates the strength of interactions ($\sigma$ in the main text), which are held in $A$. In the main text, implicitly, $\delta = 0$ underlying strong interactions. Hence, the whole $(CS)^{-\delta} = 1$, so in the above, a diagonal matrix of -1s ($\theta I$) is added to $A$, which has a diagonal of all zeros and an off-diagonal affecting species interactions (i.e., the expression $(CS)^{-\delta}$ relates to May's[@May1972] stability criterion[@Dougoud2018] by $\frac{\sigma}{(CS)^{-\delta}}\sqrt{SC} < -1$, and hence $(CS)^{-\delta} = 1$ for the randomly simulated systems in the main text and supplemental information). The above criteria is therefore reduced to the below; note that the parenthetical in both equations produces an $M$ matrix as used throughout the main text and supplemental information,
 
 $$x^{*} = -\left(\theta I + A\right)^{-1}r.$$
 
