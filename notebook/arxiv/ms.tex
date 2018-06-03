@@ -253,8 +253,8 @@ In 1972, May\textsuperscript{\protect\hyperlink{ref-May1972}{1}} first
 demonstrated that randomly assembled systems of sufficient complexity
 are almost inevitably unstable given infinitesimally small
 perturbations. Complexity in this case is defined by the size of the
-system (i.e., the number of interacting components; \(S\)), its
-inter-connectivity (i.e., the probability that one component will affect
+system (i.e., the number of potentially interacting components; \(S\)), its 
+connectance (i.e., the probability that one component will interact with 
 another; \(C\)), and the variance of interaction strengths
 (\(\sigma^{2}\))\textsuperscript{\protect\hyperlink{ref-Allesina2012}{2}}.
 May's finding that the probability of local stability falls to near zero
@@ -270,7 +270,7 @@ Randomly assembled complex systems can be represented as large square
 matrices (\(M\)) with \(S\) components (e.g.,
 species\textsuperscript{\protect\hyperlink{ref-Allesina2012}{2}} or
 banks\textsuperscript{\protect\hyperlink{ref-Haldane2011}{7}}). One
-element of such a matrix \(M_{ij}\) defines how component \(j\) affects
+element of such a matrix, \(M_{ij}\), defines how component \(j\) affects
 component \(i\) in the system at a point of
 equilibrium\textsuperscript{\protect\hyperlink{ref-Allesina2012}{2}}.
 Off-diagonal elements (\(i \neq j\)) therefore define interactions
@@ -327,7 +327,7 @@ Eigenvalues plotted when half \(\gamma = 1.95\) and half
 \(\gamma = 0.05\); distributions of points can be partitioned into one
 large circle of \(\sigma\sqrt{SC} =\) 1.718 centred at
 \(\gamma = -1.95\) and one small circle of \(\sigma\sqrt{SC} =\) 0.044
-centred at \(\gamma = -0.05\). In a, the maximum real eigenvalaue
+centred at \(\gamma = -0.05\). In a, the maximum real eigenvalue
 \(\max\left(\Re(\lambda)\right) =\) 0.2344871, while in b
 \(\max\left(\Re(\lambda)\right) =\) -0.0002273135, meaning that the
 complex system in b but not a is stable because in b
@@ -441,20 +441,16 @@ shows the proportion of systems that are stable when
 
 To investigate the effect of \(Var(\gamma)\) on system stability, I
 simulated random \(M\) matrices at \(\sigma = 0.4\) and \(C = 1\) across
-\(S\) ranging from 2-32 (see \hyperlink{SIstart}{Supplementary Information}
-for different values of \(\sigma\) and \(C\)). One million \(M\) were simulated 
+\(S\) ranging from 2-32. One million \(M\) were simulated 
 for each \(S\), and the stability of \(M\) was assessed given \(\gamma = 1\)
-versus \(\gamma \sim \mathcal{U}(0, 2)\) (note that under these
-conditions, \(\sigma\sqrt{SC} = 1\) given \(S = 25\) when
-\(\gamma = 1\)). I found that the number of stable random systems was
+versus \(\gamma \sim \mathcal{U}(0, 2)\). I found that the number of stable 
+random systems was
 consistently higher given \(Var(\gamma)\) than when \(\gamma = 1\) (Fig.
 3), and that the difference between the probabilities of observing a
 stable system increased with an increase in \(S\); i.e., the potential
 for \(Var(\gamma)\) to drive stability increased with system complexity.
 For the highest values of \(S\), nearly all systems that were stable
-given \(Var(\gamma)\) would not have been stable given \(\gamma = 1\),
-and the maximum observed \(S\) for which a system was stable was \(31\)
-given \(Var(\gamma)\) versus \(27\) given \(\gamma = 1\) (see
+given \(Var(\gamma)\) would not have been stable given \(\gamma = 1\) (see
 \hyperlink{SIstart}{Supplementary Information} for full results). This 
 suggests that the
 stability of large systems might be dependent upon variation in the
@@ -463,8 +459,8 @@ as generation time (in ecological networks), transaction speed (in
 economic networks), or communication speed (in social networks) needs to
 be considered when investigating the stability of complex systems.
 
-Some caution is needed when interpreting these results. First, I
-emphasise that \(Var(\gamma)\) is not stabilising per se; that is,
+It is important to point out 
+that \(Var(\gamma)\) is not stabilising per se; that is,
 adding variation in \(\gamma\) to a particular system \(M\) does not
 necessarily increase the probability that the system will be stable (see
 \hyperlink{SIstart}{Supplementary Information}). Rather, systems that are 
@@ -474,32 +470,35 @@ shift in the distribution of eigenvalues that occurs by introducing
 \(Var(\gamma)\) (Fig. 1b, 2b), which can sometimes result in all
 \(\Re(\lambda) < 0\) but might also increase \(\Re(\lambda)\) values. To
 further investigate the potential of \(Var(\gamma)\) to be stabilising,
-I used a simple genetic algorithm (the space of possible \(\gamma\)
+I used a genetic algorithm (the space of possible \(\gamma\)
 values was too large to search
 exhaustively\textsuperscript{\protect\hyperlink{ref-Hamblin2013}{18}};
 see \hyperlink{SIstart}{Supplementary Information}). For each of 10000 
 random \(M\), the
 genetic algorithm initialised 1000 different sets of
-\(\gamma \sim \mathcal{U}(0, 2)\) values of size \(S\). Eigenanalysis of
-each set of \(\gamma\) values was performed, and the 20 sets with the
+\(\gamma \sim \mathcal{U}(0, 2)\) values of size \(S\). Eigenanalysis was
+performed on \(M\) using 
+each set of \(\gamma\) values, and the 20 sets with the
 lowest \(\max\left(\Re(\lambda)\right)\) each produced 50 offspring with
 subsequent mutation and crossover between the resulting new population
 of 1000 \(\gamma\) sets. The genetic algorithm terminated if a stable
-\(M\) was found, 20 generations occurred, or a converge criteria of
+\(M\) was found, 20 generations occurred, or a convergence criteria of
 minimum fitness increase between generations was satisfied. Across
 \(S = \{2, 3, ..., 39, 40\}\), sets of \(\gamma\) values were found that
 resulted in stable systems with probabilities that were orders of
-magnitude higher than when \(\gamma = 1\) (see \hyperlink{SIstart}{Supplementary Information}).
+magnitude higher than when \(\gamma = 1\) (see \hyperlink{SIstart}{Supplementary
+Information}), meaning that stability could often be achieved by 
+manipulating \(S\) \(\gamma\) values rather than \(S \times S\) \(M\) elements.
 Hence, managing the response rates of system components in a targetted
-way can potentially facilitate the stabilisation of complex systems.
+way can potentially facilitate the stabilisation of complex systems 
+through a reduction in dimensionality.
 
 I have focused broadly on random complex systems, but it is also
 worthwhile to consider more restricted interactions such as those of
 specific ecological
 networks\textsuperscript{\protect\hyperlink{ref-Allesina2012}{2}}. These
-include systems in which all interactions are negative (e.g.,
-competitive networks), positive (e.g., mutualist networks), or \(i\) and
-\(j\) pairs have opposing signs (e.g., predator-prey networks). In
+include systems in which all interactions are negative (competitive networks), positive (mutualist networks), or \(i\) and
+\(j\) pairs have opposing signs (predator-prey networks). In
 general, competitive and mutualist networks tend to be destabilising,
 and predator-prey network tend to be
 stabilising\textsuperscript{\protect\hyperlink{ref-Allesina2011}{19}}.
@@ -1398,10 +1397,10 @@ positive\textsuperscript{\protect\hyperlink{ref-Allesina2012}{2}}
 leading \(\Re(\lambda)\), and it is highly unlikely that \(Var(\gamma)\)
 alone will shift all real parts of eigenvalues to negative values.
 
-\hypertarget{connectance}{\section{Different inter-connectivity (C)
+\hypertarget{connectance}{\section{Different connectance (C)
 values}\label{connectance}}
 
-In the main text, for simplicity, I assumed inter-connectivity values of
+In the main text, for simplicity, I assumed connectance values of
 \(C = 1\), meaning that all off-diagonal elements of a matrix \(M\) were
 potentially nonzero and sampled from a normal distribution
 \(\mathcal{N}(0, \sigma^{2})\) where \(\sigma = 0.4\). Here I present
@@ -2097,7 +2096,7 @@ The matrix \(I\) is the identity matrix (1s on the diagonal, 0s on the
 off-diagonal elements), and the value \(\theta\) is strength of
 intraspecific competition (diagonal elements). As I have done elsewhere,
 diagonal values are set to \(-1\), so \(\theta = -1\). The variable
-\(C\) is the inter-connectivity (i.e., `connectance') of the community,
+\(C\) is the connectance of the community,
 which was set to \(C = 1\) throughout the manuscript and supplemental
 information, except \protect\hyperlink{connectance}{where otherwise
 noted}. The variable \(\delta\) is a normalisation parameter that
