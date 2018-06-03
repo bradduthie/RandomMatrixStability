@@ -49,7 +49,7 @@ library(devtools);
 The code below installs the RandomMatrixStability package using devtools.
 
 ```{r, eval = FALSE}
-install_github("bradduthie/RandomMatrixStability")
+install_github("bradduthie/RandomMatrixStability");
 ```
 
 While downloading this package is recommended, all relevant code is also reproduced below with explanation, so it is possible to recreate all analyses using only this supplemental information.
