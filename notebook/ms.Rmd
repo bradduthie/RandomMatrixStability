@@ -12,7 +12,7 @@ output:
     reference_docx: docx_template.docx
   pdf_document:
     fig_caption: yes
-    keep_tex: yes
+    keep_tex: no
   html_document: default
 bibliography: references.bib
 header-includes:

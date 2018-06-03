@@ -37,9 +37,9 @@ source(file = "R_old/plot_figs.R");
 
 ********************************************************************************
 
-**This supplemental information supports the manuscript "Component response rate variation drives stability in large complex systems" with all of the code required to recreate the analysis in the main text, and with additional analyses to support its conclusions. All text, code, and data underlying this manuscript are publicly available on [GitHub](https://github.com/bradduthie/random_matrix_stability) as part of the RandomMatrixStability package.**
+**This supplemental information supports the manuscript "Component response rate variation drives stability in large complex systems" with all of the code required to recreate the analysis in the main text, and with additional analyses to support its conclusions. All text, code, and data underlying this manuscript are publicly available on [GitHub](https://github.com/bradduthie/RandomMatrixStability) as part of the RandomMatrixStability package.**
 
-The [RandomMatrixStability package](https://github.com/bradduthie/random_matrix_stability) includes all functions and tools for recreating the text, this supplemental information, and running all code; additional documentation is also provided for functions as part of the package. The RandomMatrixStability package package is available on [GitHub](https://github.com/bradduthie/random_matrix_stability); to download it, the  [`devtools` library](https://cran.r-project.org/web/packages/devtools/index.html) is needed.
+The [RandomMatrixStability package](https://github.com/bradduthie/RandomMatrixStability) includes all functions and tools for recreating the text, this supplemental information, and running all code; additional documentation is also provided for functions as part of the package. The RandomMatrixStability package package is available on [GitHub](https://github.com/bradduthie/RandomMatrixStability); to download it, the  [`devtools` library](https://cran.r-project.org/web/packages/devtools/index.html) is needed.
 
 ```{r, eval = FALSE}
 install.packages("devtools");
@@ -49,7 +49,7 @@ library(devtools);
 The code below installs the RandomMatrixStability package using devtools.
 
 ```{r, eval = FALSE}
-install_github("bradduthie/random_matrix_stability")
+install_github("bradduthie/RandomMatrixStability")
 ```
 
 While downloading this package is recommended, all relevant code is also reproduced below with explanation, so it is possible to recreate all analyses using only this supplemental information.
@@ -81,7 +81,7 @@ Supplemental Information table of contents
 Code and simulations underlying Fig. 1 {#Fig1}
 ================================================================================
 
-The sample $M$ used for the eigenvalue distributions in Fig. 1 of the text is available on [GitHub](https://github.com/bradduthie/random_matrix_stability/tree/master/sim_results/bi_gamma), and was produced by running the following function.
+The sample $M$ used for the eigenvalue distributions in Fig. 1 of the text is available on [GitHub](https://github.com/bradduthie/RandomMatrixStability/tree/master/sim_results/bi_gamma), and was produced by running the following function.
 
 ```{r}
 find_bgamma <- function(S = 200, C = 0.05, Osd = 0.4, iters = 10000){
@@ -211,7 +211,7 @@ bi_pr_st <- read.csv("sim_results/bi_gamma/bi_pr_st.csv");
 pr_st    <- bi_pr_st[,-1];
 ```
 
-The function `stab_bgamma` was run for `iters = 1000000`, and the resulting matrix `ress` was returned. Each row of `ress` represents a single $M$ given $\gamma = 1$ (column 1) versus $\gamma = \{1.95, 0.05\}$ (column 2). Values of 0 indicate that $M$ was found to be unstable (at least one real component of its eigenvalues greater than or equal to zero), whereas values of 1 indicate that $M$ was found to be stable (all real components of eigenvalues are negative). The frequencies of stable $M$ were `r sum(pr_st[,1])` given $\gamma = 1$ and `r sum(pr_st[,2])` given $\gamma = \{1.95, 0.05\}$, as reported in the main text and legend of Fig. 1 (raw data are [available on GitHub](https://github.com/bradduthie/random_matrix_stability/blob/master/sim_results/bi_gamma/bi_pr_st.csv)).
+The function `stab_bgamma` was run for `iters = 1000000`, and the resulting matrix `ress` was returned. Each row of `ress` represents a single $M$ given $\gamma = 1$ (column 1) versus $\gamma = \{1.95, 0.05\}$ (column 2). Values of 0 indicate that $M$ was found to be unstable (at least one real component of its eigenvalues greater than or equal to zero), whereas values of 1 indicate that $M$ was found to be stable (all real components of eigenvalues are negative). The frequencies of stable $M$ were `r sum(pr_st[,1])` given $\gamma = 1$ and `r sum(pr_st[,2])` given $\gamma = \{1.95, 0.05\}$, as reported in the main text and legend of Fig. 1 (raw data are [available on GitHub](https://github.com/bradduthie/RandomMatrixStability/blob/master/sim_results/bi_gamma/bi_pr_st.csv)).
 
 
 Code and simulations underlying Fig. 2 {#Fig2}
