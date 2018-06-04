@@ -454,9 +454,9 @@ given \(Var(\gamma)\) would not have been stable given \(\gamma = 1\) (see
 \hyperlink{SIstart}{Supplementary Information} for full results). This 
 suggests that the
 stability of large systems might be dependent upon variation in the
-response rate of their individual components, meaning that factors such
+response rates of their individual components, meaning that factors such
 as generation time (in ecological networks), transaction speed (in
-economic networks), or communication speed (in social networks) needs to
+economic networks), or communication speed (in social networks) need to
 be considered when investigating the stability of complex systems.
 
 It is important to point out 
@@ -468,8 +468,9 @@ observed to be stable are more likely to vary in \(\gamma\), and for this
 \(Var(\gamma)\) to be critical to their stability. This is caused by the
 shift in the distribution of eigenvalues that occurs by introducing
 \(Var(\gamma)\) (Fig. 1b, 2b), which can sometimes result in all
-\(\Re(\lambda) < 0\) but might also increase \(\Re(\lambda)\) values. To
-further investigate the potential of \(Var(\gamma)\) to be stabilising,
+\(\Re(\lambda) < 0\) but might also increase \(\Re(\lambda)\) values. 
+
+To further investigate the potential of \(Var(\gamma)\) to be stabilising,
 I used a genetic algorithm (the space of possible \(\gamma\)
 values was too large to search
 exhaustively\textsuperscript{\protect\hyperlink{ref-Hamblin2013}{18}};
@@ -479,7 +480,7 @@ genetic algorithm initialised 1000 different sets of
 \(\gamma \sim \mathcal{U}(0, 2)\) values of size \(S\). Eigenanalysis was
 performed on \(M\) using 
 each set of \(\gamma\) values, and the 20 sets with the
-lowest \(\max\left(\Re(\lambda)\right)\) each produced 50 offspring with
+lowest \(\max\left(\Re(\lambda)\right)\) each produced 50 clonal offspring with
 subsequent mutation and crossover between the resulting new population
 of 1000 \(\gamma\) sets. The genetic algorithm terminated if a stable
 \(M\) was found, 20 generations occurred, or a convergence criteria of
