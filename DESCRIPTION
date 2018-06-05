@@ -10,12 +10,10 @@ Authors@R: c(person("A. Bradley", "Duthie", email = "brad.duthie@gmail.com",
 Maintainer: A. Bradley Duthie <brad.duthie@gmail.com>
 Description: Package containing all the code and data underlying a manuscript on
     how component response rate affects the stability of complex systems.
-URL: https://bradduthie.github.io/random_matrix_stability/
-BugReports: https://github.com/bradduthie/random_matrix_stability/issues
+URL: https://bradduthie.github.io/RandomMatrixStability/
+BugReports: https://github.com/bradduthie/RandomMatrixStability/issues
 Depends: R (>= 3.3.0)
 License: GPL (>=2)
 LazyData: TRUE
 Suggests: knitr,
-    rmarkdown,
-    testthat,
 RoxygenNote: 6.0.1
