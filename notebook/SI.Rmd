@@ -78,6 +78,15 @@ Supplemental Information table of contents
 
 ********************************************************************************
 
+<!---
+
+Further explanation of $\gamma$ {#moregamma}
+
+It would be perhaps useful to include a more detailed explanation of what $\gamma$ does in the context of the $M$. That is, as in @patel2018, I'm looking at $\frac{d N_{i}}{dt}$ and $\frac{d N_{j}}{dt}$, with $N_{i}$ and $N_{j}$ potentially affecting one another -- the $\gamma$ parameter modulates the change in each with respect to time at local equilibrium; in the language of @patel2018, it "determines the timescale separation" between the dynamics of individual components in the system $M$. The best place to provide further detail for this is likely to be early on in the Supplemental Information.
+
+--->
+
+
 Code and simulations underlying Fig. 1 {#Fig1}
 ================================================================================
 
