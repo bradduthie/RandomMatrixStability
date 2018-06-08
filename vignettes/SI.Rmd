@@ -6,13 +6,27 @@ date: Biological and Environmental Sciences, University of Stirling, Stirling, U
 output:
   pdf_document:
     fig_caption: yes
+    keep_tex: yes
   html_document: default
+  word_document:
+    fig_caption: yes
+    pandoc_args:
+    - --csl
+    - evolution.csl
+    reference_docx: docx_template.docx
+bibliography: references.bib
 header-includes:
-linestretch: 
+- \usepackage{amsmath}
+- \usepackage{natbib}
+- \usepackage{lineno}
+- \usepackage[utf8]{inputenc}
+- \linenumbers
+- \bibliographystyle{amnatnat}
+linestretch: 1
 link-citations: yes
 linkcolor: blue
-bibliography: references.bib
 csl: nature.csl
+biblio-style: apalike
 ---
 
 ```{r, echo = FALSE}
@@ -44,7 +58,7 @@ While downloading this package is recommended, all relevant code is also reprodu
 Supplemental Information table of contents
 ================================================================================
 
-
+- [Further explanation of $\gamma$](#moregamma)
 - [Code and simulations underlying Fig. 1](#Fig1) 
 - [Code and simulations underlying Fig. 2](#Fig2) 
 - [Stability across increasing $S$](#IncrS) 
@@ -61,15 +75,27 @@ Supplemental Information table of contents
 - [Genetic algorithm](#ga) 
 - [Feasibility of complex systems](#Feasibility)
 
-********************************************************************************
-
-<!---
 
 Further explanation of $\gamma$ {#moregamma}
+================================================================================
 
-It would be perhaps useful to include a more detailed explanation of what $\gamma$ does in the context of the $M$. That is, as in @patel2018, I'm looking at $\frac{d N_{i}}{dt}$ and $\frac{d N_{j}}{dt}$, with $N_{i}$ and $N_{j}$ potentially affecting one another -- the $\gamma$ parameter modulates the change in each with respect to time at local equilibrium; in the language of @patel2018, it "determines the timescale separation" between the dynamics of individual components in the system $M$. The best place to provide further detail for this is likely to be early on in the Supplemental Information.
+In a synthesis of eco-evolutionary feedbacks on community stability, Patel et al. model a system that includes a vector of potentially changing species densities ($\mathbf{N}$) and a vector of potentially evolving traits ($\mathbf{x}$)[@Patel2018]. For any species $i$ or trait $j$, change in species density ($N_{i}$) or trait value ($x_{j}$) with time ($t$) is a function of the vectors $\mathbf{N}$ and $\mathbf{x}$,
 
---->
+$$\frac{dN_{i}(t)}{dt} = N_{i}f_{i}(\mathbf{N}, \mathbf{x}),$$
+
+$$\frac{dx_{j}(t)}{dt} = \epsilon g_{j}(\mathbf{N}, \mathbf{x}).$$
+
+In the above, $f_{i}$ and $g_{j}$ are functions that define the effects of all species densities and trait values on the density of a species $i$ and the value of trait $j$, respectively. Patel et al. were interested in stability when the evolution of traits was relatively slow or fast in comparison with the change in species densities[@Patel2018], and this is modulated in the above by the scalar $\epsilon$. The value of $\epsilon$ thereby determines the timescale separation between ecology and evolution, with high $\epsilon$ modelling relatively fast evolution and low $\epsilon$ modelling relative slow evolution[@Patel2018]. 
+
+I use the same principle that Patel et al. use to modulate the relative rate of evolution to modulate rates of component responses for $S$ components. Following May[@May1972; @May1973], the value of a component $i$ at time $t$ ($v_{i}(t)$) is affected by the value of $j$ ($v_{j}(t)$) and $j$'s marginal effect on $i$ ($m_{ij}$), and by $i$'s response rate ($\gamma_{i}$),
+
+$$\frac{dv_{i}(t)}{dt} = \gamma_{i} \sum_{j=1}^{S}m_{ij}v_{j}(t).$$
+
+In matrix notation[@May1973],
+
+$$\frac{d\mathbf{v}(t)}{dt} = \mathbf{\gamma} \mathbf{M}\mathbf{v}(t).$$
+
+In the above, $\mathbf{\gamma}$ is a diagonal matrix in which elements correspond to individual component response rates. Therefore, $\mathbf{\gamma} \mathbf{M}$ modulates the values of components and can be analysed using the techniques of May[@May1972; @May1973]. 
 
 
 Code and simulations underlying Fig. 1 {#Fig1}
@@ -432,7 +458,7 @@ The following tables for restricted ecological communities can therefore be comp
 Results for competitor interaction networks are shown below
 
 ```{r, echo = FALSE}
-cd_tab <- cdat[,1:7];
+cd_tab <- cdat[,2:7];
 kable(cd_tab);
 ```
 
@@ -441,7 +467,7 @@ kable(cd_tab);
 Results for mutualist interaction networks are shown below
 
 ```{r, echo = FALSE}
-md_tab <- mdat[,1:7];
+md_tab <- mdat[,2:7];
 kable(md_tab);
 ```
 
@@ -450,7 +476,7 @@ kable(md_tab);
 Results for predator-prey interaction networks are shown below
 
 ```{r, echo = FALSE}
-pd_tab <- pdat[,1:7];
+pd_tab <- pdat[,2:7];
 kable(pd_tab);
 ```
 

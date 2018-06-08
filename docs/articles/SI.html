@@ -98,6 +98,7 @@
 <h1 class="hasAnchor">
 <a href="#supplemental-information-table-of-contents" class="anchor"></a>Supplemental Information table of contents</h1>
 <ul>
+<li><a href="#moregamma">Further explanation of <span class="math inline">\(\gamma\)</span></a></li>
 <li><a href="#Fig1">Code and simulations underlying Fig. 1</a></li>
 <li><a href="#Fig2">Code and simulations underlying Fig. 2</a></li>
 <li><a href="#IncrS">Stability across increasing <span class="math inline">\(S\)</span></a></li>
@@ -122,14 +123,20 @@
 <li><a href="#ga">Genetic algorithm</a></li>
 <li><a href="#Feasibility">Feasibility of complex systems</a></li>
 </ul>
-<hr>
-<!---
-
-Further explanation of $\gamma$ {#moregamma}
-
-It would be perhaps useful to include a more detailed explanation of what $\gamma$ does in the context of the $M$. That is, as in @patel2018, I'm looking at $\frac{d N_{i}}{dt}$ and $\frac{d N_{j}}{dt}$, with $N_{i}$ and $N_{j}$ potentially affecting one another -- the $\gamma$ parameter modulates the change in each with respect to time at local equilibrium; in the language of @patel2018, it "determines the timescale separation" between the dynamics of individual components in the system $M$. The best place to provide further detail for this is likely to be early on in the Supplemental Information.
-
---->
+</div>
+<div id="moregamma" class="section level1">
+<h1 class="hasAnchor">
+<a href="#moregamma" class="anchor"></a>Further explanation of <span class="math inline">\(\gamma\)</span>
+</h1>
+<p>In a synthesis of eco-evolutionary feedbacks on community stability, Patel et al. model a system that includes a vector of potentially changing species densities (<span class="math inline">\(\mathbf{N}\)</span>) and a vector of potentially evolving traits (<span class="math inline">\(\mathbf{x}\)</span>)<span class="citation"><sup><a href="#ref-Patel2018">1</a></sup></span>. For any species <span class="math inline">\(i\)</span> or trait <span class="math inline">\(j\)</span>, change in species density (<span class="math inline">\(N_{i}\)</span>) or trait value (<span class="math inline">\(x_{j}\)</span>) with time (<span class="math inline">\(t\)</span>) is a function of the vectors <span class="math inline">\(\mathbf{N}\)</span> and <span class="math inline">\(\mathbf{x}\)</span>,</p>
+<p><span class="math display">\[\frac{dN_{i}(t)}{dt} = N_{i}f_{i}(\mathbf{N}, \mathbf{x}),\]</span></p>
+<p><span class="math display">\[\frac{dx_{j}(t)}{dt} = \epsilon g_{j}(\mathbf{N}, \mathbf{x}).\]</span></p>
+<p>In the above, <span class="math inline">\(f_{i}\)</span> and <span class="math inline">\(g_{j}\)</span> are functions that define the effects of all species densities and trait values on the density of a species <span class="math inline">\(i\)</span> and the value of trait <span class="math inline">\(j\)</span>, respectively. Patel et al. were interested in stability when the evolution of traits was relatively slow or fast in comparison with the change in species densities<span class="citation"><sup><a href="#ref-Patel2018">1</a></sup></span>, and this is modulated in the above by the scalar <span class="math inline">\(\epsilon\)</span>. The value of <span class="math inline">\(\epsilon\)</span> thereby determines the timescale separation between ecology and evolution, with high <span class="math inline">\(\epsilon\)</span> modelling relatively fast evolution and low <span class="math inline">\(\epsilon\)</span> modelling relative slow evolution<span class="citation"><sup><a href="#ref-Patel2018">1</a></sup></span>.</p>
+<p>I use the same principle that Patel et al. use to modulate the relative rate of evolution to modulate rates of component responses for <span class="math inline">\(S\)</span> components. Following May<span class="citation"><sup><a href="#ref-May1972">2</a>,<a href="#ref-May1973">3</a></sup></span>, the value of a component <span class="math inline">\(i\)</span> at time <span class="math inline">\(t\)</span> (<span class="math inline">\(v_{i}(t)\)</span>) is affected by the value of <span class="math inline">\(j\)</span> (<span class="math inline">\(v_{j}(t)\)</span>) and <span class="math inline">\(j\)</span>’s marginal effect on <span class="math inline">\(i\)</span> (<span class="math inline">\(m_{ij}\)</span>), and by <span class="math inline">\(i\)</span>’s response rate (<span class="math inline">\(\gamma_{i}\)</span>),</p>
+<p><span class="math display">\[\frac{dv_{i}(t)}{dt} = \gamma_{i} \sum_{j=1}^{S}m_{ij}v_{j}(t).\]</span></p>
+<p>In matrix notation<span class="citation"><sup><a href="#ref-May1973">3</a></sup></span>,</p>
+<p><span class="math display">\[\frac{d\mathbf{v}(t)}{dt} = \mathbf{\gamma} \mathbf{M}\mathbf{v}(t).\]</span></p>
+<p>In the above, <span class="math inline">\(\mathbf{\gamma}\)</span> is a diagonal matrix in which elements correspond to individual component response rates. Therefore, <span class="math inline">\(\mathbf{\gamma} \mathbf{M}\)</span> modulates the values of components and can be analysed using the techniques of May<span class="citation"><sup><a href="#ref-May1972">2</a>,<a href="#ref-May1973">3</a></sup></span>.</p>
 </div>
 <div id="Fig1" class="section level1">
 <h1 class="hasAnchor">
@@ -820,8 +827,8 @@ summarise_randmat &lt;-<span class="st"> </span>function(tot_res, fea_res){
 <div id="ecological" class="section level1">
 <h1 class="hasAnchor">
 <a href="#ecological" class="anchor"></a>Stability of ecological networks</h1>
-<p>While the foundational work of May<span class="citation"><sup><a href="#ref-May1972">1</a></sup></span> applies broadly to complex networks, much attention has been given specifically to ecological networks of interacting species. In these networks, the matrix <span class="math inline">\(M\)</span> is interpreted as a community matrix and each row and column is interpreted as a single species. The effect that the density of any species <span class="math inline">\(i\)</span> has on the population dynamics of species <span class="math inline">\(j\)</span> is found in <span class="math inline">\(M_{ij}\)</span>, meaning that <span class="math inline">\(M\)</span> holds the effects of pair-wise interactions between <span class="math inline">\(S\)</span> species<span class="citation"><sup><a href="#ref-Allesina2012">2</a>–<a href="#ref-Tang2014b">4</a></sup></span>. While May’s original work<span class="citation"><sup><a href="#ref-May1972">1</a></sup></span> considered only randomly assembled communities, recent work has specifically looked at more restricted ecological communities including competitive networks (all off-diagonal elements of <span class="math inline">\(M\)</span> are negative), mutualist networks (all off-diagonal elements of <span class="math inline">\(M\)</span> are positive), and predator-prey networks (for any pair of <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span>, the effect of <span class="math inline">\(i\)</span> on <span class="math inline">\(j\)</span> is negative and <span class="math inline">\(j\)</span> on <span class="math inline">\(i\)</span> is positive, or vice versa)<span class="citation"><sup><a href="#ref-Allesina2012">2</a>–<a href="#ref-Allesina2011">5</a></sup></span>. In general, competitor and mutualist networks tend to be unstable, while predator-prey networks tend to be highly stabilising.</p>
-<p>I investigated competitor, mutualist, and predator-prey networks following Allesina et al.<span class="citation"><sup><a href="#ref-Allesina2012">2</a></sup></span>. To create these networks, I first generated a random matrix <span class="math inline">\(M\)</span>, then changed the elements of <span class="math inline">\(M\)</span> accordingly. If <span class="math inline">\(M\)</span> was a competitive network, then the sign of any positive off-diagonal elements was reversed to be negative. If <span class="math inline">\(M\)</span> was a mutualist network, then the sign of any positive off-diagonal elements was reversed to be positive. And if <span class="math inline">\(M\)</span> was a predator-prey network, then all <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> pairs of elements were checked; any pairs of the same sign were changed so that one was negative and the other was positive. The <code>species_interaction</code> function used to do this is below.</p>
+<p>While the foundational work of May<span class="citation"><sup><a href="#ref-May1972">2</a></sup></span> applies broadly to complex networks, much attention has been given specifically to ecological networks of interacting species. In these networks, the matrix <span class="math inline">\(M\)</span> is interpreted as a community matrix and each row and column is interpreted as a single species. The effect that the density of any species <span class="math inline">\(i\)</span> has on the population dynamics of species <span class="math inline">\(j\)</span> is found in <span class="math inline">\(M_{ij}\)</span>, meaning that <span class="math inline">\(M\)</span> holds the effects of pair-wise interactions between <span class="math inline">\(S\)</span> species<span class="citation"><sup><a href="#ref-Allesina2012">4</a>–<a href="#ref-Tang2014b">6</a></sup></span>. While May’s original work<span class="citation"><sup><a href="#ref-May1972">2</a></sup></span> considered only randomly assembled communities, recent work has specifically looked at more restricted ecological communities including competitive networks (all off-diagonal elements of <span class="math inline">\(M\)</span> are negative), mutualist networks (all off-diagonal elements of <span class="math inline">\(M\)</span> are positive), and predator-prey networks (for any pair of <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span>, the effect of <span class="math inline">\(i\)</span> on <span class="math inline">\(j\)</span> is negative and <span class="math inline">\(j\)</span> on <span class="math inline">\(i\)</span> is positive, or vice versa)<span class="citation"><sup><a href="#ref-Allesina2012">4</a>–<a href="#ref-Allesina2011">7</a></sup></span>. In general, competitor and mutualist networks tend to be unstable, while predator-prey networks tend to be highly stabilising.</p>
+<p>I investigated competitor, mutualist, and predator-prey networks following Allesina et al.<span class="citation"><sup><a href="#ref-Allesina2012">4</a></sup></span>. To create these networks, I first generated a random matrix <span class="math inline">\(M\)</span>, then changed the elements of <span class="math inline">\(M\)</span> accordingly. If <span class="math inline">\(M\)</span> was a competitive network, then the sign of any positive off-diagonal elements was reversed to be negative. If <span class="math inline">\(M\)</span> was a mutualist network, then the sign of any positive off-diagonal elements was reversed to be positive. And if <span class="math inline">\(M\)</span> was a predator-prey network, then all <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> pairs of elements were checked; any pairs of the same sign were changed so that one was negative and the other was positive. The <code>species_interaction</code> function used to do this is below.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">species_interactions &lt;-<span class="st"> </span>function(mat, <span class="dt">type =</span> <span class="dv">0</span>){
     if(type ==<span class="st"> </span><span class="dv">1</span>){
         mat[mat &gt;<span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span>-<span class="dv">1</span>*mat[mat &gt;<span class="st"> </span><span class="dv">0</span>];
@@ -849,7 +856,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <p>Results for competitor interaction networks are shown below</p>
 <table class="table">
 <thead><tr class="header">
-<th align="left">X</th>
 <th align="left">N</th>
 <th align="left">A0_unstable</th>
 <th align="left">A0_stable</th>
@@ -859,7 +865,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">1</td>
 <td align="left">2</td>
 <td align="left">48</td>
 <td align="left">99952</td>
@@ -868,7 +873,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="left">0</td>
 </tr>
 <tr class="even">
-<td align="left">2</td>
 <td align="left">3</td>
 <td align="left">229</td>
 <td align="left">99771</td>
@@ -877,7 +881,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="left">0</td>
 </tr>
 <tr class="odd">
-<td align="left">3</td>
 <td align="left">4</td>
 <td align="left">701</td>
 <td align="left">99299</td>
@@ -886,7 +889,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="left">0</td>
 </tr>
 <tr class="even">
-<td align="left">4</td>
 <td align="left">5</td>
 <td align="left">1579</td>
 <td align="left">98421</td>
@@ -895,7 +897,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="left">0</td>
 </tr>
 <tr class="odd">
-<td align="left">5</td>
 <td align="left">6</td>
 <td align="left">3218</td>
 <td align="left">96782</td>
@@ -904,7 +905,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="left">6</td>
 </tr>
 <tr class="even">
-<td align="left">6</td>
 <td align="left">7</td>
 <td align="left">5519</td>
 <td align="left">94481</td>
@@ -913,7 +913,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="left">23</td>
 </tr>
 <tr class="odd">
-<td align="left">7</td>
 <td align="left">8</td>
 <td align="left">9062</td>
 <td align="left">90938</td>
@@ -922,7 +921,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="left">77</td>
 </tr>
 <tr class="even">
-<td align="left">8</td>
 <td align="left">9</td>
 <td align="left">13436</td>
 <td align="left">86564</td>
@@ -931,7 +929,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="left">230</td>
 </tr>
 <tr class="odd">
-<td align="left">9</td>
 <td align="left">10</td>
 <td align="left">18911</td>
 <td align="left">81089</td>
@@ -940,7 +937,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="left">505</td>
 </tr>
 <tr class="even">
-<td align="left">10</td>
 <td align="left">11</td>
 <td align="left">25594</td>
 <td align="left">74406</td>
@@ -949,7 +945,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="left">1011</td>
 </tr>
 <tr class="odd">
-<td align="left">11</td>
 <td align="left">12</td>
 <td align="left">33207</td>
 <td align="left">66793</td>
@@ -958,7 +953,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="left">1724</td>
 </tr>
 <tr class="even">
-<td align="left">12</td>
 <td align="left">13</td>
 <td align="left">41160</td>
 <td align="left">58840</td>
@@ -967,7 +961,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="left">2655</td>
 </tr>
 <tr class="odd">
-<td align="left">13</td>
 <td align="left">14</td>
 <td align="left">50575</td>
 <td align="left">49425</td>
@@ -976,7 +969,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="left">3777</td>
 </tr>
 <tr class="even">
-<td align="left">14</td>
 <td align="left">15</td>
 <td align="left">59250</td>
 <td align="left">40750</td>
@@ -985,7 +977,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="left">4824</td>
 </tr>
 <tr class="odd">
-<td align="left">15</td>
 <td align="left">16</td>
 <td align="left">67811</td>
 <td align="left">32189</td>
@@ -994,7 +985,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="left">5634</td>
 </tr>
 <tr class="even">
-<td align="left">16</td>
 <td align="left">17</td>
 <td align="left">75483</td>
 <td align="left">24517</td>
@@ -1003,7 +993,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="left">5943</td>
 </tr>
 <tr class="odd">
-<td align="left">17</td>
 <td align="left">18</td>
 <td align="left">82551</td>
 <td align="left">17449</td>
@@ -1012,7 +1001,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="left">5780</td>
 </tr>
 <tr class="even">
-<td align="left">18</td>
 <td align="left">19</td>
 <td align="left">88030</td>
 <td align="left">11970</td>
@@ -1021,7 +1009,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="left">5417</td>
 </tr>
 <tr class="odd">
-<td align="left">19</td>
 <td align="left">20</td>
 <td align="left">92254</td>
 <td align="left">7746</td>
@@ -1030,7 +1017,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="left">4544</td>
 </tr>
 <tr class="even">
-<td align="left">20</td>
 <td align="left">21</td>
 <td align="left">95233</td>
 <td align="left">4767</td>
@@ -1039,7 +1025,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="left">3695</td>
 </tr>
 <tr class="odd">
-<td align="left">21</td>
 <td align="left">22</td>
 <td align="left">97317</td>
 <td align="left">2683</td>
@@ -1048,7 +1033,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="left">2803</td>
 </tr>
 <tr class="even">
-<td align="left">22</td>
 <td align="left">23</td>
 <td align="left">98508</td>
 <td align="left">1492</td>
@@ -1057,7 +1041,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="left">1991</td>
 </tr>
 <tr class="odd">
-<td align="left">23</td>
 <td align="left">24</td>
 <td align="left">99240</td>
 <td align="left">760</td>
@@ -1066,7 +1049,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="left">1216</td>
 </tr>
 <tr class="even">
-<td align="left">24</td>
 <td align="left">25</td>
 <td align="left">99669</td>
 <td align="left">331</td>
@@ -1075,7 +1057,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="left">739</td>
 </tr>
 <tr class="odd">
-<td align="left">25</td>
 <td align="left">26</td>
 <td align="left">99871</td>
 <td align="left">129</td>
@@ -1084,7 +1065,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="left">452</td>
 </tr>
 <tr class="even">
-<td align="left">26</td>
 <td align="left">27</td>
 <td align="left">99938</td>
 <td align="left">62</td>
@@ -1093,7 +1073,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="left">240</td>
 </tr>
 <tr class="odd">
-<td align="left">27</td>
 <td align="left">28</td>
 <td align="left">99985</td>
 <td align="left">15</td>
@@ -1102,7 +1081,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="left">108</td>
 </tr>
 <tr class="even">
-<td align="left">28</td>
 <td align="left">29</td>
 <td align="left">99990</td>
 <td align="left">10</td>
@@ -1111,7 +1089,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="left">46</td>
 </tr>
 <tr class="odd">
-<td align="left">29</td>
 <td align="left">30</td>
 <td align="left">100000</td>
 <td align="left">0</td>
@@ -1120,7 +1097,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="left">19</td>
 </tr>
 <tr class="even">
-<td align="left">30</td>
 <td align="left">31</td>
 <td align="left">100000</td>
 <td align="left">0</td>
@@ -1129,7 +1105,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="left">7</td>
 </tr>
 <tr class="odd">
-<td align="left">31</td>
 <td align="left">32</td>
 <td align="left">100000</td>
 <td align="left">0</td>
@@ -1138,7 +1113,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="left">4</td>
 </tr>
 <tr class="even">
-<td align="left">32</td>
 <td align="left">33</td>
 <td align="left">100000</td>
 <td align="left">0</td>
@@ -1147,7 +1121,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="left">2</td>
 </tr>
 <tr class="odd">
-<td align="left">33</td>
 <td align="left">34</td>
 <td align="left">100000</td>
 <td align="left">0</td>
@@ -1162,10 +1135,8 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="left">…</td>
 <td align="left">…</td>
 <td align="left">…</td>
-<td align="left">…</td>
 </tr>
 <tr class="odd">
-<td align="left">49</td>
 <td align="left">50</td>
 <td align="left">100000</td>
 <td align="left">0</td>
@@ -1179,7 +1150,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <p>Results for mutualist interaction networks are shown below</p>
 <table class="table">
 <thead><tr class="header">
-<th align="left">X</th>
 <th align="left">N</th>
 <th align="left">A0_unstable</th>
 <th align="left">A0_stable</th>
@@ -1189,7 +1159,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">1</td>
 <td align="left">2</td>
 <td align="left">56</td>
 <td align="left">99944</td>
@@ -1198,7 +1167,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="left">0</td>
 </tr>
 <tr class="even">
-<td align="left">2</td>
 <td align="left">3</td>
 <td align="left">3301</td>
 <td align="left">96699</td>
@@ -1207,7 +1175,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="left">0</td>
 </tr>
 <tr class="odd">
-<td align="left">3</td>
 <td align="left">4</td>
 <td align="left">34446</td>
 <td align="left">65554</td>
@@ -1216,7 +1183,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="left">0</td>
 </tr>
 <tr class="even">
-<td align="left">4</td>
 <td align="left">5</td>
 <td align="left">86520</td>
 <td align="left">13480</td>
@@ -1225,7 +1191,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="left">0</td>
 </tr>
 <tr class="odd">
-<td align="left">5</td>
 <td align="left">6</td>
 <td align="left">99683</td>
 <td align="left">317</td>
@@ -1234,7 +1199,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="left">0</td>
 </tr>
 <tr class="even">
-<td align="left">6</td>
 <td align="left">7</td>
 <td align="left">99998</td>
 <td align="left">2</td>
@@ -1243,7 +1207,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="left">0</td>
 </tr>
 <tr class="odd">
-<td align="left">7</td>
 <td align="left">8</td>
 <td align="left">100000</td>
 <td align="left">0</td>
@@ -1252,7 +1215,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="left">0</td>
 </tr>
 <tr class="even">
-<td align="left">8</td>
 <td align="left">9</td>
 <td align="left">100000</td>
 <td align="left">0</td>
@@ -1261,7 +1223,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="left">0</td>
 </tr>
 <tr class="odd">
-<td align="left">9</td>
 <td align="left">10</td>
 <td align="left">100000</td>
 <td align="left">0</td>
@@ -1270,7 +1231,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="left">0</td>
 </tr>
 <tr class="even">
-<td align="left">10</td>
 <td align="left">11</td>
 <td align="left">100000</td>
 <td align="left">0</td>
@@ -1279,7 +1239,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="left">0</td>
 </tr>
 <tr class="odd">
-<td align="left">11</td>
 <td align="left">12</td>
 <td align="left">100000</td>
 <td align="left">0</td>
@@ -1294,10 +1253,8 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="left">…</td>
 <td align="left">…</td>
 <td align="left">…</td>
-<td align="left">…</td>
 </tr>
 <tr class="odd">
-<td align="left">49</td>
 <td align="left">50</td>
 <td align="left">100000</td>
 <td align="left">0</td>
@@ -1311,7 +1268,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <p>Results for predator-prey interaction networks are shown below</p>
 <table class="table">
 <thead><tr class="header">
-<th align="right">X</th>
 <th align="right">N</th>
 <th align="right">A0_unstable</th>
 <th align="right">A0_stable</th>
@@ -1321,7 +1277,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="right">1</td>
 <td align="right">2</td>
 <td align="right">0</td>
 <td align="right">100000</td>
@@ -1330,7 +1285,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">0</td>
 </tr>
 <tr class="even">
-<td align="right">2</td>
 <td align="right">3</td>
 <td align="right">0</td>
 <td align="right">100000</td>
@@ -1339,7 +1293,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">0</td>
 </tr>
 <tr class="odd">
-<td align="right">3</td>
 <td align="right">4</td>
 <td align="right">0</td>
 <td align="right">100000</td>
@@ -1348,7 +1301,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">0</td>
 </tr>
 <tr class="even">
-<td align="right">4</td>
 <td align="right">5</td>
 <td align="right">1</td>
 <td align="right">99999</td>
@@ -1357,7 +1309,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">0</td>
 </tr>
 <tr class="odd">
-<td align="right">5</td>
 <td align="right">6</td>
 <td align="right">4</td>
 <td align="right">99996</td>
@@ -1366,7 +1317,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">0</td>
 </tr>
 <tr class="even">
-<td align="right">6</td>
 <td align="right">7</td>
 <td align="right">2</td>
 <td align="right">99998</td>
@@ -1375,7 +1325,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">0</td>
 </tr>
 <tr class="odd">
-<td align="right">7</td>
 <td align="right">8</td>
 <td align="right">5</td>
 <td align="right">99995</td>
@@ -1384,7 +1333,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">0</td>
 </tr>
 <tr class="even">
-<td align="right">8</td>
 <td align="right">9</td>
 <td align="right">20</td>
 <td align="right">99980</td>
@@ -1393,7 +1341,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">0</td>
 </tr>
 <tr class="odd">
-<td align="right">9</td>
 <td align="right">10</td>
 <td align="right">20</td>
 <td align="right">99980</td>
@@ -1402,7 +1349,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">0</td>
 </tr>
 <tr class="even">
-<td align="right">10</td>
 <td align="right">11</td>
 <td align="right">38</td>
 <td align="right">99962</td>
@@ -1411,7 +1357,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">0</td>
 </tr>
 <tr class="odd">
-<td align="right">11</td>
 <td align="right">12</td>
 <td align="right">64</td>
 <td align="right">99936</td>
@@ -1420,7 +1365,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">0</td>
 </tr>
 <tr class="even">
-<td align="right">12</td>
 <td align="right">13</td>
 <td align="right">87</td>
 <td align="right">99913</td>
@@ -1429,7 +1373,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">0</td>
 </tr>
 <tr class="odd">
-<td align="right">13</td>
 <td align="right">14</td>
 <td align="right">157</td>
 <td align="right">99843</td>
@@ -1438,7 +1381,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">0</td>
 </tr>
 <tr class="even">
-<td align="right">14</td>
 <td align="right">15</td>
 <td align="right">215</td>
 <td align="right">99785</td>
@@ -1447,7 +1389,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">0</td>
 </tr>
 <tr class="odd">
-<td align="right">15</td>
 <td align="right">16</td>
 <td align="right">293</td>
 <td align="right">99707</td>
@@ -1456,7 +1397,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">0</td>
 </tr>
 <tr class="even">
-<td align="right">16</td>
 <td align="right">17</td>
 <td align="right">383</td>
 <td align="right">99617</td>
@@ -1465,7 +1405,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">0</td>
 </tr>
 <tr class="odd">
-<td align="right">17</td>
 <td align="right">18</td>
 <td align="right">443</td>
 <td align="right">99557</td>
@@ -1474,7 +1413,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">3</td>
 </tr>
 <tr class="even">
-<td align="right">18</td>
 <td align="right">19</td>
 <td align="right">642</td>
 <td align="right">99358</td>
@@ -1483,7 +1421,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">4</td>
 </tr>
 <tr class="odd">
-<td align="right">19</td>
 <td align="right">20</td>
 <td align="right">836</td>
 <td align="right">99164</td>
@@ -1492,7 +1429,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">7</td>
 </tr>
 <tr class="even">
-<td align="right">20</td>
 <td align="right">21</td>
 <td align="right">1006</td>
 <td align="right">98994</td>
@@ -1501,7 +1437,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">10</td>
 </tr>
 <tr class="odd">
-<td align="right">21</td>
 <td align="right">22</td>
 <td align="right">1153</td>
 <td align="right">98847</td>
@@ -1510,7 +1445,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">20</td>
 </tr>
 <tr class="even">
-<td align="right">22</td>
 <td align="right">23</td>
 <td align="right">1501</td>
 <td align="right">98499</td>
@@ -1519,7 +1453,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">30</td>
 </tr>
 <tr class="odd">
-<td align="right">23</td>
 <td align="right">24</td>
 <td align="right">1841</td>
 <td align="right">98159</td>
@@ -1528,7 +1461,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">40</td>
 </tr>
 <tr class="even">
-<td align="right">24</td>
 <td align="right">25</td>
 <td align="right">2146</td>
 <td align="right">97854</td>
@@ -1537,7 +1469,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">58</td>
 </tr>
 <tr class="odd">
-<td align="right">25</td>
 <td align="right">26</td>
 <td align="right">2643</td>
 <td align="right">97357</td>
@@ -1546,7 +1477,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">119</td>
 </tr>
 <tr class="even">
-<td align="right">26</td>
 <td align="right">27</td>
 <td align="right">3034</td>
 <td align="right">96966</td>
@@ -1555,7 +1485,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">158</td>
 </tr>
 <tr class="odd">
-<td align="right">27</td>
 <td align="right">28</td>
 <td align="right">3690</td>
 <td align="right">96310</td>
@@ -1564,7 +1493,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">201</td>
 </tr>
 <tr class="even">
-<td align="right">28</td>
 <td align="right">29</td>
 <td align="right">4257</td>
 <td align="right">95743</td>
@@ -1573,7 +1501,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">290</td>
 </tr>
 <tr class="odd">
-<td align="right">29</td>
 <td align="right">30</td>
 <td align="right">4964</td>
 <td align="right">95036</td>
@@ -1582,7 +1509,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">424</td>
 </tr>
 <tr class="even">
-<td align="right">30</td>
 <td align="right">31</td>
 <td align="right">5627</td>
 <td align="right">94373</td>
@@ -1591,7 +1517,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">452</td>
 </tr>
 <tr class="odd">
-<td align="right">31</td>
 <td align="right">32</td>
 <td align="right">6543</td>
 <td align="right">93457</td>
@@ -1600,7 +1525,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">666</td>
 </tr>
 <tr class="even">
-<td align="right">32</td>
 <td align="right">33</td>
 <td align="right">7425</td>
 <td align="right">92575</td>
@@ -1609,7 +1533,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">818</td>
 </tr>
 <tr class="odd">
-<td align="right">33</td>
 <td align="right">34</td>
 <td align="right">8540</td>
 <td align="right">91460</td>
@@ -1618,7 +1541,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">1071</td>
 </tr>
 <tr class="even">
-<td align="right">34</td>
 <td align="right">35</td>
 <td align="right">9526</td>
 <td align="right">90474</td>
@@ -1627,7 +1549,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">1337</td>
 </tr>
 <tr class="odd">
-<td align="right">35</td>
 <td align="right">36</td>
 <td align="right">10617</td>
 <td align="right">89383</td>
@@ -1636,7 +1557,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">1624</td>
 </tr>
 <tr class="even">
-<td align="right">36</td>
 <td align="right">37</td>
 <td align="right">12344</td>
 <td align="right">87656</td>
@@ -1645,7 +1565,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">2021</td>
 </tr>
 <tr class="odd">
-<td align="right">37</td>
 <td align="right">38</td>
 <td align="right">13675</td>
 <td align="right">86325</td>
@@ -1654,7 +1573,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">2442</td>
 </tr>
 <tr class="even">
-<td align="right">38</td>
 <td align="right">39</td>
 <td align="right">15264</td>
 <td align="right">84736</td>
@@ -1663,7 +1581,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">2870</td>
 </tr>
 <tr class="odd">
-<td align="right">39</td>
 <td align="right">40</td>
 <td align="right">17026</td>
 <td align="right">82974</td>
@@ -1672,7 +1589,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">3363</td>
 </tr>
 <tr class="even">
-<td align="right">40</td>
 <td align="right">41</td>
 <td align="right">18768</td>
 <td align="right">81232</td>
@@ -1681,7 +1597,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">3905</td>
 </tr>
 <tr class="odd">
-<td align="right">41</td>
 <td align="right">42</td>
 <td align="right">20791</td>
 <td align="right">79209</td>
@@ -1690,7 +1605,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">4579</td>
 </tr>
 <tr class="even">
-<td align="right">42</td>
 <td align="right">43</td>
 <td align="right">23150</td>
 <td align="right">76850</td>
@@ -1699,7 +1613,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">5217</td>
 </tr>
 <tr class="odd">
-<td align="right">43</td>
 <td align="right">44</td>
 <td align="right">25449</td>
 <td align="right">74551</td>
@@ -1708,7 +1621,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">6285</td>
 </tr>
 <tr class="even">
-<td align="right">44</td>
 <td align="right">45</td>
 <td align="right">27702</td>
 <td align="right">72298</td>
@@ -1717,7 +1629,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">6754</td>
 </tr>
 <tr class="odd">
-<td align="right">45</td>
 <td align="right">46</td>
 <td align="right">30525</td>
 <td align="right">69475</td>
@@ -1726,7 +1637,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">7646</td>
 </tr>
 <tr class="even">
-<td align="right">46</td>
 <td align="right">47</td>
 <td align="right">32832</td>
 <td align="right">67168</td>
@@ -1735,7 +1645,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">8487</td>
 </tr>
 <tr class="odd">
-<td align="right">47</td>
 <td align="right">48</td>
 <td align="right">36152</td>
 <td align="right">63848</td>
@@ -1744,7 +1653,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">9479</td>
 </tr>
 <tr class="even">
-<td align="right">48</td>
 <td align="right">49</td>
 <td align="right">38714</td>
 <td align="right">61286</td>
@@ -1753,7 +1661,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">10125</td>
 </tr>
 <tr class="odd">
-<td align="right">49</td>
 <td align="right">50</td>
 <td align="right">41628</td>
 <td align="right">58372</td>
@@ -1762,7 +1669,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">11036</td>
 </tr>
 <tr class="even">
-<td align="right">50</td>
 <td align="right">51</td>
 <td align="right">44483</td>
 <td align="right">55517</td>
@@ -1771,7 +1677,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">11704</td>
 </tr>
 <tr class="odd">
-<td align="right">51</td>
 <td align="right">52</td>
 <td align="right">48134</td>
 <td align="right">51866</td>
@@ -1780,7 +1685,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">12573</td>
 </tr>
 <tr class="even">
-<td align="right">52</td>
 <td align="right">53</td>
 <td align="right">51138</td>
 <td align="right">48862</td>
@@ -1789,7 +1693,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">13223</td>
 </tr>
 <tr class="odd">
-<td align="right">53</td>
 <td align="right">54</td>
 <td align="right">54261</td>
 <td align="right">45739</td>
@@ -1798,7 +1701,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">13757</td>
 </tr>
 <tr class="even">
-<td align="right">54</td>
 <td align="right">55</td>
 <td align="right">57647</td>
 <td align="right">42353</td>
@@ -1807,7 +1709,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">14324</td>
 </tr>
 <tr class="odd">
-<td align="right">55</td>
 <td align="right">56</td>
 <td align="right">60630</td>
 <td align="right">39370</td>
@@ -1816,7 +1717,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">14669</td>
 </tr>
 <tr class="even">
-<td align="right">56</td>
 <td align="right">57</td>
 <td align="right">63647</td>
 <td align="right">36353</td>
@@ -1825,7 +1725,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">15103</td>
 </tr>
 <tr class="odd">
-<td align="right">57</td>
 <td align="right">58</td>
 <td align="right">66961</td>
 <td align="right">33039</td>
@@ -1834,7 +1733,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">15450</td>
 </tr>
 <tr class="even">
-<td align="right">58</td>
 <td align="right">59</td>
 <td align="right">69968</td>
 <td align="right">30032</td>
@@ -1843,7 +1741,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">15246</td>
 </tr>
 <tr class="odd">
-<td align="right">59</td>
 <td align="right">60</td>
 <td align="right">72838</td>
 <td align="right">27162</td>
@@ -1852,7 +1749,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">15177</td>
 </tr>
 <tr class="even">
-<td align="right">60</td>
 <td align="right">61</td>
 <td align="right">75609</td>
 <td align="right">24391</td>
@@ -1861,7 +1757,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">15006</td>
 </tr>
 <tr class="odd">
-<td align="right">61</td>
 <td align="right">62</td>
 <td align="right">77999</td>
 <td align="right">22001</td>
@@ -1870,7 +1765,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">14538</td>
 </tr>
 <tr class="even">
-<td align="right">62</td>
 <td align="right">63</td>
 <td align="right">80616</td>
 <td align="right">19384</td>
@@ -1879,7 +1773,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">14510</td>
 </tr>
 <tr class="odd">
-<td align="right">63</td>
 <td align="right">64</td>
 <td align="right">83089</td>
 <td align="right">16911</td>
@@ -1888,7 +1781,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">13784</td>
 </tr>
 <tr class="even">
-<td align="right">64</td>
 <td align="right">65</td>
 <td align="right">85150</td>
 <td align="right">14850</td>
@@ -1897,7 +1789,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">13412</td>
 </tr>
 <tr class="odd">
-<td align="right">65</td>
 <td align="right">66</td>
 <td align="right">86908</td>
 <td align="right">13092</td>
@@ -1906,7 +1797,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">12477</td>
 </tr>
 <tr class="even">
-<td align="right">66</td>
 <td align="right">67</td>
 <td align="right">88671</td>
 <td align="right">11329</td>
@@ -1915,7 +1805,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">11718</td>
 </tr>
 <tr class="odd">
-<td align="right">67</td>
 <td align="right">68</td>
 <td align="right">90537</td>
 <td align="right">9463</td>
@@ -1924,7 +1813,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">10878</td>
 </tr>
 <tr class="even">
-<td align="right">68</td>
 <td align="right">69</td>
 <td align="right">91969</td>
 <td align="right">8031</td>
@@ -1933,7 +1821,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">10033</td>
 </tr>
 <tr class="odd">
-<td align="right">69</td>
 <td align="right">70</td>
 <td align="right">93181</td>
 <td align="right">6819</td>
@@ -1942,7 +1829,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">9070</td>
 </tr>
 <tr class="even">
-<td align="right">70</td>
 <td align="right">71</td>
 <td align="right">94330</td>
 <td align="right">5670</td>
@@ -1951,7 +1837,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">8401</td>
 </tr>
 <tr class="odd">
-<td align="right">71</td>
 <td align="right">72</td>
 <td align="right">95324</td>
 <td align="right">4676</td>
@@ -1960,7 +1845,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">7359</td>
 </tr>
 <tr class="even">
-<td align="right">72</td>
 <td align="right">73</td>
 <td align="right">96143</td>
 <td align="right">3857</td>
@@ -1969,7 +1853,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">6726</td>
 </tr>
 <tr class="odd">
-<td align="right">73</td>
 <td align="right">74</td>
 <td align="right">96959</td>
 <td align="right">3041</td>
@@ -1978,7 +1861,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">5900</td>
 </tr>
 <tr class="even">
-<td align="right">74</td>
 <td align="right">75</td>
 <td align="right">97543</td>
 <td align="right">2457</td>
@@ -1987,7 +1869,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">5222</td>
 </tr>
 <tr class="odd">
-<td align="right">75</td>
 <td align="right">76</td>
 <td align="right">97969</td>
 <td align="right">2031</td>
@@ -1996,7 +1877,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">4481</td>
 </tr>
 <tr class="even">
-<td align="right">76</td>
 <td align="right">77</td>
 <td align="right">98497</td>
 <td align="right">1503</td>
@@ -2005,7 +1885,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">3809</td>
 </tr>
 <tr class="odd">
-<td align="right">77</td>
 <td align="right">78</td>
 <td align="right">98744</td>
 <td align="right">1256</td>
@@ -2014,7 +1893,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">3269</td>
 </tr>
 <tr class="even">
-<td align="right">78</td>
 <td align="right">79</td>
 <td align="right">99045</td>
 <td align="right">955</td>
@@ -2023,7 +1901,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">2837</td>
 </tr>
 <tr class="odd">
-<td align="right">79</td>
 <td align="right">80</td>
 <td align="right">99276</td>
 <td align="right">724</td>
@@ -2032,7 +1909,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">2329</td>
 </tr>
 <tr class="even">
-<td align="right">80</td>
 <td align="right">81</td>
 <td align="right">99481</td>
 <td align="right">519</td>
@@ -2041,7 +1917,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">1894</td>
 </tr>
 <tr class="odd">
-<td align="right">81</td>
 <td align="right">82</td>
 <td align="right">99556</td>
 <td align="right">444</td>
@@ -2050,7 +1925,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">1597</td>
 </tr>
 <tr class="even">
-<td align="right">82</td>
 <td align="right">83</td>
 <td align="right">99691</td>
 <td align="right">309</td>
@@ -2059,7 +1933,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">1227</td>
 </tr>
 <tr class="odd">
-<td align="right">83</td>
 <td align="right">84</td>
 <td align="right">99752</td>
 <td align="right">248</td>
@@ -2068,7 +1941,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">1015</td>
 </tr>
 <tr class="even">
-<td align="right">84</td>
 <td align="right">85</td>
 <td align="right">99833</td>
 <td align="right">167</td>
@@ -2077,7 +1949,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">837</td>
 </tr>
 <tr class="odd">
-<td align="right">85</td>
 <td align="right">86</td>
 <td align="right">99895</td>
 <td align="right">105</td>
@@ -2086,7 +1957,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">642</td>
 </tr>
 <tr class="even">
-<td align="right">86</td>
 <td align="right">87</td>
 <td align="right">99925</td>
 <td align="right">75</td>
@@ -2095,7 +1965,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">530</td>
 </tr>
 <tr class="odd">
-<td align="right">87</td>
 <td align="right">88</td>
 <td align="right">99945</td>
 <td align="right">55</td>
@@ -2104,7 +1973,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">428</td>
 </tr>
 <tr class="even">
-<td align="right">88</td>
 <td align="right">89</td>
 <td align="right">99976</td>
 <td align="right">24</td>
@@ -2113,7 +1981,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">324</td>
 </tr>
 <tr class="odd">
-<td align="right">89</td>
 <td align="right">90</td>
 <td align="right">99977</td>
 <td align="right">23</td>
@@ -2122,7 +1989,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">243</td>
 </tr>
 <tr class="even">
-<td align="right">90</td>
 <td align="right">91</td>
 <td align="right">99982</td>
 <td align="right">18</td>
@@ -2131,7 +1997,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">155</td>
 </tr>
 <tr class="odd">
-<td align="right">91</td>
 <td align="right">92</td>
 <td align="right">99988</td>
 <td align="right">12</td>
@@ -2140,7 +2005,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">135</td>
 </tr>
 <tr class="even">
-<td align="right">92</td>
 <td align="right">93</td>
 <td align="right">99994</td>
 <td align="right">6</td>
@@ -2149,7 +2013,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">115</td>
 </tr>
 <tr class="odd">
-<td align="right">93</td>
 <td align="right">94</td>
 <td align="right">99993</td>
 <td align="right">7</td>
@@ -2158,7 +2021,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">88</td>
 </tr>
 <tr class="even">
-<td align="right">94</td>
 <td align="right">95</td>
 <td align="right">99998</td>
 <td align="right">2</td>
@@ -2167,7 +2029,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">47</td>
 </tr>
 <tr class="odd">
-<td align="right">95</td>
 <td align="right">96</td>
 <td align="right">99999</td>
 <td align="right">1</td>
@@ -2176,7 +2037,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">35</td>
 </tr>
 <tr class="even">
-<td align="right">96</td>
 <td align="right">97</td>
 <td align="right">99999</td>
 <td align="right">1</td>
@@ -2185,7 +2045,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">21</td>
 </tr>
 <tr class="odd">
-<td align="right">97</td>
 <td align="right">98</td>
 <td align="right">100000</td>
 <td align="right">0</td>
@@ -2194,7 +2053,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">27</td>
 </tr>
 <tr class="even">
-<td align="right">98</td>
 <td align="right">99</td>
 <td align="right">100000</td>
 <td align="right">0</td>
@@ -2203,7 +2061,6 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 <td align="right">16</td>
 </tr>
 <tr class="odd">
-<td align="right">99</td>
 <td align="right">100</td>
 <td align="right">100000</td>
 <td align="right">0</td>
@@ -2213,7 +2070,7 @@ pdat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class=
 </tr>
 </tbody>
 </table>
-<p>Overall, as expected<span class="citation"><sup><a href="#ref-Allesina2012">2</a></sup></span>, predator-prey communities are relatively stable while mutualist communties are highly unstable. But interestingly, while <span class="math inline">\(Var(\gamma)\)</span> stabilises predator-prey and competitor communities, it does not stabilise mutualist communities. This is unsurprising because purely mutualist communities are characterised by a very positive<span class="citation"><sup><a href="#ref-Allesina2012">2</a></sup></span> leading <span class="math inline">\(\Re(\lambda)\)</span>, and it is highly unlikely that <span class="math inline">\(Var(\gamma)\)</span> alone will shift all real parts of eigenvalues to negative values.</p>
+<p>Overall, as expected<span class="citation"><sup><a href="#ref-Allesina2012">4</a></sup></span>, predator-prey communities are relatively stable while mutualist communties are highly unstable. But interestingly, while <span class="math inline">\(Var(\gamma)\)</span> stabilises predator-prey and competitor communities, it does not stabilise mutualist communities. This is unsurprising because purely mutualist communities are characterised by a very positive<span class="citation"><sup><a href="#ref-Allesina2012">4</a></sup></span> leading <span class="math inline">\(\Re(\lambda)\)</span>, and it is highly unlikely that <span class="math inline">\(Var(\gamma)\)</span> alone will shift all real parts of eigenvalues to negative values.</p>
 </div>
 <div id="connectance" class="section level1">
 <h1 class="hasAnchor">
@@ -4148,7 +4005,7 @@ C9dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class
 <div id="ga" class="section level1">
 <h1 class="hasAnchor">
 <a href="#ga" class="anchor"></a>Genetic algorithm</h1>
-<p>Ideally, to investigate the potential of <span class="math inline">\(Var(\gamma)\)</span> for increasing the proportion of stable complex systems, the search space of all possible <span class="math inline">\(\gamma\)</span> vectors would be evaluated for each unique <span class="math inline">\(M\)</span>. This is technically impossible because <span class="math inline">\(\gamma_{i}\)</span> can take any real value between 0-2, but even rounding <span class="math inline">\(\gamma\)</span> to reasonable values would result in a search space too large to practically explore. Under these conditions, genetic algorithms are highly useful tools for finding practical solutions by mimicking the process of biological evolution<span class="citation"><sup><a href="#ref-Hamblin2013">6</a></sup></span>. In this case, the practical solution is finding vectors of <span class="math inline">\(\gamma\)</span> that decrease the most positive real eigenvalue of <span class="math inline">\(M\)</span>. The genetic algorithm below achieves this by initialising a large population of 1000 different potential <span class="math inline">\(\gamma\)</span> vectors and allowing this population to evolve through a process of mutation, crossover (swaping <span class="math inline">\(\gamma_{i}\)</span> values between vectors), selection, and reproduction until either a <span class="math inline">\(\gamma\)</span> vector is found where all <span class="math inline">\(\Re(\lambda) &lt; 0\)</span> or some “giving up” critiera is met (in the below, this “giving up”" criteria is met when 20 generations pass, or if the fitness increase from one generation to the next is below a certain criteria). The genetic algorithm relies on five functions. The first outer function <code>Evo_rand_gen_var</code> runs all of the simulations (<code>max_sp</code> refers to the maximum <span class="math inline">\(S\)</span> value simulated, and <code>iters</code> refers to the number of <span class="math inline">\(M\)</span> to try for each <span class="math inline">\(S\)</span>).</p>
+<p>Ideally, to investigate the potential of <span class="math inline">\(Var(\gamma)\)</span> for increasing the proportion of stable complex systems, the search space of all possible <span class="math inline">\(\gamma\)</span> vectors would be evaluated for each unique <span class="math inline">\(M\)</span>. This is technically impossible because <span class="math inline">\(\gamma_{i}\)</span> can take any real value between 0-2, but even rounding <span class="math inline">\(\gamma\)</span> to reasonable values would result in a search space too large to practically explore. Under these conditions, genetic algorithms are highly useful tools for finding practical solutions by mimicking the process of biological evolution<span class="citation"><sup><a href="#ref-Hamblin2013">8</a></sup></span>. In this case, the practical solution is finding vectors of <span class="math inline">\(\gamma\)</span> that decrease the most positive real eigenvalue of <span class="math inline">\(M\)</span>. The genetic algorithm below achieves this by initialising a large population of 1000 different potential <span class="math inline">\(\gamma\)</span> vectors and allowing this population to evolve through a process of mutation, crossover (swaping <span class="math inline">\(\gamma_{i}\)</span> values between vectors), selection, and reproduction until either a <span class="math inline">\(\gamma\)</span> vector is found where all <span class="math inline">\(\Re(\lambda) &lt; 0\)</span> or some “giving up” critiera is met (in the below, this “giving up”" criteria is met when 20 generations pass, or if the fitness increase from one generation to the next is below a certain criteria). The genetic algorithm relies on five functions. The first outer function <code>Evo_rand_gen_var</code> runs all of the simulations (<code>max_sp</code> refers to the maximum <span class="math inline">\(S\)</span> value simulated, and <code>iters</code> refers to the number of <span class="math inline">\(M\)</span> to try for each <span class="math inline">\(S\)</span>).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Evo_rand_gen_var &lt;-<span class="st"> </span>function(max_sp, iters, <span class="dt">int_type =</span> <span class="dv">0</span>, <span class="dt">rmx =</span> <span class="fl">0.4</span>, <span class="dt">C =</span> <span class="dv">1</span>){
     tot_res &lt;-<span class="st"> </span><span class="ot">NULL</span>;
     fea_res &lt;-<span class="st"> </span><span class="ot">NULL</span>;
@@ -4676,10 +4533,10 @@ C9dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class
 <div id="Feasibility" class="section level1">
 <h1 class="hasAnchor">
 <a href="#Feasibility" class="anchor"></a>Feasibility of complex systems</h1>
-<p>For complex systems in which individual system components (<span class="math inline">\(S\)</span>) represent the density of some tangible quantity, it is important to consider the feasibility of the system. Feasibile equilibria assume that the values of all system components are positive at equilibrium<span class="citation"><sup><a href="#ref-Grilli2017">7</a>–<a href="#ref-Song2018">9</a></sup></span>. This is of particular interest for ecological communities because population density cannot take negative values, meaning that ecological systems need to be feasible for stability to be biologically realistic<span class="citation"><sup><a href="#ref-Dougoud2018">8</a></sup></span>. Consequently, the use of random matrices and traditional stability critiera for making inferences in theoretical analyses of species networks has recently been criticised<span class="citation"><sup><a href="#ref-Dougoud2018">8</a></sup></span>. While the key results in the main text are intended to be general to all complex systems, and not restricted to species networks, I have also performed a feasibility analysis on all matrices <span class="math inline">\(M\)</span>. This analysis reveals that feasibility is not affected by <span class="math inline">\(Var(\gamma)\)</span>, meaning that for pure interacting species networks, variation in component response time (i.e., species generation time) does not affect stability at biologically realistic species densities. Nevertheless, ecological interactions do not exist in isolation in empirical systems, but instead interact with evolutionary<span class="citation"><sup><a href="#ref-Patel2018">10</a></sup></span>, abiotic, or social-economic systems. The relevance of <span class="math inline">\(\gamma\)</span> for complex system stability presented in the main text should therefore not be ignored in the broader context of ecological communities.</p>
-<p>Dougoud et al.<span class="citation"><sup><a href="#ref-Dougoud2018">8</a></sup></span> define the following feasibility criteria for ecological systems characterised by <span class="math inline">\(S\)</span> interacting species with varying densities.</p>
+<p>For complex systems in which individual system components (<span class="math inline">\(S\)</span>) represent the density of some tangible quantity, it is important to consider the feasibility of the system. Feasibile equilibria assume that the values of all system components are positive at equilibrium<span class="citation"><sup><a href="#ref-Grilli2017">9</a>–<a href="#ref-Song2018">11</a></sup></span>. This is of particular interest for ecological communities because population density cannot take negative values, meaning that ecological systems need to be feasible for stability to be biologically realistic<span class="citation"><sup><a href="#ref-Dougoud2018">10</a></sup></span>. Consequently, the use of random matrices and traditional stability critiera for making inferences in theoretical analyses of species networks has recently been criticised<span class="citation"><sup><a href="#ref-Dougoud2018">10</a></sup></span>. While the key results in the main text are intended to be general to all complex systems, and not restricted to species networks, I have also performed a feasibility analysis on all matrices <span class="math inline">\(M\)</span>. This analysis reveals that feasibility is not affected by <span class="math inline">\(Var(\gamma)\)</span>, meaning that for pure interacting species networks, variation in component response time (i.e., species generation time) does not affect stability at biologically realistic species densities. Nevertheless, ecological interactions do not exist in isolation in empirical systems, but instead interact with evolutionary<span class="citation"><sup><a href="#ref-Patel2018">1</a></sup></span>, abiotic, or social-economic systems. The relevance of <span class="math inline">\(\gamma\)</span> for complex system stability presented in the main text should therefore not be ignored in the broader context of ecological communities.</p>
+<p>Dougoud et al.<span class="citation"><sup><a href="#ref-Dougoud2018">10</a></sup></span> define the following feasibility criteria for ecological systems characterised by <span class="math inline">\(S\)</span> interacting species with varying densities.</p>
 <p><span class="math display">\[x^{*} = -\left(\theta I + (CS)^{-\delta}A\right)^{-1}r.\]</span></p>
-<p>In the above, <span class="math inline">\(x^{*}\)</span> is the vector of species abundances at equilibrium (for feasibility, all values in <span class="math inline">\(x^{*}\)</span> must be positive). The matrix <span class="math inline">\(I\)</span> is the identity matrix (1s on the diagonal, 0s on the off-diagonal elements), and the value <span class="math inline">\(\theta\)</span> is strength of intraspecific competition (diagonal elements). As I have done elsewhere, diagonal values are set to <span class="math inline">\(-1\)</span>, so <span class="math inline">\(\theta = -1\)</span>. The variable <span class="math inline">\(C\)</span> is the inter-connectivity (i.e., ‘connectance’) of the community, which was set to <span class="math inline">\(C = 1\)</span> throughout the manuscript and supplemental information, except <a href="#connectance">where otherwise noted</a>. The variable <span class="math inline">\(\delta\)</span> is a normalisation parameter that modulates the strength of interactions (<span class="math inline">\(\sigma\)</span> in the main text), which are held in <span class="math inline">\(A\)</span>. In the main text, implicitly, <span class="math inline">\(\delta = 0\)</span> underlying strong interactions. Hence, the whole <span class="math inline">\((CS)^{-\delta} = 1\)</span>, so in the above, a diagonal matrix of -1s (<span class="math inline">\(\theta I\)</span>) is added to <span class="math inline">\(A\)</span>, which has a diagonal of all zeros and an off-diagonal affecting species interactions (i.e., the expression <span class="math inline">\((CS)^{-\delta}\)</span> relates to May’s<span class="citation"><sup><a href="#ref-May1972">1</a></sup></span> stability criterion<span class="citation"><sup><a href="#ref-Dougoud2018">8</a></sup></span> by <span class="math inline">\(\frac{\sigma}{(CS)^{-\delta}}\sqrt{SC} &lt; -1\)</span>, and hence <span class="math inline">\((CS)^{-\delta} = 1\)</span> for the randomly simulated systems in the main text and supplemental information). The above criteria is therefore reduced to the below; note that the parenthetical in both equations produces an <span class="math inline">\(M\)</span> matrix as used throughout the main text and supplemental information,</p>
+<p>In the above, <span class="math inline">\(x^{*}\)</span> is the vector of species abundances at equilibrium (for feasibility, all values in <span class="math inline">\(x^{*}\)</span> must be positive). The matrix <span class="math inline">\(I\)</span> is the identity matrix (1s on the diagonal, 0s on the off-diagonal elements), and the value <span class="math inline">\(\theta\)</span> is strength of intraspecific competition (diagonal elements). As I have done elsewhere, diagonal values are set to <span class="math inline">\(-1\)</span>, so <span class="math inline">\(\theta = -1\)</span>. The variable <span class="math inline">\(C\)</span> is the inter-connectivity (i.e., ‘connectance’) of the community, which was set to <span class="math inline">\(C = 1\)</span> throughout the manuscript and supplemental information, except <a href="#connectance">where otherwise noted</a>. The variable <span class="math inline">\(\delta\)</span> is a normalisation parameter that modulates the strength of interactions (<span class="math inline">\(\sigma\)</span> in the main text), which are held in <span class="math inline">\(A\)</span>. In the main text, implicitly, <span class="math inline">\(\delta = 0\)</span> underlying strong interactions. Hence, the whole <span class="math inline">\((CS)^{-\delta} = 1\)</span>, so in the above, a diagonal matrix of -1s (<span class="math inline">\(\theta I\)</span>) is added to <span class="math inline">\(A\)</span>, which has a diagonal of all zeros and an off-diagonal affecting species interactions (i.e., the expression <span class="math inline">\((CS)^{-\delta}\)</span> relates to May’s<span class="citation"><sup><a href="#ref-May1972">2</a></sup></span> stability criterion<span class="citation"><sup><a href="#ref-Dougoud2018">10</a></sup></span> by <span class="math inline">\(\frac{\sigma}{(CS)^{-\delta}}\sqrt{SC} &lt; -1\)</span>, and hence <span class="math inline">\((CS)^{-\delta} = 1\)</span> for the randomly simulated systems in the main text and supplemental information). The above criteria is therefore reduced to the below; note that the parenthetical in both equations produces an <span class="math inline">\(M\)</span> matrix as used throughout the main text and supplemental information,</p>
 <p><span class="math display">\[x^{*} = -\left(\theta I + A\right)^{-1}r.\]</span></p>
 <p>To check the feasibility criteria, I therefore inverted <span class="math inline">\(M = (\theta I + A)\)</span> and multiplied elements by -1, then multiplied the resulting matrix by the vector of population growth rates <span class="math inline">\(r\)</span>. Feasibility is satisfied if all of the elements of the resulting vector are positive.</p>
 <p>The population growth rate for an individual species <span class="math inline">\(i\)</span> is sampled from a normal distribution of <span class="math inline">\(r_{i} \sim \mathcal{N}(0, 0.4^{2})\)</span>, as shown in the <code>rand_gen_var</code> function in <a href="#IncrS">the section</a> on “Stability across increasing <span class="math inline">\(S\)</span>” above. Hence, each component <span class="math inline">\(i\)</span> of the complex system <span class="math inline">\(M\)</span> is assumed to be a species with a growth rate of <span class="math inline">\(r_{i}\)</span>. Note that negative intrinsic growth rates are not unrealistic, and will occur in obligate mutualists in the absence of a partner.</p>
@@ -5144,35 +5001,38 @@ C9dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class
 <h1 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h1>
 <div id="refs" class="references">
+<div id="ref-Patel2018">
+<p>1. Patel, S., Cortez, M. H. &amp; Schreiber, S. J. Partitioning the effects of eco-evolutionary feedbacks on community stability. <em>American Naturalist</em> <strong>191,</strong> 1–29 (2018).</p>
+</div>
 <div id="ref-May1972">
-<p>1. May, R. M. Will a large complex system be stable? <em>Nature</em> <strong>238,</strong> 413–414 (1972).</p>
+<p>2. May, R. M. Will a large complex system be stable? <em>Nature</em> <strong>238,</strong> 413–414 (1972).</p>
+</div>
+<div id="ref-May1973">
+<p>3. May, R. M. Qualitative stability in model ecosystems. <em>Ecology</em> <strong>54,</strong> 638–641 (1973).</p>
 </div>
 <div id="ref-Allesina2012">
-<p>2. Allesina, S. &amp; Tang, S. Stability criteria for complex ecosystems. <em>Nature</em> <strong>483,</strong> 205–208 (2012).</p>
+<p>4. Allesina, S. &amp; Tang, S. Stability criteria for complex ecosystems. <em>Nature</em> <strong>483,</strong> 205–208 (2012).</p>
 </div>
 <div id="ref-Allesina2015a">
-<p>3. Allesina, S. &amp; Tang, S. The stability–complexity relationship at age 40: a random matrix perspective. <em>Population Ecology</em> 63–75 (2015). doi:<a href="https://doi.org/10.1007/s10144-014-0471-0">10.1007/s10144-014-0471-0</a></p>
+<p>5. Allesina, S. &amp; Tang, S. The stability–complexity relationship at age 40: a random matrix perspective. <em>Population Ecology</em> 63–75 (2015). doi:<a href="https://doi.org/10.1007/s10144-014-0471-0">10.1007/s10144-014-0471-0</a></p>
 </div>
 <div id="ref-Tang2014b">
-<p>4. Tang, S. &amp; Allesina, S. Reactivity and stability of large ecosystems. <em>Frontiers in Ecology and Evolution</em> <strong>2,</strong> 1–8 (2014).</p>
+<p>6. Tang, S. &amp; Allesina, S. Reactivity and stability of large ecosystems. <em>Frontiers in Ecology and Evolution</em> <strong>2,</strong> 1–8 (2014).</p>
 </div>
 <div id="ref-Allesina2011">
-<p>5. Allesina, S. &amp; Levine, J. M. A competitive network theory of species diversity. <em>Proceedings of the National Academy of Sciences of the United States of America</em> <strong>108,</strong> 5638–5642 (2011).</p>
+<p>7. Allesina, S. &amp; Levine, J. M. A competitive network theory of species diversity. <em>Proceedings of the National Academy of Sciences of the United States of America</em> <strong>108,</strong> 5638–5642 (2011).</p>
 </div>
 <div id="ref-Hamblin2013">
-<p>6. Hamblin, S. On the practical usage of genetic algorithms in ecology and evolution. <em>Methods in Ecology and Evolution</em> <strong>4,</strong> 184–194 (2013).</p>
+<p>8. Hamblin, S. On the practical usage of genetic algorithms in ecology and evolution. <em>Methods in Ecology and Evolution</em> <strong>4,</strong> 184–194 (2013).</p>
 </div>
 <div id="ref-Grilli2017">
-<p>7. Grilli, J. <em>et al.</em> Feasibility and coexistence of large ecological communities. <em>Nature Communications</em> <strong>8,</strong> (2017).</p>
+<p>9. Grilli, J. <em>et al.</em> Feasibility and coexistence of large ecological communities. <em>Nature Communications</em> <strong>8,</strong> (2017).</p>
 </div>
 <div id="ref-Dougoud2018">
-<p>8. Dougoud, M., Vinckenbosch, L., Rohr, R., Bersier, L.-F. &amp; Mazza, C. The feasibility of equilibria in large ecosystems: a primary but neglected concept in the complexity-stability debate. <em>PLOS Computational Biology</em> <strong>14,</strong> e1005988 (2018).</p>
+<p>10. Dougoud, M., Vinckenbosch, L., Rohr, R., Bersier, L.-F. &amp; Mazza, C. The feasibility of equilibria in large ecosystems: a primary but neglected concept in the complexity-stability debate. <em>PLOS Computational Biology</em> <strong>14,</strong> e1005988 (2018).</p>
 </div>
 <div id="ref-Song2018">
-<p>9. Song, C. &amp; Saavedra, S. Will a small randomly assembled community be feasible and stable? <em>Ecology</em> <strong>99,</strong> 743–751 (2018).</p>
-</div>
-<div id="ref-Patel2018">
-<p>10. Patel, S., Cortez, M. H. &amp; Schreiber, S. J. Partitioning the effects of eco-evolutionary feedbacks on community stability. <em>American Naturalist</em> <strong>191,</strong> 1–29 (2018).</p>
+<p>11. Song, C. &amp; Saavedra, S. Will a small randomly assembled community be feasible and stable? <em>Ecology</em> <strong>99,</strong> 743–751 (2018).</p>
 </div>
 </div>
 </div>
@@ -5184,6 +5044,7 @@ C9dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#supplemental-information-table-of-contents">Supplemental Information table of contents</a></li>
+      <li><a href="#moregamma">Further explanation of <span class="math inline">\(\gamma\)</span></a></li>
       <li><a href="#Fig1">Code and simulations underlying Fig. 1</a></li>
       <li><a href="#Fig2">Code and simulations underlying Fig. 2</a></li>
       <li><a href="#IncrS">Stability across increasing <span class="math inline">\(S\)</span></a></li>
