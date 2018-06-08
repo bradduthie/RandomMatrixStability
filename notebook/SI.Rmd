@@ -447,7 +447,7 @@ The following tables for restricted ecological communities can therefore be comp
 Results for competitor interaction networks are shown below
 
 ```{r, echo = FALSE}
-cd_tab <- cdat[,1:7];
+cd_tab <- cdat[,2:7];
 kable(cd_tab);
 ```
 
@@ -456,7 +456,7 @@ kable(cd_tab);
 Results for mutualist interaction networks are shown below
 
 ```{r, echo = FALSE}
-md_tab <- mdat[,1:7];
+md_tab <- mdat[,2:7];
 kable(md_tab);
 ```
 
@@ -465,7 +465,7 @@ kable(md_tab);
 Results for predator-prey interaction networks are shown below
 
 ```{r, echo = FALSE}
-pd_tab <- pdat[,1:7];
+pd_tab <- pdat[,2:7];
 kable(pd_tab);
 ```
 
