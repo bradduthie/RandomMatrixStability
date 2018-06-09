@@ -81,9 +81,9 @@ Further explanation of $\gamma$ {#moregamma}
 
 In a synthesis of eco-evolutionary feedbacks on community stability, Patel et al. model a system that includes a vector of potentially changing species densities ($\mathbf{N}$) and a vector of potentially evolving traits ($\mathbf{x}$)[@Patel2018]. For any species $i$ or trait $j$, change in species density ($N_{i}$) or trait value ($x_{j}$) with time ($t$) is a function of the vectors $\mathbf{N}$ and $\mathbf{x}$,
 
-$$\frac{dN_{i}(t)}{dt} = N_{i}f_{i}(\mathbf{N}, \mathbf{x}),$$
+$$\frac{dN_{i}}{dt} = N_{i}f_{i}(\mathbf{N}, \mathbf{x}),$$
 
-$$\frac{dx_{j}(t)}{dt} = \epsilon g_{j}(\mathbf{N}, \mathbf{x}).$$
+$$\frac{dx_{j}}{dt} = \epsilon g_{j}(\mathbf{N}, \mathbf{x}).$$
 
 In the above, $f_{i}$ and $g_{j}$ are functions that define the effects of all species densities and trait values on the density of a species $i$ and the value of trait $j$, respectively. Patel et al. were interested in stability when the evolution of traits was relatively slow or fast in comparison with the change in species densities[@Patel2018], and this is modulated in the above by the scalar $\epsilon$. The value of $\epsilon$ thereby determines the timescale separation between ecology and evolution, with high $\epsilon$ modelling relatively fast evolution and low $\epsilon$ modelling relative slow evolution[@Patel2018]. 
 
