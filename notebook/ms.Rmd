@@ -4,16 +4,16 @@ author: "A. Bradley Duthie"
 date: Biological and Environmental Sciences, University of Stirling, Stirling, UK,
   FK9 4LA alexander.duthie@stir.ac.uk
 output:
+  pdf_document:
+    fig_caption: yes
+    keep_tex: no
+  html_document: default
   word_document:
     fig_caption: yes
     pandoc_args:
     - --csl
     - evolution.csl
     reference_docx: docx_template.docx
-  pdf_document:
-    fig_caption: yes
-    keep_tex: no
-  html_document: default
 bibliography: references.bib
 header-includes:
 - \usepackage{amsmath}
@@ -48,7 +48,7 @@ source(file = "R_old/plot_figs.R");
 
 ********************************************************************************
 
-**The stability of a complex system generally decreases with increasing system size, as is demonstrated by random matrix theory [@May1972; @Allesina2012]. This counter-intuitive result, first shown by May [@May1972], is broadly relevant for understanding the dynamics and persistence of systems such as ecological [@May1972; @Allesina2012], neurological [@Gray2008; @Gray2009], biochemical [@Rosenfeld2009; @MacArthur2010] and socio-economic [@Haldane2011; @Suweis2014; @Bardoscia2017] networks. Much attention has especially been given to the stability of ecological communities such as food webs or mutualist networks, with recent work investigating how different community structures affect stability [@Allesina2012; @Mougi2012; @Allesina2015a; @Gao2016; @Grilli2017; @Patel2018]. But more broadly, stabilising mechanisms in complex systems remain under-developed, and the effect of variation in the response rate of individual system components remains an open problem [@Allesina2015]. Here I show that when components of a complex system respond to system dynamics at different rates ($\boldsymbol{\gamma}$), the potential for system stability is markedly increased. Stability is caused by the clustering of some eigenvalues toward the centre of eigenvalue distributions despite the destabilising effect of higher interaction strength variation ($\boldsymbol{\sigma^{2}}$). This effect of variation in $\boldsymbol{\gamma}$ becomes increasingly important as system size increases, to the extent that the largest stable complex systems would otherwise be unstable if not for $\boldsymbol{Var(\gamma)}$. My results therefore reveal a previously unconsidered driver of system stability that is likely to be pervasive across all complex systems. Future research in complex systems should therefore account for the varying response rates of individual system components when assessing whole system stability.** 
+**The stability of a complex system generally decreases with increasing system size, as is demonstrated by random matrix theory [@May1972; @Allesina2012]. This counter-intuitive result, first shown by May [@May1972], is broadly relevant for understanding the dynamics and persistence of systems such as ecological [@May1972; @Allesina2012], neurological [@Gray2008; @Gray2009], biochemical [@Rosenfeld2009; @MacArthur2010] and socio-economic [@Haldane2011; @Suweis2014; @Bardoscia2017] networks. Much attention has especially been given to the stability of ecological communities such as food webs or mutualist networks, with recent work investigating how different community structures affect stability [@Allesina2012; @Mougi2012; @Allesina2015a; @Gao2016; @Grilli2017; @Patel2018]. But more broadly, stabilising mechanisms in complex systems remain under-developed, and the effect of variation in the response rate of individual system components remains an open problem [@Allesina2015]. Here I show that when components of a complex system respond to system perturbation at different rates ($\boldsymbol{\gamma}$), the potential for system stability is markedly increased. Stability is caused by the clustering of some eigenvalues toward the centre of eigenvalue distributions despite the destabilising effect of higher interaction strength variation ($\boldsymbol{\sigma^{2}}$). This effect of variation in $\boldsymbol{\gamma}$ becomes increasingly important as system size increases, to the extent that the largest stable complex systems would otherwise be unstable if not for $\boldsymbol{Var(\gamma)}$. My results therefore reveal a previously unconsidered driver of system stability that is likely to be pervasive across all complex systems. Future research in complex systems should therefore account for the varying response rates of individual system components when assessing whole system stability.** 
 
 In 1972, May [@May1972] first demonstrated that randomly assembled systems of sufficient complexity are almost inevitably unstable given infinitesimally small perturbations. Complexity in this case is defined by the size of the system (i.e., the number of potentially interacting components; $S$), its connectance (i.e., the probability that one component will interact with another; $C$), and the variance of interaction strengths ($\sigma^{2}$)[@Allesina2012]. May's finding that the probability of local stability falls to near zero given a sufficiently high threshold of $\sigma\sqrt{SC}$ has profound consequences across multiple disciplines, raising the question of how complex systems in, e.g., ecology[@Mougi2012; @Allesina2012; @Allesina2015; @Grilli2017] or banking [@May2008; @Haldane2011; @Bardoscia2017] are predicted to persist or change.
 
