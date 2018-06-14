@@ -646,7 +646,7 @@ The
 package} includes all functions and tools for recreating the text, this
 supplemental information, and running all code; additional documentation
 is also provided for functions as part of the package. The
-RandomMatrixStability package package is available on
+RandomMatrixStability package is available on
 \href{https://github.com/bradduthie/RandomMatrixStability}{GitHub}; to
 download it, the
 \href{https://cran.r-project.org/web/packages/devtools/index.html}{\texttt{devtools}
@@ -774,7 +774,7 @@ May\textsuperscript{\protect\hyperlink{ref-May1972}{2},\protect\hyperlink{ref-Ma
 
 The sample \(M\) used for the eigenvalue distributions in Fig. 1 of the
 text is available on
-\href{https://github.com/bradduthie/RandomMatrixStability/tree/master/sim_results/bi_gamma}{GitHub},
+\href{https://github.com/bradduthie/RandomMatrixStability/tree/master/notebook/sim_results/bi_gamma}{GitHub},
 and was produced by running the following function.
 
 \begin{Shaded}
@@ -818,6 +818,57 @@ but terminated once an acceptable \texttt{A0} and \texttt{A1} were
 found. The code below plots the eigenvalue distributions of \texttt{A0}
 and \texttt{A1} in panels \textbf{a} and \textbf{b}, respectively. The
 plot itself can be recreated with the function and code below.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{A0 <-}\StringTok{ }\KeywordTok{as.matrix}\NormalTok{(A0[,-}\DecValTok{1}\NormalTok{]);}
+\NormalTok{A1 <-}\StringTok{ }\KeywordTok{as.matrix}\NormalTok{(A1[,-}\DecValTok{1}\NormalTok{]);}
+\NormalTok{plot_Fig_1 <-}\StringTok{ }\NormalTok{function(A0, A1)\{}
+    \NormalTok{S_val       <-}\StringTok{ }\KeywordTok{dim}\NormalTok{(A0)[}\DecValTok{1}\NormalTok{];}
+    \NormalTok{A0_e        <-}\StringTok{ }\KeywordTok{eigen}\NormalTok{(A0)$values;}
+    \NormalTok{A0_r        <-}\StringTok{ }\KeywordTok{Re}\NormalTok{(A0_e);}
+    \NormalTok{A0_i        <-}\StringTok{ }\KeywordTok{Im}\NormalTok{(A0_e);}
+    \NormalTok{A1_e        <-}\StringTok{ }\KeywordTok{eigen}\NormalTok{(A1)$values;}
+    \NormalTok{A1_r        <-}\StringTok{ }\KeywordTok{Re}\NormalTok{(A1_e);}
+    \NormalTok{A1_i        <-}\StringTok{ }\KeywordTok{Im}\NormalTok{(A1_e);}
+    \NormalTok{A0_vm       <-}\StringTok{ }\NormalTok{A0;}
+    \KeywordTok{diag}\NormalTok{(A0_vm) <-}\StringTok{ }\OtherTok{NA}\NormalTok{;}
+    \NormalTok{A0vec       <-}\StringTok{ }\KeywordTok{as.vector}\NormalTok{(}\KeywordTok{t}\NormalTok{(A0_vm));}
+    \NormalTok{A0vec       <-}\StringTok{ }\NormalTok{A0vec[}\KeywordTok{is.na}\NormalTok{(A0vec) ==}\StringTok{ }\OtherTok{FALSE}\NormalTok{];}
+    \NormalTok{A1_vm       <-}\StringTok{ }\NormalTok{A1;}
+    \KeywordTok{diag}\NormalTok{(A1_vm) <-}\StringTok{ }\OtherTok{NA}\NormalTok{;}
+    \NormalTok{A1vec       <-}\StringTok{ }\KeywordTok{as.vector}\NormalTok{(}\KeywordTok{t}\NormalTok{(A1_vm));}
+    \NormalTok{A1vec       <-}\StringTok{ }\NormalTok{A1vec[}\KeywordTok{is.na}\NormalTok{(A1vec) ==}\StringTok{ }\OtherTok{FALSE}\NormalTok{];}
+    \NormalTok{fhalf       <-}\StringTok{ }\DecValTok{1}\NormalTok{:(}\FloatTok{0.5}\NormalTok{*}\KeywordTok{length}\NormalTok{(A1vec));}
+    \NormalTok{shalf       <-}\StringTok{ }\NormalTok{(}\FloatTok{0.5}\NormalTok{*}\KeywordTok{length}\NormalTok{(A1vec)+}\DecValTok{1}\NormalTok{):}\KeywordTok{length}\NormalTok{(A1vec);}
+    \KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow =} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{), }\DataTypeTok{mar =} \KeywordTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\FloatTok{0.5}\NormalTok{), }\DataTypeTok{oma =} \KeywordTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{));}
+    \KeywordTok{plot}\NormalTok{(A0_r, A0_i, }\DataTypeTok{xlim =} \KeywordTok{c}\NormalTok{(-}\FloatTok{3.7}\NormalTok{, }\FloatTok{0.3}\NormalTok{), }\DataTypeTok{ylim =} \KeywordTok{c}\NormalTok{(-}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{), }\DataTypeTok{pch =} \DecValTok{4}\NormalTok{, }\DataTypeTok{cex =} \FloatTok{0.7}\NormalTok{,}
+         \DataTypeTok{xlab =} \StringTok{""}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{""}\NormalTok{, }\DataTypeTok{cex.lab =} \FloatTok{1.5}\NormalTok{, }\DataTypeTok{cex.axis =} \FloatTok{1.5}\NormalTok{, }\DataTypeTok{asp =} \DecValTok{1}\NormalTok{);}
+    \NormalTok{vl   <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\DataTypeTok{from =} \DecValTok{0}\NormalTok{, }\DataTypeTok{to =} \DecValTok{2}\NormalTok{*pi, }\DataTypeTok{by =} \FloatTok{0.001}\NormalTok{);}
+    \NormalTok{A0x0 <-}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(S_val) *}\StringTok{ }\KeywordTok{sd}\NormalTok{(A0vec) *}\StringTok{ }\KeywordTok{cos}\NormalTok{(vl) +}\StringTok{ }\KeywordTok{mean}\NormalTok{(}\KeywordTok{diag}\NormalTok{(A0));}
+    \NormalTok{A0y0 <-}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(S_val) *}\StringTok{ }\KeywordTok{sd}\NormalTok{(A0vec) *}\StringTok{ }\KeywordTok{sin}\NormalTok{(vl);}
+    \KeywordTok{text}\NormalTok{(}\DataTypeTok{x =} \NormalTok{-}\FloatTok{3.5}\NormalTok{, }\DataTypeTok{y =} \FloatTok{2.25}\NormalTok{, }\DataTypeTok{labels =} \StringTok{"a"}\NormalTok{, }\DataTypeTok{cex =} \DecValTok{2}\NormalTok{);}
+    \KeywordTok{points}\NormalTok{(}\DataTypeTok{x =} \NormalTok{A0x0, }\DataTypeTok{y =} \NormalTok{A0y0, }\DataTypeTok{type =} \StringTok{"l"}\NormalTok{, }\DataTypeTok{lwd =} \DecValTok{3}\NormalTok{, }\DataTypeTok{col =} \StringTok{"grey"}\NormalTok{);}
+    \KeywordTok{points}\NormalTok{(A0_r, A0_i, }\DataTypeTok{pch =} \DecValTok{4}\NormalTok{, }\DataTypeTok{cex =} \FloatTok{0.7}\NormalTok{);}
+    \KeywordTok{plot}\NormalTok{(A1_r, A1_i, }\DataTypeTok{xlim =} \KeywordTok{c}\NormalTok{(-}\FloatTok{3.7}\NormalTok{, }\FloatTok{0.3}\NormalTok{), }\DataTypeTok{ylim =} \KeywordTok{c}\NormalTok{(-}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{), }\DataTypeTok{pch =} \DecValTok{4}\NormalTok{, }\DataTypeTok{cex =} \FloatTok{0.7}\NormalTok{,}
+         \DataTypeTok{xlab =} \StringTok{""}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{""}\NormalTok{, }\DataTypeTok{cex.lab =} \FloatTok{1.5}\NormalTok{, }\DataTypeTok{cex.axis =} \FloatTok{1.5}\NormalTok{, }\DataTypeTok{asp =} \DecValTok{1}\NormalTok{, }
+         \DataTypeTok{col =} \StringTok{"black"}\NormalTok{, }\DataTypeTok{yaxt =} \StringTok{"n"}\NormalTok{);}
+    \NormalTok{vl <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\DataTypeTok{from =} \DecValTok{0}\NormalTok{, }\DataTypeTok{to =} \DecValTok{2}\NormalTok{*pi, }\DataTypeTok{by =} \FloatTok{0.001}\NormalTok{);}
+    \NormalTok{A0x1a <-}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(}\FloatTok{0.5}\NormalTok{*S_val) *}\StringTok{ }\KeywordTok{sd}\NormalTok{(A1vec[fhalf]) *}\StringTok{ }\KeywordTok{cos}\NormalTok{(vl) +}\StringTok{ }\KeywordTok{mean}\NormalTok{(}\KeywordTok{diag}\NormalTok{(A1)[}\DecValTok{1}\NormalTok{:(}\FloatTok{0.5}\NormalTok{*S_val)]);}
+    \NormalTok{A0y1a <-}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(S_val) *}\StringTok{ }\KeywordTok{sd}\NormalTok{(A1vec[fhalf]) *}\StringTok{ }\KeywordTok{sin}\NormalTok{(vl);}
+    \KeywordTok{points}\NormalTok{(}\DataTypeTok{x =} \NormalTok{A0x1a, }\DataTypeTok{y =} \NormalTok{A0y1a, }\DataTypeTok{type =} \StringTok{"l"}\NormalTok{, }\DataTypeTok{lwd =} \DecValTok{3}\NormalTok{, }\DataTypeTok{col =} \StringTok{"grey"}\NormalTok{);}
+    \NormalTok{A0x1b <-}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(}\FloatTok{0.5}\NormalTok{*S_val) *}\StringTok{ }\KeywordTok{sd}\NormalTok{(A1vec[shalf]) *}\StringTok{ }\KeywordTok{cos}\NormalTok{(vl) +}\StringTok{ }
+\StringTok{                  }\KeywordTok{mean}\NormalTok{( }\KeywordTok{diag}\NormalTok{(A1)[( (}\FloatTok{0.5}\NormalTok{*S_val) +}\StringTok{ }\DecValTok{1} \NormalTok{):S_val] );}
+    \NormalTok{A0y1b <-}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(}\FloatTok{0.5}\NormalTok{*S_val) *}\StringTok{ }\KeywordTok{sd}\NormalTok{(A1vec[shalf]) *}\StringTok{ }\KeywordTok{sin}\NormalTok{(vl);}
+    \KeywordTok{points}\NormalTok{(}\DataTypeTok{x =} \NormalTok{A0x1b, }\DataTypeTok{y =} \NormalTok{A0y1b, }\DataTypeTok{type =} \StringTok{"l"}\NormalTok{, }\DataTypeTok{lwd =} \DecValTok{3}\NormalTok{, }\DataTypeTok{col =} \StringTok{"grey"}\NormalTok{);}
+    \KeywordTok{points}\NormalTok{(A1_r[}\DecValTok{1}\NormalTok{:S_val], A1_i[}\DecValTok{1}\NormalTok{:S_val],}\DataTypeTok{pch =} \DecValTok{4}\NormalTok{, }\DataTypeTok{cex =} \FloatTok{0.7}\NormalTok{);   }
+    \KeywordTok{text}\NormalTok{(}\DataTypeTok{x =} \NormalTok{-}\FloatTok{3.5}\NormalTok{, }\DataTypeTok{y =} \FloatTok{2.25}\NormalTok{, }\DataTypeTok{labels =} \StringTok{"b"}\NormalTok{, }\DataTypeTok{cex =} \DecValTok{2}\NormalTok{);}
+    \KeywordTok{mtext}\NormalTok{(}\DataTypeTok{side =} \DecValTok{1}\NormalTok{, }\StringTok{"Real"}\NormalTok{, }\DataTypeTok{outer =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{line =} \DecValTok{3}\NormalTok{, }\DataTypeTok{cex =} \DecValTok{2}\NormalTok{);}
+    \KeywordTok{mtext}\NormalTok{(}\DataTypeTok{side =} \DecValTok{2}\NormalTok{, }\StringTok{"Imaginary"}\NormalTok{, }\DataTypeTok{outer =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{line =} \FloatTok{2.5}\NormalTok{, }\DataTypeTok{cex =} \DecValTok{2}\NormalTok{);}
+\NormalTok{\}}
+\KeywordTok{plot_Fig_1}\NormalTok{(}\DataTypeTok{A0 =} \NormalTok{A0, }\DataTypeTok{A1 =} \NormalTok{A1);}
+\end{Highlighting}
+\end{Shaded}
 
 \includegraphics{unnamed-chunk-4-1.pdf}
 
@@ -883,7 +934,7 @@ whereas values of 1 indicate that \(M\) was found to be stable (all real
 components of eigenvalues are negative). The frequencies of stable \(M\)
 were 1 given \(\gamma = 1\) and 32 given \(\gamma = \{1.95, 0.05\}\), as
 reported in the main text and legend of Fig. 1 (raw data are
-\href{https://github.com/bradduthie/RandomMatrixStability/blob/master/sim_results/bi_gamma/bi_pr_st.csv}{available
+\href{https://github.com/bradduthie/RandomMatrixStability/blob/master/notebook/sim_results/bi_gamma/bi_pr_st.csv}{available
 on GitHub}).
 
 \hypertarget{Fig2}{\section{Code and simulations underlying Fig.
@@ -2021,9 +2072,10 @@ After all \(M\) are simulated in \texttt{Evo\_rand\_gen\_var}, the
 \end{Highlighting}
 \end{Shaded}
 
-Some stability results from this table are shown below. Each histogram
-shows a different distribution of \(\gamma\) that was found to be
-stabilising.
+Some stability results from this table are shown below. Results for \texttt{A0}
+indicate systems in which \(\gamma = 1\), while \texttt{A1} refers to systems in 
+which the genetic algorithm searched for a set of \(\gamma\) values that 
+stabilised the system. 
 
 \begin{longtable}[]{@{}rrrrrrr@{}}
 \toprule
