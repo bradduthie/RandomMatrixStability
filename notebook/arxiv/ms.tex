@@ -318,15 +318,16 @@ after (b) separating a randomly generated complex system into fast
 (\(\boldsymbol{\gamma} = 1.95\)) and slow
 (\(\boldsymbol{\gamma} = 0.05\)) component response rates.} Each panel
 shows the same system where \(S = 200\), \(C = 0.05\), and
-\(\sigma = 0.4\), and in each case \(E[\gamma] = 1\) (i.e., only the
-distribution of \(\gamma\) differs between panels). \textbf{a.}
-Eigenvalues plotted when all \(\gamma = 1\); distributions of points are
+\(\sigma = 0.4\), and in each case \(E[\gamma] = 1\) (i.e., only 
+\(Var(\gamma)\) differs between panels). \textbf{a.}
+Eigenvalues plotted when all \(\gamma = 1\); points are
 uniformly distributed within the grey circle with a radius of
 \(\sigma\sqrt{SC} =\) 1.238 centred at -1 on the real axis. \textbf{b.}
 Eigenvalues plotted when half \(\gamma = 1.95\) and half
 \(\gamma = 0.05\); distributions of points can be partitioned into one
-large circle of \(\sigma\sqrt{SC} =\) 1.718 centred at
-\(\gamma = -1.95\) and one small circle of \(\sigma\sqrt{SC} =\) 0.044
+large circle with a radius of \(\sigma\sqrt{SC} =\) 1.718 centred at
+\(\gamma = -1.95\) and one small circle with a radius of
+\(\sigma\sqrt{SC} =\) 0.044
 centred at \(\gamma = -0.05\). In a, the maximum real eigenvalue
 \(\max\left(\Re(\lambda)\right) =\) 0.2344871, while in b
 \(\max\left(\Re(\lambda)\right) =\) -0.0002273135, meaning that the
@@ -350,7 +351,7 @@ value
 \hyperlink{SIstart}{Supplementary Information} for details).
 The distribution of \(\gamma\) over \(S\) components thereby models the
 distribution of component response rates. An instructive example
-compares one \(M\) where \(\gamma_{i} = 1\) for all \(i\) in \(S\) to
+compares one \(M\) when \(\gamma_{i} = 1\) for all \(i\) in \(S\) to
 the same \(M\) when half of \(\gamma_{i} = 1.95\) and half of
 \(\gamma_{i} = 0.05\). This models one system in which \(\gamma\) is
 invariant and one in which \(\gamma\) varies, but systems are otherwise
@@ -378,7 +379,7 @@ response rates results in more stable systems: 1 stable given
 
 \textbf{Figure 2: Distributions of eigenvalues before (a) and after (b)
 introducing variation in component response rate
-(\(\boldsymbol{\gamma}\)) in complex systems.} Each panel show the same
+(\(\boldsymbol{\gamma}\)) in complex systems.} Each panel shows the same
 system where \(S = 1000\), \(C = 1\), and \(\sigma = 0.4\). \textbf{a.}
 Eigenvalues plotted in the absence of \(Var(\gamma)\) where
 \(E[\gamma] = 1\), versus \textbf{b.} eigenvalues plotted given
@@ -422,17 +423,17 @@ threshold of \(\sigma\sqrt{SC} > 1\).
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
 \textbf{Figure 3: Stability of large complex systems with and without
-variation in component response rate(\(\boldsymbol{\gamma}\)).} The
-\(\ln\) number of systems that are stable across different system sizes
-(\(S\)) given \(C = 1\), and the proportion of systems in which
-variation in \(\gamma\) is critical for system stability. For each
+variation in component response rate(\(\boldsymbol{\gamma}\)).} Y-axes show
+the \(\ln\) number of systems that are stable across different system sizes
+(\(S\)) given \(C = 1\) (left axis), and the proportion of systems in which
+variation in \(\gamma\) is critical for system stability (right axis). For each
 \(S\), 1 million complex systems are randomly generated. Stability of
 each complex system is tested given variation in \(\gamma\) by randomly
 sampling \(\gamma \sim \mathcal{U}(0, 2)\). Stability given
 \(Var(\gamma)\) is then compared to stability in an otherwise identical
 system in which \(\gamma = E[\mathcal{U}(0, 2)]\) for all components.
 Light and dark grey bars show the number of stable systems in the
-absence and presence of \(Var(\gamma)\), respectively. The black line
+absence versus presence of \(Var(\gamma)\), respectively. The black line
 shows the proportion of systems that are stable when
 \(Var(\gamma) > 0\), but would be unstable if \(Var(\gamma) = 0\).
 
@@ -487,7 +488,7 @@ of 1000 \(\gamma\) sets. The genetic algorithm terminated if a stable
 \(M\) was found, 20 generations occurred, or a convergence criteria of
 minimum fitness increase between generations was satisfied. Across
 \(S = \{2, 3, ..., 39, 40\}\), sets of \(\gamma\) values were found that
-resulted in stable systems with probabilities that were orders of
+resulted in stable systems with probabilities that were up to four orders of
 magnitude higher than when \(\gamma = 1\) (see \hyperlink{SIstart}{Supplementary
 Information}), meaning that stability could often be achieved by 
 manipulating \(S\) \(\gamma\) values rather than \(S \times S\) \(M\) elements.
@@ -502,7 +503,7 @@ networks\textsuperscript{\protect\hyperlink{ref-Allesina2012}{2}}. These
 include systems in which all interactions are negative (competitive networks), positive (mutualist networks), or \(i\) and
 \(j\) pairs have opposing signs (predator-prey networks). In
 general, competitive and mutualist networks tend to be destabilising,
-and predator-prey network tend to be
+and predator-prey networks tend to be
 stabilising\textsuperscript{\protect\hyperlink{ref-Allesina2011}{19}}.
 When \(Var(\gamma)\) is applied to each, the proportion of stable
 competitive and predator-prey networks increases, but the proportion of
@@ -1291,8 +1292,7 @@ A1\_stabilised\tabularnewline
 32 & 100000 & 0 & 99996 & 4 & 4\tabularnewline
 33 & 100000 & 0 & 99998 & 2 & 2\tabularnewline
 34 & 100000 & 0 & 100000 & 0 & 0\tabularnewline
-\ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} &
-\ldots{}\tabularnewline
+\ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} \tabularnewline
 50 & 100000 & 0 & 100000 & 0 & 0\tabularnewline
 \bottomrule
 \end{longtable}
@@ -1318,8 +1318,7 @@ A1\_stabilised\tabularnewline
 10 & 100000 & 0 & 100000 & 0 & 0\tabularnewline
 11 & 100000 & 0 & 100000 & 0 & 0\tabularnewline
 12 & 100000 & 0 & 100000 & 0 & 0\tabularnewline
-\ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} &
-\ldots{}\tabularnewline
+\ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} \tabularnewline
 50 & 100000 & 0 & 100000 & 0 & 0\tabularnewline
 \bottomrule
 \end{longtable}
