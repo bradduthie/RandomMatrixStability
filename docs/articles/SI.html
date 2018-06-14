@@ -29,7 +29,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RandomMatrixStability</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.1.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.2.0</span>
       </span>
     </div>
 
@@ -87,7 +87,7 @@
     
 <hr>
 <p><strong>This supplemental information supports the manuscript “Component response rate variation drives stability in large complex systems” with all of the code required to recreate the analysis in the main text, and with additional analyses to support its conclusions. All text, code, and data underlying this manuscript are publicly available on <a href="https://github.com/bradduthie/RandomMatrixStability">GitHub</a> as part of the RandomMatrixStability package.</strong></p>
-<p>The <a href="https://github.com/bradduthie/RandomMatrixStability">RandomMatrixStability package</a> includes all functions and tools for recreating the text, this supplemental information, and running all code; additional documentation is also provided for functions as part of the package. The RandomMatrixStability package package is available on <a href="https://github.com/bradduthie/RandomMatrixStability">GitHub</a>; to download it, the <a href="https://cran.r-project.org/web/packages/devtools/index.html"><code>devtools</code> library</a> is needed.</p>
+<p>The <a href="https://github.com/bradduthie/RandomMatrixStability">RandomMatrixStability package</a> includes all functions and tools for recreating the text, this supplemental information, and running all code; additional documentation is also provided for functions as part of the package. The RandomMatrixStability package is available on <a href="https://github.com/bradduthie/RandomMatrixStability">GitHub</a>; to download it, the <a href="https://cran.r-project.org/web/packages/devtools/index.html"><code>devtools</code> library</a> is needed.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">"devtools"</span>);
 <span class="kw">library</span>(devtools);</code></pre></div>
 <p>The code below installs the RandomMatrixStability package using devtools.</p>
@@ -169,7 +169,53 @@
     }
 }</code></pre></div>
 <p>The above <code>find_bgamma</code> function terminates when a matrix <span class="math inline">\(M\)</span> is found that is not stable when all component response rates are set to <span class="math inline">\(\gamma = 1\)</span>, but is stable when half of component response rates are <span class="math inline">\(1.95\)</span> and half are <span class="math inline">\(0.05\)</span>. The function is used to illustrate the concept of how fast versus slow component responses can cause a system to become stable. Simulations were run for <code>iter = 1000000</code>, but terminated once an acceptable <code>A0</code> and <code>A1</code> were found. The code below plots the eigenvalue distributions of <code>A0</code> and <code>A1</code> in panels <strong>a</strong> and <strong>b</strong>, respectively. The plot itself can be recreated with the function and code below.</p>
-<p><img src="SI_files/figure-html/unnamed-chunk-5-1.png" width="768"></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">A0 &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(A0[,-<span class="dv">1</span>]);
+A1 &lt;-<span class="st"> </span><span class="kw">as.matrix</span>(A1[,-<span class="dv">1</span>]);
+plot_Fig_1 &lt;-<span class="st"> </span>function(A0, A1){
+    S_val       &lt;-<span class="st"> </span><span class="kw">dim</span>(A0)[<span class="dv">1</span>];
+    A0_e        &lt;-<span class="st"> </span><span class="kw">eigen</span>(A0)$values;
+    A0_r        &lt;-<span class="st"> </span><span class="kw">Re</span>(A0_e);
+    A0_i        &lt;-<span class="st"> </span><span class="kw">Im</span>(A0_e);
+    A1_e        &lt;-<span class="st"> </span><span class="kw">eigen</span>(A1)$values;
+    A1_r        &lt;-<span class="st"> </span><span class="kw">Re</span>(A1_e);
+    A1_i        &lt;-<span class="st"> </span><span class="kw">Im</span>(A1_e);
+    A0_vm       &lt;-<span class="st"> </span>A0;
+    <span class="kw">diag</span>(A0_vm) &lt;-<span class="st"> </span><span class="ot">NA</span>;
+    A0vec       &lt;-<span class="st"> </span><span class="kw">as.vector</span>(<span class="kw">t</span>(A0_vm));
+    A0vec       &lt;-<span class="st"> </span>A0vec[<span class="kw">is.na</span>(A0vec) ==<span class="st"> </span><span class="ot">FALSE</span>];
+    A1_vm       &lt;-<span class="st"> </span>A1;
+    <span class="kw">diag</span>(A1_vm) &lt;-<span class="st"> </span><span class="ot">NA</span>;
+    A1vec       &lt;-<span class="st"> </span><span class="kw">as.vector</span>(<span class="kw">t</span>(A1_vm));
+    A1vec       &lt;-<span class="st"> </span>A1vec[<span class="kw">is.na</span>(A1vec) ==<span class="st"> </span><span class="ot">FALSE</span>];
+    fhalf       &lt;-<span class="st"> </span><span class="dv">1</span>:(<span class="fl">0.5</span>*<span class="kw">length</span>(A1vec));
+    shalf       &lt;-<span class="st"> </span>(<span class="fl">0.5</span>*<span class="kw">length</span>(A1vec)+<span class="dv">1</span>):<span class="kw">length</span>(A1vec);
+    <span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="dt">mar =</span> <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>), <span class="dt">oma =</span> <span class="kw">c</span>(<span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">0</span>));
+    <span class="kw">plot</span>(A0_r, A0_i, <span class="dt">xlim =</span> <span class="kw">c</span>(-<span class="fl">3.7</span>, <span class="fl">0.3</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(-<span class="dv">2</span>, <span class="dv">2</span>), <span class="dt">pch =</span> <span class="dv">4</span>, <span class="dt">cex =</span> <span class="fl">0.7</span>,
+         <span class="dt">xlab =</span> <span class="st">""</span>, <span class="dt">ylab =</span> <span class="st">""</span>, <span class="dt">cex.lab =</span> <span class="fl">1.5</span>, <span class="dt">cex.axis =</span> <span class="fl">1.5</span>, <span class="dt">asp =</span> <span class="dv">1</span>);
+    vl   &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">2</span>*pi, <span class="dt">by =</span> <span class="fl">0.001</span>);
+    A0x0 &lt;-<span class="st"> </span><span class="kw">sqrt</span>(S_val) *<span class="st"> </span><span class="kw">sd</span>(A0vec) *<span class="st"> </span><span class="kw">cos</span>(vl) +<span class="st"> </span><span class="kw">mean</span>(<span class="kw">diag</span>(A0));
+    A0y0 &lt;-<span class="st"> </span><span class="kw">sqrt</span>(S_val) *<span class="st"> </span><span class="kw">sd</span>(A0vec) *<span class="st"> </span><span class="kw">sin</span>(vl);
+    <span class="kw">text</span>(<span class="dt">x =</span> -<span class="fl">3.5</span>, <span class="dt">y =</span> <span class="fl">2.25</span>, <span class="dt">labels =</span> <span class="st">"a"</span>, <span class="dt">cex =</span> <span class="dv">2</span>);
+    <span class="kw">points</span>(<span class="dt">x =</span> A0x0, <span class="dt">y =</span> A0y0, <span class="dt">type =</span> <span class="st">"l"</span>, <span class="dt">lwd =</span> <span class="dv">3</span>, <span class="dt">col =</span> <span class="st">"grey"</span>);
+    <span class="kw">points</span>(A0_r, A0_i, <span class="dt">pch =</span> <span class="dv">4</span>, <span class="dt">cex =</span> <span class="fl">0.7</span>);
+    <span class="kw">plot</span>(A1_r, A1_i, <span class="dt">xlim =</span> <span class="kw">c</span>(-<span class="fl">3.7</span>, <span class="fl">0.3</span>), <span class="dt">ylim =</span> <span class="kw">c</span>(-<span class="dv">2</span>, <span class="dv">2</span>), <span class="dt">pch =</span> <span class="dv">4</span>, <span class="dt">cex =</span> <span class="fl">0.7</span>,
+         <span class="dt">xlab =</span> <span class="st">""</span>, <span class="dt">ylab =</span> <span class="st">""</span>, <span class="dt">cex.lab =</span> <span class="fl">1.5</span>, <span class="dt">cex.axis =</span> <span class="fl">1.5</span>, <span class="dt">asp =</span> <span class="dv">1</span>, 
+         <span class="dt">col =</span> <span class="st">"black"</span>, <span class="dt">yaxt =</span> <span class="st">"n"</span>);
+    vl &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">2</span>*pi, <span class="dt">by =</span> <span class="fl">0.001</span>);
+    A0x1a &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="fl">0.5</span>*S_val) *<span class="st"> </span><span class="kw">sd</span>(A1vec[fhalf]) *<span class="st"> </span><span class="kw">cos</span>(vl) +<span class="st"> </span><span class="kw">mean</span>(<span class="kw">diag</span>(A1)[<span class="dv">1</span>:(<span class="fl">0.5</span>*S_val)]);
+    A0y1a &lt;-<span class="st"> </span><span class="kw">sqrt</span>(S_val) *<span class="st"> </span><span class="kw">sd</span>(A1vec[fhalf]) *<span class="st"> </span><span class="kw">sin</span>(vl);
+    <span class="kw">points</span>(<span class="dt">x =</span> A0x1a, <span class="dt">y =</span> A0y1a, <span class="dt">type =</span> <span class="st">"l"</span>, <span class="dt">lwd =</span> <span class="dv">3</span>, <span class="dt">col =</span> <span class="st">"grey"</span>);
+    A0x1b &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="fl">0.5</span>*S_val) *<span class="st"> </span><span class="kw">sd</span>(A1vec[shalf]) *<span class="st"> </span><span class="kw">cos</span>(vl) +<span class="st"> </span>
+<span class="st">                  </span><span class="kw">mean</span>( <span class="kw">diag</span>(A1)[( (<span class="fl">0.5</span>*S_val) +<span class="st"> </span><span class="dv">1</span> ):S_val] );
+    A0y1b &lt;-<span class="st"> </span><span class="kw">sqrt</span>(<span class="fl">0.5</span>*S_val) *<span class="st"> </span><span class="kw">sd</span>(A1vec[shalf]) *<span class="st"> </span><span class="kw">sin</span>(vl);
+    <span class="kw">points</span>(<span class="dt">x =</span> A0x1b, <span class="dt">y =</span> A0y1b, <span class="dt">type =</span> <span class="st">"l"</span>, <span class="dt">lwd =</span> <span class="dv">3</span>, <span class="dt">col =</span> <span class="st">"grey"</span>);
+    <span class="kw">points</span>(A1_r[<span class="dv">1</span>:S_val], A1_i[<span class="dv">1</span>:S_val],<span class="dt">pch =</span> <span class="dv">4</span>, <span class="dt">cex =</span> <span class="fl">0.7</span>);   
+    <span class="kw">text</span>(<span class="dt">x =</span> -<span class="fl">3.5</span>, <span class="dt">y =</span> <span class="fl">2.25</span>, <span class="dt">labels =</span> <span class="st">"b"</span>, <span class="dt">cex =</span> <span class="dv">2</span>);
+    <span class="kw">mtext</span>(<span class="dt">side =</span> <span class="dv">1</span>, <span class="st">"Real"</span>, <span class="dt">outer =</span> <span class="ot">TRUE</span>, <span class="dt">line =</span> <span class="dv">3</span>, <span class="dt">cex =</span> <span class="dv">2</span>);
+    <span class="kw">mtext</span>(<span class="dt">side =</span> <span class="dv">2</span>, <span class="st">"Imaginary"</span>, <span class="dt">outer =</span> <span class="ot">TRUE</span>, <span class="dt">line =</span> <span class="fl">2.5</span>, <span class="dt">cex =</span> <span class="dv">2</span>);
+}
+<span class="kw"><a href="../reference/plot_Fig_1.html">plot_Fig_1</a></span>(<span class="dt">A0 =</span> A0, <span class="dt">A1 =</span> A1);</code></pre></div>
+<p><img src="SI_files/figure-html/unnamed-chunk-6-1.png" width="768"></p>
 <p>To find out how frequently <span class="math inline">\(M\)</span> was stable given that all <span class="math inline">\(\gamma = 1\)</span> versus <span class="math inline">\(\gamma = \{1.95, 0.05\}\)</span>, the function below was created.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stab_bgamma &lt;-<span class="st"> </span>function(<span class="dt">S =</span> <span class="dv">200</span>, <span class="dt">C =</span> <span class="fl">0.05</span>, <span class="dt">Osd =</span> <span class="fl">0.4</span>, <span class="dt">iters =</span> <span class="dv">10000</span>){
     ress     &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dt">data =</span> <span class="dv">0</span>, <span class="dt">nrow =</span> iters, <span class="dt">ncol =</span> <span class="dv">2</span>);
@@ -262,7 +308,7 @@ pr_st    &lt;-<span class="st"> </span>bi_pr_st[,-<span class="dv">1</span>];</c
     <span class="kw">mtext</span>(<span class="dt">side =</span> <span class="dv">2</span>, <span class="st">"Imaginary"</span>, <span class="dt">outer =</span> <span class="ot">TRUE</span>, <span class="dt">line =</span> <span class="fl">2.5</span>, <span class="dt">cex =</span> <span class="dv">2</span>);
 }
 <span class="kw"><a href="../reference/plot_Fig_2.html">plot_Fig_2</a></span>();</code></pre></div>
-<p><img src="SI_files/figure-html/unnamed-chunk-8-1.png" width="864"></p>
+<p><img src="SI_files/figure-html/unnamed-chunk-9-1.png" width="864"></p>
 </div>
 <div id="IncrS" class="section level1">
 <h1 class="hasAnchor">
@@ -3685,7 +3731,7 @@ C9dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class
 <p>In the main text, I considered a uniform distribution of component response rates <span class="math inline">\(\gamma \sim \mathcal{U}(0, 2)\)</span>. The number of unstable and stable <span class="math inline">\(M\)</span> matrices are reported in <a href="#IncrS">a table above</a> across different values of <span class="math inline">\(S\)</span>. Here I show complementary results for three different distributions including an exponential, beta, and gamma distribution of <span class="math inline">\(\gamma\)</span> values. The shape of these distributions is shown in the figure below.</p>
 <hr>
 <p><strong>Distributions of component response rate (<span class="math inline">\(\boldsymbol{\gamma}\)</span>) values in complex systems.</strong> The stabilities of simulated complex systems with these <span class="math inline">\(\gamma\)</span> distributions are compared to otherwise identical complex systems with a fixed component response rate of <span class="math inline">\(\gamma = 1\)</span> across different system sizes (<span class="math inline">\(S\)</span>; i.e., component numbers) given a unit <span class="math inline">\(\gamma\)</span> standard deviation (<span class="math inline">\(\sigma_{\gamma} = 1\)</span>) for b-d. Distributions are as follows: (a) uniform, (b) exponential, (c) beta (<span class="math inline">\(\alpha = 0.5\)</span> and <span class="math inline">\(\beta = 0.5\)</span>), and (d) gamma (<span class="math inline">\(k = 2\)</span> and <span class="math inline">\(\theta = 2\)</span>). Each panel shows 1 million randomly generated <span class="math inline">\(\gamma\)</span> values.</p>
-<p><img src="SI_files/figure-html/unnamed-chunk-23-1.png" width="576"></p>
+<p><img src="SI_files/figure-html/unnamed-chunk-24-1.png" width="576"></p>
 <hr>
 <p>The same 100000 <span class="math inline">\(M\)</span> matrices were used to investigate stability when applying each of these different distributions of <span class="math inline">\(\gamma\)</span> values. The table below shows the number of <span class="math inline">\(M\)</span> that were unstable (_unst) and stable (_stbl) for the exponential (Exp), beta, and gamma distributions.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fourdists &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">"sim_results/different_distr/four_distr_rand.csv"</span>);
@@ -4158,7 +4204,7 @@ C9dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class
     }
     <span class="kw">return</span>(all_res);
 }</code></pre></div>
-<p>Some stability results from this table are shown below. Each histogram shows a different distribution of <span class="math inline">\(\gamma\)</span> that was found to be stabilising.</p>
+<p>Some stability results from this table are shown below. Results for <code>A0</code> indicate systems in which <span class="math inline">\(\gamma = 1\)</span>, while <code>A1</code> refers to systems in which the genetic algorithm searched for a set of <span class="math inline">\(\gamma\)</span> values that stabilised the system.</p>
 <table class="table">
 <thead><tr class="header">
 <th align="right">N</th>
@@ -4527,7 +4573,7 @@ C9dat &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class
 <p>Distributions of <span class="math inline">\(\gamma\)</span> values in vectors for the highest values of <span class="math inline">\(S\)</span> are shown below.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">evo_out &lt;-<span class="st"> </span><span class="kw">scan</span>(<span class="dt">file =</span> <span class="st">"sim_results/evolved/evo_out.txt"</span>);
 <span class="kw"><a href="../reference/plot_evo_out.html">plot_evo_out</a></span>(evo_out);</code></pre></div>
-<p><img src="SI_files/figure-html/unnamed-chunk-31-1.png" width="672"></p>
+<p><img src="SI_files/figure-html/unnamed-chunk-32-1.png" width="672"></p>
 <p>The distribution of <span class="math inline">\(\gamma\)</span> values found by the genetic algorithm is uniform. A uniform distribution was used to initialise <span class="math inline">\(\gamma\)</span> values, so there is therefore no evidence that a particular distribution of <span class="math inline">\(\gamma\)</span> is likely to be found to stabilise a matrix <span class="math inline">\(M\)</span>.</p>
 </div>
 <div id="Feasibility" class="section level1">
