@@ -160,30 +160,26 @@ crossover <- function(inds, pr = 0.1){
 #'sim_ga      <- Evo_rand_gen_var(from = 2, to = 2, iters = 1);
 #'sum_rand_ga <- summarise_randmat_ga(sim_ga$tot_res, sim_ga$fea_res);
 #'@export
-summarise_randmat_ga <- function(tot_res, fea_res){
+summarise_randmat <- function(tot_res, fea_res){
     sims    <- length(tot_res);
-    all_res <- matrix(data = 0, nrow = sims, ncol = 10);
+    all_res <- matrix(data = 0, nrow = sims, ncol = 7);
     for(i in 1:sims){
-        unstables <- tot_res[[i]][,1] == FALSE & tot_res[[i]][,2] == FALSE;
-        stables   <- tot_res[[i]][,1] == TRUE  & tot_res[[i]][,2] == TRUE;
-        unstabled <- tot_res[[i]][,1] == TRUE  & tot_res[[i]][,2] == FALSE;
+        A0_unst   <- tot_res[[i]][,1] == FALSE;
+        A0_stbl   <- tot_res[[i]][,1] == TRUE;
+        A1_unst   <- tot_res[[i]][,2] == FALSE;
+        A1_stbl   <- tot_res[[i]][,2] == TRUE;
         stabled   <- tot_res[[i]][,1] == FALSE & tot_res[[i]][,2] == TRUE;
-        non_feas  <- fea_res[[i]][,1] == FALSE & fea_res[[i]][,2] == FALSE;
-        feasibl   <- fea_res[[i]][,1] == TRUE  & fea_res[[i]][,2] == TRUE;
-        unfeased  <- fea_res[[i]][,1] == TRUE  & fea_res[[i]][,2] == FALSE;
-        feased    <- fea_res[[i]][,1] == FALSE & fea_res[[i]][,2] == TRUE;
-        foundd    <- tot_res[[i]][,3] == TRUE;
+        unstabled <- tot_res[[i]][,1] == TRUE  & tot_res[[i]][,2] == FALSE;
         all_res[i, 1]  <- i + 1;
-        all_res[i, 2]  <- sum(unstables);
-        all_res[i, 3]  <- sum(stables);
-        all_res[i, 4]  <- sum(unstabled);
-        all_res[i, 5]  <- sum(stabled);
-        all_res[i, 6]  <- sum(non_feas);
-        all_res[i, 7]  <- sum(feasibl);
-        all_res[i, 8]  <- sum(unfeased);
-        all_res[i, 9]  <- sum(feased);
-        all_res[i, 10] <- sum(foundd);
+        all_res[i, 2]  <- sum(A0_unst);
+        all_res[i, 3]  <- sum(A0_stbl);
+        all_res[i, 4]  <- sum(A1_unst);
+        all_res[i, 5]  <- sum(A1_stbl);
+        all_res[i, 6]  <- sum(stabled);
+        all_res[i, 7]  <- sum(unstabled);
     }
+    colnames(all_res) <- c("N", "A0_unstable", "A0_stable", "A1_unstable",
+                           "A1_stable", "A1_stabilised", "A1_destabilised");
     return(all_res);
 }
 
