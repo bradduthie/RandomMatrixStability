@@ -1558,84 +1558,81 @@ After all \(M\) are simulated in \texttt{Evo\_rand\_gen\_var}, the
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{summarise_randmat_ga <-}\StringTok{ }\NormalTok{function(tot_res, fea_res)\{}
+\NormalTok{summarise_randmat <-}\StringTok{ }\NormalTok{function(tot_res, fea_res)\{}
     \NormalTok{sims    <-}\StringTok{ }\KeywordTok{length}\NormalTok{(tot_res);}
-    \NormalTok{all_res <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{data =} \DecValTok{0}\NormalTok{, }\DataTypeTok{nrow =} \NormalTok{sims, }\DataTypeTok{ncol =} \DecValTok{10}\NormalTok{);}
+    \NormalTok{all_res <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{data =} \DecValTok{0}\NormalTok{, }\DataTypeTok{nrow =} \NormalTok{sims, }\DataTypeTok{ncol =} \DecValTok{7}\NormalTok{);}
     \NormalTok{for(i in }\DecValTok{1}\NormalTok{:sims)\{}
-        \NormalTok{unstables <-}\StringTok{ }\NormalTok{tot_res[[i]][,}\DecValTok{1}\NormalTok{] ==}\StringTok{ }\OtherTok{FALSE} \NormalTok{&}\StringTok{ }\NormalTok{tot_res[[i]][,}\DecValTok{2}\NormalTok{] ==}\StringTok{ }\OtherTok{FALSE}\NormalTok{;}
-        \NormalTok{stables   <-}\StringTok{ }\NormalTok{tot_res[[i]][,}\DecValTok{1}\NormalTok{] ==}\StringTok{ }\OtherTok{TRUE}  \NormalTok{&}\StringTok{ }\NormalTok{tot_res[[i]][,}\DecValTok{2}\NormalTok{] ==}\StringTok{ }\OtherTok{TRUE}\NormalTok{;}
-        \NormalTok{unstabled <-}\StringTok{ }\NormalTok{tot_res[[i]][,}\DecValTok{1}\NormalTok{] ==}\StringTok{ }\OtherTok{TRUE}  \NormalTok{&}\StringTok{ }\NormalTok{tot_res[[i]][,}\DecValTok{2}\NormalTok{] ==}\StringTok{ }\OtherTok{FALSE}\NormalTok{;}
+        \NormalTok{A0_unst   <-}\StringTok{ }\NormalTok{tot_res[[i]][,}\DecValTok{1}\NormalTok{] ==}\StringTok{ }\OtherTok{FALSE}\NormalTok{;}
+        \NormalTok{A0_stbl   <-}\StringTok{ }\NormalTok{tot_res[[i]][,}\DecValTok{1}\NormalTok{] ==}\StringTok{ }\OtherTok{TRUE}\NormalTok{;}
+        \NormalTok{A1_unst   <-}\StringTok{ }\NormalTok{tot_res[[i]][,}\DecValTok{2}\NormalTok{] ==}\StringTok{ }\OtherTok{FALSE}\NormalTok{;}
+        \NormalTok{A1_stbl   <-}\StringTok{ }\NormalTok{tot_res[[i]][,}\DecValTok{2}\NormalTok{] ==}\StringTok{ }\OtherTok{TRUE}\NormalTok{;}
         \NormalTok{stabled   <-}\StringTok{ }\NormalTok{tot_res[[i]][,}\DecValTok{1}\NormalTok{] ==}\StringTok{ }\OtherTok{FALSE} \NormalTok{&}\StringTok{ }\NormalTok{tot_res[[i]][,}\DecValTok{2}\NormalTok{] ==}\StringTok{ }\OtherTok{TRUE}\NormalTok{;}
-        \NormalTok{non_feas  <-}\StringTok{ }\NormalTok{fea_res[[i]][,}\DecValTok{1}\NormalTok{] ==}\StringTok{ }\OtherTok{FALSE} \NormalTok{&}\StringTok{ }\NormalTok{fea_res[[i]][,}\DecValTok{2}\NormalTok{] ==}\StringTok{ }\OtherTok{FALSE}\NormalTok{;}
-        \NormalTok{feasibl   <-}\StringTok{ }\NormalTok{fea_res[[i]][,}\DecValTok{1}\NormalTok{] ==}\StringTok{ }\OtherTok{TRUE}  \NormalTok{&}\StringTok{ }\NormalTok{fea_res[[i]][,}\DecValTok{2}\NormalTok{] ==}\StringTok{ }\OtherTok{TRUE}\NormalTok{;}
-        \NormalTok{unfeased  <-}\StringTok{ }\NormalTok{fea_res[[i]][,}\DecValTok{1}\NormalTok{] ==}\StringTok{ }\OtherTok{TRUE}  \NormalTok{&}\StringTok{ }\NormalTok{fea_res[[i]][,}\DecValTok{2}\NormalTok{] ==}\StringTok{ }\OtherTok{FALSE}\NormalTok{;}
-        \NormalTok{feased    <-}\StringTok{ }\NormalTok{fea_res[[i]][,}\DecValTok{1}\NormalTok{] ==}\StringTok{ }\OtherTok{FALSE} \NormalTok{&}\StringTok{ }\NormalTok{fea_res[[i]][,}\DecValTok{2}\NormalTok{] ==}\StringTok{ }\OtherTok{TRUE}\NormalTok{;}
-        \NormalTok{foundd    <-}\StringTok{ }\NormalTok{tot_res[[i]][,}\DecValTok{3}\NormalTok{] ==}\StringTok{ }\OtherTok{TRUE}\NormalTok{;}
+        \NormalTok{unstabled <-}\StringTok{ }\NormalTok{tot_res[[i]][,}\DecValTok{1}\NormalTok{] ==}\StringTok{ }\OtherTok{TRUE}  \NormalTok{&}\StringTok{ }\NormalTok{tot_res[[i]][,}\DecValTok{2}\NormalTok{] ==}\StringTok{ }\OtherTok{FALSE}\NormalTok{;}
         \NormalTok{all_res[i, }\DecValTok{1}\NormalTok{]  <-}\StringTok{ }\NormalTok{i +}\StringTok{ }\DecValTok{1}\NormalTok{;}
-        \NormalTok{all_res[i, }\DecValTok{2}\NormalTok{]  <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(unstables);}
-        \NormalTok{all_res[i, }\DecValTok{3}\NormalTok{]  <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(stables);}
-        \NormalTok{all_res[i, }\DecValTok{4}\NormalTok{]  <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(unstabled);}
-        \NormalTok{all_res[i, }\DecValTok{5}\NormalTok{]  <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(stabled);}
-        \NormalTok{all_res[i, }\DecValTok{6}\NormalTok{]  <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(non_feas);}
-        \NormalTok{all_res[i, }\DecValTok{7}\NormalTok{]  <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(feasibl);}
-        \NormalTok{all_res[i, }\DecValTok{8}\NormalTok{]  <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(unfeased);}
-        \NormalTok{all_res[i, }\DecValTok{9}\NormalTok{]  <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(feased);}
-        \NormalTok{all_res[i, }\DecValTok{10}\NormalTok{] <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(foundd);}
+        \NormalTok{all_res[i, }\DecValTok{2}\NormalTok{]  <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(A0_unst);}
+        \NormalTok{all_res[i, }\DecValTok{3}\NormalTok{]  <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(A0_stbl);}
+        \NormalTok{all_res[i, }\DecValTok{4}\NormalTok{]  <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(A1_unst);}
+        \NormalTok{all_res[i, }\DecValTok{5}\NormalTok{]  <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(A1_stbl);}
+        \NormalTok{all_res[i, }\DecValTok{6}\NormalTok{]  <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(stabled);}
+        \NormalTok{all_res[i, }\DecValTok{7}\NormalTok{]  <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(unstabled);}
     \NormalTok{\}}
+    \KeywordTok{colnames}\NormalTok{(all_res) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"N"}\NormalTok{, }\StringTok{"A0_unstable"}\NormalTok{, }\StringTok{"A0_stable"}\NormalTok{, }\StringTok{"A1_unstable"}\NormalTok{,}
+                           \StringTok{"A1_stable"}\NormalTok{, }\StringTok{"A1_stabilised"}\NormalTok{, }\StringTok{"A1_destabilised"}\NormalTok{);}
     \KeywordTok{return}\NormalTok{(all_res);}
 \NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
 
-Some stability results from this table are shown below. Each histogram
-shows a different distribution of \(\gamma\) that was found to be
-stabilising.
+Stability results for 40000 \(M\) for each \(S\) from 2-40 are shown
+below. Results for \texttt{A0} indicate systems in which \(\gamma = 1\),
+while \texttt{A1} refers to systems in which the genetic algorithm
+searched for a set of \(\gamma\) values that stabilised the system.
 
 \begin{longtable}[]{@{}rrrrrrr@{}}
 \toprule
-N & A0\_unstable & A0\_stable & A1\_unstable & A1\_stable &
+S & A0\_unstable & A0\_stable & A1\_unstable & A1\_stable &
 A1\_stabilised & A1\_destabilised\tabularnewline
 \midrule
 \endhead
-2 & 4 & 9996 & 4 & 9996 & 0 & 0\tabularnewline
-3 & 42 & 9958 & 42 & 9958 & 0 & 0\tabularnewline
-4 & 133 & 9867 & 133 & 9867 & 0 & 0\tabularnewline
-5 & 414 & 9586 & 411 & 9589 & 3 & 0\tabularnewline
-6 & 809 & 9191 & 799 & 9201 & 10 & 0\tabularnewline
-7 & 1380 & 8620 & 1339 & 8661 & 41 & 0\tabularnewline
-8 & 2074 & 7926 & 1927 & 8073 & 147 & 0\tabularnewline
-9 & 2885 & 7115 & 2503 & 7497 & 382 & 0\tabularnewline
-10 & 3842 & 6158 & 3158 & 6842 & 684 & 0\tabularnewline
-11 & 4867 & 5133 & 3613 & 6387 & 1255 & 1\tabularnewline
-12 & 5932 & 4068 & 4148 & 5852 & 1784 & 0\tabularnewline
-13 & 6937 & 3063 & 4470 & 5530 & 2468 & 1\tabularnewline
-14 & 7784 & 2216 & 4724 & 5276 & 3060 & 0\tabularnewline
-15 & 8519 & 1481 & 5086 & 4914 & 3433 & 0\tabularnewline
-16 & 9081 & 919 & 5262 & 4738 & 3819 & 0\tabularnewline
-17 & 9431 & 569 & 5368 & 4632 & 4063 & 0\tabularnewline
-18 & 9671 & 329 & 5571 & 4429 & 4100 & 0\tabularnewline
-19 & 9844 & 156 & 5807 & 4193 & 4037 & 0\tabularnewline
-20 & 9934 & 66 & 6133 & 3867 & 3801 & 0\tabularnewline
-21 & 6387 & 34 & 6421 & 3579 & 3545 & 0\tabularnewline
-22 & 6634 & 11 & 6645 & 3355 & 3344 & 0\tabularnewline
-23 & 7037 & 8 & 7045 & 2955 & 2947 & 0\tabularnewline
-24 & 7468 & 3 & 7471 & 2529 & 2526 & 0\tabularnewline
-25 & 7816 & 0 & 7816 & 2184 & 2184 & 0\tabularnewline
-26 & 8192 & 0 & 8192 & 1808 & 1808 & 0\tabularnewline
-27 & 8680 & 0 & 8680 & 1320 & 1320 & 0\tabularnewline
-28 & 8936 & 0 & 8936 & 1064 & 1064 & 0\tabularnewline
-29 & 9296 & 0 & 9296 & 704 & 704 & 0\tabularnewline
-30 & 9523 & 0 & 9523 & 477 & 477 & 0\tabularnewline
-31 & 9705 & 0 & 9705 & 295 & 295 & 0\tabularnewline
-32 & 9816 & 0 & 9816 & 184 & 184 & 0\tabularnewline
-33 & 9894 & 0 & 9894 & 106 & 106 & 0\tabularnewline
-34 & 9941 & 0 & 9941 & 59 & 59 & 0\tabularnewline
-35 & 9968 & 0 & 9968 & 32 & 32 & 0\tabularnewline
-36 & 9991 & 0 & 9991 & 9 & 9 & 0\tabularnewline
-37 & 9993 & 0 & 9993 & 7 & 7 & 0\tabularnewline
-38 & 9999 & 0 & 9999 & 1 & 1 & 0\tabularnewline
-39 & 9999 & 0 & 9999 & 1 & 1 & 0\tabularnewline
-40 & 10000 & 0 & 10000 & 0 & 0 & 0\tabularnewline
+2 & 13 & 39987 & 13 & 39987 & 0 & 0\tabularnewline
+3 & 157 & 39843 & 157 & 39843 & 0 & 0\tabularnewline
+4 & 563 & 39437 & 563 & 39437 & 0 & 0\tabularnewline
+5 & 1588 & 38412 & 1581 & 38419 & 7 & 0\tabularnewline
+6 & 3268 & 36732 & 3219 & 36781 & 49 & 0\tabularnewline
+7 & 5370 & 34630 & 5196 & 34804 & 175 & 1\tabularnewline
+8 & 8231 & 31769 & 7604 & 32396 & 627 & 0\tabularnewline
+9 & 11704 & 28296 & 10181 & 29819 & 1523 & 0\tabularnewline
+10 & 15215 & 24785 & 12303 & 27697 & 2912 & 0\tabularnewline
+11 & 19529 & 20471 & 14599 & 25401 & 4930 & 0\tabularnewline
+12 & 23480 & 16520 & 16210 & 23790 & 7270 & 0\tabularnewline
+13 & 27570 & 12430 & 17800 & 22200 & 9770 & 0\tabularnewline
+14 & 31096 & 8904 & 18899 & 21101 & 12198 & 1\tabularnewline
+15 & 34036 & 5964 & 19948 & 20052 & 14089 & 1\tabularnewline
+16 & 36231 & 3769 & 21000 & 19000 & 15231 & 0\tabularnewline
+17 & 37737 & 2263 & 21693 & 18307 & 16044 & 0\tabularnewline
+18 & 38808 & 1192 & 22291 & 17709 & 16518 & 1\tabularnewline
+19 & 39391 & 609 & 23221 & 16779 & 16170 & 0\tabularnewline
+20 & 39711 & 289 & 23943 & 16057 & 15768 & 0\tabularnewline
+21 & 39867 & 133 & 25361 & 14639 & 14506 & 0\tabularnewline
+22 & 39950 & 50 & 26584 & 13416 & 13366 & 0\tabularnewline
+23 & 39982 & 18 & 28162 & 11838 & 11820 & 0\tabularnewline
+24 & 39994 & 6 & 29660 & 10340 & 10334 & 0\tabularnewline
+25 & 39997 & 3 & 31405 & 8595 & 8592 & 0\tabularnewline
+26 & 39999 & 1 & 33057 & 6943 & 6942 & 0\tabularnewline
+27 & 40000 & 0 & 34602 & 5398 & 5398 & 0\tabularnewline
+28 & 40000 & 0 & 35957 & 4043 & 4043 & 0\tabularnewline
+29 & 40000 & 0 & 37154 & 2846 & 2846 & 0\tabularnewline
+30 & 40000 & 0 & 38104 & 1896 & 1896 & 0\tabularnewline
+31 & 40000 & 0 & 38722 & 1278 & 1278 & 0\tabularnewline
+32 & 40000 & 0 & 39259 & 741 & 741 & 0\tabularnewline
+33 & 40000 & 0 & 39551 & 449 & 449 & 0\tabularnewline
+34 & 40000 & 0 & 39742 & 258 & 258 & 0\tabularnewline
+35 & 40000 & 0 & 39879 & 121 & 121 & 0\tabularnewline
+36 & 40000 & 0 & 39929 & 71 & 71 & 0\tabularnewline
+37 & 40000 & 0 & 39967 & 33 & 33 & 0\tabularnewline
+38 & 40000 & 0 & 39989 & 11 & 11 & 0\tabularnewline
+39 & 40000 & 0 & 39994 & 6 & 6 & 0\tabularnewline
+40 & 40000 & 0 & 39996 & 4 & 4 & 0\tabularnewline
 \bottomrule
 \end{longtable}
 
@@ -1871,4 +1868,3 @@ be feasible and stable? \emph{Ecology} \textbf{99,} 743--751 (2018).
 
 
 \end{document}
-\grid
