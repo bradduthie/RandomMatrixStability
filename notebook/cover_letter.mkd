@@ -1,6 +1,21 @@
+Dear Nature Editorial Board,
+
+Please find attached the manuscript ``Component response rate variation drives stability in large complex systems'', which I hope you will consider for publication as Letter in Nature. 
+
+
+
+
+
+
+
 Points to hit in the cover letter:
 
 - Complex systems are everywhere
 - Understanding the stability of complex systems is very important
 - Components of most complex systems are likely to respond at different rates to perturbation, and I show that this can be highly stabilising
 - I use a genetic algorithm to show that the probability of stability can be increased by over two orders of magnitude just by manipulating the component response rate, potentially massively reducing the dimensionality of problems affecting complex systems stability.
+
+
+
+
+new version on pre-print with http://arxiv.org/abs/1806.01029
