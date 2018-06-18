@@ -1,7 +1,7 @@
 Package: RandomMatrixStability
 Type: Package
 Title: Component response rate variation drives stability in large complex systems
-Version: 0.0.2.0
+Version: 0.0.3.0
 Imports: grDevices, graphics, stats
 Authors@R: c(person("A. Bradley", "Duthie", email = "brad.duthie@gmail.com",
                   role = c("aut", "cre"),

@@ -2043,30 +2043,26 @@ After all \(M\) are simulated in \texttt{Evo\_rand\_gen\_var}, the
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{summarise_randmat_ga <-}\StringTok{ }\NormalTok{function(tot_res, fea_res)\{}
+\NormalTok{summarise_randmat <-}\StringTok{ }\NormalTok{function(tot_res, fea_res)\{}
     \NormalTok{sims    <-}\StringTok{ }\KeywordTok{length}\NormalTok{(tot_res);}
-    \NormalTok{all_res <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{data =} \DecValTok{0}\NormalTok{, }\DataTypeTok{nrow =} \NormalTok{sims, }\DataTypeTok{ncol =} \DecValTok{10}\NormalTok{);}
+    \NormalTok{all_res <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{data =} \DecValTok{0}\NormalTok{, }\DataTypeTok{nrow =} \NormalTok{sims, }\DataTypeTok{ncol =} \DecValTok{7}\NormalTok{);}
     \NormalTok{for(i in }\DecValTok{1}\NormalTok{:sims)\{}
-        \NormalTok{unstables <-}\StringTok{ }\NormalTok{tot_res[[i]][,}\DecValTok{1}\NormalTok{] ==}\StringTok{ }\OtherTok{FALSE} \NormalTok{&}\StringTok{ }\NormalTok{tot_res[[i]][,}\DecValTok{2}\NormalTok{] ==}\StringTok{ }\OtherTok{FALSE}\NormalTok{;}
-        \NormalTok{stables   <-}\StringTok{ }\NormalTok{tot_res[[i]][,}\DecValTok{1}\NormalTok{] ==}\StringTok{ }\OtherTok{TRUE}  \NormalTok{&}\StringTok{ }\NormalTok{tot_res[[i]][,}\DecValTok{2}\NormalTok{] ==}\StringTok{ }\OtherTok{TRUE}\NormalTok{;}
-        \NormalTok{unstabled <-}\StringTok{ }\NormalTok{tot_res[[i]][,}\DecValTok{1}\NormalTok{] ==}\StringTok{ }\OtherTok{TRUE}  \NormalTok{&}\StringTok{ }\NormalTok{tot_res[[i]][,}\DecValTok{2}\NormalTok{] ==}\StringTok{ }\OtherTok{FALSE}\NormalTok{;}
+        \NormalTok{A0_unst   <-}\StringTok{ }\NormalTok{tot_res[[i]][,}\DecValTok{1}\NormalTok{] ==}\StringTok{ }\OtherTok{FALSE}\NormalTok{;}
+        \NormalTok{A0_stbl   <-}\StringTok{ }\NormalTok{tot_res[[i]][,}\DecValTok{1}\NormalTok{] ==}\StringTok{ }\OtherTok{TRUE}\NormalTok{;}
+        \NormalTok{A1_unst   <-}\StringTok{ }\NormalTok{tot_res[[i]][,}\DecValTok{2}\NormalTok{] ==}\StringTok{ }\OtherTok{FALSE}\NormalTok{;}
+        \NormalTok{A1_stbl   <-}\StringTok{ }\NormalTok{tot_res[[i]][,}\DecValTok{2}\NormalTok{] ==}\StringTok{ }\OtherTok{TRUE}\NormalTok{;}
         \NormalTok{stabled   <-}\StringTok{ }\NormalTok{tot_res[[i]][,}\DecValTok{1}\NormalTok{] ==}\StringTok{ }\OtherTok{FALSE} \NormalTok{&}\StringTok{ }\NormalTok{tot_res[[i]][,}\DecValTok{2}\NormalTok{] ==}\StringTok{ }\OtherTok{TRUE}\NormalTok{;}
-        \NormalTok{non_feas  <-}\StringTok{ }\NormalTok{fea_res[[i]][,}\DecValTok{1}\NormalTok{] ==}\StringTok{ }\OtherTok{FALSE} \NormalTok{&}\StringTok{ }\NormalTok{fea_res[[i]][,}\DecValTok{2}\NormalTok{] ==}\StringTok{ }\OtherTok{FALSE}\NormalTok{;}
-        \NormalTok{feasibl   <-}\StringTok{ }\NormalTok{fea_res[[i]][,}\DecValTok{1}\NormalTok{] ==}\StringTok{ }\OtherTok{TRUE}  \NormalTok{&}\StringTok{ }\NormalTok{fea_res[[i]][,}\DecValTok{2}\NormalTok{] ==}\StringTok{ }\OtherTok{TRUE}\NormalTok{;}
-        \NormalTok{unfeased  <-}\StringTok{ }\NormalTok{fea_res[[i]][,}\DecValTok{1}\NormalTok{] ==}\StringTok{ }\OtherTok{TRUE}  \NormalTok{&}\StringTok{ }\NormalTok{fea_res[[i]][,}\DecValTok{2}\NormalTok{] ==}\StringTok{ }\OtherTok{FALSE}\NormalTok{;}
-        \NormalTok{feased    <-}\StringTok{ }\NormalTok{fea_res[[i]][,}\DecValTok{1}\NormalTok{] ==}\StringTok{ }\OtherTok{FALSE} \NormalTok{&}\StringTok{ }\NormalTok{fea_res[[i]][,}\DecValTok{2}\NormalTok{] ==}\StringTok{ }\OtherTok{TRUE}\NormalTok{;}
-        \NormalTok{foundd    <-}\StringTok{ }\NormalTok{tot_res[[i]][,}\DecValTok{3}\NormalTok{] ==}\StringTok{ }\OtherTok{TRUE}\NormalTok{;}
+        \NormalTok{unstabled <-}\StringTok{ }\NormalTok{tot_res[[i]][,}\DecValTok{1}\NormalTok{] ==}\StringTok{ }\OtherTok{TRUE}  \NormalTok{&}\StringTok{ }\NormalTok{tot_res[[i]][,}\DecValTok{2}\NormalTok{] ==}\StringTok{ }\OtherTok{FALSE}\NormalTok{;}
         \NormalTok{all_res[i, }\DecValTok{1}\NormalTok{]  <-}\StringTok{ }\NormalTok{i +}\StringTok{ }\DecValTok{1}\NormalTok{;}
-        \NormalTok{all_res[i, }\DecValTok{2}\NormalTok{]  <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(unstables);}
-        \NormalTok{all_res[i, }\DecValTok{3}\NormalTok{]  <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(stables);}
-        \NormalTok{all_res[i, }\DecValTok{4}\NormalTok{]  <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(unstabled);}
-        \NormalTok{all_res[i, }\DecValTok{5}\NormalTok{]  <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(stabled);}
-        \NormalTok{all_res[i, }\DecValTok{6}\NormalTok{]  <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(non_feas);}
-        \NormalTok{all_res[i, }\DecValTok{7}\NormalTok{]  <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(feasibl);}
-        \NormalTok{all_res[i, }\DecValTok{8}\NormalTok{]  <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(unfeased);}
-        \NormalTok{all_res[i, }\DecValTok{9}\NormalTok{]  <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(feased);}
-        \NormalTok{all_res[i, }\DecValTok{10}\NormalTok{] <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(foundd);}
+        \NormalTok{all_res[i, }\DecValTok{2}\NormalTok{]  <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(A0_unst);}
+        \NormalTok{all_res[i, }\DecValTok{3}\NormalTok{]  <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(A0_stbl);}
+        \NormalTok{all_res[i, }\DecValTok{4}\NormalTok{]  <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(A1_unst);}
+        \NormalTok{all_res[i, }\DecValTok{5}\NormalTok{]  <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(A1_stbl);}
+        \NormalTok{all_res[i, }\DecValTok{6}\NormalTok{]  <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(stabled);}
+        \NormalTok{all_res[i, }\DecValTok{7}\NormalTok{]  <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(unstabled);}
     \NormalTok{\}}
+    \KeywordTok{colnames}\NormalTok{(all_res) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"N"}\NormalTok{, }\StringTok{"A0_unstable"}\NormalTok{, }\StringTok{"A0_stable"}\NormalTok{, }\StringTok{"A1_unstable"}\NormalTok{,}
+                           \StringTok{"A1_stable"}\NormalTok{, }\StringTok{"A1_stabilised"}\NormalTok{, }\StringTok{"A1_destabilised"}\NormalTok{);}
     \KeywordTok{return}\NormalTok{(all_res);}
 \NormalTok{\}}
 \end{Highlighting}
