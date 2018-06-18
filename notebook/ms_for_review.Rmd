@@ -23,14 +23,15 @@ header-includes:
 - \linenumbers
 - \bibliographystyle{amnatnat}
 linestretch: 2
-link-citations: yes
+link-citations: no
 linkcolor: blue
 csl: nature.csl
 biblio-style: apalike
 ---
 
 <!---
-Current word count: 1672
+Abstract current word count: 225
+Text current word count: 1453
 --->
 
 <!---
@@ -148,7 +149,7 @@ I have focused broadly on random complex systems, but it is also worthwhile to c
 
 My results show that complex systems are more likely to be stable when the response rates of system components vary. These results are broadly applicable to complex biological and social networks.
 
-**Acknowledgements:** I am supported by a Leverhulme Trust Early Career Fellowship (ECF-2016-376). Conversations with L. Bussi&#xe8;re and N. Bunnefeld, and helpful comments from J. J. Cusack and I. L. Jones, improved the quality of this work. 
+**Acknowledgements:** I am supported by a Leverhulme Trust Early Career Fellowship (ECF-2016-376). Conversations with L. Bussi&#xe8;re and N. Bunnefeld, and comments from J. J. Cusack and I. L. Jones, improved the quality of this work. 
 
 
 **References**
