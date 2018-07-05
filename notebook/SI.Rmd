@@ -873,7 +873,7 @@ $$x^{*} = -\left(\theta I + A\right)^{-1}r.$$
 
 To check the feasibility criteria, I therefore inverted $M = (\theta I + A)$ and multiplied elements by -1, then multiplied the resulting matrix by the vector of population growth rates $r$. Feasibility is satisfied if all of the elements of the resulting vector are positive.
 
-The population growth rate for an individual species $i$ is sampled from a normal distribution of $r_{i} \sim \mathcal{N}(0, 0.4^{2})$, as shown in the `rand_gen_var` function in [the section](#IncrS) on "Stability across increasing $S$" above. Hence, each component $i$ of the complex system $M$ is assumed to be a species with a growth rate of $r_{i}$. Note that negative intrinsic growth rates are not unrealistic, and will occur in obligate mutualists in the absence of a partner. 
+The population growth rate for an individual species $i$ is sampled from a normal distribution of $r_{i} \sim \mathcal{N}(0, 0.4^{2})$, as shown in the `rand_gen_var` function in [the section](#IncrS) on "Stability across increasing $S$" above. Hence, each component $i$ of the complex system $M$ is assumed to be a species with a growth rate of $r_{i}$. 
 
 When feasibility was evaluated with and without variation in $\gamma$, there was no increase in stability for $M$ where $\gamma$ varied as compared to where $\gamma = 1$. Results below illustrate this result, which was general to all other simulations performed. 
 
