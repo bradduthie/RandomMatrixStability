@@ -16,23 +16,27 @@
 #'@examples
 #'rand_gen_var(max_sp = 2, iters = 4);
 #'@export
-rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1){
+rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 1,
+                         sigma = 0.4){
     tot_res <- NULL;
     fea_res <- NULL;
-    for(i in 2:max_sp){
+    sp_try  <- seq(from = by, to = max_sp, by = by);
+    for(i in 1:length(sp_try)){
         iter           <- iters;
-        tot_res[[i-1]] <- matrix(data = 0, nrow = iter, ncol = 7);
-        fea_res[[i-1]] <- matrix(data = 0, nrow = iter, ncol = 7);
+        tot_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 7);
+        fea_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 7);
         while(iter > 0){
-            r_vec    <- rnorm(n = i, mean = 0, sd = rmx);
-            A0_dat   <- rnorm(n = i * i, mean = 0, sd = 0.4);
-            A0       <- matrix(data = A0_dat, nrow = i, ncol = i);
+            r_vec    <- rnorm(n = sp_try[i], mean = 0, sd = rmx);
+            A0_dat   <- rnorm(n = sp_try[i] * sp_try[i], mean = 0, sd = sigma);
+            A0       <- matrix(data = A0_dat, nrow = sp_try[i], 
+                               ncol = sp_try[i]);
             A0       <- species_interactions(mat = A0, type = int_type);
-            C_dat    <- rbinom(n = i * i, size = 1, prob = C);
-            C_mat    <- matrix(data = C_dat, nrow = i, ncol = i);
+            C_dat    <- rbinom(n = sp_try[i] * sp_try[i], size = 1, prob = C);
+            C_mat    <- matrix(data = C_dat, nrow = sp_try[i], 
+                               ncol = sp_try[i]);
             A0       <- A0 * C_mat;
             diag(A0) <- -1;
-            gam1     <- runif(n = i, min = 0, max = 2);
+            gam1     <- runif(n = sp_try[i], min = 0, max = 2);
             A1       <- A0 * gam1;
             A0       <- A0 * mean(gam1);
             A0_stb   <- max(Re(eigen(A0)$values)) < 0;
@@ -40,22 +44,23 @@ rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1){
             A0_fea   <- min(-1*solve(A0) %*% r_vec) > 0;
             A1_fea   <- min(-1*solve(A1) %*% r_vec) > 0;
             if(A0_stb == TRUE){
-                tot_res[[i-1]][iter, 1] <- 1;
+                tot_res[[i]][iter, 1] <- 1;
             }
             if(A1_stb == TRUE){
-                tot_res[[i-1]][iter, 2] <- 1;
+                tot_res[[i]][iter, 2] <- 1;
             }
             if(A0_fea == TRUE){
-                fea_res[[i-1]][iter, 1] <- 1;
+                fea_res[[i]][iter, 1] <- 1;
             }
             if(A1_fea == TRUE){
-                fea_res[[i-1]][iter, 2] <- 1;
+                fea_res[[i]][iter, 2] <- 1;
             }
             iter    <- iter - 1;
         }
-        print(i);
+        print(sp_try[i]);
     }
-    all_res <- summarise_randmat(tot_res = tot_res, fea_res = fea_res);
+    all_res     <- summarise_randmat(tot_res = tot_res, fea_res = fea_res);
+    all_res[,1] <- sp_try;
     return(all_res);
 }
 

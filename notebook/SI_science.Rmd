@@ -80,23 +80,23 @@ Supplemental Information table of contents
 Further explanation of $\gamma$ {#moregamma}
 ================================================================================
 
-In a synthesis of eco-evolutionary feedbacks on community stability, Patel et al. model a system that includes a vector of potentially changing species densities ($\mathbf{N}$) and a vector of potentially evolving traits ($\mathbf{x}$)[@Patel2018]. For any species $i$ or trait $j$, change in species density ($N_{i}$) or trait value ($x_{j}$) with time ($t$) is a function of the vectors $\mathbf{N}$ and $\mathbf{x}$,
+In a synthesis of eco-evolutionary feedbacks on community stability, Patel et al. model a system that includes a vector of potentially changing species densities ($\mathbf{N}$) and a vector of potentially evolving traits ($\mathbf{x}$) (15). For any species $i$ or trait $j$, change in species density ($N_{i}$) or trait value ($x_{j}$) with time ($t$) is a function of the vectors $\mathbf{N}$ and $\mathbf{x}$,
 
 $$\frac{dN_{i}}{dt} = N_{i}f_{i}(\mathbf{N}, \mathbf{x}),$$
 
 $$\frac{dx_{j}}{dt} = \epsilon g_{j}(\mathbf{N}, \mathbf{x}).$$
 
-In the above, $f_{i}$ and $g_{j}$ are functions that define the effects of all species densities and trait values on the density of a species $i$ and the value of trait $j$, respectively. Patel et al. were interested in stability when the evolution of traits was relatively slow or fast in comparison with the change in species densities[@Patel2018], and this is modulated in the above by the scalar $\epsilon$. The value of $\epsilon$ thereby determines the timescale separation between ecology and evolution, with high $\epsilon$ modelling relatively fast evolution and low $\epsilon$ modelling relative slow evolution[@Patel2018]. 
+In the above, $f_{i}$ and $g_{j}$ are functions that define the effects of all species densities and trait values on the density of a species $i$ and the value of trait $j$, respectively. Patel et al. were interested in stability when the evolution of traits was relatively slow or fast in comparison with the change in species densities (15), and this is modulated in the above by the scalar $\epsilon$. The value of $\epsilon$ thereby determines the timescale separation between ecology and evolution, with high $\epsilon$ modelling relatively fast evolution and low $\epsilon$ modelling relative slow evolution (15). 
 
-I use the same principle that Patel et al. use to modulate the relative rate of evolution to modulate rates of component responses for $S$ components. Following May[@May1972; @May1973], the value of a component $i$ at time $t$ ($v_{i}(t)$) is affected by the value of $j$ ($v_{j}(t)$) and $j$'s marginal effect on $i$ ($m_{ij}$), and by $i$'s response rate ($\gamma_{i}$),
+I use the same principle that Patel et al. use to modulate the relative rate of evolution to modulate rates of component responses for $S$ components. Following May (1, 19), the value of a component $i$ at time $t$ ($v_{i}(t)$) is affected by the value of $j$ ($v_{j}(t)$) and $j$'s marginal effect on $i$ ($m_{ij}$), and by $i$'s response rate ($\gamma_{i}$),
 
 $$\frac{dv_{i}(t)}{dt} = \gamma_{i} \sum_{j=1}^{S}m_{ij}v_{j}(t).$$
 
-In matrix notation[@May1973],
+In matrix notation (20),
 
 $$\frac{d\mathbf{v}(t)}{dt} = \mathbf{\gamma} \mathbf{M}\mathbf{v}(t).$$
 
-In the above, $\mathbf{\gamma}$ is a diagonal matrix in which elements correspond to individual component response rates. Therefore, $\mathbf{\gamma} \mathbf{M}$ modulates the values of components and can be analysed using the techniques of May[@May1972; @May1973]. 
+In the above, $\mathbf{\gamma}$ is a diagonal matrix in which elements correspond to individual component response rates. Therefore, $\mathbf{\gamma} \mathbf{M}$ modulates the values of components and can be analysed using the techniques of May (1, 19). 
 
 
 Code and simulations underlying Fig. 1 {#Fig1}
@@ -140,7 +140,7 @@ A0 <- read.csv("sim_results/bi_gamma/S200_A0.csv");
 A1 <- read.csv("sim_results/bi_gamma/S200_A1.csv");
 ```
 
-```{r, echo = TRUE, fig.height = 5, fig.width = 8}
+```{r, echo = TRUE}
 A0 <- as.matrix(A0[,-1]);
 A1 <- as.matrix(A1[,-1]);
 plot_Fig_1 <- function(A0, A1){
@@ -414,9 +414,9 @@ Note that feasibility results were ommited for the table above, but are [reporte
 Stability of ecological networks {#ecological}
 ================================================================================
 
-While the foundational work of May[@May1972] applies broadly to complex networks, much attention has been given specifically to ecological networks of interacting species. In these networks, the matrix $M$ is interpreted as a community matrix and each row and column is interpreted as a single species. The effect that the density of any species $i$ has on the population dynamics of species $j$ is found in $M_{ij}$, meaning that $M$ holds the effects of pair-wise interactions between $S$ species[@Allesina2012; @Allesina2015a; @Tang2014b]. While May's original work[@May1972] considered only randomly assembled communities, recent work has specifically looked at more restricted ecological communities including competitive networks (all off-diagonal elements of $M$ are negative), mutualist networks (all off-diagonal elements of $M$ are positive), and predator-prey networks (for any pair of $i$ and $j$, the effect of $i$ on $j$ is negative and $j$ on $i$ is positive, or vice versa)[@Allesina2011; @Allesina2012; @Allesina2015a; @Tang2014b]. In general, competitor and mutualist networks tend to be unstable, while predator-prey networks tend to be highly stabilising.
+While the foundational work of May (1) applies broadly to complex networks, much attention has been given specifically to ecological networks of interacting species. In these networks, the matrix $M$ is interpreted as a community matrix and each row and column is interpreted as a single species. The effect that the density of any species $i$ has on the population dynamics of species $j$ is found in $M_{ij}$, meaning that $M$ holds the effects of pair-wise interactions between $S$ species (2, 4, 20). While May's original work (1) considered only randomly assembled communities, recent work has specifically looked at more restricted ecological communities including competitive networks (all off-diagonal elements of $M$ are negative), mutualist networks (all off-diagonal elements of $M$ are positive), and predator-prey networks (for any pair of $i$ and $j$, the effect of $i$ on $j$ is negative and $j$ on $i$ is positive, or vice versa) (2, 4, 17, 20). In general, competitor and mutualist networks tend to be unstable, while predator-prey networks tend to be highly stabilising.
 
-I investigated competitor, mutualist, and predator-prey networks following Allesina et al.[@Allesina2012]. To create these networks, I first generated a random matrix $M$, then changed the elements of $M$ accordingly. If $M$ was a competitive network, then the sign of any positive off-diagonal elements was reversed to be negative. If $M$ was a mutualist network, then the sign of any positive off-diagonal elements was reversed to be positive. And if $M$ was a predator-prey network, then all $i$ and $j$ pairs of elements were checked; any pairs of the same sign were changed so that one was negative and the other was positive. The `species_interaction` function used to do this is below.
+I investigated competitor, mutualist, and predator-prey networks following Allesina et al. (2). To create these networks, I first generated a random matrix $M$, then changed the elements of $M$ accordingly. If $M$ was a competitive network, then the sign of any positive off-diagonal elements was reversed to be negative. If $M$ was a mutualist network, then the sign of any positive off-diagonal elements was reversed to be positive. And if $M$ was a predator-prey network, then all $i$ and $j$ pairs of elements were checked; any pairs of the same sign were changed so that one was negative and the other was positive. The `species_interaction` function used to do this is below.
 
 ```{r}
 species_interactions <- function(mat, type = 0){
@@ -476,7 +476,7 @@ pd_tab <- pdat[,2:7];
 kable(pd_tab);
 ```
 
-Overall, as expected[@Allesina2012], predator-prey communities are relatively stable while mutualist communties are highly unstable. But interestingly, while $Var(\gamma)$ stabilises predator-prey and competitor communities, it does not stabilise mutualist communities. This is unsurprising because purely mutualist communities are characterised by a very positive[@Allesina2012] leading $\Re(\lambda)$, and it is highly unlikely that $Var(\gamma)$ alone will shift all real parts of eigenvalues to negative values.
+Overall, as expected (2), predator-prey communities are relatively stable while mutualist communties are highly unstable. But interestingly, while $Var(\gamma)$ stabilises predator-prey and competitor communities, it does not stabilise mutualist communities. This is unsurprising because purely mutualist communities are characterised by a very positive (2) leading $\Re(\lambda)$, and it is highly unlikely that $Var(\gamma)$ alone will shift all real parts of eigenvalues to negative values.
 
 Different inter-connectivity (C) values {#connectance}
 ================================================================================
@@ -617,7 +617,7 @@ In comparison to the uniform distribution (a), proportionally fewer random syste
 Genetic algorithm {#ga}
 ================================================================================
 
-Ideally, to investigate the potential of $Var(\gamma)$ for increasing the proportion of stable complex systems, the search space of all possible $\gamma$ vectors would be evaluated for each unique $M$. This is technically impossible because $\gamma_{i}$ can take any real value between 0-2, but even rounding $\gamma$ to reasonable values would result in a search space too large to practically explore. Under these conditions, genetic algorithms are highly useful tools for finding practical solutions by mimicking the process of biological evolution[@Hamblin2013]. In this case, the practical solution is finding vectors of $\gamma$ that decrease the most positive real eigenvalue of $M$. The genetic algorithm below achieves this by initialising a large population of 1000 different potential $\gamma$ vectors and allowing this population to evolve through a process of mutation, crossover (swaping $\gamma_{i}$ values between vectors), selection, and reproduction until either a $\gamma$ vector is found where all $\Re(\lambda) < 0$ or some "giving up" critiera is met (in the below, this "giving up"" criteria is met when 20 generations pass, or if the fitness increase from one generation to the next is below a certain criteria). The genetic algorithm relies on five functions. The first outer function `Evo_rand_gen_var` runs all of the simulations (`max_sp` refers to the maximum $S$ value simulated, and `iters` refers to the number of $M$ to try for each $S$).
+Ideally, to investigate the potential of $Var(\gamma)$ for increasing the proportion of stable complex systems, the search space of all possible $\gamma$ vectors would be evaluated for each unique $M$. This is technically impossible because $\gamma_{i}$ can take any real value between 0-2, but even rounding $\gamma$ to reasonable values would result in a search space too large to practically explore. Under these conditions, genetic algorithms are highly useful tools for finding practical solutions by mimicking the process of biological evolution (16). In this case, the practical solution is finding vectors of $\gamma$ that decrease the most positive real eigenvalue of $M$. The genetic algorithm below achieves this by initialising a large population of 1000 different potential $\gamma$ vectors and allowing this population to evolve through a process of mutation, crossover (swaping $\gamma_{i}$ values between vectors), selection, and reproduction until either a $\gamma$ vector is found where all $\Re(\lambda) < 0$ or some "giving up" critiera is met (in the below, this "giving up"" criteria is met when 20 generations pass, or if the fitness increase from one generation to the next is below a certain criteria). The genetic algorithm relies on five functions. The first outer function `Evo_rand_gen_var` runs all of the simulations (`max_sp` refers to the maximum $S$ value simulated, and `iters` refers to the number of $M$ to try for each $S$).
 
 ```{r}
 Evo_rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1){
@@ -853,13 +853,13 @@ The distribution of $\gamma$ values found by the genetic algorithm is uniform. A
 Feasibility of complex systems {#Feasibility}
 ================================================================================
 
-For complex systems in which individual system components ($S$) represent the density of some tangible quantity, it is important to consider the feasibility of the system. Feasibile equilibria assume that the values of all system components are positive at equilibrium[@Grilli2017; @Dougoud2018; @Song2018]. This is of particular interest for ecological communities because population density cannot take negative values, meaning that ecological systems need to be feasible for stability to be biologically realistic[@Dougoud2018]. Consequently, the use of random matrices and traditional stability critiera for making inferences in theoretical analyses of species networks has recently been criticised[@Dougoud2018]. While the key results in the main text are intended to be general to all complex systems, and not restricted to species networks, I have also performed a feasibility analysis on all matrices $M$. This analysis reveals that feasibility is not affected by $Var(\gamma)$, meaning that for pure interacting species networks, variation in component response time (i.e., species generation time) does not affect stability at biologically realistic species densities. Nevertheless, ecological interactions do not exist in isolation in empirical systems, but instead interact with evolutionary[@Patel2018], abiotic, or social-economic systems. The relevance of $\gamma$ for complex system stability presented in the main text should therefore not be ignored in the broader context of ecological communities.
+For complex systems in which individual system components ($S$) represent the density of some tangible quantity, it is important to consider the feasibility of the system. Feasibile equilibria assume that the values of all system components are positive at equilibrium (5, 18, 21). This is of particular interest for ecological communities because population density cannot take negative values, meaning that ecological systems need to be feasible for stability to be biologically realistic (18). Consequently, the use of random matrices and traditional stability critiera for making inferences in theoretical analyses of species networks has recently been criticised (18). While the key results in the main text are intended to be general to all complex systems, and not restricted to species networks, I have also performed a feasibility analysis on all matrices $M$. This analysis reveals that feasibility is not affected by $Var(\gamma)$, meaning that for pure interacting species networks, variation in component response time (i.e., species generation time) does not affect stability at biologically realistic species densities. Nevertheless, ecological interactions do not exist in isolation in empirical systems, but instead interact with evolutionary (15), abiotic, or social-economic systems. The relevance of $\gamma$ for complex system stability presented in the main text should therefore not be ignored in the broader context of ecological communities.
 
-Dougoud et al.[@Dougoud2018] define the following feasibility criteria for ecological systems characterised by $S$ interacting species with varying densities.
+Dougoud et al. (18) define the following feasibility criteria for ecological systems characterised by $S$ interacting species with varying densities.
 
 $$x^{*} = -\left(\theta I + (CS)^{-\delta}A\right)^{-1}r.$$
 
-In the above, $x^{*}$ is the vector of species abundances at equilibrium (for feasibility, all values in $x^{*}$ must be positive). The matrix $I$ is the identity matrix (1s on the diagonal, 0s on the off-diagonal elements), and the value $\theta$ is strength of intraspecific competition (diagonal elements). As I have done elsewhere, diagonal values are set to $-1$, so $\theta = -1$. The variable $C$ is the inter-connectivity (i.e., 'connectance') of the community, which was set to $C = 1$ throughout the manuscript and supplemental information, except [where otherwise noted](#connectance). The variable $\delta$ is a normalisation parameter that modulates the strength of interactions ($\sigma$ in the main text), which are held in $A$. In the main text, implicitly, $\delta = 0$ underlying strong interactions. Hence, the whole $(CS)^{-\delta} = 1$, so in the above, a diagonal matrix of -1s ($\theta I$) is added to $A$, which has a diagonal of all zeros and an off-diagonal affecting species interactions (i.e., the expression $(CS)^{-\delta}$ relates to May's[@May1972] stability criterion[@Dougoud2018] by $\frac{\sigma}{(CS)^{-\delta}}\sqrt{SC} < -1$, and hence $(CS)^{-\delta} = 1$ for the randomly simulated systems in the main text and supplemental information). The above criteria is therefore reduced to the below; note that the parenthetical in both equations produces an $M$ matrix as used throughout the main text and supplemental information,
+In the above, $x^{*}$ is the vector of species abundances at equilibrium (for feasibility, all values in $x^{*}$ must be positive). The matrix $I$ is the identity matrix (1s on the diagonal, 0s on the off-diagonal elements), and the value $\theta$ is strength of intraspecific competition (diagonal elements). As I have done elsewhere, diagonal values are set to $-1$, so $\theta = -1$. The variable $C$ is the connectance of the community, which was set to $C = 1$ throughout the manuscript and supplemental information, except [where otherwise noted](#connectance). The variable $\delta$ is a normalisation parameter that modulates the strength of interactions ($\sigma$ in the main text), which are held in $A$. In the main text, implicitly, $\delta = 0$ underlying strong interactions. Hence, the whole $(CS)^{-\delta} = 1$, so in the above, a diagonal matrix of -1s ($\theta I$) is added to $A$, which has a diagonal of all zeros and an off-diagonal affecting species interactions (i.e., the expression $(CS)^{-\delta}$ relates to May's (1) stability criterion (19) by $\frac{\sigma}{(CS)^{-\delta}}\sqrt{SC} < -1$, and hence $(CS)^{-\delta} = 1$ for the randomly simulated systems in the main text and supplemental information). The above criteria is therefore reduced to the below; note that the parenthetical in both equations produces an $M$ matrix as used throughout the main text and supplemental information,
 
 $$x^{*} = -\left(\theta I + A\right)^{-1}r.$$
 
@@ -878,12 +878,6 @@ kable(feas_tab);
 ```
 
 Hence, in general, $Var(\gamma)$ does not appear to affect feasibility in pure species interaction networks.
-
-
-References
-================================================================================
-
-
 
 
 

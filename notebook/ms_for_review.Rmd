@@ -4,16 +4,16 @@ author: "A. Bradley Duthie    ( alexander.duthie@stir.ac.uk )"
 date: Biological and Environmental Sciences, University of Stirling, Stirling, UK,
   FK9 4LA
 output:
-  pdf_document:
-    fig_caption: yes
-    keep_tex: no
-  html_document: default
   word_document:
     fig_caption: yes
     pandoc_args:
     - --csl
     - science.csl
     reference_docx: docx_template.docx
+  pdf_document:
+    fig_caption: yes
+    keep_tex: no
+  html_document: default
 bibliography: references.bib
 header-includes:
 - \usepackage{amsmath}
@@ -148,7 +148,7 @@ A1vec       <- as.vector(A1_vm[1:500,]);
 A1vec       <- A1vec[is.na(A1vec) == FALSE];
 ```
 
-Higher stability in systems with variation in $\gamma$ can be observed by sampling $\gamma_{i}$ values from various distributions. I now focus on a uniform distribution where $\gamma \sim \mathcal{U}(0, 2)$ (see Supplementary Information for other distributions, which give similar results). As with the case of $\gamma = \{1.95, 0.5\}$ (Fig. 1b), $E[\gamma] = 1$ when $\gamma \sim \mathcal{U}(0, 2)$, allowing comparison of $M$ before and after variation in component response rate. Figure 2 shows a comparison of eigenvalue distributions given $S = 1000$, $C = 0.05$, and $\sigma = 0.4$. As expected [@Tao2010], when $\gamma = 1$, eigenvalues are distributed uniformly in a circle centred at ($-1, 0$) with a radius of $\sigma\sqrt{SC} =$ `r round(sigma*sqrt(S*C), digits = 3)`. Uniform variation in $\gamma$ leads to a non-uniform distribution of eigenvalues, some of which are clustered locally near the centre of the distribution, but others of which are spread outside the former radius of `r round(sigma*sqrt(S*C), digits = 3)` (Fig 2b) [see also ]. The clustering and spreading of eigenvalues introduced by $Var(\gamma)$ can destabilise previously stable systems or stabilise systems that are otherwise unstable. But where systems are otherwise too complex to be stable given $\gamma = 1$, the effect of $Var(\gamma)$ can often lead to stability above May's [@May1972; @Allesina2012] threshold $\sigma\sqrt{SC} < 1$.
+Higher stability in systems with variation in $\gamma$ can be observed by sampling $\gamma_{i}$ values from various distributions. I now focus on a uniform distribution where $\gamma \sim \mathcal{U}(0, 2)$ (see Supplementary Information for other distributions, which give similar results). As with the case of $\gamma = \{1.95, 0.5\}$ (Fig. 1b), $E[\gamma] = 1$ when $\gamma \sim \mathcal{U}(0, 2)$, allowing comparison of $M$ before and after variation in component response rate. Figure 2 shows a comparison of eigenvalue distributions given $S = 1000$, $C = 0.05$, and $\sigma = 0.4$. As expected [@Tao2010], when $\gamma = 1$, eigenvalues are distributed uniformly in a circle centred at ($-1, 0$) with a radius of $\sigma\sqrt{SC} =$ `r round(sigma*sqrt(S*C), digits = 3)`. Uniform variation in $\gamma$ leads to a non-uniform distribution of eigenvalues, some of which are clustered locally near the centre of the distribution, but others of which are spread outside the former radius of `r round(sigma*sqrt(S*C), digits = 3)` (Fig 2b). The clustering and spreading of eigenvalues introduced by $Var(\gamma)$ can destabilise previously stable systems or stabilise systems that are otherwise unstable. But where systems are otherwise too complex to be stable given $\gamma = 1$, the effect of $Var(\gamma)$ can often lead to stability above May's [@May1972; @Allesina2012] threshold $\sigma\sqrt{SC} < 1$.
 
 ```{r, echo = FALSE}
 dat <- read.csv(file = "sim_results/C_1/random_all.csv");
