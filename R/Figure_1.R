@@ -81,20 +81,21 @@ plot_Fig_1 <- function(A0, A1){
     A0x0 <- sqrt(S_val) * sd(A0vec) * cos(vl) + mean(diag(A0));
     A0y0 <- sqrt(S_val) * sd(A0vec) * sin(vl);
     text(x = -3.5, y = 2.25, labels = "a", cex = 2);
-    points(x = A0x0, y = A0y0, type = "l", lwd = 3, col = "grey");
+    points(x = A0x0, y = A0y0, type = "l", lwd = 3, col = "dodgerblue4");
     points(A0_r, A0_i, pch = 4, cex = 0.7);
     plot(A1_r, A1_i, xlim = c(-3.7, 0.3), ylim = c(-2, 2), pch = 4, cex = 0.7,
          xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, asp = 1, 
-         col = "black", yaxt = "n");
+         col = "dodgerblue4", yaxt = "n");
     vl <- seq(from = 0, to = 2*pi, by = 0.001);
-    A0x1a <- sqrt(0.5*S_val) * sd(A1vec[fhalf]) * cos(vl) + mean(diag(A1)[1:(0.5*S_val)]);
+    A0x1a <- sqrt(0.5*S_val) * sd(A1vec[fhalf]) * cos(vl) + 
+                 mean(diag(A1)[1:(0.5*S_val)]);
     A0y1a <- sqrt(S_val) * sd(A1vec[fhalf]) * sin(vl);
-    points(x = A0x1a, y = A0y1a, type = "l", lwd = 3, col = "grey");
+    #points(x = A0x1a, y = A0y1a, type = "l", lwd = 3, col = "grey");
     A0x1b <- sqrt(0.5*S_val) * sd(A1vec[shalf]) * cos(vl) + 
         mean( diag(A1)[( (0.5*S_val) + 1 ):S_val] );
     A0y1b <- sqrt(0.5*S_val) * sd(A1vec[shalf]) * sin(vl);
-    points(x = A0x1b, y = A0y1b, type = "l", lwd = 3, col = "grey");
-    points(A1_r[1:S_val], A1_i[1:S_val],pch = 4, cex = 0.7);   
+    #points(x = A0x1b, y = A0y1b, type = "l", lwd = 3, col = "grey");
+    points(A1_r[1:S_val], A1_i[1:S_val],pch = 4, cex = 0.7, col = "firebrick");   
     text(x = -3.5, y = 2.25, labels = "b", cex = 2);
     mtext(side = 1, "Real", outer = TRUE, line = 3, cex = 2);
     mtext(side = 2, "Imaginary", outer = TRUE, line = 2.5, cex = 2);

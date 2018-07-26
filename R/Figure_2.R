@@ -38,20 +38,20 @@ plot_Fig_2 <- function(){
     par(mfrow = c(1, 2), mar = c(0.5, 0.5, 0.5, 0.5), oma = c(5, 5, 0, 0));
     plot(A0_r, A0_i, xlim = c(-16.5, 15.5), ylim = c(-16.5,15.5), pch = 4, 
          cex = 0.7, xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, 
-         asp = 1);
+         asp = 1, col = "dodgerblue4");
     vl <- seq(from = 0, to = 2*pi, by = 0.001);
     x0 <- sqrt(1000) * sd(A0vec) * cos(vl) + mean(diag(A0));
     y0 <- sqrt(1000) * sd(A0vec) * sin(vl);
     x1 <- sqrt(1000) * sd(A1vec) * cos(vl) + mean(diag(A1));
     y1 <- sqrt(1000) * sd(A1vec) * sin(vl);
     text(x = -15.5, y = 19, labels = "a", cex = 2);
-    points(x = x0, y = y0, type = "l", lwd = 3);
+    points(x = x0, y = y0, type = "l", lwd = 3, col = "dodgerblue4");
     points(x = x1, y = y1, type = "l", col = "red", lwd = 3, lty = "dashed");
-    plot(A1_r, A1_i, xlim = c(-16.5, 15.5), ylim = c(-16.5,15.5), pch = 4, cex = 0.7,
-         xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, asp = 1, col = "red",
-         yaxt = "n");
+    plot(A1_r, A1_i, xlim = c(-16.5, 15.5), ylim = c(-16.5,15.5), pch = 4, 
+         cex = 0.7, xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, 
+         asp = 1, col = "firebrick", yaxt = "n");
     text(x = -15.5, y = 19, labels = "b", cex = 2);
-    points(x = x1, y = y1, type = "l", col = "red", lwd = 3)
+    points(x = x1, y = y1, type = "l", col = "firebrick", lwd = 3);
     points(x = x0, y = y0, type = "l", lwd = 3, lty = "dashed");
     mtext(side = 1, "Real", outer = TRUE, line = 3, cex = 2);
     mtext(side = 2, "Imaginary", outer = TRUE, line = 2.5, cex = 2);
