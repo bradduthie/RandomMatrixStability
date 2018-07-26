@@ -4,7 +4,8 @@
 \alias{rand_gen_var}
 \title{Find a stabilised system}
 \usage{
-rand_gen_var(max_sp, iters, int_type = 0, rmx = 0.4, C = 1)
+rand_gen_var(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 1,
+  sigma = 0.4)
 }
 \arguments{
 \item{max_sp}{Maximum number of components to randomise}
