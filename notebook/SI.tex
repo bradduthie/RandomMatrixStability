@@ -148,18 +148,17 @@ UK, FK9 4LA
 
 \textbf{This supplemental information supports the manuscript
 ``Component response rate variation drives stability in large complex
-systems'' with all of the code required to recreate the analysis in the
-main text, and with additional analyses to support its conclusions. All
-text, code, and data underlying this manuscript are publicly available
-on \href{https://github.com/bradduthie/RandomMatrixStability}{GitHub} as
+systems'' with additional analyses to support its conclusions. All text,
+code, and data underlying this manuscript are publicly available on
+\href{https://github.com/bradduthie/RandomMatrixStability}{GitHub} as
 part of the RandomMatrixStability package.}
 
 The
 \href{https://github.com/bradduthie/RandomMatrixStability}{RandomMatrixStability
 package} includes all functions and tools for recreating the text, this
 supplemental information, and running all code; additional documentation
-is also provided for functions as part of the package. The
-RandomMatrixStability package is available on
+is also provided for package functions. The RandomMatrixStability
+package is available on
 \href{https://github.com/bradduthie/RandomMatrixStability}{GitHub}; to
 download it, the
 \href{https://cran.r-project.org/web/packages/devtools/index.html}{\texttt{devtools}
@@ -191,7 +190,7 @@ contents}\label{supplemental-information-table-of-contents}
 \item
   \protect\hyperlink{IncrS}{Stability across increasing \(S\)}
 \item
-  \protect\hyperlink{ga}{Stability given targetted manipulation of
+  \protect\hyperlink{ga}{Stability given targeted manipulation of
   \(\gamma\) (genetic algorithm)}
 \item
   \protect\hyperlink{ecological}{Stability of ecological networks}
@@ -246,21 +245,21 @@ contents}\label{supplemental-information-table-of-contents}
 
 Figure 3 of the main text reports the number of stable random complex
 systems found over 1 million iterations. The table below shows the
-results for all simulations of random \(M\) matrices at \(\sigma = 0.4\)
-and \(C = 1\) given a range of \(S = \{2, 3, ..., 49, 50\}\). In this
-table, the \texttt{A0} refers to matrices where \(\gamma = 1\), while
-\texttt{A1} refers to matrices after \(Var(\gamma)\) is added and
-\(\gamma \sim \mathcal{U}(0, 2)\). Each row summarises data for a given
-\(S\) over 1 million randomly simulated \(M\) (\texttt{A0} and
-\texttt{A1}). The column \texttt{A0\_unstable} shows the number of
-\texttt{A0} matrices that are unstable, and the column
-\texttt{A0\_stable} shows the number of \texttt{A0} matrices that are
-stable (these two columns sum to 1 million). Similarly, the column
-\texttt{A1\_unstable} shows the number of \texttt{A1} matrices that are
-unstable and \texttt{A1\_stable} shows the number that are stable. The
-columns \texttt{A1\_stabilised} and \texttt{A1\_destabilised} show how
-many \texttt{A0} matrices were stabilised or destabilised, respectively,
-by \(Var(\gamma)\).
+results for all simulations of random \(\mathbf{M}\) matrices at
+\(\sigma = 0.4\) and \(C = 1\) given a range of
+\(S = \{2, 3, ..., 49, 50\}\). In this table, the \texttt{A0} refers to
+matrices where \(\gamma = 1\), while \texttt{A1} refers to matrices
+after \(Var(\gamma)\) is added and \(\gamma \sim \mathcal{U}(0, 2)\).
+Each row summarises data for a given \(S\) over 1 million randomly
+simulated \(\mathbf{M}\) (\texttt{A0} and \texttt{A1}). The column
+\texttt{A0\_unstable} shows the number of \texttt{A0} matrices that are
+unstable, and the column \texttt{A0\_stable} shows the number of
+\texttt{A0} matrices that are stable (these two columns sum to 1
+million). Similarly, the column \texttt{A1\_unstable} shows the number
+of \texttt{A1} matrices that are unstable and \texttt{A1\_stable} shows
+the number that are stable. The columns \texttt{A1\_stabilised} and
+\texttt{A1\_destabilised} show how many \texttt{A0} matrices were
+stabilised or destabilised, respectively, by \(Var(\gamma)\).
 
 \begin{longtable}[]{@{}rrrrrrr@{}}
 \toprule
@@ -323,22 +322,22 @@ A1\_stabilised & A1\_destabilised\tabularnewline
 Overall, the ratio of stable \texttt{A1} matrices to stable \texttt{A0}
 matrices found is greater than 1 (compare column 5 to column 3), and
 this ratio increases with increasing \(S\) (column 1). Hence, more
-randomly created complex systems (\(M\)) are generated given variation
-in \(\gamma\) than when \(\gamma = 1\). Note that feasibility results
-were ommited for the table above, but are
+randomly created complex systems (\(\mathbf{M}\)) are stable given
+variation in \(\gamma\) than when \(\gamma = 1\). Note that feasibility
+results were ommited for the table above, but are
 \protect\hyperlink{Feasibility}{reported below}.
 
-\hypertarget{ga}{\section{\texorpdfstring{Stability given targetted
+\hypertarget{ga}{\section{\texorpdfstring{Stability given targeted
 manipulation of \(\gamma\) (genetic
-algorithm)}{Stability given targetted manipulation of \textbackslash{}gamma (genetic algorithm)}}\label{ga}}
+algorithm)}{Stability given targeted manipulation of \textbackslash{}gamma (genetic algorithm)}}\label{ga}}
 
 Figure 4 of the main text reports the number of stable random complex
 systems found over 100000 using the genetic algorithm to maximise
 stability with a vector \(\mathbf{\gamma}\). Stability results for
-100000 \(M\) for each \(S\) from 2-40 are shown below. Results for
-\texttt{A0} indicate systems in which \(\gamma = 1\), while \texttt{A1}
-refers to systems in which the genetic algorithm searched for a set of
-\(\gamma\) values that stabilised the system.
+100000 \(\mathbf{M}\) for each \(S\) from 2-40 are shown below. Results
+for \texttt{A0} indicate systems in which \(\gamma = 1\), while
+\texttt{A1} refers to systems in which the genetic algorithm searched
+for a set of \(\gamma\) values that stabilised the system.
 
 \begin{longtable}[]{@{}rrrrrrr@{}}
 \toprule
@@ -390,12 +389,12 @@ A1\_stabilised & A1\_destabilised\tabularnewline
 
 The distributions of nine \(\gamma\) vectors from the highest \(S\)
 values are shown below. This comparison shows the high number of stable
-\(M\) that can be produced through a targetted search of \(\gamma\)
-values, and suggests that many otherwise unstable systems could
-potentially be stabilised by an informed manipulation of their component
-response times. Such a possibility might conceivably reduce the
-dimensionality of problems involving stability in social-ecological or
-economic systems.
+\(\mathbf{M}\) that can be produced through a targeted search of
+\(\gamma\) values, and suggests that many otherwise unstable systems
+could potentially be stabilised by an informed manipulation of their
+component response times. Such a possibility might conceivably reduce
+the dimensionality of problems involving stability in social-ecological
+or economic systems.
 
 Distributions of \(\gamma\) values in vectors for the highest values of
 \(S\) are shown below.
@@ -405,50 +404,59 @@ Distributions of \(\gamma\) values in vectors for the highest values of
 The distribution of \(\gamma\) values found by the genetic algorithm is
 uniform. A uniform distribution was used to initialise \(\gamma\)
 values, so there is therefore no evidence that a particular distribution
-of \(\gamma\) is likely to be found to stabilise a matrix \(M\).
+of \(\gamma\) is likely to be found to stabilise a matrix
+\(\mathbf{M}\).
 
 \hypertarget{ecological}{\section{Stability of ecological
 networks}\label{ecological}}
 
-While the foundational work of May (1) applies broadly to complex
-networks, much attention has been given specifically to ecological
-networks of interacting species. In these networks, the matrix \(M\) is
-interpreted as a community matrix and each row and column is interpreted
-as a single species. The effect that the density of any species \(i\)
-has on the population dynamics of species \(j\) is found in \(M_{ij}\),
-meaning that \(M\) holds the effects of pair-wise interactions between
-\(S\) species (2, 4, 20). While May's original work (1) considered only
+While the foundational work of
+May\textsuperscript{\protect\hyperlink{ref-May1972}{1}} applies broadly
+to complex networks, much attention has been given specifically to
+ecological networks of interacting species. In these networks, the
+matrix \(\mathbf{M}\) is interpreted as a community matrix and each row
+and column is interpreted as a single species. The effect that the
+density of any species \(i\) has on the population dynamics of species
+\(j\) is found in \(M_{ij}\), meaning that \(\mathbf{M}\) holds the
+effects of pair-wise interactions between \(S\)
+species\textsuperscript{\protect\hyperlink{ref-Allesina2012}{2},\protect\hyperlink{ref-Allesina2015}{3}}.
+While May's original
+work\textsuperscript{\protect\hyperlink{ref-May1972}{1}} considered only
 randomly assembled communities, recent work has specifically looked at
 more restricted ecological communities including competitive networks
-(all off-diagonal elements of \(M\) are negative), mutualist networks
-(all off-diagonal elements of \(M\) are positive), and predator-prey
-networks (for any pair of \(i\) and \(j\), the effect of \(i\) on \(j\)
-is negative and \(j\) on \(i\) is positive, or vice versa) (2, 4, 17,
-20). In general, competitor and mutualist networks tend to be unstable,
-while predator-prey networks tend to be highly stabilising.
+(all off-diagonal elements of \(\mathbf{M}\) are negative), mutualist
+networks (all off-diagonal elements of \(\mathbf{M}\) are positive), and
+predator-prey networks (for any pair of \(i\) and \(j\), the effect of
+\(i\) on \(j\) is negative and \(j\) on \(i\) is positive, or vice
+versa)\textsuperscript{\protect\hyperlink{ref-Allesina2012}{2},\protect\hyperlink{ref-Allesina2015}{3}}.
+In general, competitor and mutualist networks tend to be unstable, while
+predator-prey networks tend to be highly stabilising.
 
 I investigated competitor, mutualist, and predator-prey networks
-following Allesina et al. (2). To create these networks, I first
-generated a random matrix \(M\), then changed the elements of \(M\)
-accordingly. If \(M\) was a competitive network, then the sign of any
-positive off-diagonal elements was reversed to be negative. If \(M\) was
-a mutualist network, then the sign of any positive off-diagonal elements
-was reversed to be positive. And if \(M\) was a predator-prey network,
-then all \(i\) and \(j\) pairs of elements were checked; any pairs of
-the same sign were changed so that one was negative and the other was
-positive.
+following Allesina et
+al.\textsuperscript{\protect\hyperlink{ref-Allesina2012}{2}}. To create
+these networks, I first generated a random matrix \(\mathbf{A}\), then
+changed the elements of \(\mathbf{A}\) accordingly. If \(\mathbf{A}\)
+was a competitive network, then the sign of any positive off-diagonal
+elements was reversed to be negative. If \(\mathbf{A}\) was a mutualist
+network, then the sign of any positive off-diagonal elements was
+reversed to be positive. And if \(\mathbf{A}\) was a predator-prey
+network, then all \(i\) and \(j\) pairs of elements were checked; any
+pairs of the same sign were changed so that one was negative and the
+other was positive.
 
-The number of stable \(M\) matrices was estimated
+The number of stable \(\mathbf{M = \gamma A}\) systems was estimated
 \protect\hyperlink{IncrS}{exactly as it was} in the main text for random
 matrices for values of \(S\) from 2 to 50 (100 in the case of the
 relatively more stable predator-prey interactions), except that only
-100000 random \(M\) were generated instead of 1 million.
+100000 random \(\mathbf{M}\) were generated instead of 1 million.
 
 The following tables for restricted ecological communities can therefore
-be compared with the random \(M\) \protect\hyperlink{IncrS}{results
-above} (but note that counts from systems with comparable probabilities
-of stability will be an order of magnitude lower in the tables below due
-to the smaller number of \(M\) matrices generated). As with the
+be compared with the random \(\mathbf{M}\)
+\protect\hyperlink{IncrS}{results above} (but note that counts from
+systems with comparable probabilities of stability will be an order of
+magnitude lower in the tables below due to the smaller number of
+\(\mathbf{M}\) matrices generated). As with the
 \protect\hyperlink{IncrS}{results above}, in the tables below,
 \texttt{A0} refers to matrices when \(\gamma = 1\) and \texttt{A1}
 refers to matrices after \(Var(\gamma)\) is added. The column
@@ -650,28 +658,29 @@ A1\_stabilised\tabularnewline
 \end{longtable}
 
 Overall, as
-expected\textsuperscript{\protect\hyperlink{ref-Allesina2012}{1}},
+expected\textsuperscript{\protect\hyperlink{ref-Allesina2012}{2}},
 predator-prey communities are relatively stable while mutualist
 communties are highly unstable. But interestingly, while \(Var(\gamma)\)
 stabilises predator-prey and competitor communities, it does not
 stabilise mutualist communities. This is unsurprising because purely
-mutualist communities are characterised by a very positive (2) leading
-\(\Re(\lambda)\), and it is highly unlikely that \(Var(\gamma)\) alone
-will shift all real parts of eigenvalues to negative values.
+mutualist communities are characterised by a very
+positive\textsuperscript{\protect\hyperlink{ref-Allesina2012}{2}}
+leading \(\Re(\lambda)\), and it is highly unlikely that \(Var(\gamma)\)
+alone will shift all real parts of eigenvalues to negative values.
 
 \hypertarget{connectance}{\section{Sensitivity of inter-connectivity (C)
 values}\label{connectance}}
 
-In the main text, for simplicity, I assumed inter-connectivity values of
-\(C = 1\), meaning that all off-diagonal elements of a matrix \(M\) were
-potentially nonzero and sampled from a normal distribution
-\(\mathcal{N}(0, \sigma^{2})\) where \(\sigma = 0.4\). Here I present
-four tables showing the number of stable communities given
+In the main text, for simplicity, I assumed connectance values of
+\(C = 1\), meaning that all off-diagonal elements of a matrix
+\(\mathbf{M}\) were potentially nonzero and sampled from a normal
+distribution \(\mathcal{N}(0, \sigma^{2})\) where \(\sigma = 0.4\). Here
+I present four tables showing the number of stable communities given
 \(C = \{0.3, 0. 5, 0.7, 0.9 \}\). In all cases, uniform variation in
 component response time (\(\gamma \sim \mathcal{U}(0, 2)\)) led to a
 higher number of stable communities than when \(\gamma\) did not vary
 (\(\gamma = 1\)). In contrast to the main text, 100000 rather than 1
-million \(M\) were simulated. As with the results on
+million \(\mathbf{M}\) were simulated. As with the results on
 \protect\hyperlink{IncrS}{stability with increasing \(S\)} shown above,
 in the tables below \texttt{A0} refers to matrices when \(\gamma = 1\),
 and \texttt{A1} refers to matrices after \(Var(\gamma)\) is added. The
@@ -907,7 +916,11 @@ A1\_stabilised & A1\_destabilised\tabularnewline
 strength (\(\sigma\))
 values}{Sensitivity of interaction strength (\textbackslash{}sigma) values}}\label{sigma}}
 
-\textbf{ADD TEXT ABOUT COMPARISON WITH ALLESINA AND VALUES ACROSS SIGMA}
+Results below show stability results given varying interaction strengths
+(\(\sigma\)) for \(C = 0.05\) (note that system size \(S\) values are
+larger and increase by 10 with increasing rows). In the tables below (as
+\protect\hyperlink{IncrS}{above}), \texttt{A0} and \texttt{A1} refers to
+matrices for \(\gamma = 1\) and \(Var(\gamma)\), respectively.
 
 \textbf{Interaction strength \(\mathbf{\sigma = 0.3}\)}
 
@@ -1047,11 +1060,12 @@ distribution of
 
 In the main text, I considered a uniform distribution of component
 response rates \(\gamma \sim \mathcal{U}(0, 2)\). The number of unstable
-and stable \(M\) matrices are reported in \protect\hyperlink{IncrS}{a
-table above} across different values of \(S\). Here I show complementary
-results for three different distributions including an exponential,
-beta, and gamma distribution of \(\gamma\) values. The shape of these
-distributions is shown in the figure below.
+and stable \(\mathbf{M}\) matrices are reported in
+\protect\hyperlink{IncrS}{a table above} across different values of
+\(S\). Here I show complementary results for three different
+distributions including an exponential, beta, and gamma distribution of
+\(\gamma\) values. The shape of these distributions is shown in the
+figure below.
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
@@ -1070,11 +1084,11 @@ panel shows 1 million randomly generated \(\gamma\) values.
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
-The same 100000 \(M\) matrices were used to investigate stability when
-applying each of these different distributions of \(\gamma\) values. The
-table below shows the number of \(M\) that were unstable (\_unst) and
-stable (\_stbl) for the exponential (Exp), beta, and gamma
-distributions.
+The same 100000 \(\mathbf{M}\) matrices were used to investigate
+stability when applying each of these different distributions of
+\(\gamma\) values. The table below shows the number of \(\mathbf{M}\)
+that were unstable (\_unst) and stable (\_stbl) for the exponential
+(Exp), beta, and gamma distributions.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1134,9 +1148,9 @@ more are found with the beta (c) and gamma (d) distributions.
 systems}\label{Feasibility}}
 
 When feasibility was evaluated with and without variation in \(\gamma\),
-there was no increase in stability for \(M\) where \(\gamma\) varied as
-compared to where \(\gamma = 1\). Results below illustrate this result,
-which was general to all other simulations performed.
+there was no increase in stability for \(\mathbf{M}\) where \(\gamma\)
+varied as compared to where \(\gamma = 1\). Results below illustrate
+this result, which was general to all other simulations performed.
 
 \begin{longtable}[]{@{}rrrrrrr@{}}
 \toprule
@@ -1203,9 +1217,18 @@ in pure species interaction networks.
 \addcontentsline{toc}{section}{References}
 
 \hypertarget{refs}{}
+\hypertarget{ref-May1972}{}
+1. May, R. M. Will a large complex system be stable? \emph{Nature}
+\textbf{238,} 413--414 (1972).
+
 \hypertarget{ref-Allesina2012}{}
-1. Allesina, S. \& Tang, S. Stability criteria for complex ecosystems.
+2. Allesina, S. \& Tang, S. Stability criteria for complex ecosystems.
 \emph{Nature} \textbf{483,} 205--208 (2012).
+
+\hypertarget{ref-Allesina2015}{}
+3. Allesina, S. \emph{et al.} Predicting the stability of large
+structured food webs. \emph{Nature Communications} \textbf{6,} 7842
+(2015).
 
 
 \end{document}
