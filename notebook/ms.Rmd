@@ -176,13 +176,19 @@ dat <- dat[,-1];
 Discussion
 --------------------------------------------------------------------------------
 
-Here I have shown that the stability of large systems might be contigent upon variation in the response rates of their individual components, meaning that factors such as generation time and rate of trait evolution (in biological networks), transaction speed (in economic networks), or communication speed (in social networks) need to be considered when investigating the stability of complex systems. *Cite @Ahmadian2015 here*?
+Here I have shown that the stability of large systems might be contigent upon variation in the response rates of their individual components, meaning that factors such as generation time and rate of trait evolution (in biological networks), transaction speed (in economic networks), or communication speed (in social networks) need to be considered when investigating the stability of complex systems. 
 
-It is important to point out that $Var(\gamma)$ is not stabilising per se; that is, adding variation in $\gamma$ to a particular system $\mathbf{M}$ does not necessarily increase the probability that the system will be stable (see Supplementary Information). Rather, systems that are observed to be stable are more likely to vary in $\gamma$, and for this $Var(\gamma)$ to be critical to their stability. This is caused by the shift in the distribution of eigenvalues that occurs by introducing $Var(\gamma)$ (Fig. 1b, 2b), which can sometimes result in all $\Re(\lambda) < 0$ but might also increase $\Re(\lambda)$ values. 
+It is important to point out that $Var(\gamma)$ is not stabilising per se; that is, adding variation in $\gamma$ to a particular system $\mathbf{M}$ does not necessarily increase the probability that the system will be stable. Rather, systems that are observed to be stable are more likely to vary in $\gamma$, and for this $Var(\gamma)$ to be critical to their stability. This is caused by the shift in the distribution of eigenvalues that occurs by introducing $Var(\gamma)$ (Fig. 1b, 2b), which can sometimes result in all $\Re(\lambda) < 0$ but might also increase $\Re(\lambda)$ values. The mathematics underlying this shift in eigenvalue distribution have been investigated[@Ahmadian2015] and recently applied to questions concerning species density and feasibility[@Gibbs2017; @Stone2017], but have not been interpreted as rates of response of individual componetents to system perturbation. 
+
+
+
+
+Nevertheless, ecological interactions do not exist in isolation in empirical systems, but instead interact with evolutionary[@Patel2018], abiotic, or social-economic systems. The relevance of $\gamma$ for complex system stability presented in the main text should therefore not be ignored in the broader context of ecological communities.
+
 
 I have focused broadly on random complex systems, but it is also worthwhile to consider more restricted interactions such as those of specific ecological networks [@Allesina2012]. These include systems in which all interactions are negative (competitive networks), positive (mutualist networks), or $i$ and $j$ pairs have opposing signs (predator-prey networks). In general, competitive and mutualist networks tend to be destabilising, and predator-prey network tend to be stabilising [@Allesina2011]. When $Var(\gamma)$ is applied to each, the proportion of stable competitive and predator-prey networks increases, but the proportion of stable mutualist networks does not (see Supplementary Information). Additionally, when each component of $\mathbf{M}$ is interpreted as a unique species and given a random intrinsic growth rate [@Dougoud2018], feasibility is not increased by $Var(\gamma)$, suggesting that variation in species generation time might be unlikely to drive stability in purely multi-species networks (see Supplementary Information).
 
-Nevertheless, ecological interactions do not exist in isolation in empirical systems, but instead interact with evolutionary[@Patel2018], abiotic, or social-economic systems. The relevance of $\gamma$ for complex system stability presented in the main text should therefore not be ignored in the broader context of ecological communities.
+
 
 
 Hence, managing the response rates of system components in a targeted way can potentially facilitate the stabilisation of complex systems through a reduction in dimensionality. 
