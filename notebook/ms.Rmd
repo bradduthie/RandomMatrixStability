@@ -176,7 +176,7 @@ dat <- dat[,-1];
 Discussion
 --------------------------------------------------------------------------------
 
-This suggests that the stability of large systems might be dependent upon variation in the response rate of their individual components, meaning that factors such as generation time (in ecological networks), transaction speed (in economic networks), or communication speed (in social networks) needs to be considered when investigating the stability of complex systems. *Cite @Ahmadian2015 here*?
+Here I have shown that the stability of large systems might be contigent upon variation in the response rates of their individual components, meaning that factors such as generation time and rate of trait evolution (in biological networks), transaction speed (in economic networks), or communication speed (in social networks) need to be considered when investigating the stability of complex systems. *Cite @Ahmadian2015 here*?
 
 It is important to point out that $Var(\gamma)$ is not stabilising per se; that is, adding variation in $\gamma$ to a particular system $\mathbf{M}$ does not necessarily increase the probability that the system will be stable (see Supplementary Information). Rather, systems that are observed to be stable are more likely to vary in $\gamma$, and for this $Var(\gamma)$ to be critical to their stability. This is caused by the shift in the distribution of eigenvalues that occurs by introducing $Var(\gamma)$ (Fig. 1b, 2b), which can sometimes result in all $\Re(\lambda) < 0$ but might also increase $\Re(\lambda)$ values. 
 
