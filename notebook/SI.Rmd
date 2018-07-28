@@ -60,7 +60,7 @@ Supplemental Information table of contents
 
 
 - [Stability across increasing $S$](#IncrS) 
-- [Stability given targetted manipulation of $\gamma$ (genetic algorithm)](#ga)
+- [Stability given targeted manipulation of $\gamma$ (genetic algorithm)](#ga)
 - [Stability of ecological networks](#ecological) 
     - [Competitor networks](#competition) 
     - [Mutualist networks](#mutualism) 
@@ -97,7 +97,7 @@ kable(d_tab);
 
 Overall, the ratio of stable `A1` matrices to stable `A0` matrices found is greater than 1 (compare column 5 to column 3), and this ratio increases with increasing $S$ (column 1). Hence, more randomly created complex systems ($M$) are generated given variation in $\gamma$ than when $\gamma = 1$. Note that feasibility results were ommited for the table above, but are [reported below](#Feasibility).
 
-Stability given targetted manipulation of $\gamma$ (genetic algorithm) {#ga}
+Stability given targeted manipulation of $\gamma$ (genetic algorithm) {#ga}
 ================================================================================
 
 Figure 4 of the main text reports the number of stable random complex systems found over 100000 using the genetic algorithm to maximise stability with a vector $\mathbf{\gamma}$. Stability results for 100000 $M$ for each $S$ from 2-40 are shown below. Results for `A0` indicate systems in which $\gamma = 1$, while `A1` refers to systems in which the genetic algorithm searched for a set of $\gamma$ values that stabilised the system. 
@@ -153,7 +153,7 @@ evo_res <- evo_res[,-1];
 kable(evo_res);
 ```
 
-The distributions of nine $\gamma$ vectors from the highest $S$ values are shown below. This comparison shows the high number of stable $M$ that can be produced through a targetted search of $\gamma$ values, and suggests that many otherwise unstable systems could potentially be stabilised by an informed manipulation of their component response times. Such a possibility might conceivably reduce the dimensionality of problems involving stability in social-ecological or economic systems.
+The distributions of nine $\gamma$ vectors from the highest $S$ values are shown below. This comparison shows the high number of stable $M$ that can be produced through a targeted search of $\gamma$ values, and suggests that many otherwise unstable systems could potentially be stabilised by an informed manipulation of their component response times. Such a possibility might conceivably reduce the dimensionality of problems involving stability in social-ecological or economic systems.
 
 Distributions of $\gamma$ values in vectors for the highest values of $S$ are shown below. 
 

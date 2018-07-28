@@ -1,0 +1,1211 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{setspace}
+\setstretch{1}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\PassOptionsToPackage{usenames,dvipsnames}{color} % color is loaded by hyperref
+\hypersetup{unicode=true,
+            pdftitle={Component response rate variation drives stability in large complex systems},
+            pdfauthor={A. Bradley Duthie},
+            colorlinks=true,
+            linkcolor=blue,
+            citecolor=Blue,
+            urlcolor=Blue,
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{{#1}}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{{#1}}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{{#1}}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{{#1}}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{{#1}}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{{#1}}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{{#1}}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{{#1}}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{{#1}}}
+\newcommand{\ImportTok}[1]{{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{{#1}}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{{#1}}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{{#1}}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{{#1}}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{{#1}}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{{#1}}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{{#1}}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{{#1}}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{{#1}}}}
+\newcommand{\BuiltInTok}[1]{{#1}}
+\newcommand{\ExtensionTok}[1]{{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{{#1}}}
+\newcommand{\RegionMarkerTok}[1]{{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{{#1}}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{{#1}}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{{#1}}}}
+\newcommand{\NormalTok}[1]{{#1}}
+\usepackage{longtable,booktabs}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+  \title{Component response rate variation drives stability in large complex
+systems}
+  \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+\subtitle{Supplemental Information}
+  \author{A. Bradley Duthie}
+  \preauthor{\centering\large\emph}
+  \postauthor{\par}
+  \predate{\centering\large\emph}
+  \postdate{\par}
+  \date{Biological and Environmental Sciences, University of Stirling, Stirling,
+UK, FK9 4LA
+\href{mailto:alexander.duthie@stir.ac.uk}{\nolinkurl{alexander.duthie@stir.ac.uk}}}
+
+\usepackage{amsmath}
+\usepackage{natbib}
+\usepackage{lineno}
+\usepackage[utf8]{inputenc}
+\linenumbers
+\bibliographystyle{amnatnat}
+
+\begin{document}
+\maketitle
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\textbf{This supplemental information supports the manuscript
+``Component response rate variation drives stability in large complex
+systems'' with all of the code required to recreate the analysis in the
+main text, and with additional analyses to support its conclusions. All
+text, code, and data underlying this manuscript are publicly available
+on \href{https://github.com/bradduthie/RandomMatrixStability}{GitHub} as
+part of the RandomMatrixStability package.}
+
+The
+\href{https://github.com/bradduthie/RandomMatrixStability}{RandomMatrixStability
+package} includes all functions and tools for recreating the text, this
+supplemental information, and running all code; additional documentation
+is also provided for functions as part of the package. The
+RandomMatrixStability package is available on
+\href{https://github.com/bradduthie/RandomMatrixStability}{GitHub}; to
+download it, the
+\href{https://cran.r-project.org/web/packages/devtools/index.html}{\texttt{devtools}
+library} is needed.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{install.packages}\NormalTok{(}\StringTok{"devtools"}\NormalTok{);}
+\KeywordTok{library}\NormalTok{(devtools);}
+\end{Highlighting}
+\end{Shaded}
+
+The code below installs the RandomMatrixStability package using
+devtools.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{install_github}\NormalTok{(}\StringTok{"bradduthie/RandomMatrixStability"}\NormalTok{);}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\section{Supplemental Information table of
+contents}\label{supplemental-information-table-of-contents}
+
+\begin{itemize}
+\tightlist
+\item
+  \protect\hyperlink{IncrS}{Stability across increasing \(S\)}
+\item
+  \protect\hyperlink{ga}{Stability given targetted manipulation of
+  \(\gamma\) (genetic algorithm)}
+\item
+  \protect\hyperlink{ecological}{Stability of ecological networks}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \protect\hyperlink{competition}{Competitor networks}
+  \item
+    \protect\hyperlink{mutualism}{Mutualist networks}
+  \item
+    \protect\hyperlink{pred-prey}{Predator-prey networks}
+  \end{itemize}
+\item
+  \protect\hyperlink{connectance}{Sensitivity of connectance (C) values}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \protect\hyperlink{connect3}{C = 0.3}
+  \item
+    \protect\hyperlink{connect5}{C = 0.5}
+  \item
+    \protect\hyperlink{connect7}{C = 0.7}
+  \item
+    \protect\hyperlink{connect9}{C = 0.9}
+  \end{itemize}
+\item
+  \protect\hyperlink{sigma}{Large networks of \(C = 0.05\) across \(S\)
+  and \(\sigma\)}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \protect\hyperlink{sigma3}{\(\sigma\) = 0.3}
+  \item
+    \protect\hyperlink{sigma4}{\(\sigma\) = 0.4}
+  \item
+    \protect\hyperlink{sigma5}{\(\sigma\) = 0.5}
+  \item
+    \protect\hyperlink{sigma6}{\(\sigma\) = 0.6}
+  \end{itemize}
+\item
+  \protect\hyperlink{gam_dist}{Sensitivity of distribution of
+  \(\gamma\)}
+\item
+  \protect\hyperlink{Feasibility}{Feasibility of complex systems}
+\end{itemize}
+
+\hypertarget{IncrS}{\section{\texorpdfstring{Stability across increasing
+\(S\)}{Stability across increasing S}}\label{IncrS}}
+
+Figure 3 of the main text reports the number of stable random complex
+systems found over 1 million iterations. The table below shows the
+results for all simulations of random \(M\) matrices at \(\sigma = 0.4\)
+and \(C = 1\) given a range of \(S = \{2, 3, ..., 49, 50\}\). In this
+table, the \texttt{A0} refers to matrices where \(\gamma = 1\), while
+\texttt{A1} refers to matrices after \(Var(\gamma)\) is added and
+\(\gamma \sim \mathcal{U}(0, 2)\). Each row summarises data for a given
+\(S\) over 1 million randomly simulated \(M\) (\texttt{A0} and
+\texttt{A1}). The column \texttt{A0\_unstable} shows the number of
+\texttt{A0} matrices that are unstable, and the column
+\texttt{A0\_stable} shows the number of \texttt{A0} matrices that are
+stable (these two columns sum to 1 million). Similarly, the column
+\texttt{A1\_unstable} shows the number of \texttt{A1} matrices that are
+unstable and \texttt{A1\_stable} shows the number that are stable. The
+columns \texttt{A1\_stabilised} and \texttt{A1\_destabilised} show how
+many \texttt{A0} matrices were stabilised or destabilised, respectively,
+by \(Var(\gamma)\).
+
+\begin{longtable}[]{@{}rrrrrrr@{}}
+\toprule
+S & A0\_unstable & A0\_stable & A1\_unstable & A1\_stable &
+A1\_stabilised & A1\_destabilised\tabularnewline
+\midrule
+\endhead
+2 & 293 & 999707 & 293 & 999707 & 0 & 0\tabularnewline
+3 & 3602 & 996398 & 3609 & 996391 & 0 & 7\tabularnewline
+4 & 14937 & 985063 & 15008 & 984992 & 0 & 71\tabularnewline
+5 & 39289 & 960711 & 39783 & 960217 & 36 & 530\tabularnewline
+6 & 78845 & 921155 & 80207 & 919793 & 389 & 1751\tabularnewline
+7 & 133764 & 866236 & 136904 & 863096 & 1679 & 4819\tabularnewline
+8 & 204112 & 795888 & 208241 & 791759 & 5391 & 9520\tabularnewline
+9 & 288041 & 711959 & 291775 & 708225 & 12619 & 16353\tabularnewline
+10 & 384024 & 615976 & 384931 & 615069 & 23153 & 24060\tabularnewline
+11 & 485975 & 514025 & 481019 & 518981 & 35681 & 30725\tabularnewline
+12 & 590453 & 409547 & 577439 & 422561 & 48302 & 35288\tabularnewline
+13 & 689643 & 310357 & 669440 & 330560 & 57194 & 36991\tabularnewline
+14 & 777496 & 222504 & 751433 & 248567 & 60959 & 34896\tabularnewline
+15 & 850159 & 149841 & 821613 & 178387 & 58567 & 30021\tabularnewline
+16 & 905057 & 94943 & 877481 & 122519 & 51255 & 23679\tabularnewline
+17 & 943192 & 56808 & 919536 & 80464 & 40854 & 17198\tabularnewline
+18 & 969018 & 30982 & 949944 & 50056 & 30102 & 11028\tabularnewline
+19 & 984301 & 15699 & 970703 & 29297 & 20065 & 6467\tabularnewline
+20 & 992601 & 7399 & 983507 & 16493 & 12587 & 3493\tabularnewline
+21 & 996765 & 3235 & 991532 & 8468 & 7030 & 1797\tabularnewline
+22 & 998693 & 1307 & 995567 & 4433 & 3884 & 758\tabularnewline
+23 & 999503 & 497 & 997941 & 2059 & 1883 & 321\tabularnewline
+24 & 999861 & 139 & 999059 & 941 & 899 & 97\tabularnewline
+25 & 999964 & 36 & 999617 & 383 & 380 & 33\tabularnewline
+26 & 999993 & 7 & 999878 & 122 & 121 & 6\tabularnewline
+27 & 999995 & 5 & 999946 & 54 & 53 & 4\tabularnewline
+28 & 1000000 & 0 & 999975 & 25 & 25 & 0\tabularnewline
+29 & 1000000 & 0 & 999997 & 3 & 3 & 0\tabularnewline
+30 & 1000000 & 0 & 999999 & 1 & 1 & 0\tabularnewline
+31 & 1000000 & 0 & 999999 & 1 & 1 & 0\tabularnewline
+32 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+33 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+34 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+35 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+36 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+37 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+38 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+39 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+40 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+41 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+42 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+43 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+44 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+45 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+46 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+47 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+48 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+49 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+50 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+\bottomrule
+\end{longtable}
+
+Overall, the ratio of stable \texttt{A1} matrices to stable \texttt{A0}
+matrices found is greater than 1 (compare column 5 to column 3), and
+this ratio increases with increasing \(S\) (column 1). Hence, more
+randomly created complex systems (\(M\)) are generated given variation
+in \(\gamma\) than when \(\gamma = 1\). Note that feasibility results
+were ommited for the table above, but are
+\protect\hyperlink{Feasibility}{reported below}.
+
+\hypertarget{ga}{\section{\texorpdfstring{Stability given targetted
+manipulation of \(\gamma\) (genetic
+algorithm)}{Stability given targetted manipulation of \textbackslash{}gamma (genetic algorithm)}}\label{ga}}
+
+Figure 4 of the main text reports the number of stable random complex
+systems found over 100000 using the genetic algorithm to maximise
+stability with a vector \(\mathbf{\gamma}\). Stability results for
+100000 \(M\) for each \(S\) from 2-40 are shown below. Results for
+\texttt{A0} indicate systems in which \(\gamma = 1\), while \texttt{A1}
+refers to systems in which the genetic algorithm searched for a set of
+\(\gamma\) values that stabilised the system.
+
+\begin{longtable}[]{@{}rrrrrrr@{}}
+\toprule
+S & A0\_unstable & A0\_stable & A1\_unstable & A1\_stable &
+A1\_stabilised & A1\_destabilised\tabularnewline
+\midrule
+\endhead
+2 & 26 & 99974 & 26 & 99974 & 0 & 0\tabularnewline
+3 & 358 & 99642 & 358 & 99642 & 0 & 0\tabularnewline
+4 & 1505 & 98495 & 1505 & 98495 & 0 & 0\tabularnewline
+5 & 3995 & 96005 & 3982 & 96018 & 13 & 0\tabularnewline
+6 & 8060 & 91940 & 7956 & 92044 & 104 & 0\tabularnewline
+7 & 13420 & 86580 & 12953 & 87047 & 468 & 1\tabularnewline
+8 & 20518 & 79482 & 18940 & 81060 & 1578 & 0\tabularnewline
+9 & 28939 & 71061 & 25148 & 74852 & 3793 & 2\tabularnewline
+10 & 38241 & 61759 & 30915 & 69085 & 7327 & 1\tabularnewline
+11 & 48682 & 51318 & 36398 & 63602 & 12286 & 2\tabularnewline
+12 & 58752 & 41248 & 40710 & 59290 & 18043 & 1\tabularnewline
+13 & 68888 & 31112 & 44600 & 55400 & 24289 & 1\tabularnewline
+14 & 77651 & 22349 & 47528 & 52472 & 30124 & 1\tabularnewline
+15 & 84912 & 15088 & 49971 & 50029 & 34942 & 1\tabularnewline
+16 & 90451 & 9549 & 52274 & 47726 & 38178 & 1\tabularnewline
+17 & 94332 & 5668 & 54124 & 45876 & 40209 & 1\tabularnewline
+18 & 96968 & 3032 & 55831 & 44169 & 41139 & 2\tabularnewline
+19 & 98384 & 1616 & 58079 & 41921 & 40305 & 0\tabularnewline
+20 & 99269 & 731 & 60181 & 39819 & 39088 & 0\tabularnewline
+21 & 99677 & 323 & 63338 & 36662 & 36339 & 0\tabularnewline
+22 & 99854 & 146 & 66350 & 33650 & 33504 & 0\tabularnewline
+23 & 99947 & 53 & 70478 & 29522 & 29469 & 0\tabularnewline
+24 & 99983 & 17 & 74121 & 25879 & 25862 & 0\tabularnewline
+25 & 99991 & 9 & 78364 & 21636 & 21627 & 0\tabularnewline
+26 & 99999 & 1 & 82635 & 17365 & 17364 & 0\tabularnewline
+27 & 100000 & 0 & 86433 & 13567 & 13567 & 0\tabularnewline
+28 & 100000 & 0 & 89951 & 10049 & 10049 & 0\tabularnewline
+29 & 100000 & 0 & 92716 & 7284 & 7284 & 0\tabularnewline
+30 & 100000 & 0 & 95171 & 4829 & 4829 & 0\tabularnewline
+31 & 100000 & 0 & 96844 & 3156 & 3156 & 0\tabularnewline
+32 & 100000 & 0 & 98128 & 1872 & 1872 & 0\tabularnewline
+33 & 100000 & 0 & 98941 & 1059 & 1059 & 0\tabularnewline
+34 & 100000 & 0 & 99358 & 642 & 642 & 0\tabularnewline
+35 & 100000 & 0 & 99702 & 298 & 298 & 0\tabularnewline
+36 & 100000 & 0 & 99856 & 144 & 144 & 0\tabularnewline
+37 & 100000 & 0 & 99921 & 79 & 79 & 0\tabularnewline
+38 & 100000 & 0 & 99970 & 30 & 30 & 0\tabularnewline
+39 & 100000 & 0 & 99989 & 11 & 11 & 0\tabularnewline
+40 & 100000 & 0 & 99994 & 6 & 6 & 0\tabularnewline
+\bottomrule
+\end{longtable}
+
+The distributions of nine \(\gamma\) vectors from the highest \(S\)
+values are shown below. This comparison shows the high number of stable
+\(M\) that can be produced through a targetted search of \(\gamma\)
+values, and suggests that many otherwise unstable systems could
+potentially be stabilised by an informed manipulation of their component
+response times. Such a possibility might conceivably reduce the
+dimensionality of problems involving stability in social-ecological or
+economic systems.
+
+Distributions of \(\gamma\) values in vectors for the highest values of
+\(S\) are shown below.
+
+\includegraphics{SI_files/figure-latex/unnamed-chunk-7-1.pdf}
+
+The distribution of \(\gamma\) values found by the genetic algorithm is
+uniform. A uniform distribution was used to initialise \(\gamma\)
+values, so there is therefore no evidence that a particular distribution
+of \(\gamma\) is likely to be found to stabilise a matrix \(M\).
+
+\hypertarget{ecological}{\section{Stability of ecological
+networks}\label{ecological}}
+
+While the foundational work of May (1) applies broadly to complex
+networks, much attention has been given specifically to ecological
+networks of interacting species. In these networks, the matrix \(M\) is
+interpreted as a community matrix and each row and column is interpreted
+as a single species. The effect that the density of any species \(i\)
+has on the population dynamics of species \(j\) is found in \(M_{ij}\),
+meaning that \(M\) holds the effects of pair-wise interactions between
+\(S\) species (2, 4, 20). While May's original work (1) considered only
+randomly assembled communities, recent work has specifically looked at
+more restricted ecological communities including competitive networks
+(all off-diagonal elements of \(M\) are negative), mutualist networks
+(all off-diagonal elements of \(M\) are positive), and predator-prey
+networks (for any pair of \(i\) and \(j\), the effect of \(i\) on \(j\)
+is negative and \(j\) on \(i\) is positive, or vice versa) (2, 4, 17,
+20). In general, competitor and mutualist networks tend to be unstable,
+while predator-prey networks tend to be highly stabilising.
+
+I investigated competitor, mutualist, and predator-prey networks
+following Allesina et al. (2). To create these networks, I first
+generated a random matrix \(M\), then changed the elements of \(M\)
+accordingly. If \(M\) was a competitive network, then the sign of any
+positive off-diagonal elements was reversed to be negative. If \(M\) was
+a mutualist network, then the sign of any positive off-diagonal elements
+was reversed to be positive. And if \(M\) was a predator-prey network,
+then all \(i\) and \(j\) pairs of elements were checked; any pairs of
+the same sign were changed so that one was negative and the other was
+positive.
+
+The number of stable \(M\) matrices was estimated
+\protect\hyperlink{IncrS}{exactly as it was} in the main text for random
+matrices for values of \(S\) from 2 to 50 (100 in the case of the
+relatively more stable predator-prey interactions), except that only
+100000 random \(M\) were generated instead of 1 million.
+
+The following tables for restricted ecological communities can therefore
+be compared with the random \(M\) \protect\hyperlink{IncrS}{results
+above} (but note that counts from systems with comparable probabilities
+of stability will be an order of magnitude lower in the tables below due
+to the smaller number of \(M\) matrices generated). As with the
+\protect\hyperlink{IncrS}{results above}, in the tables below,
+\texttt{A0} refers to matrices when \(\gamma = 1\) and \texttt{A1}
+refers to matrices after \(Var(\gamma)\) is added. The column
+\texttt{A0\_unstable} shows the number of \texttt{A0} matrices that are
+unstable, and the column \texttt{A0\_stable} shows the number of
+\texttt{A0} matrices that are stable (these two columns sum to 100000).
+Similarly, the column \texttt{A1\_unstable} shows the number of
+\texttt{A1} matrices that are unstable and \texttt{A1\_stable} shows the
+number that are stable. The columns \texttt{A1\_stabilised} and
+\texttt{A1\_destabilised} show how many \texttt{A0} matrices were
+stabilised or destabilised, respectively, by \(Var(\gamma)\).
+
+\textbf{Competition}
+
+Results for competitor interaction networks are shown below
+
+\begin{longtable}[]{@{}llllll@{}}
+\toprule
+N & A0\_unstable & A0\_stable & A1\_unstable & A1\_stable &
+A1\_stabilised\tabularnewline
+\midrule
+\endhead
+2 & 48 & 99952 & 48 & 99952 & 0\tabularnewline
+3 & 229 & 99771 & 231 & 99769 & 0\tabularnewline
+4 & 701 & 99299 & 704 & 99296 & 0\tabularnewline
+5 & 1579 & 98421 & 1587 & 98413 & 0\tabularnewline
+6 & 3218 & 96782 & 3253 & 96747 & 6\tabularnewline
+7 & 5519 & 94481 & 5619 & 94381 & 23\tabularnewline
+8 & 9062 & 90938 & 9237 & 90763 & 77\tabularnewline
+9 & 13436 & 86564 & 13729 & 86271 & 230\tabularnewline
+10 & 18911 & 81089 & 19303 & 80697 & 505\tabularnewline
+11 & 25594 & 74406 & 25961 & 74039 & 1011\tabularnewline
+12 & 33207 & 66793 & 33382 & 66618 & 1724\tabularnewline
+13 & 41160 & 58840 & 41089 & 58911 & 2655\tabularnewline
+14 & 50575 & 49425 & 49894 & 50106 & 3777\tabularnewline
+15 & 59250 & 40750 & 57892 & 42108 & 4824\tabularnewline
+16 & 67811 & 32189 & 65740 & 34260 & 5634\tabularnewline
+17 & 75483 & 24517 & 73056 & 26944 & 5943\tabularnewline
+18 & 82551 & 17449 & 79878 & 20122 & 5780\tabularnewline
+19 & 88030 & 11970 & 85204 & 14796 & 5417\tabularnewline
+20 & 92254 & 7746 & 89766 & 10234 & 4544\tabularnewline
+21 & 95233 & 4767 & 93002 & 6998 & 3695\tabularnewline
+22 & 97317 & 2683 & 95451 & 4549 & 2803\tabularnewline
+23 & 98508 & 1492 & 97122 & 2878 & 1991\tabularnewline
+24 & 99240 & 760 & 98407 & 1593 & 1216\tabularnewline
+25 & 99669 & 331 & 99082 & 918 & 739\tabularnewline
+26 & 99871 & 129 & 99490 & 510 & 452\tabularnewline
+27 & 99938 & 62 & 99732 & 268 & 240\tabularnewline
+28 & 99985 & 15 & 99888 & 112 & 108\tabularnewline
+29 & 99990 & 10 & 99951 & 49 & 46\tabularnewline
+30 & 100000 & 0 & 99981 & 19 & 19\tabularnewline
+31 & 100000 & 0 & 99993 & 7 & 7\tabularnewline
+32 & 100000 & 0 & 99996 & 4 & 4\tabularnewline
+33 & 100000 & 0 & 99998 & 2 & 2\tabularnewline
+34 & 100000 & 0 & 100000 & 0 & 0\tabularnewline
+\ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} &
+\ldots{}\tabularnewline
+50 & 100000 & 0 & 100000 & 0 & 0\tabularnewline
+\bottomrule
+\end{longtable}
+
+\textbf{Mutualism}
+
+Results for mutualist interaction networks are shown below
+
+\begin{longtable}[]{@{}llllll@{}}
+\toprule
+N & A0\_unstable & A0\_stable & A1\_unstable & A1\_stable &
+A1\_stabilised\tabularnewline
+\midrule
+\endhead
+2 & 56 & 99944 & 56 & 99944 & 0\tabularnewline
+3 & 3301 & 96699 & 3301 & 96699 & 0\tabularnewline
+4 & 34446 & 65554 & 34446 & 65554 & 0\tabularnewline
+5 & 86520 & 13480 & 86520 & 13480 & 0\tabularnewline
+6 & 99683 & 317 & 99683 & 317 & 0\tabularnewline
+7 & 99998 & 2 & 99998 & 2 & 0\tabularnewline
+8 & 100000 & 0 & 100000 & 0 & 0\tabularnewline
+9 & 100000 & 0 & 100000 & 0 & 0\tabularnewline
+10 & 100000 & 0 & 100000 & 0 & 0\tabularnewline
+11 & 100000 & 0 & 100000 & 0 & 0\tabularnewline
+12 & 100000 & 0 & 100000 & 0 & 0\tabularnewline
+\ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} &
+\ldots{}\tabularnewline
+50 & 100000 & 0 & 100000 & 0 & 0\tabularnewline
+\bottomrule
+\end{longtable}
+
+\textbf{Predator-prey}
+
+Results for predator-prey interaction networks are shown below
+
+\begin{longtable}[]{@{}rrrrrr@{}}
+\toprule
+N & A0\_unstable & A0\_stable & A1\_unstable & A1\_stable &
+A1\_stabilised\tabularnewline
+\midrule
+\endhead
+2 & 0 & 100000 & 0 & 100000 & 0\tabularnewline
+3 & 0 & 100000 & 0 & 100000 & 0\tabularnewline
+4 & 0 & 100000 & 0 & 100000 & 0\tabularnewline
+5 & 1 & 99999 & 1 & 99999 & 0\tabularnewline
+6 & 4 & 99996 & 4 & 99996 & 0\tabularnewline
+7 & 2 & 99998 & 2 & 99998 & 0\tabularnewline
+8 & 5 & 99995 & 5 & 99995 & 0\tabularnewline
+9 & 20 & 99980 & 21 & 99979 & 0\tabularnewline
+10 & 20 & 99980 & 22 & 99978 & 0\tabularnewline
+11 & 38 & 99962 & 39 & 99961 & 0\tabularnewline
+12 & 64 & 99936 & 66 & 99934 & 0\tabularnewline
+13 & 87 & 99913 & 91 & 99909 & 0\tabularnewline
+14 & 157 & 99843 & 159 & 99841 & 0\tabularnewline
+15 & 215 & 99785 & 227 & 99773 & 0\tabularnewline
+16 & 293 & 99707 & 310 & 99690 & 0\tabularnewline
+17 & 383 & 99617 & 408 & 99592 & 0\tabularnewline
+18 & 443 & 99557 & 473 & 99527 & 3\tabularnewline
+19 & 642 & 99358 & 675 & 99325 & 4\tabularnewline
+20 & 836 & 99164 & 887 & 99113 & 7\tabularnewline
+21 & 1006 & 98994 & 1058 & 98942 & 10\tabularnewline
+22 & 1153 & 98847 & 1228 & 98772 & 20\tabularnewline
+23 & 1501 & 98499 & 1593 & 98407 & 30\tabularnewline
+24 & 1841 & 98159 & 1996 & 98004 & 40\tabularnewline
+25 & 2146 & 97854 & 2316 & 97684 & 58\tabularnewline
+26 & 2643 & 97357 & 2809 & 97191 & 119\tabularnewline
+27 & 3034 & 96966 & 3258 & 96742 & 158\tabularnewline
+28 & 3690 & 96310 & 3928 & 96072 & 201\tabularnewline
+29 & 4257 & 95743 & 4532 & 95468 & 290\tabularnewline
+30 & 4964 & 95036 & 5221 & 94779 & 424\tabularnewline
+31 & 5627 & 94373 & 5978 & 94022 & 452\tabularnewline
+32 & 6543 & 93457 & 6891 & 93109 & 666\tabularnewline
+33 & 7425 & 92575 & 7777 & 92223 & 818\tabularnewline
+34 & 8540 & 91460 & 8841 & 91159 & 1071\tabularnewline
+35 & 9526 & 90474 & 9842 & 90158 & 1337\tabularnewline
+36 & 10617 & 89383 & 10891 & 89109 & 1624\tabularnewline
+37 & 12344 & 87656 & 12508 & 87492 & 2021\tabularnewline
+38 & 13675 & 86325 & 13877 & 86123 & 2442\tabularnewline
+39 & 15264 & 84736 & 15349 & 84651 & 2870\tabularnewline
+40 & 17026 & 82974 & 17053 & 82947 & 3363\tabularnewline
+41 & 18768 & 81232 & 18614 & 81386 & 3905\tabularnewline
+42 & 20791 & 79209 & 20470 & 79530 & 4579\tabularnewline
+43 & 23150 & 76850 & 22754 & 77246 & 5217\tabularnewline
+44 & 25449 & 74551 & 24184 & 75816 & 6285\tabularnewline
+45 & 27702 & 72298 & 26464 & 73536 & 6754\tabularnewline
+46 & 30525 & 69475 & 28966 & 71034 & 7646\tabularnewline
+47 & 32832 & 67168 & 31125 & 68875 & 8487\tabularnewline
+48 & 36152 & 63848 & 33865 & 66135 & 9479\tabularnewline
+49 & 38714 & 61286 & 36242 & 63758 & 10125\tabularnewline
+50 & 41628 & 58372 & 38508 & 61492 & 11036\tabularnewline
+51 & 44483 & 55517 & 41023 & 58977 & 11704\tabularnewline
+52 & 48134 & 51866 & 44287 & 55713 & 12573\tabularnewline
+53 & 51138 & 48862 & 46721 & 53279 & 13223\tabularnewline
+54 & 54261 & 45739 & 49559 & 50441 & 13757\tabularnewline
+55 & 57647 & 42353 & 52403 & 47597 & 14324\tabularnewline
+56 & 60630 & 39370 & 55293 & 44707 & 14669\tabularnewline
+57 & 63647 & 36353 & 57787 & 42213 & 15103\tabularnewline
+58 & 66961 & 33039 & 60439 & 39561 & 15450\tabularnewline
+59 & 69968 & 30032 & 63708 & 36292 & 15246\tabularnewline
+60 & 72838 & 27162 & 66270 & 33730 & 15177\tabularnewline
+61 & 75609 & 24391 & 68873 & 31127 & 15006\tabularnewline
+62 & 77999 & 22001 & 71318 & 28682 & 14538\tabularnewline
+63 & 80616 & 19384 & 73517 & 26483 & 14510\tabularnewline
+64 & 83089 & 16911 & 76209 & 23791 & 13784\tabularnewline
+65 & 85150 & 14850 & 78086 & 21914 & 13412\tabularnewline
+66 & 86908 & 13092 & 80437 & 19563 & 12477\tabularnewline
+67 & 88671 & 11329 & 82379 & 17621 & 11718\tabularnewline
+68 & 90537 & 9463 & 84483 & 15517 & 10878\tabularnewline
+69 & 91969 & 8031 & 86233 & 13767 & 10033\tabularnewline
+70 & 93181 & 6819 & 87914 & 12086 & 9070\tabularnewline
+71 & 94330 & 5670 & 89200 & 10800 & 8401\tabularnewline
+72 & 95324 & 4676 & 90833 & 9167 & 7359\tabularnewline
+73 & 96143 & 3857 & 91805 & 8195 & 6726\tabularnewline
+74 & 96959 & 3041 & 93065 & 6935 & 5900\tabularnewline
+75 & 97543 & 2457 & 93987 & 6013 & 5222\tabularnewline
+76 & 97969 & 2031 & 94900 & 5100 & 4481\tabularnewline
+77 & 98497 & 1503 & 95756 & 4244 & 3809\tabularnewline
+78 & 98744 & 1256 & 96442 & 3558 & 3269\tabularnewline
+79 & 99045 & 955 & 96942 & 3058 & 2837\tabularnewline
+80 & 99276 & 724 & 97528 & 2472 & 2329\tabularnewline
+81 & 99481 & 519 & 97996 & 2004 & 1894\tabularnewline
+82 & 99556 & 444 & 98321 & 1679 & 1597\tabularnewline
+83 & 99691 & 309 & 98722 & 1278 & 1227\tabularnewline
+84 & 99752 & 248 & 98943 & 1057 & 1015\tabularnewline
+85 & 99833 & 167 & 99144 & 856 & 837\tabularnewline
+86 & 99895 & 105 & 99346 & 654 & 642\tabularnewline
+87 & 99925 & 75 & 99461 & 539 & 530\tabularnewline
+88 & 99945 & 55 & 99566 & 434 & 428\tabularnewline
+89 & 99976 & 24 & 99675 & 325 & 324\tabularnewline
+90 & 99977 & 23 & 99756 & 244 & 243\tabularnewline
+91 & 99982 & 18 & 99839 & 161 & 155\tabularnewline
+92 & 99988 & 12 & 99865 & 135 & 135\tabularnewline
+93 & 99994 & 6 & 99885 & 115 & 115\tabularnewline
+94 & 99993 & 7 & 99911 & 89 & 88\tabularnewline
+95 & 99998 & 2 & 99953 & 47 & 47\tabularnewline
+96 & 99999 & 1 & 99965 & 35 & 35\tabularnewline
+97 & 99999 & 1 & 99979 & 21 & 21\tabularnewline
+98 & 100000 & 0 & 99973 & 27 & 27\tabularnewline
+99 & 100000 & 0 & 99984 & 16 & 16\tabularnewline
+100 & 100000 & 0 & 99989 & 11 & 11\tabularnewline
+\bottomrule
+\end{longtable}
+
+Overall, as
+expected\textsuperscript{\protect\hyperlink{ref-Allesina2012}{1}},
+predator-prey communities are relatively stable while mutualist
+communties are highly unstable. But interestingly, while \(Var(\gamma)\)
+stabilises predator-prey and competitor communities, it does not
+stabilise mutualist communities. This is unsurprising because purely
+mutualist communities are characterised by a very positive (2) leading
+\(\Re(\lambda)\), and it is highly unlikely that \(Var(\gamma)\) alone
+will shift all real parts of eigenvalues to negative values.
+
+\hypertarget{connectance}{\section{Sensitivity of inter-connectivity (C)
+values}\label{connectance}}
+
+In the main text, for simplicity, I assumed inter-connectivity values of
+\(C = 1\), meaning that all off-diagonal elements of a matrix \(M\) were
+potentially nonzero and sampled from a normal distribution
+\(\mathcal{N}(0, \sigma^{2})\) where \(\sigma = 0.4\). Here I present
+four tables showing the number of stable communities given
+\(C = \{0.3, 0. 5, 0.7, 0.9 \}\). In all cases, uniform variation in
+component response time (\(\gamma \sim \mathcal{U}(0, 2)\)) led to a
+higher number of stable communities than when \(\gamma\) did not vary
+(\(\gamma = 1\)). In contrast to the main text, 100000 rather than 1
+million \(M\) were simulated. As with the results on
+\protect\hyperlink{IncrS}{stability with increasing \(S\)} shown above,
+in the tables below \texttt{A0} refers to matrices when \(\gamma = 1\),
+and \texttt{A1} refers to matrices after \(Var(\gamma)\) is added. The
+column \texttt{A0\_unstable} shows the number of \texttt{A0} matrices
+that are unstable, and the column \texttt{A0\_stable} shows the number
+of \texttt{A0} matrices that are stable (these two columns sum to
+100000). Similarly, the column \texttt{A1\_unstable} shows the number of
+\texttt{A1} matrices that are unstable and \texttt{A1\_stable} shows the
+number that are stable. The columns \texttt{A1\_stabilised} and
+\texttt{A1\_destabilised} show how many \texttt{A0} matrices were
+stabilised or destabilised, respectively, by \(Var(\gamma)\).
+
+\textbf{Connectance \(\mathbf{C = 0.3}\)}
+
+\begin{longtable}[]{@{}lllllll@{}}
+\toprule
+N & A0\_unstable & A0\_stable & A1\_unstable & A1\_stable &
+A1\_stabilised & A1\_destabilised\tabularnewline
+\midrule
+\endhead
+2 & 5 & 99995 & 5 & 99995 & 0 & 0\tabularnewline
+3 & 6 & 99994 & 6 & 99994 & 0 & 0\tabularnewline
+4 & 24 & 99976 & 24 & 99976 & 0 & 0\tabularnewline
+5 & 59 & 99941 & 59 & 99941 & 0 & 0\tabularnewline
+6 & 98 & 99902 & 98 & 99902 & 0 & 0\tabularnewline
+7 & 160 & 99840 & 161 & 99839 & 0 & 1\tabularnewline
+8 & 290 & 99710 & 293 & 99707 & 0 & 3\tabularnewline
+9 & 430 & 99570 & 434 & 99566 & 0 & 4\tabularnewline
+10 & 648 & 99352 & 653 & 99347 & 1 & 6\tabularnewline
+11 & 946 & 99054 & 957 & 99043 & 0 & 11\tabularnewline
+12 & 1392 & 98608 & 1415 & 98585 & 4 & 27\tabularnewline
+13 & 2032 & 97968 & 2065 & 97935 & 5 & 38\tabularnewline
+14 & 2627 & 97373 & 2688 & 97312 & 10 & 71\tabularnewline
+15 & 3588 & 96412 & 3647 & 96353 & 35 & 94\tabularnewline
+16 & 5019 & 94981 & 5124 & 94876 & 51 & 156\tabularnewline
+17 & 6512 & 93488 & 6673 & 93327 & 79 & 240\tabularnewline
+18 & 8444 & 91556 & 8600 & 91400 & 165 & 321\tabularnewline
+19 & 10416 & 89584 & 10667 & 89333 & 244 & 495\tabularnewline
+20 & 13254 & 86746 & 13477 & 86523 & 425 & 648\tabularnewline
+21 & 16248 & 83752 & 16481 & 83519 & 642 & 875\tabularnewline
+22 & 19497 & 80503 & 19719 & 80281 & 929 & 1151\tabularnewline
+23 & 23654 & 76346 & 23776 & 76224 & 1368 & 1490\tabularnewline
+24 & 28485 & 71515 & 28389 & 71611 & 1914 & 1818\tabularnewline
+25 & 32774 & 67226 & 32483 & 67517 & 2428 & 2137\tabularnewline
+26 & 38126 & 61874 & 37411 & 62589 & 3221 & 2506\tabularnewline
+27 & 43435 & 56565 & 42418 & 57582 & 3828 & 2811\tabularnewline
+28 & 49333 & 50667 & 47840 & 52160 & 4565 & 3072\tabularnewline
+29 & 55389 & 44611 & 53381 & 46619 & 5329 & 3321\tabularnewline
+30 & 60826 & 39174 & 58388 & 41612 & 5918 & 3480\tabularnewline
+31 & 66820 & 33180 & 64043 & 35957 & 6345 & 3568\tabularnewline
+32 & 72190 & 27810 & 69036 & 30964 & 6685 & 3531\tabularnewline
+33 & 77053 & 22947 & 73587 & 26413 & 6826 & 3360\tabularnewline
+34 & 81816 & 18184 & 78157 & 21843 & 6673 & 3014\tabularnewline
+35 & 85651 & 14349 & 82041 & 17959 & 6383 & 2773\tabularnewline
+36 & 88985 & 11015 & 85657 & 14343 & 5721 & 2393\tabularnewline
+37 & 92072 & 7928 & 88805 & 11195 & 5180 & 1913\tabularnewline
+38 & 94329 & 5671 & 91444 & 8556 & 4451 & 1566\tabularnewline
+39 & 95912 & 4088 & 93295 & 6705 & 3804 & 1187\tabularnewline
+40 & 97232 & 2768 & 95201 & 4799 & 2967 & 936\tabularnewline
+41 & 98179 & 1821 & 96506 & 3494 & 2356 & 683\tabularnewline
+42 & 98826 & 1174 & 97489 & 2511 & 1786 & 449\tabularnewline
+43 & 99275 & 725 & 98312 & 1688 & 1251 & 288\tabularnewline
+44 & 99583 & 417 & 98872 & 1128 & 903 & 192\tabularnewline
+45 & 99776 & 224 & 99339 & 661 & 576 & 139\tabularnewline
+46 & 99865 & 135 & 99518 & 482 & 413 & 66\tabularnewline
+47 & 99938 & 62 & 99744 & 256 & 226 & 32\tabularnewline
+48 & 99956 & 44 & 99824 & 176 & 151 & 19\tabularnewline
+49 & 99980 & 20 & 99914 & 86 & 85 & 19\tabularnewline
+50 & 99993 & 7 & 99950 & 50 & 46 & 3\tabularnewline
+51 & 99998 & 2 & 99971 & 29 & 28 & 1\tabularnewline
+52 & 99998 & 2 & 99986 & 14 & 14 & 2\tabularnewline
+53 & 99999 & 1 & 99992 & 8 & 7 & 0\tabularnewline
+54 & 100000 & 0 & 99997 & 3 & 3 & 0\tabularnewline
+55 & 100000 & 0 & 99999 & 1 & 1 & 0\tabularnewline
+56 & 100000 & 0 & 99998 & 2 & 2 & 0\tabularnewline
+57 & 100000 & 0 & 99999 & 1 & 1 & 0\tabularnewline
+58 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+\ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} &
+\ldots{}\tabularnewline
+100 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+\bottomrule
+\end{longtable}
+
+\textbf{Connectance \(\mathbf{C = 0.5}\)}
+
+\begin{longtable}[]{@{}lllllll@{}}
+\toprule
+N & A0\_unstable & A0\_stable & A1\_unstable & A1\_stable &
+A1\_stabilised & A1\_destabilised\tabularnewline
+\midrule
+\endhead
+2 & 7 & 99993 & 7 & 99993 & 0 & 0\tabularnewline
+3 & 32 & 99968 & 32 & 99968 & 0 & 0\tabularnewline
+4 & 122 & 99878 & 122 & 99878 & 0 & 0\tabularnewline
+5 & 320 & 99680 & 321 & 99679 & 0 & 1\tabularnewline
+6 & 667 & 99333 & 673 & 99327 & 0 & 6\tabularnewline
+7 & 1233 & 98767 & 1252 & 98748 & 0 & 19\tabularnewline
+8 & 2123 & 97877 & 2156 & 97844 & 3 & 36\tabularnewline
+9 & 3415 & 96585 & 3471 & 96529 & 16 & 72\tabularnewline
+10 & 5349 & 94651 & 5450 & 94550 & 30 & 131\tabularnewline
+11 & 7990 & 92010 & 8185 & 91815 & 81 & 276\tabularnewline
+12 & 11073 & 88927 & 11301 & 88699 & 219 & 447\tabularnewline
+13 & 14971 & 85029 & 15204 & 84796 & 445 & 678\tabularnewline
+14 & 19754 & 80246 & 19992 & 80008 & 764 & 1002\tabularnewline
+15 & 25020 & 74980 & 25239 & 74761 & 1185 & 1404\tabularnewline
+16 & 30860 & 69140 & 30938 & 69062 & 1902 & 1980\tabularnewline
+17 & 37844 & 62156 & 37562 & 62438 & 2758 & 2476\tabularnewline
+18 & 44909 & 55091 & 44251 & 55749 & 3595 & 2937\tabularnewline
+19 & 52322 & 47678 & 51011 & 48989 & 4573 & 3262\tabularnewline
+20 & 60150 & 39850 & 58295 & 41705 & 5382 & 3527\tabularnewline
+21 & 67147 & 32853 & 64895 & 35105 & 5925 & 3673\tabularnewline
+22 & 74177 & 25823 & 71358 & 28642 & 6310 & 3491\tabularnewline
+23 & 80297 & 19703 & 77034 & 22966 & 6507 & 3244\tabularnewline
+24 & 85372 & 14628 & 82039 & 17961 & 6209 & 2876\tabularnewline
+25 & 89719 & 10281 & 86539 & 13461 & 5562 & 2382\tabularnewline
+26 & 92947 & 7053 & 90141 & 9859 & 4707 & 1901\tabularnewline
+27 & 95436 & 4564 & 92950 & 7050 & 3844 & 1358\tabularnewline
+28 & 97196 & 2804 & 95171 & 4829 & 2999 & 974\tabularnewline
+29 & 98300 & 1700 & 96842 & 3158 & 2115 & 657\tabularnewline
+30 & 99103 & 897 & 98033 & 1967 & 1466 & 396\tabularnewline
+31 & 99502 & 498 & 98665 & 1335 & 1068 & 231\tabularnewline
+32 & 99745 & 255 & 99185 & 815 & 696 & 136\tabularnewline
+33 & 99881 & 119 & 99572 & 428 & 375 & 66\tabularnewline
+34 & 99955 & 45 & 99788 & 212 & 191 & 24\tabularnewline
+35 & 99979 & 21 & 99900 & 100 & 95 & 16\tabularnewline
+36 & 99995 & 5 & 99950 & 50 & 50 & 5\tabularnewline
+37 & 99997 & 3 & 99970 & 30 & 28 & 1\tabularnewline
+38 & 99998 & 2 & 99986 & 14 & 13 & 1\tabularnewline
+39 & 99999 & 1 & 99991 & 9 & 9 & 1\tabularnewline
+40 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+41 & 100000 & 0 & 99999 & 1 & 1 & 0\tabularnewline
+42 & 100000 & 0 & 99999 & 1 & 1 & 0\tabularnewline
+43 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+\ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} &
+\ldots{}\tabularnewline
+50 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+\bottomrule
+\end{longtable}
+
+\textbf{Connectance \(\mathbf{C = 0.7}\)}
+
+\begin{longtable}[]{@{}lllllll@{}}
+\toprule
+N & A0\_unstable & A0\_stable & A1\_unstable & A1\_stable &
+A1\_stabilised & A1\_destabilised\tabularnewline
+\midrule
+\endhead
+2 & 7 & 99993 & 7 & 99993 & 0 & 0\tabularnewline
+3 & 106 & 99894 & 106 & 99894 & 0 & 0\tabularnewline
+4 & 395 & 99605 & 397 & 99603 & 0 & 2\tabularnewline
+5 & 1117 & 98883 & 1123 & 98877 & 0 & 6\tabularnewline
+6 & 2346 & 97654 & 2367 & 97633 & 6 & 27\tabularnewline
+7 & 4314 & 95686 & 4388 & 95612 & 16 & 90\tabularnewline
+8 & 7327 & 92673 & 7456 & 92544 & 61 & 190\tabularnewline
+9 & 11514 & 88486 & 11792 & 88208 & 150 & 428\tabularnewline
+10 & 16247 & 83753 & 16584 & 83416 & 415 & 752\tabularnewline
+11 & 22481 & 77519 & 22759 & 77241 & 884 & 1162\tabularnewline
+12 & 29459 & 70541 & 29729 & 70271 & 1548 & 1818\tabularnewline
+13 & 37631 & 62369 & 37567 & 62433 & 2419 & 2355\tabularnewline
+14 & 46317 & 53683 & 45696 & 54304 & 3548 & 2927\tabularnewline
+15 & 54945 & 45055 & 53695 & 46305 & 4671 & 3421\tabularnewline
+16 & 63683 & 36317 & 61643 & 38357 & 5567 & 3527\tabularnewline
+17 & 72004 & 27996 & 69375 & 30625 & 6124 & 3495\tabularnewline
+18 & 79220 & 20780 & 76158 & 23842 & 6413 & 3351\tabularnewline
+19 & 85286 & 14714 & 82283 & 17717 & 5982 & 2979\tabularnewline
+20 & 90240 & 9760 & 87181 & 12819 & 5398 & 2339\tabularnewline
+21 & 93676 & 6324 & 91077 & 8923 & 4468 & 1869\tabularnewline
+22 & 96203 & 3797 & 94045 & 5955 & 3425 & 1267\tabularnewline
+23 & 97866 & 2134 & 96161 & 3839 & 2496 & 791\tabularnewline
+24 & 98842 & 1158 & 97633 & 2367 & 1713 & 504\tabularnewline
+25 & 99433 & 567 & 98630 & 1370 & 1079 & 276\tabularnewline
+26 & 99760 & 240 & 99259 & 741 & 655 & 154\tabularnewline
+27 & 99895 & 105 & 99576 & 424 & 377 & 58\tabularnewline
+28 & 99950 & 50 & 99790 & 210 & 194 & 34\tabularnewline
+29 & 99981 & 19 & 99915 & 85 & 80 & 14\tabularnewline
+30 & 99994 & 6 & 99952 & 48 & 47 & 5\tabularnewline
+31 & 99998 & 2 & 99972 & 28 & 28 & 2\tabularnewline
+32 & 99999 & 1 & 99992 & 8 & 8 & 1\tabularnewline
+33 & 100000 & 0 & 99997 & 3 & 3 & 0\tabularnewline
+34 & 100000 & 0 & 99999 & 1 & 1 & 0\tabularnewline
+35 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+\ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} &
+\ldots{}\tabularnewline
+50 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+\bottomrule
+\end{longtable}
+
+\textbf{Connectance \(\mathbf{C = 0.9}\)}
+
+\begin{longtable}[]{@{}lllllll@{}}
+\toprule
+N & A0\_unstable & A0\_stable & A1\_unstable & A1\_stable &
+A1\_stabilised & A1\_destabilised\tabularnewline
+\midrule
+\endhead
+2 & 14 & 99986 & 14 & 99986 & 0 & 0\tabularnewline
+3 & 240 & 99760 & 240 & 99760 & 0 & 0\tabularnewline
+4 & 1008 & 98992 & 1016 & 98984 & 0 & 8\tabularnewline
+5 & 2708 & 97292 & 2729 & 97271 & 2 & 23\tabularnewline
+6 & 5669 & 94331 & 5755 & 94245 & 13 & 99\tabularnewline
+7 & 9848 & 90152 & 10057 & 89943 & 91 & 300\tabularnewline
+8 & 15903 & 84097 & 16201 & 83799 & 336 & 634\tabularnewline
+9 & 22707 & 77293 & 23110 & 76890 & 765 & 1168\tabularnewline
+10 & 30796 & 69204 & 31122 & 68878 & 1526 & 1852\tabularnewline
+11 & 40224 & 59776 & 40082 & 59918 & 2649 & 2507\tabularnewline
+12 & 49934 & 50066 & 49288 & 50712 & 3773 & 3127\tabularnewline
+13 & 60138 & 39862 & 58803 & 41197 & 4984 & 3649\tabularnewline
+14 & 69100 & 30900 & 67110 & 32890 & 5755 & 3765\tabularnewline
+15 & 77607 & 22393 & 74884 & 25116 & 6273 & 3550\tabularnewline
+16 & 84663 & 15337 & 81780 & 18220 & 5975 & 3092\tabularnewline
+17 & 90075 & 9925 & 87290 & 12710 & 5209 & 2424\tabularnewline
+18 & 93944 & 6056 & 91419 & 8581 & 4271 & 1746\tabularnewline
+19 & 96650 & 3350 & 94530 & 5470 & 3287 & 1167\tabularnewline
+20 & 98160 & 1840 & 96698 & 3302 & 2191 & 729\tabularnewline
+21 & 99111 & 889 & 98133 & 1867 & 1389 & 411\tabularnewline
+22 & 99588 & 412 & 98905 & 1095 & 903 & 220\tabularnewline
+23 & 99837 & 163 & 99480 & 520 & 452 & 95\tabularnewline
+24 & 99932 & 68 & 99744 & 256 & 228 & 40\tabularnewline
+25 & 99976 & 24 & 99863 & 137 & 133 & 20\tabularnewline
+26 & 99995 & 5 & 99950 & 50 & 49 & 4\tabularnewline
+27 & 99996 & 4 & 99986 & 14 & 13 & 3\tabularnewline
+28 & 100000 & 0 & 99993 & 7 & 7 & 0\tabularnewline
+29 & 100000 & 0 & 99996 & 4 & 4 & 0\tabularnewline
+30 & 100000 & 0 & 99998 & 2 & 2 & 0\tabularnewline
+31 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+\ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} &
+\ldots{}\tabularnewline
+50 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+\bottomrule
+\end{longtable}
+
+\hypertarget{sigma}{\section{\texorpdfstring{Sensitivity of interaction
+strength (\(\sigma\))
+values}{Sensitivity of interaction strength (\textbackslash{}sigma) values}}\label{sigma}}
+
+\textbf{ADD TEXT ABOUT COMPARISON WITH ALLESINA AND VALUES ACROSS SIGMA}
+
+\textbf{Interaction strength \(\mathbf{\sigma = 0.3}\)}
+
+\begin{longtable}[]{@{}rrrrrrr@{}}
+\toprule
+S & A0\_unstable & A0\_stable & A1\_unstable & A1\_stable &
+A1\_stabilised & A1\_destabilised\tabularnewline
+\midrule
+\endhead
+10 & 0 & 100000 & 0 & 100000 & 0 & 0\tabularnewline
+20 & 0 & 100000 & 0 & 100000 & 0 & 0\tabularnewline
+30 & 0 & 100000 & 0 & 100000 & 0 & 0\tabularnewline
+40 & 0 & 100000 & 0 & 100000 & 0 & 0\tabularnewline
+50 & 0 & 100000 & 0 & 100000 & 0 & 0\tabularnewline
+60 & 2 & 99998 & 2 & 99998 & 0 & 0\tabularnewline
+70 & 4 & 99996 & 4 & 99996 & 0 & 0\tabularnewline
+80 & 6 & 99994 & 6 & 99994 & 0 & 0\tabularnewline
+90 & 5 & 99995 & 5 & 99995 & 0 & 0\tabularnewline
+100 & 11 & 99989 & 11 & 99989 & 0 & 0\tabularnewline
+110 & 12 & 99988 & 13 & 99987 & 0 & 1\tabularnewline
+120 & 23 & 99977 & 23 & 99977 & 0 & 0\tabularnewline
+130 & 40 & 99960 & 40 & 99960 & 0 & 0\tabularnewline
+140 & 62 & 99938 & 65 & 99935 & 0 & 3\tabularnewline
+150 & 162 & 99838 & 165 & 99835 & 0 & 3\tabularnewline
+160 & 325 & 99675 & 329 & 99671 & 2 & 6\tabularnewline
+170 & 829 & 99171 & 851 & 99149 & 6 & 28\tabularnewline
+180 & 1817 & 98183 & 1860 & 98140 & 31 & 74\tabularnewline
+190 & 3927 & 96073 & 3989 & 96011 & 143 & 205\tabularnewline
+200 & 8084 & 91916 & 8048 & 91952 & 557 & 521\tabularnewline
+210 & 15558 & 84442 & 15147 & 84853 & 1534 & 1123\tabularnewline
+220 & 26848 & 73152 & 25342 & 74658 & 3625 & 2119\tabularnewline
+230 & 43386 & 56614 & 39535 & 60465 & 6992 & 3141\tabularnewline
+240 & 62734 & 37266 & 56684 & 43316 & 9815 & 3765\tabularnewline
+250 & 80128 & 19872 & 73080 & 26920 & 10128 & 3080\tabularnewline
+260 & 92206 & 7794 & 86619 & 13381 & 7490 & 1903\tabularnewline
+270 & 97946 & 2054 & 94824 & 5176 & 3797 & 675\tabularnewline
+280 & 99659 & 341 & 98534 & 1466 & 1265 & 140\tabularnewline
+290 & 99962 & 38 & 99696 & 304 & 281 & 15\tabularnewline
+300 & 99994 & 6 & 99964 & 36 & 34 & 4\tabularnewline
+\bottomrule
+\end{longtable}
+
+\textbf{Interaction strength \(\mathbf{\sigma = 0.4}\)}
+
+\begin{longtable}[]{@{}lllllll@{}}
+\toprule
+S & A0\_unstable & A0\_stable & A1\_unstable & A1\_stable &
+A1\_stabilised & A1\_destabilised\tabularnewline
+\midrule
+\endhead
+10 & 3 & 99997 & 3 & 99997 & 0 & 0\tabularnewline
+20 & 15 & 99985 & 15 & 99985 & 0 & 0\tabularnewline
+30 & 48 & 99952 & 48 & 99952 & 0 & 0\tabularnewline
+40 & 85 & 99915 & 85 & 99915 & 0 & 0\tabularnewline
+50 & 163 & 99837 & 163 & 99837 & 0 & 0\tabularnewline
+60 & 280 & 99720 & 282 & 99718 & 0 & 2\tabularnewline
+70 & 561 & 99439 & 566 & 99434 & 3 & 8\tabularnewline
+80 & 1009 & 98991 & 1029 & 98971 & 6 & 26\tabularnewline
+90 & 2126 & 97874 & 2175 & 97825 & 31 & 80\tabularnewline
+100 & 4580 & 95420 & 4653 & 95347 & 142 & 215\tabularnewline
+110 & 9540 & 90460 & 9632 & 90368 & 465 & 557\tabularnewline
+120 & 19090 & 80910 & 18668 & 81332 & 1676 & 1254\tabularnewline
+130 & 35047 & 64953 & 33220 & 66780 & 4172 & 2345\tabularnewline
+140 & 56411 & 43589 & 52439 & 47561 & 7297 & 3325\tabularnewline
+150 & 78003 & 21997 & 72574 & 27426 & 8477 & 3048\tabularnewline
+160 & 92678 & 7322 & 88438 & 11562 & 5901 & 1661\tabularnewline
+170 & 98614 & 1386 & 96670 & 3330 & 2397 & 453\tabularnewline
+180 & 99839 & 161 & 99418 & 582 & 499 & 78\tabularnewline
+190 & 99990 & 10 & 99945 & 55 & 52 & 7\tabularnewline
+200 & 100000 & 0 & 99995 & 5 & 5 & 0\tabularnewline
+210 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+\ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} &
+\ldots{}\tabularnewline
+300 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+\bottomrule
+\end{longtable}
+
+\textbf{Interaction strength \(\mathbf{\sigma = 0.5}\)}
+
+\begin{longtable}[]{@{}lllllll@{}}
+\toprule
+S & A0\_unstable & A0\_stable & A1\_unstable & A1\_stable &
+A1\_stabilised & A1\_destabilised\tabularnewline
+\midrule
+\endhead
+10 & 36 & 99964 & 36 & 99964 & 0 & 0\tabularnewline
+20 & 195 & 99805 & 195 & 99805 & 0 & 0\tabularnewline
+30 & 519 & 99481 & 523 & 99477 & 0 & 4\tabularnewline
+40 & 1096 & 98904 & 1101 & 98899 & 2 & 7\tabularnewline
+50 & 2375 & 97625 & 2397 & 97603 & 9 & 31\tabularnewline
+60 & 4898 & 95102 & 4968 & 95032 & 83 & 153\tabularnewline
+70 & 10841 & 89159 & 10916 & 89084 & 432 & 507\tabularnewline
+80 & 22281 & 77719 & 21988 & 78012 & 1622 & 1329\tabularnewline
+90 & 42010 & 57990 & 39998 & 60002 & 4458 & 2446\tabularnewline
+100 & 67289 & 32711 & 63098 & 36902 & 7153 & 2962\tabularnewline
+110 & 88137 & 11863 & 84023 & 15977 & 6108 & 1994\tabularnewline
+120 & 97678 & 2322 & 95557 & 4443 & 2740 & 619\tabularnewline
+130 & 99795 & 205 & 99304 & 696 & 578 & 87\tabularnewline
+140 & 99989 & 11 & 99948 & 52 & 49 & 8\tabularnewline
+150 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+\ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} &
+\ldots{}\tabularnewline
+300 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+\bottomrule
+\end{longtable}
+
+\textbf{Interaction strength \(\mathbf{\sigma = 0.6}\)}
+
+\begin{longtable}[]{@{}lllllll@{}}
+\toprule
+S & A0\_unstable & A0\_stable & A1\_unstable & A1\_stable &
+A1\_stabilised & A1\_destabilised\tabularnewline
+\midrule
+\endhead
+10 & 162 & 99838 & 162 & 99838 & 0 & 0\tabularnewline
+20 & 798 & 99202 & 799 & 99201 & 0 & 1\tabularnewline
+30 & 2273 & 97727 & 2289 & 97711 & 6 & 22\tabularnewline
+40 & 5259 & 94741 & 5298 & 94702 & 70 & 109\tabularnewline
+50 & 12084 & 87916 & 12054 & 87946 & 446 & 416\tabularnewline
+60 & 26072 & 73928 & 25511 & 74489 & 1810 & 1249\tabularnewline
+70 & 50121 & 49879 & 47747 & 52253 & 4748 & 2374\tabularnewline
+80 & 77806 & 22194 & 73810 & 26190 & 6421 & 2425\tabularnewline
+90 & 94862 & 5138 & 92069 & 7931 & 3842 & 1049\tabularnewline
+100 & 99527 & 473 & 98822 & 1178 & 870 & 165\tabularnewline
+110 & 99984 & 16 & 99912 & 88 & 80 & 8\tabularnewline
+120 & 100000 & 0 & 99998 & 2 & 2 & 0\tabularnewline
+130 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+\ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} &
+\ldots{}\tabularnewline
+300 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+\bottomrule
+\end{longtable}
+
+\hypertarget{gam_dist}{\section{\texorpdfstring{Sensitivity of
+distribution of
+\(\gamma\)}{Sensitivity of distribution of \textbackslash{}gamma}}\label{gam_dist}}
+
+In the main text, I considered a uniform distribution of component
+response rates \(\gamma \sim \mathcal{U}(0, 2)\). The number of unstable
+and stable \(M\) matrices are reported in \protect\hyperlink{IncrS}{a
+table above} across different values of \(S\). Here I show complementary
+results for three different distributions including an exponential,
+beta, and gamma distribution of \(\gamma\) values. The shape of these
+distributions is shown in the figure below.
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\textbf{Distributions of component response rate
+(\(\boldsymbol{\gamma}\)) values in complex systems.} The stabilities of
+simulated complex systems with these \(\gamma\) distributions are
+compared to otherwise identical complex systems with a fixed component
+response rate of \(\gamma = 1\) across different system sizes (\(S\);
+i.e., component numbers) given a unit \(\gamma\) standard deviation
+(\(\sigma_{\gamma} = 1\)) for b-d. Distributions are as follows: (a)
+uniform, (b) exponential, (c) beta (\(\alpha = 0.5\) and
+\(\beta = 0.5\)), and (d) gamma (\(k = 2\) and \(\theta = 2\)). Each
+panel shows 1 million randomly generated \(\gamma\) values.
+
+\includegraphics{SI_files/figure-latex/unnamed-chunk-23-1.pdf}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+The same 100000 \(M\) matrices were used to investigate stability when
+applying each of these different distributions of \(\gamma\) values. The
+table below shows the number of \(M\) that were unstable (\_unst) and
+stable (\_stbl) for the exponential (Exp), beta, and gamma
+distributions.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fourdists <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\DataTypeTok{file =} \StringTok{"sim_results/different_distr/four_distr_rand.csv"}\NormalTok{);}
+\KeywordTok{kable}\NormalTok{(fourdists);}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}lllllll@{}}
+\toprule
+S & Exp\_unst & Exp\_stbl & beta\_unst & beta\_stbl & gamma\_unst &
+gamma\_stbl\tabularnewline
+\midrule
+\endhead
+2 & 30 & 99970 & 30 & 99970 & 30 & 99970\tabularnewline
+3 & 355 & 99645 & 355 & 99645 & 355 & 99645\tabularnewline
+4 & 1506 & 98494 & 1512 & 98488 & 1516 & 98484\tabularnewline
+5 & 3930 & 96070 & 3971 & 96029 & 4006 & 95994\tabularnewline
+6 & 7738 & 92262 & 7844 & 92156 & 7918 & 92082\tabularnewline
+7 & 13606 & 86394 & 13889 & 86111 & 13990 & 86010\tabularnewline
+8 & 20535 & 79465 & 21002 & 78998 & 21114 & 78886\tabularnewline
+9 & 28614 & 71386 & 29060 & 70940 & 29110 & 70890\tabularnewline
+10 & 38375 & 61625 & 38388 & 61612 & 38441 & 61559\tabularnewline
+11 & 48616 & 51384 & 48211 & 51789 & 47957 & 52043\tabularnewline
+12 & 59254 & 40746 & 58025 & 41975 & 57473 & 42527\tabularnewline
+13 & 68816 & 31184 & 66753 & 33247 & 66127 & 33873\tabularnewline
+14 & 77721 & 22279 & 75149 & 24851 & 74222 & 25778\tabularnewline
+15 & 84842 & 15158 & 82030 & 17970 & 81040 & 18960\tabularnewline
+16 & 90365 & 9635 & 87809 & 12191 & 86600 & 13400\tabularnewline
+17 & 94171 & 5829 & 91756 & 8244 & 90668 & 9332\tabularnewline
+18 & 96978 & 3022 & 94977 & 5023 & 94176 & 5824\tabularnewline
+19 & 98376 & 1624 & 97018 & 2982 & 96268 & 3732\tabularnewline
+20 & 99218 & 782 & 98357 & 1643 & 97765 & 2235\tabularnewline
+21 & 99678 & 322 & 99124 & 876 & 98746 & 1254\tabularnewline
+22 & 99864 & 136 & 99599 & 401 & 99323 & 677\tabularnewline
+23 & 99954 & 46 & 99783 & 217 & 99668 & 332\tabularnewline
+24 & 99978 & 22 & 99920 & 80 & 99821 & 179\tabularnewline
+25 & 99996 & 4 & 99967 & 33 & 99911 & 89\tabularnewline
+26 & 99999 & 1 & 99979 & 21 & 99960 & 40\tabularnewline
+27 & 99999 & 1 & 99990 & 10 & 99983 & 17\tabularnewline
+28 & 100000 & 0 & 99999 & 1 & 99991 & 9\tabularnewline
+29 & 100000 & 0 & 99999 & 1 & 99999 & 1\tabularnewline
+30 & 100000 & 0 & 100000 & 0 & 100000 & 0\tabularnewline
+31 & 100000 & 0 & 100000 & 0 & 99999 & 1\tabularnewline
+32 & 100000 & 0 & 100000 & 0 & 100000 & 0\tabularnewline
+\ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} &
+\ldots{}\tabularnewline
+50 & 100000 & 0 & 100000 & 0 & 100000 & 0\tabularnewline
+\bottomrule
+\end{longtable}
+
+In comparison to the uniform distribution (a), proportionally fewer
+random systems are found with the exponential distribution (b), while
+more are found with the beta (c) and gamma (d) distributions.
+
+\hypertarget{Feasibility}{\section{Feasibility of complex
+systems}\label{Feasibility}}
+
+When feasibility was evaluated with and without variation in \(\gamma\),
+there was no increase in stability for \(M\) where \(\gamma\) varied as
+compared to where \(\gamma = 1\). Results below illustrate this result,
+which was general to all other simulations performed.
+
+\begin{longtable}[]{@{}rrrrrrr@{}}
+\toprule
+S & A0\_infeasible & A0\_feasible & A1\_infeasible & A1\_feasible &
+A1\_made\_feasible & A1\_made\_infeasible\tabularnewline
+\midrule
+\endhead
+2 & 749978 & 250022 & 749942 & 250058 & 35552 & 35516\tabularnewline
+3 & 874519 & 125481 & 874296 & 125704 & 36803 & 36580\tabularnewline
+4 & 937192 & 62808 & 937215 & 62785 & 26440 & 26463\tabularnewline
+5 & 968776 & 31224 & 968639 & 31361 & 16319 & 16182\tabularnewline
+6 & 984313 & 15687 & 984463 & 15537 & 9006 & 9156\tabularnewline
+7 & 992149 & 7851 & 992161 & 7839 & 4991 & 5003\tabularnewline
+8 & 996124 & 3876 & 996103 & 3897 & 2644 & 2623\tabularnewline
+9 & 998014 & 1986 & 998027 & 1973 & 1361 & 1374\tabularnewline
+10 & 999031 & 969 & 999040 & 960 & 698 & 707\tabularnewline
+11 & 999546 & 454 & 999514 & 486 & 377 & 345\tabularnewline
+12 & 999764 & 236 & 999792 & 208 & 160 & 188\tabularnewline
+13 & 999883 & 117 & 999865 & 135 & 105 & 87\tabularnewline
+14 & 999938 & 62 & 999945 & 55 & 40 & 47\tabularnewline
+15 & 999971 & 29 & 999964 & 36 & 31 & 24\tabularnewline
+16 & 999988 & 12 & 999991 & 9 & 8 & 11\tabularnewline
+17 & 999996 & 4 & 999991 & 9 & 8 & 3\tabularnewline
+18 & 999997 & 3 & 999999 & 1 & 1 & 3\tabularnewline
+19 & 999998 & 2 & 999997 & 3 & 3 & 2\tabularnewline
+20 & 1000000 & 0 & 999999 & 1 & 1 & 0\tabularnewline
+21 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+22 & 999999 & 1 & 1000000 & 0 & 0 & 1\tabularnewline
+23 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+24 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+25 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+26 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+27 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+28 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+29 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+30 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+31 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+32 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+33 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+34 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+35 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+36 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+37 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+38 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+39 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+40 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+41 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+42 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+43 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+44 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+45 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+46 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+47 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+48 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+49 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+50 & 1000000 & 0 & 1000000 & 0 & 0 & 0\tabularnewline
+\bottomrule
+\end{longtable}
+
+Hence, in general, \(Var(\gamma)\) does not appear to affect feasibility
+in pure species interaction networks.
+
+\section*{References}\label{references}
+\addcontentsline{toc}{section}{References}
+
+\hypertarget{refs}{}
+\hypertarget{ref-Allesina2012}{}
+1. Allesina, S. \& Tang, S. Stability criteria for complex ecosystems.
+\emph{Nature} \textbf{483,} 205--208 (2012).
+
+
+\end{document}
