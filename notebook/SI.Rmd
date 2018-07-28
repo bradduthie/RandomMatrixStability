@@ -52,252 +52,42 @@ The code below installs the RandomMatrixStability package using devtools.
 install_github("bradduthie/RandomMatrixStability");
 ```
 
-While downloading this package is recommended, all relevant code is also reproduced below with explanation, so it is possible to recreate all analyses using only this supplemental information.
 
 ********************************************************************************
 
 Supplemental Information table of contents
 ================================================================================
 
-- [Further explanation of $\gamma$](#moregamma)
-- [Code and simulations underlying Fig. 1](#Fig1) 
-- [Code and simulations underlying Fig. 2](#Fig2) 
+
 - [Stability across increasing $S$](#IncrS) 
+- [Stability given targetted manipulation of $\gamma$ (genetic algorithm)](#ga)
 - [Stability of ecological networks](#ecological) 
     - [Competitor networks](#competition) 
     - [Mutualist networks](#mutualism) 
     - [Predator-prey networks](#pred-prey) 
-- [Different connectance (C) values](#connectance)
+- [Sensitivity of connectance (C) values](#connectance)
     - [C = 0.3](#connect3)
     - [C = 0.5](#connect5)
     - [C = 0.7](#connect7)
     - [C = 0.9](#connect9)
-- [Different distributions of $\gamma$](#gam_dist)
-- [Genetic algorithm](#ga) 
+- [Large networks of $C = 0.05$ across $S$ and $\sigma$](#sigma)  
+    - [$\sigma$ = 0.3](#sigma3)
+    - [$\sigma$ = 0.4](#sigma4)
+    - [$\sigma$ = 0.5](#sigma5)
+    - [$\sigma$ = 0.6](#sigma6)
+- [Sensitivity of distribution of $\gamma$](#gam_dist)
 - [Feasibility of complex systems](#Feasibility)
-
-
-Further explanation of $\gamma$ {#moregamma}
-================================================================================
-
-In a synthesis of eco-evolutionary feedbacks on community stability, Patel et al. model a system that includes a vector of potentially changing species densities ($\mathbf{N}$) and a vector of potentially evolving traits ($\mathbf{x}$)[@Patel2018]. For any species $i$ or trait $j$, change in species density ($N_{i}$) or trait value ($x_{j}$) with time ($t$) is a function of the vectors $\mathbf{N}$ and $\mathbf{x}$,
-
-$$\frac{dN_{i}}{dt} = N_{i}f_{i}(\mathbf{N}, \mathbf{x}),$$
-
-$$\frac{dx_{j}}{dt} = \epsilon g_{j}(\mathbf{N}, \mathbf{x}).$$
-
-In the above, $f_{i}$ and $g_{j}$ are functions that define the effects of all species densities and trait values on the density of a species $i$ and the value of trait $j$, respectively. Patel et al. were interested in stability when the evolution of traits was relatively slow or fast in comparison with the change in species densities[@Patel2018], and this is modulated in the above by the scalar $\epsilon$. The value of $\epsilon$ thereby determines the timescale separation between ecology and evolution, with high $\epsilon$ modelling relatively fast evolution and low $\epsilon$ modelling relative slow evolution[@Patel2018]. 
-
-I use the same principle that Patel et al. use to modulate the relative rate of evolution to modulate rates of component responses for $S$ components. Following May[@May1972; @May1973], the value of a component $i$ at time $t$ ($v_{i}(t)$) is affected by the value of $j$ ($v_{j}(t)$) and $j$'s marginal effect on $i$ ($m_{ij}$), and by $i$'s response rate ($\gamma_{i}$),
-
-$$\frac{dv_{i}(t)}{dt} = \gamma_{i} \sum_{j=1}^{S}m_{ij}v_{j}(t).$$
-
-In matrix notation[@May1973],
-
-$$\frac{d\mathbf{v}(t)}{dt} = \mathbf{\gamma} \mathbf{M}\mathbf{v}(t).$$
-
-In the above, $\mathbf{\gamma}$ is a diagonal matrix in which elements correspond to individual component response rates. Therefore, $\mathbf{\gamma} \mathbf{M}$ modulates the values of components and can be analysed using the techniques of May[@May1972; @May1973]. 
-
-
-Code and simulations underlying Fig. 1 {#Fig1}
-================================================================================
-
-The sample $M$ used for the eigenvalue distributions in Fig. 1 of the text is available on [GitHub](https://github.com/bradduthie/RandomMatrixStability/tree/master/sim_results/bi_gamma), and was produced by running the following function.
-
-```{r}
-find_bgamma <- function(S = 200, C = 0.05, Osd = 0.4, iters = 10000){
-    while(iters > 0){
-        A_dat  <- rnorm(n = S * S, mean = 0, sd = Osd);
-        A_mat  <- matrix(data = A_dat, nrow = S);
-        C_dat  <- rbinom(n = S * S, size = 1, prob = C);
-        C_mat  <- matrix(data = C_dat, nrow = S, ncol = S);
-        A_mat  <- A_mat * C_mat;
-        gammas <- c(rep(1.95, S/2), rep(0.05, S/2))
-        mu_gam <- mean(gammas);
-        diag(A_mat) <- -1;
-        A1     <- gammas * A_mat;
-        A0     <- mu_gam * A_mat;
-        A0_e   <- eigen(A0)$values;
-        A0_r   <- Re(A0_e);
-        A0_i   <- Im(A0_e);
-        A1_e   <- eigen(A1)$values;
-        A1_r   <- Re(A1_e);
-        A1_i   <- Im(A1_e);
-        if(max(A0_r) >= 0 & max(A1_r) < 0){
-            return(list(A0 = A0, A1 = A1));
-            break;
-        }
-        print(iters);
-        iters <- iters - 1;
-    }
-}
-```
-
-The above `find_bgamma` function terminates when a matrix $M$ is found that is not stable when all component response rates are set to $\gamma = 1$, but is stable when half of component response rates are $1.95$ and half are $0.05$. The function is used to illustrate the concept of how fast versus slow component responses can cause a system to become stable. Simulations were run for `iter = 1000000`, but terminated once an acceptable `A0` and `A1` were found. The code below plots the eigenvalue distributions of `A0` and `A1` in panels **a** and **b**, respectively. The plot itself can be recreated with the function and code below.
-
-```{r, echo = FALSE}
-A0 <- read.csv("sim_results/bi_gamma/S200_A0.csv");
-A1 <- read.csv("sim_results/bi_gamma/S200_A1.csv");
-```
-
-```{r, echo = TRUE, fig.height = 5, fig.width = 8}
-A0 <- as.matrix(A0[,-1]);
-A1 <- as.matrix(A1[,-1]);
-plot_Fig_1 <- function(A0, A1){
-    S_val       <- dim(A0)[1];
-    A0_e        <- eigen(A0)$values;
-    A0_r        <- Re(A0_e);
-    A0_i        <- Im(A0_e);
-    A1_e        <- eigen(A1)$values;
-    A1_r        <- Re(A1_e);
-    A1_i        <- Im(A1_e);
-    A0_vm       <- A0;
-    diag(A0_vm) <- NA;
-    A0vec       <- as.vector(t(A0_vm));
-    A0vec       <- A0vec[is.na(A0vec) == FALSE];
-    A1_vm       <- A1;
-    diag(A1_vm) <- NA;
-    A1vec       <- as.vector(t(A1_vm));
-    A1vec       <- A1vec[is.na(A1vec) == FALSE];
-    fhalf       <- 1:(0.5*length(A1vec));
-    shalf       <- (0.5*length(A1vec)+1):length(A1vec);
-    par(mfrow = c(1, 2), mar = c(0.5, 0.5, 0.5, 0.5), oma = c(5, 5, 0, 0));
-    plot(A0_r, A0_i, xlim = c(-3.7, 0.3), ylim = c(-2, 2), pch = 4, cex = 0.7,
-         xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, asp = 1);
-    vl   <- seq(from = 0, to = 2*pi, by = 0.001);
-    A0x0 <- sqrt(S_val) * sd(A0vec) * cos(vl) + mean(diag(A0));
-    A0y0 <- sqrt(S_val) * sd(A0vec) * sin(vl);
-    text(x = -3.5, y = 2.25, labels = "a", cex = 2);
-    points(x = A0x0, y = A0y0, type = "l", lwd = 3, col = "grey");
-    points(A0_r, A0_i, pch = 4, cex = 0.7);
-    plot(A1_r, A1_i, xlim = c(-3.7, 0.3), ylim = c(-2, 2), pch = 4, cex = 0.7,
-         xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, asp = 1, 
-         col = "black", yaxt = "n");
-    vl <- seq(from = 0, to = 2*pi, by = 0.001);
-    A0x1a <- sqrt(0.5*S_val) * sd(A1vec[fhalf]) * cos(vl) + mean(diag(A1)[1:(0.5*S_val)]);
-    A0y1a <- sqrt(S_val) * sd(A1vec[fhalf]) * sin(vl);
-    points(x = A0x1a, y = A0y1a, type = "l", lwd = 3, col = "grey");
-    A0x1b <- sqrt(0.5*S_val) * sd(A1vec[shalf]) * cos(vl) + 
-                  mean( diag(A1)[( (0.5*S_val) + 1 ):S_val] );
-    A0y1b <- sqrt(0.5*S_val) * sd(A1vec[shalf]) * sin(vl);
-    points(x = A0x1b, y = A0y1b, type = "l", lwd = 3, col = "grey");
-    points(A1_r[1:S_val], A1_i[1:S_val],pch = 4, cex = 0.7);   
-    text(x = -3.5, y = 2.25, labels = "b", cex = 2);
-    mtext(side = 1, "Real", outer = TRUE, line = 3, cex = 2);
-    mtext(side = 2, "Imaginary", outer = TRUE, line = 2.5, cex = 2);
-}
-plot_Fig_1(A0 = A0, A1 = A1);
-```
-
-To find out how frequently $M$ was stable given that all $\gamma = 1$ versus $\gamma = \{1.95, 0.05\}$, the function below was created.
-
-```{r}
-stab_bgamma <- function(S = 200, C = 0.05, Osd = 0.4, iters = 10000){
-    ress     <- matrix(data = 0, nrow = iters, ncol = 2);
-    A0_count <- 0;
-    A1_count <- 0;
-    while(iters > 0){
-        A_dat  <- rnorm(n = S * S, mean = 0, sd = Osd);
-        A_mat  <- matrix(data = A_dat, nrow = S);
-        C_dat  <- rbinom(n = S * S, size = 1, prob = C);
-        C_mat  <- matrix(data = C_dat, nrow = S, ncol = S);
-        A_mat  <- A_mat * C_mat;
-        gammas <- c(rep(1.95, S/2), rep(0.05, S/2))
-        mu_gam <- mean(gammas);
-        diag(A_mat) <- -1;
-        A1     <- gammas * A_mat;
-        A0     <- mu_gam * A_mat;
-        A0_e   <- eigen(A0)$values;
-        A0_r   <- Re(A0_e);
-        A0_i   <- Im(A0_e);
-        A1_e   <- eigen(A1)$values;
-        A1_r   <- Re(A1_e);
-        A1_i   <- Im(A1_e);
-        if(max(A0_r) < 0){
-            ress[iters, 1] <- 1;
-            A0_count       <- A0_count + 1;
-            }
-        if(max(A1_r) < 0){
-            ress[iters, 2] <- 1;
-            A1_count       <- A1_count + 1;
-        }
-        print(c(iters, A0_count, A1_count));
-        iters <- iters - 1;
-    }
-    return(ress);
-}
-```
-
-The above functions produced the `bi_pr_st` data.
-
-```{r, echo = TRUE}
-bi_pr_st <- read.csv("sim_results/bi_gamma/bi_pr_st.csv");
-pr_st    <- bi_pr_st[,-1];
-```
-
-The function `stab_bgamma` was run for `iters = 1000000`, and the resulting matrix `ress` was returned. Each row of `ress` represents a single $M$ given $\gamma = 1$ (column 1) versus $\gamma = \{1.95, 0.05\}$ (column 2). Values of 0 indicate that $M$ was found to be unstable (at least one real component of its eigenvalues greater than or equal to zero), whereas values of 1 indicate that $M$ was found to be stable (all real components of eigenvalues are negative). The frequencies of stable $M$ were `r sum(pr_st[,1])` given $\gamma = 1$ and `r sum(pr_st[,2])` given $\gamma = \{1.95, 0.05\}$, as reported in the main text and legend of Fig. 1 (raw data are [available on GitHub](https://github.com/bradduthie/RandomMatrixStability/blob/master/sim_results/bi_gamma/bi_pr_st.csv)).
-
-
-Code and simulations underlying Fig. 2 {#Fig2}
-===============================================================================
-
-Figure 2 of the main text shows eigenvalue distributions in a system where $S = 1000$, $C = 1$, and $\sigma = 0.4$. Eigenvalues can be reproduced using the code below for when $\gamma = 1$ (panel a) and $\gamma \sim \mathcal{U}(0, 2)$ (panel b). The function below reproduces the figure.
-
-```{r, fig.height = 6, fig.width = 9}
-plot_Fig_2 <- function(){
-    A_comp <- NULL;
-    A_dat  <- rnorm(n = 1000000, mean = 0, sd = 0.4);
-    A_mat  <- matrix(data = A_dat, nrow = 1000);
-    C_dat  <- rbinom(n = 1000 * 1000, size = 1, prob = 0.05);
-    C_mat  <- matrix(data = C_dat, nrow = 1000, ncol = 1000);
-    A_mat     <- A_mat * C_mat;
-    A_mat  <- species_interactions(A_mat, type = 0);
-    gammas <- runif(n = 1000, min = 0, max = 2);
-    mu_gam <- mean(gammas);
-    diag(A_mat) <- -1;
-    A1     <- gammas * A_mat;
-    A0     <- mu_gam * A_mat;
-    A0_e   <- eigen(A0)$values;
-    A0_r   <- Re(A0_e);
-    A0_i   <- Im(A0_e);
-    A1_e   <- eigen(A1)$values;
-    A1_r   <- Re(A1_e);
-    A1_i   <- Im(A1_e);
-    A0_vm       <- A0;
-    diag(A0_vm) <- NA;
-    A0vec       <- as.vector(A0_vm);
-    A0vec       <- A0vec[is.na(A0vec) == FALSE];
-    par(mfrow = c(1, 2), mar = c(0.5, 0.5, 0.5, 0.5), oma = c(5, 5, 0, 0));
-    plot(A0_r, A0_i, xlim = c(-6, 2.25), ylim = c(-5,4.25), pch = 4, cex = 0.7,
-         xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, asp = 1);
-    vl <- seq(from = 0, to = 2*pi, by = 0.001);
-    x0 <- sqrt(1000) * sd(A0vec) * cos(vl) + mean(diag(A0));
-    y0 <- sqrt(1000) * sd(A0vec) * sin(vl);
-    text(x = -15.5, y = 19, labels = "a", cex = 2);
-    points(x = x0, y = y0, type = "l", lwd = 3);
-    plot(A1_r, A1_i, xlim = c(-6, 2.25), ylim = c(-5,4.25), pch = 4, cex = 0.7,
-         xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, asp = 1, col = "red",
-         yaxt = "n");
-    text(x = -15.5, y = 19, labels = "b", cex = 2);
-    points(x = x0, y = y0, type = "l", lwd = 3, lty = "solid");
-    mtext(side = 1, "Real", outer = TRUE, line = 3, cex = 2);
-    mtext(side = 2, "Imaginary", outer = TRUE, line = 2.5, cex = 2);
-}
-plot_Fig_2();
-```
 
 
 Stability across increasing $S$ {#IncrS}
 ===============================================================================
 
-Figure 3 of the main text reports the number of stable random complex systems found over 1 million iterations. The data used to make this figure are read into R below.
-
-```{r, echo = TRUE}
+```{r, echo = FALSE}
 dat <- read.csv(file = "sim_results/C_1/random_all.csv");
 dat <- dat[,-1]; # Extra row-indicating column removed
 ```
 
-The table below shows the results for all simulations of random $M$ matrices at $\sigma = 0.4$ and $C = 1$ given a range of $S = \{2, 3, ..., 49, 50\}$. In this table, the `A0` refers to matrices where $\gamma = 1$, while `A1` refers to matrices after $Var(\gamma)$ is added and $\gamma \sim \mathcal{U}(0, 2)$. Each row summarises data for a given $S$ over 1 million randomly simulated $M$ (`A0` and `A1`). The column `A0_unstable` shows the number of `A0` matrices that are unstable, and the column `A0_stable` shows the number of `A0` matrices that are stable (these two columns sum to 1 million). Similarly, the column `A1_unstable` shows the number of `A1` matrices that are unstable and `A1_stable` shows the number that are stable. The columns `A1_stabilised` and `A1_destabilised` show how many `A0` matrices were stabilised or destabilised, respectively, by $Var(\gamma)$.
+Figure 3 of the main text reports the number of stable random complex systems found over 1 million iterations. The table below shows the results for all simulations of random $M$ matrices at $\sigma = 0.4$ and $C = 1$ given a range of $S = \{2, 3, ..., 49, 50\}$. In this table, the `A0` refers to matrices where $\gamma = 1$, while `A1` refers to matrices after $Var(\gamma)$ is added and $\gamma \sim \mathcal{U}(0, 2)$. Each row summarises data for a given $S$ over 1 million randomly simulated $M$ (`A0` and `A1`). The column `A0_unstable` shows the number of `A0` matrices that are unstable, and the column `A0_stable` shows the number of `A0` matrices that are stable (these two columns sum to 1 million). Similarly, the column `A1_unstable` shows the number of `A1` matrices that are unstable and `A1_stable` shows the number that are stable. The columns `A1_stabilised` and `A1_destabilised` show how many `A0` matrices were stabilised or destabilised, respectively, by $Var(\gamma)$.
 
 ```{r, echo = FALSE}
 library(knitr);
@@ -305,120 +95,83 @@ d_tab <- dat[,1:7];
 kable(d_tab);
 ```
 
-Overall, the ratio of stable `A1` matrices to stable `A0` matrices found is greater than 1 (compare column 5 to column 3), and this ratio increases with increasing $S$ (column 1). Hence, more randomly created complex systems ($M$) are generated given variation in $\gamma$ than when $\gamma = 1$. The results underlying this table were produced with the `rand_gen_var` function below.
+Overall, the ratio of stable `A1` matrices to stable `A0` matrices found is greater than 1 (compare column 5 to column 3), and this ratio increases with increasing $S$ (column 1). Hence, more randomly created complex systems ($M$) are generated given variation in $\gamma$ than when $\gamma = 1$. Note that feasibility results were ommited for the table above, but are [reported below](#Feasibility).
 
-```{r}
-rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1){
-    tot_res <- NULL;
-    fea_res <- NULL;
-    for(i in 2:max_sp){
-        iter           <- iters;
-        tot_res[[i-1]] <- matrix(data = 0, nrow = iter, ncol = 7);
-        fea_res[[i-1]] <- matrix(data = 0, nrow = iter, ncol = 7);
-        while(iter > 0){
-            r_vec    <- rnorm(n = i, mean = 0, sd = rmx);
-            A0_dat   <- rnorm(n = i * i, mean = 0, sd = 0.4);
-            A0       <- matrix(data = A0_dat, nrow = i, ncol = i);
-            A0       <- species_interactions(mat = A0, type = int_type);
-            C_dat    <- rbinom(n = i * i, size = 1, prob = C);
-            C_mat    <- matrix(data = C_dat, nrow = i, ncol = i);
-            A0       <- A0 * C_mat;
-            diag(A0) <- -1;
-            gam1     <- runif(n = i, min = 0, max = 2);
-            A1       <- A0 * gam1;
-            A0       <- A0 * mean(gam1);
-            A0_stb   <- max(Re(eigen(A0)$values)) < 0;
-            A1_stb   <- max(Re(eigen(A1)$values)) < 0;
-            A0_fea   <- min(-1*solve(A0) %*% r_vec) > 0;
-            A1_fea   <- min(-1*solve(A1) %*% r_vec) > 0;
-            if(A0_stb == TRUE){
-                tot_res[[i-1]][iter, 1] <- 1;
-            }
-            if(A1_stb == TRUE){
-                tot_res[[i-1]][iter, 2] <- 1;
-            }
-            if(A0_fea == TRUE){
-                fea_res[[i-1]][iter, 1] <- 1;
-            }
-            if(A1_fea == TRUE){
-                fea_res[[i-1]][iter, 2] <- 1;
-            }
-            iter    <- iter - 1;
-        }
-        print(i);
-    }
-    all_res <- summarise_randmat(tot_res = tot_res, fea_res = fea_res);
-    return(all_res);
-}
-```
+Stability given targetted manipulation of $\gamma$ (genetic algorithm) {#ga}
+================================================================================
 
-The above function calls the two functions `species_interactions` and `summarise_randmat`, which are provided below.
+Figure 4 of the main text reports the number of stable random complex systems found over 100000 using the genetic algorithm to maximise stability with a vector $\mathbf{\gamma}$. Stability results for 100000 $M$ for each $S$ from 2-40 are shown below. Results for `A0` indicate systems in which $\gamma = 1$, while `A1` refers to systems in which the genetic algorithm searched for a set of $\gamma$ values that stabilised the system. 
 
-```{r}
-species_interactions <- function(mat, type = 0){
-    if(type == 1){
-        mat[mat > 0] <- -1*mat[mat > 0];
-    }
-    if(type == 2){
-        mat[mat < 0] <- -1*mat[mat < 0];
-    }
-    if(type == 3){
-        for(i in 1:dim(mat)[1]){
-            for(j in 1:dim(mat)[2]){
-                if(mat[i, j] * mat[j, i] > 0){
-                    mat[j, i] <- -1 * mat[j, i];
-                }
+```{r, echo = FALSE}
+get_top_evo_out <- function(evo_out, size){
+    highest <- max(evo_out);
+    gammas  <- NULL;
+    while(size > 0){
+        pos <- which(evo_out == highest);
+        len <- length(pos);
+        nli <- NULL;
+        for(i in 1:len){
+            start          <- pos[i] + 1;
+            end            <- pos[i] + highest;
+            gammas[[size]] <- evo_out[start:end];
+            size           <- size - 1;
+            if(size == 0){
+                break;
             }
         }
+        highest <- highest - 1;
     }
-    return(mat);
+    return(gammas);
 }
-
-summarise_randmat <- function(tot_res, fea_res){
-    sims    <- length(tot_res);
-    all_res <- matrix(data = 0, nrow = sims, ncol = 13);
-    for(i in 1:sims){
-        all_res[i, 1]  <- i + 1;
-        # Stable and unstable
-        all_res[i, 2]  <- sum(tot_res[[i]][,1] == FALSE);
-        all_res[i, 3]  <- sum(tot_res[[i]][,1] == TRUE);
-        all_res[i, 4]  <- sum(tot_res[[i]][,2] == FALSE);
-        all_res[i, 5]  <- sum(tot_res[[i]][,2] == TRUE);
-        # Stabilised and destabilised
-        all_res[i, 6] <- sum(tot_res[[i]][,1] == FALSE & 
-                                  tot_res[[i]][,2] == TRUE);
-        all_res[i, 7] <- sum(tot_res[[i]][,1] == TRUE & 
-                                  tot_res[[i]][,2] == FALSE);
-        # Feasible and infeasible
-        all_res[i, 8]  <- sum(fea_res[[i]][,1] == FALSE);
-        all_res[i, 9]  <- sum(fea_res[[i]][,1] == TRUE);
-        all_res[i, 10]  <- sum(fea_res[[i]][,2] == FALSE);
-        all_res[i, 11]  <- sum(fea_res[[i]][,2] == TRUE);
-        # Feased and defeased
-        all_res[i, 12] <- sum(fea_res[[i]][,1] == FALSE & 
-                                  fea_res[[i]][,2] == TRUE);
-        all_res[i, 13] <- sum(fea_res[[i]][,1] == TRUE & 
-                                  fea_res[[i]][,2] == FALSE);
-    }
-    cnames <- c("N", "A0_unstable", "A0_stable", "A1_unstable", "A1_stable", 
-                "A1_stabilised", "A1_destabilised", "A0_infeasible", 
-                "A0_feasible", "A1_infeasible", "A1_feasible", 
-                "A1_made_feasible", "A1_made_infeasible");
-    colnames(all_res) <- cnames;
-    return(all_res);
+plot_evo_out <- function(evo_out){
+    gammas <- get_top_evo_out(evo_out, size = 9);
+    par(mfrow = c(3, 3), mar = c(0.5, 0.5, 0.5, 0.5), oma = c(5, 5, 1, 1));
+    hist(gammas[[1]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
+         xaxt = "n", xlim = c(0, 1.1));
+    hist(gammas[[2]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
+         xaxt = "n", yaxt = "n", xlim = c(0, 1.1));
+    hist(gammas[[3]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
+         xaxt = "n", yaxt = "n", xlim = c(0, 1.1));
+    hist(gammas[[4]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
+         xaxt = "n", xlim = c(0, 1.1));
+    hist(gammas[[5]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
+         xaxt = "n", yaxt = "n", xlim = c(0, 1.1));
+    hist(gammas[[6]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
+         xaxt = "n", yaxt = "n", xlim = c(0, 1.1));
+    hist(gammas[[7]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
+         xlim = c(0, 1.1));
+    hist(gammas[[8]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
+         yaxt = "n", xlim = c(0, 1.1));
+    hist(gammas[[9]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
+         yaxt = "n", xlim = c(0, 1.1));
+    mtext(side = 1, outer = TRUE, line = 3, cex = 1.5,
+          text = expression(paste("Component response rate (",gamma,")")));
+    mtext(side = 2, text = "Frequency", outer = TRUE, line = 3, cex = 1.5);
 }
+evo_res <- read.csv(file = "sim_results/evolved/evo_results.csv");
+evo_res <- evo_res[,-1];
+kable(evo_res);
 ```
 
-Note that feasibility results were ommited for the table above, but are [reported below](#Feasibility).
+The distributions of nine $\gamma$ vectors from the highest $S$ values are shown below. This comparison shows the high number of stable $M$ that can be produced through a targetted search of $\gamma$ values, and suggests that many otherwise unstable systems could potentially be stabilised by an informed manipulation of their component response times. Such a possibility might conceivably reduce the dimensionality of problems involving stability in social-ecological or economic systems.
+
+Distributions of $\gamma$ values in vectors for the highest values of $S$ are shown below. 
+
+```{r, fig.height = 4, fig.width = 6, echo = FALSE}
+evo_out <- scan(file = "sim_results/evolved/evo_out.txt");
+plot_evo_out(evo_out);
+```
+
+The distribution of $\gamma$ values found by the genetic algorithm is uniform. A uniform distribution was used to initialise $\gamma$ values, so there is therefore no evidence that a particular distribution of $\gamma$ is likely to be found to stabilise a matrix $M$. 
 
 Stability of ecological networks {#ecological}
 ================================================================================
 
-While the foundational work of May[@May1972] applies broadly to complex networks, much attention has been given specifically to ecological networks of interacting species. In these networks, the matrix $M$ is interpreted as a community matrix and each row and column is interpreted as a single species. The effect that the density of any species $i$ has on the population dynamics of species $j$ is found in $M_{ij}$, meaning that $M$ holds the effects of pair-wise interactions between $S$ species[@Allesina2012; @Allesina2015a; @Tang2014b]. While May's original work[@May1972] considered only randomly assembled communities, recent work has specifically looked at more restricted ecological communities including competitive networks (all off-diagonal elements of $M$ are negative), mutualist networks (all off-diagonal elements of $M$ are positive), and predator-prey networks (for any pair of $i$ and $j$, the effect of $i$ on $j$ is negative and $j$ on $i$ is positive, or vice versa)[@Allesina2011; @Allesina2012; @Allesina2015a; @Tang2014b]. In general, competitor and mutualist networks tend to be unstable, while predator-prey networks tend to be highly stabilising.
+While the foundational work of May (1) applies broadly to complex networks, much attention has been given specifically to ecological networks of interacting species. In these networks, the matrix $M$ is interpreted as a community matrix and each row and column is interpreted as a single species. The effect that the density of any species $i$ has on the population dynamics of species $j$ is found in $M_{ij}$, meaning that $M$ holds the effects of pair-wise interactions between $S$ species (2, 4, 20). While May's original work (1) considered only randomly assembled communities, recent work has specifically looked at more restricted ecological communities including competitive networks (all off-diagonal elements of $M$ are negative), mutualist networks (all off-diagonal elements of $M$ are positive), and predator-prey networks (for any pair of $i$ and $j$, the effect of $i$ on $j$ is negative and $j$ on $i$ is positive, or vice versa) (2, 4, 17, 20). In general, competitor and mutualist networks tend to be unstable, while predator-prey networks tend to be highly stabilising.
 
-I investigated competitor, mutualist, and predator-prey networks following Allesina et al.[@Allesina2012]. To create these networks, I first generated a random matrix $M$, then changed the elements of $M$ accordingly. If $M$ was a competitive network, then the sign of any positive off-diagonal elements was reversed to be negative. If $M$ was a mutualist network, then the sign of any positive off-diagonal elements was reversed to be positive. And if $M$ was a predator-prey network, then all $i$ and $j$ pairs of elements were checked; any pairs of the same sign were changed so that one was negative and the other was positive. The `species_interaction` function used to do this is below.
+I investigated competitor, mutualist, and predator-prey networks following Allesina et al. (2). To create these networks, I first generated a random matrix $M$, then changed the elements of $M$ accordingly. If $M$ was a competitive network, then the sign of any positive off-diagonal elements was reversed to be negative. If $M$ was a mutualist network, then the sign of any positive off-diagonal elements was reversed to be positive. And if $M$ was a predator-prey network, then all $i$ and $j$ pairs of elements were checked; any pairs of the same sign were changed so that one was negative and the other was positive. 
 
-```{r}
+```{r, echo = FALSE}
 species_interactions <- function(mat, type = 0){
     if(type == 1){
         mat[mat > 0] <- -1*mat[mat > 0];
@@ -439,9 +192,9 @@ species_interactions <- function(mat, type = 0){
 } # Note: -1 values are added in the diagonal later
 ```
 
-This function was applied to all created matrices $M$, then the number of stable $M$ matrices was estimated [exactly as it was](#IncrS) in the main text for random matrices for values of $S$ from 2 to 50 (100 in the case of the relatively more stable predator-prey interactions), except that only 100000 random $M$ were generated instead of 1 million. This produced the data set below.
+The number of stable $M$ matrices was estimated [exactly as it was](#IncrS) in the main text for random matrices for values of $S$ from 2 to 50 (100 in the case of the relatively more stable predator-prey interactions), except that only 100000 random $M$ were generated instead of 1 million. 
 
-```{r}
+```{r, echo = FALSE}
 cdat <- read.csv(file = "sim_results/ecology/competition_C_1.csv");
 mdat <- read.csv(file = "sim_results/ecology/mutualism_C_1.csv");
 pdat <- read.csv(file = "sim_results/ecology/pred-prey_C_1.csv");
@@ -476,25 +229,22 @@ pd_tab <- pdat[,2:7];
 kable(pd_tab);
 ```
 
-Overall, as expected[@Allesina2012], predator-prey communities are relatively stable while mutualist communties are highly unstable. But interestingly, while $Var(\gamma)$ stabilises predator-prey and competitor communities, it does not stabilise mutualist communities. This is unsurprising because purely mutualist communities are characterised by a very positive[@Allesina2012] leading $\Re(\lambda)$, and it is highly unlikely that $Var(\gamma)$ alone will shift all real parts of eigenvalues to negative values.
+Overall, as expected [@Allesina2012], predator-prey communities are relatively stable while mutualist communties are highly unstable. But interestingly, while $Var(\gamma)$ stabilises predator-prey and competitor communities, it does not stabilise mutualist communities. This is unsurprising because purely mutualist communities are characterised by a very positive (2) leading $\Re(\lambda)$, and it is highly unlikely that $Var(\gamma)$ alone will shift all real parts of eigenvalues to negative values.
 
-Different inter-connectivity (C) values {#connectance}
+Sensitivity of inter-connectivity (C) values {#connectance}
 ================================================================================
 
 In the main text, for simplicity, I assumed inter-connectivity values of $C = 1$, meaning that all off-diagonal elements of a matrix $M$ were potentially nonzero and sampled from a normal distribution $\mathcal{N}(0, \sigma^{2})$ where $\sigma = 0.4$. Here I present four tables showing the number of stable communities given $C = \{0.3, 0. 5, 0.7, 0.9 \}$. In all cases, uniform variation in component response time ($\gamma \sim \mathcal{U}(0, 2)$) led to a higher number of stable communities than when $\gamma$ did not vary ($\gamma = 1$). In contrast to the main text, 100000 rather than 1 million $M$ were simulated. As with the results on [stability with increasing $S$](#IncrS) shown above, in the tables below `A0` refers to matrices when $\gamma = 1$, and `A1` refers to matrices after $Var(\gamma)$ is added. The column `A0_unstable` shows the number of `A0` matrices that are unstable, and the column `A0_stable` shows the number of `A0` matrices that are stable (these two columns sum to 100000). Similarly, the column `A1_unstable` shows the number of `A1` matrices that are unstable and `A1_stable` shows the number that are stable. The columns `A1_stabilised` and `A1_destabilised` show how many `A0` matrices were stabilised or destabilised, respectively, by $Var(\gamma)$.
 
-All data reported below for various values of $C$ are accessible using the below.
-
-```{r}
+```{r, echo = FALSE}
 C3dat <- read.csv(file = "sim_results/C_other/rand_c-0pt3.csv");
 C5dat <- read.csv(file = "sim_results/C_other/rand_c-0pt5.csv");
 C7dat <- read.csv(file = "sim_results/C_other/rand_c-0pt7.csv");
 C9dat <- read.csv(file = "sim_results/C_other/rand_c-0pt9.csv");
 ```
 
-These objects `C3dat`, `C5dat`, `C7dat`, and `C9dat` include the results for $C = 0.3$, $C = 0.5$, $C = 0.7$, and $C = 0.9$, respectively. 
 
-<a name="connect3">**Connectance $C = 0.3$**</a>
+<a name="connect3">**Connectance $\mathbf{C = 0.3}$**</a>
 
 ```{r, echo = FALSE}
 C3dat   <- C3dat[,-1];
@@ -502,7 +252,7 @@ C3d_tab <- C3dat[,1:7];
 kable(C3d_tab);
 ```
 
-<a name="connect5">**Connectance $C = 0.5$**</a>
+<a name="connect5">**Connectance $\mathbf{C = 0.5}$**</a>
 
 ```{r, echo = FALSE}
 C5dat   <- C5dat[,-1];
@@ -510,7 +260,7 @@ C5d_tab <- C5dat[,1:7];
 kable(C5d_tab);
 ```
 
-<a name="connect7">**Connectance $C = 0.7$**</a>
+<a name="connect7">**Connectance $\mathbf{C = 0.7}$**</a>
 
 ```{r, echo = FALSE}
 C7dat   <- C7dat[,-1];
@@ -518,7 +268,7 @@ C7d_tab <- C7dat[,1:7];
 kable(C7d_tab);
 ```
 
-<a name="connect9">**Connectance $C = 0.9$**</a>
+<a name="connect9">**Connectance $\mathbf{C = 0.9}$**</a>
 
 ```{r, echo = FALSE}
 C9dat   <- C9dat[,-1];
@@ -526,8 +276,52 @@ C9d_tab <- C9dat[,1:7];
 kable(C9d_tab);
 ```
 
+Sensitivity of interaction strength ($\sigma$) values {#sigma}  
+================================================================================
 
-Different distributions of $\gamma$ {#gam_dist}
+**ADD TEXT ABOUT COMPARISON WITH ALLESINA AND VALUES ACROSS SIGMA**
+
+```{r, echo = FALSE}
+S3dat <- read.csv(file = "sim_results/C_0pt05/sim_SD_0pt3.csv");
+S4dat <- read.csv(file = "sim_results/C_0pt05/sim_SD_0pt4.csv");
+S5dat <- read.csv(file = "sim_results/C_0pt05/sim_SD_0pt5.csv");
+S6dat <- read.csv(file = "sim_results/C_0pt05/sim_SD_0pt6.csv");
+```
+
+<a name="sigma3">**Interaction strength $\mathbf{\sigma = 0.3}$**</a>
+
+```{r, echo = FALSE}
+S3dat   <- S3dat[,-1];
+S3d_tab <- S3dat[,1:7];
+kable(S3d_tab);
+```
+
+<a name="sigma4">**Interaction strength $\mathbf{\sigma = 0.4}$**</a>
+
+```{r, echo = FALSE}
+S4dat   <- S4dat[,-1];
+S4d_tab <- S4dat[,1:7];
+kable(S4d_tab);
+```
+
+<a name="sigma5">**Interaction strength $\mathbf{\sigma = 0.5}$**</a>
+
+```{r, echo = FALSE}
+S5dat   <- S5dat[,-1];
+S5d_tab <- S5dat[,1:7];
+kable(S5d_tab);
+```
+
+<a name="sigma6">**Interaction strength $\mathbf{\sigma = 0.6}$**</a>
+
+```{r, echo = FALSE}
+S6dat   <- S6dat[,-1];
+S6d_tab <- S6dat[,1:7];
+kable(S6d_tab);
+```
+
+
+Sensitivity of distribution of $\gamma$ {#gam_dist}
 ================================================================================
 
 In the main text, I considered a uniform distribution of component response rates $\gamma \sim \mathcal{U}(0, 2)$. The number of unstable and stable $M$ matrices are reported in [a table above](#IncrS) across different values of $S$. Here I show complementary results for three different distributions including an exponential, beta, and gamma distribution of $\gamma$ values. The shape of these distributions is shown in the figure below.
@@ -613,259 +407,8 @@ kable(fourdists);
 
 In comparison to the uniform distribution (a), proportionally fewer random systems are found with the exponential distribution (b), while more are found with the beta (c) and gamma (d) distributions.
 
-
-Genetic algorithm {#ga}
-================================================================================
-
-Ideally, to investigate the potential of $Var(\gamma)$ for increasing the proportion of stable complex systems, the search space of all possible $\gamma$ vectors would be evaluated for each unique $M$. This is technically impossible because $\gamma_{i}$ can take any real value between 0-2, but even rounding $\gamma$ to reasonable values would result in a search space too large to practically explore. Under these conditions, genetic algorithms are highly useful tools for finding practical solutions by mimicking the process of biological evolution[@Hamblin2013]. In this case, the practical solution is finding vectors of $\gamma$ that decrease the most positive real eigenvalue of $M$. The genetic algorithm below achieves this by initialising a large population of 1000 different potential $\gamma$ vectors and allowing this population to evolve through a process of mutation, crossover (swaping $\gamma_{i}$ values between vectors), selection, and reproduction until either a $\gamma$ vector is found where all $\Re(\lambda) < 0$ or some "giving up" critiera is met (in the below, this "giving up"" criteria is met when 20 generations pass, or if the fitness increase from one generation to the next is below a certain criteria). The genetic algorithm relies on five functions. The first outer function `Evo_rand_gen_var` runs all of the simulations (`max_sp` refers to the maximum $S$ value simulated, and `iters` refers to the number of $M$ to try for each $S$).
-
-```{r}
-Evo_rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1){
-    tot_res <- NULL;
-    fea_res <- NULL;
-    for(i in 2:max_sp){
-        nn             <- i;
-        A1_stt         <- 0;
-        A2_stt         <- 0;
-        A1_fet         <- 0;
-        A2_fet         <- 0;
-        iter           <- iters;
-        tot_res[[i-1]] <- matrix(data = 0, nrow = iter, ncol = 3);
-        fea_res[[i-1]] <- matrix(data = 0, nrow = iter, ncol = 2);
-        while(iter > 0){
-            r_vec    <- rnorm(n = i, mean = 0, sd = rmx);
-            A0_dat   <- rnorm(n = i * i, mean = 0, sd = 0.4);
-            A0       <- matrix(data = A0_dat, nrow = i, ncol = i);
-            A0       <- species_interactions(mat = A0, type = int_type);
-            C_dat    <- rbinom(n = i * i, size = 1, prob = C);
-            C_mat    <- matrix(data = C_dat, nrow = i, ncol = i);
-            A0       <- A0 * C_mat;
-            diag(A0) <- -1;
-            gam1     <- runif(n = i, min = 0, max = 2);
-            A1       <- A0 * gam1;
-            A0_stb   <- max(Re(eigen(A0)$values)) < 0;
-            A1_stb   <- rand_mat_ga(A1);
-            A0_fea   <- min(-1*solve(A0) %*% r_vec) > 0;
-            A1_fea   <- min(-1*solve(A1) %*% r_vec) > 0;
-            if(A0_stb == TRUE){
-                tot_res[[i-1]][iter, 1] <- 1;
-            }
-            if(A1_stb == TRUE){
-                tot_res[[i-1]][iter, 2] <- 1;
-            }
-            if(A0_fea == TRUE){
-                fea_res[[i-1]][iter, 1] <- 1;
-            }
-            if(A1_fea == TRUE){
-                fea_res[[i-1]][iter, 2] <- 1;
-            }
-            iter    <- iter - 1;
-        }
-        print(i);
-    }
-    all_res <- summarise_randmat(tot_res = tot_res, fea_res = fea_res);
-    return(all_res);
-}
-```
-
-Note that `Evo_rand_gen_var` calls three custom sub-functions, `species_interactions`, `rand_mat_ga`, and `summarise_randmat`. The first simply allows for non-random interactions between components (e.g., modelling [ecological interactions](#ecological) of random, competition, mutualism, or predator-prey).
-
-```{r}
-species_interactions <- function(mat, type = 0){
-    if(type == 1){
-        mat[mat > 0] <- -1*mat[mat > 0];
-    }
-    if(type == 2){
-        mat[mat < 0] <- -1*mat[mat < 0];
-    }
-    if(type == 3){
-        for(i in 1:dim(mat)[1]){
-            for(j in 1:dim(mat)[2]){
-                if(mat[i, j] * mat[j, i] > 0){
-                    mat[j, i] <- -1 * mat[j, i];
-                }
-            }
-        }
-    }
-    return(mat);
-}
-```
-
-The sub-function `rand_mat_ga` does the work of the genetic algorithm, searching for $\gamma$ vectors that are stabilising. 
-
-```{r}
-rand_mat_ga <- function(A1, max_it = 20, converg = 0.01){
-    nn       <- dim(A1)[1];
-    rind     <- runif(n = nn*1000, min = 0, max = 1);
-    inds     <- matrix(data = rind, nrow = 1000, ncol = nn);
-    lastf    <- -10;
-    ccrit    <- 10;
-    find_st  <- 0;
-    iter     <- max_it;
-    while(iter > 0 & find_st < 1 & ccrit > converg){
-        ivar  <- rep(x = 0, length = dim(inds)[1]);
-        ifit  <- rep(x = 0, length = dim(inds)[1]);
-        isst  <- rep(x = 0, length = dim(inds)[1]);
-        for(i in 1:dim(inds)[1]){
-            ifit[i] <- -1*max(Re(eigen(inds[i,]*A1)$values));
-            ivar[i] <- var(inds[i,]);
-            isst[i] <- max(Re(eigen(inds[i,]*A1)$values)) < 0;
-        }
-        most_fit <- order(ifit, decreasing = TRUE)[1:20];
-        parents  <- inds[most_fit,];
-        new_gen  <- matrix(data = t(parents), nrow = 1000, ncol = nn, 
-                           byrow = TRUE);
-        mu_dat   <- rbinom(n = nn*1000, size = 1, prob = 0.2);
-        mu_dat2  <- rnorm(n = nn*1000, mean = 0, sd = 0.02);
-        mu_dat2[mu_dat2 < 0] <- -mu_dat2[mu_dat2 < 0];
-        mu_dat2[mu_dat2 > 2] <- 2;
-        mu_dat3  <- mu_dat * mu_dat2;
-        mu_mat   <- matrix(data = mu_dat3, nrow = 1000, ncol = nn);
-        new_gen  <- new_gen + mu_mat;
-        new_gen  <- crossover(inds = new_gen, pr = 0.1);
-        inds     <- new_gen;
-        find_st  <- max(isst);
-        newf     <- mean(ifit);
-        ccrit    <- newf - lastf;
-        lastf    <- newf;
-        iter     <- iter - 1;
-    }
-    if(find_st == 1){
-        s_row <- which(isst == 1)[1];
-        writt <- c(nn, inds[s_row,]);
-        cat(writt, file = "evo_out.txt", append = TRUE);
-        cat("\n", file = "evo_out.txt", append = TRUE);
-    }
-    return(find_st);
-}
-```
-
-The while loop in `rand_mat_ga` continues until either `iter` generations have occured, a solution $\gamma$ vector is found that results in all $\Re(\lambda) < 0$, or some criteria of minimum fitness increase is observed (by default, `converg = 0.01`). Within the genetic algorithm, $\gamma$ values are mutated, crossover occurs between $\gamma$ vectors, and selection occurs in each generation such that the 20 $\gamma$ vectors that produce the lowest maximum $\Re(\lambda)$ are allowed to have 50 offspring each. In mutation, any $\gamma_{i}$ values that mutate below zero are multiplied by $-1$, and any values that mutate above 2 are set to 2. Note also that if a solution is found, then one such $\gamma$ vector causing stability is printed to a file.
-
-Crossover occurs in the `crossover` function below.
-
-```{r} 
-crossover <- function(inds, pr = 0.1){
-    crossed <- floor(dim(inds)[1] * pr);
-    cross1  <- sample(x = 1:dim(inds)[1], size = crossed);
-    cross2  <- sample(x = 1:dim(inds)[1], size = crossed);
-    for(i in 1:length(cross1)){
-        fromv   <- sample(x = 1:dim(inds)[2], size = 1);
-        tov     <- sample(x = 1:dim(inds)[2], size = 1);
-        temp                   <- inds[cross1[i],fromv:tov];
-        inds[cross1[i],fromv:tov] <- inds[cross2[i],fromv:tov];
-        inds[cross2[i],fromv:tov] <- temp;
-    }
-    return(inds);
-}
-```
-
-After all $M$ are simulated in `Evo_rand_gen_var`, the `summarise_randmat` formats the data into a table.
-
-```{r}
-summarise_randmat <- function(tot_res, fea_res){
-    sims    <- length(tot_res);
-    all_res <- matrix(data = 0, nrow = sims, ncol = 7);
-    for(i in 1:sims){
-        A0_unst   <- tot_res[[i]][,1] == FALSE;
-        A0_stbl   <- tot_res[[i]][,1] == TRUE;
-        A1_unst   <- tot_res[[i]][,2] == FALSE;
-        A1_stbl   <- tot_res[[i]][,2] == TRUE;
-        stabled   <- tot_res[[i]][,1] == FALSE & tot_res[[i]][,2] == TRUE;
-        unstabled <- tot_res[[i]][,1] == TRUE  & tot_res[[i]][,2] == FALSE;
-        all_res[i, 1]  <- i + 1;
-        all_res[i, 2]  <- sum(A0_unst);
-        all_res[i, 3]  <- sum(A0_stbl);
-        all_res[i, 4]  <- sum(A1_unst);
-        all_res[i, 5]  <- sum(A1_stbl);
-        all_res[i, 6]  <- sum(stabled);
-        all_res[i, 7]  <- sum(unstabled);
-    }
-    colnames(all_res) <- c("N", "A0_unstable", "A0_stable", "A1_unstable",
-                           "A1_stable", "A1_stabilised", "A1_destabilised");
-    return(all_res);
-}
-```
-
-Stability results for 40000 $M$ for each $S$ from 2-40 are shown below. Results for `A0` indicate systems in which $\gamma = 1$, while `A1` refers to systems in which the genetic algorithm searched for a set of $\gamma$ values that stabilised the system. 
-
-```{r, echo = FALSE}
-get_top_evo_out <- function(evo_out, size){
-    highest <- max(evo_out);
-    gammas  <- NULL;
-    while(size > 0){
-        pos <- which(evo_out == highest);
-        len <- length(pos);
-        nli <- NULL;
-        for(i in 1:len){
-            start          <- pos[i] + 1;
-            end            <- pos[i] + highest;
-            gammas[[size]] <- evo_out[start:end];
-            size           <- size - 1;
-            if(size == 0){
-                break;
-            }
-        }
-        highest <- highest - 1;
-    }
-    return(gammas);
-}
-plot_evo_out <- function(evo_out){
-    gammas <- get_top_evo_out(evo_out, size = 9);
-    par(mfrow = c(3, 3), mar = c(0.5, 0.5, 0.5, 0.5), oma = c(5, 5, 1, 1));
-    hist(gammas[[1]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
-         xaxt = "n", xlim = c(0, 1.1));
-    hist(gammas[[2]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
-         xaxt = "n", yaxt = "n", xlim = c(0, 1.1));
-    hist(gammas[[3]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
-         xaxt = "n", yaxt = "n", xlim = c(0, 1.1));
-    hist(gammas[[4]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
-         xaxt = "n", xlim = c(0, 1.1));
-    hist(gammas[[5]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
-         xaxt = "n", yaxt = "n", xlim = c(0, 1.1));
-    hist(gammas[[6]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
-         xaxt = "n", yaxt = "n", xlim = c(0, 1.1));
-    hist(gammas[[7]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
-         xlim = c(0, 1.1));
-    hist(gammas[[8]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
-         yaxt = "n", xlim = c(0, 1.1));
-    hist(gammas[[9]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
-         yaxt = "n", xlim = c(0, 1.1));
-    mtext(side = 1, outer = TRUE, line = 3, cex = 1.5,
-          text = expression(paste("Component response rate (",gamma,")")));
-    mtext(side = 2, text = "Frequency", outer = TRUE, line = 3, cex = 1.5);
-}
-evo_res <- read.csv(file = "sim_results/evolved/evo_results.csv");
-kable(evo_res);
-```
-
-The distributions of nine $\gamma$ vectors from the highest $S$ values are shown below. Recall that 1 million random matrices were generated for the less computationally intense task of [comparing](#IncrS) $M$ when $\gamma = 1$ versus when $\gamma \sim \mathcal{U}(0, 2)$, so it is more informative to compare stability in column 5 above with column 3 above. **This comparison shows the high number of stable $M$ that can be produced through a targetted search of $\gamma$ values, and suggests that many otherwise unstable systems could potentially be stabilised by an informed manipulation of their component response times. Such a possibility might conceivably reduce the dimensionality of problems involving stability in social-ecological or economic systems.**
-
-Distributions of $\gamma$ values in vectors for the highest values of $S$ are shown below. 
-
-```{r, fig.height = 6, fig.width = 7}
-evo_out <- scan(file = "sim_results/evolved/evo_out.txt");
-plot_evo_out(evo_out);
-```
-
-The distribution of $\gamma$ values found by the genetic algorithm is uniform. A uniform distribution was used to initialise $\gamma$ values, so there is therefore no evidence that a particular distribution of $\gamma$ is likely to be found to stabilise a matrix $M$. 
-
 Feasibility of complex systems {#Feasibility}
 ================================================================================
-
-For complex systems in which individual system components ($S$) represent the density of some tangible quantity, it is important to consider the feasibility of the system. Feasibile equilibria assume that the values of all system components are positive at equilibrium[@Grilli2017; @Dougoud2018; @Song2018]. This is of particular interest for ecological communities because population density cannot take negative values, meaning that ecological systems need to be feasible for stability to be biologically realistic[@Dougoud2018]. Consequently, the use of random matrices and traditional stability critiera for making inferences in theoretical analyses of species networks has recently been criticised[@Dougoud2018]. While the key results in the main text are intended to be general to all complex systems, and not restricted to species networks, I have also performed a feasibility analysis on all matrices $M$. This analysis reveals that feasibility is not affected by $Var(\gamma)$, meaning that for pure interacting species networks, variation in component response time (i.e., species generation time) does not affect stability at biologically realistic species densities. Nevertheless, ecological interactions do not exist in isolation in empirical systems, but instead interact with evolutionary[@Patel2018], abiotic, or social-economic systems. The relevance of $\gamma$ for complex system stability presented in the main text should therefore not be ignored in the broader context of ecological communities.
-
-Dougoud et al.[@Dougoud2018] define the following feasibility criteria for ecological systems characterised by $S$ interacting species with varying densities.
-
-$$x^{*} = -\left(\theta I + (CS)^{-\delta}A\right)^{-1}r.$$
-
-In the above, $x^{*}$ is the vector of species abundances at equilibrium (for feasibility, all values in $x^{*}$ must be positive). The matrix $I$ is the identity matrix (1s on the diagonal, 0s on the off-diagonal elements), and the value $\theta$ is strength of intraspecific competition (diagonal elements). As I have done elsewhere, diagonal values are set to $-1$, so $\theta = -1$. The variable $C$ is the inter-connectivity (i.e., 'connectance') of the community, which was set to $C = 1$ throughout the manuscript and supplemental information, except [where otherwise noted](#connectance). The variable $\delta$ is a normalisation parameter that modulates the strength of interactions ($\sigma$ in the main text), which are held in $A$. In the main text, implicitly, $\delta = 0$ underlying strong interactions. Hence, the whole $(CS)^{-\delta} = 1$, so in the above, a diagonal matrix of -1s ($\theta I$) is added to $A$, which has a diagonal of all zeros and an off-diagonal affecting species interactions (i.e., the expression $(CS)^{-\delta}$ relates to May's[@May1972] stability criterion[@Dougoud2018] by $\frac{\sigma}{(CS)^{-\delta}}\sqrt{SC} < -1$, and hence $(CS)^{-\delta} = 1$ for the randomly simulated systems in the main text and supplemental information). The above criteria is therefore reduced to the below; note that the parenthetical in both equations produces an $M$ matrix as used throughout the main text and supplemental information,
-
-$$x^{*} = -\left(\theta I + A\right)^{-1}r.$$
-
-To check the feasibility criteria, I therefore inverted $M = (\theta I + A)$ and multiplied elements by -1, then multiplied the resulting matrix by the vector of population growth rates $r$. Feasibility is satisfied if all of the elements of the resulting vector are positive.
-
-The population growth rate for an individual species $i$ is sampled from a normal distribution of $r_{i} \sim \mathcal{N}(0, 0.4^{2})$, as shown in the `rand_gen_var` function in [the section](#IncrS) on "Stability across increasing $S$" above. Hence, each component $i$ of the complex system $M$ is assumed to be a species with a growth rate of $r_{i}$. 
 
 When feasibility was evaluated with and without variation in $\gamma$, there was no increase in stability for $M$ where $\gamma$ varied as compared to where $\gamma = 1$. Results below illustrate this result, which was general to all other simulations performed. 
 
@@ -882,20 +425,4 @@ Hence, in general, $Var(\gamma)$ does not appear to affect feasibility in pure s
 
 References
 ================================================================================
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
