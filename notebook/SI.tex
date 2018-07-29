@@ -320,11 +320,11 @@ A1\_stabilised & A1\_destabilised\tabularnewline
 \end{longtable}
 
 Overall, the ratio of stable \texttt{A1} matrices to stable \texttt{A0}
-matrices found is greater than 1 (compare column 5 to column 3), and
-this ratio increases with increasing \(S\) (column 1). Hence, more
-randomly created complex systems (\(\mathbf{M}\)) are stable given
-variation in \(\gamma\) than when \(\gamma = 1\). Note that feasibility
-results were ommited for the table above, but are
+matrices found is greater than 1 whenever \(S > 10\) (compare column 5
+to column 3), and this ratio increases with increasing \(S\) (column 1).
+Hence, more randomly created complex systems (\(\mathbf{M}\)) are stable
+given variation in \(\gamma\) than when \(\gamma = 1\). Note that
+feasibility results were omitted for the table above, but are
 \protect\hyperlink{Feasibility}{reported below}.
 
 \hypertarget{ga}{\section{\texorpdfstring{Stability given targeted
@@ -414,18 +414,18 @@ While the foundational work of
 May\textsuperscript{\protect\hyperlink{ref-May1972}{1}} applies broadly
 to complex networks, much attention has been given specifically to
 ecological networks of interacting species. In these networks, the
-matrix \(\mathbf{M}\) is interpreted as a community matrix and each row
+matrix \(\mathbf{A}\) is interpreted as a community matrix and each row
 and column is interpreted as a single species. The effect that the
 density of any species \(i\) has on the population dynamics of species
-\(j\) is found in \(M_{ij}\), meaning that \(\mathbf{M}\) holds the
+\(j\) is found in \(A_{ij}\), meaning that \(\mathbf{A}\) holds the
 effects of pair-wise interactions between \(S\)
 species\textsuperscript{\protect\hyperlink{ref-Allesina2012}{2},\protect\hyperlink{ref-Allesina2015}{3}}.
 While May's original
 work\textsuperscript{\protect\hyperlink{ref-May1972}{1}} considered only
 randomly assembled communities, recent work has specifically looked at
 more restricted ecological communities including competitive networks
-(all off-diagonal elements of \(\mathbf{M}\) are negative), mutualist
-networks (all off-diagonal elements of \(\mathbf{M}\) are positive), and
+(all off-diagonal elements of \(\mathbf{A}\) are negative), mutualist
+networks (all off-diagonal elements of \(\mathbf{A}\) are positive), and
 predator-prey networks (for any pair of \(i\) and \(j\), the effect of
 \(i\) on \(j\) is negative and \(j\) on \(i\) is positive, or vice
 versa)\textsuperscript{\protect\hyperlink{ref-Allesina2012}{2},\protect\hyperlink{ref-Allesina2015}{3}}.
@@ -473,48 +473,48 @@ stabilised or destabilised, respectively, by \(Var(\gamma)\).
 
 Results for competitor interaction networks are shown below
 
-\begin{longtable}[]{@{}llllll@{}}
+\begin{longtable}[]{@{}lllllll@{}}
 \toprule
 N & A0\_unstable & A0\_stable & A1\_unstable & A1\_stable &
-A1\_stabilised\tabularnewline
+A1\_stabilised & A1\_destabilised\tabularnewline
 \midrule
 \endhead
-2 & 48 & 99952 & 48 & 99952 & 0\tabularnewline
-3 & 229 & 99771 & 231 & 99769 & 0\tabularnewline
-4 & 701 & 99299 & 704 & 99296 & 0\tabularnewline
-5 & 1579 & 98421 & 1587 & 98413 & 0\tabularnewline
-6 & 3218 & 96782 & 3253 & 96747 & 6\tabularnewline
-7 & 5519 & 94481 & 5619 & 94381 & 23\tabularnewline
-8 & 9062 & 90938 & 9237 & 90763 & 77\tabularnewline
-9 & 13436 & 86564 & 13729 & 86271 & 230\tabularnewline
-10 & 18911 & 81089 & 19303 & 80697 & 505\tabularnewline
-11 & 25594 & 74406 & 25961 & 74039 & 1011\tabularnewline
-12 & 33207 & 66793 & 33382 & 66618 & 1724\tabularnewline
-13 & 41160 & 58840 & 41089 & 58911 & 2655\tabularnewline
-14 & 50575 & 49425 & 49894 & 50106 & 3777\tabularnewline
-15 & 59250 & 40750 & 57892 & 42108 & 4824\tabularnewline
-16 & 67811 & 32189 & 65740 & 34260 & 5634\tabularnewline
-17 & 75483 & 24517 & 73056 & 26944 & 5943\tabularnewline
-18 & 82551 & 17449 & 79878 & 20122 & 5780\tabularnewline
-19 & 88030 & 11970 & 85204 & 14796 & 5417\tabularnewline
-20 & 92254 & 7746 & 89766 & 10234 & 4544\tabularnewline
-21 & 95233 & 4767 & 93002 & 6998 & 3695\tabularnewline
-22 & 97317 & 2683 & 95451 & 4549 & 2803\tabularnewline
-23 & 98508 & 1492 & 97122 & 2878 & 1991\tabularnewline
-24 & 99240 & 760 & 98407 & 1593 & 1216\tabularnewline
-25 & 99669 & 331 & 99082 & 918 & 739\tabularnewline
-26 & 99871 & 129 & 99490 & 510 & 452\tabularnewline
-27 & 99938 & 62 & 99732 & 268 & 240\tabularnewline
-28 & 99985 & 15 & 99888 & 112 & 108\tabularnewline
-29 & 99990 & 10 & 99951 & 49 & 46\tabularnewline
-30 & 100000 & 0 & 99981 & 19 & 19\tabularnewline
-31 & 100000 & 0 & 99993 & 7 & 7\tabularnewline
-32 & 100000 & 0 & 99996 & 4 & 4\tabularnewline
-33 & 100000 & 0 & 99998 & 2 & 2\tabularnewline
-34 & 100000 & 0 & 100000 & 0 & 0\tabularnewline
-\ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} &
+2 & 48 & 99952 & 48 & 99952 & 0 & 0\tabularnewline
+3 & 229 & 99771 & 231 & 99769 & 0 & 2\tabularnewline
+4 & 701 & 99299 & 704 & 99296 & 0 & 3\tabularnewline
+5 & 1579 & 98421 & 1587 & 98413 & 0 & 8\tabularnewline
+6 & 3218 & 96782 & 3253 & 96747 & 6 & 41\tabularnewline
+7 & 5519 & 94481 & 5619 & 94381 & 23 & 123\tabularnewline
+8 & 9062 & 90938 & 9237 & 90763 & 77 & 252\tabularnewline
+9 & 13436 & 86564 & 13729 & 86271 & 230 & 523\tabularnewline
+10 & 18911 & 81089 & 19303 & 80697 & 505 & 897\tabularnewline
+11 & 25594 & 74406 & 25961 & 74039 & 1011 & 1378\tabularnewline
+12 & 33207 & 66793 & 33382 & 66618 & 1724 & 1899\tabularnewline
+13 & 41160 & 58840 & 41089 & 58911 & 2655 & 2584\tabularnewline
+14 & 50575 & 49425 & 49894 & 50106 & 3777 & 3096\tabularnewline
+15 & 59250 & 40750 & 57892 & 42108 & 4824 & 3466\tabularnewline
+16 & 67811 & 32189 & 65740 & 34260 & 5634 & 3563\tabularnewline
+17 & 75483 & 24517 & 73056 & 26944 & 5943 & 3516\tabularnewline
+18 & 82551 & 17449 & 79878 & 20122 & 5780 & 3107\tabularnewline
+19 & 88030 & 11970 & 85204 & 14796 & 5417 & 2591\tabularnewline
+20 & 92254 & 7746 & 89766 & 10234 & 4544 & 2056\tabularnewline
+21 & 95233 & 4767 & 93002 & 6998 & 3695 & 1464\tabularnewline
+22 & 97317 & 2683 & 95451 & 4549 & 2803 & 937\tabularnewline
+23 & 98508 & 1492 & 97122 & 2878 & 1991 & 605\tabularnewline
+24 & 99240 & 760 & 98407 & 1593 & 1216 & 383\tabularnewline
+25 & 99669 & 331 & 99082 & 918 & 739 & 152\tabularnewline
+26 & 99871 & 129 & 99490 & 510 & 452 & 71\tabularnewline
+27 & 99938 & 62 & 99732 & 268 & 240 & 34\tabularnewline
+28 & 99985 & 15 & 99888 & 112 & 108 & 11\tabularnewline
+29 & 99990 & 10 & 99951 & 49 & 46 & 7\tabularnewline
+30 & 100000 & 0 & 99981 & 19 & 19 & 0\tabularnewline
+31 & 100000 & 0 & 99993 & 7 & 7 & 0\tabularnewline
+32 & 100000 & 0 & 99996 & 4 & 4 & 0\tabularnewline
+33 & 100000 & 0 & 99998 & 2 & 2 & 0\tabularnewline
+34 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+\ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} &
 \ldots{}\tabularnewline
-50 & 100000 & 0 & 100000 & 0 & 0\tabularnewline
+50 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
 \bottomrule
 \end{longtable}
 
@@ -522,26 +522,26 @@ A1\_stabilised\tabularnewline
 
 Results for mutualist interaction networks are shown below
 
-\begin{longtable}[]{@{}llllll@{}}
+\begin{longtable}[]{@{}lllllll@{}}
 \toprule
 N & A0\_unstable & A0\_stable & A1\_unstable & A1\_stable &
-A1\_stabilised\tabularnewline
+A1\_stabilised & A1\_destabilised\tabularnewline
 \midrule
 \endhead
-2 & 56 & 99944 & 56 & 99944 & 0\tabularnewline
-3 & 3301 & 96699 & 3301 & 96699 & 0\tabularnewline
-4 & 34446 & 65554 & 34446 & 65554 & 0\tabularnewline
-5 & 86520 & 13480 & 86520 & 13480 & 0\tabularnewline
-6 & 99683 & 317 & 99683 & 317 & 0\tabularnewline
-7 & 99998 & 2 & 99998 & 2 & 0\tabularnewline
-8 & 100000 & 0 & 100000 & 0 & 0\tabularnewline
-9 & 100000 & 0 & 100000 & 0 & 0\tabularnewline
-10 & 100000 & 0 & 100000 & 0 & 0\tabularnewline
-11 & 100000 & 0 & 100000 & 0 & 0\tabularnewline
-12 & 100000 & 0 & 100000 & 0 & 0\tabularnewline
-\ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} &
+2 & 56 & 99944 & 56 & 99944 & 0 & 0\tabularnewline
+3 & 3301 & 96699 & 3301 & 96699 & 0 & 0\tabularnewline
+4 & 34446 & 65554 & 34446 & 65554 & 0 & 0\tabularnewline
+5 & 86520 & 13480 & 86520 & 13480 & 0 & 0\tabularnewline
+6 & 99683 & 317 & 99683 & 317 & 0 & 0\tabularnewline
+7 & 99998 & 2 & 99998 & 2 & 0 & 0\tabularnewline
+8 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+9 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+10 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+11 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+12 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+\ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} &
 \ldots{}\tabularnewline
-50 & 100000 & 0 & 100000 & 0 & 0\tabularnewline
+50 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
 \bottomrule
 \end{longtable}
 
@@ -549,111 +549,111 @@ A1\_stabilised\tabularnewline
 
 Results for predator-prey interaction networks are shown below
 
-\begin{longtable}[]{@{}rrrrrr@{}}
+\begin{longtable}[]{@{}rrrrrrr@{}}
 \toprule
 N & A0\_unstable & A0\_stable & A1\_unstable & A1\_stable &
-A1\_stabilised\tabularnewline
+A1\_stabilised & A1\_destabilised\tabularnewline
 \midrule
 \endhead
-2 & 0 & 100000 & 0 & 100000 & 0\tabularnewline
-3 & 0 & 100000 & 0 & 100000 & 0\tabularnewline
-4 & 0 & 100000 & 0 & 100000 & 0\tabularnewline
-5 & 1 & 99999 & 1 & 99999 & 0\tabularnewline
-6 & 4 & 99996 & 4 & 99996 & 0\tabularnewline
-7 & 2 & 99998 & 2 & 99998 & 0\tabularnewline
-8 & 5 & 99995 & 5 & 99995 & 0\tabularnewline
-9 & 20 & 99980 & 21 & 99979 & 0\tabularnewline
-10 & 20 & 99980 & 22 & 99978 & 0\tabularnewline
-11 & 38 & 99962 & 39 & 99961 & 0\tabularnewline
-12 & 64 & 99936 & 66 & 99934 & 0\tabularnewline
-13 & 87 & 99913 & 91 & 99909 & 0\tabularnewline
-14 & 157 & 99843 & 159 & 99841 & 0\tabularnewline
-15 & 215 & 99785 & 227 & 99773 & 0\tabularnewline
-16 & 293 & 99707 & 310 & 99690 & 0\tabularnewline
-17 & 383 & 99617 & 408 & 99592 & 0\tabularnewline
-18 & 443 & 99557 & 473 & 99527 & 3\tabularnewline
-19 & 642 & 99358 & 675 & 99325 & 4\tabularnewline
-20 & 836 & 99164 & 887 & 99113 & 7\tabularnewline
-21 & 1006 & 98994 & 1058 & 98942 & 10\tabularnewline
-22 & 1153 & 98847 & 1228 & 98772 & 20\tabularnewline
-23 & 1501 & 98499 & 1593 & 98407 & 30\tabularnewline
-24 & 1841 & 98159 & 1996 & 98004 & 40\tabularnewline
-25 & 2146 & 97854 & 2316 & 97684 & 58\tabularnewline
-26 & 2643 & 97357 & 2809 & 97191 & 119\tabularnewline
-27 & 3034 & 96966 & 3258 & 96742 & 158\tabularnewline
-28 & 3690 & 96310 & 3928 & 96072 & 201\tabularnewline
-29 & 4257 & 95743 & 4532 & 95468 & 290\tabularnewline
-30 & 4964 & 95036 & 5221 & 94779 & 424\tabularnewline
-31 & 5627 & 94373 & 5978 & 94022 & 452\tabularnewline
-32 & 6543 & 93457 & 6891 & 93109 & 666\tabularnewline
-33 & 7425 & 92575 & 7777 & 92223 & 818\tabularnewline
-34 & 8540 & 91460 & 8841 & 91159 & 1071\tabularnewline
-35 & 9526 & 90474 & 9842 & 90158 & 1337\tabularnewline
-36 & 10617 & 89383 & 10891 & 89109 & 1624\tabularnewline
-37 & 12344 & 87656 & 12508 & 87492 & 2021\tabularnewline
-38 & 13675 & 86325 & 13877 & 86123 & 2442\tabularnewline
-39 & 15264 & 84736 & 15349 & 84651 & 2870\tabularnewline
-40 & 17026 & 82974 & 17053 & 82947 & 3363\tabularnewline
-41 & 18768 & 81232 & 18614 & 81386 & 3905\tabularnewline
-42 & 20791 & 79209 & 20470 & 79530 & 4579\tabularnewline
-43 & 23150 & 76850 & 22754 & 77246 & 5217\tabularnewline
-44 & 25449 & 74551 & 24184 & 75816 & 6285\tabularnewline
-45 & 27702 & 72298 & 26464 & 73536 & 6754\tabularnewline
-46 & 30525 & 69475 & 28966 & 71034 & 7646\tabularnewline
-47 & 32832 & 67168 & 31125 & 68875 & 8487\tabularnewline
-48 & 36152 & 63848 & 33865 & 66135 & 9479\tabularnewline
-49 & 38714 & 61286 & 36242 & 63758 & 10125\tabularnewline
-50 & 41628 & 58372 & 38508 & 61492 & 11036\tabularnewline
-51 & 44483 & 55517 & 41023 & 58977 & 11704\tabularnewline
-52 & 48134 & 51866 & 44287 & 55713 & 12573\tabularnewline
-53 & 51138 & 48862 & 46721 & 53279 & 13223\tabularnewline
-54 & 54261 & 45739 & 49559 & 50441 & 13757\tabularnewline
-55 & 57647 & 42353 & 52403 & 47597 & 14324\tabularnewline
-56 & 60630 & 39370 & 55293 & 44707 & 14669\tabularnewline
-57 & 63647 & 36353 & 57787 & 42213 & 15103\tabularnewline
-58 & 66961 & 33039 & 60439 & 39561 & 15450\tabularnewline
-59 & 69968 & 30032 & 63708 & 36292 & 15246\tabularnewline
-60 & 72838 & 27162 & 66270 & 33730 & 15177\tabularnewline
-61 & 75609 & 24391 & 68873 & 31127 & 15006\tabularnewline
-62 & 77999 & 22001 & 71318 & 28682 & 14538\tabularnewline
-63 & 80616 & 19384 & 73517 & 26483 & 14510\tabularnewline
-64 & 83089 & 16911 & 76209 & 23791 & 13784\tabularnewline
-65 & 85150 & 14850 & 78086 & 21914 & 13412\tabularnewline
-66 & 86908 & 13092 & 80437 & 19563 & 12477\tabularnewline
-67 & 88671 & 11329 & 82379 & 17621 & 11718\tabularnewline
-68 & 90537 & 9463 & 84483 & 15517 & 10878\tabularnewline
-69 & 91969 & 8031 & 86233 & 13767 & 10033\tabularnewline
-70 & 93181 & 6819 & 87914 & 12086 & 9070\tabularnewline
-71 & 94330 & 5670 & 89200 & 10800 & 8401\tabularnewline
-72 & 95324 & 4676 & 90833 & 9167 & 7359\tabularnewline
-73 & 96143 & 3857 & 91805 & 8195 & 6726\tabularnewline
-74 & 96959 & 3041 & 93065 & 6935 & 5900\tabularnewline
-75 & 97543 & 2457 & 93987 & 6013 & 5222\tabularnewline
-76 & 97969 & 2031 & 94900 & 5100 & 4481\tabularnewline
-77 & 98497 & 1503 & 95756 & 4244 & 3809\tabularnewline
-78 & 98744 & 1256 & 96442 & 3558 & 3269\tabularnewline
-79 & 99045 & 955 & 96942 & 3058 & 2837\tabularnewline
-80 & 99276 & 724 & 97528 & 2472 & 2329\tabularnewline
-81 & 99481 & 519 & 97996 & 2004 & 1894\tabularnewline
-82 & 99556 & 444 & 98321 & 1679 & 1597\tabularnewline
-83 & 99691 & 309 & 98722 & 1278 & 1227\tabularnewline
-84 & 99752 & 248 & 98943 & 1057 & 1015\tabularnewline
-85 & 99833 & 167 & 99144 & 856 & 837\tabularnewline
-86 & 99895 & 105 & 99346 & 654 & 642\tabularnewline
-87 & 99925 & 75 & 99461 & 539 & 530\tabularnewline
-88 & 99945 & 55 & 99566 & 434 & 428\tabularnewline
-89 & 99976 & 24 & 99675 & 325 & 324\tabularnewline
-90 & 99977 & 23 & 99756 & 244 & 243\tabularnewline
-91 & 99982 & 18 & 99839 & 161 & 155\tabularnewline
-92 & 99988 & 12 & 99865 & 135 & 135\tabularnewline
-93 & 99994 & 6 & 99885 & 115 & 115\tabularnewline
-94 & 99993 & 7 & 99911 & 89 & 88\tabularnewline
-95 & 99998 & 2 & 99953 & 47 & 47\tabularnewline
-96 & 99999 & 1 & 99965 & 35 & 35\tabularnewline
-97 & 99999 & 1 & 99979 & 21 & 21\tabularnewline
-98 & 100000 & 0 & 99973 & 27 & 27\tabularnewline
-99 & 100000 & 0 & 99984 & 16 & 16\tabularnewline
-100 & 100000 & 0 & 99989 & 11 & 11\tabularnewline
+2 & 0 & 100000 & 0 & 100000 & 0 & 0\tabularnewline
+3 & 0 & 100000 & 0 & 100000 & 0 & 0\tabularnewline
+4 & 0 & 100000 & 0 & 100000 & 0 & 0\tabularnewline
+5 & 1 & 99999 & 1 & 99999 & 0 & 0\tabularnewline
+6 & 4 & 99996 & 4 & 99996 & 0 & 0\tabularnewline
+7 & 2 & 99998 & 2 & 99998 & 0 & 0\tabularnewline
+8 & 5 & 99995 & 5 & 99995 & 0 & 0\tabularnewline
+9 & 20 & 99980 & 21 & 99979 & 0 & 1\tabularnewline
+10 & 20 & 99980 & 22 & 99978 & 0 & 2\tabularnewline
+11 & 38 & 99962 & 39 & 99961 & 0 & 1\tabularnewline
+12 & 64 & 99936 & 66 & 99934 & 0 & 2\tabularnewline
+13 & 87 & 99913 & 91 & 99909 & 0 & 4\tabularnewline
+14 & 157 & 99843 & 159 & 99841 & 0 & 2\tabularnewline
+15 & 215 & 99785 & 227 & 99773 & 0 & 12\tabularnewline
+16 & 293 & 99707 & 310 & 99690 & 0 & 17\tabularnewline
+17 & 383 & 99617 & 408 & 99592 & 0 & 25\tabularnewline
+18 & 443 & 99557 & 473 & 99527 & 3 & 33\tabularnewline
+19 & 642 & 99358 & 675 & 99325 & 4 & 37\tabularnewline
+20 & 836 & 99164 & 887 & 99113 & 7 & 58\tabularnewline
+21 & 1006 & 98994 & 1058 & 98942 & 10 & 62\tabularnewline
+22 & 1153 & 98847 & 1228 & 98772 & 20 & 95\tabularnewline
+23 & 1501 & 98499 & 1593 & 98407 & 30 & 122\tabularnewline
+24 & 1841 & 98159 & 1996 & 98004 & 40 & 195\tabularnewline
+25 & 2146 & 97854 & 2316 & 97684 & 58 & 228\tabularnewline
+26 & 2643 & 97357 & 2809 & 97191 & 119 & 285\tabularnewline
+27 & 3034 & 96966 & 3258 & 96742 & 158 & 382\tabularnewline
+28 & 3690 & 96310 & 3928 & 96072 & 201 & 439\tabularnewline
+29 & 4257 & 95743 & 4532 & 95468 & 290 & 565\tabularnewline
+30 & 4964 & 95036 & 5221 & 94779 & 424 & 681\tabularnewline
+31 & 5627 & 94373 & 5978 & 94022 & 452 & 803\tabularnewline
+32 & 6543 & 93457 & 6891 & 93109 & 666 & 1014\tabularnewline
+33 & 7425 & 92575 & 7777 & 92223 & 818 & 1170\tabularnewline
+34 & 8540 & 91460 & 8841 & 91159 & 1071 & 1372\tabularnewline
+35 & 9526 & 90474 & 9842 & 90158 & 1337 & 1653\tabularnewline
+36 & 10617 & 89383 & 10891 & 89109 & 1624 & 1898\tabularnewline
+37 & 12344 & 87656 & 12508 & 87492 & 2021 & 2185\tabularnewline
+38 & 13675 & 86325 & 13877 & 86123 & 2442 & 2644\tabularnewline
+39 & 15264 & 84736 & 15349 & 84651 & 2870 & 2955\tabularnewline
+40 & 17026 & 82974 & 17053 & 82947 & 3363 & 3390\tabularnewline
+41 & 18768 & 81232 & 18614 & 81386 & 3905 & 3751\tabularnewline
+42 & 20791 & 79209 & 20470 & 79530 & 4579 & 4258\tabularnewline
+43 & 23150 & 76850 & 22754 & 77246 & 5217 & 4821\tabularnewline
+44 & 25449 & 74551 & 24184 & 75816 & 6285 & 5020\tabularnewline
+45 & 27702 & 72298 & 26464 & 73536 & 6754 & 5516\tabularnewline
+46 & 30525 & 69475 & 28966 & 71034 & 7646 & 6087\tabularnewline
+47 & 32832 & 67168 & 31125 & 68875 & 8487 & 6780\tabularnewline
+48 & 36152 & 63848 & 33865 & 66135 & 9479 & 7192\tabularnewline
+49 & 38714 & 61286 & 36242 & 63758 & 10125 & 7653\tabularnewline
+50 & 41628 & 58372 & 38508 & 61492 & 11036 & 7916\tabularnewline
+51 & 44483 & 55517 & 41023 & 58977 & 11704 & 8244\tabularnewline
+52 & 48134 & 51866 & 44287 & 55713 & 12573 & 8726\tabularnewline
+53 & 51138 & 48862 & 46721 & 53279 & 13223 & 8806\tabularnewline
+54 & 54261 & 45739 & 49559 & 50441 & 13757 & 9055\tabularnewline
+55 & 57647 & 42353 & 52403 & 47597 & 14324 & 9080\tabularnewline
+56 & 60630 & 39370 & 55293 & 44707 & 14669 & 9332\tabularnewline
+57 & 63647 & 36353 & 57787 & 42213 & 15103 & 9243\tabularnewline
+58 & 66961 & 33039 & 60439 & 39561 & 15450 & 8928\tabularnewline
+59 & 69968 & 30032 & 63708 & 36292 & 15246 & 8986\tabularnewline
+60 & 72838 & 27162 & 66270 & 33730 & 15177 & 8609\tabularnewline
+61 & 75609 & 24391 & 68873 & 31127 & 15006 & 8270\tabularnewline
+62 & 77999 & 22001 & 71318 & 28682 & 14538 & 7857\tabularnewline
+63 & 80616 & 19384 & 73517 & 26483 & 14510 & 7411\tabularnewline
+64 & 83089 & 16911 & 76209 & 23791 & 13784 & 6904\tabularnewline
+65 & 85150 & 14850 & 78086 & 21914 & 13412 & 6348\tabularnewline
+66 & 86908 & 13092 & 80437 & 19563 & 12477 & 6006\tabularnewline
+67 & 88671 & 11329 & 82379 & 17621 & 11718 & 5426\tabularnewline
+68 & 90537 & 9463 & 84483 & 15517 & 10878 & 4824\tabularnewline
+69 & 91969 & 8031 & 86233 & 13767 & 10033 & 4297\tabularnewline
+70 & 93181 & 6819 & 87914 & 12086 & 9070 & 3803\tabularnewline
+71 & 94330 & 5670 & 89200 & 10800 & 8401 & 3271\tabularnewline
+72 & 95324 & 4676 & 90833 & 9167 & 7359 & 2868\tabularnewline
+73 & 96143 & 3857 & 91805 & 8195 & 6726 & 2388\tabularnewline
+74 & 96959 & 3041 & 93065 & 6935 & 5900 & 2006\tabularnewline
+75 & 97543 & 2457 & 93987 & 6013 & 5222 & 1666\tabularnewline
+76 & 97969 & 2031 & 94900 & 5100 & 4481 & 1412\tabularnewline
+77 & 98497 & 1503 & 95756 & 4244 & 3809 & 1068\tabularnewline
+78 & 98744 & 1256 & 96442 & 3558 & 3269 & 967\tabularnewline
+79 & 99045 & 955 & 96942 & 3058 & 2837 & 734\tabularnewline
+80 & 99276 & 724 & 97528 & 2472 & 2329 & 581\tabularnewline
+81 & 99481 & 519 & 97996 & 2004 & 1894 & 409\tabularnewline
+82 & 99556 & 444 & 98321 & 1679 & 1597 & 362\tabularnewline
+83 & 99691 & 309 & 98722 & 1278 & 1227 & 258\tabularnewline
+84 & 99752 & 248 & 98943 & 1057 & 1015 & 206\tabularnewline
+85 & 99833 & 167 & 99144 & 856 & 837 & 148\tabularnewline
+86 & 99895 & 105 & 99346 & 654 & 642 & 93\tabularnewline
+87 & 99925 & 75 & 99461 & 539 & 530 & 66\tabularnewline
+88 & 99945 & 55 & 99566 & 434 & 428 & 49\tabularnewline
+89 & 99976 & 24 & 99675 & 325 & 324 & 23\tabularnewline
+90 & 99977 & 23 & 99756 & 244 & 243 & 22\tabularnewline
+91 & 99982 & 18 & 99839 & 161 & 155 & 12\tabularnewline
+92 & 99988 & 12 & 99865 & 135 & 135 & 12\tabularnewline
+93 & 99994 & 6 & 99885 & 115 & 115 & 6\tabularnewline
+94 & 99993 & 7 & 99911 & 89 & 88 & 6\tabularnewline
+95 & 99998 & 2 & 99953 & 47 & 47 & 2\tabularnewline
+96 & 99999 & 1 & 99965 & 35 & 35 & 1\tabularnewline
+97 & 99999 & 1 & 99979 & 21 & 21 & 1\tabularnewline
+98 & 100000 & 0 & 99973 & 27 & 27 & 0\tabularnewline
+99 & 100000 & 0 & 99984 & 16 & 16 & 0\tabularnewline
+100 & 100000 & 0 & 99989 & 11 & 11 & 0\tabularnewline
 \bottomrule
 \end{longtable}
 
@@ -668,7 +668,7 @@ positive\textsuperscript{\protect\hyperlink{ref-Allesina2012}{2}}
 leading \(\Re(\lambda)\), and it is highly unlikely that \(Var(\gamma)\)
 alone will shift all real parts of eigenvalues to negative values.
 
-\hypertarget{connectance}{\section{Sensitivity of inter-connectivity (C)
+\hypertarget{connectance}{\section{Sensitivity of connectance (C)
 values}\label{connectance}}
 
 In the main text, for simplicity, I assumed connectance values of
@@ -695,220 +695,220 @@ stabilised or destabilised, respectively, by \(Var(\gamma)\).
 
 \textbf{Connectance \(\mathbf{C = 0.3}\)}
 
-\begin{longtable}[]{@{}lllllll@{}}
+\begin{longtable}[]{@{}llllllll@{}}
 \toprule
 N & A0\_unstable & A0\_stable & A1\_unstable & A1\_stable &
-A1\_stabilised & A1\_destabilised\tabularnewline
+A1\_stabilised & A1\_destabilised & A0\_infeasible\tabularnewline
 \midrule
 \endhead
-2 & 5 & 99995 & 5 & 99995 & 0 & 0\tabularnewline
-3 & 6 & 99994 & 6 & 99994 & 0 & 0\tabularnewline
-4 & 24 & 99976 & 24 & 99976 & 0 & 0\tabularnewline
-5 & 59 & 99941 & 59 & 99941 & 0 & 0\tabularnewline
-6 & 98 & 99902 & 98 & 99902 & 0 & 0\tabularnewline
-7 & 160 & 99840 & 161 & 99839 & 0 & 1\tabularnewline
-8 & 290 & 99710 & 293 & 99707 & 0 & 3\tabularnewline
-9 & 430 & 99570 & 434 & 99566 & 0 & 4\tabularnewline
-10 & 648 & 99352 & 653 & 99347 & 1 & 6\tabularnewline
-11 & 946 & 99054 & 957 & 99043 & 0 & 11\tabularnewline
-12 & 1392 & 98608 & 1415 & 98585 & 4 & 27\tabularnewline
-13 & 2032 & 97968 & 2065 & 97935 & 5 & 38\tabularnewline
-14 & 2627 & 97373 & 2688 & 97312 & 10 & 71\tabularnewline
-15 & 3588 & 96412 & 3647 & 96353 & 35 & 94\tabularnewline
-16 & 5019 & 94981 & 5124 & 94876 & 51 & 156\tabularnewline
-17 & 6512 & 93488 & 6673 & 93327 & 79 & 240\tabularnewline
-18 & 8444 & 91556 & 8600 & 91400 & 165 & 321\tabularnewline
-19 & 10416 & 89584 & 10667 & 89333 & 244 & 495\tabularnewline
-20 & 13254 & 86746 & 13477 & 86523 & 425 & 648\tabularnewline
-21 & 16248 & 83752 & 16481 & 83519 & 642 & 875\tabularnewline
-22 & 19497 & 80503 & 19719 & 80281 & 929 & 1151\tabularnewline
-23 & 23654 & 76346 & 23776 & 76224 & 1368 & 1490\tabularnewline
-24 & 28485 & 71515 & 28389 & 71611 & 1914 & 1818\tabularnewline
-25 & 32774 & 67226 & 32483 & 67517 & 2428 & 2137\tabularnewline
-26 & 38126 & 61874 & 37411 & 62589 & 3221 & 2506\tabularnewline
-27 & 43435 & 56565 & 42418 & 57582 & 3828 & 2811\tabularnewline
-28 & 49333 & 50667 & 47840 & 52160 & 4565 & 3072\tabularnewline
-29 & 55389 & 44611 & 53381 & 46619 & 5329 & 3321\tabularnewline
-30 & 60826 & 39174 & 58388 & 41612 & 5918 & 3480\tabularnewline
-31 & 66820 & 33180 & 64043 & 35957 & 6345 & 3568\tabularnewline
-32 & 72190 & 27810 & 69036 & 30964 & 6685 & 3531\tabularnewline
-33 & 77053 & 22947 & 73587 & 26413 & 6826 & 3360\tabularnewline
-34 & 81816 & 18184 & 78157 & 21843 & 6673 & 3014\tabularnewline
-35 & 85651 & 14349 & 82041 & 17959 & 6383 & 2773\tabularnewline
-36 & 88985 & 11015 & 85657 & 14343 & 5721 & 2393\tabularnewline
-37 & 92072 & 7928 & 88805 & 11195 & 5180 & 1913\tabularnewline
-38 & 94329 & 5671 & 91444 & 8556 & 4451 & 1566\tabularnewline
-39 & 95912 & 4088 & 93295 & 6705 & 3804 & 1187\tabularnewline
-40 & 97232 & 2768 & 95201 & 4799 & 2967 & 936\tabularnewline
-41 & 98179 & 1821 & 96506 & 3494 & 2356 & 683\tabularnewline
-42 & 98826 & 1174 & 97489 & 2511 & 1786 & 449\tabularnewline
-43 & 99275 & 725 & 98312 & 1688 & 1251 & 288\tabularnewline
-44 & 99583 & 417 & 98872 & 1128 & 903 & 192\tabularnewline
-45 & 99776 & 224 & 99339 & 661 & 576 & 139\tabularnewline
-46 & 99865 & 135 & 99518 & 482 & 413 & 66\tabularnewline
-47 & 99938 & 62 & 99744 & 256 & 226 & 32\tabularnewline
-48 & 99956 & 44 & 99824 & 176 & 151 & 19\tabularnewline
-49 & 99980 & 20 & 99914 & 86 & 85 & 19\tabularnewline
-50 & 99993 & 7 & 99950 & 50 & 46 & 3\tabularnewline
-51 & 99998 & 2 & 99971 & 29 & 28 & 1\tabularnewline
-52 & 99998 & 2 & 99986 & 14 & 14 & 2\tabularnewline
-53 & 99999 & 1 & 99992 & 8 & 7 & 0\tabularnewline
-54 & 100000 & 0 & 99997 & 3 & 3 & 0\tabularnewline
-55 & 100000 & 0 & 99999 & 1 & 1 & 0\tabularnewline
-56 & 100000 & 0 & 99998 & 2 & 2 & 0\tabularnewline
-57 & 100000 & 0 & 99999 & 1 & 1 & 0\tabularnewline
-58 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+2 & 5 & 99995 & 5 & 99995 & 0 & 0 & 75110\tabularnewline
+3 & 6 & 99994 & 6 & 99994 & 0 & 0 & 87526\tabularnewline
+4 & 24 & 99976 & 24 & 99976 & 0 & 0 & 93713\tabularnewline
+5 & 59 & 99941 & 59 & 99941 & 0 & 0 & 96929\tabularnewline
+6 & 98 & 99902 & 98 & 99902 & 0 & 0 & 98492\tabularnewline
+7 & 160 & 99840 & 161 & 99839 & 0 & 1 & 99243\tabularnewline
+8 & 290 & 99710 & 293 & 99707 & 0 & 3 & 99582\tabularnewline
+9 & 430 & 99570 & 434 & 99566 & 0 & 4 & 99821\tabularnewline
+10 & 648 & 99352 & 653 & 99347 & 1 & 6 & 99895\tabularnewline
+11 & 946 & 99054 & 957 & 99043 & 0 & 11 & 99945\tabularnewline
+12 & 1392 & 98608 & 1415 & 98585 & 4 & 27 & 99978\tabularnewline
+13 & 2032 & 97968 & 2065 & 97935 & 5 & 38 & 99987\tabularnewline
+14 & 2627 & 97373 & 2688 & 97312 & 10 & 71 & 99988\tabularnewline
+15 & 3588 & 96412 & 3647 & 96353 & 35 & 94 & 99996\tabularnewline
+16 & 5019 & 94981 & 5124 & 94876 & 51 & 156 & 99998\tabularnewline
+17 & 6512 & 93488 & 6673 & 93327 & 79 & 240 & 99999\tabularnewline
+18 & 8444 & 91556 & 8600 & 91400 & 165 & 321 & 100000\tabularnewline
+19 & 10416 & 89584 & 10667 & 89333 & 244 & 495 & 100000\tabularnewline
+20 & 13254 & 86746 & 13477 & 86523 & 425 & 648 & 100000\tabularnewline
+21 & 16248 & 83752 & 16481 & 83519 & 642 & 875 & 100000\tabularnewline
+22 & 19497 & 80503 & 19719 & 80281 & 929 & 1151 & 100000\tabularnewline
+23 & 23654 & 76346 & 23776 & 76224 & 1368 & 1490 & 100000\tabularnewline
+24 & 28485 & 71515 & 28389 & 71611 & 1914 & 1818 & 100000\tabularnewline
+25 & 32774 & 67226 & 32483 & 67517 & 2428 & 2137 & 100000\tabularnewline
+26 & 38126 & 61874 & 37411 & 62589 & 3221 & 2506 & 100000\tabularnewline
+27 & 43435 & 56565 & 42418 & 57582 & 3828 & 2811 & 100000\tabularnewline
+28 & 49333 & 50667 & 47840 & 52160 & 4565 & 3072 & 100000\tabularnewline
+29 & 55389 & 44611 & 53381 & 46619 & 5329 & 3321 & 100000\tabularnewline
+30 & 60826 & 39174 & 58388 & 41612 & 5918 & 3480 & 100000\tabularnewline
+31 & 66820 & 33180 & 64043 & 35957 & 6345 & 3568 & 100000\tabularnewline
+32 & 72190 & 27810 & 69036 & 30964 & 6685 & 3531 & 100000\tabularnewline
+33 & 77053 & 22947 & 73587 & 26413 & 6826 & 3360 & 100000\tabularnewline
+34 & 81816 & 18184 & 78157 & 21843 & 6673 & 3014 & 100000\tabularnewline
+35 & 85651 & 14349 & 82041 & 17959 & 6383 & 2773 & 100000\tabularnewline
+36 & 88985 & 11015 & 85657 & 14343 & 5721 & 2393 & 100000\tabularnewline
+37 & 92072 & 7928 & 88805 & 11195 & 5180 & 1913 & 100000\tabularnewline
+38 & 94329 & 5671 & 91444 & 8556 & 4451 & 1566 & 100000\tabularnewline
+39 & 95912 & 4088 & 93295 & 6705 & 3804 & 1187 & 100000\tabularnewline
+40 & 97232 & 2768 & 95201 & 4799 & 2967 & 936 & 100000\tabularnewline
+41 & 98179 & 1821 & 96506 & 3494 & 2356 & 683 & 100000\tabularnewline
+42 & 98826 & 1174 & 97489 & 2511 & 1786 & 449 & 100000\tabularnewline
+43 & 99275 & 725 & 98312 & 1688 & 1251 & 288 & 100000\tabularnewline
+44 & 99583 & 417 & 98872 & 1128 & 903 & 192 & 100000\tabularnewline
+45 & 99776 & 224 & 99339 & 661 & 576 & 139 & 100000\tabularnewline
+46 & 99865 & 135 & 99518 & 482 & 413 & 66 & 100000\tabularnewline
+47 & 99938 & 62 & 99744 & 256 & 226 & 32 & 100000\tabularnewline
+48 & 99956 & 44 & 99824 & 176 & 151 & 19 & 100000\tabularnewline
+49 & 99980 & 20 & 99914 & 86 & 85 & 19 & 100000\tabularnewline
+50 & 99993 & 7 & 99950 & 50 & 46 & 3 & 100000\tabularnewline
+51 & 99998 & 2 & 99971 & 29 & 28 & 1 & 100000\tabularnewline
+52 & 99998 & 2 & 99986 & 14 & 14 & 2 & 100000\tabularnewline
+53 & 99999 & 1 & 99992 & 8 & 7 & 0 & 100000\tabularnewline
+54 & 100000 & 0 & 99997 & 3 & 3 & 0 & 100000\tabularnewline
+55 & 100000 & 0 & 99999 & 1 & 1 & 0 & 100000\tabularnewline
+56 & 100000 & 0 & 99998 & 2 & 2 & 0 & 100000\tabularnewline
+57 & 100000 & 0 & 99999 & 1 & 1 & 0 & 100000\tabularnewline
+58 & 100000 & 0 & 100000 & 0 & 0 & 0 & 100000\tabularnewline
 \ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} &
-\ldots{}\tabularnewline
-100 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+\ldots{} & \ldots{}\tabularnewline
+100 & 100000 & 0 & 100000 & 0 & 0 & 0 & 100000\tabularnewline
 \bottomrule
 \end{longtable}
 
 \textbf{Connectance \(\mathbf{C = 0.5}\)}
 
-\begin{longtable}[]{@{}lllllll@{}}
+\begin{longtable}[]{@{}llllllll@{}}
 \toprule
 N & A0\_unstable & A0\_stable & A1\_unstable & A1\_stable &
-A1\_stabilised & A1\_destabilised\tabularnewline
+A1\_stabilised & A1\_destabilised & A0\_infeasible\tabularnewline
 \midrule
 \endhead
-2 & 7 & 99993 & 7 & 99993 & 0 & 0\tabularnewline
-3 & 32 & 99968 & 32 & 99968 & 0 & 0\tabularnewline
-4 & 122 & 99878 & 122 & 99878 & 0 & 0\tabularnewline
-5 & 320 & 99680 & 321 & 99679 & 0 & 1\tabularnewline
-6 & 667 & 99333 & 673 & 99327 & 0 & 6\tabularnewline
-7 & 1233 & 98767 & 1252 & 98748 & 0 & 19\tabularnewline
-8 & 2123 & 97877 & 2156 & 97844 & 3 & 36\tabularnewline
-9 & 3415 & 96585 & 3471 & 96529 & 16 & 72\tabularnewline
-10 & 5349 & 94651 & 5450 & 94550 & 30 & 131\tabularnewline
-11 & 7990 & 92010 & 8185 & 91815 & 81 & 276\tabularnewline
-12 & 11073 & 88927 & 11301 & 88699 & 219 & 447\tabularnewline
-13 & 14971 & 85029 & 15204 & 84796 & 445 & 678\tabularnewline
-14 & 19754 & 80246 & 19992 & 80008 & 764 & 1002\tabularnewline
-15 & 25020 & 74980 & 25239 & 74761 & 1185 & 1404\tabularnewline
-16 & 30860 & 69140 & 30938 & 69062 & 1902 & 1980\tabularnewline
-17 & 37844 & 62156 & 37562 & 62438 & 2758 & 2476\tabularnewline
-18 & 44909 & 55091 & 44251 & 55749 & 3595 & 2937\tabularnewline
-19 & 52322 & 47678 & 51011 & 48989 & 4573 & 3262\tabularnewline
-20 & 60150 & 39850 & 58295 & 41705 & 5382 & 3527\tabularnewline
-21 & 67147 & 32853 & 64895 & 35105 & 5925 & 3673\tabularnewline
-22 & 74177 & 25823 & 71358 & 28642 & 6310 & 3491\tabularnewline
-23 & 80297 & 19703 & 77034 & 22966 & 6507 & 3244\tabularnewline
-24 & 85372 & 14628 & 82039 & 17961 & 6209 & 2876\tabularnewline
-25 & 89719 & 10281 & 86539 & 13461 & 5562 & 2382\tabularnewline
-26 & 92947 & 7053 & 90141 & 9859 & 4707 & 1901\tabularnewline
-27 & 95436 & 4564 & 92950 & 7050 & 3844 & 1358\tabularnewline
-28 & 97196 & 2804 & 95171 & 4829 & 2999 & 974\tabularnewline
-29 & 98300 & 1700 & 96842 & 3158 & 2115 & 657\tabularnewline
-30 & 99103 & 897 & 98033 & 1967 & 1466 & 396\tabularnewline
-31 & 99502 & 498 & 98665 & 1335 & 1068 & 231\tabularnewline
-32 & 99745 & 255 & 99185 & 815 & 696 & 136\tabularnewline
-33 & 99881 & 119 & 99572 & 428 & 375 & 66\tabularnewline
-34 & 99955 & 45 & 99788 & 212 & 191 & 24\tabularnewline
-35 & 99979 & 21 & 99900 & 100 & 95 & 16\tabularnewline
-36 & 99995 & 5 & 99950 & 50 & 50 & 5\tabularnewline
-37 & 99997 & 3 & 99970 & 30 & 28 & 1\tabularnewline
-38 & 99998 & 2 & 99986 & 14 & 13 & 1\tabularnewline
-39 & 99999 & 1 & 99991 & 9 & 9 & 1\tabularnewline
-40 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
-41 & 100000 & 0 & 99999 & 1 & 1 & 0\tabularnewline
-42 & 100000 & 0 & 99999 & 1 & 1 & 0\tabularnewline
-43 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+2 & 7 & 99993 & 7 & 99993 & 0 & 0 & 74863\tabularnewline
+3 & 32 & 99968 & 32 & 99968 & 0 & 0 & 87434\tabularnewline
+4 & 122 & 99878 & 122 & 99878 & 0 & 0 & 93761\tabularnewline
+5 & 320 & 99680 & 321 & 99679 & 0 & 1 & 96830\tabularnewline
+6 & 667 & 99333 & 673 & 99327 & 0 & 6 & 98481\tabularnewline
+7 & 1233 & 98767 & 1252 & 98748 & 0 & 19 & 99187\tabularnewline
+8 & 2123 & 97877 & 2156 & 97844 & 3 & 36 & 99654\tabularnewline
+9 & 3415 & 96585 & 3471 & 96529 & 16 & 72 & 99816\tabularnewline
+10 & 5349 & 94651 & 5450 & 94550 & 30 & 131 & 99900\tabularnewline
+11 & 7990 & 92010 & 8185 & 91815 & 81 & 276 & 99958\tabularnewline
+12 & 11073 & 88927 & 11301 & 88699 & 219 & 447 & 99973\tabularnewline
+13 & 14971 & 85029 & 15204 & 84796 & 445 & 678 & 99986\tabularnewline
+14 & 19754 & 80246 & 19992 & 80008 & 764 & 1002 & 99991\tabularnewline
+15 & 25020 & 74980 & 25239 & 74761 & 1185 & 1404 & 99996\tabularnewline
+16 & 30860 & 69140 & 30938 & 69062 & 1902 & 1980 & 99999\tabularnewline
+17 & 37844 & 62156 & 37562 & 62438 & 2758 & 2476 & 100000\tabularnewline
+18 & 44909 & 55091 & 44251 & 55749 & 3595 & 2937 & 99999\tabularnewline
+19 & 52322 & 47678 & 51011 & 48989 & 4573 & 3262 & 99999\tabularnewline
+20 & 60150 & 39850 & 58295 & 41705 & 5382 & 3527 & 100000\tabularnewline
+21 & 67147 & 32853 & 64895 & 35105 & 5925 & 3673 & 100000\tabularnewline
+22 & 74177 & 25823 & 71358 & 28642 & 6310 & 3491 & 100000\tabularnewline
+23 & 80297 & 19703 & 77034 & 22966 & 6507 & 3244 & 100000\tabularnewline
+24 & 85372 & 14628 & 82039 & 17961 & 6209 & 2876 & 100000\tabularnewline
+25 & 89719 & 10281 & 86539 & 13461 & 5562 & 2382 & 100000\tabularnewline
+26 & 92947 & 7053 & 90141 & 9859 & 4707 & 1901 & 100000\tabularnewline
+27 & 95436 & 4564 & 92950 & 7050 & 3844 & 1358 & 100000\tabularnewline
+28 & 97196 & 2804 & 95171 & 4829 & 2999 & 974 & 100000\tabularnewline
+29 & 98300 & 1700 & 96842 & 3158 & 2115 & 657 & 100000\tabularnewline
+30 & 99103 & 897 & 98033 & 1967 & 1466 & 396 & 100000\tabularnewline
+31 & 99502 & 498 & 98665 & 1335 & 1068 & 231 & 100000\tabularnewline
+32 & 99745 & 255 & 99185 & 815 & 696 & 136 & 100000\tabularnewline
+33 & 99881 & 119 & 99572 & 428 & 375 & 66 & 100000\tabularnewline
+34 & 99955 & 45 & 99788 & 212 & 191 & 24 & 100000\tabularnewline
+35 & 99979 & 21 & 99900 & 100 & 95 & 16 & 100000\tabularnewline
+36 & 99995 & 5 & 99950 & 50 & 50 & 5 & 100000\tabularnewline
+37 & 99997 & 3 & 99970 & 30 & 28 & 1 & 100000\tabularnewline
+38 & 99998 & 2 & 99986 & 14 & 13 & 1 & 100000\tabularnewline
+39 & 99999 & 1 & 99991 & 9 & 9 & 1 & 100000\tabularnewline
+40 & 100000 & 0 & 100000 & 0 & 0 & 0 & 100000\tabularnewline
+41 & 100000 & 0 & 99999 & 1 & 1 & 0 & 100000\tabularnewline
+42 & 100000 & 0 & 99999 & 1 & 1 & 0 & 100000\tabularnewline
+43 & 100000 & 0 & 100000 & 0 & 0 & 0 & 100000\tabularnewline
 \ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} &
-\ldots{}\tabularnewline
-50 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+\ldots{} & \ldots{}\tabularnewline
+50 & 100000 & 0 & 100000 & 0 & 0 & 0 & 100000\tabularnewline
 \bottomrule
 \end{longtable}
 
 \textbf{Connectance \(\mathbf{C = 0.7}\)}
 
-\begin{longtable}[]{@{}lllllll@{}}
+\begin{longtable}[]{@{}llllllll@{}}
 \toprule
 N & A0\_unstable & A0\_stable & A1\_unstable & A1\_stable &
-A1\_stabilised & A1\_destabilised\tabularnewline
+A1\_stabilised & A1\_destabilised & A0\_infeasible\tabularnewline
 \midrule
 \endhead
-2 & 7 & 99993 & 7 & 99993 & 0 & 0\tabularnewline
-3 & 106 & 99894 & 106 & 99894 & 0 & 0\tabularnewline
-4 & 395 & 99605 & 397 & 99603 & 0 & 2\tabularnewline
-5 & 1117 & 98883 & 1123 & 98877 & 0 & 6\tabularnewline
-6 & 2346 & 97654 & 2367 & 97633 & 6 & 27\tabularnewline
-7 & 4314 & 95686 & 4388 & 95612 & 16 & 90\tabularnewline
-8 & 7327 & 92673 & 7456 & 92544 & 61 & 190\tabularnewline
-9 & 11514 & 88486 & 11792 & 88208 & 150 & 428\tabularnewline
-10 & 16247 & 83753 & 16584 & 83416 & 415 & 752\tabularnewline
-11 & 22481 & 77519 & 22759 & 77241 & 884 & 1162\tabularnewline
-12 & 29459 & 70541 & 29729 & 70271 & 1548 & 1818\tabularnewline
-13 & 37631 & 62369 & 37567 & 62433 & 2419 & 2355\tabularnewline
-14 & 46317 & 53683 & 45696 & 54304 & 3548 & 2927\tabularnewline
-15 & 54945 & 45055 & 53695 & 46305 & 4671 & 3421\tabularnewline
-16 & 63683 & 36317 & 61643 & 38357 & 5567 & 3527\tabularnewline
-17 & 72004 & 27996 & 69375 & 30625 & 6124 & 3495\tabularnewline
-18 & 79220 & 20780 & 76158 & 23842 & 6413 & 3351\tabularnewline
-19 & 85286 & 14714 & 82283 & 17717 & 5982 & 2979\tabularnewline
-20 & 90240 & 9760 & 87181 & 12819 & 5398 & 2339\tabularnewline
-21 & 93676 & 6324 & 91077 & 8923 & 4468 & 1869\tabularnewline
-22 & 96203 & 3797 & 94045 & 5955 & 3425 & 1267\tabularnewline
-23 & 97866 & 2134 & 96161 & 3839 & 2496 & 791\tabularnewline
-24 & 98842 & 1158 & 97633 & 2367 & 1713 & 504\tabularnewline
-25 & 99433 & 567 & 98630 & 1370 & 1079 & 276\tabularnewline
-26 & 99760 & 240 & 99259 & 741 & 655 & 154\tabularnewline
-27 & 99895 & 105 & 99576 & 424 & 377 & 58\tabularnewline
-28 & 99950 & 50 & 99790 & 210 & 194 & 34\tabularnewline
-29 & 99981 & 19 & 99915 & 85 & 80 & 14\tabularnewline
-30 & 99994 & 6 & 99952 & 48 & 47 & 5\tabularnewline
-31 & 99998 & 2 & 99972 & 28 & 28 & 2\tabularnewline
-32 & 99999 & 1 & 99992 & 8 & 8 & 1\tabularnewline
-33 & 100000 & 0 & 99997 & 3 & 3 & 0\tabularnewline
-34 & 100000 & 0 & 99999 & 1 & 1 & 0\tabularnewline
-35 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+2 & 7 & 99993 & 7 & 99993 & 0 & 0 & 75160\tabularnewline
+3 & 106 & 99894 & 106 & 99894 & 0 & 0 & 87447\tabularnewline
+4 & 395 & 99605 & 397 & 99603 & 0 & 2 & 93849\tabularnewline
+5 & 1117 & 98883 & 1123 & 98877 & 0 & 6 & 96827\tabularnewline
+6 & 2346 & 97654 & 2367 & 97633 & 6 & 27 & 98402\tabularnewline
+7 & 4314 & 95686 & 4388 & 95612 & 16 & 90 & 99218\tabularnewline
+8 & 7327 & 92673 & 7456 & 92544 & 61 & 190 & 99611\tabularnewline
+9 & 11514 & 88486 & 11792 & 88208 & 150 & 428 & 99808\tabularnewline
+10 & 16247 & 83753 & 16584 & 83416 & 415 & 752 & 99904\tabularnewline
+11 & 22481 & 77519 & 22759 & 77241 & 884 & 1162 & 99952\tabularnewline
+12 & 29459 & 70541 & 29729 & 70271 & 1548 & 1818 & 99977\tabularnewline
+13 & 37631 & 62369 & 37567 & 62433 & 2419 & 2355 & 99984\tabularnewline
+14 & 46317 & 53683 & 45696 & 54304 & 3548 & 2927 & 99995\tabularnewline
+15 & 54945 & 45055 & 53695 & 46305 & 4671 & 3421 & 99994\tabularnewline
+16 & 63683 & 36317 & 61643 & 38357 & 5567 & 3527 & 99999\tabularnewline
+17 & 72004 & 27996 & 69375 & 30625 & 6124 & 3495 & 100000\tabularnewline
+18 & 79220 & 20780 & 76158 & 23842 & 6413 & 3351 & 100000\tabularnewline
+19 & 85286 & 14714 & 82283 & 17717 & 5982 & 2979 & 99999\tabularnewline
+20 & 90240 & 9760 & 87181 & 12819 & 5398 & 2339 & 100000\tabularnewline
+21 & 93676 & 6324 & 91077 & 8923 & 4468 & 1869 & 100000\tabularnewline
+22 & 96203 & 3797 & 94045 & 5955 & 3425 & 1267 & 100000\tabularnewline
+23 & 97866 & 2134 & 96161 & 3839 & 2496 & 791 & 100000\tabularnewline
+24 & 98842 & 1158 & 97633 & 2367 & 1713 & 504 & 100000\tabularnewline
+25 & 99433 & 567 & 98630 & 1370 & 1079 & 276 & 100000\tabularnewline
+26 & 99760 & 240 & 99259 & 741 & 655 & 154 & 100000\tabularnewline
+27 & 99895 & 105 & 99576 & 424 & 377 & 58 & 100000\tabularnewline
+28 & 99950 & 50 & 99790 & 210 & 194 & 34 & 100000\tabularnewline
+29 & 99981 & 19 & 99915 & 85 & 80 & 14 & 100000\tabularnewline
+30 & 99994 & 6 & 99952 & 48 & 47 & 5 & 100000\tabularnewline
+31 & 99998 & 2 & 99972 & 28 & 28 & 2 & 100000\tabularnewline
+32 & 99999 & 1 & 99992 & 8 & 8 & 1 & 100000\tabularnewline
+33 & 100000 & 0 & 99997 & 3 & 3 & 0 & 100000\tabularnewline
+34 & 100000 & 0 & 99999 & 1 & 1 & 0 & 100000\tabularnewline
+35 & 100000 & 0 & 100000 & 0 & 0 & 0 & 100000\tabularnewline
 \ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} &
-\ldots{}\tabularnewline
-50 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+\ldots{} & \ldots{}\tabularnewline
+50 & 100000 & 0 & 100000 & 0 & 0 & 0 & 100000\tabularnewline
 \bottomrule
 \end{longtable}
 
 \textbf{Connectance \(\mathbf{C = 0.9}\)}
 
-\begin{longtable}[]{@{}lllllll@{}}
+\begin{longtable}[]{@{}llllllll@{}}
 \toprule
 N & A0\_unstable & A0\_stable & A1\_unstable & A1\_stable &
-A1\_stabilised & A1\_destabilised\tabularnewline
+A1\_stabilised & A1\_destabilised & A0\_infeasible\tabularnewline
 \midrule
 \endhead
-2 & 14 & 99986 & 14 & 99986 & 0 & 0\tabularnewline
-3 & 240 & 99760 & 240 & 99760 & 0 & 0\tabularnewline
-4 & 1008 & 98992 & 1016 & 98984 & 0 & 8\tabularnewline
-5 & 2708 & 97292 & 2729 & 97271 & 2 & 23\tabularnewline
-6 & 5669 & 94331 & 5755 & 94245 & 13 & 99\tabularnewline
-7 & 9848 & 90152 & 10057 & 89943 & 91 & 300\tabularnewline
-8 & 15903 & 84097 & 16201 & 83799 & 336 & 634\tabularnewline
-9 & 22707 & 77293 & 23110 & 76890 & 765 & 1168\tabularnewline
-10 & 30796 & 69204 & 31122 & 68878 & 1526 & 1852\tabularnewline
-11 & 40224 & 59776 & 40082 & 59918 & 2649 & 2507\tabularnewline
-12 & 49934 & 50066 & 49288 & 50712 & 3773 & 3127\tabularnewline
-13 & 60138 & 39862 & 58803 & 41197 & 4984 & 3649\tabularnewline
-14 & 69100 & 30900 & 67110 & 32890 & 5755 & 3765\tabularnewline
-15 & 77607 & 22393 & 74884 & 25116 & 6273 & 3550\tabularnewline
-16 & 84663 & 15337 & 81780 & 18220 & 5975 & 3092\tabularnewline
-17 & 90075 & 9925 & 87290 & 12710 & 5209 & 2424\tabularnewline
-18 & 93944 & 6056 & 91419 & 8581 & 4271 & 1746\tabularnewline
-19 & 96650 & 3350 & 94530 & 5470 & 3287 & 1167\tabularnewline
-20 & 98160 & 1840 & 96698 & 3302 & 2191 & 729\tabularnewline
-21 & 99111 & 889 & 98133 & 1867 & 1389 & 411\tabularnewline
-22 & 99588 & 412 & 98905 & 1095 & 903 & 220\tabularnewline
-23 & 99837 & 163 & 99480 & 520 & 452 & 95\tabularnewline
-24 & 99932 & 68 & 99744 & 256 & 228 & 40\tabularnewline
-25 & 99976 & 24 & 99863 & 137 & 133 & 20\tabularnewline
-26 & 99995 & 5 & 99950 & 50 & 49 & 4\tabularnewline
-27 & 99996 & 4 & 99986 & 14 & 13 & 3\tabularnewline
-28 & 100000 & 0 & 99993 & 7 & 7 & 0\tabularnewline
-29 & 100000 & 0 & 99996 & 4 & 4 & 0\tabularnewline
-30 & 100000 & 0 & 99998 & 2 & 2 & 0\tabularnewline
-31 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+2 & 14 & 99986 & 14 & 99986 & 0 & 0 & 75187\tabularnewline
+3 & 240 & 99760 & 240 & 99760 & 0 & 0 & 87443\tabularnewline
+4 & 1008 & 98992 & 1016 & 98984 & 0 & 8 & 93795\tabularnewline
+5 & 2708 & 97292 & 2729 & 97271 & 2 & 23 & 96814\tabularnewline
+6 & 5669 & 94331 & 5755 & 94245 & 13 & 99 & 98439\tabularnewline
+7 & 9848 & 90152 & 10057 & 89943 & 91 & 300 & 99208\tabularnewline
+8 & 15903 & 84097 & 16201 & 83799 & 336 & 634 & 99603\tabularnewline
+9 & 22707 & 77293 & 23110 & 76890 & 765 & 1168 & 99803\tabularnewline
+10 & 30796 & 69204 & 31122 & 68878 & 1526 & 1852 & 99909\tabularnewline
+11 & 40224 & 59776 & 40082 & 59918 & 2649 & 2507 & 99951\tabularnewline
+12 & 49934 & 50066 & 49288 & 50712 & 3773 & 3127 & 99977\tabularnewline
+13 & 60138 & 39862 & 58803 & 41197 & 4984 & 3649 & 99986\tabularnewline
+14 & 69100 & 30900 & 67110 & 32890 & 5755 & 3765 & 99995\tabularnewline
+15 & 77607 & 22393 & 74884 & 25116 & 6273 & 3550 & 100000\tabularnewline
+16 & 84663 & 15337 & 81780 & 18220 & 5975 & 3092 & 100000\tabularnewline
+17 & 90075 & 9925 & 87290 & 12710 & 5209 & 2424 & 100000\tabularnewline
+18 & 93944 & 6056 & 91419 & 8581 & 4271 & 1746 & 100000\tabularnewline
+19 & 96650 & 3350 & 94530 & 5470 & 3287 & 1167 & 99999\tabularnewline
+20 & 98160 & 1840 & 96698 & 3302 & 2191 & 729 & 100000\tabularnewline
+21 & 99111 & 889 & 98133 & 1867 & 1389 & 411 & 100000\tabularnewline
+22 & 99588 & 412 & 98905 & 1095 & 903 & 220 & 100000\tabularnewline
+23 & 99837 & 163 & 99480 & 520 & 452 & 95 & 100000\tabularnewline
+24 & 99932 & 68 & 99744 & 256 & 228 & 40 & 100000\tabularnewline
+25 & 99976 & 24 & 99863 & 137 & 133 & 20 & 100000\tabularnewline
+26 & 99995 & 5 & 99950 & 50 & 49 & 4 & 100000\tabularnewline
+27 & 99996 & 4 & 99986 & 14 & 13 & 3 & 100000\tabularnewline
+28 & 100000 & 0 & 99993 & 7 & 7 & 0 & 100000\tabularnewline
+29 & 100000 & 0 & 99996 & 4 & 4 & 0 & 100000\tabularnewline
+30 & 100000 & 0 & 99998 & 2 & 2 & 0 & 100000\tabularnewline
+31 & 100000 & 0 & 100000 & 0 & 0 & 0 & 100000\tabularnewline
 \ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} &
-\ldots{}\tabularnewline
-50 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+\ldots{} & \ldots{}\tabularnewline
+50 & 100000 & 0 & 100000 & 0 & 0 & 0 & 100000\tabularnewline
 \bottomrule
 \end{longtable}
 

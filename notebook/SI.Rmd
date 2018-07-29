@@ -95,7 +95,7 @@ d_tab <- dat[,1:7];
 kable(d_tab);
 ```
 
-Overall, the ratio of stable `A1` matrices to stable `A0` matrices found is greater than 1 (compare column 5 to column 3), and this ratio increases with increasing $S$ (column 1). Hence, more randomly created complex systems ($\mathbf{M}$) are stable given variation in $\gamma$ than when $\gamma = 1$. Note that feasibility results were ommited for the table above, but are [reported below](#Feasibility).
+Overall, the ratio of stable `A1` matrices to stable `A0` matrices found is greater than 1 whenever $S > 10$ (compare column 5 to column 3), and this ratio increases with increasing $S$ (column 1). Hence, more randomly created complex systems ($\mathbf{M}$) are stable given variation in $\gamma$ than when $\gamma = 1$. Note that feasibility results were omitted for the table above, but are [reported below](#Feasibility).
 
 Stability given targeted manipulation of $\gamma$ (genetic algorithm) {#ga}
 ================================================================================
@@ -125,25 +125,28 @@ get_top_evo_out <- function(evo_out, size){
 }
 plot_evo_out <- function(evo_out){
     gammas <- get_top_evo_out(evo_out, size = 9);
+    for(i in 1:9){
+        gammas[[i]] <- 2 * gammas[[i]]; # Account for mistake in return
+    }
     par(mfrow = c(3, 3), mar = c(0.5, 0.5, 0.5, 0.5), oma = c(5, 5, 1, 1));
     hist(gammas[[1]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
-         xaxt = "n", xlim = c(0, 1.1));
+         xaxt = "n", xlim = c(0, 2.1));
     hist(gammas[[2]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
-         xaxt = "n", yaxt = "n", xlim = c(0, 1.1));
+         xaxt = "n", yaxt = "n", xlim = c(0, 2.1));
     hist(gammas[[3]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
-         xaxt = "n", yaxt = "n", xlim = c(0, 1.1));
+         xaxt = "n", yaxt = "n", xlim = c(0, 2.1));
     hist(gammas[[4]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
-         xaxt = "n", xlim = c(0, 1.1));
+         xaxt = "n", xlim = c(0, 2.1));
     hist(gammas[[5]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
-         xaxt = "n", yaxt = "n", xlim = c(0, 1.1));
+         xaxt = "n", yaxt = "n", xlim = c(0, 2.1));
     hist(gammas[[6]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
-         xaxt = "n", yaxt = "n", xlim = c(0, 1.1));
+         xaxt = "n", yaxt = "n", xlim = c(0, 2.1));
     hist(gammas[[7]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
-         xlim = c(0, 1.1));
+         xlim = c(0, 2.1));
     hist(gammas[[8]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
-         yaxt = "n", xlim = c(0, 1.1));
+         yaxt = "n", xlim = c(0, 2.1));
     hist(gammas[[9]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
-         yaxt = "n", xlim = c(0, 1.1));
+         yaxt = "n", xlim = c(0, 2.1));
     mtext(side = 1, outer = TRUE, line = 3, cex = 1.5,
           text = expression(paste("Component response rate (",gamma,")")));
     mtext(side = 2, text = "Frequency", outer = TRUE, line = 3, cex = 1.5);
@@ -167,7 +170,7 @@ The distribution of $\gamma$ values found by the genetic algorithm is uniform. A
 Stability of ecological networks {#ecological}
 ================================================================================
 
-While the foundational work of May[@May1972] applies broadly to complex networks, much attention has been given specifically to ecological networks of interacting species. In these networks, the matrix $\mathbf{M}$ is interpreted as a community matrix and each row and column is interpreted as a single species. The effect that the density of any species $i$ has on the population dynamics of species $j$ is found in $M_{ij}$, meaning that $\mathbf{M}$ holds the effects of pair-wise interactions between $S$ species[@Allesina2012; @Allesina2015]. While May's original work[@May1972] considered only randomly assembled communities, recent work has specifically looked at more restricted ecological communities including competitive networks (all off-diagonal elements of $\mathbf{M}$ are negative), mutualist networks (all off-diagonal elements of $\mathbf{M}$ are positive), and predator-prey networks (for any pair of $i$ and $j$, the effect of $i$ on $j$ is negative and $j$ on $i$ is positive, or vice versa)[@Allesina2012; @Allesina2015]. In general, competitor and mutualist networks tend to be unstable, while predator-prey networks tend to be highly stabilising.
+While the foundational work of May[@May1972] applies broadly to complex networks, much attention has been given specifically to ecological networks of interacting species. In these networks, the matrix $\mathbf{A}$ is interpreted as a community matrix and each row and column is interpreted as a single species. The effect that the density of any species $i$ has on the population dynamics of species $j$ is found in $A_{ij}$, meaning that $\mathbf{A}$ holds the effects of pair-wise interactions between $S$ species[@Allesina2012; @Allesina2015]. While May's original work[@May1972] considered only randomly assembled communities, recent work has specifically looked at more restricted ecological communities including competitive networks (all off-diagonal elements of $\mathbf{A}$ are negative), mutualist networks (all off-diagonal elements of $\mathbf{A}$ are positive), and predator-prey networks (for any pair of $i$ and $j$, the effect of $i$ on $j$ is negative and $j$ on $i$ is positive, or vice versa)[@Allesina2012; @Allesina2015]. In general, competitor and mutualist networks tend to be unstable, while predator-prey networks tend to be highly stabilising.
 
 I investigated competitor, mutualist, and predator-prey networks following Allesina et al.[@Allesina2012]. To create these networks, I first generated a random matrix $\mathbf{A}$, then changed the elements of $\mathbf{A}$ accordingly. If $\mathbf{A}$ was a competitive network, then the sign of any positive off-diagonal elements was reversed to be negative. If $\mathbf{A}$ was a mutualist network, then the sign of any positive off-diagonal elements was reversed to be positive. And if $\mathbf{A}$ was a predator-prey network, then all $i$ and $j$ pairs of elements were checked; any pairs of the same sign were changed so that one was negative and the other was positive. 
 
@@ -207,7 +210,7 @@ The following tables for restricted ecological communities can therefore be comp
 Results for competitor interaction networks are shown below
 
 ```{r, echo = FALSE}
-cd_tab <- cdat[,2:7];
+cd_tab <- cdat[,2:8];
 kable(cd_tab);
 ```
 
@@ -216,7 +219,7 @@ kable(cd_tab);
 Results for mutualist interaction networks are shown below
 
 ```{r, echo = FALSE}
-md_tab <- mdat[,2:7];
+md_tab <- mdat[,2:8];
 kable(md_tab);
 ```
 
@@ -225,13 +228,13 @@ kable(md_tab);
 Results for predator-prey interaction networks are shown below
 
 ```{r, echo = FALSE}
-pd_tab <- pdat[,2:7];
+pd_tab <- pdat[,2:8];
 kable(pd_tab);
 ```
 
 Overall, as expected [@Allesina2012], predator-prey communities are relatively stable while mutualist communties are highly unstable. But interestingly, while $Var(\gamma)$ stabilises predator-prey and competitor communities, it does not stabilise mutualist communities. This is unsurprising because purely mutualist communities are characterised by a very positive[@Allesina2012] leading $\Re(\lambda)$, and it is highly unlikely that $Var(\gamma)$ alone will shift all real parts of eigenvalues to negative values.
 
-Sensitivity of inter-connectivity (C) values {#connectance}
+Sensitivity of connectance (C) values {#connectance}
 ================================================================================
 
 In the main text, for simplicity, I assumed connectance values of $C = 1$, meaning that all off-diagonal elements of a matrix $\mathbf{M}$ were potentially nonzero and sampled from a normal distribution $\mathcal{N}(0, \sigma^{2})$ where $\sigma = 0.4$. Here I present four tables showing the number of stable communities given $C = \{0.3, 0. 5, 0.7, 0.9 \}$. In all cases, uniform variation in component response time ($\gamma \sim \mathcal{U}(0, 2)$) led to a higher number of stable communities than when $\gamma$ did not vary ($\gamma = 1$). In contrast to the main text, 100000 rather than 1 million $\mathbf{M}$ were simulated. As with the results on [stability with increasing $S$](#IncrS) shown above, in the tables below `A0` refers to matrices when $\gamma = 1$, and `A1` refers to matrices after $Var(\gamma)$ is added. The column `A0_unstable` shows the number of `A0` matrices that are unstable, and the column `A0_stable` shows the number of `A0` matrices that are stable (these two columns sum to 100000). Similarly, the column `A1_unstable` shows the number of `A1` matrices that are unstable and `A1_stable` shows the number that are stable. The columns `A1_stabilised` and `A1_destabilised` show how many `A0` matrices were stabilised or destabilised, respectively, by $Var(\gamma)$.
@@ -248,7 +251,7 @@ C9dat <- read.csv(file = "sim_results/C_other/rand_c-0pt9.csv");
 
 ```{r, echo = FALSE}
 C3dat   <- C3dat[,-1];
-C3d_tab <- C3dat[,1:7];
+C3d_tab <- C3dat[,1:8];
 kable(C3d_tab);
 ```
 
@@ -256,7 +259,7 @@ kable(C3d_tab);
 
 ```{r, echo = FALSE}
 C5dat   <- C5dat[,-1];
-C5d_tab <- C5dat[,1:7];
+C5d_tab <- C5dat[,1:8];
 kable(C5d_tab);
 ```
 
@@ -264,7 +267,7 @@ kable(C5d_tab);
 
 ```{r, echo = FALSE}
 C7dat   <- C7dat[,-1];
-C7d_tab <- C7dat[,1:7];
+C7d_tab <- C7dat[,1:8];
 kable(C7d_tab);
 ```
 
@@ -272,7 +275,7 @@ kable(C7d_tab);
 
 ```{r, echo = FALSE}
 C9dat   <- C9dat[,-1];
-C9d_tab <- C9dat[,1:7];
+C9d_tab <- C9dat[,1:8];
 kable(C9d_tab);
 ```
 
