@@ -151,7 +151,7 @@ UK, FK9 4LA
 systems'' with additional analyses to support its conclusions. All text,
 code, and data underlying this manuscript are publicly available on
 \href{https://github.com/bradduthie/RandomMatrixStability}{GitHub} as
-part of the RandomMatrixStability package.}
+part of the RandomMatrixStability R package.}
 
 The
 \href{https://github.com/bradduthie/RandomMatrixStability}{RandomMatrixStability
@@ -415,10 +415,10 @@ May\textsuperscript{\protect\hyperlink{ref-May1972}{1}} applies broadly
 to complex networks, much attention has been given specifically to
 ecological networks of interacting species. In these networks, the
 matrix \(\mathbf{A}\) is interpreted as a community matrix and each row
-and column is interpreted as a single species. The effect that the
-density of any species \(i\) has on the population dynamics of species
-\(j\) is found in \(A_{ij}\), meaning that \(\mathbf{A}\) holds the
-effects of pair-wise interactions between \(S\)
+and column is interpreted as a single species. The per capita effect
+that the density of any species \(i\) has on the population dynamics of
+species \(j\) is found in \(A_{ij}\), meaning that \(\mathbf{A}\) holds
+the effects of pair-wise interactions between \(S\)
 species\textsuperscript{\protect\hyperlink{ref-Allesina2012}{2},\protect\hyperlink{ref-Allesina2015}{3}}.
 While May's original
 work\textsuperscript{\protect\hyperlink{ref-May1972}{1}} considered only
@@ -430,7 +430,8 @@ predator-prey networks (for any pair of \(i\) and \(j\), the effect of
 \(i\) on \(j\) is negative and \(j\) on \(i\) is positive, or vice
 versa)\textsuperscript{\protect\hyperlink{ref-Allesina2012}{2},\protect\hyperlink{ref-Allesina2015}{3}}.
 In general, competitor and mutualist networks tend to be unstable, while
-predator-prey networks tend to be highly stabilising.
+predator-prey networks tend to be highly
+stabilising\textsuperscript{\protect\hyperlink{ref-Allesina2012}{2}}.
 
 I investigated competitor, mutualist, and predator-prey networks
 following Allesina et
@@ -677,7 +678,7 @@ In the main text, for simplicity, I assumed connectance values of
 distribution \(\mathcal{N}(0, \sigma^{2})\) where \(\sigma = 0.4\). Here
 I present four tables showing the number of stable communities given
 \(C = \{0.3, 0. 5, 0.7, 0.9 \}\). In all cases, uniform variation in
-component response time (\(\gamma \sim \mathcal{U}(0, 2)\)) led to a
+component response rate (\(\gamma \sim \mathcal{U}(0, 2)\)) led to a
 higher number of stable communities than when \(\gamma\) did not vary
 (\(\gamma = 1\)). In contrast to the main text, 100000 rather than 1
 million \(\mathbf{M}\) were simulated. As with the results on
