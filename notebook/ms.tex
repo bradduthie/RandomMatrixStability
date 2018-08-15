@@ -315,10 +315,12 @@ matrices \(\mathbf{M}\) tested for stability, and additionally for
 specific types of ecological communities
 {[}\protect\hyperlink{ref-Allesina2012}{2}{]} (e.g., competitive,
 mutualist, predator-prey; see Supplementary Information). Feasibility
-was unaffected by \(Var(\gamma)\), meaning that for pure interacting
-species networks, variation in component response rate (i.e., species
-generation time) does not affect stability at biologically realistic
-species densities.
+was unaffected by \(Var(\gamma)\) and instead occurred with a fixed
+probability of \(1/2^{S}\), consistent with a recent proof by Serván et
+al. {[}\protect\hyperlink{ref-Servan2018}{22}{]} (see Supplementary
+Information). Hence, for pure interacting species networks, variation in
+component response rate (i.e., species generation time) does not affect
+stability at biologically realistic species densities.
 
 \subsection{Discussion}\label{discussion}
 
@@ -374,11 +376,11 @@ feasible, meaning that stability was not increased when component values
 were also restricted to being positive at equilibrium. Feasibility is
 important to consider, particularly for the study of ecological networks
 of species
-{[}\protect\hyperlink{ref-Grilli2017}{5},\protect\hyperlink{ref-Stone2017}{18},\protect\hyperlink{ref-Dougoud2018}{20}{]}
+{[}\protect\hyperlink{ref-Grilli2017}{5},\protect\hyperlink{ref-Stone2017}{18},\protect\hyperlink{ref-Dougoud2018}{20},\protect\hyperlink{ref-Servan2018}{22}{]}
 because population densities cannot realistically be negative. My
 results therefore suggest that variation in the rate of population
 responses to perturbation (e.g., due to differences in generation time
-among species) is unlikely to be critical to the stability of purely
+among species) is unlikely to be critical to the feasibility of purely
 multi-species interaction networks (see also Supplementary Information).
 Nevertheless, ecological interactions do not exist in isolation in
 empirical systems {[}\protect\hyperlink{ref-Patel2018}{15}{]}, but
@@ -398,7 +400,7 @@ physical, life, and social sciences.
 synthesis of eco-evolutionary feedbacks on community stability, Patel et
 al. model a system that includes a vector of potentially changing
 species densities (\(\mathbf{N}\)) and a vector of potentially evolving
-traits (\(\mathbf{x}\)){[}\protect\hyperlink{ref-Patel2018}{15}{]}. For
+traits (\(\mathbf{x}\)) {[}\protect\hyperlink{ref-Patel2018}{15}{]}. For
 any species \(i\) or trait \(j\), change in species density (\(N_{i}\))
 or trait value (\(x_{j}\)) with time (\(t\)) is a function of the
 vectors \(\mathbf{N}\) and \(\mathbf{x}\),
@@ -422,14 +424,14 @@ high \(\epsilon\) modelling relatively fast evolution and low
 I use the same principle that Patel et al. use to modulate the relative
 rate of evolution to modulate rates of component responses for \(S\)
 components. Following May
-{[}\protect\hyperlink{ref-May1972}{1},\protect\hyperlink{ref-May1973}{22}{]},
+{[}\protect\hyperlink{ref-May1972}{1},\protect\hyperlink{ref-May1973}{23}{]},
 the value of a component \(i\) at time \(t\) (\(v_{i}(t)\)) is affected
 by the value of \(j\) (\(v_{j}(t)\)) and \(j\)'s marginal effect on
 \(i\) (\(a_{ij}\)), and by \(i\)'s response rate (\(\gamma_{i}\)),
 
 \[\frac{dv_{i}(t)}{dt} = \gamma_{i} \sum_{j=1}^{S}a_{ij}v_{j}(t).\]
 
-In matrix notation{[}\protect\hyperlink{ref-May1973}{22}{]},
+In matrix notation {[}\protect\hyperlink{ref-May1973}{23}{]},
 
 \[\frac{d\mathbf{v}(t)}{dt} = \mathbf{\gamma} \mathbf{A}\mathbf{v}(t).\]
 
@@ -437,7 +439,7 @@ In the above, \(\mathbf{\gamma}\) is a diagonal matrix in which elements
 correspond to individual component response rates. Therefore,
 \(\mathbf{M} =\mathbf{\gamma} \mathbf{A}\) modulates the values of
 components and can be analysed using the techniques of May
-{[}\protect\hyperlink{ref-May1972}{1},\protect\hyperlink{ref-Ahmadian2015}{16},\protect\hyperlink{ref-May1973}{22}{]}.
+{[}\protect\hyperlink{ref-May1972}{1},\protect\hyperlink{ref-Ahmadian2015}{16},\protect\hyperlink{ref-May1973}{23}{]}.
 
 \textbf{Genetic algorithm}. Ideally, to investigate the potential of
 \(Var(\gamma)\) for increasing the proportion of stable complex systems,
@@ -488,7 +490,7 @@ was defined as \(W_{\gamma} = -\max\left(\Re(\lambda)\right)\) for
 \(\mathbf{M}\)).
 
 \textbf{System feasibility}. Dougoud et al.
-{[}\protect\hyperlink{ref-Dougoud2018}{20}{]} define the following
+{[}\protect\hyperlink{ref-Dougoud2018}{20}{]} identify the following
 feasibility criteria for ecological systems characterised by \(S\)
 interacting species with varying densities in a classical Lotka-Volterra
 model,
@@ -507,12 +509,13 @@ underlying strong interactions. Hence, \((CS)^{-\delta} = 1\), so in the
 above, a diagonal matrix of -1s (\(\theta \mathbf{I}\)) is added to
 \(\mathbf{J}\), which has a diagonal of all zeros and an off-diagonal
 affecting species interactions (i.e., the expression \((CS)^{-\delta}\)
-relates to May's{[}\protect\hyperlink{ref-May1972}{1}{]} stability
+relates to May's {[}\protect\hyperlink{ref-May1972}{1}{]} stability
 criterion {[}\protect\hyperlink{ref-Dougoud2018}{20}{]} by
 \(\frac{\sigma}{(CS)^{-\delta}}\sqrt{SC} < 1\), and hence for my
 purposes \((CS)^{-\delta} = 1\)). Given
 \(\mathbf{A} = \theta\mathbf{I + J}\), the above criteria is therefore
-reduced to the below,
+reduced to the below (see also
+{[}\protect\hyperlink{ref-Servan2018}{22}{]}),
 
 \[\mathbf{x^{*} = -A^{-1}r}.\]
 
@@ -652,8 +655,14 @@ concept in the complexity-stability debate. PLOS Computational Biology.
 feasible and stable? Ecology. 2018;99: 743--751.
 doi:\href{https://doi.org/10.1002/ecy.2125}{10.1002/ecy.2125}
 
+\hypertarget{ref-Servan2018}{}
+22. Serván CA, Capitán JA, Grilli J, Morrison KE, Allesina S.
+Coexistence of many species in random ecosystems. Nature Ecology and
+Evolution. 2018;2: 1237--1242.
+doi:\href{https://doi.org/10.1038/s41559-018-0603-6}{10.1038/s41559-018-0603-6}
+
 \hypertarget{ref-May1973}{}
-22. May RM. Qualitative stability in model ecosystems. Ecology. 1973;54:
+23. May RM. Qualitative stability in model ecosystems. Ecology. 1973;54:
 638--641. doi:\href{https://doi.org/10.2307/1935352}{10.2307/1935352}
 
 \clearpage
@@ -696,7 +705,7 @@ system where \(S = 1000\), \(C = 0.05\), and \(\sigma = 0.4\).
 interaction strengths (\(\sigma^{2}\)) but also creates a cluster of
 eigenvalues toward the distribution's centre (-1, 0). Blue elipses in
 both panels show the circle centred on the distribution in panel a.
-Proportions of \(\Re(\lambda) < 0\) are 0.725 and 0.741 for a and b,
+Proportions of \(\Re(\lambda) < 0\) are 0.721 and 0.739 for a and b,
 respectively.
 
 \includegraphics{ms_files/figure-latex/unnamed-chunk-13-1.pdf}
