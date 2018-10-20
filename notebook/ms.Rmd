@@ -42,6 +42,14 @@ arxiv comand: tar cvfz filename.tgz filename.tex filename_files
 https://gist.github.com/JJ/ef9d3d8f1142df064bd5
 --->
 
+<!---
+
+NOTE: Consider looking at the resilience of the stable networks given $\gamma = 1$ and $Var(\gamma)$, which is defined by the inverse of the leading eigenvalue. The inverse of the real part of the leading eigenvalue indicates how quickly the system returns to equilibrium (resilience). See @Landi2018 for more. Intuitively, resilience should perhaps increase a bit if we're only looking at the subset of systems that are stable (many of which will have had their eigenvalues shifted left)?
+
+Landi, P., Minoarivelo, H. O., Brännström, Å., Hui, C., & Dieckmann, U. (2018). Complexity and stability of ecological networks: A review of the theory. Population Ecology, 0(0), In press. https://doi.org/10.1007/s10144-018-0628-3
+
+--->
+
 
 <!---
 
