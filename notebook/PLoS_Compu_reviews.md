@@ -128,10 +128,7 @@ Reviewer #3: In this contribution, the author studies the variability of compone
 Response to Reviewer 3 General comments
 --------------------------------------------------------------------------------
 
-
-
-
-
+I am grateful for Reviewer 3's comments. In my revised manuscript, I further emphasise that my model is not restricted to population dynamics, as Reviewer 3 incorrectly interpreted, but encompasses any complex system with interacting components. Most of Reviewer 3's additional concerns are based on a comparison with Gibbs et al. (2018; Phys Rev E. 98:022410. doi: 10.1103/PhysRevE.98.022410. pre-print: https://arxiv.org/pdf/1708.08837.pdf). I have revised my manuscript to further emphasise the difference between my work and Gibbs et al. (2018), and I address more specific concerns below.
 
 
 Reviewer 3 specific comment 1
@@ -142,10 +139,9 @@ First, although the motivation of the author was (in principle) different from t
 Response to Reviewer 3 specific comment 1
 --------------------------------------------------------------------------------
 
+Reviewer 3 acknowledges that my motivations were different in principle from Gibbs et al. (2018), and I have revised my manuscript to further emphasise these differences while also acknowledging where overlap occurs. My manuscript does not focus on primarily random population abundances (though considers them in sections on feasibility), but rather the reaction rates of system components to system perturbation. While the mathematics of underlying my approach is based on analyses of the stability of the form M = XA, the diagonal matrices are not interpreted as abundances, and my simulations do not address the same theoretical question as in Gibbs et al. (2018). The novelty of my manuscript is conceptual rather than mathematical, as is also the case for Gibbs et al. (2018). Indeed, Ahmadian et al. (2015; Phys. Rev. E Stat. Nonlin. Soft. Matter Phys. 91:012820. doi:10.1103/PhysRevE. 91.012820) provided a framework for investigating eigenvalue densities of random matrices of the even more general form M = B + XAY, which would include Gibbs et al.'s (2018) M = XA. What was unique about Gibbs et al. (2018) was its application of the properties of random matrices of this form to a long-standing question about the relationship between community stability and community feasibility. They showed that given an interaction matrix (A) is stable, the vector of population abundances (X) becomes decreasingly likely to destabilise the resulting community matrix (M) as the community size increases. 
 
-
-
-
+My work applies the same mathematical framework to a different theoretical question, and I have revised my manuscript to make this distinction clear.
 
 
 Reviewer 3 specific comment 2
@@ -156,11 +152,19 @@ Second, the main point of the present manuscript is that stability is largely in
 Response to Reviewer 3 specific comment 2
 --------------------------------------------------------------------------------
 
+Reviewer 3 has slightly mis-stated the main point of my manuscript, in part due to some imprecision in the wording of my previous text that Reviewer 1 noticed (particularly regarding the title). The main point of the manuscript is not that "stability is largely increased by introducing variability in response rates", but that *systems in which there is variability in component response rates are more likely to be stable*. I made this point in the second paragraph of my Discussion:
 
+"It is important to emphasise that variation in component response rate is not stabilising per se; that is, adding variation in component response rate to a particular system does not necessarily increase the probability that the system will be stable. Rather, systems that are observed to be stable are more likely to have varying component response rates, and for this variation to be critical to their stability."
 
+I now also emphasise this point in the abstract and clarify the range of S in which I am interested. Given this distinction, there is no contradiction between my results and the work of Gibbs et al. (2018). Three points are particularly important:
 
+(1) Randomly generated matrices (M = XA) that are stable are more likely than not to have variation in X across the range of system sizes (S) that I simulated. This is (to my knowledge) a novel result and fully reprodible using the code underlying my simulations (https://github.com/bradduthie/RandomMatrixStability). 
 
+(2) Using the data from the first table of my Supporting Information, it is possible to confirm that the probability that a stable matrix (A) is destabilised by (X) such that M = XA is unstable decreases with increasing system size (S), consistent with Gibbs et al. (2018) and Reviewer 3's concerns. I now state this point explicitly in the Discussion and show it in a new figure in the Supporting Information. 
 
+(3) At high S, the probability that a system is stable becomes negligible; no such systems were found given S > 32. I now emphasise that my results apply specifically for the upper range of S > 10 for which stability is also non-negligible (i.e., observed at least once in simulations). In this range, systems in which there is variation in X are indeed more stable than in systems in which no such variation exists. Further, this general pattern occurs for all simulated systems at the upper range of S, regardless of system connectance (C), interaction stengths (\sigma), or X and A element distributions (see Supporting Information). In this manuscript, I am not interested in the effect of varying component response rates in systems that are too large and/or complex to be stable (i.e., "S going to infinity"); my focus is entirely restricted to effects in the range where some stability can be reasonably expected. I explain this more carefully now in my Introduction and revise to state that my general conclusions may not apply as S \to \Inf.
+
+I hope these points adequately address Reviewer 3's concerns. There is no contradiction between my results and those of Gibbs et al. (2018), and I have revised my manuscript to more carefully explain why the two works differ.
 
 
 Reviewer 3 specific comment 3
@@ -170,6 +174,11 @@ This result is seemingly contradictory with the simulations reported in the manu
 
 Response to Reviewer 3 specific comment 3
 --------------------------------------------------------------------------------
+
+Reviewer 3 is of course correct that scaling the variance of A (sigma^2) with 1/S makes the difference between \gamma_{i} = 1 and Var(\gamma_{i}) disappear. This was confirmed 
+
+
+It is well-established that the eigenvalues for a random matrix M such as that used in my manuscript, and originally by May (1972; Nature 238:413-414), will be uniformly distributed within a circle on the complex plane within a radius of \sigma\sqrt{SC} < d, where 'd' is the mean of diagonal elements of M (Tao and Tu 2010; Annals of Probability 38:2023-2065). Hence, increasing S only increases the radius of this distribution.
 
 
 
