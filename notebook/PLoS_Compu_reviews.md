@@ -175,11 +175,11 @@ This result is seemingly contradictory with the simulations reported in the manu
 Response to Reviewer 3 specific comment 3
 --------------------------------------------------------------------------------
 
-Reviewer 3 is of course correct that scaling the variance of A (sigma^2) with 1/S makes the difference between \gamma_{i} = 1 and Var(\gamma_{i}) disappear. This was confirmed 
+Reviewer 3 is of course correct that scaling the variance of A (sigma^2) with 1/S makes the difference between \gamma_{i} = 1 and Var(\gamma_{i}) disappear. This was confirmed by simulation during model development, but was not discussed in the manuscript because it was not a focus of mine (this further highlights the difference between my work and that of Gibbs et al. 2018). 
 
+The reason for increasing values of S is to increase the total complexity of the system, and to isolate and ultimately understand the effect of Var(\gamma_{i}) when S approaches a size at which a random system becomes too complex to have a realistic probability of being stable (less than 1 in 1 million). This is the reason for showing increasing system size (S) on the x-axis of Figures 3 and 4. If I were to have scaled the variance of A (\sigma^{2}) with 1/S as Reviewer 3 suggested, then the complexity of the system would not change, defeating the purpose of increasing S. To my knowledge, there is also no a priori reason to expect complex systems to have variances of interaction strengths (\sigma) that scale to their size S, so forcing this to be the case was not justified.
 
-It is well-established that the eigenvalues for a random matrix M such as that used in my manuscript, and originally by May (1972; Nature 238:413-414), will be uniformly distributed within a circle on the complex plane within a radius of \sigma\sqrt{SC} < d, where 'd' is the mean of diagonal elements of M (Tao and Tu 2010; Annals of Probability 38:2023-2065). Hence, increasing S only increases the radius of this distribution.
-
+Finally, while eigenvalue distributions are not identical for different values of S without scaling variances, it is not really accurate to say that eigenvalue distributions are "not comparable"; eigenvalue distributions change with S in a predictable way that can be compared when S is changed. It is well-established that the eigenvalues for a random matrix M such as that used in my manuscript, and originally by May (1972; Nature 238:413-414), will be uniformly distributed within a circle on the complex plane within a radius of \sigma\sqrt{SC} < d, where '-d' is the mean of diagonal elements of M (Tao and Tu 2010; Annals of Probability 38:2023-2065). Hence, increasing S specifically increases the radius of this uniform distribution, and does so predictably such that the probability that real eigenvalues are negative (the criteria for system stability) becomes increasingly low with increasing S. Multiplying the random matrix A (which has the uniform distribution with a circle of radius \sigma\sqrt{SC}) by the vector \gamma_{i} in my manuscript resulted in an eigenvalue distribution that was more likely to be stable at the upper range of S. I now clarify the difference between my result and that of Gibbs et al. (2018) in this context in my revised Discussion.
 
 
 Reviewer 3 specific comment 4
@@ -190,7 +190,7 @@ The author also states in this manuscript that stability can be largely increase
 Response to Reviewer 3 specific comment 4
 --------------------------------------------------------------------------------
 
-
+I showed that manipulating component response rates can, sometimes greatly, increase the probability that a random system will be stable. As with Reviewer 3 specific comment 3 (see above), I now clarify that my focus is on the upper range of S at which large random systems can reasonably be expected to be stable, not at the limit of S \to \Infty (as in Gibbs et al. 2018
 
 
 
