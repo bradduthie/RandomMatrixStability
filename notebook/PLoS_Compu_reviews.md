@@ -4,17 +4,18 @@ Reviewer 1
 Reviewer 1 General comments
 --------------------------------------------------------------------------------
 
-This paper takes on a timely question: given a random matrix A and diagonal non-negative matrix X, when will M= XA be stable.  It’s important b/c this more accurately reflects the dynamics near equilibrium in a system where species abundances are variable (and then are equal to the diagonal elements of X).  The current paper also claims a different interpretation of the stability of a matrix of this form, in connection with variable response rates across species.
+This paper takes on a timely question: given a random matrix A and diagonal non-negative matrix X, when will M= XA be stable.  It's important b/c this more accurately reflects the dynamics near equilibrium in a system where species abundances are variable (and then are equal to the diagonal elements of X).  The current paper also claims a different interpretation of the stability of a matrix of this form, in connection with variable response rates across species.
 
-Even though this question probably did lie dormant for many years, it has been tackled more recently, and some of the work cited here seems to tackle very similar questions (e.g. Gibbs et al). But those connections/differences aren’t really explained here. In short, I’d like to understand if what the author has identified goes beyond what is known from other work about the effect of a diagonal matrix X on the stability of M.
+Even though this question probably did lie dormant for many years, it has been tackled more recently, and some of the work cited here seems to tackle very similar questions (e.g. Gibbs et al). But those connections/differences aren't really explained here. In short, I'd like to understand if what the author has identified goes beyond what is known from other work about the effect of a diagonal matrix X on the stability of M.
 
 I found the presentation and framing of these results overall very confusing. Here are some comments: 
 
 Response to Reviewer 1 General comments
 --------------------------------------------------------------------------------
 
+I am grateful for the helpful comments of Reviewer 1. It is important to emphasise that my focal questions on the stability of complex systems are not restricted to ecological communities (in which all rows and columns of matrix A and M are species densities), but instead address more general questions regarding how the stability of complex systems is affected by varying response rate of system components (with the exception of the specific question concerning ecological community feasibility, of course). System components might be species densities, but they could additionally include a mix of evolving species traits (e.g., Patel et al. 2018) or human social decisions (e.g., management, harvesting, rewilding, land use, etc.; Hui and Richardson 2018). Components might also not include any species, as in the case of purely social systems (e.g., banks; Haldane & May 2011), or physiological or physical systems (e.g., brain networks; Gray & Robinson 2008; 2009). Reviewer 1 is correct that my paper offers a different interpretation of system stability given the diagonal non-negative matrix X, one in which elements X_{i} (\gamma_{i} in the manuscript) are interpreted as the rates at which components respond to perturbation.
 
-
+The question that I address is distinct from that of Gibbs et al (2018; see also Reviewer 3 comments and responses). I have now revised the manuscript to explain these differences and connections more clearly. Mathematically distinct from Gibbs et al. (2018), I am not focused on the effect of a diagonal non-negative matrix X on a stable matrix A as S \to Inf (i.e., as the number of system components becomes arbitrarily large given a stable system). Conceptually distinct, I am not focused specifically on the effect of species abundances on ecosystem stability in a Lotka-Volterra system as species number increases. Rather, I am interested in how the stability of M is affected by X and A (the latter of which is not necessarily assumed stable) at high levels of system complexity, in which the probability of a random complex system being stable becomes rare but non-negligible (under conditions originally identified by May 1972), and for any type of complex system. 
 
 
 Reviewer 1 specific comment 1
@@ -32,9 +33,9 @@ Response to Reviewer 1 specific comment 1
 Reviewer 1 specific comment 2
 --------------------------------------------------------------------------------
 
-(b) If there is another interpretation of gamma_i in terms of evolution of traits, then this is not adequately explained.  Patel et al is cited in support of this, where stability of an eco-evolutionary system is explored using a block matrix of S species and a set of traits that can evolve. But it isn’t clear to me in what limit the stability of such a system will reduce to the stability of a matrix of the form M=XA for community matrix A.  Whereas the effect of having a distribution of equilibrium abundances is very clearly of this form.
+(b) If there is another interpretation of gamma_i in terms of evolution of traits, then this is not adequately explained.  Patel et al is cited in support of this, where stability of an eco-evolutionary system is explored using a block matrix of S species and a set of traits that can evolve. But it isn't clear to me in what limit the stability of such a system will reduce to the stability of a matrix of the form M=XA for community matrix A.  Whereas the effect of having a distribution of equilibrium abundances is very clearly of this form.
 
-In summary I would recommend making the connection with species equilibrium abundances clearer, and  in parallel including the derivation of gamma_i by considering (presumably extremely fast) trait evolution.
+In summary I would recommend making the connection with species equilibrium abundances clearer, and in parallel including the derivation of gamma_i by considering (presumably extremely fast) trait evolution.
 
 Response to Reviewer 1 specific comment 2
 --------------------------------------------------------------------------------
@@ -194,12 +195,22 @@ I showed that manipulating component response rates can, sometimes greatly, incr
 
 
 
+Author References Cited
+================================================================================
 
+Gibbs, T., Grilli, J., Rogers, T., & Allesina, S. (2018). Effect of population abundances on the stability of large random ecosystems. Physical Review E, 98(2), 022410.
 
+Gray, R. T., & Robinson, P. A. (2009). Stability of random brain networks with excitatory and inhibitory connections. Neurocomputing, 72(7--9), 1849--1858. https://doi.org/10.1016/j.neucom.2008.06.001
 
+Gray, R. T., & Robinson, P. A. (2008). Stability and synchronization of random brain networks with a distribution of connection strengths. Neurocomputing, 71(7--9), 1373--1387. https://doi.org/10.1016/j.neucom.2007.06.002
 
+Hui, C., & Richardson, D. M. (2018). How to invade an ecological network. Trends in Ecology and Ecolution, xx, 1--11. https://doi.org/10.1016/j.tree.2018.11.003
 
+May, R. M. (1972). Will a large complex system be stable? Nature, 238, 413--414.
 
+Patel, S., Cortez, M. H., & Schreiber, S. J. (2018). Partitioning the effects of eco-evolutionary feedbacks on community stability. American Naturalist, 191(3), 1--29. https://doi.org/10.1101/104505
+
+Haldane, A. G., & May, R. M. (2011). Systemic risk in banking ecosystems. Nature, 469(7330), 351--355. https://doi.org/10.1038/nature09659
 
 
 
