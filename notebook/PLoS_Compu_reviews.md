@@ -41,8 +41,9 @@ In summary I would recommend making the connection with species equilibrium abun
 Response to Reviewer 1 specific comment 2
 --------------------------------------------------------------------------------
 
+There is another interpretation of \gamma that was explicitly defined in the original manuscript. This interpretation is the rate at which the components of a complex system (note, not just biological species or the values of their traits) respond to system perturbation. I have now revised my manuscript to explain this interpretation more thoroughly, and especially more explicitly with respect to the mathematics; \gamma modifies the matrix A to account for different rates of response inherent to different system components.
 
-
+Because \gamma is not a vector of equilibrium species abundances, I do not make this connection; instead, I have revised my manuscript to make the interpretation of \gamma clearer, and further emphasised that the systems of interest in my manuscript are not restricted to species densities or biological traits.
 
 
 
