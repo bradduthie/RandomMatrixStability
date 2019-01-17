@@ -43,8 +43,7 @@ Response to Reviewer 1 specific comment 2
 
 There is another interpretation of \gamma that was explicitly defined in the original manuscript. This interpretation is the rate at which the components of a complex system (note, not just biological species or the values of their traits) respond to system perturbation. I have now revised my manuscript to explain this interpretation more thoroughly, and especially more explicitly with respect to the mathematics; \gamma modifies the matrix A to account for different rates of response inherent to different system components.
 
-Because \gamma is not a vector of equilibrium species abundances, I do not make this connection; instead, I have revised my manuscript to make the interpretation of \gamma clearer, and further emphasised that the systems of interest in my manuscript are not restricted to species densities or biological traits.
-
+Because \gamma is not a vector of equilibrium species abundances, I do not make this connection as requested by Reviewer 1; instead, I have revised my manuscript to make the interpretation of \gamma clearer, and further emphasised that the systems of interest in my manuscript are not restricted to species densities or biological traits.
 
 
 Reviewer 2
@@ -60,8 +59,9 @@ The paper is well written and presented, and the results are reproducible. Howev
 Response to Reviewer 2 General comments
 --------------------------------------------------------------------------------
 
+I have changed the title from, "Component response rate variation drives stability in large complex systems" to "Component response rate variation increases the opportunity for stability in large complex systems". I agree with Reviewer 2 that the previous title was technically incorrect.
 
-
+I am grateful for the comment on the quality of the writing and reproducibility of my results. And while I believe that this manuscript reports original and important work, this helpful review has helped convinced me that it would ultimately fit better in a more multi-disciplinary journal.
 
 
 Reviewer 2 specific comment 1
@@ -72,11 +72,32 @@ Reviewer 2 specific comment 1
 Response to Reviewer 2 specific comment 1
 --------------------------------------------------------------------------------
 
+This is an interesting and helpful comment, as it is of course true that variation in mean row values will arise when constructing random matrices of finite size. And this random variation could quite reasonably be interpreted as variation in component response rates. However, under such conditions, it is important to also emphasise that the *expected* difference between mean row values (and hence component response rates) is still zero; i.e., differences only arise due to error in i.i.d. random sampling for matrix element values. The effect of this error on mean row value differences decreases with increasing matrix size S. 
 
+In fact, we can calculate the expected standard deviation of mean row values -- an metric of the natural variation in component response rates -- given a randomly generated matrix, A. This value is just the standard error of the row means. Hence for default values of $\sigma = 0.4$ and $C = 1$ for, e.g., $S = 10$, standard devation of mean row values should be as follows:
 
+SD_{mean_row_vals} = \sigma / sqrt{S} = 0.4 / \sqrt{10} = 0.1265
 
+We can do the same for small values of $S = 2$ (SD_{mean_row_vals} = 0.2828) and large values of $S = 50$ (SD_{mean_row_vals} = 0.0566). The R code below recreates this for an $S$; note that the -1 values on the diagonal will cause slight deviations in practice. 
 
+```{r}
+SD_mn_row_vals <- function(S = 10, iters = 1000, sigma = 0.4){
+    sims  <- rep(x = 0, times = iters);
+    for (i in 1:iters){
+        A0_dat   <- rnorm(n = S * S, mean = 0, sd = sigma);
+        A0       <- matrix(data = A0_dat, nrow = S); 
+        diag(A0) <- -1;
+        rowmns   <- apply(X = A0, MAR = 1, FUN = mean);
+        sims[i]  <- sd(rowmns);
+    }
+    return(mean(sims));
+}
+eg_run <- SD_mn_row_vals(S = 50);
+```
 
+Importantly, these values are small compared to the equivalent values derived from imposing variation in component response rates a priori, and the inclusion of $Var(\gamma)$ adds to the variation that already is present in A. This added variation is ca 0.9523 for my illustrative example in which half $\gamma$ values equal 1.95 and the other half equal 0.05. For simulations in which $\gamma$ is randomly sampled from 0 to 2, the value is ca 0.577. 
+
+I have edited the text of the manuscript now to make it clear that such variation in row means of A exist prior to the inclusion of $\gamma$, and that such variation could reasonably be interpreted as variation in component response rate. I now introduce $\gamma$ as an a priori increase in the expected difference between component response rates and more carefully interpret the difference between results before and after $\gamma$ is included.
 
 
 Reviewer 2 specific comment 2
@@ -87,10 +108,7 @@ Reviewer 2 specific comment 2
 Response to Reviewer 2 specific comment 2
 --------------------------------------------------------------------------------
 
-
-
-
-
+Reviewer 2 here points out the approach in which a vector affecting the community matrix is interpreted as equilibrium species abundances ($x^*_{i}$) in a generalised Lotka-Volterra ecological model, as, e.g., in Gibbs et al (2018). In my Response to Reviewer 3 specific comments 1 and 2, I explain how my manuscript differs from analyses of species equilibrium abundances.
 
 
 Reviewer 2 specific comment 3
@@ -115,9 +133,9 @@ Reviewer 2 specific comment 4
 Response to Reviewer 2 specific comment 4
 --------------------------------------------------------------------------------
 
-Reviewer 2 states that the numerical results both do not produce substantial evidence for the manuscript's conclusions (sentence 1), but also acknowledges an increase in stability ("at best around 2-3%"; sentence 2). Technically this is a contradiction, so I interpret the reviewer to mean that, while stability does in fact increase, the actual magnitude of this increase is not large enough to be interesting. 
+Reviewer 2 states that the numerical results both do not produce substantial evidence for the manuscript's conclusions (sentence 1), but also acknowledges an increase in stability ("at best around 2-3%"; sentence 2 -- the attached figures replicating my analysis were much appreciated). Technically this is a contradiction, so I interpret the reviewer to mean that, while stability does in fact increase, the actual magnitude of this increase is not large enough to be interesting. While I agree that the effect here is modest, I would argue that it is an important effect to recognise when considering whether or not complex systems are predicted to be stable, and one that has very broad implications that might affect any complex system (i.e., not just ecological communities).
 
-
+I disagree that the unstable matrices are typically more unstable when $\gamma \neq 1$. 
 
 
 Reviewer 3
