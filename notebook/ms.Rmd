@@ -50,14 +50,14 @@ Landi, P., Minoarivelo, H. O., Brännström, Å., Hui, C., & Dieckmann, U. (2018
 
 --->
 
-
 <!---
 
-Given the larger space of Nature Communications, one new figure will be used in the same style as that of Figure 3; the new Figure 4 will show the same results, but for sultions found with the genetic algorithm.
+1. As above, check out the change in resilience defined as the difference beween the inverse of the real part of the leading eigenvalue in $Var(\gamma)$ versus $\gamma = 1$. Initial simulaitons suggest that resilience is increased on average by $Var(\gamma)$, and increasingly so as S increases.
 
-Because Nature communcations is online, change all non-standard gamma results in figures to Red. The new genetic algorithm results will be in blue.
+2. Check for induced correlations causing stabilisation (and E1, E2, and EC, more generally), as per Reviewer 2 specific comment 3. If possible, give an analytical explanation for the increase in stability that has to do with the error inducing changes in correlations.
 
 --->
+
 
 
 ```{r, echo = FALSE}
