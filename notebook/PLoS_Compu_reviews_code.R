@@ -37,6 +37,5 @@ while(iter > 0){
     A0_mx[iter] <- A0_stb;
     A1_mx[iter] <- A1_stb;
 }
-
 unstable_A0 <- A0_mx[A0_mx > 0];
 unstable_A1 <- A1_mx[A0_mx > 0];

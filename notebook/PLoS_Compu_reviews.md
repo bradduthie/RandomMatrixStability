@@ -81,6 +81,7 @@ SD_{mean_row_vals} = \sigma / sqrt{S} = 0.4 / \sqrt{10} = 0.1265
 We can do the same for small values of $S = 2$ (SD_{mean_row_vals} = 0.2828) and large values of $S = 50$ (SD_{mean_row_vals} = 0.0566). The R code below recreates this for an $S$; note that the -1 values on the diagonal will cause slight deviations in practice. 
 
 ```{r}
+# Reviewer 2 specific comment 1
 SD_mn_row_vals <- function(S = 10, iters = 1000, sigma = 0.4){
     sims  <- rep(x = 0, times = iters);
     for (i in 1:iters){
@@ -119,7 +120,7 @@ Reviewer 2 specific comment 3
 Response to Reviewer 2 specific comment 3
 --------------------------------------------------------------------------------
 
-
+I have taken a numerical approach to analysing my results.
 
 
 
@@ -135,8 +136,40 @@ Response to Reviewer 2 specific comment 4
 
 Reviewer 2 states that the numerical results both do not produce substantial evidence for the manuscript's conclusions (sentence 1), but also acknowledges an increase in stability ("at best around 2-3%"; sentence 2 -- the attached figures replicating my analysis were much appreciated). Technically this is a contradiction, so I interpret the reviewer to mean that, while stability does in fact increase, the actual magnitude of this increase is not large enough to be interesting. While I agree that the effect here is modest, I would argue that it is an important effect to recognise when considering whether or not complex systems are predicted to be stable, and one that has very broad implications that might affect any complex system (i.e., not just ecological communities).
 
-I disagree that the unstable matrices are typically more unstable when $\gamma \neq 1$. 
+I disagree that the unstable matrices are typically more unstable when $\gamma \neq 1$. I presume Reviewer 2 is interpreting "more unstable" to mean that the real part of the leading eigenvalue is higher given $\gamma \neq 1$ for unstable systems (i.e., systems where the real part of the leading eigenvalue is positive). While some such values might become higher in the $\gamma \neq 1$ condition, there is no evidence that I can find to suggest that this is typical (i.e., occurs more often than not). Such a statement would seem to contradict both the work of Gibbs (2018) and my own results (see, e.g., the change in distribution of eigenvalues in Figure 2). Simulation also supports the conclusion that real parts of eigenvalues in unstable matrices do not tend to increase.
 
+```{r}
+# Reviewer 2 specific comment 4
+S       <- 30;
+A0_mx   <- NULL;
+A1_mx   <- NULL;
+iter    <- 10000;
+while(iter > 0){
+    r_vec    <- rnorm(n =S, mean = 0, sd = 0.4);
+    A0_dat   <- rnorm(n =S *S, mean = 0, sd = sigma);
+    A0       <- matrix(data = A0_dat, nrow =S, 
+                       ncol =S);
+    C_dat    <- rbinom(n =S *S, size = 1, prob = C);
+    C_mat    <- matrix(data = C_dat, nrow =S, 
+                       ncol =S);
+    A0       <- A0 * C_mat;
+    diag(A0) <- -1;
+    gam1     <- runif(n =S, min = 0, max = 2);
+    A1       <- A0 * gam1;
+    A0       <- A0 * mean(gam1);
+    A0_stb   <- max(Re(eigen(A0)$values));
+    A1_stb   <- max(Re(eigen(A1)$values));
+    iter     <- iter - 1;
+    A0_mx[iter] <- A0_stb;
+    A1_mx[iter] <- A1_stb;
+}
+unstable_A0 <- A0_mx[A0_mx > 0];
+unstable_A1 <- A1_mx[A0_mx > 0];
+```
+
+Hence, the increase in stability I observe given $Var(\gamma)$ is consistent, and $Var(\gamma)$ does not appear to make unstable systems more unstable. Nevertheless, I do acknowledge that the evident increase in stability is modest, and I now emphasise this in my revised manuscript.
+
+Gibbs, T., Grilli, J., Rogers, T., & Allesina, S. (2018). Effect of population abundances on the stability of large random ecosystems. Physical Review E, 98(2), 022410.
 
 Reviewer 3
 ================================================================================
