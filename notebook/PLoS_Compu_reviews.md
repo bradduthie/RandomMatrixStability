@@ -120,10 +120,9 @@ Reviewer 2 specific comment 3
 Response to Reviewer 2 specific comment 3
 --------------------------------------------------------------------------------
 
-I have taken a numerical approach to analysing my results.
+Reviewer 2's statement that the stability of the linearised system dynamics depends only on the mean, variance, and correlation of the matrix M is correct specifically for the large S limit (Grilli et al. 2017; see also Gibbs et al. 2018). In other words, stability only depends on these three values as $S \to \Inf$. Reviewer 3 also raised this issue in their specific comments 3 and 4. In my revised manuscript, I now clarify that my focus is specifically on the upper range of S (not $S \to \Inf$) at which large random systems can reasonably be expected to be stable. For such values of S, as Reviewer 2 acknowledges (see Reviewer 2 specific comment 4 below), systems are indeed more likely to be stable where there is heterogeneity in $\gamma$. 
 
-
-
+Given that my focus is specifically on finite values of $S$, I believe that the numerical simulation approach that I have chosen is appropriate.
 
 
 Reviewer 2 specific comment 4
@@ -169,7 +168,6 @@ unstable_A1 <- A1_mx[A0_mx > 0];
 
 Hence, the increase in stability I observe given $Var(\gamma)$ is consistent, and $Var(\gamma)$ does not appear to make unstable systems more unstable. Nevertheless, I do acknowledge that the evident increase in stability is modest, and I now emphasise this in my revised manuscript.
 
-Gibbs, T., Grilli, J., Rogers, T., & Allesina, S. (2018). Effect of population abundances on the stability of large random ecosystems. Physical Review E, 98(2), 022410.
 
 Reviewer 3
 ================================================================================
@@ -244,18 +242,21 @@ The author also states in this manuscript that stability can be largely increase
 Response to Reviewer 3 specific comment 4
 --------------------------------------------------------------------------------
 
-I showed that manipulating component response rates can, sometimes greatly, increase the probability that a random system will be stable. As with Reviewer 3 specific comment 3 (see above), I now clarify that my focus is on the upper range of S at which large random systems can reasonably be expected to be stable, not at the limit of S \to \Infty (as in Gibbs et al. 2018
+I showed that manipulating component response rates can, sometimes greatly, increase the probability that a random system will be stable. As with Reviewer 3 specific comment 3 (see above), I now clarify that my focus is on the upper range of S at which large random systems can reasonably be expected to be stable, not at the limit of S \to \Infty (as in Gibbs et al. 2018)
 
 
 
 Author References Cited
 ================================================================================
 
+
 Gibbs, T., Grilli, J., Rogers, T., & Allesina, S. (2018). Effect of population abundances on the stability of large random ecosystems. Physical Review E, 98(2), 022410.
 
 Gray, R. T., & Robinson, P. A. (2009). Stability of random brain networks with excitatory and inhibitory connections. Neurocomputing, 72(7--9), 1849--1858. https://doi.org/10.1016/j.neucom.2008.06.001
 
 Gray, R. T., & Robinson, P. A. (2008). Stability and synchronization of random brain networks with a distribution of connection strengths. Neurocomputing, 71(7--9), 1373--1387. https://doi.org/10.1016/j.neucom.2007.06.002
+
+Grilli, J., Adorisio, M., Suweis, S., Barabás, G., Banavar, J. R., Allesina, S., & Maritan, A. (2017). Feasibility and coexistence of large ecological communities. Nature Communications, 8. https://doi.org/10.1038/ncomms14389
 
 Hui, C., & Richardson, D. M. (2018). How to invade an ecological network. Trends in Ecology and Ecolution, xx, 1--11. https://doi.org/10.1016/j.tree.2018.11.003
 
