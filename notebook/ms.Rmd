@@ -4,16 +4,16 @@ author: "A. Bradley Duthie    ( alexander.duthie@stir.ac.uk )"
 date: Biological and Environmental Sciences, University of Stirling, Stirling, UK,
   FK9 4LA
 output:
-  word_document:
-    fig_caption: yes
-    pandoc_args:
-    - --csl
-    - science.csl
-    reference_docx: docx_template.docx
   pdf_document:
     fig_caption: yes
     keep_tex: yes
   html_document: default
+  word_document:
+    fig_caption: yes
+    pandoc_args:
+    - --csl
+    - nature.csl
+    reference_docx: docx_template.docx
 bibliography: references.bib
 header-includes:
 - \usepackage{amsmath}
@@ -25,7 +25,7 @@ header-includes:
 linestretch: 2
 link-citations: yes
 linkcolor: blue
-csl: plos.csl
+csl: nature.csl
 biblio-style: apalike
 ---
 
@@ -237,7 +237,7 @@ plot_stable_4 <- function(dat, S_s = 39){
 Abstract
 --------------------------------------------------------------------------------
 
-The stability of a complex system generally decreases with increasing system size and interconnectivity, a counterintuitive result of widespread importance across the physical, life, and social sciences. Despite recent interest in the relationship between system properties and stability, the effect of variation in the response rate of individual system components remains unconsidered. Here I vary the component response rates ($\boldsymbol{\gamma}$) of randomly generated complex systems. I show that when component response rates vary, the potential for system stability is markedly increased. Variation in $\boldsymbol{\gamma}$ becomes increasingly important as system size increases, such that the largest stable complex systems would be unstable if not for $\boldsymbol{Var(\gamma)}$. My results reveal a previously unconsidered aspect of system stability that is likely to be pervasive across all complex systems.
+The stability of a complex system generally decreases with increasing system size and interconnectivity, a counterintuitive result of widespread importance across the physical, life, and social sciences. Despite recent interest in the relationship between system properties and stability, the effect of variation in the response rate of individual system components remains unconsidered. Here I vary the component response rates ($\boldsymbol{\gamma}$) of randomly generated complex systems. I show that when component response rates vary, the potential for system stability is markedly increased. Variation in $\boldsymbol{\gamma}$ becomes increasingly important for stability in large but finite systems, where the probability of stability would otherwise be negligible. At such extremes of simulated system size, the largest stable complex systems would be unstable if not for $\boldsymbol{Var(\gamma)}$. My results therefore reveal a previously unconsidered aspect of system stability that is likely to be pervasive across all realistic complex systems.
 
 Author Summary
 --------------------------------------------------------------------------------
@@ -247,12 +247,12 @@ Any set of discrete components that potentially interact can define a complex sy
 Introduction
 --------------------------------------------------------------------------------
 
-In 1972, May [@May1972] first demonstrated that randomly assembled systems of sufficient complexity are almost inevitably unstable given infinitesimally small perturbations. Complexity in this case is defined by the size of the system (i.e., the number of potentially interacting components; $S$), its connectance (i.e., the probability that one component will interact with another; $C$), and the variance of interaction strengths ($\sigma^{2}$) [@Allesina2012]. May's finding that the probability of local stability falls to near zero given a sufficiently high threshold of $\sigma\sqrt{SC}$ is broadly relevant for understanding the dynamics and persistence of systems such as ecological [@May1972; @Allesina2012; @Mougi2012; @Allesina2015; @Grilli2017], neurological [@Gray2008; @Gray2009], biochemical [@Rosenfeld2009; @MacArthur2010], and socio-economic [e.g., banking; @May2008; @Haldane2011; @Suweis2014; @Bardoscia2017] networks. As such, identifying general principles that drive stability in complex systems is of wide-ranging importance.
+In 1972, May [@May1972] first demonstrated that randomly assembled systems of sufficient complexity are almost inevitably unstable given infinitesimally small perturbations. Complexity in this case is defined by the size of the system (i.e., the number of potentially interacting components; $S$), its connectance (i.e., the probability that one component will interact with another; $C$), and the variance of interaction strengths ($\sigma^{2}$) [@Allesina2012]. May's finding that the probability of local stability falls to near zero given a sufficiently high threshold of $\sigma\sqrt{SC}$ is broadly relevant for understanding the dynamics and persistence of systems such as ecological [@May1972; @Allesina2012; @Mougi2012; @Allesina2015; @Grilli2017], neurological [@Gray2008; @Gray2009], biochemical [@Rosenfeld2009; @MacArthur2010], and socio-economic [e.g., banking; @May2008; @Haldane2011; @Suweis2014; @Bardoscia2017] networks. As such, identifying general principles that affect stability in complex systems is of wide-ranging importance.
 
 
 Randomly assembled complex systems can be represented as large square matrices ($\mathbf{M}$) with $S$ components (e.g., networks of species [@Allesina2012] or banks [@Haldane2011]). One element of such a matrix, $M_{ij}$, defines how component $j$ affects component $i$ in the system at a point of equilibrium [@Allesina2012]. Off-diagonal elements ($i \neq j$) therefore define interactions between components, while diagonal elements ($i = j$) define component self-regulation (e.g., carrying capacity in ecological communities). Traditionally, off-diagonal elements are assigned non-zero values with a probability $C$, which are sampled from a distribution with variance $\sigma^{2}$; diagonal elements are set to -1 [@May1972; @Allesina2012; @Allesina2015]. Local system stability is assessed using eigenanalysis, with the system being stable if the real parts of all eigenvalues ($\lambda$) of $\mathbf{M}$ are negative ($\max\left(\Re(\lambda)\right) < 0$) [@May1972; @Allesina2012]. In a large system (high $S$), eigenvalues are distributed uniformly [@Tao2010] within a circle centred at $\Re = -1$ (the mean value of diagonal elements) and $\Im = 0$, with a radius of $\sigma\sqrt{SC}$ [@May1972; @Allesina2012; @Allesina2015] (Figs 1a and 2a). Local stability of randomly assembled systems therefore becomes increasingly unlikely as $S$, $C$, and $\sigma^{2}$ increase.
 
-May's [@May1972; @Allesina2012] stability criterion $\sigma\sqrt{SC} < 1$ assumes that individual components respond to perturbations of the system at the same rate ($\gamma$), but this is highly unlikely in any complex system. In ecological communities, for example, the rate at which population density changes following perturbation will depend on the generation time of organisms, which might vary by orders of magnitude among species. Species with short generation times will respond quickly (high $\gamma$) to perturbations relative to species with long generation times (low $\gamma$). Similarly, the speed at which individual banks respond to perturbations in financial networks, or individuals or institutions respond to perturbations in complex social networks, is likely to vary. The effect of such variance on stability has not been investigated in complex systems theory. Intuitively, variation in $\gamma$ might be expected to decrease system stability by introducing a new source of variation into the system and thereby increasing $\sigma$. Here I show why, despite higher $\sigma$, complex systems in which $\gamma$ varies are actually more likely to be stable, especially when $S$ is high.  
+May's [@May1972; @Allesina2012] stability criterion $\sigma\sqrt{SC} < 1$ assumes that the expected response rate of individual components to perturbations of the system at the same rate ($\gamma$), but this is highly unlikely in any complex system. In ecological communities, for example, the rate at which population density changes following perturbation will depend on the generation time of organisms, which might vary by orders of magnitude among species. Species with short generation times will respond quickly (high $\gamma$) to perturbations relative to species with long generation times (low $\gamma$). Similarly, the speed at which individual banks respond to perturbations in financial networks, or individuals or institutions respond to perturbations in complex social networks, is likely to vary. The effect of such variance on stability has not been investigated in complex systems theory. Intuitively, variation in $\gamma$ might be expected to decrease system stability by introducing a new source of variation into the system and thereby increasing $\sigma$. Here I show why, despite higher $\sigma$, realistic complex systems (where $S$ is high but finite) in which $\gamma$ varies are actually more likely to be stable.  <!--- Need to emphasise that this is for *real* systems at the thresholds of stability --->
 
 <!---
 
