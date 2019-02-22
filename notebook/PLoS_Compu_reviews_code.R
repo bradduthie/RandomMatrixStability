@@ -14,16 +14,18 @@ eg_run <- SD_mn_row_vals(S = 50);
 
 
 # Reviewer 2 specific comment 4
-S       <- 30;
+S       <- 5;
 A0_mx   <- NULL;
 A1_mx   <- NULL;
 iter    <- 10000;
+sigma   <- 0.4;
+C       <- 1;
 while(iter > 0){
-    r_vec    <- rnorm(n =S, mean = 0, sd = 0.4);
-    A0_dat   <- rnorm(n =S *S, mean = 0, sd = sigma);
+    r_vec    <- rnorm(n = S, mean = 0, sd = sigma);
+    A0_dat   <- rnorm(n = S * S, mean = 0, sd = sigma);
     A0       <- matrix(data = A0_dat, nrow =S, 
-                       ncol =S);
-    C_dat    <- rbinom(n =S *S, size = 1, prob = C);
+                       ncol = S);
+    C_dat    <- rbinom(n = S * S, size = 1, prob = C);
     C_mat    <- matrix(data = C_dat, nrow =S, 
                        ncol =S);
     A0       <- A0 * C_mat;
