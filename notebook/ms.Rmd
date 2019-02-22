@@ -1,5 +1,5 @@
 ---
-title: "Component response rate variation drives stability in large complex systems"
+title: "Component response rate variation underlies stability in large complex systems"
 author: "A. Bradley Duthie    ( alexander.duthie@stir.ac.uk )"
 date: Biological and Environmental Sciences, University of Stirling, Stirling, UK,
   FK9 4LA
@@ -237,7 +237,7 @@ plot_stable_4 <- function(dat, S_s = 39){
 Abstract
 --------------------------------------------------------------------------------
 
-The stability of a complex system generally decreases with increasing system size and interconnectivity, a counterintuitive result of widespread importance across the physical, life, and social sciences. Despite recent interest in the relationship between system properties and stability, the effect of variation in the response rate of individual system components remains unconsidered. Here I vary the component response rates ($\boldsymbol{\gamma}$) of randomly generated complex systems. I show that when component response rates vary, the potential for system stability is markedly increased. Variation in $\boldsymbol{\gamma}$ becomes increasingly important as system size increases, such that the largest stable complex systems would be unstable if not for $\boldsymbol{Var(\gamma)}$. My results reveal a previously unconsidered driver of system stability that is likely to be pervasive across all complex systems.
+The stability of a complex system generally decreases with increasing system size and interconnectivity, a counterintuitive result of widespread importance across the physical, life, and social sciences. Despite recent interest in the relationship between system properties and stability, the effect of variation in the response rate of individual system components remains unconsidered. Here I vary the component response rates ($\boldsymbol{\gamma}$) of randomly generated complex systems. I show that when component response rates vary, the potential for system stability is markedly increased. Variation in $\boldsymbol{\gamma}$ becomes increasingly important as system size increases, such that the largest stable complex systems would be unstable if not for $\boldsymbol{Var(\gamma)}$. My results reveal a previously unconsidered aspect of system stability that is likely to be pervasive across all complex systems.
 
 Author Summary
 --------------------------------------------------------------------------------
