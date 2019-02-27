@@ -453,9 +453,19 @@ In matrix notation\textsuperscript{\protect\hyperlink{ref-May1973}{23}},
 
 In the above, \(\mathbf{\gamma}\) is a diagonal matrix in which elements
 correspond to individual component response rates. Therefore,
-\(\mathbf{M} =\mathbf{\gamma} \mathbf{A}\) modulates the values of
+\(\mathbf{M} = \mathbf{\gamma} \mathbf{A}\) modulates the values of
 components and can be analysed using the techniques of
 May\textsuperscript{\protect\hyperlink{ref-May1972}{1},\protect\hyperlink{ref-Ahmadian2015}{16},\protect\hyperlink{ref-May1973}{23}}.
+In these analyses, row means of \(\mathbf{A}\) are expected to be
+identical, but variation around this expectation will naturally arise
+due to random sampling of \(\mathbf{A}\) off-diagonal elements and
+finite \(S\). In simulations, the total variation in
+\(\mathbf{M} = \mathbf{\gamma} \mathbf{A}\) row means that is
+attributable to \(\mathbf{A}\) is small relative to that attributable to
+\(\mathbf{\gamma}\), especially at high \(S\). Variation in
+\(\mathbf{\gamma}\) specifically isolates the effects of differing
+component response rates, hence causing differences in expected
+\(\mathbf{M}\) row means.
 
 \textbf{Genetic algorithm}. Ideally, to investigate the potential of
 \(Var(\gamma)\) for increasing the proportion of stable complex systems,
@@ -708,7 +718,7 @@ system where \(S = 1000\), \(C = 0.05\), and \(\sigma = 0.4\).
 interaction strengths (\(\sigma^{2}\)) but also creates a cluster of
 eigenvalues toward the distribution's centre (-1, 0). Blue elipses in
 both panels show the circle centred on the distribution in panel a.
-Proportions of \(\Re(\lambda) < 0\) are 0.724 and 0.732 for a and b,
+Proportions of \(\Re(\lambda) < 0\) are 0.719 and 0.737 for a and b,
 respectively.
 
 \includegraphics{ms_files/figure-latex/unnamed-chunk-13-1.pdf}
