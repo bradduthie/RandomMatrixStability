@@ -193,8 +193,8 @@ therefore becomes increasingly unlikely as \(S\), \(C\), and
 
 May's\textsuperscript{\protect\hyperlink{ref-May1972}{1},\protect\hyperlink{ref-Allesina2012}{2}}
 stability criterion \(\sigma\sqrt{SC} < 1\) assumes that the expected
-response rates (\(E[\gamma]\)) of individual components to perturbations
-of the system are identical, but this is highly unlikely in any complex
+response rates (\(\gamma\)) of individual components to perturbations of
+the system are identical, but this is highly unlikely in any complex
 system. In ecological communities, for example, the rate at which
 population density changes following perturbation will depend on the
 generation time of organisms, which might vary by orders of magnitude
@@ -355,20 +355,32 @@ perturbation.
 It is important to emphasise that variation in component response rate
 is not stabilising per se; that is, adding variation in component
 response rate to a particular system does not necessarily increase the
-probability that the system will be stable. Rather, systems that are
-observed to be stable are more likely to have varying component response
-rates, and for this variation to be critical to their stability (Fig.
-3). This is caused by the shift to a non-uniform distribution of
-eigenvalues that occurs by introducing \(Var(\gamma)\) (Fig. 1b, 2b),
-which can sometimes cause all of the real components of the eigenvalues
-of the community matrix \(\mathbf{M}\) to become negative, but might
-also increase the real components of eigenvalues. The mathematics
-underlying this shift in eigenvalue distribution has been
-investigated\textsuperscript{\protect\hyperlink{ref-Ahmadian2015}{16}}
-and recently applied to questions concerning species density and
-feasibility\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{17},\protect\hyperlink{ref-Stone2017}{18}},
-but has not been interpreted as rates of response of individual system
-components to perturbation.
+probability that the system will be stable. Rather, highly complex
+systems that are observed to be stable are more likely to have varying
+component response rates, and for this variation to be critical to their
+stability (Fig. 3). This is caused by the shift to a non-uniform
+distribution of eigenvalues that occurs by introducing \(Var(\gamma)\)
+(Fig. 1b, 2b), which can sometimes cause all of the real components of
+the eigenvalues of the community matrix \(\mathbf{M}\) to become
+negative, but might also increase the real components of eigenvalues. In
+this way, my focus is distinct from that of Gibbs et
+al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{17}}, who applied
+the same mathematical framework to investigate how a diagonal matrix
+\(\mathbf{X}\) (equivalent to \(\gamma\) in my model) affects the
+stability of a community matrix \(\mathbf{M}\) given an interaction
+matrix \(\mathbf{A}\) within a generalised Lotka-Volterra model, where
+\(\mathbf{M} = \mathbf{XA}\). Gibbs et
+al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{17}} analytically
+demonstrated that the effect of \(\mathbf{X}\) on system stability
+decreases exponentially as system size becomes arbitrarily large
+(\(S \to \infty\)). My numerical results are entirely consistent with
+this prediction (see Supplementary Information). Given that a complex
+system is known to be stable (or unstable), \(Var(\gamma)\) is not
+expected to increase or decrease the probability of stability. Rather,
+component response rate variation increases the upper bound at which
+stability can be realistically observed, meaning that highly complex
+systems are more likely than not to vary in their component response
+rates, and for this variation to be critical for system stability.
 
 The potential importance of component response rate variation was most
 evident from the results of simulations in which the genetic algorithm
@@ -404,10 +416,23 @@ The relevance of component response rate for complex system stability
 should therefore not be ignored in the broader context of ecological
 communities.
 
-My results show that complex systems are more likely to be stable when
-the response rates of system components vary. These results are broadly
-applicable to understanding stability of complex networks in the
-physical, life, and social sciences.
+A general mathematical framework encompassing shifts in eigenvalue
+distributions caused by a vector \(\gamma\) has been
+investigated\textsuperscript{\protect\hyperlink{ref-Ahmadian2015}{16}}
+and recently applied to questions concerning species density and
+feasibility\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{17},\protect\hyperlink{ref-Stone2017}{18}},
+but \(\gamma\) has not been interpreted as rates of response of
+individual system components to perturbation. My model focuses on
+component response rates for systems of a finite size, in which
+complexity is high but not yet high enough to make the probability of
+stability unrealistically low for actual empirical systems. For this
+upper range of system size, randomly assembled complex systems are more
+likely to be stable if their component response rates vary (e.g.,
+\(10 < S < 30\) for parameter values in Fig. 3). Overall, I suggest that
+variation in component response rate might therefore be critical for
+maintaining stability in many highly complex empirical systems. These
+results are broadly applicable to understanding stability of complex
+networks across the physical, life, and social sciences.
 
 \subsection{Methods}\label{methods}
 
@@ -718,7 +743,7 @@ system where \(S = 1000\), \(C = 0.05\), and \(\sigma = 0.4\).
 interaction strengths (\(\sigma^{2}\)) but also creates a cluster of
 eigenvalues toward the distribution's centre (-1, 0). Blue elipses in
 both panels show the circle centred on the distribution in panel a.
-Proportions of \(\Re(\lambda) < 0\) are 0.719 and 0.737 for a and b,
+Proportions of \(\Re(\lambda) < 0\) are 0.724 and 0.738 for a and b,
 respectively.
 
 \includegraphics{ms_files/figure-latex/unnamed-chunk-13-1.pdf}
