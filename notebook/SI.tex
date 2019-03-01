@@ -120,17 +120,18 @@
 }
 
 \setlength{\droptitle}{-2em}
+
   \title{Component response rate variation drives stability in large complex
 systems}
-  \pretitle{\vspace{\droptitle}\centering\huge}
+    \pretitle{\vspace{\droptitle}\centering\huge}
   \posttitle{\par}
-\subtitle{Supplemental Information}
+  \subtitle{Supplemental Information}
   \author{A. Bradley Duthie}
-  \preauthor{\centering\large\emph}
+    \preauthor{\centering\large\emph}
   \postauthor{\par}
-  \predate{\centering\large\emph}
+      \predate{\centering\large\emph}
   \postdate{\par}
-  \date{Biological and Environmental Sciences, University of Stirling, Stirling,
+    \date{Biological and Environmental Sciences, University of Stirling, Stirling,
 UK, FK9 4LA
 \href{mailto:alexander.duthie@stir.ac.uk}{\nolinkurl{alexander.duthie@stir.ac.uk}}}
 
@@ -238,6 +239,8 @@ contents}\label{supplemental-information-table-of-contents}
   \(\gamma\)}
 \item
   \protect\hyperlink{Feasibility}{Feasibility of complex systems}
+\item
+  \protect\hyperlink{Gibbs}{Consistency with Gibbs et al. (2018)}
 \end{itemize}
 
 \hypertarget{IncrS}{\section{\texorpdfstring{Stability across increasing
@@ -1214,6 +1217,50 @@ A1\_made\_feasible & A1\_made\_infeasible\tabularnewline
 Hence, in general, \(Var(\gamma)\) does not appear to affect feasibility
 in pure species interaction networks.
 
+\hypertarget{Gibbs}{\section{Consistency with Gibbs et al.
+(2018)}\label{Gibbs}}
+
+The question that I address in the main text is distinct from that of
+Gibbs et al\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{4}}, which
+focused instead on the effect of a diagonal matrix of biological species
+densities \(\mathbf{X}\) on a community matrix \(\mathbf{M}\) given a
+species interaction matrix \(\mathbf{A}\). This is modelled as below,
+
+\[\mathbf{M} = \mathbf{XA}\].
+
+Mathematically, the above is identical to my model in the main text
+where the system \(\mathbf{M}\) is defined by component interaction
+strengths \(\mathbf{A}\) and individual component response rates
+\(\mathbf{\gamma}\),
+
+\[\mathbf{M} = \mathbf{\gamma A}\].
+
+While I focused on the probability of observing a stable versus unstable
+system given variation in \(\mathbf{\gamma}\) for finite by high system
+size (\(S\)), Gibbs et
+al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{4}} instead
+focused on the different question concerning the effect of
+\(\mathbf{\gamma}\) on the stability of \(\mathbf{M}\) given
+\(\mathbf{A}\) as \(S \to \infty\). It is easy to show that my primary
+results in \protect\hyperlink{IncrS}{the table above} are consistent
+with Gibbs et al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{4}}
+by calculating the probability that system stability changes as \(S\)
+increases. Gibbs et
+al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{4}} predict that
+the probability that stability is altered should decrease with
+increasing \(S\).
+
+\includegraphics{SI_files/figure-latex/unnamed-chunk-26-1.pdf}
+
+Note, however, that within this finite range of \(S\), the probability
+that an unstable system will be stabilised by \(\gamma\) increases as
+\(S\) increases. In other words, the proportion of unstable systems that
+are stabilised by \(\gamma\) increases with \(S\) in simulations.
+
+\includegraphics{SI_files/figure-latex/unnamed-chunk-27-1.pdf}
+
+```
+
 \section*{References}\label{references}
 \addcontentsline{toc}{section}{References}
 
@@ -1230,6 +1277,11 @@ in pure species interaction networks.
 3. Allesina, S. \emph{et al.} Predicting the stability of large
 structured food webs. \emph{Nature Communications} \textbf{6,} 7842
 (2015).
+
+\hypertarget{ref-Gibbs2017}{}
+4. Gibbs, T., Grilli, J., Rogers, T. \& Allesina, S. The effect of
+population abundances on the stability of large random ecosystems.
+\emph{arXiv} (2017).
 
 
 \end{document}

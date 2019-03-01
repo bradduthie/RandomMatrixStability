@@ -208,11 +208,11 @@ Reviewer 3 has slightly mis-stated the main point of my manuscript, in part due 
 
 "It is important to emphasise that variation in component response rate is not stabilising per se; that is, adding variation in component response rate to a particular system does not necessarily increase the probability that the system will be stable. Rather, systems that are observed to be stable are more likely to have varying component response rates, and for this variation to be critical to their stability."
 
-I now also emphasise this point in the abstract and clarify the range of S in which I am interested. Given this distinction, there is no contradiction between my results and the work of Gibbs et al. (2018). Three points are particularly important:
+I now also emphasise this point in the abstract and clarify the finite range of S in which I am interested. Given this distinction, there is no contradiction between my results and the work of Gibbs et al. (2018). Three points are particularly important:
 
 (1) Randomly generated matrices (M = XA) that are stable are more likely than not to have variation in X across the range of system sizes (S) that I simulated. This is (to my knowledge) a novel result and fully reprodible using the code underlying my simulations (https://github.com/bradduthie/RandomMatrixStability). 
 
-(2) Using the data from the first table of my Supporting Information, it is possible to confirm that the probability that a stable matrix (A) is destabilised by (X) such that M = XA is unstable decreases with increasing system size (S), consistent with Gibbs et al. (2018) and Reviewer 3's concerns. I now state this point explicitly in the Discussion and show it in a new figure in the Supporting Information. 
+(2) Using the data from the first table of my Supporting Information, it is possible to confirm that the probability that a stable matrix (A) is destabilised by (X) such that M = XA is unstable decreases with increasing system size (S), consistent with Gibbs et al. (2018) and Reviewer 3's concerns. I now state this point explicitly in the Discussion and show it in a new section and figure in the Supporting Information. 
 
 (3) At high S, the probability that a system is stable becomes negligible; no such systems were found given S > 32. I now emphasise that my results apply specifically for the upper range of S > 10 for which stability is also non-negligible (i.e., observed at least once in simulations). In this range, systems in which there is variation in X are indeed more stable than in systems in which no such variation exists. Further, this general pattern occurs for all simulated systems at the upper range of S, regardless of system connectance (C), interaction stengths (\sigma), or X and A element distributions (see Supporting Information). In this manuscript, I am not interested in the effect of varying component response rates in systems that are too large and/or complex to be stable (i.e., "S going to infinity"); my focus is entirely restricted to effects in the range where some stability can be reasonably expected. I explain this more carefully now in my Introduction and revise to state that my general conclusions may not apply as S \to \Inf.
 
@@ -243,7 +243,6 @@ Response to Reviewer 3 specific comment 4
 --------------------------------------------------------------------------------
 
 I showed that manipulating component response rates can, sometimes greatly, increase the probability that a random system will be stable. As with Reviewer 3 specific comment 3 (see above), I now clarify that my focus is on the upper range of S at which large random systems can reasonably be expected to be stable, not at the limit of S \to \Infty (as in Gibbs et al. 2018). Clarifying revisions have been now made accordingly to the Introduction.
-
 
 
 Author References Cited

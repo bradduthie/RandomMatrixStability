@@ -77,6 +77,7 @@ Supplemental Information table of contents
     - [$\sigma$ = 0.6](#sigma6)
 - [Sensitivity of distribution of $\gamma$](#gam_dist)
 - [Feasibility of complex systems](#Feasibility)
+- [Consistency with Gibbs et al. (2018)](#Gibbs)
 
 
 Stability across increasing $S$ {#IncrS}
@@ -425,6 +426,41 @@ kable(feas_tab);
 ```
 
 Hence, in general, $Var(\gamma)$ does not appear to affect feasibility in pure species interaction networks.
+
+
+Consistency with Gibbs et al. (2018) {#Gibbs}
+===============================================================================
+
+The question that I address in the main text is distinct from that of Gibbs et al [@Gibbs2017], which focused instead on the effect of a diagonal matrix of biological species densities $\mathbf{X}$ on a community matrix $\mathbf{M}$ given a species interaction matrix $\mathbf{A}$. This is modelled as below,
+
+$$\mathbf{M} = \mathbf{XA}$$.
+
+Mathematically, the above is identical to my model in the main text where the system $\mathbf{M}$ is defined by component interaction strengths $\mathbf{A}$ and individual component response rates $\mathbf{\gamma}$,
+
+$$\mathbf{M} = \mathbf{\gamma A}$$.
+
+While I focused on the probability of observing a stable versus unstable system given variation in $\mathbf{\gamma}$ for finite by high system size ($S$), Gibbs et al. [@Gibbs2017] instead focused on the different question concerning the effect of $\mathbf{\gamma}$ on the stability of $\mathbf{M}$ given $\mathbf{A}$ as $S \to \infty$. It is easy to show that my primary results in [the table above](#IncrS) are consistent with Gibbs et al. [@Gibbs2017] by calculating the probability that system stability changes as $S$ increases. Gibbs et al. [@Gibbs2017] predict that the probability that stability is altered should decrease with increasing $S$.
+
+```{r, echo = FALSE}
+d_tab    <- dat[,1:7];
+p_chnged <- (dat[,6] + dat[,7]) / (dat[,2] + dat[,3]);
+gibbtb   <- cbind(d_tab[,1], p_chnged);
+colnames(gibbtb) <- c("S", "Pr_changed");
+plot(x = gibbtb[,1], y = gibbtb[,2], type = "l");
+```
+
+Note, however, that within this finite range of $S$, the probability that an unstable system will be stabilised by $\gamma$ increases as $S$ increases. In other words, the proportion of unstable systems that are stabilised by $\gamma$ increases with $S$ in simulations.
+
+```{r, echo = FALSE}
+Pr_stbled <- (dat[,6]) / (dat[,6] + dat[,7]);
+gibbtb2   <- cbind(d_tab[,1], Pr_stbled);
+colnames(gibbtb2) <- c("S", "Pr_stbled");
+plot(x = gibbtb2[,1], y = gibbtb2[,2], type = "l");
+```
+
+
+```
+
 
 
 References
