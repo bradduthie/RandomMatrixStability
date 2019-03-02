@@ -439,27 +439,10 @@ Mathematically, the above is identical to my model in the main text where the sy
 
 $$\mathbf{M} = \mathbf{\gamma A}$$.
 
-While I focused on the probability of observing a stable versus unstable system given variation in $\mathbf{\gamma}$ for finite by high system size ($S$), Gibbs et al. [@Gibbs2017] instead focused on the different question concerning the effect of $\mathbf{\gamma}$ on the stability of $\mathbf{M}$ given $\mathbf{A}$ as $S \to \infty$. It is easy to show that my primary results in [the table above](#IncrS) are consistent with Gibbs et al. [@Gibbs2017] by calculating the probability that system stability changes as $S$ increases. Gibbs et al. [@Gibbs2017] predict that the probability that stability is altered should decrease with increasing $S$.
-
-```{r, echo = FALSE}
-d_tab    <- dat[,1:7];
-p_chnged <- (dat[,6] + dat[,7]) / (dat[,2] + dat[,3]);
-gibbtb   <- cbind(d_tab[,1], p_chnged);
-colnames(gibbtb) <- c("S", "Pr_changed");
-plot(x = gibbtb[,1], y = gibbtb[,2], type = "l");
-```
-
-Note, however, that within this finite range of $S$, the probability that an unstable system will be stabilised by $\gamma$ increases as $S$ increases. In other words, the proportion of unstable systems that are stabilised by $\gamma$ increases with $S$ in simulations.
-
-```{r, echo = FALSE}
-Pr_stbled <- (dat[,6]) / (dat[,6] + dat[,7]);
-gibbtb2   <- cbind(d_tab[,1], Pr_stbled);
-colnames(gibbtb2) <- c("S", "Pr_stbled");
-plot(x = gibbtb2[,1], y = gibbtb2[,2], type = "l");
-```
+I focused on the probability of observing a stable versus unstable system given variation in $\mathbf{\gamma}$ as system complexity ($\sigma\sqrt{SC}$) increased. I increased system complexity by holding $C$ and $\sigma$ constant and incrementally increasing $S$ to obtain numerical results. In contrast, Gibbs et al. [@Gibbs2017] applied analytical techniques to instead focused on a different question concerning the effect of $\mathbf{\gamma}$ on the stability of $\mathbf{M}$ given $\mathbf{A}$ as $S \to \infty$, with $\sigma$ scaled so that $\sigma = 1/\sqrt{S}$. Under such scaling, Gibbs et al. [@Gibbs2017] showed that the effect of $\gamma$ on stability should decrease exponentially as $S$ increases, which I can replicate below by running simulations in which $\sigma = 1/\sqrt{S}$. 
 
 
-```
+The results in the table above can be compared to those of the [main results] (#IncrS). Note that only 100000, rather than 1 million, simulations are run to confirm consistency with Gibbs et al. [@Gibbs2017].
 
 
 
