@@ -294,8 +294,8 @@ has not been investigated in complex systems theory. Intuitively,
 variation in \(\gamma\) might be expected to decrease system stability
 by introducing a new source of variation into the system and thereby
 increasing \(\sigma\). Here I show why, despite higher \(\sigma\),
-realistic complex systems (such that \(S\) is high but finite) in which
-\(\gamma\) varies are actually more likely to be stable.
+realistic complex systems (such that \(S\) is high but finite) are actually 
+more likely to be stable if their individual component response rates vary.
 
 \subsection{Results}\label{results}
 
@@ -531,7 +531,7 @@ decreases exponentially as system size becomes arbitrarily large
 (\(S \to \infty\)). My numerical results do not contradict this
 prediction because I did not scale \(\sigma = 1 / \sqrt{S}\), but
 instead fixed \(\sigma\) and increased \(S\) to thereby increase total
-system complexity, \(\sigma\sqrt{SC}\) (see Supplemental Information for
+system complexity, \(\sigma\sqrt{SC}\) (see Supplementary Information for
 results simulated across \(\sigma\) and \(C\)). Overall, I show that
 component response rate variation increases the upper bound of
 complexity at which stability can be realistically observed, meaning
@@ -746,8 +746,7 @@ criterion\textsuperscript{\protect\hyperlink{ref-Dougoud2018}{20}} by
 \(\frac{\sigma}{(CS)^{-\delta}}\sqrt{SC} < 1\), and hence for my
 purposes \((CS)^{-\delta} = 1\)). Given
 \(\mathbf{A} = \theta\mathbf{I + J}\), the above criteria is therefore
-reduced to the below (see
-also\textsuperscript{\protect\hyperlink{ref-Servan2018}{22}}),
+reduced to the below\textsuperscript{\protect\hyperlink{ref-Servan2018}{22}},
 
 \[\mathbf{n^{*} = -A^{-1}r}.\]
 
@@ -842,7 +841,8 @@ Physics} \textbf{91,} 012820 (2015).
 \hypertarget{ref-Gibbs2017}{}
 17. Gibbs, T., Grilli, J., Rogers, T. \& Allesina, S. The effect of
 population abundances on the stability of large random ecosystems.
-\emph{arXiv} (2017).
+\emph{Physical Review E - Statistical, Nonlinear, and Soft Matter
+Physics} \textbf{98,} 022410 (2018).
 
 \hypertarget{ref-Stone2017}{}
 18. Stone, L. The feasibility and stability of large complex biological
@@ -875,28 +875,21 @@ Allesina, S. Coexistence of many species in random ecosystems.
 
 \clearpage
 
-
-
-\begin{center}
-\hypertarget{SIstart}{\section{Supplementary Information}\label{SIstart}}
-\end{center}
-
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
-\textbf{This supplementary information supports the manuscript
+\textbf{This Supplementary information supports the manuscript
 ``Component response rate variation drives stability in large complex
-systems'' with all of the code required to recreate the analysis in the
-main text, and with additional analyses to support its conclusions. All
-text, code, and data underlying this manuscript are publicly available
-on \href{https://github.com/bradduthie/RandomMatrixStability}{GitHub}
-as part of the RandomMatrixStability package.}
+systems'' with additional analyses to support its conclusions. All text,
+code, and data underlying this manuscript are publicly available on
+\href{https://github.com/bradduthie/RandomMatrixStability}{GitHub} as
+part of the RandomMatrixStability R package.}
 
 The
 \href{https://github.com/bradduthie/RandomMatrixStability}{RandomMatrixStability
 package} includes all functions and tools for recreating the text, this
-supplemental information, and running all code; additional documentation
-is also provided for functions as part of the package. The
-RandomMatrixStability package is available on
+Supplementary information, and running all code; additional documentation
+is also provided for package functions. The RandomMatrixStability
+package is available on
 \href{https://github.com/bradduthie/RandomMatrixStability}{GitHub}; to
 download it, the
 \href{https://cran.r-project.org/web/packages/devtools/index.html}{\texttt{devtools}
@@ -918,25 +911,18 @@ devtools.
 \end{Highlighting}
 \end{Shaded}
 
-While downloading this package is recommended, all relevant code is also
-reproduced below with explanation, so it is possible to recreate all
-analyses using only this Supplementary Information.
-
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
 \section{Supplementary Information table of
-contents}\label{supplemental-information-table-of-contents}
+contents}\label{Supplementary-information-table-of-contents}
 
 \begin{itemize}
 \tightlist
 \item
-  \protect\hyperlink{moregamma}{Further explanation of \(\gamma\)}
-\item
-  \protect\hyperlink{Fig1}{Code and simulations underlying Fig. 1}
-\item
-  \protect\hyperlink{Fig2}{Code and simulations underlying Fig. 2}
-\item
   \protect\hyperlink{IncrS}{Stability across increasing \(S\)}
+\item
+  \protect\hyperlink{ga}{Stability given targeted manipulation of
+  \(\gamma\) (genetic algorithm)}
 \item
   \protect\hyperlink{ecological}{Stability of ecological networks}
 
@@ -950,7 +936,7 @@ contents}\label{supplemental-information-table-of-contents}
     \protect\hyperlink{pred-prey}{Predator-prey networks}
   \end{itemize}
 \item
-  \protect\hyperlink{connectance}{Different connectance (C) values}
+  \protect\hyperlink{connectance}{Sensitivity of connectance (C) values}
 
   \begin{itemize}
   \tightlist
@@ -964,314 +950,41 @@ contents}\label{supplemental-information-table-of-contents}
     \protect\hyperlink{connect9}{C = 0.9}
   \end{itemize}
 \item
-  \protect\hyperlink{gam_dist}{Different distributions of \(\gamma\)}
+  \protect\hyperlink{sigma}{Large networks of \(C = 0.05\) across \(S\)
+  and \(\sigma\)}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \protect\hyperlink{sigma3}{\(\sigma\) = 0.3}
+  \item
+    \protect\hyperlink{sigma4}{\(\sigma\) = 0.4}
+  \item
+    \protect\hyperlink{sigma5}{\(\sigma\) = 0.5}
+  \item
+    \protect\hyperlink{sigma6}{\(\sigma\) = 0.6}
+  \end{itemize}
 \item
-  \protect\hyperlink{ga}{Genetic algorithm}
+  \protect\hyperlink{gam_dist}{Sensitivity of distribution of
+  \(\gamma\)}
 \item
   \protect\hyperlink{Feasibility}{Feasibility of complex systems}
+\item
+  \protect\hyperlink{Gibbs}{Consistency with Gibbs et al. (2018)}
 \end{itemize}
-
-\hypertarget{moregamma}{\section{\texorpdfstring{Further explanation of
-\(\gamma\)}{Further explanation of \textbackslash{}gamma}}\label{moregamma}}
-
-In a synthesis of eco-evolutionary feedbacks on community stability,
-Patel et al. model a system that includes a vector of potentially
-changing species densities (\(\mathbf{N}\)) and a vector of potentially
-evolving traits
-(\(\mathbf{x}\))\textsuperscript{\protect\hyperlink{ref-Patel2018}{1}}.
-For any species \(i\) or trait \(j\), change in species density
-(\(N_{i}\)) or trait value (\(x_{j}\)) with time (\(t\)) is a function
-of the vectors \(\mathbf{N}\) and \(\mathbf{x}\),
-
-\[\frac{dN_{i}}{dt} = N_{i}f_{i}(\mathbf{N}, \mathbf{x}),\]
-
-\[\frac{dx_{j}}{dt} = \epsilon g_{j}(\mathbf{N}, \mathbf{x}).\]
-
-In the above, \(f_{i}\) and \(g_{j}\) are functions that define the
-effects of all species densities and trait values on the density of a
-species \(i\) and the value of trait \(j\), respectively. Patel et al.
-were interested in stability when the evolution of traits was relatively
-slow or fast in comparison with the change in species
-densities\textsuperscript{\protect\hyperlink{ref-Patel2018}{1}}, and
-this is modulated in the above by the scalar \(\epsilon\). The value of
-\(\epsilon\) thereby determines the timescale separation between ecology
-and evolution, with high \(\epsilon\) modelling relatively fast
-evolution and low \(\epsilon\) modelling relative slow
-evolution\textsuperscript{\protect\hyperlink{ref-Patel2018}{1}}.
-
-I use the same principle that Patel et al. use to modulate the relative
-rate of evolution to modulate rates of component responses for \(S\)
-components. Following
-May\textsuperscript{\protect\hyperlink{ref-May1972}{2},\protect\hyperlink{ref-May1973}{3}},
-the value of a component \(i\) at time \(t\) (\(v_{i}(t)\)) is affected
-by the value of \(j\) (\(v_{j}(t)\)) and \(j\)'s marginal effect on
-\(i\) (\(m_{ij}\)), and by \(i\)'s response rate (\(\gamma_{i}\)),
-
-\[\frac{dv_{i}(t)}{dt} = \gamma_{i} \sum_{j=1}^{S}m_{ij}v_{j}(t).\]
-
-In matrix notation\textsuperscript{\protect\hyperlink{ref-May1973}{3}},
-
-\[\frac{d\mathbf{v}(t)}{dt} = \mathbf{\gamma} \mathbf{M}\mathbf{v}(t).\]
-
-In the above, \(\mathbf{\gamma}\) is a diagonal matrix in which elements
-correspond to individual component response rates. Therefore,
-\(\mathbf{\gamma} \mathbf{M}\) modulates the values of components and
-can be analysed using the techniques of
-May\textsuperscript{\protect\hyperlink{ref-May1972}{2},\protect\hyperlink{ref-May1973}{3}}.
-
-\hypertarget{Fig1}{\section{Code and simulations underlying Fig.
-1}\label{Fig1}}
-
-The sample \(M\) used for the eigenvalue distributions in Fig. 1 of the
-text is available on
-\href{https://github.com/bradduthie/RandomMatrixStability/tree/master/notebook/sim_results/bi_gamma}{GitHub},
-and was produced by running the following function.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{find_bgamma <-}\StringTok{ }\NormalTok{function(}\DataTypeTok{S =} \DecValTok{200}\NormalTok{, }\DataTypeTok{C =} \FloatTok{0.05}\NormalTok{, }\DataTypeTok{Osd =} \FloatTok{0.4}\NormalTok{, }\DataTypeTok{iters =} \DecValTok{10000}\NormalTok{)\{}
-    \NormalTok{while(iters >}\StringTok{ }\DecValTok{0}\NormalTok{)\{}
-        \NormalTok{A_dat  <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DataTypeTok{n =} \NormalTok{S *}\StringTok{ }\NormalTok{S, }\DataTypeTok{mean =} \DecValTok{0}\NormalTok{, }\DataTypeTok{sd =} \NormalTok{Osd);}
-        \NormalTok{A_mat  <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{data =} \NormalTok{A_dat, }\DataTypeTok{nrow =} \NormalTok{S);}
-        \NormalTok{C_dat  <-}\StringTok{ }\KeywordTok{rbinom}\NormalTok{(}\DataTypeTok{n =} \NormalTok{S *}\StringTok{ }\NormalTok{S, }\DataTypeTok{size =} \DecValTok{1}\NormalTok{, }\DataTypeTok{prob =} \NormalTok{C);}
-        \NormalTok{C_mat  <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{data =} \NormalTok{C_dat, }\DataTypeTok{nrow =} \NormalTok{S, }\DataTypeTok{ncol =} \NormalTok{S);}
-        \NormalTok{A_mat  <-}\StringTok{ }\NormalTok{A_mat *}\StringTok{ }\NormalTok{C_mat;}
-        \NormalTok{gammas <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\FloatTok{1.95}\NormalTok{, S/}\DecValTok{2}\NormalTok{), }\KeywordTok{rep}\NormalTok{(}\FloatTok{0.05}\NormalTok{, S/}\DecValTok{2}\NormalTok{))}
-        \NormalTok{mu_gam <-}\StringTok{ }\KeywordTok{mean}\NormalTok{(gammas);}
-        \KeywordTok{diag}\NormalTok{(A_mat) <-}\StringTok{ }\NormalTok{-}\DecValTok{1}\NormalTok{;}
-        \NormalTok{A1     <-}\StringTok{ }\NormalTok{gammas *}\StringTok{ }\NormalTok{A_mat;}
-        \NormalTok{A0     <-}\StringTok{ }\NormalTok{mu_gam *}\StringTok{ }\NormalTok{A_mat;}
-        \NormalTok{A0_e   <-}\StringTok{ }\KeywordTok{eigen}\NormalTok{(A0)$values;}
-        \NormalTok{A0_r   <-}\StringTok{ }\KeywordTok{Re}\NormalTok{(A0_e);}
-        \NormalTok{A0_i   <-}\StringTok{ }\KeywordTok{Im}\NormalTok{(A0_e);}
-        \NormalTok{A1_e   <-}\StringTok{ }\KeywordTok{eigen}\NormalTok{(A1)$values;}
-        \NormalTok{A1_r   <-}\StringTok{ }\KeywordTok{Re}\NormalTok{(A1_e);}
-        \NormalTok{A1_i   <-}\StringTok{ }\KeywordTok{Im}\NormalTok{(A1_e);}
-        \NormalTok{if(}\KeywordTok{max}\NormalTok{(A0_r) >=}\StringTok{ }\DecValTok{0} \NormalTok{&}\StringTok{ }\KeywordTok{max}\NormalTok{(A1_r) <}\StringTok{ }\DecValTok{0}\NormalTok{)\{}
-            \KeywordTok{return}\NormalTok{(}\KeywordTok{list}\NormalTok{(}\DataTypeTok{A0 =} \NormalTok{A0, }\DataTypeTok{A1 =} \NormalTok{A1));}
-            \NormalTok{break;}
-        \NormalTok{\}}
-        \KeywordTok{print}\NormalTok{(iters);}
-        \NormalTok{iters <-}\StringTok{ }\NormalTok{iters -}\StringTok{ }\DecValTok{1}\NormalTok{;}
-    \NormalTok{\}}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-The above \texttt{find\_bgamma} function terminates when a matrix \(M\)
-is found that is not stable when all component response rates are set to
-\(\gamma = 1\), but is stable when half of component response rates are
-\(1.95\) and half are \(0.05\). The function is used to illustrate the
-concept of how fast versus slow component responses can cause a system
-to become stable. Simulations were run for \texttt{iter\ =\ 1000000},
-but terminated once an acceptable \texttt{A0} and \texttt{A1} were
-found. The code below plots the eigenvalue distributions of \texttt{A0}
-and \texttt{A1} in panels \textbf{a} and \textbf{b}, respectively. The
-plot itself can be recreated with the function and code below.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{A0 <-}\StringTok{ }\KeywordTok{as.matrix}\NormalTok{(A0[,-}\DecValTok{1}\NormalTok{]);}
-\NormalTok{A1 <-}\StringTok{ }\KeywordTok{as.matrix}\NormalTok{(A1[,-}\DecValTok{1}\NormalTok{]);}
-\NormalTok{plot_Fig_1 <-}\StringTok{ }\NormalTok{function(A0, A1)\{}
-    \NormalTok{S_val       <-}\StringTok{ }\KeywordTok{dim}\NormalTok{(A0)[}\DecValTok{1}\NormalTok{];}
-    \NormalTok{A0_e        <-}\StringTok{ }\KeywordTok{eigen}\NormalTok{(A0)$values;}
-    \NormalTok{A0_r        <-}\StringTok{ }\KeywordTok{Re}\NormalTok{(A0_e);}
-    \NormalTok{A0_i        <-}\StringTok{ }\KeywordTok{Im}\NormalTok{(A0_e);}
-    \NormalTok{A1_e        <-}\StringTok{ }\KeywordTok{eigen}\NormalTok{(A1)$values;}
-    \NormalTok{A1_r        <-}\StringTok{ }\KeywordTok{Re}\NormalTok{(A1_e);}
-    \NormalTok{A1_i        <-}\StringTok{ }\KeywordTok{Im}\NormalTok{(A1_e);}
-    \NormalTok{A0_vm       <-}\StringTok{ }\NormalTok{A0;}
-    \KeywordTok{diag}\NormalTok{(A0_vm) <-}\StringTok{ }\OtherTok{NA}\NormalTok{;}
-    \NormalTok{A0vec       <-}\StringTok{ }\KeywordTok{as.vector}\NormalTok{(}\KeywordTok{t}\NormalTok{(A0_vm));}
-    \NormalTok{A0vec       <-}\StringTok{ }\NormalTok{A0vec[}\KeywordTok{is.na}\NormalTok{(A0vec) ==}\StringTok{ }\OtherTok{FALSE}\NormalTok{];}
-    \NormalTok{A1_vm       <-}\StringTok{ }\NormalTok{A1;}
-    \KeywordTok{diag}\NormalTok{(A1_vm) <-}\StringTok{ }\OtherTok{NA}\NormalTok{;}
-    \NormalTok{A1vec       <-}\StringTok{ }\KeywordTok{as.vector}\NormalTok{(}\KeywordTok{t}\NormalTok{(A1_vm));}
-    \NormalTok{A1vec       <-}\StringTok{ }\NormalTok{A1vec[}\KeywordTok{is.na}\NormalTok{(A1vec) ==}\StringTok{ }\OtherTok{FALSE}\NormalTok{];}
-    \NormalTok{fhalf       <-}\StringTok{ }\DecValTok{1}\NormalTok{:(}\FloatTok{0.5}\NormalTok{*}\KeywordTok{length}\NormalTok{(A1vec));}
-    \NormalTok{shalf       <-}\StringTok{ }\NormalTok{(}\FloatTok{0.5}\NormalTok{*}\KeywordTok{length}\NormalTok{(A1vec)+}\DecValTok{1}\NormalTok{):}\KeywordTok{length}\NormalTok{(A1vec);}
-    \KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow =} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{), }\DataTypeTok{mar =} \KeywordTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\FloatTok{0.5}\NormalTok{), }\DataTypeTok{oma =} \KeywordTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{));}
-    \KeywordTok{plot}\NormalTok{(A0_r, A0_i, }\DataTypeTok{xlim =} \KeywordTok{c}\NormalTok{(-}\FloatTok{3.7}\NormalTok{, }\FloatTok{0.3}\NormalTok{), }\DataTypeTok{ylim =} \KeywordTok{c}\NormalTok{(-}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{), }\DataTypeTok{pch =} \DecValTok{4}\NormalTok{, }\DataTypeTok{cex =} \FloatTok{0.7}\NormalTok{,}
-         \DataTypeTok{xlab =} \StringTok{""}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{""}\NormalTok{, }\DataTypeTok{cex.lab =} \FloatTok{1.5}\NormalTok{, }\DataTypeTok{cex.axis =} \FloatTok{1.5}\NormalTok{, }\DataTypeTok{asp =} \DecValTok{1}\NormalTok{);}
-    \NormalTok{vl   <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\DataTypeTok{from =} \DecValTok{0}\NormalTok{, }\DataTypeTok{to =} \DecValTok{2}\NormalTok{*pi, }\DataTypeTok{by =} \FloatTok{0.001}\NormalTok{);}
-    \NormalTok{A0x0 <-}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(S_val) *}\StringTok{ }\KeywordTok{sd}\NormalTok{(A0vec) *}\StringTok{ }\KeywordTok{cos}\NormalTok{(vl) +}\StringTok{ }\KeywordTok{mean}\NormalTok{(}\KeywordTok{diag}\NormalTok{(A0));}
-    \NormalTok{A0y0 <-}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(S_val) *}\StringTok{ }\KeywordTok{sd}\NormalTok{(A0vec) *}\StringTok{ }\KeywordTok{sin}\NormalTok{(vl);}
-    \KeywordTok{text}\NormalTok{(}\DataTypeTok{x =} \NormalTok{-}\FloatTok{3.5}\NormalTok{, }\DataTypeTok{y =} \FloatTok{2.25}\NormalTok{, }\DataTypeTok{labels =} \StringTok{"a"}\NormalTok{, }\DataTypeTok{cex =} \DecValTok{2}\NormalTok{);}
-    \KeywordTok{points}\NormalTok{(}\DataTypeTok{x =} \NormalTok{A0x0, }\DataTypeTok{y =} \NormalTok{A0y0, }\DataTypeTok{type =} \StringTok{"l"}\NormalTok{, }\DataTypeTok{lwd =} \DecValTok{3}\NormalTok{, }\DataTypeTok{col =} \StringTok{"grey"}\NormalTok{);}
-    \KeywordTok{points}\NormalTok{(A0_r, A0_i, }\DataTypeTok{pch =} \DecValTok{4}\NormalTok{, }\DataTypeTok{cex =} \FloatTok{0.7}\NormalTok{);}
-    \KeywordTok{plot}\NormalTok{(A1_r, A1_i, }\DataTypeTok{xlim =} \KeywordTok{c}\NormalTok{(-}\FloatTok{3.7}\NormalTok{, }\FloatTok{0.3}\NormalTok{), }\DataTypeTok{ylim =} \KeywordTok{c}\NormalTok{(-}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{), }\DataTypeTok{pch =} \DecValTok{4}\NormalTok{, }\DataTypeTok{cex =} \FloatTok{0.7}\NormalTok{,}
-         \DataTypeTok{xlab =} \StringTok{""}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{""}\NormalTok{, }\DataTypeTok{cex.lab =} \FloatTok{1.5}\NormalTok{, }\DataTypeTok{cex.axis =} \FloatTok{1.5}\NormalTok{, }\DataTypeTok{asp =} \DecValTok{1}\NormalTok{, }
-         \DataTypeTok{col =} \StringTok{"black"}\NormalTok{, }\DataTypeTok{yaxt =} \StringTok{"n"}\NormalTok{);}
-    \NormalTok{vl <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\DataTypeTok{from =} \DecValTok{0}\NormalTok{, }\DataTypeTok{to =} \DecValTok{2}\NormalTok{*pi, }\DataTypeTok{by =} \FloatTok{0.001}\NormalTok{);}
-    \NormalTok{A0x1a <-}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(}\FloatTok{0.5}\NormalTok{*S_val) *}\StringTok{ }\KeywordTok{sd}\NormalTok{(A1vec[fhalf]) *}\StringTok{ }\KeywordTok{cos}\NormalTok{(vl) +}\StringTok{ }\KeywordTok{mean}\NormalTok{(}\KeywordTok{diag}\NormalTok{(A1)[}\DecValTok{1}\NormalTok{:(}\FloatTok{0.5}\NormalTok{*S_val)]);}
-    \NormalTok{A0y1a <-}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(S_val) *}\StringTok{ }\KeywordTok{sd}\NormalTok{(A1vec[fhalf]) *}\StringTok{ }\KeywordTok{sin}\NormalTok{(vl);}
-    \KeywordTok{points}\NormalTok{(}\DataTypeTok{x =} \NormalTok{A0x1a, }\DataTypeTok{y =} \NormalTok{A0y1a, }\DataTypeTok{type =} \StringTok{"l"}\NormalTok{, }\DataTypeTok{lwd =} \DecValTok{3}\NormalTok{, }\DataTypeTok{col =} \StringTok{"grey"}\NormalTok{);}
-    \NormalTok{A0x1b <-}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(}\FloatTok{0.5}\NormalTok{*S_val) *}\StringTok{ }\KeywordTok{sd}\NormalTok{(A1vec[shalf]) *}\StringTok{ }\KeywordTok{cos}\NormalTok{(vl) +}\StringTok{ }
-\StringTok{                  }\KeywordTok{mean}\NormalTok{( }\KeywordTok{diag}\NormalTok{(A1)[( (}\FloatTok{0.5}\NormalTok{*S_val) +}\StringTok{ }\DecValTok{1} \NormalTok{):S_val] );}
-    \NormalTok{A0y1b <-}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(}\FloatTok{0.5}\NormalTok{*S_val) *}\StringTok{ }\KeywordTok{sd}\NormalTok{(A1vec[shalf]) *}\StringTok{ }\KeywordTok{sin}\NormalTok{(vl);}
-    \KeywordTok{points}\NormalTok{(}\DataTypeTok{x =} \NormalTok{A0x1b, }\DataTypeTok{y =} \NormalTok{A0y1b, }\DataTypeTok{type =} \StringTok{"l"}\NormalTok{, }\DataTypeTok{lwd =} \DecValTok{3}\NormalTok{, }\DataTypeTok{col =} \StringTok{"grey"}\NormalTok{);}
-    \KeywordTok{points}\NormalTok{(A1_r[}\DecValTok{1}\NormalTok{:S_val], A1_i[}\DecValTok{1}\NormalTok{:S_val],}\DataTypeTok{pch =} \DecValTok{4}\NormalTok{, }\DataTypeTok{cex =} \FloatTok{0.7}\NormalTok{);   }
-    \KeywordTok{text}\NormalTok{(}\DataTypeTok{x =} \NormalTok{-}\FloatTok{3.5}\NormalTok{, }\DataTypeTok{y =} \FloatTok{2.25}\NormalTok{, }\DataTypeTok{labels =} \StringTok{"b"}\NormalTok{, }\DataTypeTok{cex =} \DecValTok{2}\NormalTok{);}
-    \KeywordTok{mtext}\NormalTok{(}\DataTypeTok{side =} \DecValTok{1}\NormalTok{, }\StringTok{"Real"}\NormalTok{, }\DataTypeTok{outer =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{line =} \DecValTok{3}\NormalTok{, }\DataTypeTok{cex =} \DecValTok{2}\NormalTok{);}
-    \KeywordTok{mtext}\NormalTok{(}\DataTypeTok{side =} \DecValTok{2}\NormalTok{, }\StringTok{"Imaginary"}\NormalTok{, }\DataTypeTok{outer =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{line =} \FloatTok{2.5}\NormalTok{, }\DataTypeTok{cex =} \DecValTok{2}\NormalTok{);}
-\NormalTok{\}}
-\KeywordTok{plot_Fig_1}\NormalTok{(}\DataTypeTok{A0 =} \NormalTok{A0, }\DataTypeTok{A1 =} \NormalTok{A1);}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{unnamed-chunk-4-1.pdf}
-
-To find out how frequently \(M\) was stable given that all
-\(\gamma = 1\) versus \(\gamma = \{1.95, 0.05\}\), the function below
-was created.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{stab_bgamma <-}\StringTok{ }\NormalTok{function(}\DataTypeTok{S =} \DecValTok{200}\NormalTok{, }\DataTypeTok{C =} \FloatTok{0.05}\NormalTok{, }\DataTypeTok{Osd =} \FloatTok{0.4}\NormalTok{, }\DataTypeTok{iters =} \DecValTok{10000}\NormalTok{)\{}
-    \NormalTok{ress     <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{data =} \DecValTok{0}\NormalTok{, }\DataTypeTok{nrow =} \NormalTok{iters, }\DataTypeTok{ncol =} \DecValTok{2}\NormalTok{);}
-    \NormalTok{A0_count <-}\StringTok{ }\DecValTok{0}\NormalTok{;}
-    \NormalTok{A1_count <-}\StringTok{ }\DecValTok{0}\NormalTok{;}
-    \NormalTok{while(iters >}\StringTok{ }\DecValTok{0}\NormalTok{)\{}
-        \NormalTok{A_dat  <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DataTypeTok{n =} \NormalTok{S *}\StringTok{ }\NormalTok{S, }\DataTypeTok{mean =} \DecValTok{0}\NormalTok{, }\DataTypeTok{sd =} \NormalTok{Osd);}
-        \NormalTok{A_mat  <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{data =} \NormalTok{A_dat, }\DataTypeTok{nrow =} \NormalTok{S);}
-        \NormalTok{C_dat  <-}\StringTok{ }\KeywordTok{rbinom}\NormalTok{(}\DataTypeTok{n =} \NormalTok{S *}\StringTok{ }\NormalTok{S, }\DataTypeTok{size =} \DecValTok{1}\NormalTok{, }\DataTypeTok{prob =} \NormalTok{C);}
-        \NormalTok{C_mat  <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{data =} \NormalTok{C_dat, }\DataTypeTok{nrow =} \NormalTok{S, }\DataTypeTok{ncol =} \NormalTok{S);}
-        \NormalTok{A_mat  <-}\StringTok{ }\NormalTok{A_mat *}\StringTok{ }\NormalTok{C_mat;}
-        \NormalTok{gammas <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\FloatTok{1.95}\NormalTok{, S/}\DecValTok{2}\NormalTok{), }\KeywordTok{rep}\NormalTok{(}\FloatTok{0.05}\NormalTok{, S/}\DecValTok{2}\NormalTok{))}
-        \NormalTok{mu_gam <-}\StringTok{ }\KeywordTok{mean}\NormalTok{(gammas);}
-        \KeywordTok{diag}\NormalTok{(A_mat) <-}\StringTok{ }\NormalTok{-}\DecValTok{1}\NormalTok{;}
-        \NormalTok{A1     <-}\StringTok{ }\NormalTok{gammas *}\StringTok{ }\NormalTok{A_mat;}
-        \NormalTok{A0     <-}\StringTok{ }\NormalTok{mu_gam *}\StringTok{ }\NormalTok{A_mat;}
-        \NormalTok{A0_e   <-}\StringTok{ }\KeywordTok{eigen}\NormalTok{(A0)$values;}
-        \NormalTok{A0_r   <-}\StringTok{ }\KeywordTok{Re}\NormalTok{(A0_e);}
-        \NormalTok{A0_i   <-}\StringTok{ }\KeywordTok{Im}\NormalTok{(A0_e);}
-        \NormalTok{A1_e   <-}\StringTok{ }\KeywordTok{eigen}\NormalTok{(A1)$values;}
-        \NormalTok{A1_r   <-}\StringTok{ }\KeywordTok{Re}\NormalTok{(A1_e);}
-        \NormalTok{A1_i   <-}\StringTok{ }\KeywordTok{Im}\NormalTok{(A1_e);}
-        \NormalTok{if(}\KeywordTok{max}\NormalTok{(A0_r) <}\StringTok{ }\DecValTok{0}\NormalTok{)\{}
-            \NormalTok{ress[iters, }\DecValTok{1}\NormalTok{] <-}\StringTok{ }\DecValTok{1}\NormalTok{;}
-            \NormalTok{A0_count       <-}\StringTok{ }\NormalTok{A0_count +}\StringTok{ }\DecValTok{1}\NormalTok{;}
-            \NormalTok{\}}
-        \NormalTok{if(}\KeywordTok{max}\NormalTok{(A1_r) <}\StringTok{ }\DecValTok{0}\NormalTok{)\{}
-            \NormalTok{ress[iters, }\DecValTok{2}\NormalTok{] <-}\StringTok{ }\DecValTok{1}\NormalTok{;}
-            \NormalTok{A1_count       <-}\StringTok{ }\NormalTok{A1_count +}\StringTok{ }\DecValTok{1}\NormalTok{;}
-        \NormalTok{\}}
-        \KeywordTok{print}\NormalTok{(}\KeywordTok{c}\NormalTok{(iters, A0_count, A1_count));}
-        \NormalTok{iters <-}\StringTok{ }\NormalTok{iters -}\StringTok{ }\DecValTok{1}\NormalTok{;}
-    \NormalTok{\}}
-    \KeywordTok{return}\NormalTok{(ress);}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-The above functions produced the \texttt{bi\_pr\_st} data.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{bi_pr_st <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"sim_results/bi_gamma/bi_pr_st.csv"}\NormalTok{);}
-\NormalTok{pr_st    <-}\StringTok{ }\NormalTok{bi_pr_st[,-}\DecValTok{1}\NormalTok{];}
-\end{Highlighting}
-\end{Shaded}
-
-The function \texttt{stab\_bgamma} was run for
-\texttt{iters\ =\ 1000000}, and the resulting matrix \texttt{ress} was
-returned. Each row of \texttt{ress} represents a single \(M\) given
-\(\gamma = 1\) (column 1) versus \(\gamma = \{1.95, 0.05\}\) (column 2).
-Values of 0 indicate that \(M\) was found to be unstable (at least one
-real component of its eigenvalues greater than or equal to zero),
-whereas values of 1 indicate that \(M\) was found to be stable (all real
-components of eigenvalues are negative). The frequencies of stable \(M\)
-were 1 given \(\gamma = 1\) and 32 given \(\gamma = \{1.95, 0.05\}\), as
-reported in the main text and legend of Fig. 1 (raw data are
-\href{https://github.com/bradduthie/RandomMatrixStability/blob/master/notebook/sim_results/bi_gamma/bi_pr_st.csv}{available
-on GitHub}).
-
-\hypertarget{Fig2}{\section{Code and simulations underlying Fig.
-2}\label{Fig2}}
-
-Figure 2 of the main text shows eigenvalue distributions in a system
-where \(S = 1000\), \(C = 1\), and \(\sigma = 0.4\). Eigenvalues can be
-reproduced using the code below for when \(\gamma = 1\) (panel a) and
-\(\gamma \sim \mathcal{U}(0, 2)\) (panel b). The function below
-reproduces the figure.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{plot_Fig_2 <-}\StringTok{ }\NormalTok{function()\{}
-    \NormalTok{A_comp <-}\StringTok{ }\OtherTok{NULL}\NormalTok{;}
-    \NormalTok{A_dat  <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DataTypeTok{n =} \DecValTok{1000000}\NormalTok{, }\DataTypeTok{mean =} \DecValTok{0}\NormalTok{, }\DataTypeTok{sd =} \FloatTok{0.4}\NormalTok{);}
-    \NormalTok{A_mat  <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{data =} \NormalTok{A_dat, }\DataTypeTok{nrow =} \DecValTok{1000}\NormalTok{);}
-    \NormalTok{C_dat  <-}\StringTok{ }\KeywordTok{rbinom}\NormalTok{(}\DataTypeTok{n =} \DecValTok{1000} \NormalTok{*}\StringTok{ }\DecValTok{1000}\NormalTok{, }\DataTypeTok{size =} \DecValTok{1}\NormalTok{, }\DataTypeTok{prob =} \DecValTok{1}\NormalTok{);}
-    \NormalTok{C_mat  <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{data =} \NormalTok{C_dat, }\DataTypeTok{nrow =} \DecValTok{1000}\NormalTok{, }\DataTypeTok{ncol =} \DecValTok{1000}\NormalTok{);}
-    \NormalTok{A_mat     <-}\StringTok{ }\NormalTok{A_mat *}\StringTok{ }\NormalTok{C_mat;}
-    \NormalTok{gammas <-}\StringTok{ }\KeywordTok{runif}\NormalTok{(}\DataTypeTok{n =} \DecValTok{1000}\NormalTok{, }\DataTypeTok{min =} \DecValTok{0}\NormalTok{, }\DataTypeTok{max =} \DecValTok{2}\NormalTok{);}
-    \NormalTok{mu_gam <-}\StringTok{ }\KeywordTok{mean}\NormalTok{(gammas);}
-    \KeywordTok{diag}\NormalTok{(A_mat) <-}\StringTok{ }\NormalTok{-}\DecValTok{1}\NormalTok{;}
-    \NormalTok{A1     <-}\StringTok{ }\NormalTok{gammas *}\StringTok{ }\NormalTok{A_mat;}
-    \NormalTok{A0     <-}\StringTok{ }\NormalTok{mu_gam *}\StringTok{ }\NormalTok{A_mat;}
-    \NormalTok{A0_e   <-}\StringTok{ }\KeywordTok{eigen}\NormalTok{(A0)$values;}
-    \NormalTok{A0_r   <-}\StringTok{ }\KeywordTok{Re}\NormalTok{(A0_e);}
-    \NormalTok{A0_i   <-}\StringTok{ }\KeywordTok{Im}\NormalTok{(A0_e);}
-    \NormalTok{A1_e   <-}\StringTok{ }\KeywordTok{eigen}\NormalTok{(A1)$values;}
-    \NormalTok{A1_r   <-}\StringTok{ }\KeywordTok{Re}\NormalTok{(A1_e);}
-    \NormalTok{A1_i   <-}\StringTok{ }\KeywordTok{Im}\NormalTok{(A1_e);}
-    \NormalTok{A0_vm       <-}\StringTok{ }\NormalTok{A0;}
-    \KeywordTok{diag}\NormalTok{(A0_vm) <-}\StringTok{ }\OtherTok{NA}\NormalTok{;}
-    \NormalTok{A0vec       <-}\StringTok{ }\KeywordTok{as.vector}\NormalTok{(A0_vm);}
-    \NormalTok{A0vec       <-}\StringTok{ }\NormalTok{A0vec[}\KeywordTok{is.na}\NormalTok{(A0vec) ==}\StringTok{ }\OtherTok{FALSE}\NormalTok{];}
-    \NormalTok{A1_vm       <-}\StringTok{ }\NormalTok{A1;}
-    \KeywordTok{diag}\NormalTok{(A1_vm) <-}\StringTok{ }\OtherTok{NA}\NormalTok{;}
-    \NormalTok{A1vec       <-}\StringTok{ }\KeywordTok{as.vector}\NormalTok{(A1_vm);}
-    \NormalTok{A1vec       <-}\StringTok{ }\NormalTok{A1vec[}\KeywordTok{is.na}\NormalTok{(A1vec) ==}\StringTok{ }\OtherTok{FALSE}\NormalTok{];}
-    \KeywordTok{par}\NormalTok{(}\DataTypeTok{mfrow =} \KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{), }\DataTypeTok{mar =} \KeywordTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\FloatTok{0.5}\NormalTok{), }\DataTypeTok{oma =} \KeywordTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{));}
-    \KeywordTok{plot}\NormalTok{(A0_r, A0_i, }\DataTypeTok{xlim =} \KeywordTok{c}\NormalTok{(-}\FloatTok{16.5}\NormalTok{, }\FloatTok{15.5}\NormalTok{), }\DataTypeTok{ylim =} \KeywordTok{c}\NormalTok{(-}\FloatTok{16.5}\NormalTok{,}\FloatTok{15.5}\NormalTok{), }\DataTypeTok{pch =} \DecValTok{4}\NormalTok{, }
-         \DataTypeTok{cex =} \FloatTok{0.7}\NormalTok{, }\DataTypeTok{xlab =} \StringTok{""}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{""}\NormalTok{, }\DataTypeTok{cex.lab =} \FloatTok{1.5}\NormalTok{, }\DataTypeTok{cex.axis =} \FloatTok{1.5}\NormalTok{, }
-         \DataTypeTok{asp =} \DecValTok{1}\NormalTok{);}
-    \NormalTok{vl <-}\StringTok{ }\KeywordTok{seq}\NormalTok{(}\DataTypeTok{from =} \DecValTok{0}\NormalTok{, }\DataTypeTok{to =} \DecValTok{2}\NormalTok{*pi, }\DataTypeTok{by =} \FloatTok{0.001}\NormalTok{);}
-    \NormalTok{x0 <-}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(}\DecValTok{1000}\NormalTok{) *}\StringTok{ }\KeywordTok{sd}\NormalTok{(A0vec) *}\StringTok{ }\KeywordTok{cos}\NormalTok{(vl) +}\StringTok{ }\KeywordTok{mean}\NormalTok{(}\KeywordTok{diag}\NormalTok{(A0));}
-    \NormalTok{y0 <-}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(}\DecValTok{1000}\NormalTok{) *}\StringTok{ }\KeywordTok{sd}\NormalTok{(A0vec) *}\StringTok{ }\KeywordTok{sin}\NormalTok{(vl);}
-    \NormalTok{x1 <-}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(}\DecValTok{1000}\NormalTok{) *}\StringTok{ }\KeywordTok{sd}\NormalTok{(A1vec) *}\StringTok{ }\KeywordTok{cos}\NormalTok{(vl) +}\StringTok{ }\KeywordTok{mean}\NormalTok{(}\KeywordTok{diag}\NormalTok{(A1));}
-    \NormalTok{y1 <-}\StringTok{ }\KeywordTok{sqrt}\NormalTok{(}\DecValTok{1000}\NormalTok{) *}\StringTok{ }\KeywordTok{sd}\NormalTok{(A1vec) *}\StringTok{ }\KeywordTok{sin}\NormalTok{(vl);}
-    \KeywordTok{text}\NormalTok{(}\DataTypeTok{x =} \NormalTok{-}\FloatTok{15.5}\NormalTok{, }\DataTypeTok{y =} \DecValTok{19}\NormalTok{, }\DataTypeTok{labels =} \StringTok{"a"}\NormalTok{, }\DataTypeTok{cex =} \DecValTok{2}\NormalTok{);}
-    \KeywordTok{points}\NormalTok{(}\DataTypeTok{x =} \NormalTok{x0, }\DataTypeTok{y =} \NormalTok{y0, }\DataTypeTok{type =} \StringTok{"l"}\NormalTok{, }\DataTypeTok{lwd =} \DecValTok{3}\NormalTok{);}
-    \KeywordTok{points}\NormalTok{(}\DataTypeTok{x =} \NormalTok{x1, }\DataTypeTok{y =} \NormalTok{y1, }\DataTypeTok{type =} \StringTok{"l"}\NormalTok{, }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{, }\DataTypeTok{lwd =} \DecValTok{3}\NormalTok{, }\DataTypeTok{lty =} \StringTok{"dashed"}\NormalTok{);}
-    \KeywordTok{plot}\NormalTok{(A1_r, A1_i, }\DataTypeTok{xlim =} \KeywordTok{c}\NormalTok{(-}\FloatTok{16.5}\NormalTok{, }\FloatTok{15.5}\NormalTok{), }\DataTypeTok{ylim =} \KeywordTok{c}\NormalTok{(-}\FloatTok{16.5}\NormalTok{,}\FloatTok{15.5}\NormalTok{), }\DataTypeTok{pch =} \DecValTok{4}\NormalTok{, }\DataTypeTok{cex =} \FloatTok{0.7}\NormalTok{,}
-         \DataTypeTok{xlab =} \StringTok{""}\NormalTok{, }\DataTypeTok{ylab =} \StringTok{""}\NormalTok{, }\DataTypeTok{cex.lab =} \FloatTok{1.5}\NormalTok{, }\DataTypeTok{cex.axis =} \FloatTok{1.5}\NormalTok{, }\DataTypeTok{asp =} \DecValTok{1}\NormalTok{, }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{,}
-         \DataTypeTok{yaxt =} \StringTok{"n"}\NormalTok{);}
-    \KeywordTok{text}\NormalTok{(}\DataTypeTok{x =} \NormalTok{-}\FloatTok{15.5}\NormalTok{, }\DataTypeTok{y =} \DecValTok{19}\NormalTok{, }\DataTypeTok{labels =} \StringTok{"b"}\NormalTok{, }\DataTypeTok{cex =} \DecValTok{2}\NormalTok{);}
-    \KeywordTok{points}\NormalTok{(}\DataTypeTok{x =} \NormalTok{x1, }\DataTypeTok{y =} \NormalTok{y1, }\DataTypeTok{type =} \StringTok{"l"}\NormalTok{, }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{, }\DataTypeTok{lwd =} \DecValTok{3}\NormalTok{)}
-    \KeywordTok{points}\NormalTok{(}\DataTypeTok{x =} \NormalTok{x0, }\DataTypeTok{y =} \NormalTok{y0, }\DataTypeTok{type =} \StringTok{"l"}\NormalTok{, }\DataTypeTok{lwd =} \DecValTok{3}\NormalTok{, }\DataTypeTok{lty =} \StringTok{"dashed"}\NormalTok{);}
-    \KeywordTok{mtext}\NormalTok{(}\DataTypeTok{side =} \DecValTok{1}\NormalTok{, }\StringTok{"Real"}\NormalTok{, }\DataTypeTok{outer =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{line =} \DecValTok{3}\NormalTok{, }\DataTypeTok{cex =} \DecValTok{2}\NormalTok{);}
-    \KeywordTok{mtext}\NormalTok{(}\DataTypeTok{side =} \DecValTok{2}\NormalTok{, }\StringTok{"Imaginary"}\NormalTok{, }\DataTypeTok{outer =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{line =} \FloatTok{2.5}\NormalTok{, }\DataTypeTok{cex =} \DecValTok{2}\NormalTok{);}
-\NormalTok{\}}
-\KeywordTok{plot_Fig_2}\NormalTok{();}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{unnamed-chunk-8-1.pdf}
 
 \hypertarget{IncrS}{\section{\texorpdfstring{Stability across increasing
 \(S\)}{Stability across increasing S}}\label{IncrS}}
 
 Figure 3 of the main text reports the number of stable random complex
-systems found over 1 million iterations. The data used to make this
-figure are read into R below.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{dat <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\DataTypeTok{file =} \StringTok{"sim_results/C_1/random_all.csv"}\NormalTok{);}
-\NormalTok{dat <-}\StringTok{ }\NormalTok{dat[,-}\DecValTok{1}\NormalTok{]; }\CommentTok{# Extra row-indicating column removed}
-\end{Highlighting}
-\end{Shaded}
-
-The table below shows the results for all simulations of random \(M\)
-matrices at \(\sigma = 0.4\) and \(C = 1\) given a range of
+systems found over 1 million iterations. The table below shows the
+results for all simulations of random \(\mathbf{M}\) matrices at
+\(\sigma = 0.4\) and \(C = 1\) given a range of
 \(S = \{2, 3, ..., 49, 50\}\). In this table, the \texttt{A0} refers to
 matrices where \(\gamma = 1\), while \texttt{A1} refers to matrices
 after \(Var(\gamma)\) is added and \(\gamma \sim \mathcal{U}(0, 2)\).
 Each row summarises data for a given \(S\) over 1 million randomly
-simulated \(M\) (\texttt{A0} and \texttt{A1}). The column
+simulated \(\mathbf{M}\) (\texttt{A0} and \texttt{A1}). The column
 \texttt{A0\_unstable} shows the number of \texttt{A0} matrices that are
 unstable, and the column \texttt{A0\_stable} shows the number of
 \texttt{A0} matrices that are stable (these two columns sum to 1
@@ -1340,122 +1053,92 @@ A1\_stabilised & A1\_destabilised\tabularnewline
 \end{longtable}
 
 Overall, the ratio of stable \texttt{A1} matrices to stable \texttt{A0}
-matrices found is greater than 1 (compare column 5 to column 3), and
-this ratio increases with increasing \(S\) (column 1). Hence, more
-randomly created complex systems (\(M\)) are generated given variation
-in \(\gamma\) than when \(\gamma = 1\). The results underlying this
-table were produced with the \texttt{rand\_gen\_var} function below.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{rand_gen_var <-}\StringTok{ }\NormalTok{function(max_sp, iters, }\DataTypeTok{int_type =} \DecValTok{0}\NormalTok{, }\DataTypeTok{rmx =} \FloatTok{0.4}\NormalTok{, }\DataTypeTok{C =} \DecValTok{1}\NormalTok{)\{}
-    \NormalTok{tot_res <-}\StringTok{ }\OtherTok{NULL}\NormalTok{;}
-    \NormalTok{fea_res <-}\StringTok{ }\OtherTok{NULL}\NormalTok{;}
-    \NormalTok{for(i in }\DecValTok{2}\NormalTok{:max_sp)\{}
-        \NormalTok{iter           <-}\StringTok{ }\NormalTok{iters;}
-        \NormalTok{tot_res[[i}\DecValTok{-1}\NormalTok{]] <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{data =} \DecValTok{0}\NormalTok{, }\DataTypeTok{nrow =} \NormalTok{iter, }\DataTypeTok{ncol =} \DecValTok{7}\NormalTok{);}
-        \NormalTok{fea_res[[i}\DecValTok{-1}\NormalTok{]] <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{data =} \DecValTok{0}\NormalTok{, }\DataTypeTok{nrow =} \NormalTok{iter, }\DataTypeTok{ncol =} \DecValTok{7}\NormalTok{);}
-        \NormalTok{while(iter >}\StringTok{ }\DecValTok{0}\NormalTok{)\{}
-            \NormalTok{r_vec    <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DataTypeTok{n =} \NormalTok{i, }\DataTypeTok{mean =} \DecValTok{0}\NormalTok{, }\DataTypeTok{sd =} \NormalTok{rmx);}
-            \NormalTok{A0_dat   <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DataTypeTok{n =} \NormalTok{i *}\StringTok{ }\NormalTok{i, }\DataTypeTok{mean =} \DecValTok{0}\NormalTok{, }\DataTypeTok{sd =} \FloatTok{0.4}\NormalTok{);}
-            \NormalTok{A0       <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{data =} \NormalTok{A0_dat, }\DataTypeTok{nrow =} \NormalTok{i, }\DataTypeTok{ncol =} \NormalTok{i);}
-            \NormalTok{A0       <-}\StringTok{ }\KeywordTok{species_interactions}\NormalTok{(}\DataTypeTok{mat =} \NormalTok{A0, }\DataTypeTok{type =} \NormalTok{int_type);}
-            \NormalTok{C_dat    <-}\StringTok{ }\KeywordTok{rbinom}\NormalTok{(}\DataTypeTok{n =} \NormalTok{i *}\StringTok{ }\NormalTok{i, }\DataTypeTok{size =} \DecValTok{1}\NormalTok{, }\DataTypeTok{prob =} \NormalTok{C);}
-            \NormalTok{C_mat    <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{data =} \NormalTok{C_dat, }\DataTypeTok{nrow =} \NormalTok{i, }\DataTypeTok{ncol =} \NormalTok{i);}
-            \NormalTok{A0       <-}\StringTok{ }\NormalTok{A0 *}\StringTok{ }\NormalTok{C_mat;}
-            \KeywordTok{diag}\NormalTok{(A0) <-}\StringTok{ }\NormalTok{-}\DecValTok{1}\NormalTok{;}
-            \NormalTok{gam1     <-}\StringTok{ }\KeywordTok{runif}\NormalTok{(}\DataTypeTok{n =} \NormalTok{i, }\DataTypeTok{min =} \DecValTok{0}\NormalTok{, }\DataTypeTok{max =} \DecValTok{2}\NormalTok{);}
-            \NormalTok{A1       <-}\StringTok{ }\NormalTok{A0 *}\StringTok{ }\NormalTok{gam1;}
-            \NormalTok{A0       <-}\StringTok{ }\NormalTok{A0 *}\StringTok{ }\KeywordTok{mean}\NormalTok{(gam1);}
-            \NormalTok{A0_stb   <-}\StringTok{ }\KeywordTok{max}\NormalTok{(}\KeywordTok{Re}\NormalTok{(}\KeywordTok{eigen}\NormalTok{(A0)$values)) <}\StringTok{ }\DecValTok{0}\NormalTok{;}
-            \NormalTok{A1_stb   <-}\StringTok{ }\KeywordTok{max}\NormalTok{(}\KeywordTok{Re}\NormalTok{(}\KeywordTok{eigen}\NormalTok{(A1)$values)) <}\StringTok{ }\DecValTok{0}\NormalTok{;}
-            \NormalTok{A0_fea   <-}\StringTok{ }\KeywordTok{min}\NormalTok{(-}\DecValTok{1}\NormalTok{*}\KeywordTok{solve}\NormalTok{(A0) %*%}\StringTok{ }\NormalTok{r_vec) >}\StringTok{ }\DecValTok{0}\NormalTok{;}
-            \NormalTok{A1_fea   <-}\StringTok{ }\KeywordTok{min}\NormalTok{(-}\DecValTok{1}\NormalTok{*}\KeywordTok{solve}\NormalTok{(A1) %*%}\StringTok{ }\NormalTok{r_vec) >}\StringTok{ }\DecValTok{0}\NormalTok{;}
-            \NormalTok{if(A0_stb ==}\StringTok{ }\OtherTok{TRUE}\NormalTok{)\{}
-                \NormalTok{tot_res[[i}\DecValTok{-1}\NormalTok{]][iter, }\DecValTok{1}\NormalTok{] <-}\StringTok{ }\DecValTok{1}\NormalTok{;}
-            \NormalTok{\}}
-            \NormalTok{if(A1_stb ==}\StringTok{ }\OtherTok{TRUE}\NormalTok{)\{}
-                \NormalTok{tot_res[[i}\DecValTok{-1}\NormalTok{]][iter, }\DecValTok{2}\NormalTok{] <-}\StringTok{ }\DecValTok{1}\NormalTok{;}
-            \NormalTok{\}}
-            \NormalTok{if(A0_fea ==}\StringTok{ }\OtherTok{TRUE}\NormalTok{)\{}
-                \NormalTok{fea_res[[i}\DecValTok{-1}\NormalTok{]][iter, }\DecValTok{1}\NormalTok{] <-}\StringTok{ }\DecValTok{1}\NormalTok{;}
-            \NormalTok{\}}
-            \NormalTok{if(A1_fea ==}\StringTok{ }\OtherTok{TRUE}\NormalTok{)\{}
-                \NormalTok{fea_res[[i}\DecValTok{-1}\NormalTok{]][iter, }\DecValTok{2}\NormalTok{] <-}\StringTok{ }\DecValTok{1}\NormalTok{;}
-            \NormalTok{\}}
-            \NormalTok{iter    <-}\StringTok{ }\NormalTok{iter -}\StringTok{ }\DecValTok{1}\NormalTok{;}
-        \NormalTok{\}}
-        \KeywordTok{print}\NormalTok{(i);}
-    \NormalTok{\}}
-    \NormalTok{all_res <-}\StringTok{ }\KeywordTok{summarise_randmat}\NormalTok{(}\DataTypeTok{tot_res =} \NormalTok{tot_res, }\DataTypeTok{fea_res =} \NormalTok{fea_res);}
-    \KeywordTok{return}\NormalTok{(all_res);}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-The above function calls the two functions
-\texttt{species\_interactions} and \texttt{summarise\_randmat}, which
-are provided below.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{species_interactions <-}\StringTok{ }\NormalTok{function(mat, }\DataTypeTok{type =} \DecValTok{0}\NormalTok{)\{}
-    \NormalTok{if(type ==}\StringTok{ }\DecValTok{1}\NormalTok{)\{}
-        \NormalTok{mat[mat >}\StringTok{ }\DecValTok{0}\NormalTok{] <-}\StringTok{ }\NormalTok{-}\DecValTok{1}\NormalTok{*mat[mat >}\StringTok{ }\DecValTok{0}\NormalTok{];}
-    \NormalTok{\}}
-    \NormalTok{if(type ==}\StringTok{ }\DecValTok{2}\NormalTok{)\{}
-        \NormalTok{mat[mat <}\StringTok{ }\DecValTok{0}\NormalTok{] <-}\StringTok{ }\NormalTok{-}\DecValTok{1}\NormalTok{*mat[mat <}\StringTok{ }\DecValTok{0}\NormalTok{];}
-    \NormalTok{\}}
-    \NormalTok{if(type ==}\StringTok{ }\DecValTok{3}\NormalTok{)\{}
-        \NormalTok{for(i in }\DecValTok{1}\NormalTok{:}\KeywordTok{dim}\NormalTok{(mat)[}\DecValTok{1}\NormalTok{])\{}
-            \NormalTok{for(j in }\DecValTok{1}\NormalTok{:}\KeywordTok{dim}\NormalTok{(mat)[}\DecValTok{2}\NormalTok{])\{}
-                \NormalTok{if(mat[i, j] *}\StringTok{ }\NormalTok{mat[j, i] >}\StringTok{ }\DecValTok{0}\NormalTok{)\{}
-                    \NormalTok{mat[j, i] <-}\StringTok{ }\NormalTok{-}\DecValTok{1} \NormalTok{*}\StringTok{ }\NormalTok{mat[j, i];}
-                \NormalTok{\}}
-            \NormalTok{\}}
-        \NormalTok{\}}
-    \NormalTok{\}}
-    \KeywordTok{return}\NormalTok{(mat);}
-\NormalTok{\}}
-
-\NormalTok{summarise_randmat <-}\StringTok{ }\NormalTok{function(tot_res, fea_res)\{}
-    \NormalTok{sims    <-}\StringTok{ }\KeywordTok{length}\NormalTok{(tot_res);}
-    \NormalTok{all_res <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{data =} \DecValTok{0}\NormalTok{, }\DataTypeTok{nrow =} \NormalTok{sims, }\DataTypeTok{ncol =} \DecValTok{13}\NormalTok{);}
-    \NormalTok{for(i in }\DecValTok{1}\NormalTok{:sims)\{}
-        \NormalTok{all_res[i, }\DecValTok{1}\NormalTok{]  <-}\StringTok{ }\NormalTok{i +}\StringTok{ }\DecValTok{1}\NormalTok{;}
-        \CommentTok{# Stable and unstable}
-        \NormalTok{all_res[i, }\DecValTok{2}\NormalTok{]  <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(tot_res[[i]][,}\DecValTok{1}\NormalTok{] ==}\StringTok{ }\OtherTok{FALSE}\NormalTok{);}
-        \NormalTok{all_res[i, }\DecValTok{3}\NormalTok{]  <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(tot_res[[i]][,}\DecValTok{1}\NormalTok{] ==}\StringTok{ }\OtherTok{TRUE}\NormalTok{);}
-        \NormalTok{all_res[i, }\DecValTok{4}\NormalTok{]  <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(tot_res[[i]][,}\DecValTok{2}\NormalTok{] ==}\StringTok{ }\OtherTok{FALSE}\NormalTok{);}
-        \NormalTok{all_res[i, }\DecValTok{5}\NormalTok{]  <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(tot_res[[i]][,}\DecValTok{2}\NormalTok{] ==}\StringTok{ }\OtherTok{TRUE}\NormalTok{);}
-        \CommentTok{# Stabilised and destabilised}
-        \NormalTok{all_res[i, }\DecValTok{6}\NormalTok{] <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(tot_res[[i]][,}\DecValTok{1}\NormalTok{] ==}\StringTok{ }\OtherTok{FALSE} \NormalTok{&}\StringTok{ }
-\StringTok{                                  }\NormalTok{tot_res[[i]][,}\DecValTok{2}\NormalTok{] ==}\StringTok{ }\OtherTok{TRUE}\NormalTok{);}
-        \NormalTok{all_res[i, }\DecValTok{7}\NormalTok{] <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(tot_res[[i]][,}\DecValTok{1}\NormalTok{] ==}\StringTok{ }\OtherTok{TRUE} \NormalTok{&}\StringTok{ }
-\StringTok{                                  }\NormalTok{tot_res[[i]][,}\DecValTok{2}\NormalTok{] ==}\StringTok{ }\OtherTok{FALSE}\NormalTok{);}
-        \CommentTok{# Feasible and infeasible}
-        \NormalTok{all_res[i, }\DecValTok{8}\NormalTok{]  <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(fea_res[[i]][,}\DecValTok{1}\NormalTok{] ==}\StringTok{ }\OtherTok{FALSE}\NormalTok{);}
-        \NormalTok{all_res[i, }\DecValTok{9}\NormalTok{]  <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(fea_res[[i]][,}\DecValTok{1}\NormalTok{] ==}\StringTok{ }\OtherTok{TRUE}\NormalTok{);}
-        \NormalTok{all_res[i, }\DecValTok{10}\NormalTok{]  <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(fea_res[[i]][,}\DecValTok{2}\NormalTok{] ==}\StringTok{ }\OtherTok{FALSE}\NormalTok{);}
-        \NormalTok{all_res[i, }\DecValTok{11}\NormalTok{]  <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(fea_res[[i]][,}\DecValTok{2}\NormalTok{] ==}\StringTok{ }\OtherTok{TRUE}\NormalTok{);}
-        \CommentTok{# Feased and defeased}
-        \NormalTok{all_res[i, }\DecValTok{12}\NormalTok{] <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(fea_res[[i]][,}\DecValTok{1}\NormalTok{] ==}\StringTok{ }\OtherTok{FALSE} \NormalTok{&}\StringTok{ }
-\StringTok{                                  }\NormalTok{fea_res[[i]][,}\DecValTok{2}\NormalTok{] ==}\StringTok{ }\OtherTok{TRUE}\NormalTok{);}
-        \NormalTok{all_res[i, }\DecValTok{13}\NormalTok{] <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(fea_res[[i]][,}\DecValTok{1}\NormalTok{] ==}\StringTok{ }\OtherTok{TRUE} \NormalTok{&}\StringTok{ }
-\StringTok{                                  }\NormalTok{fea_res[[i]][,}\DecValTok{2}\NormalTok{] ==}\StringTok{ }\OtherTok{FALSE}\NormalTok{);}
-    \NormalTok{\}}
-    \NormalTok{cnames <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"N"}\NormalTok{, }\StringTok{"A0_unstable"}\NormalTok{, }\StringTok{"A0_stable"}\NormalTok{, }\StringTok{"A1_unstable"}\NormalTok{, }\StringTok{"A1_stable"}\NormalTok{, }
-                \StringTok{"A1_stabilised"}\NormalTok{, }\StringTok{"A1_destabilised"}\NormalTok{, }\StringTok{"A0_infeasible"}\NormalTok{, }
-                \StringTok{"A0_feasible"}\NormalTok{, }\StringTok{"A1_infeasible"}\NormalTok{, }\StringTok{"A1_feasible"}\NormalTok{, }
-                \StringTok{"A1_made_feasible"}\NormalTok{, }\StringTok{"A1_made_infeasible"}\NormalTok{);}
-    \KeywordTok{colnames}\NormalTok{(all_res) <-}\StringTok{ }\NormalTok{cnames;}
-    \KeywordTok{return}\NormalTok{(all_res);}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-Note that feasibility results were ommited for the table above, but are
+matrices found is greater than 1 whenever \(S > 10\) (compare column 5
+to column 3), and this ratio increases with increasing \(S\) (column 1).
+Hence, more randomly created complex systems (\(\mathbf{M}\)) are stable
+given variation in \(\gamma\) than when \(\gamma = 1\). Note that
+feasibility results were omitted for the table above, but are
 \protect\hyperlink{Feasibility}{reported below}.
+
+\hypertarget{ga}{\section{\texorpdfstring{Stability given targeted
+manipulation of \(\gamma\) (genetic
+algorithm)}{Stability given targeted manipulation of \textbackslash{}gamma (genetic algorithm)}}\label{ga}}
+
+Figure 4 of the main text reports the number of stable random complex
+systems found over 100000 using the genetic algorithm to maximise
+stability with a vector \(\mathbf{\gamma}\). Stability results for
+100000 \(\mathbf{M}\) for each \(S\) from 2-40 are shown below. Results
+for \texttt{A0} indicate systems in which \(\gamma = 1\), while
+\texttt{A1} refers to systems in which the genetic algorithm searched
+for a set of \(\gamma\) values that stabilised the system.
+
+\begin{longtable}[]{@{}rrrrrrr@{}}
+\toprule
+S & A0\_unstable & A0\_stable & A1\_unstable & A1\_stable &
+A1\_stabilised & A1\_destabilised\tabularnewline
+\midrule
+\endhead
+2 & 26 & 99974 & 26 & 99974 & 0 & 0\tabularnewline
+3 & 358 & 99642 & 358 & 99642 & 0 & 0\tabularnewline
+4 & 1505 & 98495 & 1505 & 98495 & 0 & 0\tabularnewline
+5 & 3995 & 96005 & 3982 & 96018 & 13 & 0\tabularnewline
+6 & 8060 & 91940 & 7956 & 92044 & 104 & 0\tabularnewline
+7 & 13420 & 86580 & 12953 & 87047 & 468 & 1\tabularnewline
+8 & 20518 & 79482 & 18940 & 81060 & 1578 & 0\tabularnewline
+9 & 28939 & 71061 & 25148 & 74852 & 3793 & 2\tabularnewline
+10 & 38241 & 61759 & 30915 & 69085 & 7327 & 1\tabularnewline
+11 & 48682 & 51318 & 36398 & 63602 & 12286 & 2\tabularnewline
+12 & 58752 & 41248 & 40710 & 59290 & 18043 & 1\tabularnewline
+13 & 68888 & 31112 & 44600 & 55400 & 24289 & 1\tabularnewline
+14 & 77651 & 22349 & 47528 & 52472 & 30124 & 1\tabularnewline
+15 & 84912 & 15088 & 49971 & 50029 & 34942 & 1\tabularnewline
+16 & 90451 & 9549 & 52274 & 47726 & 38178 & 1\tabularnewline
+17 & 94332 & 5668 & 54124 & 45876 & 40209 & 1\tabularnewline
+18 & 96968 & 3032 & 55831 & 44169 & 41139 & 2\tabularnewline
+19 & 98384 & 1616 & 58079 & 41921 & 40305 & 0\tabularnewline
+20 & 99269 & 731 & 60181 & 39819 & 39088 & 0\tabularnewline
+21 & 99677 & 323 & 63338 & 36662 & 36339 & 0\tabularnewline
+22 & 99854 & 146 & 66350 & 33650 & 33504 & 0\tabularnewline
+23 & 99947 & 53 & 70478 & 29522 & 29469 & 0\tabularnewline
+24 & 99983 & 17 & 74121 & 25879 & 25862 & 0\tabularnewline
+25 & 99991 & 9 & 78364 & 21636 & 21627 & 0\tabularnewline
+26 & 99999 & 1 & 82635 & 17365 & 17364 & 0\tabularnewline
+27 & 100000 & 0 & 86433 & 13567 & 13567 & 0\tabularnewline
+28 & 100000 & 0 & 89951 & 10049 & 10049 & 0\tabularnewline
+29 & 100000 & 0 & 92716 & 7284 & 7284 & 0\tabularnewline
+30 & 100000 & 0 & 95171 & 4829 & 4829 & 0\tabularnewline
+31 & 100000 & 0 & 96844 & 3156 & 3156 & 0\tabularnewline
+32 & 100000 & 0 & 98128 & 1872 & 1872 & 0\tabularnewline
+33 & 100000 & 0 & 98941 & 1059 & 1059 & 0\tabularnewline
+34 & 100000 & 0 & 99358 & 642 & 642 & 0\tabularnewline
+35 & 100000 & 0 & 99702 & 298 & 298 & 0\tabularnewline
+36 & 100000 & 0 & 99856 & 144 & 144 & 0\tabularnewline
+37 & 100000 & 0 & 99921 & 79 & 79 & 0\tabularnewline
+38 & 100000 & 0 & 99970 & 30 & 30 & 0\tabularnewline
+39 & 100000 & 0 & 99989 & 11 & 11 & 0\tabularnewline
+40 & 100000 & 0 & 99994 & 6 & 6 & 0\tabularnewline
+\bottomrule
+\end{longtable}
+
+The distributions of nine \(\gamma\) vectors from the highest \(S\)
+values are shown below. This comparison shows the high number of stable
+\(\mathbf{M}\) that can be produced through a targeted search of
+\(\gamma\) values, and suggests that many otherwise unstable systems
+could potentially be stabilised by an informed manipulation of their
+component response times. Such a possibility might conceivably reduce
+the dimensionality of problems involving stability in social-ecological
+or economic systems.
+
+Distributions of \(\gamma\) values in vectors for the highest values of
+\(S\) are shown below.
+
+\includegraphics{unnamed-chunk-7-1.pdf}
+
+The distribution of \(\gamma\) values found by the genetic algorithm is
+uniform. A uniform distribution was used to initialise \(\gamma\)
+values, so there is therefore no evidence that a particular distribution
+of \(\gamma\) is likely to be found to stabilise a matrix
+\(\mathbf{M}\).
 
 \hypertarget{ecological}{\section{Stability of ecological
 networks}\label{ecological}}
@@ -1464,80 +1147,50 @@ While the foundational work of
 May\textsuperscript{\protect\hyperlink{ref-May1972}{1}} applies broadly
 to complex networks, much attention has been given specifically to
 ecological networks of interacting species. In these networks, the
-matrix \(M\) is interpreted as a community matrix and each row and
-column is interpreted as a single species. The effect that the density
-of any species \(i\) has on the population dynamics of species \(j\) is
-found in \(M_{ij}\), meaning that \(M\) holds the effects of pair-wise
-interactions between \(S\)
-species\textsuperscript{\protect\hyperlink{ref-Allesina2012}{2}--\protect\hyperlink{ref-Tang2014b}{4}}.
+matrix \(\mathbf{A}\) is interpreted as a community matrix and each row
+and column is interpreted as a single species. The per capita effect
+that the density of any species \(i\) has on the population dynamics of
+species \(j\) is found in \(A_{ij}\), meaning that \(\mathbf{A}\) holds
+the effects of pair-wise interactions between \(S\)
+species\textsuperscript{\protect\hyperlink{ref-Allesina2012}{2},\protect\hyperlink{ref-Allesina2015}{3}}.
 While May's original
 work\textsuperscript{\protect\hyperlink{ref-May1972}{1}} considered only
 randomly assembled communities, recent work has specifically looked at
 more restricted ecological communities including competitive networks
-(all off-diagonal elements of \(M\) are negative), mutualist networks
-(all off-diagonal elements of \(M\) are positive), and predator-prey
-networks (for any pair of \(i\) and \(j\), the effect of \(i\) on \(j\)
-is negative and \(j\) on \(i\) is positive, or vice
-versa)\textsuperscript{\protect\hyperlink{ref-Allesina2012}{2}--\protect\hyperlink{ref-Allesina2011}{5}}.
+(all off-diagonal elements of \(\mathbf{A}\) are negative), mutualist
+networks (all off-diagonal elements of \(\mathbf{A}\) are positive), and
+predator-prey networks (for any pair of \(i\) and \(j\), the effect of
+\(i\) on \(j\) is negative and \(j\) on \(i\) is positive, or vice
+versa)\textsuperscript{\protect\hyperlink{ref-Allesina2012}{2},\protect\hyperlink{ref-Allesina2015}{3}}.
 In general, competitor and mutualist networks tend to be unstable, while
-predator-prey networks tend to be highly stabilising.
+predator-prey networks tend to be highly
+stabilising\textsuperscript{\protect\hyperlink{ref-Allesina2012}{2}}.
 
 I investigated competitor, mutualist, and predator-prey networks
 following Allesina et
 al.\textsuperscript{\protect\hyperlink{ref-Allesina2012}{2}}. To create
-these networks, I first generated a random matrix \(M\), then changed
-the elements of \(M\) accordingly. If \(M\) was a competitive network,
-then the sign of any positive off-diagonal elements was reversed to be
-negative. If \(M\) was a mutualist network, then the sign of any
-positive off-diagonal elements was reversed to be positive. And if \(M\)
-was a predator-prey network, then all \(i\) and \(j\) pairs of elements
-were checked; any pairs of the same sign were changed so that one was
-negative and the other was positive. The \texttt{species\_interaction}
-function used to do this is below.
+these networks, I first generated a random matrix \(\mathbf{A}\), then
+changed the elements of \(\mathbf{A}\) accordingly. If \(\mathbf{A}\)
+was a competitive network, then the sign of any positive off-diagonal
+elements was reversed to be negative. If \(\mathbf{A}\) was a mutualist
+network, then the sign of any positive off-diagonal elements was
+reversed to be positive. And if \(\mathbf{A}\) was a predator-prey
+network, then all \(i\) and \(j\) pairs of elements were checked; any
+pairs of the same sign were changed so that one was negative and the
+other was positive.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{species_interactions <-}\StringTok{ }\NormalTok{function(mat, }\DataTypeTok{type =} \DecValTok{0}\NormalTok{)\{}
-    \NormalTok{if(type ==}\StringTok{ }\DecValTok{1}\NormalTok{)\{}
-        \NormalTok{mat[mat >}\StringTok{ }\DecValTok{0}\NormalTok{] <-}\StringTok{ }\NormalTok{-}\DecValTok{1}\NormalTok{*mat[mat >}\StringTok{ }\DecValTok{0}\NormalTok{];}
-    \NormalTok{\}}
-    \NormalTok{if(type ==}\StringTok{ }\DecValTok{2}\NormalTok{)\{}
-        \NormalTok{mat[mat <}\StringTok{ }\DecValTok{0}\NormalTok{] <-}\StringTok{ }\NormalTok{-}\DecValTok{1}\NormalTok{*mat[mat <}\StringTok{ }\DecValTok{0}\NormalTok{];}
-    \NormalTok{\}}
-    \NormalTok{if(type ==}\StringTok{ }\DecValTok{3}\NormalTok{)\{}
-        \NormalTok{for(i in }\DecValTok{1}\NormalTok{:}\KeywordTok{dim}\NormalTok{(mat)[}\DecValTok{1}\NormalTok{])\{}
-            \NormalTok{for(j in }\DecValTok{1}\NormalTok{:}\KeywordTok{dim}\NormalTok{(mat)[}\DecValTok{2}\NormalTok{])\{}
-                \NormalTok{if(mat[i, j] *}\StringTok{ }\NormalTok{mat[j, i] >}\StringTok{ }\DecValTok{0}\NormalTok{)\{}
-                    \NormalTok{mat[j, i] <-}\StringTok{ }\NormalTok{-}\DecValTok{1} \NormalTok{*}\StringTok{ }\NormalTok{mat[j, i];}
-                \NormalTok{\}}
-            \NormalTok{\}}
-        \NormalTok{\}}
-    \NormalTok{\}}
-    \KeywordTok{return}\NormalTok{(mat);}
-\NormalTok{\} }\CommentTok{# Note: -1 values are added in the diagonal later}
-\end{Highlighting}
-\end{Shaded}
-
-This function was applied to all created matrices \(M\), then the number
-of stable \(M\) matrices was estimated \protect\hyperlink{IncrS}{exactly
-as it was} in the main text for random matrices for values of \(S\) from
-2 to 50 (100 in the case of the relatively more stable predator-prey
-interactions), except that only 100000 random \(M\) were generated
-instead of 1 million. This produced the data set below.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{cdat <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\DataTypeTok{file =} \StringTok{"sim_results/ecology/competition_C_1.csv"}\NormalTok{);}
-\NormalTok{mdat <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\DataTypeTok{file =} \StringTok{"sim_results/ecology/mutualism_C_1.csv"}\NormalTok{);}
-\NormalTok{pdat <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\DataTypeTok{file =} \StringTok{"sim_results/ecology/pred-prey_C_1.csv"}\NormalTok{);}
-\end{Highlighting}
-\end{Shaded}
+The number of stable \(\mathbf{M = \gamma A}\) systems was estimated
+\protect\hyperlink{IncrS}{exactly as it was} in the main text for random
+matrices for values of \(S\) from 2 to 50 (100 in the case of the
+relatively more stable predator-prey interactions), except that only
+100000 random \(\mathbf{M}\) were generated instead of 1 million.
 
 The following tables for restricted ecological communities can therefore
-be compared with the random \(M\) \protect\hyperlink{IncrS}{results
-above} (but note that counts from systems with comparable probabilities
-of stability will be an order of magnitude lower in the tables below due
-to the smaller number of \(M\) matrices generated). As with the
+be compared with the random \(\mathbf{M}\)
+\protect\hyperlink{IncrS}{results above} (but note that counts from
+systems with comparable probabilities of stability will be an order of
+magnitude lower in the tables below due to the smaller number of
+\(\mathbf{M}\) matrices generated). As with the
 \protect\hyperlink{IncrS}{results above}, in the tables below,
 \texttt{A0} refers to matrices when \(\gamma = 1\) and \texttt{A1}
 refers to matrices after \(Var(\gamma)\) is added. The column
@@ -1554,47 +1207,48 @@ stabilised or destabilised, respectively, by \(Var(\gamma)\).
 
 Results for competitor interaction networks are shown below
 
-\begin{longtable}[]{@{}llllll@{}}
+\begin{longtable}[]{@{}lllllll@{}}
 \toprule
 N & A0\_unstable & A0\_stable & A1\_unstable & A1\_stable &
-A1\_stabilised\tabularnewline
+A1\_stabilised & A1\_destabilised\tabularnewline
 \midrule
 \endhead
-2 & 48 & 99952 & 48 & 99952 & 0\tabularnewline
-3 & 229 & 99771 & 231 & 99769 & 0\tabularnewline
-4 & 701 & 99299 & 704 & 99296 & 0\tabularnewline
-5 & 1579 & 98421 & 1587 & 98413 & 0\tabularnewline
-6 & 3218 & 96782 & 3253 & 96747 & 6\tabularnewline
-7 & 5519 & 94481 & 5619 & 94381 & 23\tabularnewline
-8 & 9062 & 90938 & 9237 & 90763 & 77\tabularnewline
-9 & 13436 & 86564 & 13729 & 86271 & 230\tabularnewline
-10 & 18911 & 81089 & 19303 & 80697 & 505\tabularnewline
-11 & 25594 & 74406 & 25961 & 74039 & 1011\tabularnewline
-12 & 33207 & 66793 & 33382 & 66618 & 1724\tabularnewline
-13 & 41160 & 58840 & 41089 & 58911 & 2655\tabularnewline
-14 & 50575 & 49425 & 49894 & 50106 & 3777\tabularnewline
-15 & 59250 & 40750 & 57892 & 42108 & 4824\tabularnewline
-16 & 67811 & 32189 & 65740 & 34260 & 5634\tabularnewline
-17 & 75483 & 24517 & 73056 & 26944 & 5943\tabularnewline
-18 & 82551 & 17449 & 79878 & 20122 & 5780\tabularnewline
-19 & 88030 & 11970 & 85204 & 14796 & 5417\tabularnewline
-20 & 92254 & 7746 & 89766 & 10234 & 4544\tabularnewline
-21 & 95233 & 4767 & 93002 & 6998 & 3695\tabularnewline
-22 & 97317 & 2683 & 95451 & 4549 & 2803\tabularnewline
-23 & 98508 & 1492 & 97122 & 2878 & 1991\tabularnewline
-24 & 99240 & 760 & 98407 & 1593 & 1216\tabularnewline
-25 & 99669 & 331 & 99082 & 918 & 739\tabularnewline
-26 & 99871 & 129 & 99490 & 510 & 452\tabularnewline
-27 & 99938 & 62 & 99732 & 268 & 240\tabularnewline
-28 & 99985 & 15 & 99888 & 112 & 108\tabularnewline
-29 & 99990 & 10 & 99951 & 49 & 46\tabularnewline
-30 & 100000 & 0 & 99981 & 19 & 19\tabularnewline
-31 & 100000 & 0 & 99993 & 7 & 7\tabularnewline
-32 & 100000 & 0 & 99996 & 4 & 4\tabularnewline
-33 & 100000 & 0 & 99998 & 2 & 2\tabularnewline
-34 & 100000 & 0 & 100000 & 0 & 0\tabularnewline
-\ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} \tabularnewline
-50 & 100000 & 0 & 100000 & 0 & 0\tabularnewline
+2 & 48 & 99952 & 48 & 99952 & 0 & 0\tabularnewline
+3 & 229 & 99771 & 231 & 99769 & 0 & 2\tabularnewline
+4 & 701 & 99299 & 704 & 99296 & 0 & 3\tabularnewline
+5 & 1579 & 98421 & 1587 & 98413 & 0 & 8\tabularnewline
+6 & 3218 & 96782 & 3253 & 96747 & 6 & 41\tabularnewline
+7 & 5519 & 94481 & 5619 & 94381 & 23 & 123\tabularnewline
+8 & 9062 & 90938 & 9237 & 90763 & 77 & 252\tabularnewline
+9 & 13436 & 86564 & 13729 & 86271 & 230 & 523\tabularnewline
+10 & 18911 & 81089 & 19303 & 80697 & 505 & 897\tabularnewline
+11 & 25594 & 74406 & 25961 & 74039 & 1011 & 1378\tabularnewline
+12 & 33207 & 66793 & 33382 & 66618 & 1724 & 1899\tabularnewline
+13 & 41160 & 58840 & 41089 & 58911 & 2655 & 2584\tabularnewline
+14 & 50575 & 49425 & 49894 & 50106 & 3777 & 3096\tabularnewline
+15 & 59250 & 40750 & 57892 & 42108 & 4824 & 3466\tabularnewline
+16 & 67811 & 32189 & 65740 & 34260 & 5634 & 3563\tabularnewline
+17 & 75483 & 24517 & 73056 & 26944 & 5943 & 3516\tabularnewline
+18 & 82551 & 17449 & 79878 & 20122 & 5780 & 3107\tabularnewline
+19 & 88030 & 11970 & 85204 & 14796 & 5417 & 2591\tabularnewline
+20 & 92254 & 7746 & 89766 & 10234 & 4544 & 2056\tabularnewline
+21 & 95233 & 4767 & 93002 & 6998 & 3695 & 1464\tabularnewline
+22 & 97317 & 2683 & 95451 & 4549 & 2803 & 937\tabularnewline
+23 & 98508 & 1492 & 97122 & 2878 & 1991 & 605\tabularnewline
+24 & 99240 & 760 & 98407 & 1593 & 1216 & 383\tabularnewline
+25 & 99669 & 331 & 99082 & 918 & 739 & 152\tabularnewline
+26 & 99871 & 129 & 99490 & 510 & 452 & 71\tabularnewline
+27 & 99938 & 62 & 99732 & 268 & 240 & 34\tabularnewline
+28 & 99985 & 15 & 99888 & 112 & 108 & 11\tabularnewline
+29 & 99990 & 10 & 99951 & 49 & 46 & 7\tabularnewline
+30 & 100000 & 0 & 99981 & 19 & 19 & 0\tabularnewline
+31 & 100000 & 0 & 99993 & 7 & 7 & 0\tabularnewline
+32 & 100000 & 0 & 99996 & 4 & 4 & 0\tabularnewline
+33 & 100000 & 0 & 99998 & 2 & 2 & 0\tabularnewline
+34 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+\ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} &
+\ldots{}\tabularnewline
+50 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
 \bottomrule
 \end{longtable}
 
@@ -1602,25 +1256,26 @@ A1\_stabilised\tabularnewline
 
 Results for mutualist interaction networks are shown below
 
-\begin{longtable}[]{@{}llllll@{}}
+\begin{longtable}[]{@{}lllllll@{}}
 \toprule
 N & A0\_unstable & A0\_stable & A1\_unstable & A1\_stable &
-A1\_stabilised\tabularnewline
+A1\_stabilised & A1\_destabilised\tabularnewline
 \midrule
 \endhead
-2 & 56 & 99944 & 56 & 99944 & 0\tabularnewline
-3 & 3301 & 96699 & 3301 & 96699 & 0\tabularnewline
-4 & 34446 & 65554 & 34446 & 65554 & 0\tabularnewline
-5 & 86520 & 13480 & 86520 & 13480 & 0\tabularnewline
-6 & 99683 & 317 & 99683 & 317 & 0\tabularnewline
-7 & 99998 & 2 & 99998 & 2 & 0\tabularnewline
-8 & 100000 & 0 & 100000 & 0 & 0\tabularnewline
-9 & 100000 & 0 & 100000 & 0 & 0\tabularnewline
-10 & 100000 & 0 & 100000 & 0 & 0\tabularnewline
-11 & 100000 & 0 & 100000 & 0 & 0\tabularnewline
-12 & 100000 & 0 & 100000 & 0 & 0\tabularnewline
-\ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} \tabularnewline
-50 & 100000 & 0 & 100000 & 0 & 0\tabularnewline
+2 & 56 & 99944 & 56 & 99944 & 0 & 0\tabularnewline
+3 & 3301 & 96699 & 3301 & 96699 & 0 & 0\tabularnewline
+4 & 34446 & 65554 & 34446 & 65554 & 0 & 0\tabularnewline
+5 & 86520 & 13480 & 86520 & 13480 & 0 & 0\tabularnewline
+6 & 99683 & 317 & 99683 & 317 & 0 & 0\tabularnewline
+7 & 99998 & 2 & 99998 & 2 & 0 & 0\tabularnewline
+8 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+9 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+10 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+11 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+12 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+\ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} &
+\ldots{}\tabularnewline
+50 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
 \bottomrule
 \end{longtable}
 
@@ -1628,111 +1283,111 @@ A1\_stabilised\tabularnewline
 
 Results for predator-prey interaction networks are shown below
 
-\begin{longtable}[]{@{}rrrrrr@{}}
+\begin{longtable}[]{@{}rrrrrrr@{}}
 \toprule
 N & A0\_unstable & A0\_stable & A1\_unstable & A1\_stable &
-A1\_stabilised\tabularnewline
+A1\_stabilised & A1\_destabilised\tabularnewline
 \midrule
 \endhead
-2 & 0 & 100000 & 0 & 100000 & 0\tabularnewline
-3 & 0 & 100000 & 0 & 100000 & 0\tabularnewline
-4 & 0 & 100000 & 0 & 100000 & 0\tabularnewline
-5 & 1 & 99999 & 1 & 99999 & 0\tabularnewline
-6 & 4 & 99996 & 4 & 99996 & 0\tabularnewline
-7 & 2 & 99998 & 2 & 99998 & 0\tabularnewline
-8 & 5 & 99995 & 5 & 99995 & 0\tabularnewline
-9 & 20 & 99980 & 21 & 99979 & 0\tabularnewline
-10 & 20 & 99980 & 22 & 99978 & 0\tabularnewline
-11 & 38 & 99962 & 39 & 99961 & 0\tabularnewline
-12 & 64 & 99936 & 66 & 99934 & 0\tabularnewline
-13 & 87 & 99913 & 91 & 99909 & 0\tabularnewline
-14 & 157 & 99843 & 159 & 99841 & 0\tabularnewline
-15 & 215 & 99785 & 227 & 99773 & 0\tabularnewline
-16 & 293 & 99707 & 310 & 99690 & 0\tabularnewline
-17 & 383 & 99617 & 408 & 99592 & 0\tabularnewline
-18 & 443 & 99557 & 473 & 99527 & 3\tabularnewline
-19 & 642 & 99358 & 675 & 99325 & 4\tabularnewline
-20 & 836 & 99164 & 887 & 99113 & 7\tabularnewline
-21 & 1006 & 98994 & 1058 & 98942 & 10\tabularnewline
-22 & 1153 & 98847 & 1228 & 98772 & 20\tabularnewline
-23 & 1501 & 98499 & 1593 & 98407 & 30\tabularnewline
-24 & 1841 & 98159 & 1996 & 98004 & 40\tabularnewline
-25 & 2146 & 97854 & 2316 & 97684 & 58\tabularnewline
-26 & 2643 & 97357 & 2809 & 97191 & 119\tabularnewline
-27 & 3034 & 96966 & 3258 & 96742 & 158\tabularnewline
-28 & 3690 & 96310 & 3928 & 96072 & 201\tabularnewline
-29 & 4257 & 95743 & 4532 & 95468 & 290\tabularnewline
-30 & 4964 & 95036 & 5221 & 94779 & 424\tabularnewline
-31 & 5627 & 94373 & 5978 & 94022 & 452\tabularnewline
-32 & 6543 & 93457 & 6891 & 93109 & 666\tabularnewline
-33 & 7425 & 92575 & 7777 & 92223 & 818\tabularnewline
-34 & 8540 & 91460 & 8841 & 91159 & 1071\tabularnewline
-35 & 9526 & 90474 & 9842 & 90158 & 1337\tabularnewline
-36 & 10617 & 89383 & 10891 & 89109 & 1624\tabularnewline
-37 & 12344 & 87656 & 12508 & 87492 & 2021\tabularnewline
-38 & 13675 & 86325 & 13877 & 86123 & 2442\tabularnewline
-39 & 15264 & 84736 & 15349 & 84651 & 2870\tabularnewline
-40 & 17026 & 82974 & 17053 & 82947 & 3363\tabularnewline
-41 & 18768 & 81232 & 18614 & 81386 & 3905\tabularnewline
-42 & 20791 & 79209 & 20470 & 79530 & 4579\tabularnewline
-43 & 23150 & 76850 & 22754 & 77246 & 5217\tabularnewline
-44 & 25449 & 74551 & 24184 & 75816 & 6285\tabularnewline
-45 & 27702 & 72298 & 26464 & 73536 & 6754\tabularnewline
-46 & 30525 & 69475 & 28966 & 71034 & 7646\tabularnewline
-47 & 32832 & 67168 & 31125 & 68875 & 8487\tabularnewline
-48 & 36152 & 63848 & 33865 & 66135 & 9479\tabularnewline
-49 & 38714 & 61286 & 36242 & 63758 & 10125\tabularnewline
-50 & 41628 & 58372 & 38508 & 61492 & 11036\tabularnewline
-51 & 44483 & 55517 & 41023 & 58977 & 11704\tabularnewline
-52 & 48134 & 51866 & 44287 & 55713 & 12573\tabularnewline
-53 & 51138 & 48862 & 46721 & 53279 & 13223\tabularnewline
-54 & 54261 & 45739 & 49559 & 50441 & 13757\tabularnewline
-55 & 57647 & 42353 & 52403 & 47597 & 14324\tabularnewline
-56 & 60630 & 39370 & 55293 & 44707 & 14669\tabularnewline
-57 & 63647 & 36353 & 57787 & 42213 & 15103\tabularnewline
-58 & 66961 & 33039 & 60439 & 39561 & 15450\tabularnewline
-59 & 69968 & 30032 & 63708 & 36292 & 15246\tabularnewline
-60 & 72838 & 27162 & 66270 & 33730 & 15177\tabularnewline
-61 & 75609 & 24391 & 68873 & 31127 & 15006\tabularnewline
-62 & 77999 & 22001 & 71318 & 28682 & 14538\tabularnewline
-63 & 80616 & 19384 & 73517 & 26483 & 14510\tabularnewline
-64 & 83089 & 16911 & 76209 & 23791 & 13784\tabularnewline
-65 & 85150 & 14850 & 78086 & 21914 & 13412\tabularnewline
-66 & 86908 & 13092 & 80437 & 19563 & 12477\tabularnewline
-67 & 88671 & 11329 & 82379 & 17621 & 11718\tabularnewline
-68 & 90537 & 9463 & 84483 & 15517 & 10878\tabularnewline
-69 & 91969 & 8031 & 86233 & 13767 & 10033\tabularnewline
-70 & 93181 & 6819 & 87914 & 12086 & 9070\tabularnewline
-71 & 94330 & 5670 & 89200 & 10800 & 8401\tabularnewline
-72 & 95324 & 4676 & 90833 & 9167 & 7359\tabularnewline
-73 & 96143 & 3857 & 91805 & 8195 & 6726\tabularnewline
-74 & 96959 & 3041 & 93065 & 6935 & 5900\tabularnewline
-75 & 97543 & 2457 & 93987 & 6013 & 5222\tabularnewline
-76 & 97969 & 2031 & 94900 & 5100 & 4481\tabularnewline
-77 & 98497 & 1503 & 95756 & 4244 & 3809\tabularnewline
-78 & 98744 & 1256 & 96442 & 3558 & 3269\tabularnewline
-79 & 99045 & 955 & 96942 & 3058 & 2837\tabularnewline
-80 & 99276 & 724 & 97528 & 2472 & 2329\tabularnewline
-81 & 99481 & 519 & 97996 & 2004 & 1894\tabularnewline
-82 & 99556 & 444 & 98321 & 1679 & 1597\tabularnewline
-83 & 99691 & 309 & 98722 & 1278 & 1227\tabularnewline
-84 & 99752 & 248 & 98943 & 1057 & 1015\tabularnewline
-85 & 99833 & 167 & 99144 & 856 & 837\tabularnewline
-86 & 99895 & 105 & 99346 & 654 & 642\tabularnewline
-87 & 99925 & 75 & 99461 & 539 & 530\tabularnewline
-88 & 99945 & 55 & 99566 & 434 & 428\tabularnewline
-89 & 99976 & 24 & 99675 & 325 & 324\tabularnewline
-90 & 99977 & 23 & 99756 & 244 & 243\tabularnewline
-91 & 99982 & 18 & 99839 & 161 & 155\tabularnewline
-92 & 99988 & 12 & 99865 & 135 & 135\tabularnewline
-93 & 99994 & 6 & 99885 & 115 & 115\tabularnewline
-94 & 99993 & 7 & 99911 & 89 & 88\tabularnewline
-95 & 99998 & 2 & 99953 & 47 & 47\tabularnewline
-96 & 99999 & 1 & 99965 & 35 & 35\tabularnewline
-97 & 99999 & 1 & 99979 & 21 & 21\tabularnewline
-98 & 100000 & 0 & 99973 & 27 & 27\tabularnewline
-99 & 100000 & 0 & 99984 & 16 & 16\tabularnewline
-100 & 100000 & 0 & 99989 & 11 & 11\tabularnewline
+2 & 0 & 100000 & 0 & 100000 & 0 & 0\tabularnewline
+3 & 0 & 100000 & 0 & 100000 & 0 & 0\tabularnewline
+4 & 0 & 100000 & 0 & 100000 & 0 & 0\tabularnewline
+5 & 1 & 99999 & 1 & 99999 & 0 & 0\tabularnewline
+6 & 4 & 99996 & 4 & 99996 & 0 & 0\tabularnewline
+7 & 2 & 99998 & 2 & 99998 & 0 & 0\tabularnewline
+8 & 5 & 99995 & 5 & 99995 & 0 & 0\tabularnewline
+9 & 20 & 99980 & 21 & 99979 & 0 & 1\tabularnewline
+10 & 20 & 99980 & 22 & 99978 & 0 & 2\tabularnewline
+11 & 38 & 99962 & 39 & 99961 & 0 & 1\tabularnewline
+12 & 64 & 99936 & 66 & 99934 & 0 & 2\tabularnewline
+13 & 87 & 99913 & 91 & 99909 & 0 & 4\tabularnewline
+14 & 157 & 99843 & 159 & 99841 & 0 & 2\tabularnewline
+15 & 215 & 99785 & 227 & 99773 & 0 & 12\tabularnewline
+16 & 293 & 99707 & 310 & 99690 & 0 & 17\tabularnewline
+17 & 383 & 99617 & 408 & 99592 & 0 & 25\tabularnewline
+18 & 443 & 99557 & 473 & 99527 & 3 & 33\tabularnewline
+19 & 642 & 99358 & 675 & 99325 & 4 & 37\tabularnewline
+20 & 836 & 99164 & 887 & 99113 & 7 & 58\tabularnewline
+21 & 1006 & 98994 & 1058 & 98942 & 10 & 62\tabularnewline
+22 & 1153 & 98847 & 1228 & 98772 & 20 & 95\tabularnewline
+23 & 1501 & 98499 & 1593 & 98407 & 30 & 122\tabularnewline
+24 & 1841 & 98159 & 1996 & 98004 & 40 & 195\tabularnewline
+25 & 2146 & 97854 & 2316 & 97684 & 58 & 228\tabularnewline
+26 & 2643 & 97357 & 2809 & 97191 & 119 & 285\tabularnewline
+27 & 3034 & 96966 & 3258 & 96742 & 158 & 382\tabularnewline
+28 & 3690 & 96310 & 3928 & 96072 & 201 & 439\tabularnewline
+29 & 4257 & 95743 & 4532 & 95468 & 290 & 565\tabularnewline
+30 & 4964 & 95036 & 5221 & 94779 & 424 & 681\tabularnewline
+31 & 5627 & 94373 & 5978 & 94022 & 452 & 803\tabularnewline
+32 & 6543 & 93457 & 6891 & 93109 & 666 & 1014\tabularnewline
+33 & 7425 & 92575 & 7777 & 92223 & 818 & 1170\tabularnewline
+34 & 8540 & 91460 & 8841 & 91159 & 1071 & 1372\tabularnewline
+35 & 9526 & 90474 & 9842 & 90158 & 1337 & 1653\tabularnewline
+36 & 10617 & 89383 & 10891 & 89109 & 1624 & 1898\tabularnewline
+37 & 12344 & 87656 & 12508 & 87492 & 2021 & 2185\tabularnewline
+38 & 13675 & 86325 & 13877 & 86123 & 2442 & 2644\tabularnewline
+39 & 15264 & 84736 & 15349 & 84651 & 2870 & 2955\tabularnewline
+40 & 17026 & 82974 & 17053 & 82947 & 3363 & 3390\tabularnewline
+41 & 18768 & 81232 & 18614 & 81386 & 3905 & 3751\tabularnewline
+42 & 20791 & 79209 & 20470 & 79530 & 4579 & 4258\tabularnewline
+43 & 23150 & 76850 & 22754 & 77246 & 5217 & 4821\tabularnewline
+44 & 25449 & 74551 & 24184 & 75816 & 6285 & 5020\tabularnewline
+45 & 27702 & 72298 & 26464 & 73536 & 6754 & 5516\tabularnewline
+46 & 30525 & 69475 & 28966 & 71034 & 7646 & 6087\tabularnewline
+47 & 32832 & 67168 & 31125 & 68875 & 8487 & 6780\tabularnewline
+48 & 36152 & 63848 & 33865 & 66135 & 9479 & 7192\tabularnewline
+49 & 38714 & 61286 & 36242 & 63758 & 10125 & 7653\tabularnewline
+50 & 41628 & 58372 & 38508 & 61492 & 11036 & 7916\tabularnewline
+51 & 44483 & 55517 & 41023 & 58977 & 11704 & 8244\tabularnewline
+52 & 48134 & 51866 & 44287 & 55713 & 12573 & 8726\tabularnewline
+53 & 51138 & 48862 & 46721 & 53279 & 13223 & 8806\tabularnewline
+54 & 54261 & 45739 & 49559 & 50441 & 13757 & 9055\tabularnewline
+55 & 57647 & 42353 & 52403 & 47597 & 14324 & 9080\tabularnewline
+56 & 60630 & 39370 & 55293 & 44707 & 14669 & 9332\tabularnewline
+57 & 63647 & 36353 & 57787 & 42213 & 15103 & 9243\tabularnewline
+58 & 66961 & 33039 & 60439 & 39561 & 15450 & 8928\tabularnewline
+59 & 69968 & 30032 & 63708 & 36292 & 15246 & 8986\tabularnewline
+60 & 72838 & 27162 & 66270 & 33730 & 15177 & 8609\tabularnewline
+61 & 75609 & 24391 & 68873 & 31127 & 15006 & 8270\tabularnewline
+62 & 77999 & 22001 & 71318 & 28682 & 14538 & 7857\tabularnewline
+63 & 80616 & 19384 & 73517 & 26483 & 14510 & 7411\tabularnewline
+64 & 83089 & 16911 & 76209 & 23791 & 13784 & 6904\tabularnewline
+65 & 85150 & 14850 & 78086 & 21914 & 13412 & 6348\tabularnewline
+66 & 86908 & 13092 & 80437 & 19563 & 12477 & 6006\tabularnewline
+67 & 88671 & 11329 & 82379 & 17621 & 11718 & 5426\tabularnewline
+68 & 90537 & 9463 & 84483 & 15517 & 10878 & 4824\tabularnewline
+69 & 91969 & 8031 & 86233 & 13767 & 10033 & 4297\tabularnewline
+70 & 93181 & 6819 & 87914 & 12086 & 9070 & 3803\tabularnewline
+71 & 94330 & 5670 & 89200 & 10800 & 8401 & 3271\tabularnewline
+72 & 95324 & 4676 & 90833 & 9167 & 7359 & 2868\tabularnewline
+73 & 96143 & 3857 & 91805 & 8195 & 6726 & 2388\tabularnewline
+74 & 96959 & 3041 & 93065 & 6935 & 5900 & 2006\tabularnewline
+75 & 97543 & 2457 & 93987 & 6013 & 5222 & 1666\tabularnewline
+76 & 97969 & 2031 & 94900 & 5100 & 4481 & 1412\tabularnewline
+77 & 98497 & 1503 & 95756 & 4244 & 3809 & 1068\tabularnewline
+78 & 98744 & 1256 & 96442 & 3558 & 3269 & 967\tabularnewline
+79 & 99045 & 955 & 96942 & 3058 & 2837 & 734\tabularnewline
+80 & 99276 & 724 & 97528 & 2472 & 2329 & 581\tabularnewline
+81 & 99481 & 519 & 97996 & 2004 & 1894 & 409\tabularnewline
+82 & 99556 & 444 & 98321 & 1679 & 1597 & 362\tabularnewline
+83 & 99691 & 309 & 98722 & 1278 & 1227 & 258\tabularnewline
+84 & 99752 & 248 & 98943 & 1057 & 1015 & 206\tabularnewline
+85 & 99833 & 167 & 99144 & 856 & 837 & 148\tabularnewline
+86 & 99895 & 105 & 99346 & 654 & 642 & 93\tabularnewline
+87 & 99925 & 75 & 99461 & 539 & 530 & 66\tabularnewline
+88 & 99945 & 55 & 99566 & 434 & 428 & 49\tabularnewline
+89 & 99976 & 24 & 99675 & 325 & 324 & 23\tabularnewline
+90 & 99977 & 23 & 99756 & 244 & 243 & 22\tabularnewline
+91 & 99982 & 18 & 99839 & 161 & 155 & 12\tabularnewline
+92 & 99988 & 12 & 99865 & 135 & 135 & 12\tabularnewline
+93 & 99994 & 6 & 99885 & 115 & 115 & 6\tabularnewline
+94 & 99993 & 7 & 99911 & 89 & 88 & 6\tabularnewline
+95 & 99998 & 2 & 99953 & 47 & 47 & 2\tabularnewline
+96 & 99999 & 1 & 99965 & 35 & 35 & 1\tabularnewline
+97 & 99999 & 1 & 99979 & 21 & 21 & 1\tabularnewline
+98 & 100000 & 0 & 99973 & 27 & 27 & 0\tabularnewline
+99 & 100000 & 0 & 99984 & 16 & 16 & 0\tabularnewline
+100 & 100000 & 0 & 99989 & 11 & 11 & 0\tabularnewline
 \bottomrule
 \end{longtable}
 
@@ -1747,19 +1402,19 @@ positive\textsuperscript{\protect\hyperlink{ref-Allesina2012}{2}}
 leading \(\Re(\lambda)\), and it is highly unlikely that \(Var(\gamma)\)
 alone will shift all real parts of eigenvalues to negative values.
 
-\hypertarget{connectance}{\section{Different connectance (C)
+\hypertarget{connectance}{\section{Sensitivity of connectance (C)
 values}\label{connectance}}
 
 In the main text, for simplicity, I assumed connectance values of
-\(C = 1\), meaning that all off-diagonal elements of a matrix \(M\) were
-potentially nonzero and sampled from a normal distribution
-\(\mathcal{N}(0, \sigma^{2})\) where \(\sigma = 0.4\). Here I present
-four tables showing the number of stable communities given
+\(C = 1\), meaning that all off-diagonal elements of a matrix
+\(\mathbf{M}\) were potentially nonzero and sampled from a normal
+distribution \(\mathcal{N}(0, \sigma^{2})\) where \(\sigma = 0.4\). Here
+I present four tables showing the number of stable communities given
 \(C = \{0.3, 0. 5, 0.7, 0.9 \}\). In all cases, uniform variation in
-component response time (\(\gamma \sim \mathcal{U}(0, 2)\)) led to a
+component response rate (\(\gamma \sim \mathcal{U}(0, 2)\)) led to a
 higher number of stable communities than when \(\gamma\) did not vary
 (\(\gamma = 1\)). In contrast to the main text, 100000 rather than 1
-million \(M\) were simulated. As with the results on
+million \(\mathbf{M}\) were simulated. As with the results on
 \protect\hyperlink{IncrS}{stability with increasing \(S\)} shown above,
 in the tables below \texttt{A0} refers to matrices when \(\gamma = 1\),
 and \texttt{A1} refers to matrices after \(Var(\gamma)\) is added. The
@@ -1772,252 +1427,379 @@ number that are stable. The columns \texttt{A1\_stabilised} and
 \texttt{A1\_destabilised} show how many \texttt{A0} matrices were
 stabilised or destabilised, respectively, by \(Var(\gamma)\).
 
-All data reported below for various values of \(C\) are accessible using
-the below.
+\textbf{Connectance \(\mathbf{C = 0.3}\)}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{C3dat <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\DataTypeTok{file =} \StringTok{"sim_results/C_other/rand_c-0pt3.csv"}\NormalTok{);}
-\NormalTok{C5dat <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\DataTypeTok{file =} \StringTok{"sim_results/C_other/rand_c-0pt5.csv"}\NormalTok{);}
-\NormalTok{C7dat <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\DataTypeTok{file =} \StringTok{"sim_results/C_other/rand_c-0pt7.csv"}\NormalTok{);}
-\NormalTok{C9dat <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\DataTypeTok{file =} \StringTok{"sim_results/C_other/rand_c-0pt9.csv"}\NormalTok{);}
-\end{Highlighting}
-\end{Shaded}
-
-These objects \texttt{C3dat}, \texttt{C5dat}, \texttt{C7dat}, and
-\texttt{C9dat} include the results for \(C = 0.3\), \(C = 0.5\),
-\(C = 0.7\), and \(C = 0.9\), respectively.
-
-\textbf{Connectance \(C = 0.3\)}
-
-\begin{longtable}[]{@{}lllllll@{}}
+\begin{longtable}[]{@{}llllllll@{}}
 \toprule
 N & A0\_unstable & A0\_stable & A1\_unstable & A1\_stable &
-A1\_stabilised & A1\_destabilised\tabularnewline
+A1\_stabilised & A1\_destabilised & A0\_infeasible\tabularnewline
 \midrule
 \endhead
-2 & 5 & 99995 & 5 & 99995 & 0 & 0\tabularnewline
-3 & 6 & 99994 & 6 & 99994 & 0 & 0\tabularnewline
-4 & 24 & 99976 & 24 & 99976 & 0 & 0\tabularnewline
-5 & 59 & 99941 & 59 & 99941 & 0 & 0\tabularnewline
-6 & 98 & 99902 & 98 & 99902 & 0 & 0\tabularnewline
-7 & 160 & 99840 & 161 & 99839 & 0 & 1\tabularnewline
-8 & 290 & 99710 & 293 & 99707 & 0 & 3\tabularnewline
-9 & 430 & 99570 & 434 & 99566 & 0 & 4\tabularnewline
-10 & 648 & 99352 & 653 & 99347 & 1 & 6\tabularnewline
-11 & 946 & 99054 & 957 & 99043 & 0 & 11\tabularnewline
-12 & 1392 & 98608 & 1415 & 98585 & 4 & 27\tabularnewline
-13 & 2032 & 97968 & 2065 & 97935 & 5 & 38\tabularnewline
-14 & 2627 & 97373 & 2688 & 97312 & 10 & 71\tabularnewline
-15 & 3588 & 96412 & 3647 & 96353 & 35 & 94\tabularnewline
-16 & 5019 & 94981 & 5124 & 94876 & 51 & 156\tabularnewline
-17 & 6512 & 93488 & 6673 & 93327 & 79 & 240\tabularnewline
-18 & 8444 & 91556 & 8600 & 91400 & 165 & 321\tabularnewline
-19 & 10416 & 89584 & 10667 & 89333 & 244 & 495\tabularnewline
-20 & 13254 & 86746 & 13477 & 86523 & 425 & 648\tabularnewline
-21 & 16248 & 83752 & 16481 & 83519 & 642 & 875\tabularnewline
-22 & 19497 & 80503 & 19719 & 80281 & 929 & 1151\tabularnewline
-23 & 23654 & 76346 & 23776 & 76224 & 1368 & 1490\tabularnewline
-24 & 28485 & 71515 & 28389 & 71611 & 1914 & 1818\tabularnewline
-25 & 32774 & 67226 & 32483 & 67517 & 2428 & 2137\tabularnewline
-26 & 38126 & 61874 & 37411 & 62589 & 3221 & 2506\tabularnewline
-27 & 43435 & 56565 & 42418 & 57582 & 3828 & 2811\tabularnewline
-28 & 49333 & 50667 & 47840 & 52160 & 4565 & 3072\tabularnewline
-29 & 55389 & 44611 & 53381 & 46619 & 5329 & 3321\tabularnewline
-30 & 60826 & 39174 & 58388 & 41612 & 5918 & 3480\tabularnewline
-31 & 66820 & 33180 & 64043 & 35957 & 6345 & 3568\tabularnewline
-32 & 72190 & 27810 & 69036 & 30964 & 6685 & 3531\tabularnewline
-33 & 77053 & 22947 & 73587 & 26413 & 6826 & 3360\tabularnewline
-34 & 81816 & 18184 & 78157 & 21843 & 6673 & 3014\tabularnewline
-35 & 85651 & 14349 & 82041 & 17959 & 6383 & 2773\tabularnewline
-36 & 88985 & 11015 & 85657 & 14343 & 5721 & 2393\tabularnewline
-37 & 92072 & 7928 & 88805 & 11195 & 5180 & 1913\tabularnewline
-38 & 94329 & 5671 & 91444 & 8556 & 4451 & 1566\tabularnewline
-39 & 95912 & 4088 & 93295 & 6705 & 3804 & 1187\tabularnewline
-40 & 97232 & 2768 & 95201 & 4799 & 2967 & 936\tabularnewline
-41 & 98179 & 1821 & 96506 & 3494 & 2356 & 683\tabularnewline
-42 & 98826 & 1174 & 97489 & 2511 & 1786 & 449\tabularnewline
-43 & 99275 & 725 & 98312 & 1688 & 1251 & 288\tabularnewline
-44 & 99583 & 417 & 98872 & 1128 & 903 & 192\tabularnewline
-45 & 99776 & 224 & 99339 & 661 & 576 & 139\tabularnewline
-46 & 99865 & 135 & 99518 & 482 & 413 & 66\tabularnewline
-47 & 99938 & 62 & 99744 & 256 & 226 & 32\tabularnewline
-48 & 99956 & 44 & 99824 & 176 & 151 & 19\tabularnewline
-49 & 99980 & 20 & 99914 & 86 & 85 & 19\tabularnewline
-50 & 99993 & 7 & 99950 & 50 & 46 & 3\tabularnewline
-51 & 99998 & 2 & 99971 & 29 & 28 & 1\tabularnewline
-52 & 99998 & 2 & 99986 & 14 & 14 & 2\tabularnewline
-53 & 99999 & 1 & 99992 & 8 & 7 & 0\tabularnewline
-54 & 100000 & 0 & 99997 & 3 & 3 & 0\tabularnewline
-55 & 100000 & 0 & 99999 & 1 & 1 & 0\tabularnewline
-56 & 100000 & 0 & 99998 & 2 & 2 & 0\tabularnewline
-57 & 100000 & 0 & 99999 & 1 & 1 & 0\tabularnewline
-58 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+2 & 5 & 99995 & 5 & 99995 & 0 & 0 & 75110\tabularnewline
+3 & 6 & 99994 & 6 & 99994 & 0 & 0 & 87526\tabularnewline
+4 & 24 & 99976 & 24 & 99976 & 0 & 0 & 93713\tabularnewline
+5 & 59 & 99941 & 59 & 99941 & 0 & 0 & 96929\tabularnewline
+6 & 98 & 99902 & 98 & 99902 & 0 & 0 & 98492\tabularnewline
+7 & 160 & 99840 & 161 & 99839 & 0 & 1 & 99243\tabularnewline
+8 & 290 & 99710 & 293 & 99707 & 0 & 3 & 99582\tabularnewline
+9 & 430 & 99570 & 434 & 99566 & 0 & 4 & 99821\tabularnewline
+10 & 648 & 99352 & 653 & 99347 & 1 & 6 & 99895\tabularnewline
+11 & 946 & 99054 & 957 & 99043 & 0 & 11 & 99945\tabularnewline
+12 & 1392 & 98608 & 1415 & 98585 & 4 & 27 & 99978\tabularnewline
+13 & 2032 & 97968 & 2065 & 97935 & 5 & 38 & 99987\tabularnewline
+14 & 2627 & 97373 & 2688 & 97312 & 10 & 71 & 99988\tabularnewline
+15 & 3588 & 96412 & 3647 & 96353 & 35 & 94 & 99996\tabularnewline
+16 & 5019 & 94981 & 5124 & 94876 & 51 & 156 & 99998\tabularnewline
+17 & 6512 & 93488 & 6673 & 93327 & 79 & 240 & 99999\tabularnewline
+18 & 8444 & 91556 & 8600 & 91400 & 165 & 321 & 100000\tabularnewline
+19 & 10416 & 89584 & 10667 & 89333 & 244 & 495 & 100000\tabularnewline
+20 & 13254 & 86746 & 13477 & 86523 & 425 & 648 & 100000\tabularnewline
+21 & 16248 & 83752 & 16481 & 83519 & 642 & 875 & 100000\tabularnewline
+22 & 19497 & 80503 & 19719 & 80281 & 929 & 1151 & 100000\tabularnewline
+23 & 23654 & 76346 & 23776 & 76224 & 1368 & 1490 & 100000\tabularnewline
+24 & 28485 & 71515 & 28389 & 71611 & 1914 & 1818 & 100000\tabularnewline
+25 & 32774 & 67226 & 32483 & 67517 & 2428 & 2137 & 100000\tabularnewline
+26 & 38126 & 61874 & 37411 & 62589 & 3221 & 2506 & 100000\tabularnewline
+27 & 43435 & 56565 & 42418 & 57582 & 3828 & 2811 & 100000\tabularnewline
+28 & 49333 & 50667 & 47840 & 52160 & 4565 & 3072 & 100000\tabularnewline
+29 & 55389 & 44611 & 53381 & 46619 & 5329 & 3321 & 100000\tabularnewline
+30 & 60826 & 39174 & 58388 & 41612 & 5918 & 3480 & 100000\tabularnewline
+31 & 66820 & 33180 & 64043 & 35957 & 6345 & 3568 & 100000\tabularnewline
+32 & 72190 & 27810 & 69036 & 30964 & 6685 & 3531 & 100000\tabularnewline
+33 & 77053 & 22947 & 73587 & 26413 & 6826 & 3360 & 100000\tabularnewline
+34 & 81816 & 18184 & 78157 & 21843 & 6673 & 3014 & 100000\tabularnewline
+35 & 85651 & 14349 & 82041 & 17959 & 6383 & 2773 & 100000\tabularnewline
+36 & 88985 & 11015 & 85657 & 14343 & 5721 & 2393 & 100000\tabularnewline
+37 & 92072 & 7928 & 88805 & 11195 & 5180 & 1913 & 100000\tabularnewline
+38 & 94329 & 5671 & 91444 & 8556 & 4451 & 1566 & 100000\tabularnewline
+39 & 95912 & 4088 & 93295 & 6705 & 3804 & 1187 & 100000\tabularnewline
+40 & 97232 & 2768 & 95201 & 4799 & 2967 & 936 & 100000\tabularnewline
+41 & 98179 & 1821 & 96506 & 3494 & 2356 & 683 & 100000\tabularnewline
+42 & 98826 & 1174 & 97489 & 2511 & 1786 & 449 & 100000\tabularnewline
+43 & 99275 & 725 & 98312 & 1688 & 1251 & 288 & 100000\tabularnewline
+44 & 99583 & 417 & 98872 & 1128 & 903 & 192 & 100000\tabularnewline
+45 & 99776 & 224 & 99339 & 661 & 576 & 139 & 100000\tabularnewline
+46 & 99865 & 135 & 99518 & 482 & 413 & 66 & 100000\tabularnewline
+47 & 99938 & 62 & 99744 & 256 & 226 & 32 & 100000\tabularnewline
+48 & 99956 & 44 & 99824 & 176 & 151 & 19 & 100000\tabularnewline
+49 & 99980 & 20 & 99914 & 86 & 85 & 19 & 100000\tabularnewline
+50 & 99993 & 7 & 99950 & 50 & 46 & 3 & 100000\tabularnewline
+51 & 99998 & 2 & 99971 & 29 & 28 & 1 & 100000\tabularnewline
+52 & 99998 & 2 & 99986 & 14 & 14 & 2 & 100000\tabularnewline
+53 & 99999 & 1 & 99992 & 8 & 7 & 0 & 100000\tabularnewline
+54 & 100000 & 0 & 99997 & 3 & 3 & 0 & 100000\tabularnewline
+55 & 100000 & 0 & 99999 & 1 & 1 & 0 & 100000\tabularnewline
+56 & 100000 & 0 & 99998 & 2 & 2 & 0 & 100000\tabularnewline
+57 & 100000 & 0 & 99999 & 1 & 1 & 0 & 100000\tabularnewline
+58 & 100000 & 0 & 100000 & 0 & 0 & 0 & 100000\tabularnewline
 \ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} &
-\ldots{}\tabularnewline
-100 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+\ldots{} & \ldots{}\tabularnewline
+100 & 100000 & 0 & 100000 & 0 & 0 & 0 & 100000\tabularnewline
 \bottomrule
 \end{longtable}
 
-\textbf{Connectance \(C = 0.5\)}
+\textbf{Connectance \(\mathbf{C = 0.5}\)}
 
-\begin{longtable}[]{@{}lllllll@{}}
+\begin{longtable}[]{@{}llllllll@{}}
 \toprule
 N & A0\_unstable & A0\_stable & A1\_unstable & A1\_stable &
-A1\_stabilised & A1\_destabilised\tabularnewline
+A1\_stabilised & A1\_destabilised & A0\_infeasible\tabularnewline
 \midrule
 \endhead
-2 & 7 & 99993 & 7 & 99993 & 0 & 0\tabularnewline
-3 & 32 & 99968 & 32 & 99968 & 0 & 0\tabularnewline
-4 & 122 & 99878 & 122 & 99878 & 0 & 0\tabularnewline
-5 & 320 & 99680 & 321 & 99679 & 0 & 1\tabularnewline
-6 & 667 & 99333 & 673 & 99327 & 0 & 6\tabularnewline
-7 & 1233 & 98767 & 1252 & 98748 & 0 & 19\tabularnewline
-8 & 2123 & 97877 & 2156 & 97844 & 3 & 36\tabularnewline
-9 & 3415 & 96585 & 3471 & 96529 & 16 & 72\tabularnewline
-10 & 5349 & 94651 & 5450 & 94550 & 30 & 131\tabularnewline
-11 & 7990 & 92010 & 8185 & 91815 & 81 & 276\tabularnewline
-12 & 11073 & 88927 & 11301 & 88699 & 219 & 447\tabularnewline
-13 & 14971 & 85029 & 15204 & 84796 & 445 & 678\tabularnewline
-14 & 19754 & 80246 & 19992 & 80008 & 764 & 1002\tabularnewline
-15 & 25020 & 74980 & 25239 & 74761 & 1185 & 1404\tabularnewline
-16 & 30860 & 69140 & 30938 & 69062 & 1902 & 1980\tabularnewline
-17 & 37844 & 62156 & 37562 & 62438 & 2758 & 2476\tabularnewline
-18 & 44909 & 55091 & 44251 & 55749 & 3595 & 2937\tabularnewline
-19 & 52322 & 47678 & 51011 & 48989 & 4573 & 3262\tabularnewline
-20 & 60150 & 39850 & 58295 & 41705 & 5382 & 3527\tabularnewline
-21 & 67147 & 32853 & 64895 & 35105 & 5925 & 3673\tabularnewline
-22 & 74177 & 25823 & 71358 & 28642 & 6310 & 3491\tabularnewline
-23 & 80297 & 19703 & 77034 & 22966 & 6507 & 3244\tabularnewline
-24 & 85372 & 14628 & 82039 & 17961 & 6209 & 2876\tabularnewline
-25 & 89719 & 10281 & 86539 & 13461 & 5562 & 2382\tabularnewline
-26 & 92947 & 7053 & 90141 & 9859 & 4707 & 1901\tabularnewline
-27 & 95436 & 4564 & 92950 & 7050 & 3844 & 1358\tabularnewline
-28 & 97196 & 2804 & 95171 & 4829 & 2999 & 974\tabularnewline
-29 & 98300 & 1700 & 96842 & 3158 & 2115 & 657\tabularnewline
-30 & 99103 & 897 & 98033 & 1967 & 1466 & 396\tabularnewline
-31 & 99502 & 498 & 98665 & 1335 & 1068 & 231\tabularnewline
-32 & 99745 & 255 & 99185 & 815 & 696 & 136\tabularnewline
-33 & 99881 & 119 & 99572 & 428 & 375 & 66\tabularnewline
-34 & 99955 & 45 & 99788 & 212 & 191 & 24\tabularnewline
-35 & 99979 & 21 & 99900 & 100 & 95 & 16\tabularnewline
-36 & 99995 & 5 & 99950 & 50 & 50 & 5\tabularnewline
-37 & 99997 & 3 & 99970 & 30 & 28 & 1\tabularnewline
-38 & 99998 & 2 & 99986 & 14 & 13 & 1\tabularnewline
-39 & 99999 & 1 & 99991 & 9 & 9 & 1\tabularnewline
-40 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
-41 & 100000 & 0 & 99999 & 1 & 1 & 0\tabularnewline
-42 & 100000 & 0 & 99999 & 1 & 1 & 0\tabularnewline
-43 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+2 & 7 & 99993 & 7 & 99993 & 0 & 0 & 74863\tabularnewline
+3 & 32 & 99968 & 32 & 99968 & 0 & 0 & 87434\tabularnewline
+4 & 122 & 99878 & 122 & 99878 & 0 & 0 & 93761\tabularnewline
+5 & 320 & 99680 & 321 & 99679 & 0 & 1 & 96830\tabularnewline
+6 & 667 & 99333 & 673 & 99327 & 0 & 6 & 98481\tabularnewline
+7 & 1233 & 98767 & 1252 & 98748 & 0 & 19 & 99187\tabularnewline
+8 & 2123 & 97877 & 2156 & 97844 & 3 & 36 & 99654\tabularnewline
+9 & 3415 & 96585 & 3471 & 96529 & 16 & 72 & 99816\tabularnewline
+10 & 5349 & 94651 & 5450 & 94550 & 30 & 131 & 99900\tabularnewline
+11 & 7990 & 92010 & 8185 & 91815 & 81 & 276 & 99958\tabularnewline
+12 & 11073 & 88927 & 11301 & 88699 & 219 & 447 & 99973\tabularnewline
+13 & 14971 & 85029 & 15204 & 84796 & 445 & 678 & 99986\tabularnewline
+14 & 19754 & 80246 & 19992 & 80008 & 764 & 1002 & 99991\tabularnewline
+15 & 25020 & 74980 & 25239 & 74761 & 1185 & 1404 & 99996\tabularnewline
+16 & 30860 & 69140 & 30938 & 69062 & 1902 & 1980 & 99999\tabularnewline
+17 & 37844 & 62156 & 37562 & 62438 & 2758 & 2476 & 100000\tabularnewline
+18 & 44909 & 55091 & 44251 & 55749 & 3595 & 2937 & 99999\tabularnewline
+19 & 52322 & 47678 & 51011 & 48989 & 4573 & 3262 & 99999\tabularnewline
+20 & 60150 & 39850 & 58295 & 41705 & 5382 & 3527 & 100000\tabularnewline
+21 & 67147 & 32853 & 64895 & 35105 & 5925 & 3673 & 100000\tabularnewline
+22 & 74177 & 25823 & 71358 & 28642 & 6310 & 3491 & 100000\tabularnewline
+23 & 80297 & 19703 & 77034 & 22966 & 6507 & 3244 & 100000\tabularnewline
+24 & 85372 & 14628 & 82039 & 17961 & 6209 & 2876 & 100000\tabularnewline
+25 & 89719 & 10281 & 86539 & 13461 & 5562 & 2382 & 100000\tabularnewline
+26 & 92947 & 7053 & 90141 & 9859 & 4707 & 1901 & 100000\tabularnewline
+27 & 95436 & 4564 & 92950 & 7050 & 3844 & 1358 & 100000\tabularnewline
+28 & 97196 & 2804 & 95171 & 4829 & 2999 & 974 & 100000\tabularnewline
+29 & 98300 & 1700 & 96842 & 3158 & 2115 & 657 & 100000\tabularnewline
+30 & 99103 & 897 & 98033 & 1967 & 1466 & 396 & 100000\tabularnewline
+31 & 99502 & 498 & 98665 & 1335 & 1068 & 231 & 100000\tabularnewline
+32 & 99745 & 255 & 99185 & 815 & 696 & 136 & 100000\tabularnewline
+33 & 99881 & 119 & 99572 & 428 & 375 & 66 & 100000\tabularnewline
+34 & 99955 & 45 & 99788 & 212 & 191 & 24 & 100000\tabularnewline
+35 & 99979 & 21 & 99900 & 100 & 95 & 16 & 100000\tabularnewline
+36 & 99995 & 5 & 99950 & 50 & 50 & 5 & 100000\tabularnewline
+37 & 99997 & 3 & 99970 & 30 & 28 & 1 & 100000\tabularnewline
+38 & 99998 & 2 & 99986 & 14 & 13 & 1 & 100000\tabularnewline
+39 & 99999 & 1 & 99991 & 9 & 9 & 1 & 100000\tabularnewline
+40 & 100000 & 0 & 100000 & 0 & 0 & 0 & 100000\tabularnewline
+41 & 100000 & 0 & 99999 & 1 & 1 & 0 & 100000\tabularnewline
+42 & 100000 & 0 & 99999 & 1 & 1 & 0 & 100000\tabularnewline
+43 & 100000 & 0 & 100000 & 0 & 0 & 0 & 100000\tabularnewline
 \ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} &
-\ldots{}\tabularnewline
-50 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+\ldots{} & \ldots{}\tabularnewline
+50 & 100000 & 0 & 100000 & 0 & 0 & 0 & 100000\tabularnewline
 \bottomrule
 \end{longtable}
 
-\textbf{Connectance \(C = 0.7\)}
+\textbf{Connectance \(\mathbf{C = 0.7}\)}
 
-\begin{longtable}[]{@{}lllllll@{}}
+\begin{longtable}[]{@{}llllllll@{}}
 \toprule
 N & A0\_unstable & A0\_stable & A1\_unstable & A1\_stable &
-A1\_stabilised & A1\_destabilised\tabularnewline
+A1\_stabilised & A1\_destabilised & A0\_infeasible\tabularnewline
 \midrule
 \endhead
-2 & 7 & 99993 & 7 & 99993 & 0 & 0\tabularnewline
-3 & 106 & 99894 & 106 & 99894 & 0 & 0\tabularnewline
-4 & 395 & 99605 & 397 & 99603 & 0 & 2\tabularnewline
-5 & 1117 & 98883 & 1123 & 98877 & 0 & 6\tabularnewline
-6 & 2346 & 97654 & 2367 & 97633 & 6 & 27\tabularnewline
-7 & 4314 & 95686 & 4388 & 95612 & 16 & 90\tabularnewline
-8 & 7327 & 92673 & 7456 & 92544 & 61 & 190\tabularnewline
-9 & 11514 & 88486 & 11792 & 88208 & 150 & 428\tabularnewline
-10 & 16247 & 83753 & 16584 & 83416 & 415 & 752\tabularnewline
-11 & 22481 & 77519 & 22759 & 77241 & 884 & 1162\tabularnewline
-12 & 29459 & 70541 & 29729 & 70271 & 1548 & 1818\tabularnewline
-13 & 37631 & 62369 & 37567 & 62433 & 2419 & 2355\tabularnewline
-14 & 46317 & 53683 & 45696 & 54304 & 3548 & 2927\tabularnewline
-15 & 54945 & 45055 & 53695 & 46305 & 4671 & 3421\tabularnewline
-16 & 63683 & 36317 & 61643 & 38357 & 5567 & 3527\tabularnewline
-17 & 72004 & 27996 & 69375 & 30625 & 6124 & 3495\tabularnewline
-18 & 79220 & 20780 & 76158 & 23842 & 6413 & 3351\tabularnewline
-19 & 85286 & 14714 & 82283 & 17717 & 5982 & 2979\tabularnewline
-20 & 90240 & 9760 & 87181 & 12819 & 5398 & 2339\tabularnewline
-21 & 93676 & 6324 & 91077 & 8923 & 4468 & 1869\tabularnewline
-22 & 96203 & 3797 & 94045 & 5955 & 3425 & 1267\tabularnewline
-23 & 97866 & 2134 & 96161 & 3839 & 2496 & 791\tabularnewline
-24 & 98842 & 1158 & 97633 & 2367 & 1713 & 504\tabularnewline
-25 & 99433 & 567 & 98630 & 1370 & 1079 & 276\tabularnewline
-26 & 99760 & 240 & 99259 & 741 & 655 & 154\tabularnewline
-27 & 99895 & 105 & 99576 & 424 & 377 & 58\tabularnewline
-28 & 99950 & 50 & 99790 & 210 & 194 & 34\tabularnewline
-29 & 99981 & 19 & 99915 & 85 & 80 & 14\tabularnewline
-30 & 99994 & 6 & 99952 & 48 & 47 & 5\tabularnewline
-31 & 99998 & 2 & 99972 & 28 & 28 & 2\tabularnewline
-32 & 99999 & 1 & 99992 & 8 & 8 & 1\tabularnewline
-33 & 100000 & 0 & 99997 & 3 & 3 & 0\tabularnewline
-34 & 100000 & 0 & 99999 & 1 & 1 & 0\tabularnewline
-35 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+2 & 7 & 99993 & 7 & 99993 & 0 & 0 & 75160\tabularnewline
+3 & 106 & 99894 & 106 & 99894 & 0 & 0 & 87447\tabularnewline
+4 & 395 & 99605 & 397 & 99603 & 0 & 2 & 93849\tabularnewline
+5 & 1117 & 98883 & 1123 & 98877 & 0 & 6 & 96827\tabularnewline
+6 & 2346 & 97654 & 2367 & 97633 & 6 & 27 & 98402\tabularnewline
+7 & 4314 & 95686 & 4388 & 95612 & 16 & 90 & 99218\tabularnewline
+8 & 7327 & 92673 & 7456 & 92544 & 61 & 190 & 99611\tabularnewline
+9 & 11514 & 88486 & 11792 & 88208 & 150 & 428 & 99808\tabularnewline
+10 & 16247 & 83753 & 16584 & 83416 & 415 & 752 & 99904\tabularnewline
+11 & 22481 & 77519 & 22759 & 77241 & 884 & 1162 & 99952\tabularnewline
+12 & 29459 & 70541 & 29729 & 70271 & 1548 & 1818 & 99977\tabularnewline
+13 & 37631 & 62369 & 37567 & 62433 & 2419 & 2355 & 99984\tabularnewline
+14 & 46317 & 53683 & 45696 & 54304 & 3548 & 2927 & 99995\tabularnewline
+15 & 54945 & 45055 & 53695 & 46305 & 4671 & 3421 & 99994\tabularnewline
+16 & 63683 & 36317 & 61643 & 38357 & 5567 & 3527 & 99999\tabularnewline
+17 & 72004 & 27996 & 69375 & 30625 & 6124 & 3495 & 100000\tabularnewline
+18 & 79220 & 20780 & 76158 & 23842 & 6413 & 3351 & 100000\tabularnewline
+19 & 85286 & 14714 & 82283 & 17717 & 5982 & 2979 & 99999\tabularnewline
+20 & 90240 & 9760 & 87181 & 12819 & 5398 & 2339 & 100000\tabularnewline
+21 & 93676 & 6324 & 91077 & 8923 & 4468 & 1869 & 100000\tabularnewline
+22 & 96203 & 3797 & 94045 & 5955 & 3425 & 1267 & 100000\tabularnewline
+23 & 97866 & 2134 & 96161 & 3839 & 2496 & 791 & 100000\tabularnewline
+24 & 98842 & 1158 & 97633 & 2367 & 1713 & 504 & 100000\tabularnewline
+25 & 99433 & 567 & 98630 & 1370 & 1079 & 276 & 100000\tabularnewline
+26 & 99760 & 240 & 99259 & 741 & 655 & 154 & 100000\tabularnewline
+27 & 99895 & 105 & 99576 & 424 & 377 & 58 & 100000\tabularnewline
+28 & 99950 & 50 & 99790 & 210 & 194 & 34 & 100000\tabularnewline
+29 & 99981 & 19 & 99915 & 85 & 80 & 14 & 100000\tabularnewline
+30 & 99994 & 6 & 99952 & 48 & 47 & 5 & 100000\tabularnewline
+31 & 99998 & 2 & 99972 & 28 & 28 & 2 & 100000\tabularnewline
+32 & 99999 & 1 & 99992 & 8 & 8 & 1 & 100000\tabularnewline
+33 & 100000 & 0 & 99997 & 3 & 3 & 0 & 100000\tabularnewline
+34 & 100000 & 0 & 99999 & 1 & 1 & 0 & 100000\tabularnewline
+35 & 100000 & 0 & 100000 & 0 & 0 & 0 & 100000\tabularnewline
 \ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} &
-\ldots{}\tabularnewline
-50 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+\ldots{} & \ldots{}\tabularnewline
+50 & 100000 & 0 & 100000 & 0 & 0 & 0 & 100000\tabularnewline
 \bottomrule
 \end{longtable}
 
-\textbf{Connectance \(C = 0.9\)}
+\textbf{Connectance \(\mathbf{C = 0.9}\)}
 
-\begin{longtable}[]{@{}lllllll@{}}
+\begin{longtable}[]{@{}llllllll@{}}
 \toprule
 N & A0\_unstable & A0\_stable & A1\_unstable & A1\_stable &
-A1\_stabilised & A1\_destabilised\tabularnewline
+A1\_stabilised & A1\_destabilised & A0\_infeasible\tabularnewline
 \midrule
 \endhead
-2 & 14 & 99986 & 14 & 99986 & 0 & 0\tabularnewline
-3 & 240 & 99760 & 240 & 99760 & 0 & 0\tabularnewline
-4 & 1008 & 98992 & 1016 & 98984 & 0 & 8\tabularnewline
-5 & 2708 & 97292 & 2729 & 97271 & 2 & 23\tabularnewline
-6 & 5669 & 94331 & 5755 & 94245 & 13 & 99\tabularnewline
-7 & 9848 & 90152 & 10057 & 89943 & 91 & 300\tabularnewline
-8 & 15903 & 84097 & 16201 & 83799 & 336 & 634\tabularnewline
-9 & 22707 & 77293 & 23110 & 76890 & 765 & 1168\tabularnewline
-10 & 30796 & 69204 & 31122 & 68878 & 1526 & 1852\tabularnewline
-11 & 40224 & 59776 & 40082 & 59918 & 2649 & 2507\tabularnewline
-12 & 49934 & 50066 & 49288 & 50712 & 3773 & 3127\tabularnewline
-13 & 60138 & 39862 & 58803 & 41197 & 4984 & 3649\tabularnewline
-14 & 69100 & 30900 & 67110 & 32890 & 5755 & 3765\tabularnewline
-15 & 77607 & 22393 & 74884 & 25116 & 6273 & 3550\tabularnewline
-16 & 84663 & 15337 & 81780 & 18220 & 5975 & 3092\tabularnewline
-17 & 90075 & 9925 & 87290 & 12710 & 5209 & 2424\tabularnewline
-18 & 93944 & 6056 & 91419 & 8581 & 4271 & 1746\tabularnewline
-19 & 96650 & 3350 & 94530 & 5470 & 3287 & 1167\tabularnewline
-20 & 98160 & 1840 & 96698 & 3302 & 2191 & 729\tabularnewline
-21 & 99111 & 889 & 98133 & 1867 & 1389 & 411\tabularnewline
-22 & 99588 & 412 & 98905 & 1095 & 903 & 220\tabularnewline
-23 & 99837 & 163 & 99480 & 520 & 452 & 95\tabularnewline
-24 & 99932 & 68 & 99744 & 256 & 228 & 40\tabularnewline
-25 & 99976 & 24 & 99863 & 137 & 133 & 20\tabularnewline
-26 & 99995 & 5 & 99950 & 50 & 49 & 4\tabularnewline
-27 & 99996 & 4 & 99986 & 14 & 13 & 3\tabularnewline
-28 & 100000 & 0 & 99993 & 7 & 7 & 0\tabularnewline
-29 & 100000 & 0 & 99996 & 4 & 4 & 0\tabularnewline
-30 & 100000 & 0 & 99998 & 2 & 2 & 0\tabularnewline
-31 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+2 & 14 & 99986 & 14 & 99986 & 0 & 0 & 75187\tabularnewline
+3 & 240 & 99760 & 240 & 99760 & 0 & 0 & 87443\tabularnewline
+4 & 1008 & 98992 & 1016 & 98984 & 0 & 8 & 93795\tabularnewline
+5 & 2708 & 97292 & 2729 & 97271 & 2 & 23 & 96814\tabularnewline
+6 & 5669 & 94331 & 5755 & 94245 & 13 & 99 & 98439\tabularnewline
+7 & 9848 & 90152 & 10057 & 89943 & 91 & 300 & 99208\tabularnewline
+8 & 15903 & 84097 & 16201 & 83799 & 336 & 634 & 99603\tabularnewline
+9 & 22707 & 77293 & 23110 & 76890 & 765 & 1168 & 99803\tabularnewline
+10 & 30796 & 69204 & 31122 & 68878 & 1526 & 1852 & 99909\tabularnewline
+11 & 40224 & 59776 & 40082 & 59918 & 2649 & 2507 & 99951\tabularnewline
+12 & 49934 & 50066 & 49288 & 50712 & 3773 & 3127 & 99977\tabularnewline
+13 & 60138 & 39862 & 58803 & 41197 & 4984 & 3649 & 99986\tabularnewline
+14 & 69100 & 30900 & 67110 & 32890 & 5755 & 3765 & 99995\tabularnewline
+15 & 77607 & 22393 & 74884 & 25116 & 6273 & 3550 & 100000\tabularnewline
+16 & 84663 & 15337 & 81780 & 18220 & 5975 & 3092 & 100000\tabularnewline
+17 & 90075 & 9925 & 87290 & 12710 & 5209 & 2424 & 100000\tabularnewline
+18 & 93944 & 6056 & 91419 & 8581 & 4271 & 1746 & 100000\tabularnewline
+19 & 96650 & 3350 & 94530 & 5470 & 3287 & 1167 & 99999\tabularnewline
+20 & 98160 & 1840 & 96698 & 3302 & 2191 & 729 & 100000\tabularnewline
+21 & 99111 & 889 & 98133 & 1867 & 1389 & 411 & 100000\tabularnewline
+22 & 99588 & 412 & 98905 & 1095 & 903 & 220 & 100000\tabularnewline
+23 & 99837 & 163 & 99480 & 520 & 452 & 95 & 100000\tabularnewline
+24 & 99932 & 68 & 99744 & 256 & 228 & 40 & 100000\tabularnewline
+25 & 99976 & 24 & 99863 & 137 & 133 & 20 & 100000\tabularnewline
+26 & 99995 & 5 & 99950 & 50 & 49 & 4 & 100000\tabularnewline
+27 & 99996 & 4 & 99986 & 14 & 13 & 3 & 100000\tabularnewline
+28 & 100000 & 0 & 99993 & 7 & 7 & 0 & 100000\tabularnewline
+29 & 100000 & 0 & 99996 & 4 & 4 & 0 & 100000\tabularnewline
+30 & 100000 & 0 & 99998 & 2 & 2 & 0 & 100000\tabularnewline
+31 & 100000 & 0 & 100000 & 0 & 0 & 0 & 100000\tabularnewline
 \ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} &
-\ldots{}\tabularnewline
-50 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+\ldots{} & \ldots{}\tabularnewline
+50 & 100000 & 0 & 100000 & 0 & 0 & 0 & 100000\tabularnewline
 \bottomrule
 \end{longtable}
 
-\hypertarget{gam_dist}{\section{\texorpdfstring{Different distributions
-of
-\(\gamma\)}{Different distributions of \textbackslash{}gamma}}\label{gam_dist}}
+\hypertarget{sigma}{\section{\texorpdfstring{Sensitivity of interaction
+strength (\(\sigma\))
+values}{Sensitivity of interaction strength (\textbackslash{}sigma) values}}\label{sigma}}
+
+Results below show stability results given varying interaction strengths
+(\(\sigma\)) for \(C = 0.05\) (note that system size \(S\) values are
+larger and increase by 10 with increasing rows). In the tables below (as
+\protect\hyperlink{IncrS}{above}), \texttt{A0} and \texttt{A1} refers to
+matrices for \(\gamma = 1\) and \(Var(\gamma)\), respectively.
+
+\textbf{Interaction strength \(\mathbf{\sigma = 0.3}\)}
+
+\begin{longtable}[]{@{}rrrrrrr@{}}
+\toprule
+S & A0\_unstable & A0\_stable & A1\_unstable & A1\_stable &
+A1\_stabilised & A1\_destabilised\tabularnewline
+\midrule
+\endhead
+10 & 0 & 100000 & 0 & 100000 & 0 & 0\tabularnewline
+20 & 0 & 100000 & 0 & 100000 & 0 & 0\tabularnewline
+30 & 0 & 100000 & 0 & 100000 & 0 & 0\tabularnewline
+40 & 0 & 100000 & 0 & 100000 & 0 & 0\tabularnewline
+50 & 0 & 100000 & 0 & 100000 & 0 & 0\tabularnewline
+60 & 2 & 99998 & 2 & 99998 & 0 & 0\tabularnewline
+70 & 4 & 99996 & 4 & 99996 & 0 & 0\tabularnewline
+80 & 6 & 99994 & 6 & 99994 & 0 & 0\tabularnewline
+90 & 5 & 99995 & 5 & 99995 & 0 & 0\tabularnewline
+100 & 11 & 99989 & 11 & 99989 & 0 & 0\tabularnewline
+110 & 12 & 99988 & 13 & 99987 & 0 & 1\tabularnewline
+120 & 23 & 99977 & 23 & 99977 & 0 & 0\tabularnewline
+130 & 40 & 99960 & 40 & 99960 & 0 & 0\tabularnewline
+140 & 62 & 99938 & 65 & 99935 & 0 & 3\tabularnewline
+150 & 162 & 99838 & 165 & 99835 & 0 & 3\tabularnewline
+160 & 325 & 99675 & 329 & 99671 & 2 & 6\tabularnewline
+170 & 829 & 99171 & 851 & 99149 & 6 & 28\tabularnewline
+180 & 1817 & 98183 & 1860 & 98140 & 31 & 74\tabularnewline
+190 & 3927 & 96073 & 3989 & 96011 & 143 & 205\tabularnewline
+200 & 8084 & 91916 & 8048 & 91952 & 557 & 521\tabularnewline
+210 & 15558 & 84442 & 15147 & 84853 & 1534 & 1123\tabularnewline
+220 & 26848 & 73152 & 25342 & 74658 & 3625 & 2119\tabularnewline
+230 & 43386 & 56614 & 39535 & 60465 & 6992 & 3141\tabularnewline
+240 & 62734 & 37266 & 56684 & 43316 & 9815 & 3765\tabularnewline
+250 & 80128 & 19872 & 73080 & 26920 & 10128 & 3080\tabularnewline
+260 & 92206 & 7794 & 86619 & 13381 & 7490 & 1903\tabularnewline
+270 & 97946 & 2054 & 94824 & 5176 & 3797 & 675\tabularnewline
+280 & 99659 & 341 & 98534 & 1466 & 1265 & 140\tabularnewline
+290 & 99962 & 38 & 99696 & 304 & 281 & 15\tabularnewline
+300 & 99994 & 6 & 99964 & 36 & 34 & 4\tabularnewline
+\bottomrule
+\end{longtable}
+
+\textbf{Interaction strength \(\mathbf{\sigma = 0.4}\)}
+
+\begin{longtable}[]{@{}lllllll@{}}
+\toprule
+S & A0\_unstable & A0\_stable & A1\_unstable & A1\_stable &
+A1\_stabilised & A1\_destabilised\tabularnewline
+\midrule
+\endhead
+10 & 3 & 99997 & 3 & 99997 & 0 & 0\tabularnewline
+20 & 15 & 99985 & 15 & 99985 & 0 & 0\tabularnewline
+30 & 48 & 99952 & 48 & 99952 & 0 & 0\tabularnewline
+40 & 85 & 99915 & 85 & 99915 & 0 & 0\tabularnewline
+50 & 163 & 99837 & 163 & 99837 & 0 & 0\tabularnewline
+60 & 280 & 99720 & 282 & 99718 & 0 & 2\tabularnewline
+70 & 561 & 99439 & 566 & 99434 & 3 & 8\tabularnewline
+80 & 1009 & 98991 & 1029 & 98971 & 6 & 26\tabularnewline
+90 & 2126 & 97874 & 2175 & 97825 & 31 & 80\tabularnewline
+100 & 4580 & 95420 & 4653 & 95347 & 142 & 215\tabularnewline
+110 & 9540 & 90460 & 9632 & 90368 & 465 & 557\tabularnewline
+120 & 19090 & 80910 & 18668 & 81332 & 1676 & 1254\tabularnewline
+130 & 35047 & 64953 & 33220 & 66780 & 4172 & 2345\tabularnewline
+140 & 56411 & 43589 & 52439 & 47561 & 7297 & 3325\tabularnewline
+150 & 78003 & 21997 & 72574 & 27426 & 8477 & 3048\tabularnewline
+160 & 92678 & 7322 & 88438 & 11562 & 5901 & 1661\tabularnewline
+170 & 98614 & 1386 & 96670 & 3330 & 2397 & 453\tabularnewline
+180 & 99839 & 161 & 99418 & 582 & 499 & 78\tabularnewline
+190 & 99990 & 10 & 99945 & 55 & 52 & 7\tabularnewline
+200 & 100000 & 0 & 99995 & 5 & 5 & 0\tabularnewline
+210 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+\ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} &
+\ldots{}\tabularnewline
+300 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+\bottomrule
+\end{longtable}
+
+\textbf{Interaction strength \(\mathbf{\sigma = 0.5}\)}
+
+\begin{longtable}[]{@{}lllllll@{}}
+\toprule
+S & A0\_unstable & A0\_stable & A1\_unstable & A1\_stable &
+A1\_stabilised & A1\_destabilised\tabularnewline
+\midrule
+\endhead
+10 & 36 & 99964 & 36 & 99964 & 0 & 0\tabularnewline
+20 & 195 & 99805 & 195 & 99805 & 0 & 0\tabularnewline
+30 & 519 & 99481 & 523 & 99477 & 0 & 4\tabularnewline
+40 & 1096 & 98904 & 1101 & 98899 & 2 & 7\tabularnewline
+50 & 2375 & 97625 & 2397 & 97603 & 9 & 31\tabularnewline
+60 & 4898 & 95102 & 4968 & 95032 & 83 & 153\tabularnewline
+70 & 10841 & 89159 & 10916 & 89084 & 432 & 507\tabularnewline
+80 & 22281 & 77719 & 21988 & 78012 & 1622 & 1329\tabularnewline
+90 & 42010 & 57990 & 39998 & 60002 & 4458 & 2446\tabularnewline
+100 & 67289 & 32711 & 63098 & 36902 & 7153 & 2962\tabularnewline
+110 & 88137 & 11863 & 84023 & 15977 & 6108 & 1994\tabularnewline
+120 & 97678 & 2322 & 95557 & 4443 & 2740 & 619\tabularnewline
+130 & 99795 & 205 & 99304 & 696 & 578 & 87\tabularnewline
+140 & 99989 & 11 & 99948 & 52 & 49 & 8\tabularnewline
+150 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+\ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} &
+\ldots{}\tabularnewline
+300 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+\bottomrule
+\end{longtable}
+
+\textbf{Interaction strength \(\mathbf{\sigma = 0.6}\)}
+
+\begin{longtable}[]{@{}lllllll@{}}
+\toprule
+S & A0\_unstable & A0\_stable & A1\_unstable & A1\_stable &
+A1\_stabilised & A1\_destabilised\tabularnewline
+\midrule
+\endhead
+10 & 162 & 99838 & 162 & 99838 & 0 & 0\tabularnewline
+20 & 798 & 99202 & 799 & 99201 & 0 & 1\tabularnewline
+30 & 2273 & 97727 & 2289 & 97711 & 6 & 22\tabularnewline
+40 & 5259 & 94741 & 5298 & 94702 & 70 & 109\tabularnewline
+50 & 12084 & 87916 & 12054 & 87946 & 446 & 416\tabularnewline
+60 & 26072 & 73928 & 25511 & 74489 & 1810 & 1249\tabularnewline
+70 & 50121 & 49879 & 47747 & 52253 & 4748 & 2374\tabularnewline
+80 & 77806 & 22194 & 73810 & 26190 & 6421 & 2425\tabularnewline
+90 & 94862 & 5138 & 92069 & 7931 & 3842 & 1049\tabularnewline
+100 & 99527 & 473 & 98822 & 1178 & 870 & 165\tabularnewline
+110 & 99984 & 16 & 99912 & 88 & 80 & 8\tabularnewline
+120 & 100000 & 0 & 99998 & 2 & 2 & 0\tabularnewline
+130 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+\ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} & \ldots{} &
+\ldots{}\tabularnewline
+300 & 100000 & 0 & 100000 & 0 & 0 & 0\tabularnewline
+\bottomrule
+\end{longtable}
+
+\hypertarget{gam_dist}{\section{\texorpdfstring{Sensitivity of
+distribution of
+\(\gamma\)}{Sensitivity of distribution of \textbackslash{}gamma}}\label{gam_dist}}
 
 In the main text, I considered a uniform distribution of component
 response rates \(\gamma \sim \mathcal{U}(0, 2)\). The number of unstable
-and stable \(M\) matrices are reported in \protect\hyperlink{IncrS}{a
-table above} across different values of \(S\). Here I show complementary
-results for three different distributions including an exponential,
-beta, and gamma distribution of \(\gamma\) values. The shape of these
-distributions is shown in the figure below.
+and stable \(\mathbf{M}\) matrices are reported in
+\protect\hyperlink{IncrS}{a table above} across different values of
+\(S\). Here I show complementary results for three different
+distributions including an exponential, beta, and gamma distribution of
+\(\gamma\) values. The shape of these distributions is shown in the
+figure below.
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
@@ -2036,18 +1818,11 @@ panel shows 1 million randomly generated \(\gamma\) values.
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
-The same 100000 \(M\) matrices were used to investigate stability when
-applying each of these different distributions of \(\gamma\) values. The
-table below shows the number of \(M\) that were unstable (\_unst) and
-stable (\_stbl) for the exponential (Exp), beta, and gamma
-distributions.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{fourdists <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\DataTypeTok{file =} \StringTok{"sim_results/different_distr/four_distr_rand.csv"}\NormalTok{);}
-\KeywordTok{kable}\NormalTok{(fourdists);}
-\end{Highlighting}
-\end{Shaded}
+The same 100000 \(\mathbf{M}\) matrices were used to investigate
+stability when applying each of these different distributions of
+\(\gamma\) values. The table below shows the number of \(\mathbf{M}\)
+that were unstable (\_unst) and stable (\_stbl) for the exponential
+(Exp), beta, and gamma distributions.
 
 \begin{longtable}[]{@{}lllllll@{}}
 \toprule
@@ -2096,393 +1871,13 @@ In comparison to the uniform distribution (a), proportionally fewer
 random systems are found with the exponential distribution (b), while
 more are found with the beta (c) and gamma (d) distributions.
 
-\hypertarget{ga}{\section{Genetic algorithm}\label{ga}}
-
-Ideally, to investigate the potential of \(Var(\gamma)\) for increasing
-the proportion of stable complex systems, the search space of all
-possible \(\gamma\) vectors would be evaluated for each unique \(M\).
-This is technically impossible because \(\gamma_{i}\) can take any real
-value between 0-2, but even rounding \(\gamma\) to reasonable values
-would result in a search space too large to practically explore. Under
-these conditions, genetic algorithms are highly useful tools for finding
-practical solutions by mimicking the process of biological
-evolution\textsuperscript{\protect\hyperlink{ref-Hamblin2013}{6}}. In
-this case, the practical solution is finding vectors of \(\gamma\) that
-decrease the most positive real eigenvalue of \(M\). The genetic
-algorithm below achieves this by initialising a large population of 1000
-different potential \(\gamma\) vectors and allowing this population to
-evolve through a process of mutation, crossover (swaping \(\gamma_{i}\)
-values between vectors), selection, and reproduction until either a
-\(\gamma\) vector is found where all \(\Re(\lambda) < 0\) or some
-``giving up'' critiera is met (in the below, this ``giving up''"
-criteria is met when 20 generations pass, or if the fitness increase
-from one generation to the next is below a certain criteria). The
-genetic algorithm relies on five functions. The first outer function
-\texttt{Evo\_rand\_gen\_var} runs all of the simulations
-(\texttt{max\_sp} refers to the maximum \(S\) value simulated, and
-\texttt{iters} refers to the number of \(M\) to try for each \(S\)).
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{Evo_rand_gen_var <-}\StringTok{ }\NormalTok{function(max_sp, iters, }\DataTypeTok{int_type =} \DecValTok{0}\NormalTok{, }\DataTypeTok{rmx =} \FloatTok{0.4}\NormalTok{, }\DataTypeTok{C =} \DecValTok{1}\NormalTok{)\{}
-    \NormalTok{tot_res <-}\StringTok{ }\OtherTok{NULL}\NormalTok{;}
-    \NormalTok{fea_res <-}\StringTok{ }\OtherTok{NULL}\NormalTok{;}
-    \NormalTok{for(i in }\DecValTok{2}\NormalTok{:max_sp)\{}
-        \NormalTok{nn             <-}\StringTok{ }\NormalTok{i;}
-        \NormalTok{A1_stt         <-}\StringTok{ }\DecValTok{0}\NormalTok{;}
-        \NormalTok{A2_stt         <-}\StringTok{ }\DecValTok{0}\NormalTok{;}
-        \NormalTok{A1_fet         <-}\StringTok{ }\DecValTok{0}\NormalTok{;}
-        \NormalTok{A2_fet         <-}\StringTok{ }\DecValTok{0}\NormalTok{;}
-        \NormalTok{iter           <-}\StringTok{ }\NormalTok{iters;}
-        \NormalTok{tot_res[[i}\DecValTok{-1}\NormalTok{]] <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{data =} \DecValTok{0}\NormalTok{, }\DataTypeTok{nrow =} \NormalTok{iter, }\DataTypeTok{ncol =} \DecValTok{3}\NormalTok{);}
-        \NormalTok{fea_res[[i}\DecValTok{-1}\NormalTok{]] <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{data =} \DecValTok{0}\NormalTok{, }\DataTypeTok{nrow =} \NormalTok{iter, }\DataTypeTok{ncol =} \DecValTok{2}\NormalTok{);}
-        \NormalTok{while(iter >}\StringTok{ }\DecValTok{0}\NormalTok{)\{}
-            \NormalTok{r_vec    <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DataTypeTok{n =} \NormalTok{i, }\DataTypeTok{mean =} \DecValTok{0}\NormalTok{, }\DataTypeTok{sd =} \NormalTok{rmx);}
-            \NormalTok{A0_dat   <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DataTypeTok{n =} \NormalTok{i *}\StringTok{ }\NormalTok{i, }\DataTypeTok{mean =} \DecValTok{0}\NormalTok{, }\DataTypeTok{sd =} \FloatTok{0.4}\NormalTok{);}
-            \NormalTok{A0       <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{data =} \NormalTok{A0_dat, }\DataTypeTok{nrow =} \NormalTok{i, }\DataTypeTok{ncol =} \NormalTok{i);}
-            \NormalTok{A0       <-}\StringTok{ }\KeywordTok{species_interactions}\NormalTok{(}\DataTypeTok{mat =} \NormalTok{A0, }\DataTypeTok{type =} \NormalTok{int_type);}
-            \NormalTok{C_dat    <-}\StringTok{ }\KeywordTok{rbinom}\NormalTok{(}\DataTypeTok{n =} \NormalTok{i *}\StringTok{ }\NormalTok{i, }\DataTypeTok{size =} \DecValTok{1}\NormalTok{, }\DataTypeTok{prob =} \NormalTok{C);}
-            \NormalTok{C_mat    <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{data =} \NormalTok{C_dat, }\DataTypeTok{nrow =} \NormalTok{i, }\DataTypeTok{ncol =} \NormalTok{i);}
-            \NormalTok{A0       <-}\StringTok{ }\NormalTok{A0 *}\StringTok{ }\NormalTok{C_mat;}
-            \KeywordTok{diag}\NormalTok{(A0) <-}\StringTok{ }\NormalTok{-}\DecValTok{1}\NormalTok{;}
-            \NormalTok{gam1     <-}\StringTok{ }\KeywordTok{runif}\NormalTok{(}\DataTypeTok{n =} \NormalTok{i, }\DataTypeTok{min =} \DecValTok{0}\NormalTok{, }\DataTypeTok{max =} \DecValTok{2}\NormalTok{);}
-            \NormalTok{A1       <-}\StringTok{ }\NormalTok{A0 *}\StringTok{ }\NormalTok{gam1;}
-            \NormalTok{A0_stb   <-}\StringTok{ }\KeywordTok{max}\NormalTok{(}\KeywordTok{Re}\NormalTok{(}\KeywordTok{eigen}\NormalTok{(A0)$values)) <}\StringTok{ }\DecValTok{0}\NormalTok{;}
-            \NormalTok{A1_stb   <-}\StringTok{ }\KeywordTok{rand_mat_ga}\NormalTok{(A1);}
-            \NormalTok{A0_fea   <-}\StringTok{ }\KeywordTok{min}\NormalTok{(-}\DecValTok{1}\NormalTok{*}\KeywordTok{solve}\NormalTok{(A0) %*%}\StringTok{ }\NormalTok{r_vec) >}\StringTok{ }\DecValTok{0}\NormalTok{;}
-            \NormalTok{A1_fea   <-}\StringTok{ }\KeywordTok{min}\NormalTok{(-}\DecValTok{1}\NormalTok{*}\KeywordTok{solve}\NormalTok{(A1) %*%}\StringTok{ }\NormalTok{r_vec) >}\StringTok{ }\DecValTok{0}\NormalTok{;}
-            \NormalTok{if(A0_stb ==}\StringTok{ }\OtherTok{TRUE}\NormalTok{)\{}
-                \NormalTok{tot_res[[i}\DecValTok{-1}\NormalTok{]][iter, }\DecValTok{1}\NormalTok{] <-}\StringTok{ }\DecValTok{1}\NormalTok{;}
-            \NormalTok{\}}
-            \NormalTok{if(A1_stb ==}\StringTok{ }\OtherTok{TRUE}\NormalTok{)\{}
-                \NormalTok{tot_res[[i}\DecValTok{-1}\NormalTok{]][iter, }\DecValTok{2}\NormalTok{] <-}\StringTok{ }\DecValTok{1}\NormalTok{;}
-            \NormalTok{\}}
-            \NormalTok{if(A0_fea ==}\StringTok{ }\OtherTok{TRUE}\NormalTok{)\{}
-                \NormalTok{fea_res[[i}\DecValTok{-1}\NormalTok{]][iter, }\DecValTok{1}\NormalTok{] <-}\StringTok{ }\DecValTok{1}\NormalTok{;}
-            \NormalTok{\}}
-            \NormalTok{if(A1_fea ==}\StringTok{ }\OtherTok{TRUE}\NormalTok{)\{}
-                \NormalTok{fea_res[[i}\DecValTok{-1}\NormalTok{]][iter, }\DecValTok{2}\NormalTok{] <-}\StringTok{ }\DecValTok{1}\NormalTok{;}
-            \NormalTok{\}}
-            \NormalTok{iter    <-}\StringTok{ }\NormalTok{iter -}\StringTok{ }\DecValTok{1}\NormalTok{;}
-        \NormalTok{\}}
-        \KeywordTok{print}\NormalTok{(i);}
-    \NormalTok{\}}
-    \NormalTok{all_res <-}\StringTok{ }\KeywordTok{summarise_randmat}\NormalTok{(}\DataTypeTok{tot_res =} \NormalTok{tot_res, }\DataTypeTok{fea_res =} \NormalTok{fea_res);}
-    \KeywordTok{return}\NormalTok{(all_res);}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-Note that \texttt{Evo\_rand\_gen\_var} calls three custom sub-functions,
-\texttt{species\_interactions}, \texttt{rand\_mat\_ga}, and
-\texttt{summarise\_randmat}. The first simply allows for non-random
-interactions between components (e.g., modelling
-\protect\hyperlink{ecological}{ecological interactions} of random,
-competition, mutualism, or predator-prey).
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{species_interactions <-}\StringTok{ }\NormalTok{function(mat, }\DataTypeTok{type =} \DecValTok{0}\NormalTok{)\{}
-    \NormalTok{if(type ==}\StringTok{ }\DecValTok{1}\NormalTok{)\{}
-        \NormalTok{mat[mat >}\StringTok{ }\DecValTok{0}\NormalTok{] <-}\StringTok{ }\NormalTok{-}\DecValTok{1}\NormalTok{*mat[mat >}\StringTok{ }\DecValTok{0}\NormalTok{];}
-    \NormalTok{\}}
-    \NormalTok{if(type ==}\StringTok{ }\DecValTok{2}\NormalTok{)\{}
-        \NormalTok{mat[mat <}\StringTok{ }\DecValTok{0}\NormalTok{] <-}\StringTok{ }\NormalTok{-}\DecValTok{1}\NormalTok{*mat[mat <}\StringTok{ }\DecValTok{0}\NormalTok{];}
-    \NormalTok{\}}
-    \NormalTok{if(type ==}\StringTok{ }\DecValTok{3}\NormalTok{)\{}
-        \NormalTok{for(i in }\DecValTok{1}\NormalTok{:}\KeywordTok{dim}\NormalTok{(mat)[}\DecValTok{1}\NormalTok{])\{}
-            \NormalTok{for(j in }\DecValTok{1}\NormalTok{:}\KeywordTok{dim}\NormalTok{(mat)[}\DecValTok{2}\NormalTok{])\{}
-                \NormalTok{if(mat[i, j] *}\StringTok{ }\NormalTok{mat[j, i] >}\StringTok{ }\DecValTok{0}\NormalTok{)\{}
-                    \NormalTok{mat[j, i] <-}\StringTok{ }\NormalTok{-}\DecValTok{1} \NormalTok{*}\StringTok{ }\NormalTok{mat[j, i];}
-                \NormalTok{\}}
-            \NormalTok{\}}
-        \NormalTok{\}}
-    \NormalTok{\}}
-    \KeywordTok{return}\NormalTok{(mat);}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-The sub-function \texttt{rand\_mat\_ga} does the work of the genetic
-algorithm, searching for \(\gamma\) vectors that are stabilising.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{rand_mat_ga <-}\StringTok{ }\NormalTok{function(A1, }\DataTypeTok{max_it =} \DecValTok{20}\NormalTok{, }\DataTypeTok{converg =} \FloatTok{0.01}\NormalTok{)\{}
-    \NormalTok{nn       <-}\StringTok{ }\KeywordTok{dim}\NormalTok{(A1)[}\DecValTok{1}\NormalTok{];}
-    \NormalTok{rind     <-}\StringTok{ }\KeywordTok{runif}\NormalTok{(}\DataTypeTok{n =} \NormalTok{nn*}\DecValTok{1000}\NormalTok{, }\DataTypeTok{min =} \DecValTok{0}\NormalTok{, }\DataTypeTok{max =} \DecValTok{1}\NormalTok{);}
-    \NormalTok{inds     <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{data =} \NormalTok{rind, }\DataTypeTok{nrow =} \DecValTok{1000}\NormalTok{, }\DataTypeTok{ncol =} \NormalTok{nn);}
-    \NormalTok{lastf    <-}\StringTok{ }\NormalTok{-}\DecValTok{10}\NormalTok{;}
-    \NormalTok{ccrit    <-}\StringTok{ }\DecValTok{10}\NormalTok{;}
-    \NormalTok{find_st  <-}\StringTok{ }\DecValTok{0}\NormalTok{;}
-    \NormalTok{iter     <-}\StringTok{ }\NormalTok{max_it;}
-    \NormalTok{while(iter >}\StringTok{ }\DecValTok{0} \NormalTok{&}\StringTok{ }\NormalTok{find_st <}\StringTok{ }\DecValTok{1} \NormalTok{&}\StringTok{ }\NormalTok{ccrit >}\StringTok{ }\NormalTok{converg)\{}
-        \NormalTok{ivar  <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\DataTypeTok{x =} \DecValTok{0}\NormalTok{, }\DataTypeTok{length =} \KeywordTok{dim}\NormalTok{(inds)[}\DecValTok{1}\NormalTok{]);}
-        \NormalTok{ifit  <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\DataTypeTok{x =} \DecValTok{0}\NormalTok{, }\DataTypeTok{length =} \KeywordTok{dim}\NormalTok{(inds)[}\DecValTok{1}\NormalTok{]);}
-        \NormalTok{isst  <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\DataTypeTok{x =} \DecValTok{0}\NormalTok{, }\DataTypeTok{length =} \KeywordTok{dim}\NormalTok{(inds)[}\DecValTok{1}\NormalTok{]);}
-        \NormalTok{for(i in }\DecValTok{1}\NormalTok{:}\KeywordTok{dim}\NormalTok{(inds)[}\DecValTok{1}\NormalTok{])\{}
-            \NormalTok{ifit[i] <-}\StringTok{ }\NormalTok{-}\DecValTok{1}\NormalTok{*}\KeywordTok{max}\NormalTok{(}\KeywordTok{Re}\NormalTok{(}\KeywordTok{eigen}\NormalTok{(inds[i,]*A1)$values));}
-            \NormalTok{ivar[i] <-}\StringTok{ }\KeywordTok{var}\NormalTok{(inds[i,]);}
-            \NormalTok{isst[i] <-}\StringTok{ }\KeywordTok{max}\NormalTok{(}\KeywordTok{Re}\NormalTok{(}\KeywordTok{eigen}\NormalTok{(inds[i,]*A1)$values)) <}\StringTok{ }\DecValTok{0}\NormalTok{;}
-        \NormalTok{\}}
-        \NormalTok{most_fit <-}\StringTok{ }\KeywordTok{order}\NormalTok{(ifit, }\DataTypeTok{decreasing =} \OtherTok{TRUE}\NormalTok{)[}\DecValTok{1}\NormalTok{:}\DecValTok{20}\NormalTok{];}
-        \NormalTok{parents  <-}\StringTok{ }\NormalTok{inds[most_fit,];}
-        \NormalTok{new_gen  <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{data =} \KeywordTok{t}\NormalTok{(parents), }\DataTypeTok{nrow =} \DecValTok{1000}\NormalTok{, }\DataTypeTok{ncol =} \NormalTok{nn, }
-                           \DataTypeTok{byrow =} \OtherTok{TRUE}\NormalTok{);}
-        \NormalTok{mu_dat   <-}\StringTok{ }\KeywordTok{rbinom}\NormalTok{(}\DataTypeTok{n =} \NormalTok{nn*}\DecValTok{1000}\NormalTok{, }\DataTypeTok{size =} \DecValTok{1}\NormalTok{, }\DataTypeTok{prob =} \FloatTok{0.2}\NormalTok{);}
-        \NormalTok{mu_dat2  <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DataTypeTok{n =} \NormalTok{nn*}\DecValTok{1000}\NormalTok{, }\DataTypeTok{mean =} \DecValTok{0}\NormalTok{, }\DataTypeTok{sd =} \FloatTok{0.02}\NormalTok{);}
-        \NormalTok{mu_dat2[mu_dat2 <}\StringTok{ }\DecValTok{0}\NormalTok{] <-}\StringTok{ }\NormalTok{-mu_dat2[mu_dat2 <}\StringTok{ }\DecValTok{0}\NormalTok{];}
-        \NormalTok{mu_dat2[mu_dat2 >}\StringTok{ }\DecValTok{2}\NormalTok{] <-}\StringTok{ }\DecValTok{2}\NormalTok{;}
-        \NormalTok{mu_dat3  <-}\StringTok{ }\NormalTok{mu_dat *}\StringTok{ }\NormalTok{mu_dat2;}
-        \NormalTok{mu_mat   <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{data =} \NormalTok{mu_dat3, }\DataTypeTok{nrow =} \DecValTok{1000}\NormalTok{, }\DataTypeTok{ncol =} \NormalTok{nn);}
-        \NormalTok{new_gen  <-}\StringTok{ }\NormalTok{new_gen +}\StringTok{ }\NormalTok{mu_mat;}
-        \NormalTok{new_gen  <-}\StringTok{ }\KeywordTok{crossover}\NormalTok{(}\DataTypeTok{inds =} \NormalTok{new_gen, }\DataTypeTok{pr =} \FloatTok{0.1}\NormalTok{);}
-        \NormalTok{inds     <-}\StringTok{ }\NormalTok{new_gen;}
-        \NormalTok{find_st  <-}\StringTok{ }\KeywordTok{max}\NormalTok{(isst);}
-        \NormalTok{newf     <-}\StringTok{ }\KeywordTok{mean}\NormalTok{(ifit);}
-        \NormalTok{ccrit    <-}\StringTok{ }\NormalTok{newf -}\StringTok{ }\NormalTok{lastf;}
-        \NormalTok{lastf    <-}\StringTok{ }\NormalTok{newf;}
-        \NormalTok{iter     <-}\StringTok{ }\NormalTok{iter -}\StringTok{ }\DecValTok{1}\NormalTok{;}
-    \NormalTok{\}}
-    \NormalTok{if(find_st ==}\StringTok{ }\DecValTok{1}\NormalTok{)\{}
-        \NormalTok{s_row <-}\StringTok{ }\KeywordTok{which}\NormalTok{(isst ==}\StringTok{ }\DecValTok{1}\NormalTok{)[}\DecValTok{1}\NormalTok{];}
-        \NormalTok{writt <-}\StringTok{ }\KeywordTok{c}\NormalTok{(nn, inds[s_row,]);}
-        \KeywordTok{cat}\NormalTok{(writt, }\DataTypeTok{file =} \StringTok{"evo_out.txt"}\NormalTok{, }\DataTypeTok{append =} \OtherTok{TRUE}\NormalTok{);}
-        \KeywordTok{cat}\NormalTok{(}\StringTok{"}\CharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, }\DataTypeTok{file =} \StringTok{"evo_out.txt"}\NormalTok{, }\DataTypeTok{append =} \OtherTok{TRUE}\NormalTok{);}
-    \NormalTok{\}}
-    \KeywordTok{return}\NormalTok{(find_st);}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-The while loop in \texttt{rand\_mat\_ga} continues until either
-\texttt{iter} generations have occured, a solution \(\gamma\) vector is
-found that results in all \(\Re(\lambda) < 0\), or some criteria of
-minimum fitness increase is observed (by default,
-\texttt{converg\ =\ 0.01}). Within the genetic algorithm, \(\gamma\)
-values are mutated, crossover occurs between \(\gamma\) vectors, and
-selection occurs in each generation such that the 20 \(\gamma\) vectors
-that produce the lowest maximum \(\Re(\lambda)\) are allowed to have 50
-offspring each. In mutation, any \(\gamma_{i}\) values that mutate below
-zero are multiplied by \(-1\), and any values that mutate above 2 are
-set to 2. Note also that if a solution is found, then one such
-\(\gamma\) vector causing stability is printed to a file.
-
-Crossover occurs in the \texttt{crossover} function below.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{crossover <-}\StringTok{ }\NormalTok{function(inds, }\DataTypeTok{pr =} \FloatTok{0.1}\NormalTok{)\{}
-    \NormalTok{crossed <-}\StringTok{ }\KeywordTok{floor}\NormalTok{(}\KeywordTok{dim}\NormalTok{(inds)[}\DecValTok{1}\NormalTok{] *}\StringTok{ }\NormalTok{pr);}
-    \NormalTok{cross1  <-}\StringTok{ }\KeywordTok{sample}\NormalTok{(}\DataTypeTok{x =} \DecValTok{1}\NormalTok{:}\KeywordTok{dim}\NormalTok{(inds)[}\DecValTok{1}\NormalTok{], }\DataTypeTok{size =} \NormalTok{crossed);}
-    \NormalTok{cross2  <-}\StringTok{ }\KeywordTok{sample}\NormalTok{(}\DataTypeTok{x =} \DecValTok{1}\NormalTok{:}\KeywordTok{dim}\NormalTok{(inds)[}\DecValTok{1}\NormalTok{], }\DataTypeTok{size =} \NormalTok{crossed);}
-    \NormalTok{for(i in }\DecValTok{1}\NormalTok{:}\KeywordTok{length}\NormalTok{(cross1))\{}
-        \NormalTok{fromv   <-}\StringTok{ }\KeywordTok{sample}\NormalTok{(}\DataTypeTok{x =} \DecValTok{1}\NormalTok{:}\KeywordTok{dim}\NormalTok{(inds)[}\DecValTok{2}\NormalTok{], }\DataTypeTok{size =} \DecValTok{1}\NormalTok{);}
-        \NormalTok{tov     <-}\StringTok{ }\KeywordTok{sample}\NormalTok{(}\DataTypeTok{x =} \DecValTok{1}\NormalTok{:}\KeywordTok{dim}\NormalTok{(inds)[}\DecValTok{2}\NormalTok{], }\DataTypeTok{size =} \DecValTok{1}\NormalTok{);}
-        \NormalTok{temp                   <-}\StringTok{ }\NormalTok{inds[cross1[i],fromv:tov];}
-        \NormalTok{inds[cross1[i],fromv:tov] <-}\StringTok{ }\NormalTok{inds[cross2[i],fromv:tov];}
-        \NormalTok{inds[cross2[i],fromv:tov] <-}\StringTok{ }\NormalTok{temp;}
-    \NormalTok{\}}
-    \KeywordTok{return}\NormalTok{(inds);}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-After all \(M\) are simulated in \texttt{Evo\_rand\_gen\_var}, the
-\texttt{summarise\_randmat} formats the data into a table.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{summarise_randmat <-}\StringTok{ }\NormalTok{function(tot_res, fea_res)\{}
-    \NormalTok{sims    <-}\StringTok{ }\KeywordTok{length}\NormalTok{(tot_res);}
-    \NormalTok{all_res <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{data =} \DecValTok{0}\NormalTok{, }\DataTypeTok{nrow =} \NormalTok{sims, }\DataTypeTok{ncol =} \DecValTok{7}\NormalTok{);}
-    \NormalTok{for(i in }\DecValTok{1}\NormalTok{:sims)\{}
-        \NormalTok{A0_unst   <-}\StringTok{ }\NormalTok{tot_res[[i]][,}\DecValTok{1}\NormalTok{] ==}\StringTok{ }\OtherTok{FALSE}\NormalTok{;}
-        \NormalTok{A0_stbl   <-}\StringTok{ }\NormalTok{tot_res[[i]][,}\DecValTok{1}\NormalTok{] ==}\StringTok{ }\OtherTok{TRUE}\NormalTok{;}
-        \NormalTok{A1_unst   <-}\StringTok{ }\NormalTok{tot_res[[i]][,}\DecValTok{2}\NormalTok{] ==}\StringTok{ }\OtherTok{FALSE}\NormalTok{;}
-        \NormalTok{A1_stbl   <-}\StringTok{ }\NormalTok{tot_res[[i]][,}\DecValTok{2}\NormalTok{] ==}\StringTok{ }\OtherTok{TRUE}\NormalTok{;}
-        \NormalTok{stabled   <-}\StringTok{ }\NormalTok{tot_res[[i]][,}\DecValTok{1}\NormalTok{] ==}\StringTok{ }\OtherTok{FALSE} \NormalTok{&}\StringTok{ }\NormalTok{tot_res[[i]][,}\DecValTok{2}\NormalTok{] ==}\StringTok{ }\OtherTok{TRUE}\NormalTok{;}
-        \NormalTok{unstabled <-}\StringTok{ }\NormalTok{tot_res[[i]][,}\DecValTok{1}\NormalTok{] ==}\StringTok{ }\OtherTok{TRUE}  \NormalTok{&}\StringTok{ }\NormalTok{tot_res[[i]][,}\DecValTok{2}\NormalTok{] ==}\StringTok{ }\OtherTok{FALSE}\NormalTok{;}
-        \NormalTok{all_res[i, }\DecValTok{1}\NormalTok{]  <-}\StringTok{ }\NormalTok{i +}\StringTok{ }\DecValTok{1}\NormalTok{;}
-        \NormalTok{all_res[i, }\DecValTok{2}\NormalTok{]  <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(A0_unst);}
-        \NormalTok{all_res[i, }\DecValTok{3}\NormalTok{]  <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(A0_stbl);}
-        \NormalTok{all_res[i, }\DecValTok{4}\NormalTok{]  <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(A1_unst);}
-        \NormalTok{all_res[i, }\DecValTok{5}\NormalTok{]  <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(A1_stbl);}
-        \NormalTok{all_res[i, }\DecValTok{6}\NormalTok{]  <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(stabled);}
-        \NormalTok{all_res[i, }\DecValTok{7}\NormalTok{]  <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(unstabled);}
-    \NormalTok{\}}
-    \KeywordTok{colnames}\NormalTok{(all_res) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{"N"}\NormalTok{, }\StringTok{"A0_unstable"}\NormalTok{, }\StringTok{"A0_stable"}\NormalTok{, }\StringTok{"A1_unstable"}\NormalTok{,}
-                           \StringTok{"A1_stable"}\NormalTok{, }\StringTok{"A1_stabilised"}\NormalTok{, }\StringTok{"A1_destabilised"}\NormalTok{);}
-    \KeywordTok{return}\NormalTok{(all_res);}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-Stability results for 40000 \(M\) for each \(S\) from 2-40 are shown below. Results for \texttt{A0}
-indicate systems in which \(\gamma = 1\), while \texttt{A1} refers to systems in 
-which the genetic algorithm searched for a set of \(\gamma\) values that 
-stabilised the system. 
-
-\begin{longtable}[]{@{}rrrrrrr@{}}
-\toprule
-S & A0\_unstable & A0\_stable & A1\_unstable & A1\_stable &
-A1\_stabilised & A1\_destabilised\tabularnewline
-\midrule
-\endhead
-2 & 13 & 39987 & 13 & 39987 & 0 & 0\tabularnewline
-3 & 157 & 39843 & 157 & 39843 & 0 & 0\tabularnewline
-4 & 563 & 39437 & 563 & 39437 & 0 & 0\tabularnewline
-5 & 1588 & 38412 & 1581 & 38419 & 7 & 0\tabularnewline
-6 & 3268 & 36732 & 3219 & 36781 & 49 & 0\tabularnewline
-7 & 5370 & 34630 & 5196 & 34804 & 175 & 1\tabularnewline
-8 & 8231 & 31769 & 7604 & 32396 & 627 & 0\tabularnewline
-9 & 11704 & 28296 & 10181 & 29819 & 1523 & 0\tabularnewline
-10 & 15215 & 24785 & 12303 & 27697 & 2912 & 0\tabularnewline
-11 & 19529 & 20471 & 14599 & 25401 & 4930 & 0\tabularnewline
-12 & 23480 & 16520 & 16210 & 23790 & 7270 & 0\tabularnewline
-13 & 27570 & 12430 & 17800 & 22200 & 9770 & 0\tabularnewline
-14 & 31096 & 8904 & 18899 & 21101 & 12198 & 1\tabularnewline
-15 & 34036 & 5964 & 19948 & 20052 & 14089 & 1\tabularnewline
-16 & 36231 & 3769 & 21000 & 19000 & 15231 & 0\tabularnewline
-17 & 37737 & 2263 & 21693 & 18307 & 16044 & 0\tabularnewline
-18 & 38808 & 1192 & 22291 & 17709 & 16518 & 1\tabularnewline
-19 & 39391 & 609 & 23221 & 16779 & 16170 & 0\tabularnewline
-20 & 39711 & 289 & 23943 & 16057 & 15768 & 0\tabularnewline
-21 & 39867 & 133 & 25361 & 14639 & 14506 & 0\tabularnewline
-22 & 39950 & 50 & 26584 & 13416 & 13366 & 0\tabularnewline
-23 & 39982 & 18 & 28162 & 11838 & 11820 & 0\tabularnewline
-24 & 39994 & 6 & 29660 & 10340 & 10334 & 0\tabularnewline
-25 & 39997 & 3 & 31405 & 8595 & 8592 & 0\tabularnewline
-26 & 39999 & 1 & 33057 & 6943 & 6942 & 0\tabularnewline
-27 & 40000 & 0 & 34602 & 5398 & 5398 & 0\tabularnewline
-28 & 40000 & 0 & 35957 & 4043 & 4043 & 0\tabularnewline
-29 & 40000 & 0 & 37154 & 2846 & 2846 & 0\tabularnewline
-30 & 40000 & 0 & 38104 & 1896 & 1896 & 0\tabularnewline
-31 & 40000 & 0 & 38722 & 1278 & 1278 & 0\tabularnewline
-32 & 40000 & 0 & 39259 & 741 & 741 & 0\tabularnewline
-33 & 40000 & 0 & 39551 & 449 & 449 & 0\tabularnewline
-34 & 40000 & 0 & 39742 & 258 & 258 & 0\tabularnewline
-35 & 40000 & 0 & 39879 & 121 & 121 & 0\tabularnewline
-36 & 40000 & 0 & 39929 & 71 & 71 & 0\tabularnewline
-37 & 40000 & 0 & 39967 & 33 & 33 & 0\tabularnewline
-38 & 40000 & 0 & 39989 & 11 & 11 & 0\tabularnewline
-39 & 40000 & 0 & 39994 & 6 & 6 & 0\tabularnewline
-40 & 40000 & 0 & 39996 & 4 & 4 & 0\tabularnewline
-\bottomrule
-\end{longtable}
-
-The distributions of nine \(\gamma\) vectors from the highest \(S\)
-values are shown below. Recall that 1 million random matrices were
-generated for the less computationally intense task of
-\protect\hyperlink{IncrS}{comparing} \(M\) when \(\gamma = 1\) versus
-when \(\gamma \sim \mathcal{U}(0, 2)\), so it is more informative to
-compare stability in column 5 above with column 3 above. \textbf{This
-comparison shows the high number of stable \(M\) that can be produced
-through a targetted search of \(\gamma\) values, and suggests that many
-otherwise unstable systems could potentially be stabilised by an
-informed manipulation of their component response times. Such a
-possibility might conceivably reduce the dimensionality of problems
-involving stability in social-ecological or economic systems.}
-
-Distributions of \(\gamma\) values in vectors for the highest values of
-\(S\) are shown below.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{evo_out <-}\StringTok{ }\KeywordTok{scan}\NormalTok{(}\DataTypeTok{file =} \StringTok{"sim_results/evolved/evo_out.txt"}\NormalTok{);}
-\KeywordTok{plot_evo_out}\NormalTok{(evo_out);}
-\end{Highlighting}
-\end{Shaded}
-
-\includegraphics{unnamed-chunk-31-1.pdf}
-
-The distribution of \(\gamma\) values found by the genetic algorithm is
-uniform. A uniform distribution was used to initialise \(\gamma\)
-values, so there is therefore no evidence that a particular distribution
-of \(\gamma\) is likely to be found to stabilise a matrix \(M\).
-
 \hypertarget{Feasibility}{\section{Feasibility of complex
 systems}\label{Feasibility}}
 
-For complex systems in which individual system components (\(S\))
-represent the density of some tangible quantity, it is important to
-consider the feasibility of the system. Feasibile equilibria assume that
-the values of all system components are positive at
-equilibrium\textsuperscript{\protect\hyperlink{ref-Grilli2017}{7}--\protect\hyperlink{ref-Song2018}{9}}.
-This is of particular interest for ecological communities because
-population density cannot take negative values, meaning that ecological
-systems need to be feasible for stability to be biologically
-realistic\textsuperscript{\protect\hyperlink{ref-Dougoud2018}{8}}.
-Consequently, the use of random matrices and traditional stability
-critiera for making inferences in theoretical analyses of species
-networks has recently been
-criticised\textsuperscript{\protect\hyperlink{ref-Dougoud2018}{8}}.
-While the key results in the main text are intended to be general to all
-complex systems, and not restricted to species networks, I have also
-performed a feasibility analysis on all matrices \(M\). This analysis
-reveals that feasibility is not affected by \(Var(\gamma)\), meaning
-that for pure interacting species networks, variation in component
-response time (i.e., species generation time) does not affect stability
-at biologically realistic species densities. Nevertheless, ecological
-interactions do not exist in isolation in empirical systems, but instead
-interact with
-evolutionary\textsuperscript{\protect\hyperlink{ref-Patel2018}{10}},
-abiotic, or social-economic systems. The relevance of \(\gamma\) for
-complex system stability presented in the main text should therefore not
-be ignored in the broader context of ecological communities.
-
-Dougoud et al.\textsuperscript{\protect\hyperlink{ref-Dougoud2018}{8}}
-define the following feasibility criteria for ecological systems
-characterised by \(S\) interacting species with varying densities.
-
-\[x^{*} = -\left(\theta I + (CS)^{-\delta}A\right)^{-1}r.\]
-
-In the above, \(x^{*}\) is the vector of species abundances at
-equilibrium (for feasibility, all values in \(x^{*}\) must be positive).
-The matrix \(I\) is the identity matrix (1s on the diagonal, 0s on the
-off-diagonal elements), and the value \(\theta\) is strength of
-intraspecific competition (diagonal elements). As I have done elsewhere,
-diagonal values are set to \(-1\), so \(\theta = -1\). The variable
-\(C\) is the connectance of the community,
-which was set to \(C = 1\) throughout the manuscript and supplemental
-information, except \protect\hyperlink{connectance}{where otherwise
-noted}. The variable \(\delta\) is a normalisation parameter that
-modulates the strength of interactions (\(\sigma\) in the main text),
-which are held in \(A\). In the main text, implicitly, \(\delta = 0\)
-underlying strong interactions. Hence, the whole \((CS)^{-\delta} = 1\),
-so in the above, a diagonal matrix of -1s (\(\theta I\)) is added to
-\(A\), which has a diagonal of all zeros and an off-diagonal affecting
-species interactions (i.e., the expression \((CS)^{-\delta}\) relates to
-May's\textsuperscript{\protect\hyperlink{ref-May1972}{1}} stability
-criterion\textsuperscript{\protect\hyperlink{ref-Dougoud2018}{8}} by
-\(\frac{\sigma}{(CS)^{-\delta}}\sqrt{SC} < -1\), and hence
-\((CS)^{-\delta} = 1\) for the randomly simulated systems in the main
-text and Supplementary Information). The above criteria is therefore
-reduced to the below; note that the parenthetical in both equations
-produces an \(M\) matrix as used throughout the main text and
-supplemental information,
-
-\[x^{*} = -\left(\theta I + A\right)^{-1}r.\]
-
-To check the feasibility criteria, I therefore inverted
-\(M = (\theta I + A)\) and multiplied elements by -1, then multiplied
-the resulting matrix by the vector of population growth rates \(r\).
-Feasibility is satisfied if all of the elements of the resulting vector
-are positive.
-
-The population growth rate for an individual species \(i\) is sampled
-from a normal distribution of \(r_{i} \sim \mathcal{N}(0, 0.4^{2})\), as
-shown in the \texttt{rand\_gen\_var} function in
-\protect\hyperlink{IncrS}{the section} on ``Stability across increasing
-\(S\)'' above. Hence, each component \(i\) of the complex system \(M\)
-is assumed to be a species with a growth rate of \(r_{i}\). Note that
-negative intrinsic growth rates are not unrealistic, and will occur in
-obligate mutualists in the absence of a partner.
-
 When feasibility was evaluated with and without variation in \(\gamma\),
-there was no increase in stability for \(M\) where \(\gamma\) varied as
-compared to where \(\gamma = 1\). Results below illustrate this result,
-which was general to all other simulations performed.
+there was no increase in stability for \(\mathbf{M}\) where \(\gamma\)
+varied as compared to where \(\gamma = 1\). Results below illustrate
+this result, which was general to all other simulations performed.
 
 \begin{longtable}[]{@{}rrrrrrr@{}}
 \toprule
@@ -2543,63 +1938,213 @@ A1\_made\_feasible & A1\_made\_infeasible\tabularnewline
 \end{longtable}
 
 Hence, in general, \(Var(\gamma)\) does not appear to affect feasibility
-in pure species interaction networks.
+in pure species interaction
+networks\textsuperscript{\protect\hyperlink{ref-Servan2018}{4}}.
+
+\hypertarget{Gibbs}{\section{Consistency with Gibbs et al.
+(2018)}\label{Gibbs}}
+
+The question that I address in the main text is distinct from that of
+Gibbs et al\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{5}}, which
+focused instead on the effect of a diagonal matrix of biological species
+densities \(\mathbf{X}\) on a community matrix \(\mathbf{M}\) given a
+species interaction matrix \(\mathbf{A}\). This is modelled as below,
+
+\[\mathbf{M} = \mathbf{XA}.\]
+
+Mathematically, the above is identical to my model in the main text
+where the system \(\mathbf{M}\) is defined by component interaction
+strengths \(\mathbf{A}\) and individual component response rates
+\(\mathbf{\gamma}\),
+
+\[\mathbf{M} = \mathbf{\gamma A}.\]
+
+I focused on the probability of observing a stable versus unstable
+system given variation in \(\mathbf{\gamma}\) as system complexity
+(\(\sigma\sqrt{SC}\)) increased. I increased system complexity by
+holding \(C\) and \(\sigma\) constant and incrementally increasing \(S\)
+to obtain numerical results. In contrast, Gibbs et
+al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{5}} applied
+analytical techniques to instead focus on a different question
+concerning the effect of \(\mathbf{\gamma}\) on the stability of
+\(\mathbf{M}\) given \(\mathbf{A}\) as \(S \to \infty\), with \(\sigma\)
+scaled so that \(\sigma = 1/\sqrt{S}\). Under such scaling, Gibbs et
+al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{5}} showed that
+the effect of \(\gamma\) on stability should decrease exponentially as
+\(S\) increases, which I demonstrate below by running simulations in
+which \(\sigma = 1/\sqrt{S}\).
+
+\begin{longtable}[]{@{}rrrrrrr@{}}
+\toprule
+N & A0\_unstable & A0\_stable & A1\_unstable & A1\_stable &
+A1\_stabilised & A1\_destabilised\tabularnewline
+\midrule
+\endhead
+2 & 3111 & 96889 & 3111 & 96889 & 0 & 0\tabularnewline
+3 & 5203 & 94797 & 5237 & 94763 & 1 & 35\tabularnewline
+4 & 6743 & 93257 & 6818 & 93182 & 6 & 81\tabularnewline
+5 & 7889 & 92111 & 8005 & 91995 & 20 & 136\tabularnewline
+6 & 8834 & 91166 & 8991 & 91009 & 55 & 212\tabularnewline
+7 & 9885 & 90115 & 10072 & 89928 & 81 & 268\tabularnewline
+8 & 10516 & 89484 & 10764 & 89236 & 108 & 356\tabularnewline
+9 & 11135 & 88865 & 11383 & 88617 & 145 & 393\tabularnewline
+10 & 11819 & 88181 & 12095 & 87905 & 181 & 457\tabularnewline
+11 & 12414 & 87586 & 12700 & 87300 & 213 & 499\tabularnewline
+12 & 12865 & 87135 & 13136 & 86864 & 283 & 554\tabularnewline
+13 & 13530 & 86470 & 13836 & 86164 & 324 & 630\tabularnewline
+14 & 13745 & 86255 & 14042 & 85958 & 362 & 659\tabularnewline
+15 & 14401 & 85599 & 14720 & 85280 & 387 & 706\tabularnewline
+16 & 14793 & 85207 & 15123 & 84877 & 428 & 758\tabularnewline
+17 & 15004 & 84996 & 15356 & 84644 & 444 & 796\tabularnewline
+18 & 15361 & 84639 & 15735 & 84265 & 472 & 846\tabularnewline
+19 & 16062 & 83938 & 16303 & 83697 & 592 & 833\tabularnewline
+20 & 15814 & 84186 & 16184 & 83816 & 566 & 936\tabularnewline
+21 & 16171 & 83829 & 16492 & 83508 & 640 & 961\tabularnewline
+22 & 16671 & 83329 & 17049 & 82951 & 641 & 1019\tabularnewline
+23 & 17000 & 83000 & 17291 & 82709 & 718 & 1009\tabularnewline
+24 & 17411 & 82589 & 17666 & 82334 & 765 & 1020\tabularnewline
+25 & 17414 & 82586 & 17742 & 82258 & 783 & 1111\tabularnewline
+26 & 17697 & 82303 & 18027 & 81973 & 806 & 1136\tabularnewline
+27 & 18010 & 81990 & 18316 & 81684 & 880 & 1186\tabularnewline
+28 & 18584 & 81416 & 18735 & 81265 & 1008 & 1159\tabularnewline
+29 & 18401 & 81599 & 18572 & 81428 & 942 & 1113\tabularnewline
+30 & 18497 & 81503 & 18754 & 81246 & 952 & 1209\tabularnewline
+31 & 18744 & 81256 & 18942 & 81058 & 991 & 1189\tabularnewline
+32 & 18936 & 81064 & 19194 & 80806 & 1022 & 1280\tabularnewline
+33 & 19174 & 80826 & 19346 & 80654 & 1113 & 1285\tabularnewline
+34 & 19477 & 80523 & 19632 & 80368 & 1120 & 1275\tabularnewline
+35 & 19659 & 80341 & 19777 & 80223 & 1206 & 1324\tabularnewline
+36 & 19883 & 80117 & 19929 & 80071 & 1275 & 1321\tabularnewline
+37 & 20275 & 79725 & 20348 & 79652 & 1308 & 1381\tabularnewline
+38 & 20067 & 79933 & 20190 & 79810 & 1275 & 1398\tabularnewline
+39 & 20416 & 79584 & 20516 & 79484 & 1340 & 1440\tabularnewline
+40 & 20370 & 79630 & 20489 & 79511 & 1359 & 1478\tabularnewline
+41 & 20295 & 79705 & 20430 & 79570 & 1382 & 1517\tabularnewline
+42 & 20767 & 79233 & 20839 & 79161 & 1418 & 1490\tabularnewline
+43 & 20688 & 79312 & 20705 & 79295 & 1471 & 1488\tabularnewline
+44 & 21049 & 78951 & 21028 & 78972 & 1555 & 1534\tabularnewline
+45 & 21114 & 78886 & 21034 & 78966 & 1572 & 1492\tabularnewline
+46 & 21163 & 78837 & 21195 & 78805 & 1463 & 1495\tabularnewline
+47 & 21373 & 78627 & 21353 & 78647 & 1535 & 1515\tabularnewline
+48 & 21338 & 78662 & 21285 & 78715 & 1632 & 1579\tabularnewline
+49 & 21547 & 78453 & 21566 & 78434 & 1575 & 1594\tabularnewline
+50 & 21738 & 78262 & 21633 & 78367 & 1636 & 1531\tabularnewline
+51 & 21967 & 78033 & 21892 & 78108 & 1698 & 1623\tabularnewline
+\bottomrule
+\end{longtable}
+
+Above table results can be compared to those of the
+\protect\hyperlink{IncrS}{main results}. Note that 100000 (not 1
+million), simulations are run to confirm consistency with Gibbs et
+al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{5}}. The
+difference between my model and Gibbs et
+al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{5}} is that in the
+latter, \(\sigma\sqrt{SC} = 1\) remains constant with increasing \(S\).
+In the former, \(\sigma\sqrt{SC}\) increases with \(S\), so the expected
+complexity of the system also increases accordingly. Consequently, for
+the scaled \(\sigma\) in the table above, systems are not more likely to
+be stabilised by \(\gamma\) as \(S\) increases, consistent with Gibbs et
+al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{5}}. Note that
+overall stability does decrease with increasing \(S\) due to the
+increased density of eigenvalues (see below).
+
+\begin{figure}[h]
+\includegraphics{unnamed-chunk-27-1}
+\end{figure}
+
+\textbf{Complexity as a function of \(S\) in the main text (solid)
+versus in Gibbs et
+al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{5}} (dashed).}
+
+When the complexity is scaled to \(\sigma\sqrt{SC} = 1\), an increase in
+\(S\) increases the eigenvalue density within a circle with a unit
+radius centred at \((-1, 0)\) on the complex plane. As \(S \to \infty\),
+this circle becomes increasingly saturated. Gibbs et
+al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{5}} showed that a
+diagonal matrix \(\mathbf{\gamma}\) will have an exponentially
+decreasing effect on stability with increasing \(S\). Increasing \(S\)
+is visualised below, first with a system size \(S = 100\).
+
+\includegraphics{unnamed-chunk-29-1.pdf}
+
+The left panel above shows the distribution of eigenvalues; the blue
+ellipse shows the unit radius within which eigenvalues are expected to
+be contained. The right panel shows how eigenvalue distributions change
+given \(\gamma \sim \mathcal{U}(0,2)\). The vertical dotted line shows
+the threshold of stability, \(\Re = 0\). Increasing to \(S = 200\), the
+scaling \(\sigma = 1 / \sqrt{S}\) maintains the expected distribution of
+eigenvalues but increases eigenvalue density.
+
+\includegraphics{unnamed-chunk-30-1.pdf}
+
+We can increase the system size to \(S = 500\) and see the corresponding
+increase in eigenvalue density.
+
+\includegraphics{unnamed-chunk-31-1.pdf}
+
+Finally, below shows a increase in system size to \(S = 1000\).
+
+\includegraphics{unnamed-chunk-32-1.pdf}
+
+In contrast, in the model of the main text, the complexity of system is
+not scaled to \(\sigma\sqrt{SC} = 1\). Rather, the density of
+eigenvalues within a circle centred at \((-1, 0)\) with a radius
+\(\sigma\sqrt{SC}\) is held constant such that there are
+\(S / \pi(\sigma\sqrt{SC})^2\) eigenvalues per unit area of the circle.
+As \(S\) increases, so does the expected complexity of the system, but
+the density of eigenvalues remains finite causing error around this
+expectation. Below shows a system where \(S = 100\), \(C = 0.0625\), and
+\(\sigma = 0.4\), where \(\sigma \sqrt{SC} = 1\) (identical to the first
+example distribution above in which \(S = 100\) and
+\(\sigma = 1/\sqrt{S}\)).
+
+\includegraphics{unnamed-chunk-34-1.pdf}
+
+Now when \(S\) is increased to \(200\) while keeping \(C = 0.0625\) and
+\(\sigma = 0.4\), the area of the circle within which eigenvalues are
+contained increases to keep the density of eigenvalues constant.
+
+\includegraphics{unnamed-chunk-35-1.pdf}
+
+Note that the expected distribution of eigenvalues increases so that the
+threshold \(\Re = 0\) is exceeded. Below, system size is increased to
+\(S = 500\).
+
+\includegraphics{unnamed-chunk-36-1.pdf}
+
+Finally, \(S = 1000\) is shown below. Again, the density of eigenvalues
+per unit remains constant at ca 2, but the system has increased in
+complexity such that some real components of eigenvalues are almost
+assured to be greater than zero.
+
+\includegraphics{unnamed-chunk-37-1.pdf}
 
 \section*{References}\label{references}
 \addcontentsline{toc}{section}{References}
 
 \hypertarget{refs}{}
-\hypertarget{ref-Patel2018}{}
-1. Patel, S., Cortez, M. H. \& Schreiber, S. J. Partitioning the effects
-of eco-evolutionary feedbacks on community stability. \emph{American
-Naturalist} \textbf{191,} 1--29 (2018).
-
-\hypertarget{refs}{}
 \hypertarget{ref-May1972}{}
-2. May, R. M. Will a large complex system be stable? \emph{Nature}
+1. May, R. M. Will a large complex system be stable? \emph{Nature}
 \textbf{238,} 413--414 (1972).
 
-\hypertarget{ref-May1973}{}
-3. May, R. M. Qualitative stability in model ecosystems. \emph{Ecology}
-\textbf{54,} 638--641 (1973).
-
 \hypertarget{ref-Allesina2012}{}
-4. Allesina, S. \& Tang, S. Stability criteria for complex ecosystems.
+2. Allesina, S. \& Tang, S. Stability criteria for complex ecosystems.
 \emph{Nature} \textbf{483,} 205--208 (2012).
 
-\hypertarget{ref-Allesina2015a}{}
-5. Allesina, S. \& Tang, S. The stability--complexity relationship at
-age 40: a random matrix perspective. \emph{Population Ecology} 63--75
+\hypertarget{ref-Allesina2015}{}
+3. Allesina, S. \emph{et al.} Predicting the stability of large
+structured food webs. \emph{Nature Communications} \textbf{6,} 7842
 (2015).
-doi:\href{https://doi.org/10.1007/s10144-014-0471-0}{10.1007/s10144-014-0471-0}
 
-\hypertarget{ref-Tang2014b}{}
-6. Tang, S. \& Allesina, S. Reactivity and stability of large
-ecosystems. \emph{Frontiers in Ecology and Evolution} \textbf{2,} 1--8
-(2014).
+\hypertarget{ref-Servan2018}{}
+4. Serván, C. A., Capitán, J. A., Grilli, J., Morrison, K. E. \&
+Allesina, S. Coexistence of many species in random ecosystems.
+\emph{Nature Ecology and Evolution} \textbf{2,} 1237--1242 (2018).
 
-\hypertarget{ref-Allesina2011}{}
-7. Allesina, S. \& Levine, J. M. A competitive network theory of species
-diversity. \emph{Proceedings of the National Academy of Sciences of the
-United States of America} \textbf{108,} 5638--5642 (2011).
-
-\hypertarget{ref-Hamblin2013}{}
-8. Hamblin, S. On the practical usage of genetic algorithms in ecology
-and evolution. \emph{Methods in Ecology and Evolution} \textbf{4,}
-184--194 (2013).
-
-\hypertarget{ref-Grilli2017}{}
-9. Grilli, J. \emph{et al.} Feasibility and coexistence of large
-ecological communities. \emph{Nature Communications} \textbf{8,} (2017).
-
-\hypertarget{ref-Dougoud2018}{}
-10. Dougoud, M., Vinckenbosch, L., Rohr, R., Bersier, L.-F. \& Mazza, C.
-The feasibility of equilibria in large ecosystems: a primary but
-neglected concept in the complexity-stability debate. \emph{PLOS
-Computational Biology} \textbf{14,} e1005988 (2018).
-
-\hypertarget{ref-Song2018}{}
-11. Song, C. \& Saavedra, S. Will a small randomly assembled community be
-feasible and stable? \emph{Ecology} \textbf{99,} 743--751 (2018).
+\hypertarget{ref-Gibbs2017}{}
+5. Gibbs, T., Grilli, J., Rogers, T. \& Allesina, S. The effect of
+population abundances on the stability of large random ecosystems.
+\emph{Physical Review E - Statistical, Nonlinear, and Soft Matter
+Physics} \textbf{98,} 022410 (2018).
 
 \end{document}
