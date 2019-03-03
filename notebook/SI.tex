@@ -120,18 +120,17 @@
 }
 
 \setlength{\droptitle}{-2em}
-
   \title{Component response rate variation drives stability in large complex
 systems}
-    \pretitle{\vspace{\droptitle}\centering\huge}
+  \pretitle{\vspace{\droptitle}\centering\huge}
   \posttitle{\par}
-  \subtitle{Supplemental Information}
+\subtitle{Supplemental Information}
   \author{A. Bradley Duthie}
-    \preauthor{\centering\large\emph}
+  \preauthor{\centering\large\emph}
   \postauthor{\par}
-      \predate{\centering\large\emph}
+  \predate{\centering\large\emph}
   \postdate{\par}
-    \date{Biological and Environmental Sciences, University of Stirling, Stirling,
+  \date{Biological and Environmental Sciences, University of Stirling, Stirling,
 UK, FK9 4LA
 \href{mailto:alexander.duthie@stir.ac.uk}{\nolinkurl{alexander.duthie@stir.ac.uk}}}
 
@@ -139,6 +138,7 @@ UK, FK9 4LA
 \usepackage{natbib}
 \usepackage{lineno}
 \usepackage[utf8]{inputenc}
+\usepackage{float}
 \linenumbers
 \bibliographystyle{amnatnat}
 
@@ -1094,13 +1094,6 @@ stability when applying each of these different distributions of
 that were unstable (\_unst) and stable (\_stbl) for the exponential
 (Exp), beta, and gamma distributions.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{fourdists <-}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\DataTypeTok{file =} \StringTok{"sim_results/different_distr/four_distr_rand.csv"}\NormalTok{);}
-\KeywordTok{kable}\NormalTok{(fourdists);}
-\end{Highlighting}
-\end{Shaded}
-
 \begin{longtable}[]{@{}lllllll@{}}
 \toprule
 S & Exp\_unst & Exp\_stbl & beta\_unst & beta\_stbl & gamma\_unst &
@@ -1215,51 +1208,190 @@ A1\_made\_feasible & A1\_made\_infeasible\tabularnewline
 \end{longtable}
 
 Hence, in general, \(Var(\gamma)\) does not appear to affect feasibility
-in pure species interaction networks.
+in pure species interaction
+networks\textsuperscript{\protect\hyperlink{ref-Servan2018}{4}}.
 
 \hypertarget{Gibbs}{\section{Consistency with Gibbs et al.
 (2018)}\label{Gibbs}}
 
 The question that I address in the main text is distinct from that of
-Gibbs et al\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{4}}, which
+Gibbs et al\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{5}}, which
 focused instead on the effect of a diagonal matrix of biological species
 densities \(\mathbf{X}\) on a community matrix \(\mathbf{M}\) given a
 species interaction matrix \(\mathbf{A}\). This is modelled as below,
 
-\[\mathbf{M} = \mathbf{XA}\].
+\[\mathbf{M} = \mathbf{XA}.\]
 
 Mathematically, the above is identical to my model in the main text
 where the system \(\mathbf{M}\) is defined by component interaction
 strengths \(\mathbf{A}\) and individual component response rates
 \(\mathbf{\gamma}\),
 
-\[\mathbf{M} = \mathbf{\gamma A}\].
+\[\mathbf{M} = \mathbf{\gamma A}.\]
 
-While I focused on the probability of observing a stable versus unstable
-system given variation in \(\mathbf{\gamma}\) for finite by high system
-size (\(S\)), Gibbs et
-al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{4}} instead
-focused on the different question concerning the effect of
-\(\mathbf{\gamma}\) on the stability of \(\mathbf{M}\) given
-\(\mathbf{A}\) as \(S \to \infty\). It is easy to show that my primary
-results in \protect\hyperlink{IncrS}{the table above} are consistent
-with Gibbs et al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{4}}
-by calculating the probability that system stability changes as \(S\)
-increases. Gibbs et
-al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{4}} predict that
-the probability that stability is altered should decrease with
-increasing \(S\).
+I focused on the probability of observing a stable versus unstable
+system given variation in \(\mathbf{\gamma}\) as system complexity
+(\(\sigma\sqrt{SC}\)) increased. I increased system complexity by
+holding \(C\) and \(\sigma\) constant and incrementally increasing \(S\)
+to obtain numerical results. In contrast, Gibbs et
+al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{5}} applied
+analytical techniques to instead focus on a different question
+concerning the effect of \(\mathbf{\gamma}\) on the stability of
+\(\mathbf{M}\) given \(\mathbf{A}\) as \(S \to \infty\), with \(\sigma\)
+scaled so that \(\sigma = 1/\sqrt{S}\). Under such scaling, Gibbs et
+al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{5}} showed that
+the effect of \(\gamma\) on stability should decrease exponentially as
+\(S\) increases, which I demonstrate below by running simulations in
+which \(\sigma = 1/\sqrt{S}\).
 
-\includegraphics{SI_files/figure-latex/unnamed-chunk-26-1.pdf}
+\begin{longtable}[]{@{}rrrrrrr@{}}
+\toprule
+N & A0\_unstable & A0\_stable & A1\_unstable & A1\_stable &
+A1\_stabilised & A1\_destabilised\tabularnewline
+\midrule
+\endhead
+2 & 3111 & 96889 & 3111 & 96889 & 0 & 0\tabularnewline
+3 & 5203 & 94797 & 5237 & 94763 & 1 & 35\tabularnewline
+4 & 6743 & 93257 & 6818 & 93182 & 6 & 81\tabularnewline
+5 & 7889 & 92111 & 8005 & 91995 & 20 & 136\tabularnewline
+6 & 8834 & 91166 & 8991 & 91009 & 55 & 212\tabularnewline
+7 & 9885 & 90115 & 10072 & 89928 & 81 & 268\tabularnewline
+8 & 10516 & 89484 & 10764 & 89236 & 108 & 356\tabularnewline
+9 & 11135 & 88865 & 11383 & 88617 & 145 & 393\tabularnewline
+10 & 11819 & 88181 & 12095 & 87905 & 181 & 457\tabularnewline
+11 & 12414 & 87586 & 12700 & 87300 & 213 & 499\tabularnewline
+12 & 12865 & 87135 & 13136 & 86864 & 283 & 554\tabularnewline
+13 & 13530 & 86470 & 13836 & 86164 & 324 & 630\tabularnewline
+14 & 13745 & 86255 & 14042 & 85958 & 362 & 659\tabularnewline
+15 & 14401 & 85599 & 14720 & 85280 & 387 & 706\tabularnewline
+16 & 14793 & 85207 & 15123 & 84877 & 428 & 758\tabularnewline
+17 & 15004 & 84996 & 15356 & 84644 & 444 & 796\tabularnewline
+18 & 15361 & 84639 & 15735 & 84265 & 472 & 846\tabularnewline
+19 & 16062 & 83938 & 16303 & 83697 & 592 & 833\tabularnewline
+20 & 15814 & 84186 & 16184 & 83816 & 566 & 936\tabularnewline
+21 & 16171 & 83829 & 16492 & 83508 & 640 & 961\tabularnewline
+22 & 16671 & 83329 & 17049 & 82951 & 641 & 1019\tabularnewline
+23 & 17000 & 83000 & 17291 & 82709 & 718 & 1009\tabularnewline
+24 & 17411 & 82589 & 17666 & 82334 & 765 & 1020\tabularnewline
+25 & 17414 & 82586 & 17742 & 82258 & 783 & 1111\tabularnewline
+26 & 17697 & 82303 & 18027 & 81973 & 806 & 1136\tabularnewline
+27 & 18010 & 81990 & 18316 & 81684 & 880 & 1186\tabularnewline
+28 & 18584 & 81416 & 18735 & 81265 & 1008 & 1159\tabularnewline
+29 & 18401 & 81599 & 18572 & 81428 & 942 & 1113\tabularnewline
+30 & 18497 & 81503 & 18754 & 81246 & 952 & 1209\tabularnewline
+31 & 18744 & 81256 & 18942 & 81058 & 991 & 1189\tabularnewline
+32 & 18936 & 81064 & 19194 & 80806 & 1022 & 1280\tabularnewline
+33 & 19174 & 80826 & 19346 & 80654 & 1113 & 1285\tabularnewline
+34 & 19477 & 80523 & 19632 & 80368 & 1120 & 1275\tabularnewline
+35 & 19659 & 80341 & 19777 & 80223 & 1206 & 1324\tabularnewline
+36 & 19883 & 80117 & 19929 & 80071 & 1275 & 1321\tabularnewline
+37 & 20275 & 79725 & 20348 & 79652 & 1308 & 1381\tabularnewline
+38 & 20067 & 79933 & 20190 & 79810 & 1275 & 1398\tabularnewline
+39 & 20416 & 79584 & 20516 & 79484 & 1340 & 1440\tabularnewline
+40 & 20370 & 79630 & 20489 & 79511 & 1359 & 1478\tabularnewline
+41 & 20295 & 79705 & 20430 & 79570 & 1382 & 1517\tabularnewline
+42 & 20767 & 79233 & 20839 & 79161 & 1418 & 1490\tabularnewline
+43 & 20688 & 79312 & 20705 & 79295 & 1471 & 1488\tabularnewline
+44 & 21049 & 78951 & 21028 & 78972 & 1555 & 1534\tabularnewline
+45 & 21114 & 78886 & 21034 & 78966 & 1572 & 1492\tabularnewline
+46 & 21163 & 78837 & 21195 & 78805 & 1463 & 1495\tabularnewline
+47 & 21373 & 78627 & 21353 & 78647 & 1535 & 1515\tabularnewline
+48 & 21338 & 78662 & 21285 & 78715 & 1632 & 1579\tabularnewline
+49 & 21547 & 78453 & 21566 & 78434 & 1575 & 1594\tabularnewline
+50 & 21738 & 78262 & 21633 & 78367 & 1636 & 1531\tabularnewline
+51 & 21967 & 78033 & 21892 & 78108 & 1698 & 1623\tabularnewline
+\bottomrule
+\end{longtable}
 
-Note, however, that within this finite range of \(S\), the probability
-that an unstable system will be stabilised by \(\gamma\) increases as
-\(S\) increases. In other words, the proportion of unstable systems that
-are stabilised by \(\gamma\) increases with \(S\) in simulations.
+Above table results can be compared to those of the
+\protect\hyperlink{IncrS}{main results}. Note that 100000 (not 1
+million), simulations are run to confirm consistency with Gibbs et
+al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{5}}. The
+difference between my model and Gibbs et
+al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{5}} is that in the
+latter, \(\sigma\sqrt{SC} = 1\) remains constant with increasing \(S\).
+In the former, \(\sigma\sqrt{SC}\) increases with \(S\), so the expected
+complexity of the system also increases accordingly. Consequently, for
+the scaled \(\sigma\) in the table above, systems are not more likely to
+be stabilised by \(\gamma\) as \(S\) increases, consistent with Gibbs et
+al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{5}}. Note that
+overall stability does decrease with increasing \(S\) due to the
+increased density of eigenvalues (see below).
 
-\includegraphics{SI_files/figure-latex/unnamed-chunk-27-1.pdf}
+\begin{figure}[H]
 
-```
+{\centering \includegraphics{SI_files/figure-latex/unnamed-chunk-27-1} 
+
+}
+
+\end{figure}
+
+\textbf{Complexity as a function of \(S\) in the main text (solid)
+versus in Gibbs et
+al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{5}} (dashed).}
+
+When the complexity is scaled to \(\sigma\sqrt{SC} = 1\), an increase in
+\(S\) increases the eigenvalue density within a circle with a unit
+radius centred at \((-1, 0)\) on the complex plane. As \(S \to \infty\),
+this circle becomes increasingly saturated. Gibbs et
+al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{5}} showed that a
+diagonal matrix \(\mathbf{\gamma}\) will have an exponentially
+decreasing effect on stability with increasing \(S\). Increasing \(S\)
+is visualised below, first with a system size \(S = 100\).
+
+\includegraphics{SI_files/figure-latex/unnamed-chunk-29-1.pdf}
+
+The left panel above shows the distribution of eigenvalues; the blue
+ellipse shows the unit radius within which eigenvalues are expected to
+be contained. The right panel shows how eigenvalue distributions change
+given \(\gamma \sim \mathcal{U}(0,2)\). The vertical dotted line shows
+the threshold of stability, \(\Re = 0\). Increasing to \(S = 200\), the
+scaling \(\sigma = 1 / \sqrt{S}\) maintains the expected distribution of
+eigenvalues but increases eigenvalue density.
+
+\includegraphics{SI_files/figure-latex/unnamed-chunk-30-1.pdf}
+
+We can increase the system size to \(S = 500\) and see the corresponding
+increase in eigenvalue density.
+
+\includegraphics{SI_files/figure-latex/unnamed-chunk-31-1.pdf}
+
+Finally, below shows a increase in system size to \(S = 1000\).
+
+\includegraphics{SI_files/figure-latex/unnamed-chunk-32-1.pdf}
+
+In contrast, in the model of the main text, the complexity of system is
+not scaled to \(\sigma\sqrt{SC} = 1\). Rather, the density of
+eigenvalues within a circle centred at \((-1, 0)\) with a radius
+\(\sigma\sqrt{SC}\) is held constant such that there are
+\(S / \pi(\sigma\sqrt{SC})^2\) eigenvalues per unit area of the circle.
+As \(S\) increases, so does the expected complexity of the system, but
+the density of eigenvalues remains finite causing error around this
+expectation. Below shows a system where \(S = 100\), \(C = 0.0625\), and
+\(\sigma = 0.4\), where \(\sigma \sqrt{SC} = 1\) (identical to the first
+example distribution above in which \(S = 100\) and
+\(\sigma = 1/\sqrt{S}\)).
+
+\includegraphics{SI_files/figure-latex/unnamed-chunk-34-1.pdf}
+
+Now when \(S\) is increased to \(200\) while keeping \(C = 0.0625\) and
+\(\sigma = 0.4\), the area of the circle within which eigenvalues are
+contained increases to keep the density of eigenvalues constant.
+
+\includegraphics{SI_files/figure-latex/unnamed-chunk-35-1.pdf}
+
+Note that the expected distribution of eigenvalues increases so that the
+threshold \(\Re = 0\) is exceeded. Below, system size is increased to
+\(S = 500\).
+
+\includegraphics{SI_files/figure-latex/unnamed-chunk-36-1.pdf}
+
+Finally, \(S = 1000\) is shown below. Again, the density of eigenvalues
+per unit remains constant at ca 2, but the system has increased in
+complexity such that some real components of eigenvalues are almost
+assured to be greater than zero.
+
+\includegraphics{SI_files/figure-latex/unnamed-chunk-37-1.pdf}
 
 \section*{References}\label{references}
 \addcontentsline{toc}{section}{References}
@@ -1278,8 +1410,13 @@ are stabilised by \(\gamma\) increases with \(S\) in simulations.
 structured food webs. \emph{Nature Communications} \textbf{6,} 7842
 (2015).
 
+\hypertarget{ref-Servan2018}{}
+4. Serván, C. A., Capitán, J. A., Grilli, J., Morrison, K. E. \&
+Allesina, S. Coexistence of many species in random ecosystems.
+\emph{Nature Ecology and Evolution} \textbf{2,} 1237--1242 (2018).
+
 \hypertarget{ref-Gibbs2017}{}
-4. Gibbs, T., Grilli, J., Rogers, T. \& Allesina, S. The effect of
+5. Gibbs, T., Grilli, J., Rogers, T. \& Allesina, S. The effect of
 population abundances on the stability of large random ecosystems.
 \emph{arXiv} (2017).
 

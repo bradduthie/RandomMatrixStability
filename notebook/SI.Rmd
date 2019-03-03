@@ -20,6 +20,7 @@ header-includes:
 - \usepackage{natbib}
 - \usepackage{lineno}
 - \usepackage[utf8]{inputenc}
+- \usepackage{float}
 - \linenumbers
 - \bibliographystyle{amnatnat}
 linestretch: 1
@@ -405,7 +406,7 @@ show_gammas();
 
 The same 100000 $\mathbf{M}$ matrices were used to investigate stability when applying each of these different distributions of $\gamma$ values. The table below shows the number of $\mathbf{M}$ that were unstable (_unst) and stable (_stbl) for the exponential (Exp), beta, and gamma distributions.
 
-```{r, echo = TRUE}
+```{r, echo = FALSE}
 fourdists <- read.csv(file = "sim_results/different_distr/four_distr_rand.csv");
 kable(fourdists);
 ```
@@ -425,7 +426,7 @@ colnames(feas_tab)[1] <- "S";
 kable(feas_tab);
 ```
 
-Hence, in general, $Var(\gamma)$ does not appear to affect feasibility in pure species interaction networks.
+Hence, in general, $Var(\gamma)$ does not appear to affect feasibility in pure species interaction networks [@Servan2018].
 
 
 Consistency with Gibbs et al. (2018) {#Gibbs}
@@ -433,18 +434,184 @@ Consistency with Gibbs et al. (2018) {#Gibbs}
 
 The question that I address in the main text is distinct from that of Gibbs et al [@Gibbs2017], which focused instead on the effect of a diagonal matrix of biological species densities $\mathbf{X}$ on a community matrix $\mathbf{M}$ given a species interaction matrix $\mathbf{A}$. This is modelled as below,
 
-$$\mathbf{M} = \mathbf{XA}$$.
+$$\mathbf{M} = \mathbf{XA}.$$
 
 Mathematically, the above is identical to my model in the main text where the system $\mathbf{M}$ is defined by component interaction strengths $\mathbf{A}$ and individual component response rates $\mathbf{\gamma}$,
 
-$$\mathbf{M} = \mathbf{\gamma A}$$.
+$$\mathbf{M} = \mathbf{\gamma A}.$$
 
-I focused on the probability of observing a stable versus unstable system given variation in $\mathbf{\gamma}$ as system complexity ($\sigma\sqrt{SC}$) increased. I increased system complexity by holding $C$ and $\sigma$ constant and incrementally increasing $S$ to obtain numerical results. In contrast, Gibbs et al. [@Gibbs2017] applied analytical techniques to instead focused on a different question concerning the effect of $\mathbf{\gamma}$ on the stability of $\mathbf{M}$ given $\mathbf{A}$ as $S \to \infty$, with $\sigma$ scaled so that $\sigma = 1/\sqrt{S}$. Under such scaling, Gibbs et al. [@Gibbs2017] showed that the effect of $\gamma$ on stability should decrease exponentially as $S$ increases, which I can replicate below by running simulations in which $\sigma = 1/\sqrt{S}$. 
+I focused on the probability of observing a stable versus unstable system given variation in $\mathbf{\gamma}$ as system complexity ($\sigma\sqrt{SC}$) increased. I increased system complexity by holding $C$ and $\sigma$ constant and incrementally increasing $S$ to obtain numerical results. In contrast, Gibbs et al. [@Gibbs2017] applied analytical techniques to instead focus on a different question concerning the effect of $\mathbf{\gamma}$ on the stability of $\mathbf{M}$ given $\mathbf{A}$ as $S \to \infty$, with $\sigma$ scaled so that $\sigma = 1/\sqrt{S}$. Under such scaling, Gibbs et al. [@Gibbs2017] showed that the effect of $\gamma$ on stability should decrease exponentially as $S$ increases, which I demonstrate below by running simulations in which $\sigma = 1/\sqrt{S}$. 
 
+```{r, echo = FALSE}
+load("../data/constant_complexity.rda");
+kable(constant_complexity);
+```
 
-The results in the table above can be compared to those of the [main results] (#IncrS). Note that only 100000, rather than 1 million, simulations are run to confirm consistency with Gibbs et al. [@Gibbs2017].
+Above table results can be compared to those of the [main results](#IncrS). Note that 100000 (not 1 million), simulations are run to confirm consistency with Gibbs et al. [@Gibbs2017]. The difference between my model and Gibbs et al. [@Gibbs2017] is that in the latter, $\sigma\sqrt{SC} = 1$ remains constant with increasing $S$. In the former, $\sigma\sqrt{SC}$ increases with $S$, so the expected complexity of the system also increases accordingly. Consequently, for the scaled $\sigma$ in the table above, systems are not more likely to be stabilised by $\gamma$ as $S$ increases, consistent with Gibbs et al. [@Gibbs2017]. Note that overall stability does decrease with increasing $S$ due to the increased density of eigenvalues (see below).
 
+```{r, echo = FALSE, fig.height = 4, fig.width = 4, fig.align = "center", fig.cap = "",  fig.pos="H"}
+S_vals     <- 2:32;
+complexity <- 0.4 * sqrt(S_vals);
+par(mfrow = c(1, 1), mar = c(5, 5, 1, 1), oma = c(0.2, 0.2, 0.2, 0.2));
+plot(x = S_vals, y = complexity, type = "l", lwd = 2, xlab = "System size (S)",
+     ylab = expression(paste("System complexity (",sigma,sqrt(SC),")")),
+     cex.lab = 1.5, cex.axis = 1.5);
+abline(h = 1, lwd = 2, lty = "dashed");
+```
 
+**Complexity as a function of $S$ in the main text (solid) versus in Gibbs et al. [@Gibbs2017] (dashed).**
+
+When the complexity is scaled to $\sigma\sqrt{SC} = 1$, an increase in $S$ increases the eigenvalue density within a circle with a unit radius centred at $(-1, 0)$ on the complex plane. As $S \to \infty$, this circle becomes increasingly saturated. Gibbs et al. [@Gibbs2017] showed that a diagonal matrix $\mathbf{\gamma}$ will have an exponentially decreasing effect on stability with increasing $S$. Increasing $S$ is visualised below, first with a system size $S = 100$. 
+
+```{r, echo = FALSE}
+comp_scale <- function(S, C = 1, sigma = 0.4){
+  complx <- sigma * sqrt(S * C);
+  A_comp <- NULL;
+  A_dat  <- rnorm(n = S * S, mean = 0, sd = sigma);
+  A_mat  <- matrix(data = A_dat, nrow = S);
+  C_dat  <- rbinom(n = S * S, size = 1, prob = C);
+  C_mat  <- matrix(data = C_dat, nrow = S, ncol = S);
+  A_mat     <- A_mat * C_mat;
+  gammas <- runif(n = S, min = 0, max = 2);
+  mu_gam <- mean(gammas);
+  diag(A_mat) <- -1;
+  A1     <- gammas * A_mat;
+  A0     <- mu_gam * A_mat;
+  A0_e   <- eigen(A0)$values;
+  A0_r   <- Re(A0_e);
+  A0_i   <- Im(A0_e);
+  A1_e   <- eigen(A1)$values;
+  A1_r   <- Re(A1_e);
+  A1_i   <- Im(A1_e);
+  A0_vm       <- A0;
+  diag(A0_vm) <- NA;
+  A0vec       <- as.vector(A0_vm);
+  A0vec       <- A0vec[is.na(A0vec) == FALSE];
+  A1_vm       <- A1;
+  diag(A1_vm) <- NA;
+  A1vec       <- as.vector(A1_vm);
+  A1vec       <- A1vec[is.na(A1vec) == FALSE];
+  par(mfrow = c(1, 2), mar = c(0.5, 0.5, 0.5, 0.5), oma = c(5, 5, 0, 0));
+  plot(A0_r, A0_i, xlim = c(-2.75 * complx, 0.5 * complx), 
+       ylim = c(-1.5,1.5), pch = 4, 
+       cex = 0.7, xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, 
+       asp = 1, col = "dodgerblue4");
+  abline(v = 0, lty = "dotted");
+  vl <- seq(from = 0, to = 2*pi, by = 0.001);
+  x0 <- sqrt(S*C) * sigma * cos(vl) - 1;
+  y0 <- sqrt(S*C) * sigma * sin(vl);
+  x1 <- sqrt(S*C) * sigma * cos(vl) - 1;
+  y1 <- sqrt(S*C) * sigma * sin(vl);
+  text(x = -15.5, y = 19, labels = "a", cex = 2);
+  points(x = x0, y = y0, type = "l", lwd = 3, col = "dodgerblue4");
+  plot(A1_r, A1_i, xlim = c(-2.75*complx, 0.5*complx), 
+       ylim = c(-1.5, 1.5), pch = 4, 
+       cex = 0.7, xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, 
+       asp = 1, col = "firebrick", yaxt = "n");
+  abline(v = 0, lty = "dotted");
+  text(x = -15.5, y = 19, labels = "b", cex = 2);
+  mtext(side = 1, "Real", outer = TRUE, line = 3, cex = 2);
+  mtext(side = 2, "Imaginary", outer = TRUE, line = 2.5, cex = 2);
+}
+```
+
+```{r, echo = FALSE, fig.height = 3.9}
+comp_scale(S = 100, C = 1, sigma = 1 / sqrt(100));
+```
+
+The left panel above shows the distribution of eigenvalues; the blue ellipse shows the unit radius within which eigenvalues are expected to be contained. The right panel shows how eigenvalue distributions change given $\gamma \sim \mathcal{U}(0,2)$. The vertical dotted line shows the threshold of stability, $\Re = 0$. Increasing to $S = 200$, the scaling $\sigma = 1 / \sqrt{S}$ maintains the expected distribution of eigenvalues but increases eigenvalue density.
+
+```{r, echo = FALSE, fig.height = 3.9}
+comp_scale(S = 200, C = 1, sigma = 1 / sqrt(200));
+```
+
+We can increase the system size to $S = 500$ and see the corresponding increase in eigenvalue density.
+
+```{r, echo = FALSE, fig.height = 3.9}
+comp_scale(S = 500, C = 1, sigma = 1 / sqrt(500));
+```
+
+Finally, below shows a increase in system size to $S = 1000$.
+
+```{r, echo = FALSE, fig.height = 3.9}
+comp_scale(S = 1000, C = 1, sigma = 1 / sqrt(1000));
+```
+
+In contrast, in the model of the main text, the complexity of system is not scaled to $\sigma\sqrt{SC} = 1$. Rather, the density of eigenvalues within a circle centred at $(-1, 0)$ with a radius $\sigma\sqrt{SC}$ is held constant such that there are $S / \pi(\sigma\sqrt{SC})^2$ eigenvalues per unit area of the circle. As $S$ increases, so does the expected complexity of the system, but the density of eigenvalues remains finite causing error around this expectation. Below shows a system where $S = 100$, $C = 0.0625$, and $\sigma = 0.4$, where $\sigma \sqrt{SC} = 1$ (identical to the first example distribution above in which $S = 100$ and $\sigma = 1/\sqrt{S}$).
+
+```{r, echo = FALSE}
+comp_dens <- function(S, C = 1, sigma = 0.4){
+  complx <- sigma * sqrt(S * C);
+  A_comp <- NULL;
+  A_dat  <- rnorm(n = S * S, mean = 0, sd = sigma);
+  A_mat  <- matrix(data = A_dat, nrow = S);
+  C_dat  <- rbinom(n = S * S, size = 1, prob = C);
+  C_mat  <- matrix(data = C_dat, nrow = S, ncol = S);
+  A_mat     <- A_mat * C_mat;
+  gammas <- runif(n = S, min = 0, max = 2);
+  mu_gam <- mean(gammas);
+  diag(A_mat) <- -1;
+  A1     <- gammas * A_mat;
+  A0     <- mu_gam * A_mat;
+  A0_e   <- eigen(A0)$values;
+  A0_r   <- Re(A0_e);
+  A0_i   <- Im(A0_e);
+  A1_e   <- eigen(A1)$values;
+  A1_r   <- Re(A1_e);
+  A1_i   <- Im(A1_e);
+  A0_vm       <- A0;
+  diag(A0_vm) <- NA;
+  A0vec       <- as.vector(A0_vm);
+  A0vec       <- A0vec[is.na(A0vec) == FALSE];
+  A1_vm       <- A1;
+  diag(A1_vm) <- NA;
+  A1vec       <- as.vector(A1_vm);
+  A1vec       <- A1vec[is.na(A1vec) == FALSE];
+  par(mfrow = c(1, 2), mar = c(0.5, 0.5, 0.5, 0.5), oma = c(5, 5, 0, 0));
+  plot(A0_r, A0_i, xlim = c(-5, 3), 
+       ylim = c(-4,4), pch = 4, 
+       cex = 0.7, xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, 
+       asp = 1, col = "dodgerblue4");
+  abline(v = 0, lty = "dotted");
+  vl <- seq(from = 0, to = 2*pi, by = 0.001);
+  x0 <- sqrt(S*C) * sigma * cos(vl) - 1;
+  y0 <- sqrt(S*C) * sigma * sin(vl);
+  x1 <- sqrt(S*C) * sigma * cos(vl) - 1;
+  y1 <- sqrt(S*C) * sigma * sin(vl);
+  text(x = -15.5, y = 19, labels = "a", cex = 2);
+  points(x = x0, y = y0, type = "l", lwd = 3, col = "dodgerblue4");
+  plot(A1_r, A1_i, xlim = c(-4, 4), 
+       ylim = c(-1.5, 1.5), pch = 4, 
+       cex = 0.7, xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, 
+       asp = 1, col = "firebrick", yaxt = "n");
+  abline(v = 0, lty = "dotted");
+  text(x = -15.5, y = 19, labels = "b", cex = 2);
+  mtext(side = 1, "Real", outer = TRUE, line = 3, cex = 2);
+  mtext(side = 2, "Imaginary", outer = TRUE, line = 2.5, cex = 2);
+}
+```
+
+```{r, echo = FALSE, fig.height = 3.9}
+comp_dens(S = 100, C = 0.0625, sigma = 0.4);
+```
+
+Now when $S$ is increased to $200$ while keeping $C = 0.0625$ and $\sigma = 0.4$, the area of the circle within which eigenvalues are contained increases to keep the density of eigenvalues constant. 
+
+```{r, echo = FALSE, fig.height = 3.9}
+comp_dens(S = 200, C = 0.0625, sigma = 0.4);
+```
+
+Note that the expected distribution of eigenvalues increases so that the threshold $\Re = 0$ is exceeded. Below, system size is increased to $S = 500$.
+
+```{r, echo = FALSE, fig.height = 3.9}
+comp_dens(S = 500, C = 0.0625, sigma = 0.4);
+```
+
+Finally, $S = 1000$ is shown below. Again, the density of eigenvalues per unit remains constant at ca 2, but the system has increased in complexity such that some real components of eigenvalues are almost assured to be greater than zero.
+
+```{r, echo = FALSE, fig.height = 3.9}
+comp_dens(S = 1000, C = 0.0625, sigma = 0.4);
+```
 
 References
 ================================================================================
