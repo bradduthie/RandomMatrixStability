@@ -432,7 +432,7 @@ Hence, in general, $Var(\gamma)$ does not appear to affect feasibility in pure s
 Consistency with Gibbs et al. (2018) {#Gibbs}
 ===============================================================================
 
-The question that I address in the main text is distinct from that of Gibbs et al [@Gibbs2017], which focused instead on the effect of a diagonal matrix of biological species densities $\mathbf{X}$ on a community matrix $\mathbf{M}$ given a species interaction matrix $\mathbf{A}$. This is modelled as below,
+The question that I address in the main text is distinct from that of Gibbs et al. [@Gibbs2017], who focused instead on the effect of a diagonal matrix of biological species densities $\mathbf{X}$ on a community matrix $\mathbf{M}$ given a species interaction matrix $\mathbf{A}$. This is modelled as below,
 
 $$\mathbf{M} = \mathbf{XA}.$$
 

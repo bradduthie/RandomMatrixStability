@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.10.14)  3 MAR 2019 19:42
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.10.14)  6 MAR 2019 21:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1135,310 +1135,310 @@ Package pdftex.def Info: unnamed-chunk-15-1.pdf used on input line 517.
 File: unnamed-chunk-16-1.pdf Graphic file (type pdf)
 
 <use unnamed-chunk-16-1.pdf>
-Package pdftex.def Info: unnamed-chunk-16-1.pdf used on input line 576.
+Package pdftex.def Info: unnamed-chunk-16-1.pdf used on input line 577.
 (pdftex.def)             Requested size: 469.74788pt x 353.27507pt.
  [6 <./unnamed-chunk-16-1.pdf>] [7] [8] [9]
 [10]
-LaTeX Font Info:    Try loading font information for T1+lmtt on input line 896.
+LaTeX Font Info:    Try loading font information for T1+lmtt on input line 897.
 
  (/usr/share/texmf/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 900.
-LaTeX Font Info:    Try loading font information for TS1+lmr on input line 922.
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 901.
+LaTeX Font Info:    Try loading font information for TS1+lmr on input line 923.
 
 
 (/usr/share/texmf/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <14.4> on input line 977.
+(Font)              <14.4> on input line 978.
  [11
 
 ]
 
 Package longtable Warning: Column widths have changed
-(longtable)                in table 1 on input line 1053.
+(longtable)                in table 1 on input line 1054.
 
 [12]
 
 Package longtable Warning: Column widths have changed
-(longtable)                in table 2 on input line 1121.
+(longtable)                in table 2 on input line 1122.
 
 [13] <unnamed-chunk-7-1.pdf, id=255, 411.5375pt x 263.98625pt>
 File: unnamed-chunk-7-1.pdf Graphic file (type pdf)
 
 <use unnamed-chunk-7-1.pdf>
-Package pdftex.def Info: unnamed-chunk-7-1.pdf used on input line 1135.
+Package pdftex.def Info: unnamed-chunk-7-1.pdf used on input line 1136.
 (pdftex.def)             Requested size: 411.5365pt x 263.9856pt.
  [14 <./unnamed-chunk-7-1.pdf>]
 
 Package longtable Warning: Column widths have changed
-(longtable)                in table 3 on input line 1253.
+(longtable)                in table 3 on input line 1254.
 
 [15]
 
 Package longtable Warning: Column widths have changed
-(longtable)                in table 4 on input line 1280.
+(longtable)                in table 4 on input line 1281.
 
 [16]
 
 Package longtable Warning: Column widths have changed
-(longtable)                in table 5 on input line 1392.
+(longtable)                in table 5 on input line 1393.
 
 [17]
-Overfull \hbox (18.07884pt too wide) in alignment at lines 1432--1437
+Overfull \hbox (18.07884pt too wide) in alignment at lines 1433--1438
  [] [] [] [] [] [] [] [] 
  []
 
 
-Overfull \hbox (20.57884pt too wide) in alignment at lines 1437--1458
+Overfull \hbox (20.57884pt too wide) in alignment at lines 1438--1459
  [] [] [] [] [] [] [] [] 
  []
 
 
-Overfull \hbox (20.57884pt too wide) in alignment at lines 1458--1478
+Overfull \hbox (20.57884pt too wide) in alignment at lines 1459--1479
  [] [] [] [] [] [] [] [] 
  []
 
 [18]
-Overfull \hbox (25.57884pt too wide) in alignment at lines 1478--1499
+Overfull \hbox (25.57884pt too wide) in alignment at lines 1479--1500
  [] [] [] [] [] [] [] [] 
  []
 
 
 Package longtable Warning: Column widths have changed
-(longtable)                in table 6 on input line 1499.
+(longtable)                in table 6 on input line 1500.
 
 
-Overfull \hbox (18.07884pt too wide) in alignment at lines 1503--1508
+Overfull \hbox (18.07884pt too wide) in alignment at lines 1504--1509
  [] [] [] [] [] [] [] [] 
  []
 
 
-Overfull \hbox (20.57884pt too wide) in alignment at lines 1508--1529
+Overfull \hbox (20.57884pt too wide) in alignment at lines 1509--1530
  [] [] [] [] [] [] [] [] 
  []
 
 [19]
-Overfull \hbox (20.57884pt too wide) in alignment at lines 1529--1549
+Overfull \hbox (20.57884pt too wide) in alignment at lines 1530--1550
  [] [] [] [] [] [] [] [] 
  []
 
 
-Overfull \hbox (23.91208pt too wide) in alignment at lines 1549--1555
+Overfull \hbox (23.91208pt too wide) in alignment at lines 1550--1556
  [] [] [] [] [] [] [] [] 
  []
 
 
 Package longtable Warning: Column widths have changed
-(longtable)                in table 7 on input line 1555.
+(longtable)                in table 7 on input line 1556.
 
 
-Overfull \hbox (18.07884pt too wide) in alignment at lines 1559--1564
+Overfull \hbox (18.07884pt too wide) in alignment at lines 1560--1565
  [] [] [] [] [] [] [] [] 
  []
 
 
-Overfull \hbox (20.57884pt too wide) in alignment at lines 1564--1585
+Overfull \hbox (20.57884pt too wide) in alignment at lines 1565--1586
  [] [] [] [] [] [] [] [] 
  []
 
 
-Overfull \hbox (23.91208pt too wide) in alignment at lines 1585--1603
+Overfull \hbox (23.91208pt too wide) in alignment at lines 1586--1604
  [] [] [] [] [] [] [] [] 
  []
 
 [20]
 
 Package longtable Warning: Column widths have changed
-(longtable)                in table 8 on input line 1603.
+(longtable)                in table 8 on input line 1604.
 
 
-Overfull \hbox (18.07884pt too wide) in alignment at lines 1607--1612
+Overfull \hbox (18.07884pt too wide) in alignment at lines 1608--1613
  [] [] [] [] [] [] [] [] 
  []
 
 
-Overfull \hbox (20.57884pt too wide) in alignment at lines 1612--1633
+Overfull \hbox (20.57884pt too wide) in alignment at lines 1613--1634
  [] [] [] [] [] [] [] [] 
  []
 
 
-Overfull \hbox (23.91208pt too wide) in alignment at lines 1633--1647
+Overfull \hbox (23.91208pt too wide) in alignment at lines 1634--1648
  [] [] [] [] [] [] [] [] 
  []
 
 [21]
 
 Package longtable Warning: Column widths have changed
-(longtable)                in table 9 on input line 1647.
+(longtable)                in table 9 on input line 1648.
 
 
 Package longtable Warning: Column widths have changed
-(longtable)                in table 10 on input line 1698.
+(longtable)                in table 10 on input line 1699.
 
 [22]
 
 Package longtable Warning: Column widths have changed
-(longtable)                in table 11 on input line 1733.
+(longtable)                in table 11 on input line 1734.
 
 
 Package longtable Warning: Column widths have changed
-(longtable)                in table 12 on input line 1762.
+(longtable)                in table 12 on input line 1763.
 
 [23]
 
 Package longtable Warning: Column widths have changed
-(longtable)                in table 13 on input line 1789.
+(longtable)                in table 13 on input line 1790.
 
 <unnamed-chunk-23-1.pdf, id=336, 400.49625pt x 462.72874pt>
 File: unnamed-chunk-23-1.pdf Graphic file (type pdf)
 
 <use unnamed-chunk-23-1.pdf>
-Package pdftex.def Info: unnamed-chunk-23-1.pdf used on input line 1817.
+Package pdftex.def Info: unnamed-chunk-23-1.pdf used on input line 1818.
 (pdftex.def)             Requested size: 400.50137pt x 462.73466pt.
  [24] [25 <./unnamed-chunk-23-1.pdf>]
 
 Package longtable Warning: Column widths have changed
-(longtable)                in table 14 on input line 1868.
+(longtable)                in table 14 on input line 1869.
 
 
-Overfull \hbox (6.46632pt too wide) in alignment at lines 1882--1887
+Overfull \hbox (6.46632pt too wide) in alignment at lines 1883--1888
  [] [] [] [] [] [] [] 
  []
 
 
-Overfull \hbox (10.91083pt too wide) in alignment at lines 1887--1908
+Overfull \hbox (10.91083pt too wide) in alignment at lines 1888--1909
  [] [] [] [] [] [] [] 
  []
 
 
-Overfull \hbox (10.91083pt too wide) in alignment at lines 1908--1928
+Overfull \hbox (10.91083pt too wide) in alignment at lines 1909--1929
  [] [] [] [] [] [] [] 
  []
 
 [26]
-Overfull \hbox (10.91083pt too wide) in alignment at lines 1928--1938
+Overfull \hbox (10.91083pt too wide) in alignment at lines 1929--1939
  [] [] [] [] [] [] [] 
  []
 
 
 Package longtable Warning: Column widths have changed
-(longtable)                in table 15 on input line 1938.
+(longtable)                in table 15 on input line 1939.
 
 [27]
 
 Package longtable Warning: Column widths have changed
-(longtable)                in table 16 on input line 2034.
+(longtable)                in table 16 on input line 2035.
 
 [28] <unnamed-chunk-27-1.pdf, id=381, 265.99374pt x 263.98625pt>
 File: unnamed-chunk-27-1.pdf Graphic file (type pdf)
 
 <use unnamed-chunk-27-1.pdf>
-Package pdftex.def Info: unnamed-chunk-27-1.pdf used on input line 2052.
+Package pdftex.def Info: unnamed-chunk-27-1.pdf used on input line 2053.
 (pdftex.def)             Requested size: 266.00931pt x 264.0017pt.
 
 <unnamed-chunk-29-1.pdf, id=384, 452.69125pt x 258.9675pt>
 File: unnamed-chunk-29-1.pdf Graphic file (type pdf)
 
 <use unnamed-chunk-29-1.pdf>
-Package pdftex.def Info: unnamed-chunk-29-1.pdf used on input line 2068.
+Package pdftex.def Info: unnamed-chunk-29-1.pdf used on input line 2069.
 (pdftex.def)             Requested size: 452.69014pt x 258.96684pt.
  [29 <./unnamed-chunk-27-1.pdf>]
 <unnamed-chunk-30-1.pdf, id=399, 452.69125pt x 258.9675pt>
 File: unnamed-chunk-30-1.pdf Graphic file (type pdf)
 
 <use unnamed-chunk-30-1.pdf>
-Package pdftex.def Info: unnamed-chunk-30-1.pdf used on input line 2078.
+Package pdftex.def Info: unnamed-chunk-30-1.pdf used on input line 2079.
 (pdftex.def)             Requested size: 452.69014pt x 258.96684pt.
 
 <unnamed-chunk-31-1.pdf, id=400, 452.69125pt x 258.9675pt>
 File: unnamed-chunk-31-1.pdf Graphic file (type pdf)
 
 <use unnamed-chunk-31-1.pdf>
-Package pdftex.def Info: unnamed-chunk-31-1.pdf used on input line 2083.
+Package pdftex.def Info: unnamed-chunk-31-1.pdf used on input line 2084.
 (pdftex.def)             Requested size: 452.69014pt x 258.96684pt.
  [30 <./unnamed-chunk-29-1.pdf> <./unnamed-chunk-30-1.pdf>] <unnamed-chunk-32-1
 .pdf, id=419, 452.69125pt x 258.9675pt>
 File: unnamed-chunk-32-1.pdf Graphic file (type pdf)
 
 <use unnamed-chunk-32-1.pdf>
-Package pdftex.def Info: unnamed-chunk-32-1.pdf used on input line 2087.
+Package pdftex.def Info: unnamed-chunk-32-1.pdf used on input line 2088.
 (pdftex.def)             Requested size: 452.69014pt x 258.96684pt.
 
 <unnamed-chunk-34-1.pdf, id=420, 448.67625pt x 258.9675pt>
 File: unnamed-chunk-34-1.pdf Graphic file (type pdf)
 
 <use unnamed-chunk-34-1.pdf>
-Package pdftex.def Info: unnamed-chunk-34-1.pdf used on input line 2101.
+Package pdftex.def Info: unnamed-chunk-34-1.pdf used on input line 2102.
 (pdftex.def)             Requested size: 448.68884pt x 258.97473pt.
  [31 <./unnamed-chunk-31-1.pdf> <./unnamed-chunk-32-1.pdf>] <unnamed-chunk-35-1
 .pdf, id=440, 448.67625pt x 258.9675pt>
 File: unnamed-chunk-35-1.pdf Graphic file (type pdf)
 
 <use unnamed-chunk-35-1.pdf>
-Package pdftex.def Info: unnamed-chunk-35-1.pdf used on input line 2107.
+Package pdftex.def Info: unnamed-chunk-35-1.pdf used on input line 2108.
 (pdftex.def)             Requested size: 448.68884pt x 258.97473pt.
 
 <unnamed-chunk-36-1.pdf, id=441, 448.67625pt x 258.9675pt>
 File: unnamed-chunk-36-1.pdf Graphic file (type pdf)
 
 <use unnamed-chunk-36-1.pdf>
-Package pdftex.def Info: unnamed-chunk-36-1.pdf used on input line 2113.
+Package pdftex.def Info: unnamed-chunk-36-1.pdf used on input line 2114.
 (pdftex.def)             Requested size: 448.68884pt x 258.97473pt.
  [32 <./unnamed-chunk-34-1.pdf> <./unnamed-chunk-35-1.pdf>] <unnamed-chunk-37-1
 .pdf, id=460, 448.67625pt x 258.9675pt>
 File: unnamed-chunk-37-1.pdf Graphic file (type pdf)
 
 <use unnamed-chunk-37-1.pdf>
-Package pdftex.def Info: unnamed-chunk-37-1.pdf used on input line 2120.
+Package pdftex.def Info: unnamed-chunk-37-1.pdf used on input line 2121.
 (pdftex.def)             Requested size: 448.68884pt x 258.97473pt.
 pdfTeX warning (ext4): destination with the same identifier (name{refs}) has be
 en already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.2125 \hypertarget{refs}{}
+l.2126 \hypertarget{refs}{}
                            pdfTeX warning (ext4): destination with the same ide
 ntifier (name{ref-May1972}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.2126 \hypertarget{ref-May1972}{}
+l.2127 \hypertarget{ref-May1972}{}
                                   pdfTeX warning (ext4): destination with the s
 ame identifier (name{ref-Allesina2012}) has been already used, duplicate ignore
 d
 <to be read again> 
                    \relax 
-l.2130 \hypertarget{ref-Allesina2012}{}
+l.2131 \hypertarget{ref-Allesina2012}{}
                                        pdfTeX warning (ext4): destination with 
 the same identifier (name{ref-Allesina2015}) has been already used, duplicate i
 gnored
 <to be read again> 
                    \relax 
-l.2134 \hypertarget{ref-Allesina2015}{}
+l.2135 \hypertarget{ref-Allesina2015}{}
                                         [33 <./unnamed-chunk-36-1.pdf> <./unnam
 ed-chunk-37-1.pdf>]pdfTeX warning (ext4): destination with the same identifier 
 (name{ref-Servan2018}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.2139 \hypertarget{ref-Servan2018}{}
+l.2140 \hypertarget{ref-Servan2018}{}
                                      pdfTeX warning (ext4): destination with th
 e same identifier (name{ref-Gibbs2017}) has been already used, duplicate ignore
 d
 <to be read again> 
                    \relax 
-l.2144 \hypertarget{ref-Gibbs2017}{}
+l.2145 \hypertarget{ref-Gibbs2017}{}
                                     
 
 Package longtable Warning: Table widths have changed. Rerun LaTeX.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 2150.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 2151.
 [34]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 2150.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 2151.
  (./ms.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 2150.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 2150.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 2151.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 2151.
 
 
 
@@ -1452,7 +1452,7 @@ Package rerunfilecheck Info: Checksums for `ms.out':
 
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 2150.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 2151.
  ) 
 Here is how much of TeX's memory you used:
  14067 strings out of 493029
@@ -1511,7 +1511,7 @@ pfb></usr/share/texmf/fonts/type1/public/lm/lmri12.pfb></usr/share/texmf/fonts/
 type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy5.pfb></
 usr/share/texmf/fonts/type1/public/lm/lmsy7.pfb></usr/share/texmf/fonts/type1/p
 ublic/lm/lmtk10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt10.pfb>
-Output written on ms.pdf (34 pages, 1055165 bytes).
+Output written on ms.pdf (34 pages, 1055013 bytes).
 PDF statistics:
  579 PDF objects out of 1000 (max. 8388607)
  474 compressed objects within 5 object streams
