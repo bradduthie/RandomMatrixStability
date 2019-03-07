@@ -1,0 +1,837 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{setspace}
+\setstretch{1}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\PassOptionsToPackage{usenames,dvipsnames}{color} % color is loaded by hyperref
+\hypersetup{unicode=true,
+            pdftitle={Reviewer comments and repsonses},
+            pdfauthor={Brad Duthie},
+            colorlinks=true,
+            linkcolor=blue,
+            citecolor=Blue,
+            urlcolor=Blue,
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{{#1}}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{{#1}}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{{#1}}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{{#1}}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{{#1}}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{{#1}}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{{#1}}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{{#1}}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{{#1}}}
+\newcommand{\ImportTok}[1]{{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{{#1}}}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{{#1}}}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{{#1}}}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{{#1}}}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{{#1}}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{{#1}}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{{#1}}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{{#1}}}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{{#1}}}}
+\newcommand{\BuiltInTok}[1]{{#1}}
+\newcommand{\ExtensionTok}[1]{{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{{#1}}}
+\newcommand{\RegionMarkerTok}[1]{{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{{#1}}}}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{{#1}}}}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{{#1}}}}
+\newcommand{\NormalTok}[1]{{#1}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+
+  \title{Reviewer comments and repsonses}
+    \pretitle{\vspace{\droptitle}\centering\huge}
+  \posttitle{\par}
+    \author{Brad Duthie}
+    \preauthor{\centering\large\emph}
+  \postauthor{\par}
+      \predate{\centering\large\emph}
+  \postdate{\par}
+    \date{7 March 2019}
+
+\usepackage{amsmath}
+\usepackage{natbib}
+\usepackage{lineno}
+\usepackage[utf8]{inputenc}
+\linenumbers
+\bibliographystyle{amnatnat}
+
+\begin{document}
+\maketitle
+
+\textbf{The following notes acknowledge and respond to reviewer comments
+from a submission to \emph{PLoS Computational Biology}}.
+
+\section{Reviewer 1}\label{reviewer-1}
+
+\subsection{Reviewer 1 General
+comments}\label{reviewer-1-general-comments}
+
+This paper takes on a timely question: given a random matrix A and
+diagonal non-negative matrix X, when will M= XA be stable. It's
+important b/c this more accurately reflects the dynamics near
+equilibrium in a system where species abundances are variable (and then
+are equal to the diagonal elements of X). The current paper also claims
+a different interpretation of the stability of a matrix of this form, in
+connection with variable response rates across species.
+
+Even though this question probably did lie dormant for many years, it
+has been tackled more recently, and some of the work cited here seems to
+tackle very similar questions (e.g.~Gibbs et al). But those
+connections/differences aren't really explained here. In short, I'd like
+to understand if what the author has identified goes beyond what is
+known from other work about the effect of a diagonal matrix X on the
+stability of M.
+
+I found the presentation and framing of these results overall very
+confusing. Here are some comments:
+
+\subsection{Response to Reviewer 1 General
+comments}\label{response-to-reviewer-1-general-comments}
+
+I am grateful for the helpful comments of Reviewer 1. It is important to
+first emphasise that my focal questions on the stability of complex
+systems are not restricted to ecological communities (in which all rows
+and columns of matrices A and M are species densities), but instead
+address more general questions regarding how the stability of complex
+systems is affected by varying response rate of system components (with
+the exception of the specific question that I address concerning
+ecological community feasibility, of course). System components might be
+species densities, but they could additionally include a mix of evolving
+species traits (e.g., Patel et al. 2018) or human social decisions
+(e.g., management, harvesting, rewilding, land use, etc.; Hui and
+Richardson 2018). Components might also not include any species, as in
+the case of purely social systems (e.g., banks; Haldane \& May 2011), or
+physiological or physical systems (e.g., brain networks; Gray \&
+Robinson 2008; 2009). Reviewer 1 is correct that my paper offers a
+different interpretation of system stability given the diagonal
+non-negative matrix \(X\), one in which elements \(X_{i}\)
+(\(\gamma_{i}\) in my manuscript) are interpreted as the rates at which
+components respond to perturbation.
+
+The question that I address is distinct from that of Gibbs et al (2018;
+see also Reviewer 3 comments and responses). I have now revised the
+manuscript to explain these differences and connections more clearly,
+both mathematically and conceptually. Mathematically distinct from Gibbs
+et al. (2018), I am not focused on the effect of a diagonal non-negative
+matrix \(X\) on a stable matrix A as \(S \to \infty\) (i.e., as the
+number of system components becomes arbitrarily large given a stable
+system), and I specifically focus on a range of system complexities by
+not forcing the variance of interaction strengths to scale with
+increasing system size (\(\sigma = 1/\sqrt{S}\)). Conceptually distinct,
+I am not focused specifically on the effect of species abundances on
+ecosystem stability in a generalised Lotka-Volterra system as species
+number increases. Rather, I am interested in how the stability of M is
+affected by X and A at increasingly high levels of system complexity, in
+which the probability of a random complex system being stable becomes
+rare but non-negligible (under conditions originally identified by May
+1972), and for any type of complex system. Clarifying revisions have
+been now made accordingly to the Introduction and Discussion (most
+notably, a new paragraph has been added to the Discussion).
+
+\subsection{Reviewer 1 specific comment
+1}\label{reviewer-1-specific-comment-1}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\tightlist
+\item
+  The most obvious interpretation (to me) for gamma\_i is as the set of
+  equilibrium abundances for the set of populations, N\_i. But this
+  intepretation is not explained clearly, and indeed would presumably
+  not lead one to restrict the support of gamma to (0,2), or (given what
+  we know about realistic distributions of abundances) to consider cases
+  with half the species abundant, and half very rare.
+\end{enumerate}
+
+\subsection{Response to Reviewer 1 specific comment
+1}\label{response-to-reviewer-1-specific-comment-1}
+
+The use of random matrix theory to investigate the stability of complex
+systems has perhaps most often been applied to ecological communities,
+in which the complex system is restricted entirely to interacting
+species where interactions are described by a square matrix A of
+dimensions \(S \times S\). This matrix A can then be multiplied by a
+vector describing the density of each of S species (\(N\)) to find the
+change in species density (\(N'\)) over some time \(t\): \(N' = AV\)
+(May 1972; 1973). It is therefore understandable why the most obvious
+interpretation of a vector \(\gamma\) of length S might be equilibrium
+species abundances, particularly for those with a background in
+theoretical ecology; nevertheless, this is an incorrect interpretation
+of \(\gamma\).
+
+In my original manuscript, I was careful to define the vector \(\gamma\)
+as the rate at which the components of a complex system (potentially,
+but not necessarily, biological species) respond to system perturbation.
+For the specific question of ecological community feasibility, I also
+explicitly defined equilibrium abundances as the vector n. I now clarify
+the use and interpretation of \(\gamma\) earlier in the manuscript, and
+explicitly state that \(\gamma\) is not interpreted as a vector of
+species abundances.
+
+\subsection{Reviewer 1 specific comment
+2}\label{reviewer-1-specific-comment-2}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  If there is another interpretation of gamma\_i in terms of evolution
+  of traits, then this is not adequately explained. Patel et al is cited
+  in support of this, where stability of an eco-evolutionary system is
+  explored using a block matrix of S species and a set of traits that
+  can evolve. But it isn't clear to me in what limit the stability of
+  such a system will reduce to the stability of a matrix of the form
+  M=XA for community matrix A. Whereas the effect of having a
+  distribution of equilibrium abundances is very clearly of this form.
+\end{enumerate}
+
+In summary I would recommend making the connection with species
+equilibrium abundances clearer, and in parallel including the derivation
+of gamma\_i by considering (presumably extremely fast) trait evolution.
+
+\subsection{Response to Reviewer 1 specific comment
+2}\label{response-to-reviewer-1-specific-comment-2}
+
+There is another interpretation of \(\gamma\) that was explicitly
+defined in the original manuscript. This interpretation is the rate at
+which the components of a complex system (note, not just biological
+species or the values of their traits) respond to system perturbation. I
+have now revised my manuscript to explain this interpretation more
+thoroughly, and especially more explicitly with respect to the
+mathematics; \(\gamma\) modifies the matrix A to account for different
+rates of response inherent to different system components.
+
+Because \(\gamma\) is not a vector of equilibrium species abundances, I
+do not make this connection as requested by Reviewer 1; instead, I have
+revised my manuscript to make the interpretation of \(\gamma\) clearer,
+and further emphasised that the systems of interest in my manuscript are
+not restricted to species densities or biological traits.
+
+\section{Reviewer 2}\label{reviewer-2}
+
+\subsection{Reviewer 2 General
+comments}\label{reviewer-2-general-comments}
+
+This work it is proposes that accounting for rate variation of nodes in
+responding to perturbation increases (it is incorrectly stated
+``drives'') the stability in large complex systems.
+
+The paper is well written and presented, and the results are
+reproducible. However, as I will try to explain, I do not find it meets
+the criteria for publication in PLOS COMPUTATIONAL BIOLOGY (i.e.,
+Originality, Innovation, High importance to researchers in the field,
+Significant biological and/or methodological insight, Substantial
+evidence for its conclusions)
+
+\subsection{Response to Reviewer 2 General
+comments}\label{response-to-reviewer-2-general-comments}
+
+I have changed the title from, ``Component response rate variation
+drives stability in large complex systems'' to ``Component response rate
+variation underlies stability in large complex systems''. I agree with
+Reviewer 2 that the previous title was technically incorrect.
+
+I am grateful for the comment on the quality of the writing and
+reproducibility of my results. And while I believe that this manuscript
+reports original and important work, this helpful review has helped
+convinced me that it would ultimately fit better in a more
+multi-disciplinary journal.
+
+\subsection{Reviewer 2 specific comment
+1}\label{reviewer-2-specific-comment-1}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\tightlist
+\item
+  The Jacobian matrix A (in the notation of the author - see pag. 8)
+  already incorporates heterogeneity of the response rate, as
+  \(s_i=\sum_j A_ij\) is not a priori constant, i.e.~different nodes do
+  have different response rates based on their connections. Adding an
+  external heterogeneity therefore, should be justified, having in mind
+  a non-linear model that when linearized, gives a Jacobian that is
+  \(M_j=\gamma_i A_ij\).
+\end{enumerate}
+
+\subsection{Response to Reviewer 2 specific comment
+1}\label{response-to-reviewer-2-specific-comment-1}
+
+This is an interesting and helpful comment, as it is of course true that
+variation in mean row values will arise when constructing random
+matrices of finite size. And this random variation could quite
+reasonably be interpreted as variation in component response rates.
+However, under such conditions, it is important to also emphasise that
+the \emph{expected} difference between mean row values (and hence
+component response rates) is still zero; i.e., differences only arise
+due to error in i.i.d. random sampling for matrix element values. The
+effect of this error on mean row value differences decreases with
+increasing matrix size S.
+
+In fact, we can calculate the expected standard deviation of mean row
+values -- a metric of the natural variation in component response rates
+-- given a randomly generated matrix, A. This value is just the standard
+error of the row means. Hence for default values of \(\sigma = 0.4\) and
+\(C = 1\) for, e.g., \(S = 10\), standard devation of mean row values
+should be as follows:
+
+\[SD_{mean.row.vals} = \sigma / \sqrt{S} = 0.4 / \sqrt{10} = 0.1265\]
+
+We can do the same for small values of \(S = 2\)
+(\(SD_{mean.row.vals} = 0.2828\)) and large values of \(S = 50\)
+(\(SD_{mean.row.vals} = 0.0566\)). The R code below recreates this for
+any \(S\); note that the -1 values on the diagonal will cause slight
+deviations in practice.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Reviewer 2 specific comment 1}
+\NormalTok{SD_mn_row_vals <-}\StringTok{ }\NormalTok{function(}\DataTypeTok{S =} \DecValTok{10}\NormalTok{, }\DataTypeTok{iters =} \DecValTok{1000}\NormalTok{, }\DataTypeTok{sigma =} \FloatTok{0.4}\NormalTok{)\{}
+    \NormalTok{sims  <-}\StringTok{ }\KeywordTok{rep}\NormalTok{(}\DataTypeTok{x =} \DecValTok{0}\NormalTok{, }\DataTypeTok{times =} \NormalTok{iters);}
+    \NormalTok{for (i in }\DecValTok{1}\NormalTok{:iters)\{}
+        \NormalTok{A0_dat   <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DataTypeTok{n =} \NormalTok{S *}\StringTok{ }\NormalTok{S, }\DataTypeTok{mean =} \DecValTok{0}\NormalTok{, }\DataTypeTok{sd =} \NormalTok{sigma);}
+        \NormalTok{A0       <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{data =} \NormalTok{A0_dat, }\DataTypeTok{nrow =} \NormalTok{S); }
+        \KeywordTok{diag}\NormalTok{(A0) <-}\StringTok{ }\NormalTok{-}\DecValTok{1}\NormalTok{;}
+        \NormalTok{rowmns   <-}\StringTok{ }\KeywordTok{apply}\NormalTok{(}\DataTypeTok{X =} \NormalTok{A0, }\DataTypeTok{MAR =} \DecValTok{1}\NormalTok{, }\DataTypeTok{FUN =} \NormalTok{mean);}
+        \NormalTok{sims[i]  <-}\StringTok{ }\KeywordTok{sd}\NormalTok{(rowmns);}
+    \NormalTok{\}}
+    \KeywordTok{return}\NormalTok{(}\KeywordTok{mean}\NormalTok{(sims));}
+\NormalTok{\}}
+\NormalTok{eg_run <-}\StringTok{ }\KeywordTok{SD_mn_row_vals}\NormalTok{(}\DataTypeTok{S =} \DecValTok{50}\NormalTok{);}
+\end{Highlighting}
+\end{Shaded}
+
+Importantly, these values are small compared to the equivalent values
+derived from imposing variation in component response rates a priori,
+and the inclusion of \(Var(\gamma)\) adds to the variation that already
+is present in \(A\). This added variation is ca 0.9523 for my
+illustrative example in which half \(\gamma\) values equal 1.95 and the
+other half equal 0.05. For simulations in which \(\gamma\) is randomly
+sampled from 0 to 2, the value is ca 0.577.
+
+I have edited the text of the manuscript now to make it clear that such
+variation in row means of A exist prior to the inclusion of \(\gamma\),
+and that such variation could reasonably be interpreted as variation in
+component response rate (see Methods). I now introduce \(\gamma\) as an
+a priori increase in the \emph{expected} difference between component
+response rates (see Introduction) and more carefully interpret the
+difference between results before and after \(\gamma\) is included.
+
+\subsection{Reviewer 2 specific comment
+2}\label{reviewer-2-specific-comment-2}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  The latter case can be realised for a GLV, with \(\gamma_i=x^*_i\).
+  This case corresponds to the case when \(\gamma_i\) and \(A\) are
+  correlated, and it has been recently fully analysed {[}ref{]}.
+\end{enumerate}
+
+\subsection{Response to Reviewer 2 specific comment
+2}\label{response-to-reviewer-2-specific-comment-2}
+
+Reviewer 2 here points out the approach in which a vector affecting the
+community matrix is interpreted as equilibrium species abundances
+(\(x^*_{i}\)) in a generalised Lotka-Volterra ecological model, as,
+e.g., in Gibbs et al (2018). In my Response to Reviewer 3 specific
+comments 1 and 2, I explain how my manuscript differs from analyses of
+species equilibrium abundances.
+
+\subsection{Reviewer 2 specific comment
+3}\label{reviewer-2-specific-comment-3}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  There is no analytical analysis of the results, and yet it is known
+  that stability of the linearized system dynamics only depends on the
+  mean, the variance and the correlation of the matrix M (C, or S or
+  sigma are not the right control parameters) {[}see Grilli et al,
+  Nature Comm 2017{]}. As the variance of M increases with the
+  heterogeneity in \(\gamma\), it means that when \(\gamma\) is
+  different from zero, the induced correlations \(M_ij\) \(\gamma_i\)
+  \(M_ki\) \(\gamma_i\) have sometimes a stabilize effect. Nevertheless,
+  as it is now, this result is only shown with numerical simulations and
+  there is not an analytical understanding of the result, preventing
+  precise quantitative claims on the effect of the heterogeneity of
+  response rates to the system stability. No mention to diagonal
+  stability theory.
+\end{enumerate}
+
+\subsection{Response to Reviewer 2 specific comment
+3}\label{response-to-reviewer-2-specific-comment-3}
+
+Reviewer 2's statement that the stability of the linearised system
+dynamics depends only on the mean, variance, and correlation of the
+matrix M is correct specifically for the large S limit (Grilli et al.
+2017; see also Gibbs et al. 2018). In other words, stability only
+depends on these three values as \(S \to \infty\). Reviewer 3 also
+raised this issue in their specific comments 3 and 4. In my revised
+manuscript, I now clarify that my focus is specifically on the upper
+range of S (not \(S \to \infty\)) at which large random systems can
+reasonably be expected to be stable (see Introduction and Discussion).
+For such values of S, as Reviewer 2 acknowledges (see Reviewer 2
+specific comment 4 below), systems are indeed more likely to be stable
+where there is heterogeneity in \(\gamma\).
+
+Given that my focus is specifically on finite values of \(S\), I believe
+that the numerical simulation approach that I have chosen is
+appropriate.
+
+\subsection{Reviewer 2 specific comment
+4}\label{reviewer-2-specific-comment-4}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  The numerical results do no lead any substantial evidence for the
+  conclusion of the manuscript (``rate variation in nodes drive the
+  stability of large complex systems''). In fact, by replicating the
+  analysis (see attached Figures) and by the tables provided by the
+  authors, it is evident that the increase of stability is at best
+  around 2-3\% on the overall analysed matrix. Nevertheless, the
+  unstable matrices are typically more unstable for the
+  \(\gamma \neq 1\) case. Too me these results shows that the variation
+  of the stability between \(\gamma_i=1\) and heterogeneous gamma\_i is
+  weak.
+\end{enumerate}
+
+\subsection{Response to Reviewer 2 specific comment
+4}\label{response-to-reviewer-2-specific-comment-4}
+
+Reviewer 2 states that the numerical results both do not produce
+substantial evidence for the manuscript's conclusions (sentence 1), but
+also acknowledges an increase in stability (``at best around 2-3\%'';
+sentence 2 -- the attached figures replicating my analysis were much
+appreciated). Technically this is a contradiction, so I interpret the
+reviewer to mean that, while stability does in fact increase, the actual
+magnitude of this increase is not large enough to be interesting. While
+I agree that the effect here is modest, I would argue that it is an
+important effect to recognise when considering whether or not complex
+systems are predicted to be stable, and one that has very broad
+implications that might affect any complex system (i.e., not just
+ecological communities).
+
+I disagree that the unstable matrices are typically more unstable when
+\(\gamma \neq 1\). I presume Reviewer 2 is interpreting ``more
+unstable'' to mean that the real part of the leading eigenvalue is
+higher given \(\gamma \neq 1\) for unstable systems (i.e., systems where
+the real part of the leading eigenvalue is positive). While some such
+values might become higher in the \(\gamma \neq 1\) condition, there is
+no evidence that I can find to suggest that this is typical (i.e.,
+occurs more often than not). Such a statement would seem to contradict
+both the work of Gibbs (2018) and my own results (see, e.g., the change
+in distribution of eigenvalues in Figure 2). Simulation also supports
+the conclusion that real parts of eigenvalues in unstable matrices do
+not tend to increase.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Reviewer 2 specific comment 4}
+\NormalTok{S       <-}\StringTok{ }\DecValTok{30}\NormalTok{;}
+\NormalTok{A0_mx   <-}\StringTok{ }\OtherTok{NULL}\NormalTok{;}
+\NormalTok{A1_mx   <-}\StringTok{ }\OtherTok{NULL}\NormalTok{;}
+\NormalTok{iter    <-}\StringTok{ }\DecValTok{10000}\NormalTok{;}
+\NormalTok{while(iter >}\StringTok{ }\DecValTok{0}\NormalTok{)\{}
+    \NormalTok{r_vec    <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DataTypeTok{n =}\NormalTok{S, }\DataTypeTok{mean =} \DecValTok{0}\NormalTok{, }\DataTypeTok{sd =} \FloatTok{0.4}\NormalTok{);}
+    \NormalTok{A0_dat   <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DataTypeTok{n =}\NormalTok{S *S, }\DataTypeTok{mean =} \DecValTok{0}\NormalTok{, }\DataTypeTok{sd =} \NormalTok{sigma);}
+    \NormalTok{A0       <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{data =} \NormalTok{A0_dat, }\DataTypeTok{nrow =}\NormalTok{S, }
+                       \DataTypeTok{ncol =}\NormalTok{S);}
+    \NormalTok{C_dat    <-}\StringTok{ }\KeywordTok{rbinom}\NormalTok{(}\DataTypeTok{n =}\NormalTok{S *S, }\DataTypeTok{size =} \DecValTok{1}\NormalTok{, }\DataTypeTok{prob =} \NormalTok{C);}
+    \NormalTok{C_mat    <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{data =} \NormalTok{C_dat, }\DataTypeTok{nrow =}\NormalTok{S, }
+                       \DataTypeTok{ncol =}\NormalTok{S);}
+    \NormalTok{A0       <-}\StringTok{ }\NormalTok{A0 *}\StringTok{ }\NormalTok{C_mat;}
+    \KeywordTok{diag}\NormalTok{(A0) <-}\StringTok{ }\NormalTok{-}\DecValTok{1}\NormalTok{;}
+    \NormalTok{gam1     <-}\StringTok{ }\KeywordTok{runif}\NormalTok{(}\DataTypeTok{n =}\NormalTok{S, }\DataTypeTok{min =} \DecValTok{0}\NormalTok{, }\DataTypeTok{max =} \DecValTok{2}\NormalTok{);}
+    \NormalTok{A1       <-}\StringTok{ }\NormalTok{A0 *}\StringTok{ }\NormalTok{gam1;}
+    \NormalTok{A0       <-}\StringTok{ }\NormalTok{A0 *}\StringTok{ }\KeywordTok{mean}\NormalTok{(gam1);}
+    \NormalTok{A0_stb   <-}\StringTok{ }\KeywordTok{max}\NormalTok{(}\KeywordTok{Re}\NormalTok{(}\KeywordTok{eigen}\NormalTok{(A0)$values));}
+    \NormalTok{A1_stb   <-}\StringTok{ }\KeywordTok{max}\NormalTok{(}\KeywordTok{Re}\NormalTok{(}\KeywordTok{eigen}\NormalTok{(A1)$values));}
+    \NormalTok{iter     <-}\StringTok{ }\NormalTok{iter -}\StringTok{ }\DecValTok{1}\NormalTok{;}
+    \NormalTok{A0_mx[iter] <-}\StringTok{ }\NormalTok{A0_stb;}
+    \NormalTok{A1_mx[iter] <-}\StringTok{ }\NormalTok{A1_stb;}
+\NormalTok{\}}
+\NormalTok{unstable_A0 <-}\StringTok{ }\NormalTok{A0_mx[A0_mx >}\StringTok{ }\DecValTok{0}\NormalTok{];}
+\NormalTok{unstable_A1 <-}\StringTok{ }\NormalTok{A1_mx[A0_mx >}\StringTok{ }\DecValTok{0}\NormalTok{];}
+\end{Highlighting}
+\end{Shaded}
+
+Hence, the increase in stability I observe given \(Var(\gamma)\) is
+consistent, and \(Var(\gamma)\) does not appear to make unstable systems
+more unstable. Nevertheless, I do acknowledge that the evident increase
+in stability is modest, and I now emphasise this better in my revised
+manuscript.
+
+\section{Reviewer 3}\label{reviewer-3}
+
+\subsection{Reviewer 3 General
+comments}\label{reviewer-3-general-comments}
+
+Reviewer \#3: In this contribution, the author studies the variability
+of component response rates (different time scales) in a general model
+of population dynamics. He finds that the (asymptotic) stability of the
+system is largely increased if variability in rates is introduced,
+compared to the stability of a system where the vector of rates is
+constant. Although the paper is well written, I have serious concerns
+about its merits for publication in PLoS Computational Biology.
+
+\subsection{Response to Reviewer 3 General
+comments}\label{response-to-reviewer-3-general-comments}
+
+I am grateful for Reviewer 3's comments. In my revised manuscript, I
+further emphasise that my model is not restricted to population
+dynamics, as Reviewer 3 incorrectly interpreted, but encompasses any
+complex system with interacting components. Most of Reviewer 3's
+additional concerns are based on a comparison with Gibbs et al. (2018;
+Phys Rev E. 98:022410. doi: 10.1103/PhysRevE.98.022410. pre-print:
+\url{https://arxiv.org/pdf/1708.08837.pdf}). I have revised my
+manuscript to further emphasise the difference between my work and Gibbs
+et al. (2018), and I address more specific concerns below.
+
+\subsection{Reviewer 3 specific comment
+1}\label{reviewer-3-specific-comment-1}
+
+First, although the motivation of the author was (in principle)
+different from that of Gibbs et al., PRE (2018), at the end there is
+substantial overlap with the latter paper. Gibbs et al. conducted a
+thorough study of the effect of random population abundances on the
+stability of community matrices for generalized Lotka-Volterra systems,
+which reduces to analyzing the stability of the matrix M=XA, where X is
+a diagonal matrix with random (positive) abundances and A is a (random)
+interaction matrix. This turns out to be the same problem discussed in
+the present manuscript, so novelty is substantially reduced (in part
+because the analysis conducted by Gibbs et al. is deeper and much more
+extensive).
+
+\subsection{Response to Reviewer 3 specific comment
+1}\label{response-to-reviewer-3-specific-comment-1}
+
+Reviewer 3 acknowledges that my motivations were different in principle
+from Gibbs et al. (2018), and I have revised my manuscript to further
+emphasise these differences while also acknowledging where overlap
+occurs. My manuscript does not focus on primarily random population
+abundances (though considers them in sections on feasibility), but
+rather the reaction rates of system components to system perturbation.
+While the mathematics of underlying my approach is based on analyses of
+the stability of the form M = XA, the diagonal matrices are not
+interpreted as abundances, and my simulations do not address the same
+theoretical question as in Gibbs et al. (2018). The novelty of my
+manuscript is conceptual rather than mathematical, as is also the case
+for Gibbs et al. (2018). Indeed, Ahmadian et al. (2015; Phys. Rev.~E
+Stat. Nonlin. Soft. Matter Phys. 91:012820. \url{doi:10.1103/PhysRevE}.
+91.012820) provided a framework for investigating eigenvalue densities
+of random matrices of the even more general form \(M = B + XAY\), which
+would include Gibbs et al.'s (2018) M = XA. What was unique about Gibbs
+et al. (2018) was its application of the properties of random matrices
+of this form to a long-standing question about the relationship between
+community stability and community feasibility. They showed that given an
+interaction matrix (\(A\)) is stable, the vector of population
+abundances (\(X\)) becomes decreasingly likely to destabilise the
+resulting community matrix (\(M\)) as the community size increases.
+
+My work applies the same mathematical framework to a different
+theoretical question, and I have revised my manuscript to make this
+distinction clear.
+
+\subsection{Reviewer 3 specific comment
+2}\label{reviewer-3-specific-comment-2}
+
+Second, the main point of the present manuscript is that stability is
+largely increased by introducing variability in response rates. Although
+the author cites the work by Gibbs et al., is surprising that he didn't
+acknowledge that his results are contradictory with those provided by
+Gibbs et al. The key point of the latter paper is that population
+abundances have no effect on stability, as May assumed in his seminal
+paper. In fact, Gibbs et al. state that `the community matrix is stable
+if an only if the interaction matrix is stable. In other words, the
+abundance of species seems to not affect the sign of eigenvalues'. This
+statement has to be interpreted in the limit of large systems (S going
+to infinity) and in probabilistic terms, i.e., it is true almost surely.
+In fact, Gibbs et al. show that the probability of matrix M=XA being
+unstable given that A is stable decays exponentially with S (see Fig. 5
+of Gibbs el al.) Indeed, they showed this analytically for uniformly
+distributed abundances X and constant self-regulation terms, which is
+precisely the case studied in the present manuscript. Conversely, the
+probability of M becoming stable given that A is unstable also decays
+exponentially with S (Fig. 9 of Gibbs et al.). This means that
+multiplying a random matrix by a diagonal random matrix has no effect on
+stability in the limit of large S.
+
+\subsection{Response to Reviewer 3 specific comment
+2}\label{response-to-reviewer-3-specific-comment-2}
+
+Reviewer 3 has slightly mis-stated the main point of my manuscript, in
+part due to some imprecision in the wording of my previous text that
+Reviewer 1 noticed (particularly regarding the title, which has now been
+revised). The main point of the manuscript is not that ``stability is
+largely increased by introducing variability in response rates'', but
+that \emph{systems in which there is variability in component response
+rates are more likely to be stable}. I made this point in the second
+paragraph of my Discussion:
+
+``It is important to emphasise that variation in component response rate
+is not stabilising per se; that is, adding variation in component
+response rate to a particular system does not necessarily increase the
+probability that the system will be stable. Rather, systems that are
+observed to be stable are more likely to have varying component response
+rates, and for this variation to be critical to their stability.''
+
+I now also emphasise this point in the abstract and clarify the finite
+range of S in which I am interested. Three points are particularly
+important:
+
+\begin{enumerate}
+\def\labelenumi{(\arabic{enumi})}
+\item
+  Randomly generated matrices (\(M = XA\)) that are stable are more
+  likely than not to have variation in X across the range of system
+  sizes (S) that I simulated. This is (to my knowledge) a novel result
+  and fully reprodible using the code underlying my simulations
+  (\url{https://github.com/bradduthie/RandomMatrixStability}).
+\item
+  At high S, the probability that a system is stable becomes negligible;
+  no such systems were found given S \textgreater{} 32. I now emphasise
+  that my results apply specifically for the upper range of S
+  \textgreater{} 10 for which stability is also non-negligible (i.e.,
+  observed at least once in one million simulations). In this range,
+  systems in which there is variation in X are indeed more stable than
+  in systems in which no such variation exists. Further, this general
+  pattern occurs for all simulated systems at the upper range of S,
+  regardless of system connectance (C), interaction stengths
+  (\(\sigma\)), or X and A element distributions (see Supplementary
+  Information). In this manuscript, I am not interested in the effect of
+  varying component response rates in systems that are too complex to be
+  stable; my focus is entirely restricted to effects in the range where
+  some stability can be reasonably expected. I explain this more
+  carefully now in my Introduction and revise to state that my general
+  conclusions may not apply as \(S \to \infty\).
+\item
+  Related to the above, I have, deliberately, not scaled interaction
+  strengths (\(\sigma\)) by system size (\(S\)). My reason for doing
+  this is because my manuscript is focused on the effect of component
+  response rates as system complexity (\(\sigma \times \sqrt{SC}\))
+  increases, not system size per se. Hence, S is increased while keeping
+  all other parameter values constant so that I can evaluate the effect
+  of \(Var(\gamma)\) on the stability of increasingly complex systems.
+  This is fundamentally different from Gibbs et al. (2018), who scaled
+  \(\sigma\) by \(S\) such that \(\sigma = 1/ \sqrt{S}\). I now state
+  this explicitly in a new paragraph in the Discussion. I also show that
+  my results are consistent with Gibbs et al. (2018) given the
+  assumption that \(\sigma = 1/ \sqrt{S}\) in Supplementary Information.
+\end{enumerate}
+
+I hope these points adequately address Reviewer 3's concerns. There is
+no contradiction between my results and those of Gibbs et al. (2018),
+and I have revised my manuscript to more carefully explain why the two
+works differ.
+
+\subsection{Reviewer 3 specific comment
+3}\label{reviewer-3-specific-comment-3}
+
+This result is seemingly contradictory with the simulations reported in
+the manuscript under review (Figs. 3 and 4). This is because the author
+didn't scale the variance of \(A\) (\(\sigma^2\)) with \(1/S\), indeed
+he maintained constant variance while increasing S. Increasing S without
+scaling variances is misleading because eigenvalue distributions are not
+comparable for different values of S. My feeling is that if he repeats
+the figures 3 and 4 using this scaling for sigma\^{}2, then the
+artifactual difference will disappear in the limit of large S, as Gibbs
+et al found.
+
+\subsection{Response to Reviewer 3 specific comment
+3}\label{response-to-reviewer-3-specific-comment-3}
+
+Reviewer 3 is of course correct that scaling the variance of A
+(sigma\^{}2) with 1/S makes the difference between \(\gamma_{i} = 1\)
+and \(Var(\gamma_{i})\) disappear. This was confirmed by simulation
+during model development, but was not discussed in great detail in the
+manuscript because it was not a focus of mine (this further highlights
+the difference between my work and that of Gibbs et al. 2018). I now
+explain this difference more, and I confirm Reviewer 3's feeling in the
+Supplementary Information. I also explain the rational for note scaling
+variances more clearly in the manuscript.
+
+The reason for increasing values of S is to increase the total
+complexity of the system (defined as \(\sigma \times \sqrt{SC}\)), and
+to isolate and ultimately understand the effect of \(Var(\gamma_{i})\)
+when S approaches a size at which a random system becomes too complex to
+have a realistic probability of being stable (less than 1 in 1 million).
+This is the reason for showing increasing system size (S) on the x-axis
+of Figures 3 and 4. If I were to have scaled the variance of
+off-diagonal elements of A (\(\sigma^{2}\)) with \(1/S\) as Reviewer 3
+suggested (and as done in Gibbs et al. 2018), then the total complexity
+of the system would not change, defeating the purpose of increasing S.
+To my knowledge, there is also no a priori reason to expect systems to
+have variances of interaction strengths (\(\sigma\)) that scale to their
+size S, so forcing this to be the case was not justified.
+
+Finally, while eigenvalue distributions are not \emph{identical} for
+different values of S without scaling variances, it is not really
+accurate to say that eigenvalue distributions are ``not comparable'';
+eigenvalue distributions change with S in a predictable way that can be
+compared when S is changed. It is well-established that the eigenvalues
+for a random matrix M such as that used in my manuscript, and originally
+by May (1972; Nature 238:413-414), will be uniformly distributed within
+a circle on the complex plane within a radius of
+\(\sigma\sqrt{SC} < d\), where \(-d\) is the mean of diagonal elements
+of M (Tao and Tu 2010; Annals of Probability 38:2023-2065). Hence,
+increasing S specifically increases the radius of this uniform
+distribution, and does so predictably such that the probability that
+real eigenvalues are negative (the criteria for system stability)
+becomes increasingly low with increasing S. Multiplying the random
+matrix A (which has the uniform distribution with a circle of radius
+\(\sigma\sqrt{SC}\)) by the vector \(\gamma_{i}\) in my manuscript
+resulted in an eigenvalue distribution that was more likely to be stable
+at the upper range of S. I now clarify the difference between my result
+and that of Gibbs et al. (2018) in this context in my revised
+Discussion, and in a new section of the Supplementary Information.
+
+\subsection{Reviewer 3 specific comment
+4}\label{reviewer-3-specific-comment-4}
+
+The author also states in this manuscript that stability can be largely
+increased by `selecting' response rates so that linear stability is
+forced to increase. This is an obvious technical result but (in the
+light of the results by Gibbs et al.) it is also obvious that these
+cases will form a set of null measure in the limit of large systems.
+
+\subsection{Response to Reviewer 3 specific comment
+4}\label{response-to-reviewer-3-specific-comment-4}
+
+I showed that manipulating component response rates can, sometimes
+greatly, increase the probability that a random system will be stable.
+As with Reviewer 3 specific comment 3 (see above), I now clarify that my
+focus is on the upper range of S at which large random systems can
+reasonably be expected to be stable, not at the limit of
+\(S \to \infty\) (as in Gibbs et al. 2018). Clarifying revisions have
+been now made accordingly to the Introduction.
+
+\section{Author References Cited}\label{author-references-cited}
+
+Gibbs, T., Grilli, J., Rogers, T., \& Allesina, S. (2018). Effect of
+population abundances on the stability of large random ecosystems.
+Physical Review E, 98(2), 022410.
+
+Gray, R. T., \& Robinson, P. A. (2009). Stability of random brain
+networks with excitatory and inhibitory connections. Neurocomputing,
+72(7--9), 1849--1858. \url{https://doi.org/10.1016/j.neucom.2008.06.001}
+
+Gray, R. T., \& Robinson, P. A. (2008). Stability and synchronization of
+random brain networks with a distribution of connection strengths.
+Neurocomputing, 71(7--9), 1373--1387.
+\url{https://doi.org/10.1016/j.neucom.2007.06.002}
+
+Grilli, J., Adorisio, M., Suweis, S., Barabás, G., Banavar, J. R.,
+Allesina, S., \& Maritan, A. (2017). Feasibility and coexistence of
+large ecological communities. Nature Communications, 8.
+\url{https://doi.org/10.1038/ncomms14389}
+
+Hui, C., \& Richardson, D. M. (2018). How to invade an ecological
+network. Trends in Ecology and Ecolution, xx, 1--11.
+\url{https://doi.org/10.1016/j.tree.2018.11.003}
+
+May, R. M. (1972). Will a large complex system be stable? Nature, 238,
+413--414.
+
+May, R. M. (1973). Qualitative stability in model ecosystems. Ecology,
+54(3), 638--641. \url{https://doi.org/10.2307/1935352}
+
+Patel, S., Cortez, M. H., \& Schreiber, S. J. (2018). Partitioning the
+effects of eco-evolutionary feedbacks on community stability. American
+Naturalist, 191(3), 1--29. \url{https://doi.org/10.1101/104505}
+
+Haldane, A. G., \& May, R. M. (2011). Systemic risk in banking
+ecosystems. Nature, 469(7330), 351--355.
+\url{https://doi.org/10.1038/nature09659}
+
+
+\end{document}

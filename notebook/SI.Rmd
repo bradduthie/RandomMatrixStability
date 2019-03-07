@@ -1,5 +1,5 @@
 ---
-title: "Component response rate variation drives stability in large complex systems"
+title: "Component response rate variation underlies the stability of complex systems"
 author: "A. Bradley Duthie"
 date: Biological and Environmental Sciences, University of Stirling, Stirling, UK,
   FK9 4LA alexander.duthie@stir.ac.uk

@@ -4,16 +4,16 @@ author: "A. Bradley Duthie    ( alexander.duthie@stir.ac.uk )"
 date: Biological and Environmental Sciences, University of Stirling, Stirling, UK,
   FK9 4LA
 output:
-  pdf_document:
-    fig_caption: yes
-    keep_tex: yes
-  html_document: default
   word_document:
     fig_caption: yes
     pandoc_args:
     - --csl
     - nature.csl
     reference_docx: docx_template.docx
+  pdf_document:
+    fig_caption: yes
+    keep_tex: yes
+  html_document: default
 bibliography: references.bib
 header-includes:
 - \usepackage{amsmath}

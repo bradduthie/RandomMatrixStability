@@ -119,13 +119,13 @@ individual system components remains unconsidered. Here I vary the
 component response rates (\(\boldsymbol{\gamma}\)) of randomly generated
 complex systems. I show that when component response rates vary, the
 potential for system stability is markedly increased. Variation in
-\(\boldsymbol{\gamma}\) becomes increasingly important for stability in
-large but finite systems, where the probability of stability would
-otherwise be negligible. At such extremes of simulated system
-complexity, the largest stable complex systems would be unstable if not
-for \(\boldsymbol{Var(\gamma)}\). My results therefore reveal a
-previously unconsidered aspect of system stability that is likely to be
-pervasive across all realistic complex systems.
+\(\boldsymbol{\gamma}\) is especially important for stability in highly
+complex systems, in which the probability of stability would otherwise
+be negligible. At such extremes of simulated system complexity, the
+largest stable complex systems would be unstable if not for
+\(\boldsymbol{Var(\gamma)}\). My results therefore reveal a previously
+unconsidered aspect of system stability that is likely to be pervasive
+across all realistic complex systems.
 
 \subsection{Introduction}\label{introduction}
 
@@ -193,8 +193,9 @@ has not been investigated in complex systems theory. Intuitively,
 variation in \(\gamma\) might be expected to decrease system stability
 by introducing a new source of variation into the system and thereby
 increasing \(\sigma\). Here I show why, despite higher \(\sigma\),
-realistic complex systems (such that \(S\) is high but finite) in which
-\(\gamma\) varies are actually more likely to be stable.
+realistic complex systems (such that \(S\) is high but finite) are
+actually more likely to be stable if their individual component response
+rates vary
 
 \subsection{Results}\label{results}
 
@@ -356,16 +357,16 @@ matrix \(\mathbf{A}\) within a generalised Lotka-Volterra model, where
 al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{17}} analytically
 demonstrated that the effect of \(\mathbf{X}\) on system stability
 decreases exponentially as system size becomes arbitrarily large
-(\(S \to \infty\)). My numerical results do not contradict this
+(\(S \to \infty\)) for a given magnitude of complexity
+\(\sigma\sqrt{SC}\). My numerical results do not contradict this
 prediction because I did not scale \(\sigma = 1 / \sqrt{S}\), but
 instead fixed \(\sigma\) and increased \(S\) to thereby increase total
-system complexity, \(\sigma\sqrt{SC}\) (see Supplemental Information for
-results simulated across \(\sigma\) and \(C\)). Overall, I show that
-component response rate variation increases the upper bound of
-complexity at which stability can be realistically observed, meaning
-that highly complex systems are more likely than not to vary in their
-component response rates, and for this variation to be critical for
-system stability.
+system complexity (see Supplemental Information for results simulated
+across \(\sigma\) and \(C\)). Overall, I show that component response
+rate variation increases the upper bound of complexity at which
+stability can be realistically observed, meaning that highly complex
+systems are more likely than not to vary in their component response
+rates, and for this variation to be critical for system stability.
 
 The potential importance of component response rate variation was most
 evident from the results of simulations in which the genetic algorithm
@@ -655,7 +656,8 @@ Physics} \textbf{91,} 012820 (2015).
 \hypertarget{ref-Gibbs2017}{}
 17. Gibbs, T., Grilli, J., Rogers, T. \& Allesina, S. The effect of
 population abundances on the stability of large random ecosystems.
-\emph{arXiv} (2017).
+\emph{Physical Review E - Statistical, Nonlinear, and Soft Matter
+Physics} \textbf{98,} 022410 (2018).
 
 \hypertarget{ref-Stone2017}{}
 18. Stone, L. The feasibility and stability of large complex biological
@@ -726,7 +728,7 @@ system where \(S = 1000\), \(C = 0.05\), and \(\sigma = 0.4\).
 interaction strengths (\(\sigma^{2}\)) but also creates a cluster of
 eigenvalues toward the distribution's centre (-1, 0). Blue elipses in
 both panels show the circle centred on the distribution in panel a.
-Proportions of \(\Re(\lambda) < 0\) are 0.724 and 0.742 for a and b,
+Proportions of \(\Re(\lambda) < 0\) are 0.722 and 0.74 for a and b,
 respectively.
 
 \includegraphics{ms_files/figure-latex/unnamed-chunk-13-1.pdf}
