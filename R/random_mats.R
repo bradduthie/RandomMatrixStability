@@ -142,4 +142,68 @@ summarise_randmat <- function(tot_res, fea_res){
 }
 
 
+mat_rho <- function(mat){
+    if(dim(mat)[1] != dim(mat)[2]){
+        stop("Error: Not a square matrix");
+    }
+    S  <- dim(mat)[1];
+    od <- 0.5 * (S * S - S);
+    ut <- rep(x = NA, times = od);
+    lt <- rep(x = NA, times = od);
+    ct <- 1;
+    for(i in 1:dim(mat)[1]){
+        for(j in 1:dim(mat)[2]){
+            if(i < j){
+                ut[ct] <- mat[i, j];
+                lt[ct] <- mat[j, i]; 
+                ct     <- ct + 1;
+            }
+        }
+    }
+    rho <- cor(ut, lt);
+    return(rho);
+}
 
+
+
+rand_gen_rho <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 1,
+                         sigma = 0.4){
+    sp_try  <- seq(from = by, to = max_sp, by = by);
+    ret_mat <- matrix(data = NA, nrow = length(sp_try) * iters, ncol = 8);
+    ret_rho <- 1;
+    for(i in 1:length(sp_try)){
+        iter           <- iters;
+        while(iter > 0){
+            r_vec    <- rnorm(n = sp_try[i], mean = 0, sd = rmx);
+            A0_dat   <- rnorm(n = sp_try[i] * sp_try[i], mean = 0, sd = sigma);
+            A0       <- matrix(data = A0_dat, nrow = sp_try[i], 
+                               ncol = sp_try[i]);
+            A0       <- species_interactions(mat = A0, type = int_type);
+            C_dat    <- rbinom(n = sp_try[i] * sp_try[i], size = 1, prob = C);
+            C_mat    <- matrix(data = C_dat, nrow = sp_try[i], 
+                               ncol = sp_try[i]);
+            A0       <- A0 * C_mat;
+            diag(A0) <- -1;
+            gam1     <- runif(n = sp_try[i], min = 0, max = 2);
+            A1       <- A0 * gam1;
+            A0       <- A0 * mean(gam1);
+            A0_stb   <- max(Re(eigen(A0)$values));
+            A1_stb   <- max(Re(eigen(A1)$values));
+            A0_rho   <- mat_rho(A0);
+            A1_rho   <- mat_rho(A1);
+            ret_mat[ret_rho, 1] <- sp_try[i];
+            ret_mat[ret_rho, 2] <- iter;
+            ret_mat[ret_rho, 3] <- A0_stb;
+            ret_mat[ret_rho, 4] <- A1_stb;
+            ret_mat[ret_rho, 5] <- as.numeric(A0_stb < 0);
+            ret_mat[ret_rho, 6] <- as.numeric(A1_stb < 0);
+            ret_mat[ret_rho, 7] <- A0_rho;
+            ret_mat[ret_rho, 8] <- A1_rho;
+            ret_rho             <- ret_rho + 1;
+            iter                <- iter - 1;
+        }
+        print(sp_try[i]);
+    }
+    ret_mat <- ret_mat[ret_mat[,1] > 2,];
+    return(ret_mat);
+}
