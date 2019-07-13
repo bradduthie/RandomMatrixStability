@@ -207,3 +207,9 @@ rand_gen_rho <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 1,
     ret_mat <- ret_mat[ret_mat[,1] > 2,];
     return(ret_mat);
 }
+
+# Relate to zero law of biology? Variance in the correlation will inherently 
+# increase, meaning that there is a higher probability that a negative
+# correlation will occur and lead to stability. There is a bound at 1, but 
+# multiplying by a vector makes more situations with a -1, assuming the
+# initial correlation of M_{i,j} and M_{j,i} is not uniform?
