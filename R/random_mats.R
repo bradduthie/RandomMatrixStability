@@ -213,3 +213,49 @@ rand_gen_rho <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 1,
 # correlation will occur and lead to stability. There is a bound at 1, but 
 # multiplying by a vector makes more situations with a -1, assuming the
 # initial correlation of M_{i,j} and M_{j,i} is not uniform?
+
+
+
+## A1 is an added matrix
+rand_A1_test <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 1,
+                         sigma = 0.4){
+    sp_try  <- seq(from = by, to = max_sp, by = by);
+    ret_mat <- matrix(data = NA, nrow = length(sp_try) * iters, ncol = 8);
+    ret_rho <- 1;
+    for(i in 1:length(sp_try)){
+        iter           <- iters;
+        while(iter > 0){
+            r_vec    <- rnorm(n = sp_try[i], mean = 0, sd = rmx);
+            A0_dat   <- rnorm(n = sp_try[i] * sp_try[i], mean = 0, sd = sigma);
+            A0       <- matrix(data = A0_dat, nrow = sp_try[i], 
+                               ncol = sp_try[i]);
+            A0       <- species_interactions(mat = A0, type = int_type);
+            C_dat    <- rbinom(n = sp_try[i] * sp_try[i], size = 1, prob = C);
+            C_mat    <- matrix(data = C_dat, nrow = sp_try[i], 
+                               ncol = sp_try[i]);
+            A0       <- A0 * C_mat;
+            diag(A0) <- -1;
+            G1_vals  <- rnorm(n = sp_try[i] * sp_try[i], sd = 0.1);
+            G1       <- matrix(data = G1_vals, nrow = sp_try[i]);
+            A1       <- A0 + G1;
+            diag(A1) <- -1;
+            A0_stb   <- max(Re(eigen(A0)$values));
+            A1_stb   <- max(Re(eigen(A1)$values));
+            A0_rho   <- mat_rho(A0);
+            A1_rho   <- mat_rho(A1);
+            ret_mat[ret_rho, 1] <- sp_try[i];
+            ret_mat[ret_rho, 2] <- iter;
+            ret_mat[ret_rho, 3] <- A0_stb;
+            ret_mat[ret_rho, 4] <- A1_stb;
+            ret_mat[ret_rho, 5] <- as.numeric(A0_stb < 0);
+            ret_mat[ret_rho, 6] <- as.numeric(A1_stb < 0);
+            ret_mat[ret_rho, 7] <- A0_rho;
+            ret_mat[ret_rho, 8] <- A1_rho;
+            ret_rho             <- ret_rho + 1;
+            iter                <- iter - 1;
+        }
+        print(sp_try[i]);
+    }
+    ret_mat <- ret_mat[ret_mat[,1] > 2,];
+    return(ret_mat);
+}
