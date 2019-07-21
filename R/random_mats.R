@@ -216,7 +216,7 @@ rand_gen_rho <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 1,
 
 
 
-## A1 is an added matrix
+## A1 multiplies by element -- still decreases stability.
 rand_A1_test <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 1,
                          sigma = 0.4){
     sp_try  <- seq(from = by, to = max_sp, by = by);
@@ -235,10 +235,9 @@ rand_A1_test <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 1,
                                ncol = sp_try[i]);
             A0       <- A0 * C_mat;
             diag(A0) <- -1;
-            G1_vals  <- rnorm(n = sp_try[i] * sp_try[i], sd = 0.1);
+            G1_vals  <- runif(n = sp_try[i] * sp_try[i], min = 0, max = 2);
             G1       <- matrix(data = G1_vals, nrow = sp_try[i]);
-            A1       <- A0 + G1;
-            diag(A1) <- -1;
+            A1       <- A0 * G1;
             A0_stb   <- max(Re(eigen(A0)$values));
             A1_stb   <- max(Re(eigen(A1)$values));
             A0_rho   <- mat_rho(A0);
