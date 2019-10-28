@@ -1,3 +1,72 @@
+# NOTE FOR RESEARCH 27 OCT 2019
+# SEE EQN 2.4-2.9 OF AHMADIAN ET AL 2015
+# PARTICULARLY 2.8, IN WHICH THE SPECTRAL DENSITY IS DEPENDENT UP ON THE MATRIX
+# L. THE DISTRIBUTION APPEARS TO DEPEND ON L^-1 IN A WAY (TRACE) THAT MIGHT 
+# CAUSE THE STABILITY. NEED TO FIGURE OUT HOW THIS WORKS FOR N < 10 AND N > 10?
+N  <- 4000;
+z  <- 10;
+M  <- matrix(data = rnorm(N * N, sd = 1/N), nrow = N, ncol = N);
+Mz <- z - M;
+ml <- Mz %*% t(Mz);
+ms <- solve(ml);
+tr <- (1/N) * sum(diag(ms));
+tr;
+
+
+Rg <- Re(eigen(M)$values);
+Ig <- Im(eigen(M)$values);
+plot(x = Rg, y = Ig);
+
+# Maybe instead, define L as {N, N, N, N}, so the SD is preserved? Then
+# use the tools above?
+
+# Another check: Show unusually high values can be shunted into the very
+# negative group.
+N <- 800;
+L <- matrix(data = 0, nrow = N, ncol = N);
+J <- matrix(data = rnorm(N*N, sd = sqrt(1/N)), nrow = N, ncol = N);
+diag(J)  <- 1;
+diag(L)  <- -1 * c(rep(x = 0.01, times = N/2), rep(x = 1.98, times = N/2));
+M1       <- L %*% J
+eM1      <- eigen(M1)$values;
+rM1      <- Re(eM1);
+iM1      <- Im(eM1);
+plot(x = rM1, y = iM1, asp = 1, cex = 0.8, pch = "x", xlim = c(-0.015, 0.015),
+     ylim = c(-0.015, 0.015));
+abline(v = 0, col = "red");
+plot(x = rM1, y = iM1, asp = 1, cex = 0.8, pch = "x", 
+     xlim = c(-1.5, -1.5), ylim = c(-1.5, 1.5));
+rm1 <- tail(sort(rM1));
+
+L        <- matrix(data = 0, nrow = N, ncol = N);
+diag(L)  <- -0.995;
+M2       <- L %*% J;
+eM2      <- eigen(M2)$values;
+rM2      <- Re(eM2);
+iM2      <- Im(eM2);
+plot(x = rM2, y = iM2, asp = 1, cex = 0.8, pch = "x", xlim = c(-1.5, 1.5),
+     ylim = c(-1.5, 1.5));
+abline(v = 0, col = "red");
+rm2 <- tail(sort(rM2));
+
+rm1;
+rm2;
+
+
+
+
+plot(x = rM1, y = iM1, asp = 1, cex = 0.8, pch = "x", 
+     xlim = c(-1.5, -1.5), ylim = c(-1.5, 1.5));
+points(x = rM2, y = iM2, asp = 1, cex = 0.8, pch = "x", xlim = c(-1.5, 1.5),
+     ylim = c(-1.5, 1.5), col = "blue");
+abline(v = 0, col = "red");
+
+
+plot(x = rM1, y = iM1, asp = 1, cex = 0.8, pch = "x", xlim = c(-0.15, 0.15),
+     ylim = c(-0.15, 0.15));
+points(x = rM2, y = iM2, asp = 1, cex = 0.8, pch = "x", col = "blue");
+abline(v = 0, col = "red");
+
 #' Find a stabilised system
 #' 
 #' Compares random matrices in which variation in component response rate does
