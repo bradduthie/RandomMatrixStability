@@ -163,14 +163,12 @@ points(x = rM3, y = iM3, asp = 1, cex = 0.8, pch = "x",
      xlim = c(-0.03, 0.01), ylim = c(-0.02, 0.02), col = "orange");
 # This corresponds to the expected diameter
 vl <- seq(from = 0, to = 2*pi, by = 0.001);
-x0 <- sigma * 0.01 * sqrt(N/2) * cos(vl) + mean(diag(M3));
-y0 <- sigma * 0.01 * sqrt(N/2) * sin(vl);
+x0 <- sigma * 0.01 * sqrt(S/2) * cos(vl) + mean(diag(M3));
+y0 <- sigma * 0.01 * sqrt(S/2) * sin(vl);
 points(x = x0, y = y0, type = "l", lwd = 3, col = "orange");
-# Check out what happens when you change N
-x0 <- sigma * 0.01 * sqrt(N) * cos(vl) + mean(diag(M3));
-y0 <- sigma * 0.01 * sqrt(N) * sin(vl);
-points(x = x0, y = y0, type = "l", lwd = 2, col = "orange", lty = "dashed");
-
+# Check out what happens when you change S
+# Something is increasing the size of the circle.
+# Solve this analytically.
 
 # See what both look like if separate matrices, upper left and lower right.
 M4       <- M2[(S/2 + 1):S, (S/2 + 1):S];
@@ -183,13 +181,13 @@ plot(x = rM2, y = iM2, asp = 1, cex = 0.8, pch = "+", xlim = c(-3.5, 0.5),
 abline(v = 0, col = "red");
 # Add the old M3 ones
 vl <- seq(from = 0, to = 2*pi, by = 0.001);
-x0 <- sigma * 0.01 * sqrt(N/2) * cos(vl) + mean(diag(M3));
-y0 <- sigma * 0.01 * sqrt(N/2) * sin(vl);
+x0 <- sigma * 0.01 * sqrt(S/2) * cos(vl) + mean(diag(M3));
+y0 <- sigma * 0.01 * sqrt(S/2) * sin(vl);
 points(x = x0, y = y0, type = "l", lwd = 3, col = "orange");
 # Add the new M4 ones
 vl <- seq(from = 0, to = 2*pi, by = 0.001);
-x1 <- sigma * 1.99 * sqrt(N/2) * cos(vl) + mean(diag(M4));
-y1 <- sigma * 1.99 * sqrt(N/2) * sin(vl);
+x1 <- sigma * 1.99 * sqrt(S/2) * cos(vl) + mean(diag(M4));
+y1 <- sigma * 1.99 * sqrt(S/2) * sin(vl);
 points(x = x1, y = y1, type = "l", lwd = 3, col = "orange");
 
 # Need to figure out where that variation is going.
