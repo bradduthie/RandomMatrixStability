@@ -4,16 +4,16 @@ author: "A. Bradley Duthie    ( alexander.duthie@stir.ac.uk )"
 date: Biological and Environmental Sciences, University of Stirling, Stirling, UK,
   FK9 4LA
 output:
+  pdf_document:
+    fig_caption: yes
+    keep_tex: yes
+  html_document: default
   word_document:
     fig_caption: yes
     pandoc_args:
     - --csl
     - nature.csl
     reference_docx: docx_template.docx
-  pdf_document:
-    fig_caption: yes
-    keep_tex: yes
-  html_document: default
 bibliography: references.bib
 header-includes:
 - \usepackage{amsmath}
@@ -407,6 +407,8 @@ To check the feasibility criteria for $\mathbf{M = \gamma A}$, I therefore evalu
 **Acknowledgements:** I am supported by a Leverhulme Trust Early Career Fellowship (ECF-2016-376). Conversations with L. Bussi&#xe8;re and N. Bunnefeld, and comments from J. J. Cusack and I. L. Jones, improved the quality of this work. 
 
 **Supplementary Information:** Full tables of stability results for simulations across different system size ($S$) values, ecological community types, connectance ($C$) values, interaction strengths ($\sigma$), and $\gamma$ distributions are provided as supplementary material. An additional table also shows results for how feasibility changes across $S$. All code and simulation outputs are publicly available as part of the RandomMatrixStability package on GitHub (https://github.com/bradduthie/RandomMatrixStability).
+
+**Additional Information:** The author declares no competing interests. All work was carried out by A. Bradley Duthie, and all code and data are accessible on [GitHub](https://github.com/bradduthie/RandomMatrixStability).
 
 **References**
 
