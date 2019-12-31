@@ -64,3 +64,26 @@ sample_k <- function(i, N, K){
     return(getit);
 }
 
+
+
+visualise_swn <- function(mat){
+    N  <- dim(mat)[1];
+    rd <- seq(from = 0, to = 2*pi, length = N);
+    yy <- sin(rd);
+    xx <- cos(rd);
+    par(bty = "n");
+    plot(x = xx, y = yy, pch = 20, cex = 1.5, 
+         xaxt = "n", yaxt = "n", xlab = "", ylab = "");
+    for(i in 1:N){
+        for(j in 1:N){
+            if(i > j & mat[i,j] > 0){
+                lines(x = c(xx[i], xx[j]), y = c(yy[i], yy[j]), 
+                      lwd = 0.5);
+            }
+        }
+    }
+}
+
+
+
+
