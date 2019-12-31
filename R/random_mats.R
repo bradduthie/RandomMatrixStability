@@ -1,3 +1,32 @@
+# THINGS TO DO FOR THE PAPER:
+#
+# 1. Do the cascade model, as suggested by reviewers, but to keep a broad focus
+#    (i.e., not just on ecological networks) and do not do the niche or nested-
+#    hierarchy models. The latter two are food webs, these two being refinements
+#    of the cascade model. 
+# 2. Do a small-world network, and note that many types of real (non-ecological)
+#    networks are arranged this way. Will need to sample across wide range of
+#    relevant parameters.
+# 3. Do a scale-free network, and again note that many types of real networks
+#    are arranged as such. Sample across a wide range of relevant parameters
+# 
+# The point of the above is that this is not an ecological paper per se, but is
+# more broadly about the stability of complex networks given component response
+# rate variation. So I do not want to get into precise ecological networks. I
+# have already done predator-prey, mutualist, competitor, and now cascade 
+# networks. And it is worth noting that looking for stability in these networks
+# is less interesting that it would originally appear since, as noted in the
+# paper, feasibility remains unaffected by varying component response rate.
+#
+# Lastly, I want to do the following:
+#
+# Vary the diagonal matrix (at least a bit). This was requested. I can show that
+# the main point still works given a completely random matrix (show this), but
+# might continue with random values selected for the diagonal around some sort
+# of mean centre at a negative value (just to ensure some chance of stability).
+
+
+
 #' Find a stabilised system
 #' 
 #' Compares random matrices in which variation in component response rate does
