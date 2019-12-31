@@ -24,6 +24,12 @@
 # the main point still works given a completely random matrix (show this), but
 # might continue with random values selected for the diagonal around some sort
 # of mean centre at a negative value (just to ensure some chance of stability).
+#
+# Analytically, I wonder if I can decompose M into the original circular matrix
+# plus the contribution of \gamma. This could somehow show that \gamma causes
+# variation in the real parts of the eigenvalues, which could sometimes lead to
+# stability? Try this direction, and see where it leads at least
+#
 
 
 
@@ -122,8 +128,8 @@ species_interactions <- function(mat, type = 0){
         }
     }
     if(type == 4){
-        for(i in dim(mat)[1]){
-            for(j in dim(mat)[2]){
+        for(i in 1:dim(mat)[1]){
+            for(j in 1:dim(mat)[2]){
                 if(j > i & mat[i, j] < 0){
                     mat[i, j] <- -1 * mat[i, j];
                 }
