@@ -36,7 +36,7 @@ rewire_sw_edges <- function(mat, K, beta){
     N <- dim(mat)[1];
     for(i in 1:N){
         for(j in 1:N){
-            if(i != j){
+            if(i != j & mat[i, j] > 0){
                 samp_beta <- runif(n = 1) < beta;
                 if(samp_beta){ # Rewire node
                     mat[i, j] <- 0;
