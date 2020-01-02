@@ -64,7 +64,11 @@ sample_k <- function(i, N, K){
     return(getit);
 }
 
-
+get_C <- function(mat){
+    c1  <- sum(mat != 0);
+    tot <- (dim(mat)[1] * dim(mat)[2]) - length(diag(mat));
+    return(c1 / tot);
+}
 
 visualise_swn <- function(mat){
     N  <- dim(mat)[1];
