@@ -1,5 +1,5 @@
-rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 1,
-                         sigma = 0.4){
+rand_gen_swn <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 4,
+                         sigma = 0.4, Kdiv = 2, beta = 0.2){
     tot_res <- NULL;
     fea_res <- NULL;
     real_Cs <- NULL;
@@ -15,8 +15,8 @@ rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 1,
             A0       <- matrix(data = A0_dat, nrow = sp_try[i], 
                                ncol = sp_try[i]);
             A0       <- species_interactions(mat = A0, type = int_type);
-            swn      <- create_swn(N = sp_try[i], beta = 0.2,
-                                   K = (sp_try[i] / 8));
+            swn      <- create_swn(N = sp_try[i], beta = beta,
+                                   K = (sp_try[i] / Kdiv));
             real_Cs[[i]][iter, 1] <- sp_try[i];
             real_Cs[[i]][iter, 2] <- iter;
             real_Cs[[i]][iter, 3] <- get_C(swn);
@@ -54,7 +54,35 @@ rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 1,
     return(list(all_res = all_res, real_Cs = real_Cs));
 }
 
+add_C_stats <- function(sim){
+    real_Cs <- sim$real_Cs;
+    all_res <- sim$all_res;
+    res_mns <- matrix(data = 0, nrow = length(sim$real_Cs), ncol = 2);
+    for(i in 1:dim(res_mns)[1]){
+        mn_vals       <- apply(X = real_Cs[[i]], MARGIN = 2, FUN = mean);
+        res_mns[i, 1] <- mn_vals[1];
+        res_mns[i, 2] <- mn_vals[3];
+    }
+    new_all_res <- cbind(all_res, res_mns[,2]);
+    colnames(new_all_res)[dim(new_all_res)[2]] <- "C";
+    return(new_all_res);
+}
 
-sim <- rand_gen_var(max_sp = 256, iters = 10000, by = 16);
+sim <- rand_gen_swn(max_sp = 56, iters = 100000, rmx = 0.4, C = 1, by = 4,
+                    sigma = 0.4, Kdiv = 2, beta = 0.0);
+
+
+
+
+mat       <- matrix(data = 0, nrow = 2, ncol = 2);
+mat[1, 2] <- 1;
+mat[2, 1] <- 1;
+for(N in 3:dim(mat)[1]){
+    sum_Kj  <- sum(mat[1:N, 1:N]);
+    sum_Kis <- apply(X = mat[1:N, 1:N], MARGIN = 1, FUN = sum);
+    # sample bernoulli with pr of sum_Kis/sumkj in each new element
+    # remember to flip.
+}
+
 
 
