@@ -62,7 +62,7 @@ rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 1,
         iter           <- iters;
         tot_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 7);
         fea_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 7);
-        rho_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 3);
+        rho_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 4);
         cmplxty[[i]]   <- matrix(data = 0, nrow = iter, ncol = 2);
         while(iter > 0){
             r_vec    <- rnorm(n = sp_try[i], mean = 0, sd = rmx);
@@ -85,6 +85,7 @@ rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 1,
             A0_rho   <- mat_rho(A0);
             A1_rho   <- mat_rho(A1);
             rho_diff <- A1_rho - A0_rho;
+            rho_abs  <- abs(A1_rho) - abs(A0_rho);
             if(A0_stb == TRUE){
                 tot_res[[i]][iter, 1] <- 1;
             }
@@ -100,6 +101,7 @@ rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 1,
             rho_res[[i]][iter, 1] <- A0_rho;
             rho_res[[i]][iter, 2] <- A1_rho;
             rho_res[[i]][iter, 3] <- rho_diff;
+            rho_res[[i]][iter, 4] <- rho_abs;
             cmplxty[[i]][iter, 1] <- get_complexity(A0);
             cmplxty[[i]][iter, 2] <- get_complexity(A1);
             iter                  <- iter - 1;
@@ -170,7 +172,7 @@ species_interactions <- function(mat, type = 0){
 #'@export
 summarise_randmat <- function(tot_res, fea_res, rho_res, cmplxty){
     sims    <- length(tot_res);
-    all_res <- matrix(data = 0, nrow = sims, ncol = 18);
+    all_res <- matrix(data = 0, nrow = sims, ncol = 19);
     for(i in 1:sims){
         all_res[i, 1]  <- i + 1;
         # Stable and unstable
@@ -197,14 +199,15 @@ summarise_randmat <- function(tot_res, fea_res, rho_res, cmplxty){
         all_res[i, 14] <- mean(rho_res[[i]][,1]);
         all_res[i, 15] <- mean(rho_res[[i]][,2]);
         all_res[i, 16] <- mean(rho_res[[i]][,3]);
-        all_res[i, 17] <- mean(cmplxty[[i]][,1]);
-        all_res[i, 18] <- mean(cmplxty[[i]][,2]);
+        all_res[i, 17] <- mean(rho_res[[i]][,4]);
+        all_res[i, 18] <- mean(cmplxty[[i]][,1]);
+        all_res[i, 19] <- mean(cmplxty[[i]][,2]);
     }
     cnames <- c("N", "A0_unstable", "A0_stable", "A1_unstable", "A1_stable", 
                 "A1_stabilised", "A1_destabilised", "A0_infeasible", 
                 "A0_feasible", "A1_infeasible", "A1_feasible", 
                 "A1_made_feasible", "A1_made_infeasible", "A0_rho", "A1_rho",
-                "rho_diff", "complex_A0", "complex_A1");
+                "rho_diff", "rho_abs", "complex_A0", "complex_A1");
     colnames(all_res) <- cnames;
     return(all_res);
 }
@@ -353,3 +356,63 @@ build_rho_mat <- function(S, sigma, rho){
     diag(mat)           <- -1;
     return(mat);
 }
+
+
+
+rand_rho_var <- function(S, rhos, iters, int_type = 0, rmx = 0.4, C = 1, 
+                         by = 1, sigma = 0.4){
+    tot_res <- NULL;
+    fea_res <- NULL;
+    rho_res <- NULL;
+    cmplxty <- NULL;
+    for(i in 1:length(rhos)){
+        iter           <- iters;
+        tot_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 7);
+        fea_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 7);
+        rho_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 4);
+        cmplxty[[i]]   <- matrix(data = 0, nrow = iter, ncol = 2);
+        while(iter > 0){
+            r_vec    <- rnorm(n = S, mean = 0, sd = rmx);
+            A0       <- build_rho_mat(S = S, sigma = sigma, rho = rhos[i]);
+            gam1     <- runif(n = S, min = 0, max = 2);
+            A1       <- A0 * gam1;
+            A0       <- A0 * mean(gam1);
+            A0_stb   <- max(Re(eigen(A0)$values)) < 0;
+            A1_stb   <- max(Re(eigen(A1)$values)) < 0;
+            A0_fea   <- min(-1*solve(A0) %*% r_vec) > 0;
+            A1_fea   <- min(-1*solve(A1) %*% r_vec) > 0;
+            A0_rho   <- mat_rho(A0);
+            A1_rho   <- mat_rho(A1);
+            rho_diff <- A1_rho - A0_rho;
+            rho_abs  <- abs(A1_rho) - abs(A0_rho);
+            if(A0_stb == TRUE){
+                tot_res[[i]][iter, 1] <- 1;
+            }
+            if(A1_stb == TRUE){
+                tot_res[[i]][iter, 2] <- 1;
+            }
+            if(A0_fea == TRUE){
+                fea_res[[i]][iter, 1] <- 1;
+            }
+            if(A1_fea == TRUE){
+                fea_res[[i]][iter, 2] <- 1;
+            }
+            rho_res[[i]][iter, 1] <- A0_rho;
+            rho_res[[i]][iter, 2] <- A1_rho;
+            rho_res[[i]][iter, 3] <- rho_diff;
+            rho_res[[i]][iter, 4] <- rho_abs;
+            cmplxty[[i]][iter, 1] <- get_complexity(A0);
+            cmplxty[[i]][iter, 2] <- get_complexity(A1);
+            iter                  <- iter - 1;
+        }
+        print(rhos[i]);
+    }
+    all_res     <- summarise_randmat(tot_res = tot_res, fea_res = fea_res,
+                                     rho_res = rho_res, cmplxty = cmplxty);
+    all_res[,1]          <- rhos;
+    colnames(all_res)[1] <- "rho_set";
+    return(all_res);
+}
+
+
+
