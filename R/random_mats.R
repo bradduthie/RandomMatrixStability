@@ -61,7 +61,7 @@ rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 1,
         iter           <- iters;
         tot_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 7);
         fea_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 7);
-        rho_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 2); 
+        rho_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 3); 
         while(iter > 0){
             r_vec    <- rnorm(n = sp_try[i], mean = 0, sd = rmx);
             A0_dat   <- rnorm(n = sp_try[i] * sp_try[i], mean = 0, sd = sigma);
@@ -82,6 +82,7 @@ rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 1,
             A1_fea   <- min(-1*solve(A1) %*% r_vec) > 0;
             A0_rho   <- mat_rho(A0);
             A1_rho   <- mat_rho(A1);
+            rho_diff <- A1_rho - A0_rho;
             if(A0_stb == TRUE){
                 tot_res[[i]][iter, 1] <- 1;
             }
@@ -96,6 +97,7 @@ rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 1,
             }
             rho_res[[i]][iter, 1] <- A0_rho;
             rho_res[[i]][iter, 2] <- A1_rho;
+            rho_res[[i]][iter, 3] <- rho_diff;
             iter                  <- iter - 1;
         }
         print(sp_try[i]);
@@ -164,7 +166,7 @@ species_interactions <- function(mat, type = 0){
 #'@export
 summarise_randmat <- function(tot_res, fea_res, rho_res){
     sims    <- length(tot_res);
-    all_res <- matrix(data = 0, nrow = sims, ncol = 15);
+    all_res <- matrix(data = 0, nrow = sims, ncol = 16);
     for(i in 1:sims){
         all_res[i, 1]  <- i + 1;
         # Stable and unstable
@@ -190,11 +192,13 @@ summarise_randmat <- function(tot_res, fea_res, rho_res){
         # Mean correlations between A[i,j] and A[j,i] off-diag elements
         all_res[i, 14] <- mean(rho_res[[i]][,1]);
         all_res[i, 15] <- mean(rho_res[[i]][,2]);
+        all_res[i, 16] <- mean(rho_res[[i]][,3]);
     }
     cnames <- c("N", "A0_unstable", "A0_stable", "A1_unstable", "A1_stable", 
                 "A1_stabilised", "A1_destabilised", "A0_infeasible", 
                 "A0_feasible", "A1_infeasible", "A1_feasible", 
-                "A1_made_feasible", "A1_made_infeasible", "A0_rho", "A1_rho");
+                "A1_made_feasible", "A1_made_infeasible", "A0_rho", "A1_rho",
+                "rho_diff");
     colnames(all_res) <- cnames;
     return(all_res);
 }
