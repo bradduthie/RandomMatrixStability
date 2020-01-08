@@ -326,3 +326,30 @@ rand_A1_test <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 1,
     ret_mat <- ret_mat[ret_mat[,1] > 2,];
     return(ret_mat);
 }
+
+# Build a matrix with fixed correlation between A[i, j] and A[j, i]
+build_rho_mat <- function(S, sigma, rho){
+    mat  <- matrix(data = 0, nrow = S, ncol = S);
+    ia   <- 0.5 * ((S * S) - S);
+    ut   <- rnorm(n = ia, mean = 0, sd = sigma);
+    lt   <- rnorm(n = ia, mean = 0, sd = sigma);
+    od   <- cbind(ut, lt);
+    co   <- var(od);
+    ch   <- solve(chol(co));
+    nx   <- od %*% ch;
+    ms   <- matrix(data = c(1, rho, rho, 1), ncol = 2);
+    c2   <- chol(ms);
+    el   <- nx %*% c2 * sd(ut) + mean(ut);
+    fc   <- 1;
+    for(i in 1:S){
+        for(j in 1:S){
+            if(i < j){
+                mat[i, j] <- el[fc, 1];
+                mat[j, i] <- el[fc, 2];
+                fc        <- fc + 1;
+            }
+        }
+    }
+    diag(mat)           <- -1;
+    return(mat);
+}
