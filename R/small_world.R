@@ -3,11 +3,13 @@ rand_gen_swn <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 4,
     tot_res <- NULL;
     fea_res <- NULL;
     real_Cs <- NULL;
+    cmplxty <- NULL;
     sp_try  <- seq(from = by, to = max_sp, by = by);
     for(i in 1:length(sp_try)){
         iter           <- iters;
         tot_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 7);
         fea_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 7);
+        rho_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 3); 
         real_Cs[[i]]   <- matrix(data = 0, nrow = iter, ncol = 3);
         while(iter > 0){
             r_vec    <- rnorm(n = sp_try[i], mean = 0, sd = rmx);
@@ -33,6 +35,9 @@ rand_gen_swn <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 4,
             A1_stb   <- max(Re(eigen(A1)$values)) < 0;
             A0_fea   <- min(-1*solve(A0) %*% r_vec) > 0;
             A1_fea   <- min(-1*solve(A1) %*% r_vec) > 0;
+            A0_rho   <- mat_rho(A0);
+            A1_rho   <- mat_rho(A1);
+            rho_diff <- A1_rho - A0_rho;
             if(A0_stb == TRUE){
                 tot_res[[i]][iter, 1] <- 1;
             }
@@ -45,13 +50,19 @@ rand_gen_swn <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 4,
             if(A1_fea == TRUE){
                 fea_res[[i]][iter, 2] <- 1;
             }
-            iter    <- iter - 1;
+            rho_res[[i]][iter, 1] <- A0_rho;
+            rho_res[[i]][iter, 2] <- A1_rho;
+            rho_res[[i]][iter, 3] <- rho_diff;
+            iter                  <- iter - 1;
         }
         print(sp_try[i]);
     }
-    all_res     <- summarise_randmat(tot_res = tot_res, fea_res = fea_res);
+    all_res     <- summarise_randmat(tot_res = tot_res, fea_res = fea_res,
+                                     rho_res = rho_res);
     all_res[,1] <- sp_try;
-    return(list(all_res = all_res, real_Cs = real_Cs));
+    full_res    <- list(all_res = all_res, real_Cs = real_Cs);
+    res_table   <- add_C_stats(sim = full_res);
+    return(res_table);
 }
 
 add_C_stats <- function(sim){
