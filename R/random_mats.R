@@ -56,12 +56,14 @@ rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 1,
     tot_res <- NULL;
     fea_res <- NULL;
     rho_res <- NULL;
+    cmplxty <- NULL;
     sp_try  <- seq(from = by, to = max_sp, by = by);
     for(i in 1:length(sp_try)){
         iter           <- iters;
         tot_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 7);
         fea_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 7);
-        rho_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 3); 
+        rho_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 3);
+        cmplxty[[i]]   <- matrix(data = 0, nrow = iter, ncol = 2);
         while(iter > 0){
             r_vec    <- rnorm(n = sp_try[i], mean = 0, sd = rmx);
             A0_dat   <- rnorm(n = sp_try[i] * sp_try[i], mean = 0, sd = sigma);
@@ -98,12 +100,14 @@ rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 1,
             rho_res[[i]][iter, 1] <- A0_rho;
             rho_res[[i]][iter, 2] <- A1_rho;
             rho_res[[i]][iter, 3] <- rho_diff;
+            cmplxty[[i]][iter, 1] <- get_complexity(A0);
+            cmplxty[[i]][iter, 2] <- get_complexity(A1);
             iter                  <- iter - 1;
         }
         print(sp_try[i]);
     }
     all_res     <- summarise_randmat(tot_res = tot_res, fea_res = fea_res,
-                                     rho_res = rho_res);
+                                     rho_res = rho_res, cmplxty = cmplxty);
     all_res[,1] <- sp_try;
     return(all_res);
 }
@@ -164,9 +168,9 @@ species_interactions <- function(mat, type = 0){
 #'eg_rand  <- rand_gen_var(max_sp = 2, iters = 4);
 #'sum_rand <- summarise_randmat(eg_rand$tot_res, eg_rand$fea_res);
 #'@export
-summarise_randmat <- function(tot_res, fea_res, rho_res){
+summarise_randmat <- function(tot_res, fea_res, rho_res, cmplxty){
     sims    <- length(tot_res);
-    all_res <- matrix(data = 0, nrow = sims, ncol = 16);
+    all_res <- matrix(data = 0, nrow = sims, ncol = 18);
     for(i in 1:sims){
         all_res[i, 1]  <- i + 1;
         # Stable and unstable
@@ -193,12 +197,14 @@ summarise_randmat <- function(tot_res, fea_res, rho_res){
         all_res[i, 14] <- mean(rho_res[[i]][,1]);
         all_res[i, 15] <- mean(rho_res[[i]][,2]);
         all_res[i, 16] <- mean(rho_res[[i]][,3]);
+        all_res[i, 17] <- mean(cmplxty[[i]][,1]);
+        all_res[i, 18] <- mean(cmplxty[[i]][,2]);
     }
     cnames <- c("N", "A0_unstable", "A0_stable", "A1_unstable", "A1_stable", 
                 "A1_stabilised", "A1_destabilised", "A0_infeasible", 
                 "A0_feasible", "A1_infeasible", "A1_feasible", 
                 "A1_made_feasible", "A1_made_infeasible", "A0_rho", "A1_rho",
-                "rho_diff");
+                "rho_diff", "complex_A0", "complex_A1");
     colnames(all_res) <- cnames;
     return(all_res);
 }

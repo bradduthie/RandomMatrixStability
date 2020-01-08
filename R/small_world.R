@@ -9,7 +9,8 @@ rand_gen_swn <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 4,
         iter           <- iters;
         tot_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 7);
         fea_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 7);
-        rho_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 3); 
+        rho_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 3);
+        cmplxty[[i]]   <- matrix(data = 0, nrow = iter, ncol = 2);
         real_Cs[[i]]   <- matrix(data = 0, nrow = iter, ncol = 3);
         while(iter > 0){
             r_vec    <- rnorm(n = sp_try[i], mean = 0, sd = rmx);
@@ -53,12 +54,14 @@ rand_gen_swn <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 4,
             rho_res[[i]][iter, 1] <- A0_rho;
             rho_res[[i]][iter, 2] <- A1_rho;
             rho_res[[i]][iter, 3] <- rho_diff;
+            cmplxty[[i]][iter, 1] <- get_complexity(A0);
+            cmplxty[[i]][iter, 2] <- get_complexity(A1);
             iter                  <- iter - 1;
         }
         print(sp_try[i]);
     }
     all_res     <- summarise_randmat(tot_res = tot_res, fea_res = fea_res,
-                                     rho_res = rho_res);
+                                     rho_res = rho_res, cmplxty = cmplxty);
     all_res[,1] <- sp_try;
     full_res    <- list(all_res = all_res, real_Cs = real_Cs);
     res_table   <- add_C_stats(sim = full_res);
@@ -77,6 +80,19 @@ add_C_stats <- function(sim){
     new_all_res <- cbind(all_res, res_mns[,2]);
     colnames(new_all_res)[dim(new_all_res)[2]] <- "C";
     return(new_all_res);
+}
+
+get_complexity <- function(mat){
+    S         <- length(diag(mat));
+    mat_gz    <- sum(mat != 0);
+    trace_gz  <- sum(diag(mat) != 0);
+    offdiagC  <- mat_gz - trace_gz;
+    offdiags  <- (dim(mat)[1] * dim(mat)[2]) - S;
+    calc_C    <- offdiagC / offdiags;
+    diag(mat) <- NA;
+    sigma     <- sd(mat, na.rm = TRUE);
+    complx    <- sigma * sqrt(S * calc_C);
+    return(complx);
 }
 
 create_swn <- function(N = 100, K = 20, beta = 0.05){
