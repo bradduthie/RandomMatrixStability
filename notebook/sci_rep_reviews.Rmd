@@ -7,6 +7,17 @@ output:
   html_document: default
 ---
 
+I have taken the following actions:
+
+1. Re-run simulations while calculating the correlation between off-diagonal elements of A[i,j] and A[j,i] to see if the correlation changes with $\gamma$ across $S$. It does not. I also generated systems of known correlation coefficients to assess how this modulated $\gamma$'s affect on stability. It did not.
+
+2. Run simulations across multiple structured network types to confirm the robustness of results. Network types include (a) cascade food webs, (b) small world networks, and (c) scale-free network.
+
+
+
+
+
+
 Reviewer 1 comments
 ================================================================================
 
