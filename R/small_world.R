@@ -3,6 +3,7 @@ rand_gen_swn <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 4,
     tot_res <- NULL;
     fea_res <- NULL;
     real_Cs <- NULL;
+    rho_res <- NULL;
     cmplxty <- NULL;
     sp_try  <- seq(from = by, to = max_sp, by = by);
     for(i in 1:length(sp_try)){
