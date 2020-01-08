@@ -55,11 +55,13 @@ rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 1,
                          sigma = 0.4){
     tot_res <- NULL;
     fea_res <- NULL;
+    rho_res <- NULL;
     sp_try  <- seq(from = by, to = max_sp, by = by);
     for(i in 1:length(sp_try)){
         iter           <- iters;
         tot_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 7);
         fea_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 7);
+        rho_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 2); 
         while(iter > 0){
             r_vec    <- rnorm(n = sp_try[i], mean = 0, sd = rmx);
             A0_dat   <- rnorm(n = sp_try[i] * sp_try[i], mean = 0, sd = sigma);
@@ -78,6 +80,8 @@ rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 1,
             A1_stb   <- max(Re(eigen(A1)$values)) < 0;
             A0_fea   <- min(-1*solve(A0) %*% r_vec) > 0;
             A1_fea   <- min(-1*solve(A1) %*% r_vec) > 0;
+            A0_rho   <- mat_rho(A0);
+            A1_rho   <- mat_rho(A1);
             if(A0_stb == TRUE){
                 tot_res[[i]][iter, 1] <- 1;
             }
@@ -90,11 +94,14 @@ rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 1,
             if(A1_fea == TRUE){
                 fea_res[[i]][iter, 2] <- 1;
             }
-            iter    <- iter - 1;
+            rho_res[[i]][iter, 1] <- A0_rho;
+            rho_res[[i]][iter, 2] <- A1_rho;
+            iter                  <- iter - 1;
         }
         print(sp_try[i]);
     }
-    all_res     <- summarise_randmat(tot_res = tot_res, fea_res = fea_res);
+    all_res     <- summarise_randmat(tot_res = tot_res, fea_res = fea_res,
+                                     rho_res = rho_res);
     all_res[,1] <- sp_try;
     return(all_res);
 }
@@ -150,13 +157,14 @@ species_interactions <- function(mat, type = 0){
 #'@return A table of stability and feasibility results.
 #'@param tot_res The tot_res list output from the rand_gen_var function
 #'@param fea_res The fea_res list output from the rand_gen_var function
+#'@param fea_res The rho_res list output from the rand_gen_var function
 #'@examples
 #'eg_rand  <- rand_gen_var(max_sp = 2, iters = 4);
 #'sum_rand <- summarise_randmat(eg_rand$tot_res, eg_rand$fea_res);
 #'@export
-summarise_randmat <- function(tot_res, fea_res){
+summarise_randmat <- function(tot_res, fea_res, rho_res){
     sims    <- length(tot_res);
-    all_res <- matrix(data = 0, nrow = sims, ncol = 13);
+    all_res <- matrix(data = 0, nrow = sims, ncol = 15);
     for(i in 1:sims){
         all_res[i, 1]  <- i + 1;
         # Stable and unstable
@@ -179,11 +187,14 @@ summarise_randmat <- function(tot_res, fea_res){
                                   fea_res[[i]][,2] == TRUE);
         all_res[i, 13] <- sum(fea_res[[i]][,1] == TRUE & 
                                   fea_res[[i]][,2] == FALSE);
+        # Mean correlations between A[i,j] and A[j,i] off-diag elements
+        all_res[i, 14] <- mean(rho_res[[i]][,1]);
+        all_res[i, 15] <- mean(rho_res[[i]][,2]);
     }
     cnames <- c("N", "A0_unstable", "A0_stable", "A1_unstable", "A1_stable", 
                 "A1_stabilised", "A1_destabilised", "A0_infeasible", 
                 "A0_feasible", "A1_infeasible", "A1_feasible", 
-                "A1_made_feasible", "A1_made_infeasible");
+                "A1_made_feasible", "A1_made_infeasible", "A0_rho", "A1_rho");
     colnames(all_res) <- cnames;
     return(all_res);
 }
