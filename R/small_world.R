@@ -10,7 +10,7 @@ rand_gen_swn <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 4,
         iter           <- iters;
         tot_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 7);
         fea_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 7);
-        rho_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 3);
+        rho_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 4);
         cmplxty[[i]]   <- matrix(data = 0, nrow = iter, ncol = 2);
         real_Cs[[i]]   <- matrix(data = 0, nrow = iter, ncol = 3);
         while(iter > 0){
@@ -40,6 +40,7 @@ rand_gen_swn <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 4,
             A0_rho   <- mat_rho(A0);
             A1_rho   <- mat_rho(A1);
             rho_diff <- A1_rho - A0_rho;
+            rho_abs  <- abs(A1_rho) - abs(A0_rho);
             if(A0_stb == TRUE){
                 tot_res[[i]][iter, 1] <- 1;
             }
@@ -55,6 +56,7 @@ rand_gen_swn <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 4,
             rho_res[[i]][iter, 1] <- A0_rho;
             rho_res[[i]][iter, 2] <- A1_rho;
             rho_res[[i]][iter, 3] <- rho_diff;
+            rho_res[[i]][iter, 4] <- rho_abs;
             cmplxty[[i]][iter, 1] <- get_complexity(A0);
             cmplxty[[i]][iter, 2] <- get_complexity(A1);
             iter                  <- iter - 1;
