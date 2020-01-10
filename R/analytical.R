@@ -430,7 +430,7 @@ mtext(text = "E leading real part eigenvalue", side = 2,
 
 
 rand_fishing <- function(S, iters, count_stop, int_type = 0, C = 1, 
-                         by = 1, sigma = 0.4){
+                         sigma = 0.4){
     tot_res <- NULL;
     iter    <- iters;
     count   <- 0;
@@ -438,6 +438,7 @@ rand_fishing <- function(S, iters, count_stop, int_type = 0, C = 1,
         A0_dat   <- rnorm(n = S * S, mean = 0, sd = sigma);
         A0       <- matrix(data = A0_dat, nrow = S, ncol = S);
         gam1     <- runif(n = S, min = 0, max = 2);
+        diag(A0) <- -1;
         A1       <- A0 * gam1;
         A0       <- A0 * mean(gam1);
         A0_eig   <- max(Re(eigen(A0)$values));
@@ -463,4 +464,203 @@ rand_fishing <- function(S, iters, count_stop, int_type = 0, C = 1,
     }
     return(tot_res);
 }
+
+
+
+fish <- rand_fishing(S = 30, iters = 10000000, count_stop = 5)
+
+
+
+
+################################################################################
+################################################################################
+################################################################################
+################################################################################
+
+A0       <- build_rho_mat(S = 1000, sigma = 0.4, rho = 0);
+gam1     <- runif(n = 1000, min = 0, max = 2);
+A1       <- A0 * gam1;
+A0       <- A0 * mean(gam1);
+A0_r     <- Re(eigen(A0)$values);
+A0_i     <- Im(eigen(A0)$values);
+A1_r     <- Re(eigen(A1)$values);
+A1_i     <- Im(eigen(A1)$values);
+
+par(mfrow = c(1, 2), mar = c(0.5, 0.5, 0.5, 0.5), oma = c(5, 5, 0.2, 0.2));
+plot(x = A1_r, y = A1_i, pch = 4, cex = 0.7, col = "firebrick", 
+     ylim = c(-24, 24), xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, 
+     asp = 1);
+points(x = A0_r, y = A0_i, pch = 4, cex = 0.7,  col = "dodgerblue4");
+
+
+A0       <- build_rho_mat(S = 1000, sigma = 0.4, rho = -0.5);
+gam1     <- runif(n = 1000, min = 0, max = 2);
+A1       <- A0 * gam1;
+A0       <- A0 * mean(gam1);
+A0_r     <- Re(eigen(A0)$values);
+A0_i     <- Im(eigen(A0)$values);
+A1_r     <- Re(eigen(A1)$values);
+A1_i     <- Im(eigen(A1)$values);
+
+plot(x = A1_r, y = A1_i, pch = 4, cex = 0.7, col = "firebrick", 
+     ylim = c(-24, 24), xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, 
+     asp = 1);
+points(x = A0_r, y = A0_i, pch = 4, cex = 0.7, col = "dodgerblue4");
+
+mtext(side = 1, "Real", outer = TRUE, line = 3, cex = 2);
+mtext(side = 2, "Imaginary", outer = TRUE, line = 2.5, cex = 2);
+
+
+################################################################################
+################################################################################
+################################################################################
+################################################################################
+
+A0       <- build_rho_mat(S = 1000, sigma = 0.4, rho = 0);
+gam1     <- runif(n = 1000, min = 0, max = 2);
+A1       <- A0 * gam1;
+A0       <- A0 * mean(gam1);
+A0_r     <- Re(eigen(A0)$values);
+A0_i     <- Im(eigen(A0)$values);
+A1_r     <- Re(eigen(A1)$values);
+A1_i     <- Im(eigen(A1)$values);
+
+par(mfrow = c(2, 2), mar = c(0.5, 0.5, 0.5, 0.5), oma = c(5, 5, 0.2, 0.2));
+plot(x = A1_r, y = A1_i, pch = 4, cex = 0.7, col = "firebrick", 
+     ylim = c(-24, 24), xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, 
+     asp = 1, xaxt = "n");
+points(x = A0_r, y = A0_i, pch = 4, cex = 0.7,  col = "dodgerblue4");
+
+
+A0       <- build_rho_mat(S = 1000, sigma = 0.4, rho = -0.2);
+gam1     <- runif(n = 1000, min = 0, max = 2);
+A1       <- A0 * gam1;
+A0       <- A0 * mean(gam1);
+A0_r     <- Re(eigen(A0)$values);
+A0_i     <- Im(eigen(A0)$values);
+A1_r     <- Re(eigen(A1)$values);
+A1_i     <- Im(eigen(A1)$values);
+
+plot(x = A1_r, y = A1_i, pch = 4, cex = 0.7, col = "firebrick", 
+     ylim = c(-24, 24), xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, 
+     asp = 1, xaxt = "n", yaxt = "n");
+points(x = A0_r, y = A0_i, pch = 4, cex = 0.7, col = "dodgerblue4");
+
+
+A0       <- build_rho_mat(S = 1000, sigma = 0.4, rho = -0.4);
+gam1     <- runif(n = 1000, min = 0, max = 2);
+A1       <- A0 * gam1;
+A0       <- A0 * mean(gam1);
+A0_r     <- Re(eigen(A0)$values);
+A0_i     <- Im(eigen(A0)$values);
+A1_r     <- Re(eigen(A1)$values);
+A1_i     <- Im(eigen(A1)$values);
+
+plot(x = A1_r, y = A1_i, pch = 4, cex = 0.7, col = "firebrick", 
+     ylim = c(-24, 24), xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, 
+     asp = 1);
+points(x = A0_r, y = A0_i, pch = 4, cex = 0.7, col = "dodgerblue4");
+
+
+A0       <- build_rho_mat(S = 1000, sigma = 0.4, rho = -0.6);
+gam1     <- runif(n = 1000, min = 0, max = 2);
+A1       <- A0 * gam1;
+A0       <- A0 * mean(gam1);
+A0_r     <- Re(eigen(A0)$values);
+A0_i     <- Im(eigen(A0)$values);
+A1_r     <- Re(eigen(A1)$values);
+A1_i     <- Im(eigen(A1)$values);
+
+plot(x = A1_r, y = A1_i, pch = 4, cex = 0.7, col = "firebrick", 
+     ylim = c(-24, 24), xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, 
+     asp = 1, yaxt = "n");
+points(x = A0_r, y = A0_i, pch = 4, cex = 0.7, col = "dodgerblue4");
+
+
+mtext(side = 1, "Real", outer = TRUE, line = 3, cex = 2);
+mtext(side = 2, "Imaginary", outer = TRUE, line = 2.5, cex = 2);
+
+
+################################################################################
+################################################################################
+################################################################################
+################################################################################
+
+################################################################################
+################################################################################
+################################################################################
+################################################################################
+
+
+A0       <- build_rho_mat(S = 1000, sigma = 0.4, rho = 0);
+gam1     <- c(rep(0.05, 500), rep(1.95, 500));
+A1       <- A0 * gam1;
+A0       <- A0 * mean(gam1);
+A0_r     <- Re(eigen(A0)$values);
+A0_i     <- Im(eigen(A0)$values);
+A1_r     <- Re(eigen(A1)$values);
+A1_i     <- Im(eigen(A1)$values);
+
+par(mfrow = c(1, 2), mar = c(0.5, 0.5, 0.5, 0.5), oma = c(5, 5, 0.2, 0.2));
+plot(x = A1_r, y = A1_i, pch = 4, cex = 0.7, col = "firebrick", 
+     ylim = c(-28, 28), xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, 
+     asp = 1);
+points(x = A0_r, y = A0_i, pch = 4, cex = 0.7,  col = "dodgerblue4");
+
+
+
+
+A0       <- build_rho_mat(S = 1000, sigma = 0.4, rho = -0.5);
+gam1     <- runif(n = 1000, min = 0, max = 2); # c(rep(0.05, 500), rep(1.95, 500));
+A1       <- A0 * gam1;
+A0       <- A0 * mean(gam1);
+
+for(i in 1:dim(A0)[1]){
+    for(j in 1:dim(A0)[2]){
+        if(i < j){
+            A0[i, j] <- A0[j, i];
+            A1[i, j] <- A1[j, i];
+        }
+    }
+}
+
+A0_r     <- Re(eigen(A0)$values);
+A0_i     <- Im(eigen(A0)$values);
+A1_r     <- Re(eigen(A1)$values);
+A1_i     <- Im(eigen(A1)$values);
+
+plot(x = A1_r, y = A1_i, pch = 4, cex = 0.7, col = "firebrick", 
+     xlim = c(-20, 20), xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5)#, 
+     #asp = 1);
+points(x = A0_r, y = A0_i, pch = 4, cex = 0.7, col = "dodgerblue4");
+
+mtext(side = 1, "Real", outer = TRUE, line = 3, cex = 2);
+mtext(side = 2, "Imaginary", outer = TRUE, line = 2.5, cex = 2);
+
+
+normpdf <- function(mn, sigma){
+    x <- seq(from = mn - sigma*4, to = mn + sigma*4, by = 0.0001);
+    y <- (1/(sigma * (sqrt(2 * pi)))) * exp(-0.5 * ((x - mn)/sigma)^2);
+    return(list(x = x, y = y));
+}
+
+
+
+
+sim <- rand_rho_var(S = 45, rhos = seq(from = -0.95, to = 0.95, by = 0.05), 
+                    iters = 1000);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
