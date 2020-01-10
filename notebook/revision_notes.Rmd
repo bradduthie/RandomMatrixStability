@@ -1,0 +1,216 @@
+---
+title: "Component response rate variation underlies the stability of complex systems (revision notes)"
+author: "A. Bradley Duthie    ( alexander.duthie@stir.ac.uk )"
+date: Biological and Environmental Sciences, University of Stirling, Stirling, UK,
+  FK9 4LA
+output:
+  pdf_document:
+    fig_caption: yes
+    keep_tex: yes
+  html_document: default
+  word_document:
+    fig_caption: yes
+    pandoc_args:
+    - --csl
+    - nature.csl
+    reference_docx: docx_template.docx
+bibliography: references.bib
+header-includes:
+- \usepackage{amsmath}
+- \usepackage{natbib}
+- \usepackage{lineno}
+- \usepackage[utf8]{inputenc}
+- \linenumbers
+- \bibliographystyle{amnatnat}
+linestretch: 1
+link-citations: yes
+linkcolor: blue
+csl: nature.csl
+biblio-style: apalike
+---
+
+Role of correlated matrices in stabilisation
+================================================================================
+
+```{r, echo = FALSE}
+source("../R/random_mats.R");
+source("../R/small_world.R");
+rand_rho_var <- function(S, rhos, iters, int_type = 0, rmx = 0.4, C = 1, 
+                         by = 1, sigma = 0.4){
+    tot_res <- NULL;
+    fea_res <- NULL;
+    rho_res <- NULL;
+    cmplxty <- NULL;
+    for(i in 1:length(rhos)){
+        iter           <- iters;
+        tot_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 8);
+        fea_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 7);
+        rho_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 6);
+        cmplxty[[i]]   <- matrix(data = 0, nrow = iter, ncol = 2);
+        while(iter > 0){
+            r_vec    <- rnorm(n = S, mean = 0, sd = rmx);
+            A0       <- build_rho_mat(S = S, sigma = sigma, rho = rhos[i]);
+            gam1     <- runif(n = S, min = 0, max = 2);
+            A1       <- A0 * gam1;
+            A0       <- A0 * mean(gam1);
+            A0_stb   <- max(Re(eigen(A0)$values)) < 0;
+            A1_stb   <- max(Re(eigen(A1)$values)) < 0;
+            A0_fea   <- min(-1*solve(A0) %*% r_vec) > 0;
+            A1_fea   <- min(-1*solve(A1) %*% r_vec) > 0;
+            A0_rho   <- mat_rho(A0);
+            A1_rho   <- mat_rho(A1);
+            rho_diff <- A1_rho - A0_rho;
+            rho_abs  <- abs(A1_rho) - abs(A0_rho);
+            if(A0_stb == TRUE){
+                tot_res[[i]][iter, 1] <- 1;
+            }
+            if(A1_stb == TRUE){
+                tot_res[[i]][iter, 2] <- 1;
+            }
+            if(A0_fea == TRUE){
+                fea_res[[i]][iter, 1] <- 1;
+            }
+            if(A1_fea == TRUE){
+                fea_res[[i]][iter, 2] <- 1;
+            }
+            rho_res[[i]][iter, 1] <- A0_rho;
+            rho_res[[i]][iter, 2] <- A1_rho;
+            rho_res[[i]][iter, 3] <- rho_diff;
+            rho_res[[i]][iter, 4] <- rho_abs;
+            rho_res[[i]][iter, 5] <- max(Re(eigen(A0)$values));
+            rho_res[[i]][iter, 6] <- max(Re(eigen(A1)$values));
+            cmplxty[[i]][iter, 1] <- get_complexity(A0);
+            cmplxty[[i]][iter, 2] <- get_complexity(A1);
+            iter                  <- iter - 1;
+        }
+    }
+    all_res     <- summarise_randmat(tot_res = tot_res, fea_res = fea_res,
+                                     rho_res = rho_res, cmplxty = cmplxty);
+    all_res[,1]          <- rhos;
+    colnames(all_res)[1] <- "rho_set";
+    return(all_res);
+}
+
+simpleboot <- function(freqs,repli=1000,alpha=0.05){    
+    vals  <- NULL;                                                          
+    i     <- 0;                                         
+    while(i < repli){                                                   
+        boot  <- sample(x=freqs,size=length(freqs),replace=TRUE);           
+        strap <- mean(boot);                                                
+        vals  <- c(vals,strap);                                             
+        i     <- i + 1;                                                     
+    }                                                                       
+    vals   <- sort(x=vals,decreasing=FALSE);                            
+    lowCI  <- vals[round((alpha*0.5)*repli)];                               
+    highCI <- vals[round((1-(alpha*0.5))*repli)];                           
+    CIs    <- c(lowCI,highCI);                                          
+    return(CIs);                                                            
+}  
+
+summarise_randmat <- function(tot_res, fea_res, rho_res, cmplxty){
+    sims    <- length(tot_res);
+    all_res <- matrix(data = 0, nrow = sims, ncol = 25);
+    for(i in 1:sims){
+        all_res[i, 1]  <- i + 1;
+        # Stable and unstable
+        all_res[i, 2]  <- sum(tot_res[[i]][,1] == FALSE);
+        all_res[i, 3]  <- sum(tot_res[[i]][,1] == TRUE);
+        all_res[i, 4]  <- sum(tot_res[[i]][,2] == FALSE);
+        all_res[i, 5]  <- sum(tot_res[[i]][,2] == TRUE);
+        # Stabilised and destabilised
+        all_res[i, 6] <- sum(tot_res[[i]][,1] == FALSE & 
+                                 tot_res[[i]][,2] == TRUE);
+        all_res[i, 7] <- sum(tot_res[[i]][,1] == TRUE & 
+                                 tot_res[[i]][,2] == FALSE);
+        # Feasible and infeasible
+        all_res[i, 8]  <- sum(fea_res[[i]][,1] == FALSE);
+        all_res[i, 9]  <- sum(fea_res[[i]][,1] == TRUE);
+        all_res[i, 10]  <- sum(fea_res[[i]][,2] == FALSE);
+        all_res[i, 11]  <- sum(fea_res[[i]][,2] == TRUE);
+        # Feased and defeased
+        all_res[i, 12] <- sum(fea_res[[i]][,1] == FALSE & 
+                                  fea_res[[i]][,2] == TRUE);
+        all_res[i, 13] <- sum(fea_res[[i]][,1] == TRUE & 
+                                  fea_res[[i]][,2] == FALSE);
+        # Mean correlations between A[i,j] and A[j,i] off-diag elements
+        all_res[i, 14] <- mean(rho_res[[i]][,1]);
+        all_res[i, 15] <- mean(rho_res[[i]][,2]);
+        all_res[i, 16] <- mean(rho_res[[i]][,3]);
+        all_res[i, 17] <- mean(rho_res[[i]][,4]);
+        all_res[i, 18] <- mean(cmplxty[[i]][,1]);
+        all_res[i, 19] <- mean(cmplxty[[i]][,2]);
+        all_res[i, 20] <- mean(rho_res[[i]][,5]);
+        all_res[i, 21] <- mean(rho_res[[i]][,6]);
+        all_res[i, 22:23] <- range(rho_res[[i]][,5]);
+        all_res[i, 24:25] <- range(rho_res[[i]][,6]);
+    }
+    cnames <- c("N", "A0_unstable", "A0_stable", "A1_unstable", "A1_stable", 
+                "A1_stabilised", "A1_destabilised", "A0_infeasible", 
+                "A0_feasible", "A1_infeasible", "A1_feasible", 
+                "A1_made_feasible", "A1_made_infeasible", "A0_rho", "A1_rho",
+                "rho_diff", "rho_abs", "complex_A0", "complex_A1", "A0_eig",
+                "A1_eig", "LCI_A0", "UCI_A0", "LCI_A1", "UCI_A1");
+    colnames(all_res) <- cnames;
+    return(all_res);
+}
+```
+
+In complex systems represented by large random matrices, correlation between matrix elements $A_{ij}$ and $A_{ji}$ affects the distribution of eigenvalues and therefore local stability. As the correlation between matrix elements ($\rho$) decreases, the eigenvalue spectra changes such that more variation falls along the imaginary axis. The figure panels below compare a random matrix in which $\rho = 0$ (left) to one in which ($\rho$ = -0.5). In both cases, complex systems include $S = 1000$ components, with diagonal elements of $-1$ and off-diagonal elements drawn from a normal distribution with a mean of $0$ and $\sigma = 0.4$.
+
+```{r, echo = FALSE}
+mat_rho0  <- build_rho_mat(S = 1000, sigma = 0.4, rho = 0);
+mat_rho5  <- build_rho_mat(S = 1000, sigma = 0.4, rho = -0.5);
+mr0_eig   <- eigen(mat_rho0)$values;
+mr5_eig   <- eigen(mat_rho5)$values;
+mr0_r     <- Re(mr0_eig);
+mr0_i     <- Im(mr0_eig);
+mr5_r     <- Re(mr5_eig);
+mr5_i     <- Im(mr5_eig);
+par(mfrow = c(1, 2), mar = c(0.5, 0.5, 0.5, 0.5), oma = c(5, 5, 0.2, 0.2));
+plot(x = mr0_r, y = mr0_i, pch = 4, cex = 0.7, col = "firebrick",
+     xlab = "", ylab = "", cex.lab = 1.25, cex.axis = 1.25, asp = 1, 
+     ylim = c(min(mr5_i), max(mr5_i)));
+plot(x = mr5_r, y = mr5_i, pch = 4, cex = 0.7, col = "firebrick", 
+     xlab = "", ylab = "", cex.lab = 1.25, cex.axis = 1.25, asp = 1, 
+     yaxt = "n");
+mtext(side = 1, "Real", outer = TRUE, line = 3, cex = 1.5);
+mtext(side = 2, "Imaginary", outer = TRUE, line = 2.5, cex = 1.5);
+```
+
+Because of this affect of $\rho$ on the eigenvalue spectra, decreasing values of $\rho$ will also decrease the rightmost eigenvalue of the matrix $A$. This makes it more likely that the complex system represented by $A$ is locally stable, as stability occurs when all real parts of eigenvalues are negative. Note that this elongation along the imaginary axis is also characteristic of predator-prey communities (in which, by definition $A_{ij}$ and $A_{ji}$ have opposing signs). Also note that as $\rho$ increases such that $\rho > 0$, the same elongation happens along the real axis, making random complex systems less likely to be stable.
+
+```{r, echo = FALSE}
+sim_rhos <- rand_rho_var(S = 25, rhos = seq(from = -0.9, to = 0.9, by = 0.1), 
+                         iters = 1000);
+```
+
+A simple numerical analysis illustrates the linear relationship between $\rho$ and the expected value of the real part of the leading eigenvalue $\max(\Re(\lambda))$. Below, I have run 1000 simulations across values of $\rho$ from `r min(sim_rhos[,1])` to `r max(sim_rhos[,1])` for complex systems with $S = 25$ components. Error bars show 95\% bootstrapped confidence intervals. 
+
+```{r, echo = FALSE}
+par(mar = c(5, 5, 1, 1));
+plot(x = sim_rhos[,1], y = sim_rhos[,20], type = "b", pch = 20, lwd = 2,
+     xlab = expression(paste("Correlation between A"[ij]," and A"[ji])),
+     ylab = "Leading real part eigenvalue", 
+     ylim = c(min(sim[,22]), max(sim[,23])));
+arrows(x0 = sim_rhos[,1], x1 = sim_rhos[,1], y0 = sim_rhos[,20], 
+       y1 = sim_rhos[,22], angle = 90, length = 0.05, lwd = 2);
+arrows(x0 = sim_rhos[,1], x1 = sim_rhos[,1], y0 = sim_rhos[,20], 
+       y1 = sim_rhos[,23], angle = 90, length = 0.05, lwd = 2);
+```
+
+```{r, echo = FALSE}
+dat <- read.csv(file = "sim_results/C_1/random_all.csv");
+dat <- dat[,-1];
+```
+
+In the main text, I demonstrated that when $S$ is finite but system complexity $\sigma\sqrt{SC}$ is high ($C$ defines the connectance of $A$, or the proportion of non-zero off-diagonal elements), variation in component response rate $\gamma$ often underlies system stability. Mathematically, this means that by multiplying $A$ by a diagonal matrix $\gamma$ with variable elements, the sign of $\max(\Re(\lambda))$ is sometimes flipped from positive to negative in these finite systems of high complexity. Interestingly, this increase in stability given $Var(\gamma) > 0$ is not caused by $\gamma$ decrease $\rho$. In fact, for $S = 25$, $\sigma = 0.4$, and $C = 1$, random complex systems that are stabilised by $\gamma$ typically have increased $\rho$ values. Note that for these parameter values, 1 million simulations found $M = \gamma A$ to be stable for `r dat[24, 3]` systems when all $\gamma_{i} = 1$, but `r dat[24, 5]` systems when $\gamma_{i} \sim \mathcal{U}(0, 2)$. Below shows the distribution of the difference in $\rho$ between systems with versus without $var(\gamma)$ for stabilised systems; that is, $\rho_{change} = \rho_{var(\gamma)} - \rho_{\gamma = 1}$.
+
+
+
+
+
+
+
+
+
+
