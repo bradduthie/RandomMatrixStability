@@ -337,35 +337,57 @@ sim35 <- rand_rho_var(S = 35, rhos = seq(from = -0.5, to = 0.5, by = 0.05),
 # Completely linear
 par(mar = c(1, 1, 1, 1), mfrow = c(3, 2), oma = c(5, 5, 1, 1));
 
-plot(x = sim10[,1], y = sim10[,20], type = "b", pch = 20, lwd = 2, xaxt = "n");
-points(x = sim10[,15], y = sim10[,21], type = "b", lwd = 2);
+plot(x = sim10[,1], y = sim10[,20], type = "b", pch = 20, lwd = 2, xaxt = "n",
+     ylim = c(-1.5, 3));
+points(x = sim10[,15], y = sim10[,21], type = "b", lwd = 2, col = "red");
+arrows(x0 = sim10[,1], x1 = sim10[,1], y0 = sim10[,20], y1 = sim10[,22],
+       type = 3, angle = 90, length = 0.04)
+arrows(x0 = sim10[,1], x1 = sim10[,1], y0 = sim10[,20], y1 = sim10[,23],
+       type = 3, angle = 90, length = 0.04)
+arrows(x0 = sim10[,15], x1 = sim10[,15], y0 = sim10[,21], y1 = sim10[,24],
+       type = 3, angle = 90, length = 0.04, col = "red")
+arrows(x0 = sim10[,15], x1 = sim10[,15], y0 = sim10[,21], y1 = sim10[,25],
+       type = 3, angle = 90, length = 0.04, col = "red")
 
 plot(x = sim15[,1], y = sim15[,20], type = "b", pch = 20, lwd = 2, xaxt = "n",
-     yaxt = "n");
+     yaxt = "n", ylim = c(-0.5, 0.5));
 points(x = sim15[,15], y = sim15[,21], type = "b", lwd = 2);
 
-plot(x = sim20[,1], y = sim20[,20], type = "b", pch = 20, lwd = 2, xaxt = "n");
+plot(x = sim20[,1], y = sim20[,20], type = "b", pch = 20, lwd = 2, xaxt = "n",
+     ylim = c(-0.5, 0.5));
 points(x = sim20[,15], y = sim20[,21], type = "b", lwd = 2);
 
 plot(x = sim25[,1], y = sim25[,20], type = "b", pch = 20, lwd = 2, xaxt = "n",
-     yaxt = "n");
+     yaxt = "n", ylim = c(-0.5, 0.5));
 points(x = sim25[,15], y = sim25[,21], type = "b", lwd = 2);
 
-plot(x = sim30[,1], y = sim30[,20], type = "b", pch = 20, lwd = 2);
+plot(x = sim30[,1], y = sim30[,20], type = "b", pch = 20, lwd = 2, 
+     ylim = c(-0.5, 0.5));
 points(x = sim30[,15], y = sim30[,21], type = "b", lwd = 2);
 
-plot(x = sim35[,1], y = sim35[,20], type = "b", pch = 20, lwd = 2, yaxt = "n");
+plot(x = sim35[,1], y = sim35[,20], type = "b", pch = 20, lwd = 2, yaxt = "n",
+     ylim = c(-0.5, 0.5));
 points(x = sim35[,15], y = sim35[,21], type = "b", lwd = 2);
 
 mtext(text = "E correlation between A_ij and A_ji", side = 1,
-      line = 0, outer = TRUE, cex = 1.5);
+      line = 2, outer = TRUE, cex = 1.5);
 mtext(text = "E leading real part eigenvalue", side = 2,
-      line = 1, outer = TRUE, cex = 1.5);
+      line = 2, outer = TRUE, cex = 1.5);
 
 
 
-
-
+plot(x = sim30[,1], y = sim30[,20], type = "b", pch = 20, lwd = 2, xaxt = "n",
+     ylim = c(-1.5, 3));
+points(x = sim30[,15], y = sim30[,21], type = "b", lwd = 2, col = "red");
+arrows(x0 = sim30[,1], x1 = sim30[,1], y0 = sim30[,20], y1 = sim30[,22],
+       type = 3, angle = 90, length = 0.04)
+arrows(x0 = sim30[,1], x1 = sim30[,1], y0 = sim30[,20], y1 = sim30[,23],
+       type = 3, angle = 90, length = 0.04)
+arrows(x0 = sim30[,15], x1 = sim30[,15], y0 = sim30[,21], y1 = sim30[,24],
+       type = 3, angle = 90, length = 0.04, col = "red")
+arrows(x0 = sim30[,15], x1 = sim30[,15], y0 = sim30[,21], y1 = sim30[,25],
+       type = 3, angle = 90, length = 0.04, col = "red")
+abline(h = 0, col = "blue", lty = "dotted")
 
 par(mar = c(1, 1, 1, 1), mfrow = c(3, 2), oma = c(5, 5, 1, 1));
 
@@ -407,32 +429,38 @@ mtext(text = "E leading real part eigenvalue", side = 2,
 
 
 
-rand_fishing <- function(S, iters, int_type = 0, rmx = 0.4, C = 1, 
+rand_fishing <- function(S, iters, count_stop, int_type = 0, C = 1, 
                          by = 1, sigma = 0.4){
     tot_res <- NULL;
-    for(i in 1:length(rhos)){
-        iter           <- iters;
-        while(iter > 0){
-            A0_dat   <- rnorm(n = S * S, mean = 0, sd = sigma);
-            A0       <- matrix(data = A0_dat, nrow = S, ncol = S);
-            gam1     <- runif(n = S, min = 0, max = 2);
-            A1       <- A0 * gam1;
-            A0       <- A0 * mean(gam1);
-            A0_eig   <- max(Re(eigen(A0)$values));
-            A1_eig   <- max(Re(eigen(A1)$values));
-            if(A0_eig > 0 & A1_eig < 0){
-                A0_rho   <- mat_rho(A0);
-                A1_rho   <- mat_rho(A1);
-                A0_comp  <- get_complexity(A0);
-                A1_comp  <- get_complexity(A1);
-                it_res   <- c(A0_eig, A1_eig, A0_rho, A1_rho, A0_comp, A1_comp);
-                tot_res  <- rbind(tot_res, it_res);
-            }
-            iter <- iter - 1;
+    iter    <- iters;
+    count   <- 0;
+    while(iter > 0){
+        A0_dat   <- rnorm(n = S * S, mean = 0, sd = sigma);
+        A0       <- matrix(data = A0_dat, nrow = S, ncol = S);
+        gam1     <- runif(n = S, min = 0, max = 2);
+        A1       <- A0 * gam1;
+        A0       <- A0 * mean(gam1);
+        A0_eig   <- max(Re(eigen(A0)$values));
+        A1_eig   <- max(Re(eigen(A1)$values));
+        if(A0_eig > 0 & A1_eig < 0){
+            A0_rho   <- mat_rho(A0);
+            A1_rho   <- mat_rho(A1);
+            A0_comp  <- get_complexity(A0);
+            A1_comp  <- get_complexity(A1);
+            it_res   <- c(A0_eig, A1_eig, A0_rho, A1_rho, A0_comp, A1_comp);
+            tot_res  <- rbind(tot_res, it_res);
+            count    <- count + 1;
+            print(count);
+        }
+        iter <- iter - 1;
+        if(count >= count_stop){
+            break;
         }
     }
-    colnames(tot_res) <- c("A0_eig", "A1_eig", "A0_rho", "A1_rho", "A0_comp",
-                           "A1_comp");
+    if(is.null(tot_res) == FALSE){
+        colnames(tot_res) <- c("A0_eig", "A1_eig", "A0_rho", "A1_rho", 
+                               "A0_comp", "A1_comp");
+    }
     return(tot_res);
 }
 
