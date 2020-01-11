@@ -155,7 +155,8 @@ summarise_randmat <- function(tot_res, fea_res, rho_res, cmplxty){
 }
 ```
 
-In complex systems represented by large random matrices, correlation between matrix elements $A_{ij}$ and $A_{ji}$ affects the distribution of eigenvalues and therefore local stability. As the correlation between matrix elements ($\rho$) decreases, the eigenvalue spectra changes such that more variation falls along the imaginary axis. The figure panels below compare a random matrix in which $\rho = 0$ (left) to one in which ($\rho$ = -0.5). In both cases, complex systems include $S = 1000$ components, with diagonal elements of $-1$ and off-diagonal elements drawn from a normal distribution with a mean of $0$ and $\sigma = 0.4$.
+In complex systems represented by large random matrices, correlation between matrix elements $A_{ij}$ and $A_{ji}$ affects the distribution of eigenvalues and therefore local stability. As the correlation between matrix elements ($\rho$) decreases, the eigenvalue spectra changes such that more variation falls along the imaginary axis. The figure panels below compare a random matrix in which $\rho = 0$ (left) to one in which $\rho$ = -0.5. In both panels, complex systems include $S = 1000$ components, with diagonal elements of $-1$ and off-diagonal elements drawn from a normal distribution with a mean of $0$ and $\sigma = 0.4$.
+
 
 ```{r, echo = FALSE}
 mat_rho0  <- build_rho_mat(S = 1000, sigma = 0.4, rho = 0);
@@ -177,21 +178,23 @@ mtext(side = 1, "Real", outer = TRUE, line = 3, cex = 1.5);
 mtext(side = 2, "Imaginary", outer = TRUE, line = 2.5, cex = 1.5);
 ```
 
-Because of this affect of $\rho$ on the eigenvalue spectra, decreasing values of $\rho$ will also decrease the rightmost eigenvalue of the matrix $A$. This makes it more likely that the complex system represented by $A$ is locally stable, as stability occurs when all real parts of eigenvalues are negative. Note that this elongation along the imaginary axis is also characteristic of predator-prey communities (in which, by definition $A_{ij}$ and $A_{ji}$ have opposing signs). Also note that as $\rho$ increases such that $\rho > 0$, the same elongation happens along the real axis, making random complex systems less likely to be stable.
+Because of this effect of $\rho$ on the eigenvalue spectra, decreasing values of $\rho$ will also tend to decrease the rightmost eigenvalue of the matrix $\textbf{A}$. This makes it more likely that the complex system represented by $\textbf{A}$ is locally stable, as stability occurs when all real parts of eigenvalues are negative. Note that this elongation along the imaginary axis is also characteristic of predator-prey communities (in which, by definition $A_{ij}$ and $A_{ji}$ have opposing signs). Also note that as $\rho$ increases such that $\rho > 0$, the same elongation happens along the real axis, making random complex systems less likely to be stable.
 
 ```{r, echo = FALSE}
+rho_its  <- 1000;
 sim_rhos <- rand_rho_var(S = 25, rhos = seq(from = -0.9, to = 0.9, by = 0.1), 
-                         iters = 1000);
+                         iters = rho_its);
 ```
 
-A simple numerical analysis illustrates the linear relationship between $\rho$ and the expected value of the real part of the leading eigenvalue $\max(\Re(\lambda))$. Below, I have run 1000 simulations across values of $\rho$ from `r min(sim_rhos[,1])` to `r max(sim_rhos[,1])` for complex systems with $S = 25$ components. Error bars show 95\% bootstrapped confidence intervals. 
+A simple numerical analysis illustrates the linear relationship between $\rho$ and the expected value of the real part of the leading eigenvalue, $\max(\Re(\lambda))$. Below, I have run `r rho_its` simulations across values of $\rho$ from `r min(sim_rhos[,1])` to `r max(sim_rhos[,1])` for complex systems with $S = 25$ components. Error bars show 95\% bootstrapped confidence intervals. 
 
 ```{r, echo = FALSE}
 par(mar = c(5, 5, 1, 1));
 plot(x = sim_rhos[,1], y = sim_rhos[,20], type = "b", pch = 20, lwd = 2,
-     xlab = expression(paste("Correlation between A"[ij]," and A"[ji])),
+     xlab = expression(paste("Correlation between A"[ij]," and A"[ji], 
+                             "(",rho,")")),
      ylab = "Leading real part eigenvalue", 
-     ylim = c(min(sim[,22]), max(sim[,23])));
+     ylim = c(min(sim_rhos[,22]), max(sim_rhos[,23])));
 arrows(x0 = sim_rhos[,1], x1 = sim_rhos[,1], y0 = sim_rhos[,20], 
        y1 = sim_rhos[,22], angle = 90, length = 0.05, lwd = 2);
 arrows(x0 = sim_rhos[,1], x1 = sim_rhos[,1], y0 = sim_rhos[,20], 
@@ -203,11 +206,20 @@ dat <- read.csv(file = "sim_results/C_1/random_all.csv");
 dat <- dat[,-1];
 ```
 
-In the main text, I demonstrated that when $S$ is finite but system complexity $\sigma\sqrt{SC}$ is high ($C$ defines the connectance of $A$, or the proportion of non-zero off-diagonal elements), variation in component response rate $\gamma$ often underlies system stability. Mathematically, this means that by multiplying $A$ by a diagonal matrix $\gamma$ with variable elements, the sign of $\max(\Re(\lambda))$ is sometimes flipped from positive to negative in these finite systems of high complexity. Interestingly, this increase in stability given $Var(\gamma) > 0$ is not caused by $\gamma$ decrease $\rho$. In fact, for $S = 25$, $\sigma = 0.4$, and $C = 1$, random complex systems that are stabilised by $\gamma$ typically have increased $\rho$ values. Note that for these parameter values, 1 million simulations found $M = \gamma A$ to be stable for `r dat[24, 3]` systems when all $\gamma_{i} = 1$, but `r dat[24, 5]` systems when $\gamma_{i} \sim \mathcal{U}(0, 2)$. Below shows the distribution of the difference in $\rho$ between systems with versus without $var(\gamma)$ for stabilised systems; that is, $\rho_{change} = \rho_{var(\gamma)} - \rho_{\gamma = 1}$.
+```{r, echo = FALSE}
+sim25 <- read.csv(file = "sim_results/rhos/sim25.csv")
+```
 
+In the main text, I demonstrated that when $S$ is finite but system complexity $\sigma\sqrt{SC}$ is high ($C$ defines the connectance of $\textbf{A}$, or the proportion of non-zero off-diagonal elements), variation in component response rate $\gamma$ often underlies system stability. In other words, highly complex systems that are observed to be stable would not be if we removed the variation in their component response rates. Mathematically, this means that by multiplying $\textbf{A}$ by a diagonal matrix $\gamma$ with variable elements, the sign of $\max(\Re(\lambda))$ is sometimes flipped from positive to negative in these finite systems of high complexity. Interestingly, this increase in stability given $Var(\gamma) > 0$ is not necessarily caused by $\gamma$ decreasing $\rho$. In fact, for $S = 25$, $\sigma = 0.4$, and $C = 1$, random complex systems that are stabilised by $\gamma$ typically have increased $\rho$ values. Note that for these parameter values, 1 million simulations found $\textbf{M} = \gamma \textbf{A}$ to be stable for `r dat[24, 3]` systems when all $\gamma_{i} = 1$, but `r dat[24, 5]` systems when $\gamma_{i} \sim \mathcal{U}(0, 2)$. Below shows the distribution of the difference in $\rho$ between systems with versus without $var(\gamma)$ for `r dim(sim25)[1]` stabilised systems; that is, $\rho_{change} = \rho_{var(\gamma)} - \rho_{\gamma = 1}$.
 
+```{r, echo = FALSE}
+rho_change <- sim25[,4] - sim25[,3];
+par(mar = c(5, 5, 1, 1));
+hist(x = rho_change, main = "", ylab = "Frequency", cex.lab = 1.25,
+     xlab = expression(paste(rho[change])), col = "grey", cex.axis = 1.25)
+```
 
-
+When $\textbf{A}$ was stabilised by $Var(\gamma)$, the change in $\rho$ was normally distributed around zero. Hence, decreasing the correlation between $\textbf{A}_{ij}$ and $\textbf{A}_{ji}$ was not by itself the cause of stability. For a clearer picture of the effect of $\gamma$, it is useful to show the relationship between $\rho$ and $\max(\Re(\lambda))$ again as above with, but this time with how the relationship changes given $Var(\gamma)$.
 
 
 
