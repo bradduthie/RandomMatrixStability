@@ -193,12 +193,13 @@ par(mar = c(5, 5, 1, 1));
 plot(x = sim_rhos[,1], y = sim_rhos[,20], type = "b", pch = 20, lwd = 2,
      xlab = expression(paste("Correlation between A"[ij]," and A"[ji], 
                              "(",rho,")")),
-     ylab = "Leading real part eigenvalue", 
-     ylim = c(min(sim_rhos[,22]), max(sim_rhos[,23])));
+     ylab = "Real part of leading eigenvalue", 
+     ylim = c(min(sim_rhos[,22:25]), max(sim_rhos[,22:25])));
 arrows(x0 = sim_rhos[,1], x1 = sim_rhos[,1], y0 = sim_rhos[,20], 
        y1 = sim_rhos[,22], angle = 90, length = 0.05, lwd = 2);
 arrows(x0 = sim_rhos[,1], x1 = sim_rhos[,1], y0 = sim_rhos[,20], 
        y1 = sim_rhos[,23], angle = 90, length = 0.05, lwd = 2);
+abline(h = 0, lwd = 0.8, lty = "dotted");
 ```
 
 ```{r, echo = FALSE}
@@ -215,14 +216,77 @@ In the main text, I demonstrated that when $S$ is finite but system complexity $
 ```{r, echo = FALSE}
 rho_change <- sim25[,4] - sim25[,3];
 par(mar = c(5, 5, 1, 1));
-hist(x = rho_change, main = "", ylab = "Frequency", cex.lab = 1.25,
-     xlab = expression(paste(rho[change])), col = "grey", cex.axis = 1.25)
+hist(x = rho_change, main = "", ylab = "Frequency", cex.lab = 1.25, breaks = 15,
+     xlab = expression(paste(rho[change])), col = "grey", cex.axis = 1.25);
+rho_change_CI <- simpleboot(rho_change);
 ```
 
-When $\textbf{A}$ was stabilised by $Var(\gamma)$, the change in $\rho$ was normally distributed around zero. Hence, decreasing the correlation between $\textbf{A}_{ij}$ and $\textbf{A}_{ji}$ was not by itself the cause of stability. For a clearer picture of the effect of $\gamma$, it is useful to show the relationship between $\rho$ and $\max(\Re(\lambda))$ again as above with, but this time with how the relationship changes given $Var(\gamma)$.
+When $\textbf{A}$ was stabilised by $Var(\gamma)$, the change in $\rho$ was normally distributed around `r mean(rho_change)` (95\% CIs: `r rho_change_CI[1]`, `r rho_change_CI[2]`). Hence, decreasing the correlation between $\textbf{A}_{ij}$ and $\textbf{A}_{ji}$ was not by itself the cause of stability. For a clearer picture of the effect of $\gamma$, it is useful to show the relationship between $\rho$ and $\max(\Re(\lambda))$ again as above with, but this time with how the relationship changes given $Var(\gamma)$.
 
+```{r, echo = FALSE}
+par(mar = c(5, 5, 1, 1));
+plot(x = sim_rhos[,1], y = sim_rhos[,20], type = "b", pch = 20, lwd = 2,
+     xlab = expression(paste("Correlation between A"[ij]," and A"[ji], 
+                             " (",rho,")")),
+     ylab = "Real part of leading eigenvalue", col = "grey",
+     ylim = c(min(sim_rhos[,22:25]), max(sim_rhos[,22:25])));
+for(i in 1:dim(sim_rhos)[1]){
+    lines(x = c(sim_rhos[i,1], sim_rhos[i,15]), col = "grey60",
+          y = c(sim_rhos[i,20], sim_rhos[i,21]), lwd = 0.8);
+}
+points(x = sim_rhos[,1], y = sim_rhos[,20], type = "b", pch = 20, lwd = 2,
+       col = "grey40");
+points(x = sim_rhos[,15], y = sim_rhos[,21], type = "b", pch = 20, lwd = 2,
+       col = "red");
+arrows(x0 = sim_rhos[,1], x1 = sim_rhos[,1], y0 = sim_rhos[,20], 
+       y1 = sim_rhos[,22], angle = 90, length = 0.05, lwd = 2, col = "grey40");
+arrows(x0 = sim_rhos[,1], x1 = sim_rhos[,1], y0 = sim_rhos[,20], 
+       y1 = sim_rhos[,23], angle = 90, length = 0.05, lwd = 2, col = "grey40");
+arrows(x0 = sim_rhos[,15], x1 = sim_rhos[,15], y0 = sim_rhos[,21], 
+       y1 = sim_rhos[,24], angle = 90, length = 0.05, lwd = 2, col = "red");
+arrows(x0 = sim_rhos[,15], x1 = sim_rhos[,15], y0 = sim_rhos[,21], 
+       y1 = sim_rhos[,25], angle = 90, length = 0.05, lwd = 2, col = "red");
+abline(h = 0, lwd = 0.8, lty = "dotted");
+legend("topleft", fill = c("grey", "red"), cex = 1.5,
+       legend = c(expression(gamma == 1), expression(paste("Var(",gamma,")"))));
+```
 
+Including $Var(\gamma)$ introduces a nonlinear relationship between $\rho$ and $\max(\Re(\lambda))$. Points along the x-axis are spaced more closely together given $Var(\gamma)$ because $Var(\gamma)$ tends to decrease the absolute magnitude of $\rho$. Grey and red points centred on $\rho = 0$ represent the same simulations, before (grey) and after (red) including $Var(\gamma)$. Grey and red points to the left and right show decreasing and increasing simulated $\rho$ values, respectively. Faint grey lines connect points for the same set of simulations, and where the red point is lower than the black point, the expected $\max(\Re(\lambda))$ was lower given $Var(\gamma)$.
 
+The region of $\rho$ values for $\textbf{A}$ that would result in increased stability given $Var(\gamma)$ is highlighted with red shading below.
+
+```{r, echo = FALSE}
+mbox <- function(x0, x1, y0, y1){
+    xx <- seq(from=x0, to=x1, length.out = 100);
+    yy <- seq(from=y0, to=y1, length.out = 100);
+    xd <- c(rep(x0, 100), xx, rep(x1,100), rev(xx));
+    yd <- c(yy, rep(y1,100), rev(yy), rep(y0, 100));
+    return(list(x=xd, y=yd));
+}
+more_stable_1 <- sim_rhos[,21] - sim_rhos[,20]
+more_stable_2 <- which(more_stable_1 < 0);
+min_x         <- min(more_stable_2);
+max_x         <- max(more_stable_2);
+shade_box     <- mbox(x0 = sim_rhos[min_x, 1], x1 = sim_rhos[max_x, 1], 
+                      y0 = -12, y1 = 15);
+par(mar = c(5, 5, 1, 1));
+plot(x = sim_rhos[,1], y = sim_rhos[,20], type = "b", pch = 20, lwd = 2,
+     xlab = expression(paste("Correlation between A"[ij]," and A"[ji], 
+                             " (",rho,")")),
+     ylab = "Real part of leading eigenvalue", col = "black",
+     ylim = c(min(sim_rhos[,22:25]), max(sim_rhos[,22:25])));
+polygon(x = shade_box$x, y = shade_box$y, col = "red");
+points(x = sim_rhos[,1], y = sim_rhos[,20], type = "b", pch = 20, lwd = 2);
+arrows(x0 = sim_rhos[,1], x1 = sim_rhos[,1], y0 = sim_rhos[,20], 
+       y1 = sim_rhos[,22], angle = 90, length = 0.05, lwd = 2, col = "black");
+arrows(x0 = sim_rhos[,1], x1 = sim_rhos[,1], y0 = sim_rhos[,20], 
+       y1 = sim_rhos[,23], angle = 90, length = 0.05, lwd = 2, col = "black");
+abline(h = 0, lwd = 0.8, lty = "dotted");
+```
+
+In this red shaded region above, $\max(\Re(\lambda))$ is decreased by $Var(\gamma)$. The shaded region encompasses values of $\rho$ between `r sim_rhos[min_x,1]` and `r sim_rhos[max_x,1]`. But `r dim(sim25)[1]` simulated $\textbf{A}$ had values that ranged between `r min(sim25[,3])` and `r max(sim25[,3])`, meaning that $\max(\Re(\lambda))$ was always expected to decrease given $Var(\gamma)$ even if $Var(\gamma)$ caused $\rho$ to increase.
+
+The curvature of the relationship between $\rho$ and $\max(\Re(\lambda))$ is consistent across different values of $S$, as shown below.
 
 
 
