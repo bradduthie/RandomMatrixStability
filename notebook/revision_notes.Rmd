@@ -182,8 +182,9 @@ Because of this effect of $\rho$ on the eigenvalue spectra, decreasing values of
 
 ```{r, echo = FALSE}
 rho_its  <- 1000;
-sim_rhos <- rand_rho_var(S = 25, rhos = seq(from = -0.9, to = 0.9, by = 0.1), 
-                         iters = rho_its);
+# sim_rhos <- rand_rho_var(S = 25, rhos = seq(from = -0.9, to = 0.9, by = 0.1), 
+#                         iters = rho_its);
+sim_rhos <- read.csv(file = "sim_results/rhos/sim_rhos.csv");
 ```
 
 A simple numerical analysis illustrates the linear relationship between $\rho$ and the expected value of the real part of the leading eigenvalue, $\max(\Re(\lambda))$. Below, I have run `r rho_its` simulations across values of $\rho$ from `r min(sim_rhos[,1])` to `r max(sim_rhos[,1])` for complex systems with $S = 25$ components. Error bars show 95\% bootstrapped confidence intervals. 
@@ -288,42 +289,49 @@ In this red shaded region above, $\max(\Re(\lambda))$ is decreased by $Var(\gamm
 
 The curvature of the relationship between $\rho$ and $\max(\Re(\lambda))$ is consistent across different values of $S$, as shown below. Including $\gamma$ always results in a concave upward relationship between $\rho$ and $\max(\Re(\lambda))$.
 
-
-
-<!---
-
-```{r, echo = FALSE}
-sim10 <- read.csv(file = "sim_results/rhos/sim10.csv");
-sim15 <- read.csv(file = "sim_results/rhos/sim15.csv");
-sim20 <- read.csv(file = "sim_results/rhos/sim20.csv");
-sim30 <- read.csv(file = "sim_results/rhos/sim30.csv");
-sim35 <- read.csv(file = "sim_results/rhos/sim35.csv");
-par(mar = c(1, 1, 1, 1), mfrow = c(3, 2), oma = c(5, 5, 1, 1));
-plot(x = sim10[,1], y = sim10[,20], type = "b", pch = 20, lwd = 2, xaxt = "n");
-points(x = sim10[,15], y = sim10[,21], type = "b", lwd = 2);
-abline(h = 0, col = "red");
-plot(x = sim15[,1], y = sim15[,20], type = "b", pch = 20, lwd = 2, xaxt = "n");
-points(x = sim15[,15], y = sim15[,21], type = "b", lwd = 2);
-abline(h = 0, col = "red");
-plot(x = sim20[,1], y = sim20[,20], type = "b", pch = 20, lwd = 2, xaxt = "n");
-points(x = sim20[,15], y = sim20[,21], type = "b", lwd = 2);
-abline(h = 0, col = "red");
-plot(x = sim25[,1], y = sim25[,20], type = "b", pch = 20, lwd = 2, xaxt = "n");
-points(x = sim25[,15], y = sim25[,21], type = "b", lwd = 2);
-abline(h = 0, col = "red");
-plot(x = sim30[,1], y = sim30[,20], type = "b", pch = 20, lwd = 2);
-points(x = sim30[,15], y = sim30[,21], type = "b", lwd = 2);
-abline(h = 0, col = "red");
-plot(x = sim35[,1], y = sim35[,20], type = "b", pch = 20, lwd = 2);
-points(x = sim35[,15], y = sim35[,21], type = "b", lwd = 2);
-abline(h = 0, col = "red");
+```{r, echo = FALSE, fig.height = 8, fig.width = 6}
+sim10 <- read.csv(file = "sim_results/rhos/sim10_rho.csv");
+sim15 <- read.csv(file = "sim_results/rhos/sim15_rho.csv");
+sim20 <- read.csv(file = "sim_results/rhos/sim20_rho.csv");
+sim25 <- read.csv(file = "sim_results/rhos/sim25_rho.csv");
+sim30 <- read.csv(file = "sim_results/rhos/sim30_rho.csv");
+sim35 <- read.csv(file = "sim_results/rhos/sim35_rho.csv");
+par(mar = c(0.25, 0.25, 0.25, 0.25), mfrow = c(3, 2), oma = c(6, 6, 1, 1));
+plot(x = sim10[,1], y = sim10[,20], type = "l", pch = 20, lwd = 2, xaxt = "n",
+     ylim = c(-1, 3.5), cex.axis = 1.5);
+points(x = sim10[,15], y = sim10[,21], type = "l", lwd = 2, lty = "dashed");
+abline(h = 0, col = "red", lty = "dotted", lwd = 0.8);
+text(x = -0.6, y = 3.2, labels = "S = 10", cex = 2.5);
+plot(x = sim15[,1], y = sim15[,20], type = "l", pch = 20, lwd = 2, xaxt = "n",
+     ylim = c(-1, 3.5), yaxt = "n", cex.axis = 1.5);
+points(x = sim15[,15], y = sim15[,21], type = "l", lwd = 2, lty = "dashed");
+abline(h = 0, col = "red", lty = "dotted", lwd = 0.8);
+text(x = -0.6, y = 3.2, labels = "S = 15", cex = 2.5);
+plot(x = sim20[,1], y = sim20[,20], type = "l", pch = 20, lwd = 2, xaxt = "n",
+     ylim = c(-1, 3.5), cex.axis = 1.5);
+points(x = sim20[,15], y = sim20[,21], type = "l", lwd = 2, lty = "dashed");
+abline(h = 0, col = "red", lty = "dotted", lwd = 0.8);
+text(x = -0.6, y = 3.2, labels = "S = 20", cex = 2.5);
+plot(x = sim25[,1], y = sim25[,20], type = "l", pch = 20, lwd = 2, xaxt = "n",
+     ylim = c(-1, 3.5), yaxt = "n", cex.axis = 1.25);
+points(x = sim25[,15], y = sim25[,21], type = "l", lwd = 2, lty = "dashed");
+abline(h = 0, col = "red", lty = "dotted", lwd = 0.8);
+text(x = -0.6, y = 3.2, labels = "S = 25", cex = 2.5);
+plot(x = sim30[,1], y = sim30[,20], type = "l", pch = 20, lwd = 2, 
+     ylim = c(-1, 3.5), cex.axis = 1.5);
+points(x = sim30[,15], y = sim30[,21], type = "l", lwd = 2, lty = "dashed");
+abline(h = 0, col = "red", lty = "dotted", lwd = 0.8);
+text(x = -0.6, y = 3.2, labels = "S = 30", cex = 2.5);
+plot(x = sim35[,1], y = sim35[,20], type = "l", pch = 20, lwd = 2, 
+     ylim = c(-1, 3.5), yaxt = "n", cex.axis = 1.5);
+points(x = sim35[,15], y = sim35[,21], type = "l", lwd = 2, lty = "dashed");
+abline(h = 0, col = "red", lty = "dotted", lwd = 0.8);
+text(x = -0.6, y = 3.2, labels = "S = 35", cex = 2.5);
 mtext(text = "E correlation between A_ij and A_ji", side = 1,
-      line = 0, outer = TRUE, cex = 1.5);
+      line = 4, outer = TRUE, cex = 1.5);
 mtext(text = "E leading real part eigenvalue", side = 2,
-      line = 1, outer = TRUE, cex = 1.5);
+      line = 3.5, outer = TRUE, cex = 1.5);
 ```
 
-
---->
 
 
