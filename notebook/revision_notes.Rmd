@@ -286,7 +286,44 @@ abline(h = 0, lwd = 0.8, lty = "dotted");
 
 In this red shaded region above, $\max(\Re(\lambda))$ is decreased by $Var(\gamma)$. The shaded region encompasses values of $\rho$ between `r sim_rhos[min_x,1]` and `r sim_rhos[max_x,1]`. But `r dim(sim25)[1]` simulated $\textbf{A}$ had values that ranged between `r min(sim25[,3])` and `r max(sim25[,3])`, meaning that $\max(\Re(\lambda))$ was always expected to decrease given $Var(\gamma)$ even if $Var(\gamma)$ caused $\rho$ to increase.
 
-The curvature of the relationship between $\rho$ and $\max(\Re(\lambda))$ is consistent across different values of $S$, as shown below.
+The curvature of the relationship between $\rho$ and $\max(\Re(\lambda))$ is consistent across different values of $S$, as shown below. Including $\gamma$ always results in a concave upward relationship between $\rho$ and $\max(\Re(\lambda))$.
 
+
+
+<!---
+
+```{r, echo = FALSE}
+sim10 <- read.csv(file = "sim_results/rhos/sim10.csv");
+sim15 <- read.csv(file = "sim_results/rhos/sim15.csv");
+sim20 <- read.csv(file = "sim_results/rhos/sim20.csv");
+sim30 <- read.csv(file = "sim_results/rhos/sim30.csv");
+sim35 <- read.csv(file = "sim_results/rhos/sim35.csv");
+par(mar = c(1, 1, 1, 1), mfrow = c(3, 2), oma = c(5, 5, 1, 1));
+plot(x = sim10[,1], y = sim10[,20], type = "b", pch = 20, lwd = 2, xaxt = "n");
+points(x = sim10[,15], y = sim10[,21], type = "b", lwd = 2);
+abline(h = 0, col = "red");
+plot(x = sim15[,1], y = sim15[,20], type = "b", pch = 20, lwd = 2, xaxt = "n");
+points(x = sim15[,15], y = sim15[,21], type = "b", lwd = 2);
+abline(h = 0, col = "red");
+plot(x = sim20[,1], y = sim20[,20], type = "b", pch = 20, lwd = 2, xaxt = "n");
+points(x = sim20[,15], y = sim20[,21], type = "b", lwd = 2);
+abline(h = 0, col = "red");
+plot(x = sim25[,1], y = sim25[,20], type = "b", pch = 20, lwd = 2, xaxt = "n");
+points(x = sim25[,15], y = sim25[,21], type = "b", lwd = 2);
+abline(h = 0, col = "red");
+plot(x = sim30[,1], y = sim30[,20], type = "b", pch = 20, lwd = 2);
+points(x = sim30[,15], y = sim30[,21], type = "b", lwd = 2);
+abline(h = 0, col = "red");
+plot(x = sim35[,1], y = sim35[,20], type = "b", pch = 20, lwd = 2);
+points(x = sim35[,15], y = sim35[,21], type = "b", lwd = 2);
+abline(h = 0, col = "red");
+mtext(text = "E correlation between A_ij and A_ji", side = 1,
+      line = 0, outer = TRUE, cex = 1.5);
+mtext(text = "E leading real part eigenvalue", side = 2,
+      line = 1, outer = TRUE, cex = 1.5);
+```
+
+
+--->
 
 

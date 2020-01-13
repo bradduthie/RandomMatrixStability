@@ -72,7 +72,7 @@
 \usepackage{titling}
 
 % Create subtitle command for use in maketitle
-\newcommand{\subtitle}[1]{
+\providecommand{\subtitle}[1]{
   \posttitle{
     \begin{center}\large#1\end{center}
     }
@@ -104,8 +104,9 @@ UK, FK9 4LA}
 \begin{document}
 \maketitle
 
+\hypertarget{role-of-correlated-matrices-in-stabilisation}{%
 \section{Role of correlated matrices in
-stabilisation}\label{role-of-correlated-matrices-in-stabilisation}
+stabilisation}\label{role-of-correlated-matrices-in-stabilisation}}
 
 In complex systems represented by large random matrices, correlation
 between matrix elements \(A_{ij}\) and \(A_{ji}\) affects the
@@ -165,8 +166,8 @@ the difference in \(\rho\) between systems with versus without
 \includegraphics{revision_notes_files/figure-latex/unnamed-chunk-7-1.pdf}
 
 When \(\textbf{A}\) was stabilised by \(Var(\gamma)\), the change in
-\(\rho\) was normally distributed around 0.001414 (95\% CIs: -0.0010192,
-0.0040992). Hence, decreasing the correlation between
+\(\rho\) was normally distributed around 0.001414 (95\% CIs: -0.0011599,
+0.0040885). Hence, decreasing the correlation between
 \(\textbf{A}_{ij}\) and \(\textbf{A}_{ji}\) was not by itself the cause
 of stability. For a clearer picture of the effect of \(\gamma\), it is
 useful to show the relationship between \(\rho\) and
@@ -194,10 +195,15 @@ shading below.
 
 In this red shaded region above, \(\max(\Re(\lambda))\) is decreased by
 \(Var(\gamma)\). The shaded region encompasses values of \(\rho\)
-between -0.4 and 0.8. But 1000 simulated \(\textbf{A}\) had values that
+between -0.4 and 0.7. But 1000 simulated \(\textbf{A}\) had values that
 ranged between -0.240986 and 0.0704592, meaning that
 \(\max(\Re(\lambda))\) was always expected to decrease given
 \(Var(\gamma)\) even if \(Var(\gamma)\) caused \(\rho\) to increase.
+
+The curvature of the relationship between \(\rho\) and
+\(\max(\Re(\lambda))\) is consistent across different values of \(S\),
+as shown below. Including \(\gamma\) always results in a concave upward
+relationship between \(\rho\) and \(\max(\Re(\lambda))\).
 
 
 \end{document}
