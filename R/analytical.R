@@ -316,23 +316,82 @@ summarise_randmat <- function(tot_res, fea_res, rho_res, cmplxty){
     return(all_res);
 }
 
-sim10 <- rand_rho_var(S = 10, rhos = seq(from = -0.5, to = 0.5, by = 0.05), 
+sim10 <- rand_rho_var(S = 10, rhos = seq(from = -0.9, to = 0.9, by = 0.05), 
                       iters = 10000);
 
-sim15 <- rand_rho_var(S = 15, rhos = seq(from = -0.5, to = 0.5, by = 0.05), 
+sim15 <- rand_rho_var(S = 15, rhos = seq(from = -0.9, to = 0.9, by = 0.05), 
                       iters = 10000);
 
-sim20 <- rand_rho_var(S = 20, rhos = seq(from = -0.5, to = 0.5, by = 0.05), 
+sim20 <- rand_rho_var(S = 20, rhos = seq(from = -0.9, to = 0.9, by = 0.05), 
                       iters = 10000);
 
 sim25 <- rand_rho_var(S = 25, rhos = seq(from = -0.5, to = 0.5, by = 0.05), 
                       iters = 10000);
 
-sim30 <- rand_rho_var(S = 30, rhos = seq(from = -0.5, to = 0.5, by = 0.05), 
+sim30 <- rand_rho_var(S = 30, rhos = seq(from = -0.9, to = 0.9, by = 0.05), 
                       iters = 10000);
 
-sim35 <- rand_rho_var(S = 35, rhos = seq(from = -0.5, to = 0.5, by = 0.05), 
+sim35 <- rand_rho_var(S = 35, rhos = seq(from = -0.9, to = 0.9, by = 0.05), 
                       iters = 10000);
+
+write.csv(sim10, "sim_results/rhos/sim10.csv");
+write.csv(sim15, "sim_results/rhos/sim15.csv");
+write.csv(sim20, "sim_results/rhos/sim20.csv");
+write.csv(sim30, "sim_results/rhos/sim30.csv");
+write.csv(sim35, "sim_results/rhos/sim35.csv");
+
+
+
+sim10 <- read.csv(file = "sim_results/rhos/sim10.csv");
+sim15 <- read.csv(file = "sim_results/rhos/sim15.csv");
+sim20 <- read.csv(file = "sim_results/rhos/sim20.csv");
+sim30 <- read.csv(file = "sim_results/rhos/sim30.csv");
+sim35 <- read.csv(file = "sim_results/rhos/sim35.csv");
+par(mar = c(0.25, 0.25, 0.25, 0.25), mfrow = c(3, 2), oma = c(6, 6, 1, 1));
+plot(x = sim10[,1], y = sim10[,20], type = "l", pch = 20, lwd = 2, xaxt = "n",
+     ylim = c(-1, 3.5), cex.axis = 1.5);
+points(x = sim10[,15], y = sim10[,21], type = "l", lwd = 2, lty = "dashed");
+abline(h = 0, col = "red", lty = "dotted", lwd = 0.8);
+text(x = -0.6, y = 3.2, labels = "S = 10", cex = 2.5);
+plot(x = sim15[,1], y = sim15[,20], type = "l", pch = 20, lwd = 2, xaxt = "n",
+     ylim = c(-1, 3.5), yaxt = "n", cex.axis = 1.5);
+points(x = sim15[,15], y = sim15[,21], type = "l", lwd = 2, lty = "dashed");
+abline(h = 0, col = "red", lty = "dotted", lwd = 0.8);
+text(x = -0.6, y = 3.2, labels = "S = 15", cex = 2.5);
+plot(x = sim20[,1], y = sim20[,20], type = "l", pch = 20, lwd = 2, xaxt = "n",
+     ylim = c(-1, 3.5), cex.axis = 1.5);
+points(x = sim20[,15], y = sim20[,21], type = "l", lwd = 2, lty = "dashed");
+abline(h = 0, col = "red", lty = "dotted", lwd = 0.8);
+text(x = -0.6, y = 3.2, labels = "S = 20", cex = 2.5);
+plot(x = sim25[,1], y = sim25[,20], type = "l", pch = 20, lwd = 2, xaxt = "n",
+     ylim = c(-1, 3.5), yaxt = "n", cex.axis = 1.25);
+points(x = sim25[,15], y = sim25[,21], type = "l", lwd = 2, lty = "dashed");
+abline(h = 0, col = "red", lty = "dotted", lwd = 0.8);
+text(x = -0.6, y = 3.2, labels = "S = 25", cex = 2.5);
+plot(x = sim30[,1], y = sim30[,20], type = "l", pch = 20, lwd = 2, 
+     ylim = c(-1, 3.5), cex.axis = 1.5);
+points(x = sim30[,15], y = sim30[,21], type = "l", lwd = 2, lty = "dashed");
+abline(h = 0, col = "red", lty = "dotted", lwd = 0.8);
+text(x = -0.6, y = 3.2, labels = "S = 30", cex = 2.5);
+plot(x = sim35[,1], y = sim35[,20], type = "l", pch = 20, lwd = 2, 
+     ylim = c(-1, 3.5), yaxt = "n", cex.axis = 1.5);
+points(x = sim35[,15], y = sim35[,21], type = "l", lwd = 2, lty = "dashed");
+abline(h = 0, col = "red", lty = "dotted", lwd = 0.8);
+text(x = -0.6, y = 3.2, labels = "S = 35", cex = 2.5);
+mtext(text = "E correlation between A_ij and A_ji", side = 1,
+      line = 4, outer = TRUE, cex = 1.5);
+mtext(text = "E leading real part eigenvalue", side = 2,
+      line = 3.5, outer = TRUE, cex = 1.5);
+
+
+
+
+
+
+
+
+
+
 
 # Completely linear
 par(mar = c(1, 1, 1, 1), mfrow = c(3, 2), oma = c(5, 5, 1, 1));
@@ -647,8 +706,28 @@ normpdf <- function(mn, sigma){
 
 
 
-sim <- rand_rho_var(S = 45, rhos = seq(from = -0.95, to = 0.95, by = 0.05), 
-                    iters = 1000);
+sim <- rand_rho_var(S = 1000, rhos = seq(from = -0.95, to = 0.95, by = 0.05), 
+                    iters = 100);
+
+
+
+
+
+
+A0       <- build_rho_mat(S = 1000, sigma = 0.4, rho = -0.75);
+gam1     <- runif(n = 1000, min = 0, max = 2);
+A1       <- A0 * gam1;
+A0       <- A0 * mean(gam1);
+A0_r     <- Re(eigen(A0)$values);
+A0_i     <- Im(eigen(A0)$values);
+A1_r     <- Re(eigen(A1)$values);
+A1_i     <- Im(eigen(A1)$values);
+
+par(mfrow = c(1, 1), mar = c(0.5, 0.5, 0.5, 0.5), oma = c(5, 5, 0.2, 0.2));
+plot(x = A1_r, y = A1_i, pch = 4, cex = 0.7, col = "firebrick", 
+     ylim = c(-28, 28), xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, 
+     asp = 1);
+points(x = A0_r, y = A0_i, pch = 4, cex = 0.7,  col = "dodgerblue4");
 
 
 
@@ -660,7 +739,89 @@ sim <- rand_rho_var(S = 45, rhos = seq(from = -0.95, to = 0.95, by = 0.05),
 
 
 
+sim1000 <- read.csv("../sim1000.csv");
+plot(x = sim1000[,1], y = sim1000[,20], type = "l", pch = 20, lwd = 2, 
+     xaxt = "n", ylim = c(-1, 3.5), cex.axis = 1.5);
+points(x = sim1000[,15], y = sim1000[,21], type = "l", lwd = 2, lty = "dashed");
 
+
+
+
+simt <- rand_rho_var(S = 25, iters = 1000, rhos = seq(from = -0.95, to = 0.95, by = 0.05));
+
+
+plot(x = simt[,14], y = simt[,20], type = "b", pch = 20, lwd = 2, 
+     ylim = c(-1, 3.5), cex.axis = 1.5);
+points(x = simt[,15], y = simt[,21], type = "b", lwd = 2, lty = "dashed");
+
+
+################################################################################
+################################################################################
+################################################################################
+################################################################################
+
+################################################################################
+################################################################################
+################################################################################
+################################################################################
+
+fxeig <- rand_rho_var(S = 16, iters = 1000, int_type = 0, sigma = (1/4), C = 1,
+                      rhos = seq(from = -0.95, to = 0.95, by = 0.05));
+                         
+
+plot(x = fxeig[,1], y = fxeig[,20], type = "l", pch = 20, lwd = 2, 
+     cex.axis = 1.5, asp = 1);
+points(x = fxeig[,15], y = fxeig[,21], type = "l", lwd = 2, lty = "dashed");
+
+
+
+
+fxeig2 <- rand_rho_var(S = 25, iters = 1000, int_type = 0, sigma = (1/5), C = 1,
+                      rhos = seq(from = -0.95, to = 0.95, by = 0.05));
+
+
+plot(x = fxeig2[,1], y = fxeig2[,20], type = "l", pch = 20, lwd = 2, 
+     cex.axis = 1.5, asp = 1);
+points(x = fxeig2[,15], y = fxeig2[,21], type = "l", lwd = 2, lty = "dashed");
+
+
+
+
+
+
+
+fxeig3 <- rand_rho_var(S = 36, iters = 1000, int_type = 0, sigma = (1/6), C = 1,
+                       rhos = seq(from = -0.95, to = 0.95, by = 0.05));
+
+
+plot(x = fxeig3[,1], y = fxeig3[,20], type = "l", pch = 20, lwd = 2, 
+     cex.axis = 1.5, asp = 1);
+points(x = fxeig3[,15], y = fxeig3[,21], type = "l", lwd = 2, lty = "dashed");
+
+
+
+
+fxeig4 <- rand_rho_var(S = 100, iters = 100, int_type = 0, sigma = (1/10), C = 1,
+                       rhos = seq(from = -0.95, to = 0.95, by = 0.05));
+
+plot(x = fxeig4[,1], y = fxeig4[,20], type = "l", pch = 20, lwd = 2, 
+     cex.axis = 1.5, asp = 1);
+points(x = fxeig4[,15], y = fxeig4[,21], type = "l", lwd = 2, lty = "dashed");
+
+
+
+
+fxeig5 <- rand_rho_var(S = 100, iters = 10000, int_type = 0, sigma = (1/10), C = 1,
+                       rhos = seq(from = -0.95, to = 0.95, by = 0.05));
+
+plot(x = fxeig5[,1], y = fxeig5[,20], type = "l", pch = 20, lwd = 2, 
+     cex.axis = 1.5, asp = 1);
+points(x = fxeig5[,15], y = fxeig5[,21], type = "l", lwd = 2, lty = "dashed");
+
+
+# The only things that are changing, really, along the line is rho. Perhaps this
+# has some sort of nonlinear response to gamma? Positive varation and negative
+# rho causes the switch?
 
 
 

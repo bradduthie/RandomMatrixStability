@@ -416,3 +416,15 @@ rand_rho_var <- function(S, rhos, iters, int_type = 0, rmx = 0.4, C = 1,
 
 
 
+get_complexity <- function(mat){
+    S         <- length(diag(mat));
+    mat_gz    <- sum(mat != 0);
+    trace_gz  <- sum(diag(mat) != 0);
+    offdiagC  <- mat_gz - trace_gz;
+    offdiags  <- (dim(mat)[1] * dim(mat)[2]) - S;
+    calc_C    <- offdiagC / offdiags;
+    diag(mat) <- NA;
+    sigma     <- sd(mat, na.rm = TRUE);
+    complx    <- sigma * sqrt(S * calc_C);
+    return(complx);
+}
