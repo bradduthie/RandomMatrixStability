@@ -72,7 +72,7 @@
 \usepackage{titling}
 
 % Create subtitle command for use in maketitle
-\providecommand{\subtitle}[1]{
+\newcommand{\subtitle}[1]{
   \posttitle{
     \begin{center}\large#1\end{center}
     }
@@ -104,9 +104,8 @@ UK, FK9 4LA}
 \begin{document}
 \maketitle
 
-\hypertarget{role-of-correlated-matrices-in-stabilisation}{%
 \section{Role of correlated matrices in
-stabilisation}\label{role-of-correlated-matrices-in-stabilisation}}
+stabilisation}\label{role-of-correlated-matrices-in-stabilisation}
 
 In complex systems represented by large random matrices, correlation
 between matrix elements \(A_{ij}\) and \(A_{ji}\) affects the
@@ -166,17 +165,15 @@ the difference in \(\rho\) between systems with versus without
 \includegraphics{revision_notes_files/figure-latex/unnamed-chunk-7-1.pdf}
 
 When \(\textbf{A}\) was stabilised by \(Var(\gamma)\), the change in
-\(\rho\) was normally distributed around
-\ensuremath{4.8394472\times 10^{-6}} (95\% CIs:
-\ensuremath{-7.3124139\times 10^{-5}},
-\ensuremath{8.7487968\times 10^{-5}}). Hence, decreasing the correlation
-between \(\textbf{A}_{ij}\) and \(\textbf{A}_{ji}\) was not by itself
-the cause of stability. For a clearer picture of the effect of
-\(\gamma\), it is useful to show the relationship between \(\rho\) and
-\(\max(\Re(\lambda))\) again as above, but this time also for how the
-relationship changes given \(Var(\gamma)\). That is, given
-\(\textbf{M} = \textbf{A}\) in addition to
-\(\textbf{M} = \gamma\textbf{A}\).
+\(\rho\) was normally distributed around 4.8394472\times 10\^{}\{-6\}
+(95\% CIs: -7.0762643\times 10\^{}\{-5\}, 8.0991595\times 10\^{}\{-5\}).
+Hence, decreasing the correlation between \(\textbf{A}_{ij}\) and
+\(\textbf{A}_{ji}\) was not by itself the cause of stability. For a
+clearer picture of the effect of \(\gamma\), it is useful to show the
+relationship between \(\rho\) and \(\max(\Re(\lambda))\) again as above,
+but this time also for how the relationship changes given
+\(Var(\gamma)\). That is, given \(\textbf{M} = \textbf{A}\) in addition
+to \(\textbf{M} = \gamma\textbf{A}\).
 
 \includegraphics{revision_notes_files/figure-latex/unnamed-chunk-8-1.pdf}
 
@@ -220,9 +217,8 @@ relationship given variation in component response rates (i.e., the
 diagonal matrix contains elements drawn from a random uniform
 distribution between 0 and 2, so \(\textbf{M} = \gamma\textbf{A}\)).
 
-\hypertarget{trying-to-think-analytically}{%
 \section{Trying to think
-analytically}\label{trying-to-think-analytically}}
+analytically}\label{trying-to-think-analytically}
 
 Trying to think analytically, note that the correlation \(\rho\) adjusts
 the criteria for stability as
@@ -230,11 +226,11 @@ follows\textsuperscript{\protect\hyperlink{ref-Allesina2015a}{1}},
 
 \[\sigma\sqrt{SC}\left(1 + \rho\right) < 1.\]
 
-Given that diagonal values of \(\textbf{M}\) are set to \(-1\), We can
-know the relationship \(S = 1600\), \(C = 1\), and \(\sigma = 1/40\).
-Under these parameter values, given \(\rho = 0\), we know that
-\(\sigma\sqrt{SC}\left(1 + \rho\right) = 1\). Hence, the expected value
-of \(\max(\Re(\lambda)) = 0\)
+Given that diagonal values of \(\textbf{M}\) are set to \(-1\), we can
+consider the relationship \(S = 1600\), \(C = 1\), and
+\(\sigma = 1/40\). Under these parameter values, given \(\rho = 0\), we
+know that \(\sigma\sqrt{SC}\left(1 + \rho\right) = 1\). Hence, the
+expected value of \(\max(\Re(\lambda)) = 0\)
 
 \begin{verbatim}
 ## Warning in xy.coords(x, y, xlabel, ylabel, log): imaginary parts discarded
@@ -243,12 +239,22 @@ of \(\max(\Re(\lambda)) = 0\)
 
 \includegraphics{revision_notes_files/figure-latex/unnamed-chunk-11-1.pdf}
 
-\hypertarget{references}{%
-\section*{References}\label{references}}
+Hence, under the same set of parameters, we predict a linear effect of
+\(\rho\) on \(\max(\Re(\lambda)) = 0\), such that
+\(\max(\Re(\lambda)) = \rho\).
+
+Allesina and Tang note that \(\rho\) is defined as
+follows\textsuperscript{\protect\hyperlink{ref-Allesina2015a}{1}},
+
+\[\rho = \frac{E[M_{ij}M_{ji}] - E[M_{ij}]E[M_{ji}]}{Var[M_{ij}]}.\]
+
+We can rewrite as the more typical way of writing covariance (top),
+
+\section*{References}\label{references}
 \addcontentsline{toc}{section}{References}
 
 \hypertarget{refs}{}
-\leavevmode\hypertarget{ref-Allesina2015a}{}%
+\hypertarget{ref-Allesina2015a}{}
 1. Allesina, S. \& Tang, S. The stability--complexity relationship at
 age 40: a random matrix perspective. \emph{Population Ecology} 63--75
 (2015).

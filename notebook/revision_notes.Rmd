@@ -345,7 +345,7 @@ Trying to think analytically, note that the correlation $\rho$ adjusts the crite
 
 $$\sigma\sqrt{SC}\left(1 + \rho\right) < 1.$$
 
-Given that diagonal values of $\textbf{M}$ are set to $-1$, We can know the relationship $S = 1600$, $C = 1$, and $\sigma = 1/40$. Under these parameter values, given $\rho = 0$, we know that $\sigma\sqrt{SC}\left(1 + \rho\right) = 1$. Hence, the expected value of $\max(\Re(\lambda)) = 0$
+Given that diagonal values of $\textbf{M}$ are set to $-1$, we can consider the relationship $S = 1600$, $C = 1$, and $\sigma = 1/40$. Under these parameter values, given $\rho = 0$, we know that $\sigma\sqrt{SC}\left(1 + \rho\right) = 1$. Hence, the expected value of $\max(\Re(\lambda)) = 0$
 
 
 ```{r, echo = FALSE}
@@ -358,14 +358,15 @@ plot(x = mat_S16e, y = mat_S16i, pch = 4, cex = 0.7, col = "firebrick",
      asp = 1);
 ```
 
-Hence, under the same set of parameters, we predict a linear effect of $\rho$ on $\max(\Re(\lambda)) = 0$, such that $\max(\Re(\lambda)) = \rho$. 
-
-Allesina and Tang note that $\rho$ is defined as follows [@Allesina2015a],
+Hence, under the same set of parameters, we predict a linear effect of $\rho$ on $\max(\Re(\lambda)) = 0$, such that $\max(\Re(\lambda)) = \rho$. Allesina and Tang note that $\rho$ is defined as follows [@Allesina2015a],
 
 $$\rho = \frac{E[M_{ij}M_{ji}] - E[M_{ij}]E[M_{ji}]}{Var[M_{ij}]}.$$
 
-We can rewrite as the more typical way of writing covariance (top),
+Since we define $\sigma = \sqrt{S}$ and $C = 1$, $\sigma\sqrt{SC} = 1$, so the distribution of eigenvalues is circular with a radius of unity. Further, since we set $diag(\textbf{M}) = -1$, we know that $E[\max(\Re(\lambda))] = 0$. 
 
+Gibbs et al. [@Gibbs2017] showed analytically that as $S \to \infty$, the effect of a diagonal matrix $\textbf{X}$ on the stability of $\textbf{M} = \textbf{XA}$ becomes negligible. Hence, assuming high $S$ and $\rho = 0$, we should not see an effect of $\gamma$ on $E[\max(\Re(\lambda))]$. But there is clearly an effect of $\gamma$ for nonzero $\rho$ such that $\partial E[\max(\Re(\lambda))] / \partial\rho > 0$ and $\partial^{2} E[\max(\Re(\lambda))] / \partial\rho > 0$.
+
+Note that, by definition, we have not changed $E[M_{ij}]$ with the addition of $\gamma$, since $E[\gamma_{ii}] = 1$. Elements of $\gamma$ are pulled from a random uniform distribution between 0 and 2, meaning that no covariance should be induced betwen $M_{ij}$ and $M_{ji}$. 
 
 
 References
