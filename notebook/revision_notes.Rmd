@@ -362,9 +362,21 @@ Hence, under the same set of parameters, we predict a linear effect of $\rho$ on
 
 $$\rho = \frac{E[M_{ij}M_{ji}] - E[M_{ij}]E[M_{ji}]}{Var[M_{ij}]}.$$
 
-Since we define $\sigma = \sqrt{S}$ and $C = 1$, $\sigma\sqrt{SC} = 1$, so the distribution of eigenvalues is circular with a radius of unity. Further, since we set $diag(\textbf{M}) = -1$, we know that $E[\max(\Re(\lambda))] = 0$. 
+Since we define $\sigma = 1/\sqrt{S}$ and $C = 1$, $\sigma\sqrt{SC} = 1$, so the distribution of eigenvalues is circular with a radius of unity. Further, since we set $diag(\textbf{M}) = -1$, we know that $E[\max(\Re(\lambda))] = 0$. 
 
-Gibbs et al. [@Gibbs2017] showed analytically that as $S \to \infty$, the effect of a diagonal matrix $\textbf{X}$ on the stability of $\textbf{M} = \textbf{XA}$ becomes negligible. Hence, assuming high $S$ and $\rho = 0$, we should not see an effect of $\gamma$ on $E[\max(\Re(\lambda))]$. But there is clearly an effect of $\gamma$ for nonzero $\rho$ such that $\partial E[\max(\Re(\lambda))] / \partial\rho > 0$ and $\partial^{2} E[\max(\Re(\lambda))] / \partial\rho > 0$.
+Gibbs et al. [@Gibbs2017] showed analytically that as $S \to \infty$, the effect of a diagonal matrix $\textbf{X}$ on the stability of $\textbf{M} = \textbf{XA}$ becomes negligible. They also note that local stability of a random matrix can be predicted from simple moments affecting three parameters,
+
+$$E_{1} = \frac{1}{S(1-S)}\sum_{i \neq j}A_{ij},$$
+
+$$E_{2} = \frac{1}{S(1-S)}\sum_{i \neq j}A^{2}_{ij} - E^{2}_{1},$$
+
+and,
+
+$$E_{c} = \frac{1}{S(1-S)E^{2}_{2}}\sum_{i \neq j} A_{ij} A_{ji} - \frac{E^{2}_{1}}{E^{2}_{2}}.$$
+
+Note that given $\mu = 0$ and $C = 1$, $E_{1} = 0$, while $E^{2}_{2} = Var(A_{ij})$, and $E_{c} = \rho$. This suggests that my parameterisations should only be affected by $Var(A_{ij})$ and $\rho$. This does indeed appear to be the case if we restrict $\sigma = 1/\sqrt{S}$, where if $\rho = 0$, random matrices with $\gamma$ have similar $E[\max(\Re(\lambda))]$ to those without. But the relationship between $\rho$ and $E[\max(\Re(\lambda))]$ clearly differs when $\gamma$ is included, and as $S$ increases such that $\sigma > 1/\sqrt{S}$.
+
+Hence, assuming high $S$ and $\rho = 0$, we should not see an effect of $\gamma$ on $E[\max(\Re(\lambda))]$. But there is clearly an effect of $\gamma$ for nonzero $\rho$ such that $\partial E[\max(\Re(\lambda))] / \partial\rho > 0$ and $\partial^{2} E[\max(\Re(\lambda))] / \partial\rho > 0$.
 
 Note that, by definition, we have not changed $E[M_{ij}]$ with the addition of $\gamma$, since $E[\gamma_{ii}] = 1$. Elements of $\gamma$ are pulled from a random uniform distribution between 0 and 2, meaning that no covariance should be induced betwen $M_{ij}$ and $M_{ji}$. 
 
