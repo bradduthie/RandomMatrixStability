@@ -14,28 +14,31 @@ find_sfree <- function(S){
     return(nmat);
 }
 
-sfree <- function(S){
+# Need to seed with some m such that m can be a fixed node number
+sfree <- function(S, m){
     mat <- matrix(data = 0, nrow = S, ncol = S);
-    mat <- seed_mat(mat);
-    for(i in 3:S){
-        new_p <- get_p(mat = mat[1:i, 1:i]);
+    mat <- seed_mat(mat, m);
+    for(i in m:S){
+        new_p <- get_p(mat = mat[1:i, 1:i], m = m);
         mat   <- add_p(mat = mat, new_p = new_p);
     }
     return(mat);
 }
 
-seed_mat <- function(mat){
-    mat[1, 2] <- 1;
-    mat[2, 1] <- 1;
+seed_mat <- function(mat, m){
+    mat[1:m, 1:m]  <- 1;
+    diag(mat[1:m]) <- 0;
     return(mat);
 }
 
 # This function gets links for the new node
-get_p <- function(mat){
-    msize <- dim(mat)[1];
-    edges <- apply(X = mat, MARGIN = 1, FUN = sum);
-    prs   <- edges / sum(edges);
-    newe  <- rbinom(n = msize, size = 1, prob = prs);
+get_p <- function(mat, m){
+    msize    <- dim(mat)[1];
+    edges    <- apply(X = mat, MARGIN = 1, FUN = sum);
+    prs      <- edges / sum(edges);
+    ch       <- sample(x = 1:msize, size = m, prob = prs);
+    newe     <- rep(x = 0, times = msize);
+    newe[ch] <- 1;
     return(newe);
 }
 
