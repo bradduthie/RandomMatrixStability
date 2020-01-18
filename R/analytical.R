@@ -825,3 +825,99 @@ points(x = fxeig5[,15], y = fxeig5[,21], type = "l", lwd = 2, lty = "dashed");
 
 
 
+fxeig6 <- rand_rho_var(S = 1600, iters = 10, int_type = 0, sigma = (1/40), C = 1,
+                       rhos = seq(from = -0.95, to = 0.95, by = 0.05));
+
+plot(x = fxeig6[,1], y = fxeig6[,20], type = "l", pch = 20, lwd = 2, 
+     cex.axis = 1.5, asp = 1);
+points(x = fxeig6[,15], y = fxeig6[,21], type = "l", lwd = 2, lty = "dashed");
+
+################################################################################
+################################################################################
+################################################################################
+################################################################################
+
+mat_cov <- function(mat){
+    if(dim(mat)[1] != dim(mat)[2]){
+        stop("Error: Not a square matrix");
+    }
+    S  <- dim(mat)[1];
+    od <- 0.5 * (S * S - S);
+    ut <- rep(x = NA, times = od);
+    lt <- rep(x = NA, times = od);
+    ct <- 1;
+    for(i in 1:dim(mat)[1]){
+        for(j in 1:dim(mat)[2]){
+            if(i < j){
+                ut[ct] <- mat[i, j];
+                lt[ct] <- mat[j, i]; 
+                ct     <- ct + 1;
+            }
+        }
+    }
+    rho <- cov(ut, lt);
+    return(rho);
+}
+
+mat_cor <- function(mat){
+    if(dim(mat)[1] != dim(mat)[2]){
+        stop("Error: Not a square matrix");
+    }
+    S  <- dim(mat)[1];
+    od <- 0.5 * (S * S - S);
+    ut <- rep(x = NA, times = od);
+    lt <- rep(x = NA, times = od);
+    ct <- 1;
+    for(i in 1:dim(mat)[1]){
+        for(j in 1:dim(mat)[2]){
+            if(i < j){
+                ut[ct] <- mat[i, j];
+                lt[ct] <- mat[j, i]; 
+                ct     <- ct + 1;
+            }
+        }
+    }
+    rho <- cor(ut, lt);
+    return(rho);
+}
+
+mat_var <- function(mat){
+    diag(mat) <- NA;
+    moffs     <- as.vector(mat);
+    moffs     <- moffs[!is.na(moffs)];
+    mvar      <- var(moffs);
+    return(mvar);
+}
+
+
+
+S      <- 1000;
+v_odA0 <- NULL;
+v_odA1 <- NULL;
+cvodA0 <- NULL;
+cvodA1 <- NULL;
+crodA0 <- NULL;
+crodA1 <- NULL;
+v_gamm <- NULL;
+for(i in 1:1000){
+    A0_dat      <- rnorm(n = S * S, mean = 0, sd = 1/S);
+    A0          <- matrix(data = A0_dat, nrow = S, ncol = S);
+    gam_dat     <- runif(n = S, min = 0, max = 2);
+    gamma       <- matrix(data = 0, nrow = S, ncol = S);
+    diag(gamma) <- gam_dat;
+    diag(A0)    <- -1 
+    A1          <- gamma %*% A0;
+    A0          <- A0 * mean(gamma);
+    v_odA0[i]   <- mat_var(A0);
+    v_odA1[i]   <- mat_var(A1);
+    cvodA0[i]   <- mat_cov(A0);
+    cvodA1[i]   <- mat_cov(A1);
+    crodA0[i]   <- mat_cor(A0);
+    crodA1[i]   <- mat_cor(A1);
+    v_gamm[i]   <- var(gam_dat);
+    print(i);
+}
+
+# It appears that E[ln(var(A0)) / ln(var(A1))] \approx 2
+
+
