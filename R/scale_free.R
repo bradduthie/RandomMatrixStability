@@ -1,12 +1,17 @@
 # Build a scale free network
 find_sfree <- function(S){
-    min_vert <- 0;
-    while(min_vert == 0){
-        mat      <- sfree(S = S);
+    tverts   <- 0;
+    while(tverts < S){
+        mat      <- sfree(S = 2*S);
         verts    <- apply(X = mat, MARGIN = 1, FUN = sum);
-        min_vert <- min(verts);
+        overts   <- which(verts > 0);
+        cmat     <- mat[overts, overts];
+        tverts   <- dim(cmat)[1];
+    }    
+    if(dim(cmat)[1] > S){
+        nmat <- cmat[1:S, 1:S];
     }
-    return(mat);
+    return(nmat);
 }
 
 sfree <- function(S){
