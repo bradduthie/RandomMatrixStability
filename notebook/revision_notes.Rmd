@@ -155,8 +155,7 @@ summarise_randmat <- function(tot_res, fea_res, rho_res, cmplxty){
 }
 ```
 
-In complex systems represented by large random matrices, correlation between matrix elements $A_{ij}$ and $A_{ji}$ affects the distribution of eigenvalues and therefore local stability. As the correlation between matrix elements ($\rho$) decreases, the eigenvalue spectra changes such that more variation falls along the imaginary axis. The figure panels below compare a random matrix in which $\rho = 0$ (left) to one in which $\rho$ = -0.5 (right). In both panels, complex systems include $S = 1000$ components, with diagonal elements of $-1$ and off-diagonal elements drawn from a normal distribution with a mean of $\mu = 0$ and standard deviation of $\sigma = 0.4$.
-
+In complex systems represented by large random matrices, correlation between matrix elements $A_{ij}$ and $A_{ji}$ affects the distribution of eigenvalues and therefore local stability. As the correlation between matrix elements ($\rho$) decreases, the eigenvalue spectra changes such that more variation falls along the imaginary axis. The figure panels below compare a random matrix in which $\rho = 0$ (left) to one in which $\rho = -0.5$ (right). In both panels, complex systems include $S = 1000$ components, with diagonal elements of $-1$ and off-diagonal elements drawn from a normal distribution with a mean of $\mu = 0$ and standard deviation of $\sigma = 0.4$.
 
 ```{r, echo = FALSE}
 mat_rho0  <- build_rho_mat(S = 1000, sigma = 0.4, rho = 0);
@@ -179,6 +178,7 @@ mtext(side = 2, "Imaginary", outer = TRUE, line = 2.5, cex = 1.5);
 ```
 
 Because of this effect of $\rho$ on the eigenvalue spectra, decreasing values of $\rho$ will also tend to decrease the rightmost eigenvalue of the matrix $\textbf{A}$. This makes it more likely that the complex system represented by $\textbf{A}$ is locally stable, as stability occurs when all real parts of eigenvalues are negative. Note that this elongation along the imaginary axis is also characteristic of predator-prey communities (in which, by definition $A_{ij}$ and $A_{ji}$ have opposing signs). Also note that as $\rho$ increases such that $\rho > 0$, the same elongation happens along the real axis, making random complex systems less likely to be stable.
+
 
 ```{r, echo = FALSE}
 # rho_its  <- 1000;
@@ -223,7 +223,10 @@ hist(x = rho_change, main = "", ylab = "Frequency", cex.lab = 1.25, breaks = 25,
 rho_change_CI <- simpleboot(rho_change);
 ```
 
-When $\textbf{A}$ was stabilised by $Var(\gamma)$, the change in $\rho$ was normally distributed around `r mean(rho_change)` (95\% CIs: `r rho_change_CI[1]`, `r rho_change_CI[2]`). Hence, decreasing the correlation between $\textbf{A}_{ij}$ and $\textbf{A}_{ji}$ was not by itself the cause of stability. For a clearer picture of the effect of $\gamma$, it is useful to show the relationship between $\rho$ and $\max(\Re(\lambda))$ again as above, but this time also for how the relationship changes given $Var(\gamma)$. That is, given $\textbf{M} = \textbf{A}$ in addition to $\textbf{M} = \gamma\textbf{A}$.
+
+
+When $\textbf{A}$ was stabilised by $Var(\gamma)$, the change in $\rho$ was normally distributed around `r mean(rho_change) * 10^6`$\times 10^{-6}$ (95\% CIs: `r rho_change_CI[1] * 10^6`$\times 10^{-6}$, `r rho_change_CI[2] * 10^6`$\times 10^{-6}$). Hence, decreasing the correlation between $\textbf{A}_{ij}$ and $\textbf{A}_{ji}$ was not by itself the cause of stability. For a clearer picture of the effect of $\gamma$, it is useful to show the relationship between $\rho$ and $\max(\Re(\lambda))$ again as above, but this time also for how the relationship changes given $Var(\gamma)$. That is, given $\textbf{M} = \textbf{A}$ in addition to $\textbf{M} = \gamma\textbf{A}$.
+
 
 ```{r, echo = FALSE}
 par(mar = c(5, 5, 1, 1));
@@ -252,6 +255,7 @@ abline(h = 0, lwd = 0.8, lty = "dotted");
 legend("topleft", fill = c("grey", "red"), cex = 1.5,
        legend = c(expression(gamma == 1), expression(paste("Var(",gamma,")"))));
 ```
+
 
 Including $Var(\gamma)$ introduces a nonlinear relationship between $\rho$ and $\max(\Re(\lambda))$. Points along the x-axis are spaced more closely together given $Var(\gamma)$ because $Var(\gamma)$ tends to decrease the absolute magnitude of $\rho$. Grey and red points centred on $\rho = 0$ represent the same simulations, before (grey) and after (red) including $Var(\gamma)$. Grey and red points to the left and right show decreasing and increasing simulated $\rho$ values, respectively. Faint grey lines connect points for the same set of simulations, and where the red point is lower than the black point, the expected $\max(\Re(\lambda))$ was lower given $Var(\gamma)$.
 
@@ -353,10 +357,12 @@ mat_S16   <- build_rho_mat(S = 1600, sigma = (1/40), rho = 0);
 mat_S16e  <- eigen(mat_S16)$values;
 mat_S16r  <- Re(mat_S16e);
 mat_S16i  <- Im(mat_S16e);
-plot(x = mat_S16e, y = mat_S16i, pch = 4, cex = 0.7, col = "firebrick",
+plot(x = mat_S16r, y = mat_S16i, pch = 4, cex = 0.7, col = "firebrick",
      xlab = "Real", ylab = "Imaginary", cex.lab = 1.25, cex.axis = 1.25, 
      asp = 1);
 ```
+
+
 
 Hence, under the same set of parameters, we predict a linear effect of $\rho$ on $\max(\Re(\lambda)) = 0$, such that $\max(\Re(\lambda)) = \rho$. Allesina and Tang note that $\rho$ is defined as follows [@Allesina2015a],
 
@@ -383,20 +389,6 @@ Note that, by definition, we have not changed $E[M_{ij}]$ with the addition of $
 
 References
 ================================================================================
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
