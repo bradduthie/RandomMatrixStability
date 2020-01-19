@@ -317,22 +317,28 @@ summarise_randmat <- function(tot_res, fea_res, rho_res, cmplxty){
 }
 
 sim10 <- rand_rho_var(S = 10, rhos = seq(from = -0.9, to = 0.9, by = 0.05), 
-                      iters = 10000);
+                      iters = 10000, sigma = 0.2);
 
 sim15 <- rand_rho_var(S = 15, rhos = seq(from = -0.9, to = 0.9, by = 0.05), 
-                      iters = 10000);
+                      iters = 10000, sigma = 0.2);
 
 sim20 <- rand_rho_var(S = 20, rhos = seq(from = -0.9, to = 0.9, by = 0.05), 
-                      iters = 10000);
+                      iters = 10000, sigma = 0.2);
 
 sim25 <- rand_rho_var(S = 25, rhos = seq(from = -0.5, to = 0.5, by = 0.05), 
-                      iters = 10000);
+                      iters = 10000, sigma = 0.2);
 
 sim30 <- rand_rho_var(S = 30, rhos = seq(from = -0.9, to = 0.9, by = 0.05), 
-                      iters = 10000);
+                      iters = 10000, sigma = 0.2);
 
 sim35 <- rand_rho_var(S = 35, rhos = seq(from = -0.9, to = 0.9, by = 0.05), 
-                      iters = 10000);
+                      iters = 10000, sigma = 0.2);
+
+sim40 <- rand_rho_var(S = 40, rhos = seq(from = -0.9, to = 0.9, by = 0.05), 
+                      iters = 10000, sigma = 0.2);
+
+sim45 <- rand_rho_var(S = 45, rhos = seq(from = -0.9, to = 0.9, by = 0.05), 
+                      iters = 10000, sigma = 0.2);
 
 write.csv(sim10, "sim_results/rhos/sim10.csv");
 write.csv(sim15, "sim_results/rhos/sim15.csv");
@@ -831,6 +837,14 @@ fxeig6 <- rand_rho_var(S = 1600, iters = 10, int_type = 0, sigma = (1/40), C = 1
 plot(x = fxeig6[,1], y = fxeig6[,20], type = "l", pch = 20, lwd = 2, 
      cex.axis = 1.5, asp = 1);
 points(x = fxeig6[,15], y = fxeig6[,21], type = "l", lwd = 2, lty = "dashed");
+
+
+
+
+points(x = fxeig6[,15], y = fxeig6[,24], type = "l", col = "blue", 
+       lty = "dashed");
+points(x = fxeig6[,15], y = fxeig6[,25], type = "l", col = "blue", 
+       lty = "dashed");
 
 ################################################################################
 ################################################################################
