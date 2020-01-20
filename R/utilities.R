@@ -90,8 +90,8 @@ get_complexity <- function(mat){
     offdiagC  <- mat_gz - trace_gz;
     offdiags  <- (dim(mat)[1] * dim(mat)[2]) - S;
     calc_C    <- offdiagC / offdiags;
-    diag(mat) <- NA;
-    sigma     <- sd(mat, na.rm = TRUE);
+    diag(mat) <- 0;
+    sigma     <- sd(mat[mat != 0], na.rm = TRUE);
     complx    <- sigma * sqrt(S * calc_C);
     return(complx);
 }
@@ -139,4 +139,18 @@ visualise_network <- function(mat){
             }
         }
     }
+}
+
+add_C_stats <- function(sim){
+    real_Cs <- sim$real_Cs;
+    all_res <- sim$all_res;
+    res_mns <- matrix(data = 0, nrow = length(sim$real_Cs), ncol = 2);
+    for(i in 1:dim(res_mns)[1]){
+        mn_vals       <- apply(X = real_Cs[[i]], MARGIN = 2, FUN = mean);
+        res_mns[i, 1] <- mn_vals[1];
+        res_mns[i, 2] <- mn_vals[3];
+    }
+    new_all_res <- cbind(all_res, res_mns[,2]);
+    colnames(new_all_res)[dim(new_all_res)[2]] <- "C";
+    return(new_all_res);
 }
