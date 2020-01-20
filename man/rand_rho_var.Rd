@@ -8,8 +8,9 @@ rand_rho_var(S, rhos, iters, int_type = 0, rmx = 0.4, C = 1,
   sigma = 0.4, mn = 0, dval = 1)
 }
 \arguments{
-\item{S}{Number of components to randomise
-#'@param rhos Vector of correlations to simulate}
+\item{S}{Number of components to randomise}
+
+\item{rhos}{Vector of correlations to simulate}
 
 \item{iters}{Number of iterations (i.e., random matrices) per component}
 

@@ -4,11 +4,15 @@
 \alias{rand_gen_sfn}
 \title{Find stabilised scale-free world networks}
 \usage{
-rand_gen_sfn(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 4,
-  sigma = 0.4, m = 2, mn = 0, dval = 1)
+rand_gen_sfn(S, m_vals, iters, int_type = 0, rmx = 0.4, sigma = 0.4,
+  mn = 0, dval = 1)
 }
 \arguments{
-\item{max_sp}{Maximum number of components to randomise}
+\item{S}{Number of components to randomise}
+
+\item{m_vals}{The number of vertices that newly added components will have in
+the scale free network (increasing this, but not S, increases the complexity
+by increasing C).}
 
 \item{iters}{Number of iterations (i.e., random matrices) per component}
 
@@ -17,17 +21,17 @@ competitor (1), mutualist (2), predator-prey (3), and cascade model (4)}
 
 \item{rmx}{Standard deviation of population growth rates (for feasibility)}
 
-\item{C}{Connectedness of matrices (i.e., probability of non-zero matrix 
-element components.}
-
 \item{sigma}{Standard deviation of interaction strength among network elements}
-
-\item{m}{The number of vertices that newly added components will have in 
-scale-free network construction}
 
 \item{mn}{Mean interaction strength among network elements}
 
 \item{dval}{Self-regulation of network elements (1 by default)}
+
+\item{C}{Connectedness of matrices (i.e., probability of non-zero matrix 
+element components.}
+
+\item{m}{The number of vertices that newly added components will have in 
+scale-free network construction}
 }
 \value{
 A table of stability results, where rows summarise for each component
@@ -43,5 +47,5 @@ Modern Physics, Vo. 74, 2002). Off-diagonal elements have a mean of 'mn' and
 a standard deviation of 'sigma'.
 }
 \examples{
-rand_gen_sfn(max_sp = 16, iters = 4);
+rand_gen_sfn(S = 24, mvals = c(2, 4), iters = 4);
 }

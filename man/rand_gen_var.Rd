@@ -20,6 +20,8 @@ competitor (1), mutualist (2), predator-prey (3), and cascade model (4)}
 \item{C}{Connectedness of matrices (i.e., probability of non-zero matrix 
 element components.}
 
+\item{by}{Sequence between component number to randomise (e.g., '2': 2, 4, 6)}
+
 \item{sigma}{Standard deviation of interaction strength among network elements}
 
 \item{mn}{Mean interaction strength among network elements}
