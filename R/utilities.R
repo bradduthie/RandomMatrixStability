@@ -43,7 +43,7 @@ mat_rho <- function(mat){
 #'between off-diagonal matrix elements A_{ij} and A_{ji}
 #'@param dval Self-regulation of network elements (1 by default)
 #'@examples
-# eg_mat <- build_rho_mat(S = 8, sigma = 0.4, rho = 0.2);
+#'eg_mat <- build_rho_mat(S = 8, sigma = 0.4, rho = 0.2);
 #'@export
 build_rho_mat <- function(S, sigma, rho, mn = 0, dval = 1){
     mat  <- matrix(data = 0, nrow = S, ncol = S);

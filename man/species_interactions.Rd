@@ -9,14 +9,16 @@ species_interactions(mat, type = 0)
 \arguments{
 \item{mat}{The matrix to be restricted}
 
-\item{type}{The type of restriction being made}
+\item{type}{The type of restriction being made. This includes random (0),
+competitor (1), mutualist (2), predator-prey (3), or cascade model food web 
+(4)}
 }
 \value{
 The matrix is returned with appropriately restricted interaction types
 }
 \description{
 Restricts the interaction types of a matrix to be competitive (1), mutualist
-(2), or predator-prey (3).
+(2), predator-prey (3), or cascade model (4).
 }
 \examples{
 eg_mat  <- matrix(data = rnorm(n = 16), nrow = 4);

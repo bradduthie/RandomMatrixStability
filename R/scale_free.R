@@ -108,7 +108,7 @@ rand_gen_sfn <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 4,
 #'@param S The size of the network (number of components)
 #'@param m The number of vertices that newly added components will have
 #'@examples
-# eg_swn <- create_sfn(S = 8, m = 2);
+#'eg_swn <- create_sfn(S = 8, m = 2);
 #'@export
 create_sfn <- function(S, m){
     mat <- matrix(data = 0, nrow = S, ncol = S);

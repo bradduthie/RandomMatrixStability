@@ -2,21 +2,24 @@
 % Please edit documentation in R/ga.R, R/random_mats.R
 \name{summarise_randmat}
 \alias{summarise_randmat}
-\alias{summarise_randmat}
 \title{Summarise random matrix results from genetic algorithm}
 \usage{
-summarise_randmat(tot_res, fea_res)
+summarise_randmat(tot_res, fea_res, rho_res, cmplxty)
 
-summarise_randmat(tot_res, fea_res)
+summarise_randmat(tot_res, fea_res, rho_res, cmplxty)
 }
 \arguments{
 \item{tot_res}{The tot_res list output from the rand_gen_var function}
 
 \item{fea_res}{The fea_res list output from the rand_gen_var function}
 
+\item{rho_res}{The rho_res list output from the rand_gen_var function}
+
 \item{tot_res}{The tot_res list output from the rand_gen_var function}
 
 \item{fea_res}{The fea_res list output from the rand_gen_var function}
+
+\item{cmplexty}{The cmplxty list output from the rand_gen_var function}
 }
 \value{
 A table of stability and feasibility results.

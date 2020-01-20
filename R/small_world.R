@@ -114,7 +114,7 @@ rand_gen_swn <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 4,
 #'rewired (parameter p in Watts and Strogatz 1998)
 #'@param K Number of edges that each vertice in the network contains
 #'@examples
-# eg_swn <- create_swn(S = 32, K = 4);
+#'eg_swn <- create_swn(S = 32, K = 4);
 #'@export
 create_swn <- function(S = 100, K = 20, beta = 0.05){
     mat <- matrix(data = 0, nrow = S, ncol = S);
