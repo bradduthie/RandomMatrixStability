@@ -154,3 +154,23 @@ add_C_stats <- function(sim){
     colnames(new_all_res)[dim(new_all_res)[2]] <- "C";
     return(new_all_res);
 }
+
+
+
+#' Get variance of interaction strengths
+#' 
+#' Returns the variance of interaction stengths (sigma^2).
+#'
+#'@return The variance of off-diagonal elements of 'mat'
+#'@param mat The matrix to be valuated
+#'@examples
+#'eg_mat  <- matrix(dat = rnorm(n = 16), nrow = 4);
+#'mat_cmp <- get_sigma_sqd(mat = eg_mat);
+#'@export
+get_sigma_sqd <- function(mat){
+    diag(mat) <- 0;
+    mat_offs  <- mat[mat != 0];
+    var_offs  <- var(mat_offs);
+    return(var_offs);
+}
+
