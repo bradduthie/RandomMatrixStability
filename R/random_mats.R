@@ -10,6 +10,7 @@
 #'number (S) the number of stable or unstable (also, feasible and infeasible)
 #'random matrices produced.
 #'@param max_sp Maximum number of components to randomise
+#'@param by Sequence between component number to randomise (e.g., '2': 2, 4, 6)
 #'@param iters Number of iterations (i.e., random matrices) per component
 #'@param int_type Type of interaction between components including random (0),
 #'competitor (1), mutualist (2), predator-prey (3), and cascade model (4)
@@ -199,7 +200,7 @@ summarise_randmat <- function(tot_res, fea_res, rho_res, cmplxty){
 #'correlation (rho) the number of stable or unstable (also, feasible and 
 #'infeasible) random matrices produced.
 #'@param S Number of components to randomise
-#'#'@param rhos Vector of correlations to simulate
+#'@param rhos Vector of correlations to simulate
 #'@param iters Number of iterations (i.e., random matrices) per component
 #'@param rmx Standard deviation of population growth rates (for feasibility)
 #'@param C Connectedness of matrices (i.e., probability of non-zero matrix 

@@ -11,6 +11,7 @@
 #'number (S) the number of stable or unstable (also, feasible and infeasible)
 #'random matrices produced.
 #'@param max_sp Maximum number of components to randomise
+#'@param by Sequence between component number to randomise (e.g., '2': 2, 4, 6)
 #'@param iters Number of iterations (i.e., random matrices) per component
 #'@param int_type Type of interaction between components including random (0),
 #'competitor (1), mutualist (2), predator-prey (3), and cascade model (4)
@@ -128,20 +129,6 @@ create_swn <- function(S = 100, K = 20, beta = 0.05){
     mat <- add_sw_edges(mat, K);
     mat <- rewire_sw_edges(mat, K, beta);
     return(mat);
-}
-
-add_C_stats <- function(sim){
-    real_Cs <- sim$real_Cs;
-    all_res <- sim$all_res;
-    res_mns <- matrix(data = 0, nrow = length(sim$real_Cs), ncol = 2);
-    for(i in 1:dim(res_mns)[1]){
-        mn_vals       <- apply(X = real_Cs[[i]], MARGIN = 2, FUN = mean);
-        res_mns[i, 1] <- mn_vals[1];
-        res_mns[i, 2] <- mn_vals[3];
-    }
-    new_all_res <- cbind(all_res, res_mns[,2]);
-    colnames(new_all_res)[dim(new_all_res)[2]] <- "C";
-    return(new_all_res);
 }
 
 add_sw_edges <- function(mat, K){

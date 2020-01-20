@@ -9,7 +9,10 @@
 #'@return A table of stability results, where rows summarise for each component
 #'number (S) the number of stable or unstable (also, feasible and infeasible)
 #'random matrices produced.
-#'@param max_sp Maximum number of components to randomise
+#'@param S Number of components to randomise
+#'@param m_vals The number of vertices that newly added components will have in
+#'the scale free network (increasing this, but not S, increases the complexity
+#'by increasing C).
 #'@param iters Number of iterations (i.e., random matrices) per component
 #'@param int_type Type of interaction between components including random (0),
 #'competitor (1), mutualist (2), predator-prey (3), and cascade model (4)
@@ -22,18 +25,19 @@
 #'@param mn Mean interaction strength among network elements
 #'@param dval Self-regulation of network elements (1 by default)
 #'@examples
-#'rand_gen_sfn(max_sp = 16, iters = 4);
+#'rand_gen_sfn(S = 24, mvals = c(2, 4), iters = 4);
 #'@export
-rand_gen_sfn <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 4,
-                         sigma = 0.4, m = 2, mn = 0, dval = 1){
+rand_gen_sfn <- function(S, m_vals, iters, int_type = 0, rmx = 0.4, sigma = 0.4, 
+                         mn = 0, dval = 1){
     tot_res <- NULL;
     fea_res <- NULL;
     real_Cs <- NULL;
     rho_res <- NULL;
     cmplxty <- NULL;
-    start_S <- max(c(by, m));
-    sp_try  <- seq(from = start_S, to = max_sp, by = by);
-    for(i in 1:length(sp_try)){
+    if(S < max(m_vals)){
+        stop("Highest m_vals cannot be greater than S");
+    }
+    for(i in 1:length(m_vals)){
         iter           <- iters;
         tot_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 7);
         fea_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 7);
@@ -41,22 +45,17 @@ rand_gen_sfn <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 4,
         cmplxty[[i]]   <- matrix(data = 0, nrow = iter, ncol = 2);
         real_Cs[[i]]   <- matrix(data = 0, nrow = iter, ncol = 3);
         while(iter > 0){
-            r_vec    <- rnorm(n = sp_try[i], mean = 0, sd = rmx);
-            A0_dat   <- rnorm(n = sp_try[i] * sp_try[i], mean = mn, sd = sigma);
-            A0       <- matrix(data = A0_dat, nrow = sp_try[i], 
-                               ncol = sp_try[i]);
+            r_vec    <- rnorm(n = S, mean = 0, sd = rmx);
+            A0_dat   <- rnorm(n = S * S, mean = mn, sd = sigma);
+            A0       <- matrix(data = A0_dat, nrow = S, ncol = S);
             A0       <- species_interactions(mat = A0, type = int_type);
-            swn      <- create_sfn(S = sp_try[i], m = m);
-            real_Cs[[i]][iter, 1] <- sp_try[i];
+            sfn      <- create_sfn(S = S, m = m_vals[i]);
+            real_Cs[[i]][iter, 1] <- m_vals[i];
             real_Cs[[i]][iter, 2] <- iter;
-            real_Cs[[i]][iter, 3] <- get_C(swn);
-            C_dat    <- rbinom(n = sp_try[i] * sp_try[i], size = 1, prob = C);
-            C_mat    <- matrix(data = C_dat, nrow = sp_try[i], 
-                               ncol = sp_try[i]);
-            A0       <- A0 * C_mat;
-            A0       <- A0 * swn;
+            real_Cs[[i]][iter, 3] <- get_C(sfn);
+            A0       <- A0 * sfn;
             diag(A0) <- -1 * dval;
-            gam1     <- runif(n = sp_try[i], min = 0, max = 2);
+            gam1     <- runif(n = S, min = 0, max = 2);
             A1       <- A0 * gam1;
             A0       <- A0 * mean(gam1);
             A0_stb   <- max(Re(eigen(A0)$values)) < 0;
@@ -87,11 +86,11 @@ rand_gen_sfn <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 4,
             cmplxty[[i]][iter, 2] <- get_complexity(A1);
             iter                  <- iter - 1;
         }
-        print(sp_try[i]);
+        print(m_vals[i]);
     }
     all_res     <- summarise_randmat(tot_res = tot_res, fea_res = fea_res,
                                      rho_res = rho_res, cmplxty = cmplxty);
-    all_res[,1] <- sp_try;
+    all_res[,1] <- m_vals;
     full_res    <- list(all_res = all_res, real_Cs = real_Cs);
     res_table   <- add_C_stats(sim = full_res);
     return(res_table);
