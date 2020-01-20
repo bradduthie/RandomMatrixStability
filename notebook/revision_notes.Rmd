@@ -29,130 +29,71 @@ csl: nature.csl
 biblio-style: apalike
 ---
 
+
+Effects of correlations interactions
+================================================================================
+
+If the off-diagonal elements of $\textbf{A}$ are sampled independently from an identical distribution, then  $\max(\Re(\lambda))$ for $\textbf{M} = \textbf{A}$ can be estimated from five values [@Tang2014b]. These values include (1) system size ($S$), (2) mean self-regulation of components ($d$), (3) mean interaction strength between components ($\mu$), (4) the standard deviation between component interaction strengths ($\sigma$), and (5) the correlation of interaction strengths between components, $M_{ij}$ and $M_{ji}$ ($\rho$). When investigating the effect of varying component response rate $Var(\gamma)$ on stability by defining $\textbf{M} = \gamma\textbf{A}$, $S$ remains unchanged. Further, values of $\gamma_{i}$ were sampled such that $E[d]$ and $E[\mu]$ also remained unchanged (in practice, diagonal elements of $\textbf{M}$ were standardised so that mean values were identical before and after adding $\gamma$). What $Var(\gamma)$ does change is the variation in component interaction strengths, and $\rho$.
+
+Variation in $\gamma$ increases the total variation such that for $\textbf{M} = \gamma \textbf{A}$, $\sigma^{2}_{M_{ij}} = \sigma^{2}_{A_{ij}} \left(1 + \sigma^{2}_{\gamma_{i}} \right)$. Eigenvalues of $\textbf{A}$ are therefore enclosed within a circle centred at $d$ with a radius of $\sigma_{A_{ij}}\sqrt{SC} = \sqrt{SC\sigma^{2}_{A_{ij}}}$, while eigenvalues of $\textbf{M}$ have a larger radius of $\sqrt{SC \sigma^{2}_{A_{ij}} \left(1 + \sigma^{2}_{\gamma_{i}}\right)}$ (see blue versus red points below).
+
+
+
+
+
+
+Note that the correlation $\rho$ adjusts the criteria for stability as follows [@Allesina2015a],
+
+$$\sigma\sqrt{SC}\left(1 + \rho\right) < 1.$$
+
+Given that diagonal values of $\textbf{M}$ are set to $-1$, we can consider the relationship $S = 1600$, $C = 1$, and $\sigma = 1/40$. Under these parameter values, given $\rho = 0$, we know that $\sigma\sqrt{SC}\left(1 + \rho\right) = 1$. Hence, the expected value of $\max(\Re(\lambda)) = 0$
+
+
+```{r, echo = FALSE}
+mat_S16   <- build_rho_mat(S = 1600, sigma = (1/40), rho = 0);
+mat_S16e  <- eigen(mat_S16)$values;
+mat_S16r  <- Re(mat_S16e);
+mat_S16i  <- Im(mat_S16e);
+plot(x = mat_S16r, y = mat_S16i, pch = 4, cex = 0.7, col = "firebrick",
+     xlab = "Real", ylab = "Imaginary", cex.lab = 1.25, cex.axis = 1.25, 
+     asp = 1);
+```
+
+
+
+Hence, under the same set of parameters, we predict a linear effect of $\rho$ on $\max(\Re(\lambda)) = 0$, such that $\max(\Re(\lambda)) = \rho$. Allesina and Tang note that $\rho$ is defined as follows [@Allesina2015a],
+
+$$\rho = \frac{E[M_{ij}M_{ji}] - E[M_{ij}]E[M_{ji}]}{Var[M_{ij}]}.$$
+
+Since we define $\sigma = 1/\sqrt{S}$ and $C = 1$, $\sigma\sqrt{SC} = 1$, so the distribution of eigenvalues is circular with a radius of unity. Further, since we set $diag(\textbf{M}) = -1$, we know that $E[\max(\Re(\lambda))] = 0$. 
+
+Gibbs et al. [@Gibbs2017] showed analytically that as $S \to \infty$, the effect of a diagonal matrix $\textbf{X}$ on the stability of $\textbf{M} = \textbf{XA}$ becomes negligible. They also note that local stability of a random matrix can be predicted from simple moments affecting three parameters,
+
+$$E_{1} = \frac{1}{S(1-S)}\sum_{i \neq j}A_{ij},$$
+
+$$E_{2} = \frac{1}{S(1-S)}\sum_{i \neq j}A^{2}_{ij} - E^{2}_{1},$$
+
+and,
+
+$$E_{c} = \frac{1}{S(1-S)E^{2}_{2}}\sum_{i \neq j} A_{ij} A_{ji} - \frac{E^{2}_{1}}{E^{2}_{2}}.$$
+
+Note that given $\mu = 0$ and $C = 1$, $E_{1} = 0$, while $E^{2}_{2} = Var(A_{ij})$, and $E_{c} = \rho$. This suggests that my parameterisations should only be affected by $Var(A_{ij})$ and $\rho$. This does indeed appear to be the case if we restrict $\sigma = 1/\sqrt{S}$, where if $\rho = 0$, random matrices with $\gamma$ have similar $E[\max(\Re(\lambda))]$ to those without. But the relationship between $\rho$ and $E[\max(\Re(\lambda))]$ clearly differs when $\gamma$ is included, and as $S$ increases such that $\sigma > 1/\sqrt{S}$.
+
+Hence, assuming high $S$ and $\rho = 0$, we should not see an effect of $\gamma$ on $E[\max(\Re(\lambda))]$. But there is clearly an effect of $\gamma$ for nonzero $\rho$ such that $\partial E[\max(\Re(\lambda))] / \partial\rho > 0$ and $\partial^{2} E[\max(\Re(\lambda))] / \partial\rho > 0$.
+
+Note that, by definition, we have not changed $E[M_{ij}]$ with the addition of $\gamma$, since $E[\gamma_{ii}] = 1$. Elements of $\gamma$ are pulled from a random uniform distribution between 0 and 2, meaning that no covariance should be induced betwen $M_{ij}$ and $M_{ji}$. 
+
+
+
+
 Role of correlated matrices in stabilisation
 ================================================================================
 
 ```{r, echo = FALSE}
 source("../R/random_mats.R");
 source("../R/small_world.R");
-rand_rho_var <- function(S, rhos, iters, int_type = 0, rmx = 0.4, C = 1, 
-                         by = 1, sigma = 0.4){
-    tot_res <- NULL;
-    fea_res <- NULL;
-    rho_res <- NULL;
-    cmplxty <- NULL;
-    for(i in 1:length(rhos)){
-        iter           <- iters;
-        tot_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 8);
-        fea_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 7);
-        rho_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 6);
-        cmplxty[[i]]   <- matrix(data = 0, nrow = iter, ncol = 2);
-        while(iter > 0){
-            r_vec    <- rnorm(n = S, mean = 0, sd = rmx);
-            A0       <- build_rho_mat(S = S, sigma = sigma, rho = rhos[i]);
-            gam1     <- runif(n = S, min = 0, max = 2);
-            A1       <- A0 * gam1;
-            A0       <- A0 * mean(gam1);
-            A0_stb   <- max(Re(eigen(A0)$values)) < 0;
-            A1_stb   <- max(Re(eigen(A1)$values)) < 0;
-            A0_fea   <- min(-1*solve(A0) %*% r_vec) > 0;
-            A1_fea   <- min(-1*solve(A1) %*% r_vec) > 0;
-            A0_rho   <- mat_rho(A0);
-            A1_rho   <- mat_rho(A1);
-            rho_diff <- A1_rho - A0_rho;
-            rho_abs  <- abs(A1_rho) - abs(A0_rho);
-            if(A0_stb == TRUE){
-                tot_res[[i]][iter, 1] <- 1;
-            }
-            if(A1_stb == TRUE){
-                tot_res[[i]][iter, 2] <- 1;
-            }
-            if(A0_fea == TRUE){
-                fea_res[[i]][iter, 1] <- 1;
-            }
-            if(A1_fea == TRUE){
-                fea_res[[i]][iter, 2] <- 1;
-            }
-            rho_res[[i]][iter, 1] <- A0_rho;
-            rho_res[[i]][iter, 2] <- A1_rho;
-            rho_res[[i]][iter, 3] <- rho_diff;
-            rho_res[[i]][iter, 4] <- rho_abs;
-            rho_res[[i]][iter, 5] <- max(Re(eigen(A0)$values));
-            rho_res[[i]][iter, 6] <- max(Re(eigen(A1)$values));
-            cmplxty[[i]][iter, 1] <- get_complexity(A0);
-            cmplxty[[i]][iter, 2] <- get_complexity(A1);
-            iter                  <- iter - 1;
-        }
-    }
-    all_res     <- summarise_randmat(tot_res = tot_res, fea_res = fea_res,
-                                     rho_res = rho_res, cmplxty = cmplxty);
-    all_res[,1]          <- rhos;
-    colnames(all_res)[1] <- "rho_set";
-    return(all_res);
-}
-
-simpleboot <- function(freqs,repli=1000,alpha=0.05){    
-    vals  <- NULL;                                                          
-    i     <- 0;                                         
-    while(i < repli){                                                   
-        boot  <- sample(x=freqs,size=length(freqs),replace=TRUE);           
-        strap <- mean(boot);                                                
-        vals  <- c(vals,strap);                                             
-        i     <- i + 1;                                                     
-    }                                                                       
-    vals   <- sort(x=vals,decreasing=FALSE);                            
-    lowCI  <- vals[round((alpha*0.5)*repli)];                               
-    highCI <- vals[round((1-(alpha*0.5))*repli)];                           
-    CIs    <- c(lowCI,highCI);                                          
-    return(CIs);                                                            
-}  
-
-summarise_randmat <- function(tot_res, fea_res, rho_res, cmplxty){
-    sims    <- length(tot_res);
-    all_res <- matrix(data = 0, nrow = sims, ncol = 25);
-    for(i in 1:sims){
-        all_res[i, 1]  <- i + 1;
-        # Stable and unstable
-        all_res[i, 2]  <- sum(tot_res[[i]][,1] == FALSE);
-        all_res[i, 3]  <- sum(tot_res[[i]][,1] == TRUE);
-        all_res[i, 4]  <- sum(tot_res[[i]][,2] == FALSE);
-        all_res[i, 5]  <- sum(tot_res[[i]][,2] == TRUE);
-        # Stabilised and destabilised
-        all_res[i, 6] <- sum(tot_res[[i]][,1] == FALSE & 
-                                 tot_res[[i]][,2] == TRUE);
-        all_res[i, 7] <- sum(tot_res[[i]][,1] == TRUE & 
-                                 tot_res[[i]][,2] == FALSE);
-        # Feasible and infeasible
-        all_res[i, 8]  <- sum(fea_res[[i]][,1] == FALSE);
-        all_res[i, 9]  <- sum(fea_res[[i]][,1] == TRUE);
-        all_res[i, 10]  <- sum(fea_res[[i]][,2] == FALSE);
-        all_res[i, 11]  <- sum(fea_res[[i]][,2] == TRUE);
-        # Feased and defeased
-        all_res[i, 12] <- sum(fea_res[[i]][,1] == FALSE & 
-                                  fea_res[[i]][,2] == TRUE);
-        all_res[i, 13] <- sum(fea_res[[i]][,1] == TRUE & 
-                                  fea_res[[i]][,2] == FALSE);
-        # Mean correlations between A[i,j] and A[j,i] off-diag elements
-        all_res[i, 14] <- mean(rho_res[[i]][,1]);
-        all_res[i, 15] <- mean(rho_res[[i]][,2]);
-        all_res[i, 16] <- mean(rho_res[[i]][,3]);
-        all_res[i, 17] <- mean(rho_res[[i]][,4]);
-        all_res[i, 18] <- mean(cmplxty[[i]][,1]);
-        all_res[i, 19] <- mean(cmplxty[[i]][,2]);
-        all_res[i, 20] <- mean(rho_res[[i]][,5]);
-        all_res[i, 21] <- mean(rho_res[[i]][,6]);
-        all_res[i, 22:23] <- range(rho_res[[i]][,5]);
-        all_res[i, 24:25] <- range(rho_res[[i]][,6]);
-    }
-    cnames <- c("N", "A0_unstable", "A0_stable", "A1_unstable", "A1_stable", 
-                "A1_stabilised", "A1_destabilised", "A0_infeasible", 
-                "A0_feasible", "A1_infeasible", "A1_feasible", 
-                "A1_made_feasible", "A1_made_infeasible", "A0_rho", "A1_rho",
-                "rho_diff", "rho_abs", "complex_A0", "complex_A1", "A0_eig",
-                "A1_eig", "LCI_A0", "UCI_A0", "LCI_A1", "UCI_A1");
-    colnames(all_res) <- cnames;
-    return(all_res);
-}
+source("../R/scale_free.R");
+source("../R/utilities.R");
 ```
 
 In complex systems represented by large random matrices, correlation between matrix elements $A_{ij}$ and $A_{ji}$ affects the distribution of eigenvalues and therefore local stability. As the correlation between matrix elements ($\rho$) decreases, the eigenvalue spectra changes such that more variation falls along the imaginary axis. The figure panels below compare a random matrix in which $\rho = 0$ (left) to one in which $\rho = -0.5$ (right). In both panels, complex systems include $S = 1000$ components, with diagonal elements of $-1$ and off-diagonal elements drawn from a normal distribution with a mean of $\mu = 0$ and standard deviation of $\sigma = 0.4$.
@@ -342,49 +283,6 @@ mtext(text = "E leading real part eigenvalue", side = 2,
 In all panels above, the solid line shows the relationship between the expected $\rho$ between $\textbf{A}$ elements $A_{ij}$ and $A_{ji}$ given no variation in component response rates (i.e., the diagonal matrix equals the identity matrix, $\gamma = \textbf{I}$, so $\textbf{M} = \textbf{A}$). The dotted line shows the same relationship given variation in component response rates (i.e., the diagonal matrix contains elements drawn from a random uniform distribution between 0 and 2, so $\textbf{M} = \gamma\textbf{A}$).
 
 
-Trying to think analytically
-================================================================================
-
-Trying to think analytically, note that the correlation $\rho$ adjusts the criteria for stability as follows [@Allesina2015a],
-
-$$\sigma\sqrt{SC}\left(1 + \rho\right) < 1.$$
-
-Given that diagonal values of $\textbf{M}$ are set to $-1$, we can consider the relationship $S = 1600$, $C = 1$, and $\sigma = 1/40$. Under these parameter values, given $\rho = 0$, we know that $\sigma\sqrt{SC}\left(1 + \rho\right) = 1$. Hence, the expected value of $\max(\Re(\lambda)) = 0$
-
-
-```{r, echo = FALSE}
-mat_S16   <- build_rho_mat(S = 1600, sigma = (1/40), rho = 0);
-mat_S16e  <- eigen(mat_S16)$values;
-mat_S16r  <- Re(mat_S16e);
-mat_S16i  <- Im(mat_S16e);
-plot(x = mat_S16r, y = mat_S16i, pch = 4, cex = 0.7, col = "firebrick",
-     xlab = "Real", ylab = "Imaginary", cex.lab = 1.25, cex.axis = 1.25, 
-     asp = 1);
-```
-
-
-
-Hence, under the same set of parameters, we predict a linear effect of $\rho$ on $\max(\Re(\lambda)) = 0$, such that $\max(\Re(\lambda)) = \rho$. Allesina and Tang note that $\rho$ is defined as follows [@Allesina2015a],
-
-$$\rho = \frac{E[M_{ij}M_{ji}] - E[M_{ij}]E[M_{ji}]}{Var[M_{ij}]}.$$
-
-Since we define $\sigma = 1/\sqrt{S}$ and $C = 1$, $\sigma\sqrt{SC} = 1$, so the distribution of eigenvalues is circular with a radius of unity. Further, since we set $diag(\textbf{M}) = -1$, we know that $E[\max(\Re(\lambda))] = 0$. 
-
-Gibbs et al. [@Gibbs2017] showed analytically that as $S \to \infty$, the effect of a diagonal matrix $\textbf{X}$ on the stability of $\textbf{M} = \textbf{XA}$ becomes negligible. They also note that local stability of a random matrix can be predicted from simple moments affecting three parameters,
-
-$$E_{1} = \frac{1}{S(1-S)}\sum_{i \neq j}A_{ij},$$
-
-$$E_{2} = \frac{1}{S(1-S)}\sum_{i \neq j}A^{2}_{ij} - E^{2}_{1},$$
-
-and,
-
-$$E_{c} = \frac{1}{S(1-S)E^{2}_{2}}\sum_{i \neq j} A_{ij} A_{ji} - \frac{E^{2}_{1}}{E^{2}_{2}}.$$
-
-Note that given $\mu = 0$ and $C = 1$, $E_{1} = 0$, while $E^{2}_{2} = Var(A_{ij})$, and $E_{c} = \rho$. This suggests that my parameterisations should only be affected by $Var(A_{ij})$ and $\rho$. This does indeed appear to be the case if we restrict $\sigma = 1/\sqrt{S}$, where if $\rho = 0$, random matrices with $\gamma$ have similar $E[\max(\Re(\lambda))]$ to those without. But the relationship between $\rho$ and $E[\max(\Re(\lambda))]$ clearly differs when $\gamma$ is included, and as $S$ increases such that $\sigma > 1/\sqrt{S}$.
-
-Hence, assuming high $S$ and $\rho = 0$, we should not see an effect of $\gamma$ on $E[\max(\Re(\lambda))]$. But there is clearly an effect of $\gamma$ for nonzero $\rho$ such that $\partial E[\max(\Re(\lambda))] / \partial\rho > 0$ and $\partial^{2} E[\max(\Re(\lambda))] / \partial\rho > 0$.
-
-Note that, by definition, we have not changed $E[M_{ij}]$ with the addition of $\gamma$, since $E[\gamma_{ii}] = 1$. Elements of $\gamma$ are pulled from a random uniform distribution between 0 and 2, meaning that no covariance should be induced betwen $M_{ij}$ and $M_{ji}$. 
 
 
 References

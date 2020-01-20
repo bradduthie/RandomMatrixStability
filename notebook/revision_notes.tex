@@ -72,7 +72,7 @@
 \usepackage{titling}
 
 % Create subtitle command for use in maketitle
-\newcommand{\subtitle}[1]{
+\providecommand{\subtitle}[1]{
   \posttitle{
     \begin{center}\large#1\end{center}
     }
@@ -104,200 +104,51 @@ UK, FK9 4LA}
 \begin{document}
 \maketitle
 
-\section{Role of correlated matrices in
-stabilisation}\label{role-of-correlated-matrices-in-stabilisation}
+\hypertarget{effects-of-correlations-interactions}{%
+\section{Effects of correlations
+interactions}\label{effects-of-correlations-interactions}}
 
-In complex systems represented by large random matrices, correlation
-between matrix elements \(A_{ij}\) and \(A_{ji}\) affects the
-distribution of eigenvalues and therefore local stability. As the
-correlation between matrix elements (\(\rho\)) decreases, the eigenvalue
-spectra changes such that more variation falls along the imaginary axis.
-The figure panels below compare a random matrix in which \(\rho = 0\)
-(left) to one in which \(\rho = -0.5\) (right). In both panels, complex
-systems include \(S = 1000\) components, with diagonal elements of
-\(-1\) and off-diagonal elements drawn from a normal distribution with a
-mean of \(\mu = 0\) and standard deviation of \(\sigma = 0.4\).
+If the off-diagonal elements of \(\textbf{A}\) are sampled independently
+from an identical distribution, then \(\max(\Re(\lambda))\) for
+\(\textbf{M} = \textbf{A}\) can be estimated from five
+values\textsuperscript{\protect\hyperlink{ref-Tang2014b}{1}}. These
+values include (1) system size (\(S\)), (2) mean self-regulation of
+components (\(d\)), (3) mean interaction strength between components
+(\(\mu\)), (4) the standard deviation between component interaction
+strengths (\(\sigma\)), and (5) the correlation of interaction strengths
+between components, \(M_{ij}\) and \(M_{ji}\) (\(\rho\)). When
+investigating the effect of varying component response rate
+\(Var(\gamma)\) on stability by defining
+\(\textbf{M} = \gamma\textbf{A}\), \(S\) remains unchanged. Further,
+values of \(\gamma_{i}\) were sampled such that \(E[d]\) and \(E[\mu]\)
+also remained unchanged (in practice, diagonal elements of
+\(\textbf{M}\) were standardised so that mean values were identical
+before and after adding \(\gamma\)). What \(Var(\gamma)\) does change is
+the variation in component interaction strengths, and \(\rho\).
 
-\includegraphics{revision_notes_files/figure-latex/unnamed-chunk-2-1.pdf}
+Variation in \(\gamma\) increases the total variation such that for
+\(\textbf{M} = \gamma \textbf{A}\),
+\(\sigma^{2}_{M_{ij}} = \sigma^{2}_{A_{ij}} \left(1 + \sigma^{2}_{\gamma_{i}} \right)\).
+Eigenvalues of \(\textbf{S}\) are therefore enclosed within a circle
+centred at \(d\) with a radius of
+\(\sigma_{A_{ij}}\sqrt{SC} = \sqrt{SC\sigma^{2}_{A_{ij}}}\), while
+eigenvalues of \(\textbf{A}\) have a larger radius of
+\(\sqrt{SC\sigma^{2}_{A_{ij}} \left(1 + \sigma^{2}_{\gamma_{i}\right)}}\)
 
-Because of this effect of \(\rho\) on the eigenvalue spectra, decreasing
-values of \(\rho\) will also tend to decrease the rightmost eigenvalue
-of the matrix \(\textbf{A}\). This makes it more likely that the complex
-system represented by \(\textbf{A}\) is locally stable, as stability
-occurs when all real parts of eigenvalues are negative. Note that this
-elongation along the imaginary axis is also characteristic of
-predator-prey communities (in which, by definition \(A_{ij}\) and
-\(A_{ji}\) have opposing signs). Also note that as \(\rho\) increases
-such that \(\rho > 0\), the same elongation happens along the real axis,
-making random complex systems less likely to be stable.
-
-A simple numerical analysis illustrates the linear relationship between
-\(\rho\) and the expected value of the real part of the leading
-eigenvalue, \(\max(\Re(\lambda))\). Below, I have run 10000 simulations
-across values of \(\rho\) from -0.9 to 0.9 for complex systems with
-\(S = 25\) components. Error bars show 95\% bootstrapped confidence
-intervals.
-
-\includegraphics{revision_notes_files/figure-latex/unnamed-chunk-4-1.pdf}
-
-In the main text, I demonstrated that when \(S\) is finite but system
-complexity \(\sigma\sqrt{SC}\) is high (\(C\) defines the connectance of
-\(\textbf{A}\), or the proportion of non-zero off-diagonal elements),
-variation in component response rate \(\gamma\) often underlies system
-stability. In other words, highly complex systems that are observed to
-be stable would typically not be if we removed the variation in their
-component response rates. Mathematically, this means that by multiplying
-\(\textbf{A}\) by a diagonal matrix \(\gamma\) with variable elements,
-the sign of \(\max(\Re(\lambda))\) is sometimes flipped from positive to
-negative in these finite systems of high complexity. Interestingly, this
-increase in stability given \(Var(\gamma) > 0\) is not necessarily
-caused by \(\gamma\) decreasing \(\rho\). In fact, for \(S = 25\),
-\(\sigma = 0.4\), and \(C = 1\), random complex systems that are
-stabilised by \(\gamma\) typically have increased \(\rho\) values. Note
-that for these parameter values, 1 million simulations found
-\(\textbf{M} = \gamma \textbf{A}\) to be stable for 36 systems when all
-\(\gamma_{i} = 1\), but 383 systems when
-\(\gamma_{i} \sim \mathcal{U}(0, 2)\). Below shows the distribution of
-the difference in \(\rho\) between systems with versus without
-\(var(\gamma)\) for 1000000 stabilised systems; that is,
-\(\rho_{change} = \rho_{var(\gamma)} - \rho_{\gamma = 1}\).
-
-\includegraphics{revision_notes_files/figure-latex/unnamed-chunk-7-1.pdf}
-
-When \(\textbf{A}\) was stabilised by \(Var(\gamma)\), the change in
-\(\rho\) was normally distributed around 4.8394472\(\times 10^{-6}\)
-(95\% CIs: -73.6979659\(\times 10^{-6}\), 83.9237307\(\times 10^{-6}\)).
-Hence, decreasing the correlation between \(\textbf{A}_{ij}\) and
-\(\textbf{A}_{ji}\) was not by itself the cause of stability. For a
-clearer picture of the effect of \(\gamma\), it is useful to show the
-relationship between \(\rho\) and \(\max(\Re(\lambda))\) again as above,
-but this time also for how the relationship changes given
-\(Var(\gamma)\). That is, given \(\textbf{M} = \textbf{A}\) in addition
-to \(\textbf{M} = \gamma\textbf{A}\).
-
-\includegraphics{revision_notes_files/figure-latex/unnamed-chunk-8-1.pdf}
-
-Including \(Var(\gamma)\) introduces a nonlinear relationship between
-\(\rho\) and \(\max(\Re(\lambda))\). Points along the x-axis are spaced
-more closely together given \(Var(\gamma)\) because \(Var(\gamma)\)
-tends to decrease the absolute magnitude of \(\rho\). Grey and red
-points centred on \(\rho = 0\) represent the same simulations, before
-(grey) and after (red) including \(Var(\gamma)\). Grey and red points to
-the left and right show decreasing and increasing simulated \(\rho\)
-values, respectively. Faint grey lines connect points for the same set
-of simulations, and where the red point is lower than the black point,
-the expected \(\max(\Re(\lambda))\) was lower given \(Var(\gamma)\).
-
-The region of \(\rho\) values for \(\textbf{A}\) that would result in
-increased stability given \(Var(\gamma)\) is highlighted with red
-shading below.
-
-\includegraphics{revision_notes_files/figure-latex/unnamed-chunk-9-1.pdf}
-
-In this red shaded region above, \(\max(\Re(\lambda))\) is decreased by
-\(Var(\gamma)\). The shaded region encompasses values of \(\rho\)
-between -0.4 and 0.7. But 1000000 simulated \(\textbf{A}\) had values
-that ranged between -0.2642846 and 0.2668648, meaning that
-\(\max(\Re(\lambda))\) was always expected to decrease given
-\(Var(\gamma)\) even if \(Var(\gamma)\) caused \(\rho\) to increase.
-
-The curvature of the relationship between \(\rho\) and
-\(\max(\Re(\lambda))\) is consistent across different values of \(S\),
-as shown below. Including \(\gamma\) always results in a concave upward
-relationship between \(\rho\) and \(\max(\Re(\lambda))\).
-
-\includegraphics{revision_notes_files/figure-latex/unnamed-chunk-10-1.pdf}
-
-In all panels above, the solid line shows the relationship between the
-expected \(\rho\) between \(\textbf{A}\) elements \(A_{ij}\) and
-\(A_{ji}\) given no variation in component response rates (i.e., the
-diagonal matrix equals the identity matrix, \(\gamma = \textbf{I}\), so
-\(\textbf{M} = \textbf{A}\)). The dotted line shows the same
-relationship given variation in component response rates (i.e., the
-diagonal matrix contains elements drawn from a random uniform
-distribution between 0 and 2, so \(\textbf{M} = \gamma\textbf{A}\)).
-
-\section{Trying to think
-analytically}\label{trying-to-think-analytically}
-
-Trying to think analytically, note that the correlation \(\rho\) adjusts
-the criteria for stability as
-follows\textsuperscript{\protect\hyperlink{ref-Allesina2015a}{1}},
-
-\[\sigma\sqrt{SC}\left(1 + \rho\right) < 1.\]
-
-Given that diagonal values of \(\textbf{M}\) are set to \(-1\), we can
-consider the relationship \(S = 1600\), \(C = 1\), and
-\(\sigma = 1/40\). Under these parameter values, given \(\rho = 0\), we
-know that \(\sigma\sqrt{SC}\left(1 + \rho\right) = 1\). Hence, the
-expected value of \(\max(\Re(\lambda)) = 0\)
-
-\includegraphics{revision_notes_files/figure-latex/unnamed-chunk-11-1.pdf}
-
-Hence, under the same set of parameters, we predict a linear effect of
-\(\rho\) on \(\max(\Re(\lambda)) = 0\), such that
-\(\max(\Re(\lambda)) = \rho\). Allesina and Tang note that \(\rho\) is
-defined as
-follows\textsuperscript{\protect\hyperlink{ref-Allesina2015a}{1}},
-
-\[\rho = \frac{E[M_{ij}M_{ji}] - E[M_{ij}]E[M_{ji}]}{Var[M_{ij}]}.\]
-
-Since we define \(\sigma = 1/\sqrt{S}\) and \(C = 1\),
-\(\sigma\sqrt{SC} = 1\), so the distribution of eigenvalues is circular
-with a radius of unity. Further, since we set \(diag(\textbf{M}) = -1\),
-we know that \(E[\max(\Re(\lambda))] = 0\).
-
-Gibbs et al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{2}}
-showed analytically that as \(S \to \infty\), the effect of a diagonal
-matrix \(\textbf{X}\) on the stability of \(\textbf{M} = \textbf{XA}\)
-becomes negligible. They also note that local stability of a random
-matrix can be predicted from simple moments affecting three parameters,
-
-\[E_{1} = \frac{1}{S(1-S)}\sum_{i \neq j}A_{ij},\]
-
-\[E_{2} = \frac{1}{S(1-S)}\sum_{i \neq j}A^{2}_{ij} - E^{2}_{1},\]
-
-and,
-
-\[E_{c} = \frac{1}{S(1-S)E^{2}_{2}}\sum_{i \neq j} A_{ij} A_{ji} - \frac{E^{2}_{1}}{E^{2}_{2}}.\]
-
-Note that given \(\mu = 0\) and \(C = 1\), \(E_{1} = 0\), while
-\(E^{2}_{2} = Var(A_{ij})\), and \(E_{c} = \rho\). This suggests that my
-parameterisations should only be affected by \(Var(A_{ij})\) and
-\(\rho\). This does indeed appear to be the case if we restrict
-\(\sigma = 1/\sqrt{S}\), where if \(\rho = 0\), random matrices with
-\(\gamma\) have similar \(E[\max(\Re(\lambda))]\) to those without. But
-the relationship between \(\rho\) and \(E[\max(\Re(\lambda))]\) clearly
-differs when \(\gamma\) is included, and as \(S\) increases such that
-\(\sigma > 1/\sqrt{S}\).
-
-Hence, assuming high \(S\) and \(\rho = 0\), we should not see an effect
-of \(\gamma\) on \(E[\max(\Re(\lambda))]\). But there is clearly an
-effect of \(\gamma\) for nonzero \(\rho\) such that
-\(\partial E[\max(\Re(\lambda))] / \partial\rho > 0\) and
-\(\partial^{2} E[\max(\Re(\lambda))] / \partial\rho > 0\).
-
-Note that, by definition, we have not changed \(E[M_{ij}]\) with the
-addition of \(\gamma\), since \(E[\gamma_{ii}] = 1\). Elements of
-\(\gamma\) are pulled from a random uniform distribution between 0 and
-2, meaning that no covariance should be induced betwen \(M_{ij}\) and
-\(M_{ji}\).
-
-\section*{References}\label{references}
-\addcontentsline{toc}{section}{References}
+Note that the correlation \(\rho\) adjusts the criteria for stability as
+follows\textsuperscript{\protect\hyperlink{ref-Allesina2015a}{2}},
 
 \hypertarget{refs}{}
-\hypertarget{ref-Allesina2015a}{}
-1. Allesina, S. \& Tang, S. The stability--complexity relationship at
+\leavevmode\hypertarget{ref-Tang2014b}{}%
+1. Tang, S. \& Allesina, S. Reactivity and stability of large
+ecosystems. \emph{Frontiers in Ecology and Evolution} \textbf{2,} 1--8
+(2014).
+
+\leavevmode\hypertarget{ref-Allesina2015a}{}%
+2. Allesina, S. \& Tang, S. The stability--complexity relationship at
 age 40: a random matrix perspective. \emph{Population Ecology} 63--75
 (2015).
 doi:\href{https://doi.org/10.1007/s10144-014-0471-0}{10.1007/s10144-014-0471-0}
-
-\hypertarget{ref-Gibbs2017}{}
-2. Gibbs, T., Grilli, J., Rogers, T. \& Allesina, S. The effect of
-population abundances on the stability of large random ecosystems.
-\emph{Physical Review E - Statistical, Nonlinear, and Soft Matter
-Physics} \textbf{98,} 022410 (2018).
 
 
 \end{document}

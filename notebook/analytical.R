@@ -343,11 +343,14 @@ sim45 <- rand_rho_var(S = 45, rhos = seq(from = -0.9, to = 0.9, by = 0.05),
 write.csv(sim10, "../notebook/sim_results/rhos/sigma0pt2/sim10.csv");
 write.csv(sim15, "../notebook/sim_results/rhos/sigma0pt2/sim15.csv");
 write.csv(sim20, "../notebook/sim_results/rhos/sigma0pt2/sim20.csv");
-write.csv(sim30, "../notebook/sim_results/rhos/sigma0pt2/sim25.csv");
-write.csv(sim35, "../notebook/sim_results/rhos/sigma0pt2/sim30.csv");
-write.csv(sim30, "../notebook/sim_results/rhos/sigma0pt2/sim35.csv");
-write.csv(sim35, "../notebook/sim_results/rhos/sigma0pt2/sim40.csv");
-write.csv(sim30, "../notebook/sim_results/rhos/sigma0pt2/sim45.csv");
+write.csv(sim25, "../notebook/sim_results/rhos/sigma0pt2/sim25.csv");
+
+
+write.csv(sim30, "notebook/sim_results/rhos/sigma0pt2/sim30.csv");
+write.csv(sim35, "notebook/sim_results/rhos/sigma0pt2/sim35.csv");
+write.csv(sim40, "notebook/sim_results/rhos/sigma0pt2/sim40.csv");
+write.csv(sim45, "notebook/sim_results/rhos/sigma0pt2/sim45.csv");
+
 
 
 sim10 <- read.csv(file = "sim_results/rhos/sim10.csv");
