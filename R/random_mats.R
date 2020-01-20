@@ -1,4 +1,4 @@
-#' Find a stabilised system
+#' Find stabilised random systems
 #' 
 #' Compares random matrices in which variation in component response rate does
 #' not vary to random matrices in which this variation for 2 to max_sp 

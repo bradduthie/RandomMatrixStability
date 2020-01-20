@@ -1,5 +1,37 @@
+#' Find stabilised small world networks
+#' 
+#' Compares small world networks in which variation in component response rate 
+#' does not vary to random matrices in which this variation for 2 to max_sp 
+#' components. This function is to be used for small world networks, which
+#' are constructed using the method of Watts and Strogatz (Nature vol. 393,
+#' 1998). Off-diagonal elements have a mean of 'mn' and a standard deviation of
+#' 'sigma'.
+#'
+#'@return A table of stability results, where rows summarise for each component
+#'number (S) the number of stable or unstable (also, feasible and infeasible)
+#'random matrices produced.
+#'@param max_sp Maximum number of components to randomise
+#'@param iters Number of iterations (i.e., random matrices) per component
+#'@param int_type Type of interaction between components including random (0),
+#'competitor (1), mutualist (2), predator-prey (3), and cascade model (4)
+#'@param rmx Standard deviation of non-zero matrix element components
+#'@param C Connectedness of matrices (i.e., probability of non-zero matrix 
+#'element components.
+#'@param sigma Standard deviation of interaction strength among network elements
+#'@param beta Probability that a random interaction in a regular network is
+#'rewired (parameter p in Watts and Strogatz 1998)
+#'@param Kdiv Value to divide the component number by to produce the parameter
+#'K for creating the small world network. For example, if S = 32 and K = 8, then
+#'the small world network will be created from a regular network in which each
+#'component is connected to 32/8 = 4 other components. This needs to be used
+#'cautiously to avoid generating non-even values of K.
+#'@param mn Mean interaction strength among network elements
+#'@param dval Self-regulation of network elements (1 by default)
+#'@examples
+#'rand_gen_swn(max_sp = 16, iters = 4);
+#'@export
 rand_gen_swn <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 4,
-                         sigma = 0.4, Kdiv = 2, beta = 0.2){
+                         sigma = 0.4, Kdiv = 2, beta = 0.2, mn = 0, dval = 1){
     tot_res <- NULL;
     fea_res <- NULL;
     real_Cs <- NULL;
@@ -15,7 +47,7 @@ rand_gen_swn <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 4,
         real_Cs[[i]]   <- matrix(data = 0, nrow = iter, ncol = 3);
         while(iter > 0){
             r_vec    <- rnorm(n = sp_try[i], mean = 0, sd = rmx);
-            A0_dat   <- rnorm(n = sp_try[i] * sp_try[i], mean = 0, sd = sigma);
+            A0_dat   <- rnorm(n = sp_try[i] * sp_try[i], mean = mn, sd = sigma);
             A0       <- matrix(data = A0_dat, nrow = sp_try[i], 
                                ncol = sp_try[i]);
             A0       <- species_interactions(mat = A0, type = int_type);
@@ -29,7 +61,7 @@ rand_gen_swn <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 4,
                                ncol = sp_try[i]);
             A0       <- A0 * C_mat;
             A0       <- A0 * swn;
-            diag(A0) <- -1;
+            diag(A0) <- -1 * dval;
             gam1     <- runif(n = sp_try[i], min = 0, max = 2);
             A1       <- A0 * gam1;
             A0       <- A0 * mean(gam1);
@@ -71,6 +103,33 @@ rand_gen_swn <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 4,
     return(res_table);
 }
 
+#' Build a small world network
+#' 
+#' Builds a small world network using the method of Watts and Strogatz (Nature 
+#' vol. 393, 1998)
+#'
+#'@return A small world network represented by a square matrix
+#'@param S The size of the network (number of components)
+#'@param beta Probability that a random interaction in a regular network is
+#'rewired (parameter p in Watts and Strogatz 1998)
+#'@param K Number of edges that each vertice in the network contains
+#'@examples
+# eg_swn <- create_swn(S = 32, K = 4);
+#'@export
+create_swn <- function(S = 100, K = 20, beta = 0.05){
+    mat <- matrix(data = 0, nrow = S, ncol = S);
+    diag(mat) <- 1;
+    if(K %% 2 != 0){
+        warning("K needs to be an even integer");
+    }
+    if(K > dim(mat)[1]){
+        warning("K is too high");
+    }
+    mat <- add_sw_edges(mat, K);
+    mat <- rewire_sw_edges(mat, K, beta);
+    return(mat);
+}
+
 add_C_stats <- function(sim){
     real_Cs <- sim$real_Cs;
     all_res <- sim$all_res;
@@ -83,33 +142,6 @@ add_C_stats <- function(sim){
     new_all_res <- cbind(all_res, res_mns[,2]);
     colnames(new_all_res)[dim(new_all_res)[2]] <- "C";
     return(new_all_res);
-}
-
-get_complexity <- function(mat){
-    S         <- length(diag(mat));
-    mat_gz    <- sum(mat != 0);
-    trace_gz  <- sum(diag(mat) != 0);
-    offdiagC  <- mat_gz - trace_gz;
-    offdiags  <- (dim(mat)[1] * dim(mat)[2]) - S;
-    calc_C    <- offdiagC / offdiags;
-    diag(mat) <- NA;
-    sigma     <- sd(mat, na.rm = TRUE);
-    complx    <- sigma * sqrt(S * calc_C);
-    return(complx);
-}
-
-create_swn <- function(N = 100, K = 20, beta = 0.05){
-    mat <- matrix(data = 0, nrow = N, ncol = N);
-    diag(mat) <- 1;
-    if(K %% 2 != 0){
-        warning("K needs to be an even integer");
-    }
-    if(K > dim(mat)[1]){
-        warning("K is too high");
-    }
-    mat <- add_sw_edges(mat, K);
-    mat <- rewire_sw_edges(mat, K, beta);
-    return(mat);
 }
 
 add_sw_edges <- function(mat, K){
@@ -161,31 +193,3 @@ sample_k <- function(i, N, K){
     getit <- sample(tsamp, size = 1);
     return(getit);
 }
-
-get_C <- function(mat){
-    c1  <- sum(mat != 0);
-    tot <- (dim(mat)[1] * dim(mat)[2]) - length(diag(mat));
-    return(c1 / tot);
-}
-
-visualise_network <- function(mat){
-    N  <- dim(mat)[1];
-    rd <- seq(from = 0, to = 2*pi, length = N);
-    yy <- sin(rd);
-    xx <- cos(rd);
-    par(bty = "n");
-    plot(x = xx, y = yy, pch = 20, cex = 1.5, 
-         xaxt = "n", yaxt = "n", xlab = "", ylab = "");
-    for(i in 1:N){
-        for(j in 1:N){
-            if(i > j & mat[i,j] > 0){
-                lines(x = c(xx[i], xx[j]), y = c(yy[i], yy[j]), 
-                      lwd = 0.5);
-            }
-        }
-    }
-}
-
-
-
-

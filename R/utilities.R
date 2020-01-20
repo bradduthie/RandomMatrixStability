@@ -96,7 +96,47 @@ get_complexity <- function(mat){
     return(complx);
 }
 
+#' Get the connectance of a network
+#' 
+#' Returns the connectance of a network (square matrix), defined as the 
+#' proportion of non-zero off-diagonal elements.
+#'
+#'@return The complexity of the matrix mat
+#'@param mat The matrix to be valuated
+#'@examples
+#'eg_mat  <- matrix(dat = rnorm(n = 16), nrow = 4);
+#'mat_cmp <- get_C(mat = eg_mat);
+#'@export
+get_C <- function(mat){
+    c1  <- sum(mat != 0);
+    tot <- (dim(mat)[1] * dim(mat)[2]) - length(diag(mat));
+    return(c1 / tot);
+}
 
-
-
-
+#' Visualise a network
+#' 
+#' Returns a plot of a network (square matrix)
+#'
+#'@return The complexity of the matrix mat
+#'@param mat The matrix to be valuated
+#'@examples
+#'eg_mat  <- matrix(dat = rnorm(n = 100), nrow = 10);
+#'mat_cmp <- visualise_network(mat = eg_mat);
+#'@export
+visualise_network <- function(mat){
+    N  <- dim(mat)[1];
+    rd <- seq(from = 0, to = 2*pi, length = N);
+    yy <- sin(rd);
+    xx <- cos(rd);
+    par(bty = "n");
+    plot(x = xx, y = yy, pch = 20, cex = 1.5, 
+         xaxt = "n", yaxt = "n", xlab = "", ylab = "");
+    for(i in 1:N){
+        for(j in 1:N){
+            if(i > j & mat[i,j] > 0){
+                lines(x = c(xx[i], xx[j]), y = c(yy[i], yy[j]), 
+                      lwd = 0.5);
+            }
+        }
+    }
+}
