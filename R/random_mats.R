@@ -13,7 +13,7 @@
 #'@param iters Number of iterations (i.e., random matrices) per component
 #'@param int_type Type of interaction between components including random (0),
 #'competitor (1), mutualist (2), predator-prey (3), and cascade model (4)
-#'@param rmx Standard deviation of non-zero matrix element components
+#'@param rmx Standard deviation of population growth rates (for feasibility)
 #'@param C Connectedness of matrices (i.e., probability of non-zero matrix 
 #'element components.
 #'@param sigma Standard deviation of interaction strength among network elements
@@ -201,7 +201,7 @@ summarise_randmat <- function(tot_res, fea_res, rho_res, cmplxty){
 #'@param S Number of components to randomise
 #'#'@param rhos Vector of correlations to simulate
 #'@param iters Number of iterations (i.e., random matrices) per component
-#'@param rmx Standard deviation of non-zero matrix element components
+#'@param rmx Standard deviation of population growth rates (for feasibility)
 #'@param C Connectedness of matrices (i.e., probability of non-zero matrix 
 #'element components.
 #'@param sigma Standard deviation of interaction strength among network elements

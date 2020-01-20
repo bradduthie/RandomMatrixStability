@@ -975,3 +975,7 @@ for(i in 1:1000){
 # correlation will occur and lead to stability. There is a bound at 1, but 
 # multiplying by a vector makes more situations with a -1, assuming the
 # initial correlation of M_{i,j} and M_{j,i} is not uniform?
+
+
+
+

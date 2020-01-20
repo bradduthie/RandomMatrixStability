@@ -14,7 +14,7 @@
 #'@param iters Number of iterations (i.e., random matrices) per component
 #'@param int_type Type of interaction between components including random (0),
 #'competitor (1), mutualist (2), predator-prey (3), and cascade model (4)
-#'@param rmx Standard deviation of non-zero matrix element components
+#'@param rmx Standard deviation of population growth rates (for feasibility)
 #'@param C Connectedness of matrices (i.e., probability of non-zero matrix 
 #'element components.
 #'@param sigma Standard deviation of interaction strength among network elements
@@ -51,7 +51,7 @@ rand_gen_swn <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 4,
             A0       <- matrix(data = A0_dat, nrow = sp_try[i], 
                                ncol = sp_try[i]);
             A0       <- species_interactions(mat = A0, type = int_type);
-            swn      <- create_swn(N = sp_try[i], beta = beta,
+            swn      <- create_swn(S = sp_try[i], beta = beta,
                                    K = (sp_try[i] / Kdiv));
             real_Cs[[i]][iter, 1] <- sp_try[i];
             real_Cs[[i]][iter, 2] <- iter;

@@ -6,7 +6,6 @@
 #' are constructed using the method of Albert and Barab\'{a}si (Reviews of 
 #' Modern Physics, Vo. 74, 2002). Off-diagonal elements have a mean of 'mn' and 
 #' a standard deviation of 'sigma'.
-#' <-------------------------------------------------------------------------------------LEFT OFF HERE
 #'@return A table of stability results, where rows summarise for each component
 #'number (S) the number of stable or unstable (also, feasible and infeasible)
 #'random matrices produced.
@@ -14,30 +13,26 @@
 #'@param iters Number of iterations (i.e., random matrices) per component
 #'@param int_type Type of interaction between components including random (0),
 #'competitor (1), mutualist (2), predator-prey (3), and cascade model (4)
-#'@param rmx Standard deviation of non-zero matrix element components
+#'@param rmx Standard deviation of population growth rates (for feasibility)
 #'@param C Connectedness of matrices (i.e., probability of non-zero matrix 
 #'element components.
 #'@param sigma Standard deviation of interaction strength among network elements
-#'@param beta Probability that a random interaction in a regular network is
-#'rewired (parameter p in Watts and Strogatz 1998)
-#'@param Kdiv Value to divide the component number by to produce the parameter
-#'K for creating the small world network. For example, if S = 32 and K = 8, then
-#'the small world network will be created from a regular network in which each
-#'component is connected to 32/8 = 4 other components. This needs to be used
-#'cautiously to avoid generating non-even values of K.
+#'@param m The number of vertices that newly added components will have in 
+#'scale-free network construction
 #'@param mn Mean interaction strength among network elements
 #'@param dval Self-regulation of network elements (1 by default)
 #'@examples
-#'rand_gen_swn(max_sp = 16, iters = 4);
+#'rand_gen_sfn(max_sp = 16, iters = 4);
 #'@export
-rand_gen_swn <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 4,
-                         sigma = 0.4, Kdiv = 2, beta = 0.2, mn = 0, dval = 1){
+rand_gen_sfn <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 4,
+                         sigma = 0.4, m = 2, mn = 0, dval = 1){
     tot_res <- NULL;
     fea_res <- NULL;
     real_Cs <- NULL;
     rho_res <- NULL;
     cmplxty <- NULL;
-    sp_try  <- seq(from = by, to = max_sp, by = by);
+    start_S <- max(c(by, m));
+    sp_try  <- seq(from = start_S, to = max_sp, by = by);
     for(i in 1:length(sp_try)){
         iter           <- iters;
         tot_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 7);
@@ -51,8 +46,7 @@ rand_gen_swn <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 4,
             A0       <- matrix(data = A0_dat, nrow = sp_try[i], 
                                ncol = sp_try[i]);
             A0       <- species_interactions(mat = A0, type = int_type);
-            swn      <- create_swn(N = sp_try[i], beta = beta,
-                                   K = (sp_try[i] / Kdiv));
+            swn      <- create_sfn(S = sp_try[i], m = m);
             real_Cs[[i]][iter, 1] <- sp_try[i];
             real_Cs[[i]][iter, 2] <- iter;
             real_Cs[[i]][iter, 3] <- get_C(swn);
@@ -102,9 +96,6 @@ rand_gen_swn <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 4,
     res_table   <- add_C_stats(sim = full_res);
     return(res_table);
 }
-
-
-
 
 #' Build a scale-free network
 #' 
