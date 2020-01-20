@@ -340,12 +340,14 @@ sim40 <- rand_rho_var(S = 40, rhos = seq(from = -0.9, to = 0.9, by = 0.05),
 sim45 <- rand_rho_var(S = 45, rhos = seq(from = -0.9, to = 0.9, by = 0.05), 
                       iters = 10000, sigma = 0.2);
 
-write.csv(sim10, "sim_results/rhos/sim10.csv");
-write.csv(sim15, "sim_results/rhos/sim15.csv");
-write.csv(sim20, "sim_results/rhos/sim20.csv");
-write.csv(sim30, "sim_results/rhos/sim30.csv");
-write.csv(sim35, "sim_results/rhos/sim35.csv");
-
+write.csv(sim10, "../notebook/sim_results/rhos/sigma0pt2/sim10.csv");
+write.csv(sim15, "../notebook/sim_results/rhos/sigma0pt2/sim15.csv");
+write.csv(sim20, "../notebook/sim_results/rhos/sigma0pt2/sim20.csv");
+write.csv(sim30, "../notebook/sim_results/rhos/sigma0pt2/sim25.csv");
+write.csv(sim35, "../notebook/sim_results/rhos/sigma0pt2/sim30.csv");
+write.csv(sim30, "../notebook/sim_results/rhos/sigma0pt2/sim35.csv");
+write.csv(sim35, "../notebook/sim_results/rhos/sigma0pt2/sim40.csv");
+write.csv(sim30, "../notebook/sim_results/rhos/sigma0pt2/sim45.csv");
 
 
 sim10 <- read.csv(file = "sim_results/rhos/sim10.csv");
@@ -935,3 +937,41 @@ for(i in 1:1000){
 # It appears that E[ln(var(A0)) / ln(var(A1))] \approx 2
 
 
+# THINGS TO DO FOR THE PAPER:
+#
+# 1. Do the cascade model, as suggested by reviewers, but to keep a broad focus
+#    (i.e., not just on ecological networks) and do not do the niche or nested-
+#    hierarchy models. The latter two are food webs, these two being refinements
+#    of the cascade model. 
+# 2. Do a small-world network, and note that many types of real (non-ecological)
+#    networks are arranged this way. Will need to sample across wide range of
+#    relevant parameters.
+# 3. Do a scale-free network, and again note that many types of real networks
+#    are arranged as such. Sample across a wide range of relevant parameters
+# 
+# The point of the above is that this is not an ecological paper per se, but is
+# more broadly about the stability of complex networks given component response
+# rate variation. So I do not want to get into precise ecological networks. I
+# have already done predator-prey, mutualist, competitor, and now cascade 
+# networks. And it is worth noting that looking for stability in these networks
+# is less interesting that it would originally appear since, as noted in the
+# paper, feasibility remains unaffected by varying component response rate.
+#
+# Lastly, I want to do the following:
+#
+# Vary the diagonal matrix (at least a bit). This was requested. I can show that
+# the main point still works given a completely random matrix (show this), but
+# might continue with random values selected for the diagonal around some sort
+# of mean centre at a negative value (just to ensure some chance of stability).
+#
+# Analytically, I wonder if I can decompose M into the original circular matrix
+# plus the contribution of \gamma. This could somehow show that \gamma causes
+# variation in the real parts of the eigenvalues, which could sometimes lead to
+# stability? Try this direction, and see where it leads at least
+#
+
+# Relate to zero law of biology? Variance in the correlation will inherently 
+# increase, meaning that there is a higher probability that a negative
+# correlation will occur and lead to stability. There is a bound at 1, but 
+# multiplying by a vector makes more situations with a -1, assuming the
+# initial correlation of M_{i,j} and M_{j,i} is not uniform?

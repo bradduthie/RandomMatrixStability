@@ -168,7 +168,7 @@ get_C <- function(mat){
     return(c1 / tot);
 }
 
-visualise_swn <- function(mat){
+visualise_network <- function(mat){
     N  <- dim(mat)[1];
     rd <- seq(from = 0, to = 2*pi, length = N);
     yy <- sin(rd);

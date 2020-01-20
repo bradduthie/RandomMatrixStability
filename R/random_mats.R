@@ -1,58 +1,29 @@
-# THINGS TO DO FOR THE PAPER:
-#
-# 1. Do the cascade model, as suggested by reviewers, but to keep a broad focus
-#    (i.e., not just on ecological networks) and do not do the niche or nested-
-#    hierarchy models. The latter two are food webs, these two being refinements
-#    of the cascade model. 
-# 2. Do a small-world network, and note that many types of real (non-ecological)
-#    networks are arranged this way. Will need to sample across wide range of
-#    relevant parameters.
-# 3. Do a scale-free network, and again note that many types of real networks
-#    are arranged as such. Sample across a wide range of relevant parameters
-# 
-# The point of the above is that this is not an ecological paper per se, but is
-# more broadly about the stability of complex networks given component response
-# rate variation. So I do not want to get into precise ecological networks. I
-# have already done predator-prey, mutualist, competitor, and now cascade 
-# networks. And it is worth noting that looking for stability in these networks
-# is less interesting that it would originally appear since, as noted in the
-# paper, feasibility remains unaffected by varying component response rate.
-#
-# Lastly, I want to do the following:
-#
-# Vary the diagonal matrix (at least a bit). This was requested. I can show that
-# the main point still works given a completely random matrix (show this), but
-# might continue with random values selected for the diagonal around some sort
-# of mean centre at a negative value (just to ensure some chance of stability).
-#
-# Analytically, I wonder if I can decompose M into the original circular matrix
-# plus the contribution of \gamma. This could somehow show that \gamma causes
-# variation in the real parts of the eigenvalues, which could sometimes lead to
-# stability? Try this direction, and see where it leads at least
-#
-
-
-
 #' Find a stabilised system
 #' 
 #' Compares random matrices in which variation in component response rate does
 #' not vary to random matrices in which this variation for 2 to max_sp 
-#' components.
+#' components. This function is to be used for random networks, in which
+#' off-diagonal elements are randomly sampled from a normal distribution with
+#' a mean of 'mn' and a standard deviation of 'sigma'.
 #'
 #'@return A table of stability results, where rows summarise for each component
 #'number (S) the number of stable or unstable (also, feasible and infeasible)
 #'random matrices produced.
 #'@param max_sp Maximum number of components to randomise
 #'@param iters Number of iterations (i.e., random matrices) per component
-#'@param int_type Type of interaction between components (0 is random)
+#'@param int_type Type of interaction between components including random (0),
+#'competitor (1), mutualist (2), predator-prey (3), and cascade model (4)
 #'@param rmx Standard deviation of non-zero matrix element components
 #'@param C Connectedness of matrices (i.e., probability of non-zero matrix 
 #'element components.
+#'@param sigma Standard deviation of interaction strength among network elements
+#'@param mn Mean interaction strength among network elements
+#'@param dval Self-regulation of network elements (1 by default)
 #'@examples
 #'rand_gen_var(max_sp = 2, iters = 4);
 #'@export
 rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 1,
-                         sigma = 0.4){
+                         sigma = 0.4, mn = 0, dval = 1){
     tot_res <- NULL;
     fea_res <- NULL;
     rho_res <- NULL;
@@ -65,8 +36,8 @@ rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 1,
         rho_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 4);
         cmplxty[[i]]   <- matrix(data = 0, nrow = iter, ncol = 2);
         while(iter > 0){
-            r_vec    <- rnorm(n = sp_try[i], mean = 0, sd = rmx);
-            A0_dat   <- rnorm(n = sp_try[i] * sp_try[i], mean = 0, sd = sigma);
+            r_vec    <- rnorm(n = sp_try[i], mean = mn, sd = rmx);
+            A0_dat   <- rnorm(n = sp_try[i] * sp_try[i], mean = mn, sd = sigma);
             A0       <- matrix(data = A0_dat, nrow = sp_try[i], 
                                ncol = sp_try[i]);
             A0       <- species_interactions(mat = A0, type = int_type);
@@ -74,7 +45,7 @@ rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 1,
             C_mat    <- matrix(data = C_dat, nrow = sp_try[i], 
                                ncol = sp_try[i]);
             A0       <- A0 * C_mat;
-            diag(A0) <- -1;
+            diag(A0) <- -1 * dval;
             gam1     <- runif(n = sp_try[i], min = 0, max = 2);
             A1       <- A0 * gam1;
             A0       <- A0 * mean(gam1);
@@ -121,7 +92,9 @@ rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 1,
 #'
 #'@return The matrix is returned with appropriately restricted interaction types
 #'@param mat The matrix to be restricted
-#'@param type The type of restriction being made
+#'@param type The type of restriction being made. This includes random (0),
+#'competitor (1), mutualist (2), predator-prey (3), or cascade model food web 
+#'(4)
 #'@examples
 #'eg_mat  <- matrix(data = rnorm(n = 16), nrow = 4);
 #'new_mat <- species_interactions(mat = eg_mat, type = 3);
@@ -165,7 +138,8 @@ species_interactions <- function(mat, type = 0){
 #'@return A table of stability and feasibility results.
 #'@param tot_res The tot_res list output from the rand_gen_var function
 #'@param fea_res The fea_res list output from the rand_gen_var function
-#'@param fea_res The rho_res list output from the rand_gen_var function
+#'@param rho_res The rho_res list output from the rand_gen_var function
+#'@param cmplexty The cmplxty list output from the rand_gen_var function
 #'@examples
 #'eg_rand  <- rand_gen_var(max_sp = 2, iters = 4);
 #'sum_rand <- summarise_randmat(eg_rand$tot_res, eg_rand$fea_res);
@@ -212,155 +186,32 @@ summarise_randmat <- function(tot_res, fea_res, rho_res, cmplxty){
     return(all_res);
 }
 
-
-mat_rho <- function(mat){
-    if(dim(mat)[1] != dim(mat)[2]){
-        stop("Error: Not a square matrix");
-    }
-    S  <- dim(mat)[1];
-    od <- 0.5 * (S * S - S);
-    ut <- rep(x = NA, times = od);
-    lt <- rep(x = NA, times = od);
-    ct <- 1;
-    for(i in 1:dim(mat)[1]){
-        for(j in 1:dim(mat)[2]){
-            if(i < j){
-                ut[ct] <- mat[i, j];
-                lt[ct] <- mat[j, i]; 
-                ct     <- ct + 1;
-            }
-        }
-    }
-    rho <- cor(ut, lt);
-    return(rho);
-}
-
-
-
-rand_gen_rho <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 1,
-                         sigma = 0.4){
-    sp_try  <- seq(from = by, to = max_sp, by = by);
-    ret_mat <- matrix(data = NA, nrow = length(sp_try) * iters, ncol = 8);
-    ret_rho <- 1;
-    for(i in 1:length(sp_try)){
-        iter           <- iters;
-        while(iter > 0){
-            r_vec    <- rnorm(n = sp_try[i], mean = 0, sd = rmx);
-            A0_dat   <- rnorm(n = sp_try[i] * sp_try[i], mean = 0, sd = sigma);
-            A0       <- matrix(data = A0_dat, nrow = sp_try[i], 
-                               ncol = sp_try[i]);
-            A0       <- species_interactions(mat = A0, type = int_type);
-            C_dat    <- rbinom(n = sp_try[i] * sp_try[i], size = 1, prob = C);
-            C_mat    <- matrix(data = C_dat, nrow = sp_try[i], 
-                               ncol = sp_try[i]);
-            A0       <- A0 * C_mat;
-            diag(A0) <- -1;
-            gam1     <- runif(n = sp_try[i], min = 0, max = 2);
-            A1       <- A0 * gam1;
-            A0       <- A0 * mean(gam1);
-            A0_stb   <- max(Re(eigen(A0)$values));
-            A1_stb   <- max(Re(eigen(A1)$values));
-            A0_rho   <- mat_rho(A0);
-            A1_rho   <- mat_rho(A1);
-            ret_mat[ret_rho, 1] <- sp_try[i];
-            ret_mat[ret_rho, 2] <- iter;
-            ret_mat[ret_rho, 3] <- A0_stb;
-            ret_mat[ret_rho, 4] <- A1_stb;
-            ret_mat[ret_rho, 5] <- as.numeric(A0_stb < 0);
-            ret_mat[ret_rho, 6] <- as.numeric(A1_stb < 0);
-            ret_mat[ret_rho, 7] <- A0_rho;
-            ret_mat[ret_rho, 8] <- A1_rho;
-            ret_rho             <- ret_rho + 1;
-            iter                <- iter - 1;
-        }
-        print(sp_try[i]);
-    }
-    ret_mat <- ret_mat[ret_mat[,1] > 2,];
-    return(ret_mat);
-}
-
-# Relate to zero law of biology? Variance in the correlation will inherently 
-# increase, meaning that there is a higher probability that a negative
-# correlation will occur and lead to stability. There is a bound at 1, but 
-# multiplying by a vector makes more situations with a -1, assuming the
-# initial correlation of M_{i,j} and M_{j,i} is not uniform?
-
-
-
-## A1 multiplies by element -- still decreases stability.
-rand_A1_test <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 1,
-                         sigma = 0.4){
-    sp_try  <- seq(from = by, to = max_sp, by = by);
-    ret_mat <- matrix(data = NA, nrow = length(sp_try) * iters, ncol = 8);
-    ret_rho <- 1;
-    for(i in 1:length(sp_try)){
-        iter           <- iters;
-        while(iter > 0){
-            r_vec    <- rnorm(n = sp_try[i], mean = 0, sd = rmx);
-            A0_dat   <- rnorm(n = sp_try[i] * sp_try[i], mean = 0, sd = sigma);
-            A0       <- matrix(data = A0_dat, nrow = sp_try[i], 
-                               ncol = sp_try[i]);
-            A0       <- species_interactions(mat = A0, type = int_type);
-            C_dat    <- rbinom(n = sp_try[i] * sp_try[i], size = 1, prob = C);
-            C_mat    <- matrix(data = C_dat, nrow = sp_try[i], 
-                               ncol = sp_try[i]);
-            A0       <- A0 * C_mat;
-            diag(A0) <- -1;
-            G1_vals  <- runif(n = sp_try[i] * sp_try[i], min = 0, max = 2);
-            G1       <- matrix(data = G1_vals, nrow = sp_try[i]);
-            A1       <- A0 * G1;
-            A0_stb   <- max(Re(eigen(A0)$values));
-            A1_stb   <- max(Re(eigen(A1)$values));
-            A0_rho   <- mat_rho(A0);
-            A1_rho   <- mat_rho(A1);
-            ret_mat[ret_rho, 1] <- sp_try[i];
-            ret_mat[ret_rho, 2] <- iter;
-            ret_mat[ret_rho, 3] <- A0_stb;
-            ret_mat[ret_rho, 4] <- A1_stb;
-            ret_mat[ret_rho, 5] <- as.numeric(A0_stb < 0);
-            ret_mat[ret_rho, 6] <- as.numeric(A1_stb < 0);
-            ret_mat[ret_rho, 7] <- A0_rho;
-            ret_mat[ret_rho, 8] <- A1_rho;
-            ret_rho             <- ret_rho + 1;
-            iter                <- iter - 1;
-        }
-        print(sp_try[i]);
-    }
-    ret_mat <- ret_mat[ret_mat[,1] > 2,];
-    return(ret_mat);
-}
-
-# Build a matrix with fixed correlation between A[i, j] and A[j, i]
-build_rho_mat <- function(S, sigma, rho){
-    mat  <- matrix(data = 0, nrow = S, ncol = S);
-    ia   <- 0.5 * ((S * S) - S);
-    ut   <- rnorm(n = ia, mean = 0, sd = sigma);
-    lt   <- rnorm(n = ia, mean = 0, sd = sigma);
-    od   <- cbind(ut, lt);
-    co   <- var(od);
-    ch   <- solve(chol(co));
-    nx   <- od %*% ch;
-    ms   <- matrix(data = c(1, rho, rho, 1), ncol = 2);
-    c2   <- chol(ms);
-    el   <- nx %*% c2 * sd(ut) + mean(ut);
-    fc   <- 1;
-    for(i in 1:S){
-        for(j in 1:S){
-            if(i < j){
-                mat[i, j] <- el[fc, 1];
-                mat[j, i] <- el[fc, 2];
-                fc        <- fc + 1;
-            }
-        }
-    }
-    diag(mat)           <- -1;
-    return(mat);
-}
-
-
-
+#' Find a stabilised system for correlated systems
+#' 
+#' Compares random matrices in which variation in component response rate does
+#' not vary to random matrices in which this variation for a fixed number of S
+#' components. This function is to be used for random networks, in which
+#' off-diagonal elements are randomly sampled from a normal distribution with
+#' a mean of 'mn', a standard deviation of 'sigma', and a pre-specified
+#' set of correlation structures.
+#'
+#'@return A table of stability results, where rows summarise for each 
+#'correlation (rho) the number of stable or unstable (also, feasible and 
+#'infeasible) random matrices produced.
+#'@param S Number of components to randomise
+#'#'@param rhos Vector of correlations to simulate
+#'@param iters Number of iterations (i.e., random matrices) per component
+#'@param rmx Standard deviation of non-zero matrix element components
+#'@param C Connectedness of matrices (i.e., probability of non-zero matrix 
+#'element components.
+#'@param sigma Standard deviation of interaction strength among network elements
+#'@param mn Mean interaction strength among network elements
+#'@param dval Self-regulation of network elements (1 by default)
+#'@examples
+#'rand_rho_var(S = 10, rhos = c(-0.2, 0, 0.2), iters = 4);
+#'@export
 rand_rho_var <- function(S, rhos, iters, int_type = 0, rmx = 0.4, C = 1, 
-                         by = 1, sigma = 0.4){
+                         sigma = 0.4, mn = 0, dval = 1){
     tot_res <- NULL;
     fea_res <- NULL;
     rho_res <- NULL;
@@ -373,7 +224,8 @@ rand_rho_var <- function(S, rhos, iters, int_type = 0, rmx = 0.4, C = 1,
         cmplxty[[i]]   <- matrix(data = 0, nrow = iter, ncol = 2);
         while(iter > 0){
             r_vec    <- rnorm(n = S, mean = 0, sd = rmx);
-            A0       <- build_rho_mat(S = S, sigma = sigma, rho = rhos[i]);
+            A0       <- build_rho_mat(S = S, sigma = sigma, rho = rhos[i], 
+                                      mn = mn, dval = dval);
             gam1     <- runif(n = S, min = 0, max = 2);
             A1       <- A0 * gam1;
             A0       <- A0 * mean(gam1);
@@ -415,16 +267,3 @@ rand_rho_var <- function(S, rhos, iters, int_type = 0, rmx = 0.4, C = 1,
 }
 
 
-
-get_complexity <- function(mat){
-    S         <- length(diag(mat));
-    mat_gz    <- sum(mat != 0);
-    trace_gz  <- sum(diag(mat) != 0);
-    offdiagC  <- mat_gz - trace_gz;
-    offdiags  <- (dim(mat)[1] * dim(mat)[2]) - S;
-    calc_C    <- offdiagC / offdiags;
-    diag(mat) <- NA;
-    sigma     <- sd(mat, na.rm = TRUE);
-    complx    <- sigma * sqrt(S * calc_C);
-    return(complx);
-}
