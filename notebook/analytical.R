@@ -980,5 +980,131 @@ for(i in 1:1000){
 # initial correlation of M_{i,j} and M_{j,i} is not uniform?
 
 
+xx  <- dat$A0_rho;
+yy  <- (1 + 1/3)*(dat$A1_rho);
+dif <- dat$A0_rho - (1 + 1/3)*(dat$A1_rho);
+
+plot(x = xx, y = yy, asp = 1, xlim = c(-1, 1), ylim = c(-1, 1));
+cor.test(xx, yy);
+
+
+
+
+
+
+
+
+
+
+
+# Is it really just a radius of the minimum 'd'?
+S     <- 3000;
+C     <- 1;
+dval  <- 1;
+sigma <- 1/(1*sqrt(S));
+
+A_dat  <- rnorm(n = S * S, mean = 0, sd = sigma);
+A_mat  <- matrix(data = A_dat, nrow = S);
+C_dat  <- rbinom(n = S * S, size = 1, prob = C);
+C_mat  <- matrix(data = C_dat, nrow = S, ncol = S);
+A_mat  <- A_mat * C_mat;
+gammas <- c(rep(0.1, 1000), rep(3, 1000), rep(20.9, 1000));
+#c(rep(0.05, 450), rep(1.95, 450))#runif(n = S, min = 0, max = 2);
+
+mu_gam <- mean(gammas);
+diag(A_mat) <- -1 * dval;
+A1     <- gammas * A_mat;
+A0     <- mu_gam * A_mat;
+A0_e   <- eigen(A0)$values;
+A0_r   <- Re(A0_e);
+A0_i   <- Im(A0_e);
+A1_e   <- eigen(A1)$values;
+A1_r   <- Re(A1_e);
+A1_i   <- Im(A1_e);
+
+plot(A1_r, A1_i, pch = 4, cex = 0.7, xlab = "", ylab = "", cex.lab = 1.3, 
+     cex.axis = 1.5, asp = 1, col = "firebrick", yaxt = "n");
+
+A0x1a <- 12 * cos(vl) - 20.9;
+A0y1a <- 12 * sin(vl);
+points(x = A0x1a, y = A0y1a, type = "l", lwd = 3, col = "orange");
+
+A0x1a <- 2.7 * cos(vl) - 3;
+A0y1a <- 2.7 * sin(vl);
+points(x = A0x1a, y = A0y1a, type = "l", lwd = 3, col = "orange");
+
+A0x1a <- 0.1 * cos(vl) - 0.1;
+A0y1a <- 0.1 * sin(vl);
+points(x = A0x1a, y = A0y1a, type = "l", lwd = 3, col = "orange");
+
+plot(A1_r, A1_i, pch = 4, cex = 0.7, xlab = "", ylab = "", cex.lab = 1.3, 
+     cex.axis = 1.5, col = "firebrick", yaxt = "n", xlim = c(-0.5, 0), ylim =c(-0.25, 0.25));
+
+
+#
+#
+# Try to figure out how the variances for the two gamma case add up. 
+#  - Need to look at many examples to see if the variance calculation is correct
+#  - Maybe try to use 3 gammas, just to triple check this all makes sense.
+#
+#
+
+
+
+A0_eigs128 <- NULL;
+A1_eigs128 <- NULL;
+for(i in 1:100000){
+    Snew  <- 128;
+    sigma <- 2 / sqrt(256);
+    A0_new_dat <- rnorm(n = Snew, mean = 0, sd = sigma);
+    A0_new_mat <- matrix(data = A0_new_dat, nrow = Snew, ncol = Snew);
+    gammas_new <- c(rep(0.05, Snew/2), rep(1.95, Snew/2));
+    mu_gam_new <- mean(gammas_new);
+    diag(A0_new_mat) <- -1 * dval;
+    A1_new    <- gammas_new * A0_new_mat;
+    A0_new    <- mu_gam_new * A0_new_mat;
+    A0_new_e   <- eigen(A0_new)$values;
+    A0_new_r   <- Re(A0_new_e);
+    A0_new_i   <- Im(A0_new_e);
+    A1_new_e   <- eigen(A1_new)$values;
+    A1_new_r   <- Re(A1_new_e);
+    A1_new_i   <- Im(A1_new_e);
+    A0_eigs128[i] <-  max(A0_new_r);
+    A1_eigs128[i] <-  max(A1_new_r);
+    if(i %% 10000 == 0 ){
+        print(i);
+    }
+}
+
+A0_eigs256 <- NULL;
+A1_eigs256 <- NULL;
+for(i in 1:100000){
+    Snew  <- 256;
+    sigma <- 2 / sqrt(256);
+    A0_new_dat <- rnorm(n = Snew, mean = 0, sd = sigma);
+    A0_new_mat <- matrix(data = A0_new_dat, nrow = Snew, ncol = Snew);
+    gammas_new <- c(rep(0.05, Snew/2), rep(1.95, Snew/2));
+    mu_gam_new <- mean(gammas_new);
+    diag(A0_new_mat) <- -1 * dval;
+    A1_new    <- gammas_new * A0_new_mat;
+    A0_new    <- mu_gam_new * A0_new_mat;
+    A0_new_e   <- eigen(A0_new)$values;
+    A0_new_r   <- Re(A0_new_e);
+    A0_new_i   <- Im(A0_new_e);
+    A1_new_e   <- eigen(A1_new)$values;
+    A1_new_r   <- Re(A1_new_e);
+    A1_new_i   <- Im(A1_new_e);
+    A0_eigs256[i] <-  max(A0_new_r);
+    A1_eigs256[i] <-  max(A1_new_r);
+    if(i %% 10000 == 0 ){
+        print(i);
+    }
+}
+
+
+
+
+
+
 
 
