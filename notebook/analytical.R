@@ -995,26 +995,95 @@ cor.test(xx, yy);
 
 
 
+get_varchange <- function(S, bs){
+  sigma   <- 1/(1*sqrt(S));
+  a       <- 0;
+  res_mat <- NULL;
+  for(b in bs){
+      A_dat  <- rnorm(n = S * S, mean = 0, sd = sigma);
+      A_mat  <- matrix(data = A_dat, nrow = S);
+      C_dat  <- rbinom(n = S * S, size = 1, prob = C);
+      C_mat  <- matrix(data = C_dat, nrow = S, ncol = S);
+      A_mat  <- A_mat * C_mat;
+      gammas <- rpois(n = S, lambda = b); # runif(n = S, min = a, max = b);
+      vargam <- b; # (1/12) * (b-a)^2;
+      diag(A_mat) <- 0;
+      A1     <- gammas * A_mat;
+      A0     <- A_mat;
+      A0_e   <- eigen(A0)$values;
+      A0_r   <- Re(A0_e);
+      A0_i   <- Im(A0_e);
+      A1_e   <- eigen(A1)$values;
+      A1_r   <- Re(A1_e);
+      A1_i   <- Im(A1_e);
+      A_test <- A0;
+      diag(A_test) <- NA;
+      A0_var <-var(as.vector(A_test), na.rm = TRUE);
+      A_test <- A1;
+      diag(A_test) <- NA;
+      A1_var <-var(as.vector(A_test), na.rm = TRUE);
+      hackradii <- (range(A1_r)[2] - range(A1_r)[1]) / 2
+      keepit <- c(sigma, sigma^2, b, vargam, A0_var, A1_var, hackradii);
+      res_mat <- rbind(res_mat, keepit);
+      print(b);
+  }
+  colnames(res_mat) <- c("sigma", "sigma^2", "b", "vargam", "A0_var", "A1_var",
+                         "hackradii");
+  return(res_mat);
+}
+
+
+dat <- get_varchange(S = 1024, bs = seq(from = 0.1, to = 48, by = 1));
+
+
+plot(x = dat[,4], dat[,7], xlab = "Variation of gamma", 
+     ylab = "Radius of eigenvalue circle");
+var_form <- 2 * SCsigma * sqrt(dat[,4]);
+points(x = dat[,4], y = var_form, type = "l");
+
+
+
+
+
+
+tt <- 144 - exp(dat[,4])
+plot(x = dat[,4], tt, xlab = "Variation of gamma", 
+     ylab = "Radius of eigenvalue circle");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # Is it really just a radius of the minimum 'd'?
-S     <- 3000;
+S     <- 2500;
 C     <- 1;
-dval  <- 1;
+dval  <- 0;
 sigma <- 1/(1*sqrt(S));
+a     <- 0;
+b     <- 8;
 
 A_dat  <- rnorm(n = S * S, mean = 0, sd = sigma);
 A_mat  <- matrix(data = A_dat, nrow = S);
 C_dat  <- rbinom(n = S * S, size = 1, prob = C);
 C_mat  <- matrix(data = C_dat, nrow = S, ncol = S);
 A_mat  <- A_mat * C_mat;
-gammas <- c(rep(0.1, 1000), rep(3, 1000), rep(20.9, 1000));
-#c(rep(0.05, 450), rep(1.95, 450))#runif(n = S, min = 0, max = 2);
+gammas <- runif(n = S, min = a, max = b);
+vargam <- (1/12) * (b-a)^2;
 
-mu_gam <- mean(gammas);
 diag(A_mat) <- -1 * dval;
 A1     <- gammas * A_mat;
-A0     <- mu_gam * A_mat;
+A0     <- A_mat;
 A0_e   <- eigen(A0)$values;
 A0_r   <- Re(A0_e);
 A0_i   <- Im(A0_e);
@@ -1025,20 +1094,48 @@ A1_i   <- Im(A1_e);
 plot(A1_r, A1_i, pch = 4, cex = 0.7, xlab = "", ylab = "", cex.lab = 1.3, 
      cex.axis = 1.5, asp = 1, col = "firebrick", yaxt = "n");
 
-A0x1a <- 12 * cos(vl) - 20.9;
-A0y1a <- 12 * sin(vl);
+crad  <- sqrt(S * (sigma^2));
+vl    <- seq(from = 0, to = 2*pi, by = 0.001);
+A0x1a <- crad * cos(vl) + mean(diag(A1));
+A0y1a <- crad * sin(vl);
 points(x = A0x1a, y = A0y1a, type = "l", lwd = 3, col = "orange");
 
-A0x1a <- 2.7 * cos(vl) - 3;
-A0y1a <- 2.7 * sin(vl);
+
+
+points(A0_r, A0_i, pch = 4, cex = 0.7, xlab = "", ylab = "", cex.lab = 1.3, 
+     cex.axis = 1.5, asp = 1, col = "dodgerblue4", yaxt = "n");
+
+crad  <- sqrt(S * (sigma^2));
+A0x1a <- crad * cos(vl) - dval;
+A0y1a <- crad * sin(vl);
 points(x = A0x1a, y = A0y1a, type = "l", lwd = 3, col = "orange");
 
-A0x1a <- 0.1 * cos(vl) - 0.1;
-A0y1a <- 0.1 * sin(vl);
-points(x = A0x1a, y = A0y1a, type = "l", lwd = 3, col = "orange");
 
-plot(A1_r, A1_i, pch = 4, cex = 0.7, xlab = "", ylab = "", cex.lab = 1.3, 
-     cex.axis = 1.5, col = "firebrick", yaxt = "n", xlim = c(-0.5, 0), ylim =c(-0.25, 0.25));
+A_test <- A1;
+diag(A_test) <- NA;
+var(as.vector(A_test), na.rm = TRUE);
+
+
+hackradii <- (range(A1_r)[2] - range(A1_r)[1]) / 2
+
+
+sqrt(S * sigma^2 * (1 + vargam));
+
+
+
+A0 var is 0.0004
+A1 var is 0.004767
+
+
+
+
+
+
+
+
+
+
+
 
 
 #
@@ -1047,6 +1144,7 @@ plot(A1_r, A1_i, pch = 4, cex = 0.7, xlab = "", ylab = "", cex.lab = 1.3,
 #  - Need to look at many examples to see if the variance calculation is correct
 #  - Maybe try to use 3 gammas, just to triple check this all makes sense.
 #
+# Surely this is proportional?
 #
 
 

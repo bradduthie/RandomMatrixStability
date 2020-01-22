@@ -35,11 +35,33 @@ Effects of correlations interactions
 
 If the off-diagonal elements of $\textbf{A}$ are sampled independently from an identical distribution, then  $\max(\Re(\lambda))$ for $\textbf{M} = \textbf{A}$ can be estimated from five values [@Tang2014b]. These values include (1) system size ($S$), (2) mean self-regulation of components ($d$), (3) mean interaction strength between components ($\mu$), (4) the standard deviation between component interaction strengths ($\sigma$), and (5) the correlation of interaction strengths between components, $M_{ij}$ and $M_{ji}$ ($\rho$). When investigating the effect of varying component response rate $Var(\gamma)$ on stability by defining $\textbf{M} = \gamma\textbf{A}$, $S$ remains unchanged. Further, values of $\gamma_{i}$ were sampled such that $E[d]$ and $E[\mu]$ also remained unchanged (in practice, diagonal elements of $\textbf{M}$ were standardised so that mean values were identical before and after adding $\gamma$). What $Var(\gamma)$ does change is the variation in component interaction strengths, and $\rho$.
 
-Variation in $\gamma$ increases the total variation such that for $\textbf{M} = \gamma \textbf{A}$, $\sigma^{2}_{M_{ij}} = \sigma^{2}_{A_{ij}} \left(1 + \sigma^{2}_{\gamma_{i}} \right)$. Eigenvalues of $\textbf{A}$ are therefore enclosed within a circle centred at $d$ with a radius of $\sigma_{A_{ij}}\sqrt{SC} = \sqrt{SC\sigma^{2}_{A_{ij}}}$, while eigenvalues of $\textbf{M}$ have a larger radius of $\sqrt{SC \sigma^{2}_{A_{ij}} \left(1 + \sigma^{2}_{\gamma_{i}}\right)}$ (see blue versus red points below).
+Variation in $\gamma$ ($\sigma^{2}_{\gamma}$) **can increase or decrease the radius of the circle**.
 
 
 
 
+
+
+<!--- still wrong below -- no simple analytical solution seems possible --->
+
+
+
+
+
+
+
+$$2 \sigma_{\gamma} \sigma_{\textbf{A}} \sqrt{SC}.$$
+
+The figure below shows the relationship between $\sigma_{\gamma}$ and the radius of the circle in which eigenvalue spectra are contained given $S = 1024$, $C = 1$, and $\sigma_{\textbf{A}} = 1/\sqrt{S}$. Values of $\gamma$ were drawn from a uniform distribution $\gamma \sim \mathcal{U}(0, b)$ at increasing values of $b$ so that $\sigma_{\gamma} = (1/12)b^2$ gradually increased.
+
+
+For poisson, it's $$\sigma^{2}_{\gamma} \sigma_{\textbf{A}} \sqrt{SC}.$$
+
+The mean of a uniform is $(1/2)b$, while the mean of the Poisson is $\lambda = \sigma^{2}_{\gamma}$
+
+
+
+Note that the error around the expected radius of eigenvalues is not normally distributed. It is log distributed (check).
 
 
 Note that the correlation $\rho$ adjusts the criteria for stability as follows [@Allesina2015a],
