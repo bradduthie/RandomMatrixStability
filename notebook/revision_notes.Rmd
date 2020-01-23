@@ -33,36 +33,147 @@ biblio-style: apalike
 Effects of correlations interactions
 ================================================================================
 
+```{r, echo = FALSE}
+source("../R/utilities.R");
+source("../R/random_mats.R");
+```
+
 If the off-diagonal elements of $\textbf{A}$ are sampled independently from an identical distribution, then  $\max(\Re(\lambda))$ for $\textbf{M} = \textbf{A}$ can be estimated from five values [@Tang2014b]. These values include (1) system size ($S$), (2) mean self-regulation of components ($d$), (3) mean interaction strength between components ($\mu$), (4) the standard deviation between component interaction strengths ($\sigma$), and (5) the correlation of interaction strengths between components, $M_{ij}$ and $M_{ji}$ ($\rho$). When investigating the effect of varying component response rate $Var(\gamma)$ on stability by defining $\textbf{M} = \gamma\textbf{A}$, $S$ remains unchanged. Further, values of $\gamma_{i}$ were sampled such that $E[d]$ and $E[\mu]$ also remained unchanged (in practice, diagonal elements of $\textbf{M}$ were standardised so that mean values were identical before and after adding $\gamma$). What $Var(\gamma)$ does change is the variation in component interaction strengths, and $\rho$.
 
-Variation in $\gamma$ ($\sigma^{2}_{\gamma}$) **can increase or decrease the radius of the circle**.
+Introducing variation in $\gamma$ increases the total variation in the system, making it more likely that $\textbf{M} = \gamma\textbf{A}$ is unstable. Variation of the off-diagonal elements in $\textbf{M}$ is described by the joint variation of two random variables (to simplify the notation, $\sigma^{2}_{M}$ and $\sigma^{2}_{A}$ refer to variances of off-diagonal elements only),
+
+$$\sigma^{2}_{M} = \sigma^{2}_{A}\sigma^{2}_{\gamma} + \sigma^{2}_{A}E[\gamma_{i}]^{2}+\sigma^{2}_{\gamma}E[A_{ij}]^{2}.$$
+
+Note that in my simulations $E[\gamma_{i}] = 1$ and $E[A_{ij}] = 0$, so the above can be simplified,
+
+$$\sigma^{2}_{M} = \sigma^{2}_{A}(1 + \sigma^{2}_{\gamma}).$$
+
+The increase caused by $\sigma^{2}_\gamma$ can be visualised from the eigenvalue spectra of $\textbf{A}$ versus $\textbf{M} = \gamma\textbf{A}$. Given $d = 0$ and $C = 1$, the distribution of eigenvalues of $\textbf{M}$ and $\textbf{A}$ lie within a circle of a radius $\sigma^{2}_{M}\sqrt{S}$ and $\sigma^{2}_{A}\sqrt{S}$, respectively.
+
+
+```{r, fig.width = 7, fig.height = 7, echo = FALSE}
+S     <- 400;
+C     <- 1;
+dval  <- 0;
+sigma <- 1/(1*sqrt(S));
+a     <- 0;
+b     <- 2;
+mn    <- 0;
+
+A_dat  <- rnorm(n = S * S, mean = mn, sd = sigma);
+A_mat  <- matrix(data = A_dat, nrow = S);
+C_dat  <- rbinom(n = S * S, size = 1, prob = C);
+C_mat  <- matrix(data = C_dat, nrow = S, ncol = S);
+A_mat  <- A_mat * C_mat;
+gammas <- runif(n = S, min = a, max = b);
+vargam <- (1/12) * (b-a)^2;
+
+diag(A_mat) <- dval;
+A1     <- gammas * A_mat;
+A0     <- A_mat;
+A0     <- A0 * mean(gammas);
+A0_e   <- eigen(A0)$values;
+A0_r   <- Re(A0_e);
+A0_i   <- Im(A0_e);
+A1_e   <- eigen(A1)$values;
+A1_r   <- Re(A1_e);
+A1_i   <- Im(A1_e);
+
+joint_var <- ((sigma^2) * vargam) + ((sigma^2) * mean(gammas)^2) + 
+             (vargam * (dval*mn)^2);
+
+par(mfrow = c(2, 2), mar = c(0.5, 0.5, 0.5, 0.5), oma = c(5, 5, 0.2, 0.2));
+plot(A0_r, A0_i, pch = 4, cex = 0.7, xlab = "", ylab = "", cex.lab = 1.3, 
+     cex.axis = 1.25, asp = 1, col = "dodgerblue4", xlim = c(-3, 1.5),
+     xaxt = "n", ylim = c(-1.5, 1.5));
+vl        <- seq(from = 0, to = 2*pi, by = 0.001);
+A0x1a     <- mean(gammas) * sigma * sqrt(S) * cos(vl) + mean(diag(A0));
+A0y1a     <- mean(gammas) * sigma * sqrt(S) * sin(vl);
+points(x = A0x1a, y = A0y1a, type = "l", lwd = 3, col = "dodgerblue4");
+text(x = -2.75, y = 1.75, labels = "a", cex = 2);
+
+plot(A1_r, A1_i, pch = 4, cex = 0.7, xlab = "", ylab = "", cex.lab = 1.3, 
+     cex.axis = 1.25, asp = 1, col = "firebrick", xlim = c(-3, 1.5),
+     xaxt = "n", yaxt = "n", ylim = c(-1.5, 1.5));
+crad      <- sqrt(joint_var) * sqrt(S);
+A1x1a     <- crad * cos(vl) + mean(diag(A1));
+A1y1a     <- crad * sin(vl);
+points(x = A1x1a, y = A1y1a, type = "l", lwd = 3, col = "firebrick");
+text(x = -2.75, y = 1.75, labels = "b", cex = 2);
+
+calc_var <- A1;
+diag(calc_var) <- NA;
+calc_var  <- as.numeric(calc_var);
+cvar1 <- var(calc_var[!is.na(calc_var)]);
+
+################################################################################
+################################################################################
+
+S     <- 400;
+C     <- 1;
+dval  <- -1;
+sigma <- 1/(1*sqrt(S));
+a     <- 0;
+b     <- 2;
+mn    <- 0;
+
+A_dat  <- rnorm(n = S * S, mean = mn, sd = sigma);
+A_mat  <- matrix(data = A_dat, nrow = S);
+C_dat  <- rbinom(n = S * S, size = 1, prob = C);
+C_mat  <- matrix(data = C_dat, nrow = S, ncol = S);
+A_mat  <- A_mat * C_mat;
+gammas <- runif(n = S, min = a, max = b);
+vargam <- (1/12) * (b-a)^2;
+
+diag(A_mat) <- dval;
+A1     <- gammas * A_mat;
+A0     <- A_mat;
+A0     <- A0 * mean(gammas);
+A0_e   <- eigen(A0)$values;
+A0_r   <- Re(A0_e);
+A0_i   <- Im(A0_e);
+A1_e   <- eigen(A1)$values;
+A1_r   <- Re(A1_e);
+A1_i   <- Im(A1_e);
+
+joint_var <- ((sigma^2) * vargam) + ((sigma^2) * mean(gammas)^2) + 
+             (vargam * (dval*mn)^2);
+
+plot(A0_r, A0_i, pch = 4, cex = 0.7, xlab = "", ylab = "", cex.lab = 1.3, 
+     cex.axis = 1.25, asp = 1, col = "dodgerblue4", ylim = c(-1.5, 1.5),
+     xlim = c(-3, 1.5));
+A0x1a     <- mean(gammas) * sigma * sqrt(S) * cos(vl) + mean(diag(A0));
+A0y1a     <- mean(gammas) * sigma * sqrt(S) * sin(vl);
+points(x = A0x1a, y = A0y1a, type = "l", lwd = 3, col = "dodgerblue4");
+text(x = -2.75, y = 1.75, labels = "c", cex = 2);
+
+plot(A1_r, A1_i, pch = 4, cex = 0.7, xlab = "", ylab = "", cex.lab = 1.3, 
+     cex.axis = 1.25, asp = 1, col = "firebrick", yaxt = "n", 
+     xlim = c(-3, 1.5), ylim = c(-1.5, 1.5));
+text(x = -2.75, y = 1.75, labels = "d", cex = 2);
+
+calc_var <- A1;
+diag(calc_var) <- NA;
+calc_var  <- as.numeric(calc_var);
+cvar2 <- var(calc_var[!is.na(calc_var)]);
+
+mtext(side = 1, "Real", outer = TRUE, line = 3, cex = 2);
+mtext(side = 2, "Imaginary", outer = TRUE, line = 2.5, cex = 2);
+```
+
+The effect of $\gamma$ does not necessarily result in a circular eigenvalue spectra of $\textbf{M}$. In both panels of Figure 1, $S =$ `r S` and $\sigma_{A} = 1/\sqrt{S}$. In Figures 1a,b and 1c,d, $d = 0$ and $d = 1$, respectively, causing the eigenvalue spectra of $\textbf{A}$ to differ on the real axis (Figure a,c). Figure panels b and c show eigenvalue spectra after $\gamma$ is included such that $M = \gamma A$, where elements of $\gamma$ are drawn from a uniform distribution $\gamma \sim \mathcal{U}(0, 2)$. In both cases, $\sigma^{2}_{A} =$ `r round(sigma, digits = 4)` and $\sigma^{2}_{\gamma} =$ `r round(joint_var, digits = 4)`. Nevertheless, the change in eigenvalue spectra caused by $\gamma$ can affect $\max(\Re(\lambda))$ and therefore system stability.
+
+Stability also decreases with increasing $\rho$ such that $\max(\Re(\lambda)) \approx \sigma_{M}\sqrt{SC}\left(1 + \rho\right)$. Hence, when $\rho$ values are negative, such as when $\textbf{M}$ models a predator-prey system in which $M_{ij}$ and $M_{ji}$ have opposing signs, stability is expected to increase [@Allesina2012]. When elements of $\gamma$ vary independently, the magnitude of $\rho$ is decreased because $\sigma^{2}_{\gamma}$ increases the variance of $M_{ij}$ without affecting the covariance between $M_{ij}$ and $M_{ji}$, 
+
+$$\rho = \frac{cov(M_{ij}, M_{ji})}{\sigma^{2}_{A}(1 + \sigma^{2}_{\gamma})}.$$ 
+Because $\gamma$ does not affect $cov(M_{ij}, M_{ji})$, the sign of $\rho$ remains unchanged.
 
 
 
-
-
-
-<!--- still wrong below -- no simple analytical solution seems possible --->
-
-
-
-
-
-
-
-$$2 \sigma_{\gamma} \sigma_{\textbf{A}} \sqrt{SC}.$$
+More down
+======================
 
 The figure below shows the relationship between $\sigma_{\gamma}$ and the radius of the circle in which eigenvalue spectra are contained given $S = 1024$, $C = 1$, and $\sigma_{\textbf{A}} = 1/\sqrt{S}$. Values of $\gamma$ were drawn from a uniform distribution $\gamma \sim \mathcal{U}(0, b)$ at increasing values of $b$ so that $\sigma_{\gamma} = (1/12)b^2$ gradually increased.
-
-
-For poisson, it's $$\sigma^{2}_{\gamma} \sigma_{\textbf{A}} \sqrt{SC}.$$
-
-The mean of a uniform is $(1/2)b$, while the mean of the Poisson is $\lambda = \sigma^{2}_{\gamma}$
-
-
-
-Note that the error around the expected radius of eigenvalues is not normally distributed. It is log distributed (check).
-
 
 Note that the correlation $\rho$ adjusts the criteria for stability as follows [@Allesina2015a],
 
