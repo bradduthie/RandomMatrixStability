@@ -18,14 +18,30 @@ I have taken the following actions:
 
 
 
-Reviewer 1 comments
+Reviewer 1 comment 1
 ================================================================================
 
 This paper considers timely questions concerning the stability of complex systems, mainly using random matrix theory. The central problem consists in studying the stability of random matrices which were originally seen as random community matrices from ecology. In a seminal paper, R May challenged the consensus that complexity begets stability in complex ecosystems. These issues are of current concern in ecology. Most of the works dealing with such problems (either for stability or feasibility) consider networks of high species richness S, and develop or use techniques and results from random matrix theory in the large S limit, like e.g. Girko circular law that describes the asymptotic behavior of the related spectra measures (a system is stable when all of its eigenvalues have negative real parts).
 
 The paper of Duthie is interesting since it deals with finite size systems where S is not too large. Mathematically, the author focus on random matrices of the form D A-id where D is a random diagonal matrix and A is a random matrix having i.i.d. centered entries. The author suggests numerically that stability is enhanced by multiplying A by D. This idea seems to be new. 
 
+Author response to Reviewer 1 comment 1
+================================================================================
+
+I thank the reviewer for these comments. I share their belief that the issues in this paper are of current concern in ecology, and that the ideas presented in this manuscript are, to the best of my knowledge, novel.
+
+Reviewer 1 comment 2
+================================================================================
+
 Recent works dealing with similar models in the large S limit have been published recently (Gibbs et al (2018) and Ahmadian (2018). Such works are not dealing with finite S and focus on limiting spectral measures. On the other hand, real empirical ecological networks have finite sizes S, so that the paper might be of practical interest for ecologists dealing with empirical data. In this setting, most interaction weights that define Lotka-Volterra dynamics are unknown at present time, and a natural idea consists in randomizing such weights to arrive at random community matrices of finite size, see, e.g. Ensemble ecosystem modeling for predicting ecosystem response to predator reintroduction, Baker et al. (2016) Conservation Biology, Volume 31, No. 2, 376–384.
+
+Author response to Reviewer 1 comment 2
+================================================================================
+
+I again thank the reviewer for their comments. I agree that it is especially relevant that my manuscript focuses on finite S values, and I have made more emphasis on this point in my revision (line XXX).
+
+Reviewer 1 comment 3
+================================================================================
 
 In summary I think that the paper is interesting and timely, but I strongly recommend that the author
 considers also empirical webs (like for example those given in Dougoud et al. (2018)), the feasibility
@@ -35,12 +51,41 @@ rates enhance stability and feasibility is valid in experimentally observed webs
 also test this hypothesis on standard webs models for structured food web models like the niche, or
 the nested-hierarchy random web models.
 
+Author response to Reviewer 1 comment 3
+================================================================================
+
+I agree with the relevance of Dougoud et al. (2018), and have made appropriate links to their results on feasibility. Nevertheless, one major result of my manuscript is that varying component response rates (i.e., $\gamma$) only affect stability, not feasibility. Hence, Reviewer 1 is incorrect that my conclusions concerning varying component response rates should be expected to enhance feasibility in experimentally observed food webs (and therefore that stability should be enhanced for biologically realistic systems in which all population densities are positive). Checking for validity in empirical food webs is therefore not entirely appropriate because the consequences of such an investigation would have negligible practical application.
+
+I welcome Reviewer 1's call for expanding the scope of models considered for simulations, which was also recommended by Reviewer 2. Nevertheless, my manuscript focuses broadly on complex systems rather than pure ecological systems, so I have revised my manuscript to test more general models of common network structures. In terms of ecological models, in addition to random competition, mutualism, and predator-prey networks, I have now also included a cascade food web model (which is a foundation for the extended niche and nested-heirarchy models that Reviewer 1 mentions; Williams and Martinez 2000). Other network types that I have incorporated into my revision include small-world networks (Watts and Strogatz 1998) and scale-free networks (Albert and Barab\'{a}si 2002). Overall, the structured networks that I now include in the main text and supporting information now encompass a wide range of physical, biological, and social systems.
+
+More emphasis on feasibility and how it relates to ecological systems has now been included (line XXX). I have also added new sections in the Results (line XXX) and methods (line XXX) for the new simulations of structured networks. Full details of these results have also been added to the supporting information, and code for building structured networks is publicly available as a documented R package on GitHub (https://github.com/bradduthie/RandomMatrixStability).
+
+Reviewer 1 comment 4
+================================================================================
+
 Comment:
 
 The manuscript is well written. I have just a remark concerning Figures 3 and 4. The black line is
 intended to show the proportion of systems that are stable when the variance is positive but would
 be unstable for zero variance. Is the author considering the conditional probability that A-id is
 unstable given that DA-id is stable ? I think that this point should be explained in more details.
+
+Author response to Reviewer 1 comment 3
+================================================================================
+
+Reviewer 1 is correct that the line illustrates the conditional probability that $A$ is unstable given that $\gamma A$ is stable. In other words, the proportion of complex systems found to be stable, but which would have been unstable if it were not for the variation in component response rates. 
+
+I have explained the result shown by the black line of Figures 3 and 4 now more clearly in my revision (line XXX).
+
+
+
+
+
+
+
+
+
+
 
 
 Reviewer 2 comments
@@ -63,6 +108,24 @@ $\lambda = \sqrt{SV}*(+\rho)$.
 I did some preliminary exploration of having different rho values, and this did not change the Author's results. So adding this new aspect to the manuscript would strengthen its results. I would also maybe consider matrices with even more structure - e.g., varying diagonal entries in M, or having different means/variances in the top and bottom triangles (corresponding to food webs with cascade structures; Allesina et al. 2015 Nature Communications).
 
 Finally, the general relevance of the results is hampered by being confined to a narrow parameter space, and even there the fraction of occurrences where var(gamma) makes a difference is minuscule. Looking at Figure 3, the only cases in which there is an appreciable effect of a variance in the gammas is when only a small handful of the matrices end up being stable in the first place. As such, var(gamma) only makes a difference when there is not much difference to be made anyway, because the vast majority of matrices end up unstable regardless of the magnitude of var(gamma). In light of this, I would be much more careful with the manuscript's framing - in particular, I would change the title to express better that we are dealing with second-order effects, and would not say in the Abstract that system stability is "markedly increased" by variation in the gammas. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Reviewer 3 commments
 ================================================================================
