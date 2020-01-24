@@ -147,7 +147,7 @@ species_interactions <- function(mat, type = 0){
 #'@export
 summarise_randmat <- function(tot_res, fea_res, rho_res, cmplxty){
     sims    <- length(tot_res);
-    all_res <- matrix(data = 0, nrow = sims, ncol = 19);
+    all_res <- matrix(data = 0, nrow = sims, ncol = 25);
     for(i in 1:sims){
         all_res[i, 1]  <- i + 1;
         # Stable and unstable
@@ -177,12 +177,17 @@ summarise_randmat <- function(tot_res, fea_res, rho_res, cmplxty){
         all_res[i, 17] <- mean(rho_res[[i]][,4]);
         all_res[i, 18] <- mean(cmplxty[[i]][,1]);
         all_res[i, 19] <- mean(cmplxty[[i]][,2]);
+        all_res[i, 20] <- mean(rho_res[[i]][,5]);
+        all_res[i, 21] <- mean(rho_res[[i]][,6]);
+        all_res[i, 22:23] <- range(rho_res[[i]][,5]);
+        all_res[i, 24:25] <- range(rho_res[[i]][,6]);
     }
     cnames <- c("N", "A0_unstable", "A0_stable", "A1_unstable", "A1_stable", 
                 "A1_stabilised", "A1_destabilised", "A0_infeasible", 
                 "A0_feasible", "A1_infeasible", "A1_feasible", 
                 "A1_made_feasible", "A1_made_infeasible", "A0_rho", "A1_rho",
-                "rho_diff", "rho_abs", "complex_A0", "complex_A1");
+                "rho_diff", "rho_abs", "complex_A0", "complex_A1", "A0_eig",
+                "A1_eig", "LCI_A0", "UCI_A0", "LCI_A1", "UCI_A1");
     colnames(all_res) <- cnames;
     return(all_res);
 }
