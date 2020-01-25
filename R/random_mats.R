@@ -34,7 +34,7 @@ rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 1,
         iter           <- iters;
         tot_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 7);
         fea_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 7);
-        rho_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 4);
+        rho_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 6);
         cmplxty[[i]]   <- matrix(data = 0, nrow = iter, ncol = 2);
         while(iter > 0){
             r_vec    <- rnorm(n = sp_try[i], mean = mn, sd = rmx);
@@ -74,6 +74,8 @@ rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 1,
             rho_res[[i]][iter, 2] <- A1_rho;
             rho_res[[i]][iter, 3] <- rho_diff;
             rho_res[[i]][iter, 4] <- rho_abs;
+            rho_res[[i]][iter, 5] <- max(Re(eigen(A0)$values));
+            rho_res[[i]][iter, 6] <- max(Re(eigen(A1)$values));
             cmplxty[[i]][iter, 1] <- get_complexity(A0);
             cmplxty[[i]][iter, 2] <- get_complexity(A1);
             iter                  <- iter - 1;
@@ -226,7 +228,7 @@ rand_rho_var <- function(S, rhos, iters, int_type = 0, rmx = 0.4, C = 1,
         iter           <- iters;
         tot_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 7);
         fea_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 7);
-        rho_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 4);
+        rho_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 6);
         cmplxty[[i]]   <- matrix(data = 0, nrow = iter, ncol = 2);
         while(iter > 0){
             r_vec    <- rnorm(n = S, mean = 0, sd = rmx);
@@ -259,6 +261,8 @@ rand_rho_var <- function(S, rhos, iters, int_type = 0, rmx = 0.4, C = 1,
             rho_res[[i]][iter, 2] <- A1_rho;
             rho_res[[i]][iter, 3] <- rho_diff;
             rho_res[[i]][iter, 4] <- rho_abs;
+            rho_res[[i]][iter, 5] <- max(Re(eigen(A0)$values));
+            rho_res[[i]][iter, 6] <- max(Re(eigen(A1)$values));
             cmplxty[[i]][iter, 1] <- get_complexity(A0);
             cmplxty[[i]][iter, 2] <- get_complexity(A1);
             iter                  <- iter - 1;
