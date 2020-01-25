@@ -161,9 +161,9 @@ mtext(side = 1, "Real", outer = TRUE, line = 3, cex = 2);
 mtext(side = 2, "Imaginary", outer = TRUE, line = 2.5, cex = 2);
 ```
 
-The effect of $\gamma$ does not necessarily result in a circular eigenvalue spectra of $\textbf{M}$. In both panels of Figure 1, $S =$ `r S` and $\sigma_{A} = 1/\sqrt{S}$. In Figures 1a,b and 1c,d, $d = 0$ and $d = 1$, respectively, causing the eigenvalue spectra of $\textbf{A}$ to differ on the real axis (Figure a,c). Figure panels b and c show eigenvalue spectra after $\gamma$ is included such that $M = \gamma A$, where elements of $\gamma$ are drawn from a uniform distribution $\gamma \sim \mathcal{U}(0, 2)$. In both cases, $\sigma^{2}_{A} =$ `r round(sigma, digits = 4)` and $\sigma^{2}_{\gamma} =$ `r round(joint_var, digits = 4)`. Nevertheless, the change in eigenvalue spectra caused by $\gamma$ can affect $\max(\Re(\lambda))$ and therefore system stability.
+The effect of $\gamma$ does not necessarily result in a circular eigenvalue spectra of $\textbf{M}$. In both panels of Figure 1, $S =$ `r S` and $\sigma_{A} = 1/\sqrt{S}$. In Figures 1a, b and 1c, d, $d = 0$ and $d = 1$, respectively, causing the eigenvalue spectra of $\textbf{A}$ to differ on the real axis (Figure a,c). Figure panels b and c show eigenvalue spectra after $\gamma$ is included such that $\textbf{M} = \gamma \textbf{A}$, where elements of $\gamma$ are drawn from a uniform distribution $\gamma \sim \mathcal{U}(0, 2)$. In both cases, $\sigma^{2}_{A} =$ `r round(sigma, digits = 4)` and $\sigma^{2}_{\gamma} =$ `r round(joint_var, digits = 4)`. Nevertheless, the change in eigenvalue spectra caused by $\gamma$ can affect $\max(\Re(\lambda))$ and therefore system stability.
 
-Stability also decreases with increasing $\rho$ such that $\max(\Re(\lambda)) \approx \sigma_{M}\sqrt{SC}\left(1 + \rho\right)$. Hence, when $\rho$ values are negative, such as when $\textbf{M}$ models a predator-prey system in which $M_{ij}$ and $M_{ji}$ have opposing signs, stability is expected to increase [@Allesina2012]. When elements of $\gamma$ vary independently, the magnitude of $\rho$ is decreased because $\sigma^{2}_{\gamma}$ increases the variance of $M_{ij}$ without affecting the covariance between $M_{ij}$ and $M_{ji}$, 
+Stability also decreases with increasing $\rho$ such that $\max(\Re(\lambda)) \approx \sigma_{M}\sqrt{SC}\left(1 + \rho\right)$. When $\rho$ values are negative, such as when $\textbf{M}$ models a predator-prey system in which $M_{ij}$ and $M_{ji}$ have opposing signs, stability is expected to increase [@Allesina2012]. When elements of $\gamma$ vary independently, the magnitude of $\rho$ is decreased because $\sigma^{2}_{\gamma}$ increases the variance of $M_{ij}$ without affecting the covariance between $M_{ij}$ and $M_{ji}$, 
 
 $$\rho = \frac{cov(M_{ij}, M_{ji})}{\sigma^{2}_{A}(1 + \sigma^{2}_{\gamma})}.$$ 
 Because $\gamma$ does not affect $cov(M_{ij}, M_{ji})$, the sign of $\rho$ remains unchanged.
@@ -369,45 +369,47 @@ In this red shaded region above, $\max(\Re(\lambda))$ is decreased by $Var(\gamm
 The curvature of the relationship between $\rho$ and $\max(\Re(\lambda))$ is consistent across different values of $S$, as shown below. Including $\gamma$ always results in a concave upward relationship between $\rho$ and $\max(\Re(\lambda))$.
 
 ```{r, echo = FALSE, fig.height = 8, fig.width = 6}
-sim10 <- read.csv(file = "sim_results/rhos/sim10_rho.csv");
-sim15 <- read.csv(file = "sim_results/rhos/sim15_rho.csv");
-sim20 <- read.csv(file = "sim_results/rhos/sim20_rho.csv");
-sim25 <- read.csv(file = "sim_results/rhos/sim25_rho.csv");
-sim30 <- read.csv(file = "sim_results/rhos/sim30_rho.csv");
-sim35 <- read.csv(file = "sim_results/rhos/sim35_rho.csv");
+sim10 <- read.csv(file = "sim_results/rhos/sigma0pt2/sim10.csv");
+sim15 <- read.csv(file = "sim_results/rhos/sigma0pt2/sim15.csv");
+sim20 <- read.csv(file = "sim_results/rhos/sigma0pt2/sim20.csv");
+sim25 <- read.csv(file = "sim_results/rhos/sigma0pt2/sim25.csv");
+sim30 <- read.csv(file = "sim_results/rhos/sigma0pt2/sim30.csv");
+sim35 <- read.csv(file = "sim_results/rhos/sigma0pt2/sim35.csv");
+sim40 <- read.csv(file = "sim_results/rhos/sigma0pt2/sim40.csv");
+sim45 <- read.csv(file = "sim_results/rhos/sigma0pt2/sim45.csv");
 par(mar = c(0.25, 0.25, 0.25, 0.25), mfrow = c(3, 2), oma = c(6, 6, 1, 1));
-plot(x = sim10[,1], y = sim10[,20], type = "l", pch = 20, lwd = 2, xaxt = "n",
-     ylim = c(-1, 3.5), cex.axis = 1.5);
-points(x = sim10[,15], y = sim10[,21], type = "l", lwd = 2, lty = "dashed");
-abline(h = 0, col = "red", lty = "dotted", lwd = 0.8);
-text(x = -0.6, y = 3.2, labels = "S = 10", cex = 2.5);
-plot(x = sim15[,1], y = sim15[,20], type = "l", pch = 20, lwd = 2, xaxt = "n",
-     ylim = c(-1, 3.5), yaxt = "n", cex.axis = 1.5);
-points(x = sim15[,15], y = sim15[,21], type = "l", lwd = 2, lty = "dashed");
-abline(h = 0, col = "red", lty = "dotted", lwd = 0.8);
-text(x = -0.6, y = 3.2, labels = "S = 15", cex = 2.5);
 plot(x = sim20[,1], y = sim20[,20], type = "l", pch = 20, lwd = 2, xaxt = "n",
      ylim = c(-1, 3.5), cex.axis = 1.5);
 points(x = sim20[,15], y = sim20[,21], type = "l", lwd = 2, lty = "dashed");
 abline(h = 0, col = "red", lty = "dotted", lwd = 0.8);
 text(x = -0.6, y = 3.2, labels = "S = 20", cex = 2.5);
 plot(x = sim25[,1], y = sim25[,20], type = "l", pch = 20, lwd = 2, xaxt = "n",
-     ylim = c(-1, 3.5), yaxt = "n", cex.axis = 1.25);
+     ylim = c(-1, 3.5), yaxt = "n", cex.axis = 1.5);
 points(x = sim25[,15], y = sim25[,21], type = "l", lwd = 2, lty = "dashed");
 abline(h = 0, col = "red", lty = "dotted", lwd = 0.8);
 text(x = -0.6, y = 3.2, labels = "S = 25", cex = 2.5);
-plot(x = sim30[,1], y = sim30[,20], type = "l", pch = 20, lwd = 2, 
+plot(x = sim30[,1], y = sim30[,20], type = "l", pch = 20, lwd = 2, xaxt = "n",
      ylim = c(-1, 3.5), cex.axis = 1.5);
 points(x = sim30[,15], y = sim30[,21], type = "l", lwd = 2, lty = "dashed");
 abline(h = 0, col = "red", lty = "dotted", lwd = 0.8);
 text(x = -0.6, y = 3.2, labels = "S = 30", cex = 2.5);
-plot(x = sim35[,1], y = sim35[,20], type = "l", pch = 20, lwd = 2, 
-     ylim = c(-1, 3.5), yaxt = "n", cex.axis = 1.5);
+plot(x = sim35[,1], y = sim35[,20], type = "l", pch = 20, lwd = 2, xaxt = "n",
+     ylim = c(-1, 3.5), yaxt = "n", cex.axis = 1.25);
 points(x = sim35[,15], y = sim35[,21], type = "l", lwd = 2, lty = "dashed");
 abline(h = 0, col = "red", lty = "dotted", lwd = 0.8);
 text(x = -0.6, y = 3.2, labels = "S = 35", cex = 2.5);
+plot(x = sim40[,1], y = sim40[,20], type = "l", pch = 20, lwd = 2, 
+     ylim = c(-1, 3.5), cex.axis = 1.5);
+points(x = sim40[,15], y = sim40[,21], type = "l", lwd = 2, lty = "dashed");
+abline(h = 0, col = "red", lty = "dotted", lwd = 0.8);
+text(x = -0.6, y = 3.2, labels = "S = 40", cex = 2.5);
+plot(x = sim45[,1], y = sim45[,20], type = "l", pch = 20, lwd = 2, 
+     ylim = c(-1, 3.5), yaxt = "n", cex.axis = 1.5);
+points(x = sim45[,15], y = sim45[,21], type = "l", lwd = 2, lty = "dashed");
+abline(h = 0, col = "red", lty = "dotted", lwd = 0.8);
+text(x = -0.6, y = 3.2, labels = "S = 45", cex = 2.5);
 mtext(text =  expression(paste("E Correlation between A"[ij]," and A"[ji], 
-                             " (",rho,")")), side = 1,
+                               " (",rho,")")), side = 1,
       line = 4, outer = TRUE, cex = 1.5);
 mtext(text = "E leading real part eigenvalue", side = 2,
       line = 3.5, outer = TRUE, cex = 1.5);
