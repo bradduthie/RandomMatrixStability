@@ -85,10 +85,7 @@ I have explained the result shown by the black line of Figures 3 and 4 now more 
 
 
 
-
-
-
-Reviewer 2 comments
+Reviewer 2 comment 1
 ================================================================================
 
 The manuscript explores the stability of matrices of the form
@@ -99,7 +96,54 @@ where gamma is an S-component vector, diag(gamma) is the diagonal matrix with ga
 
 The manuscript is very clear and its results were easily reproducible. My concerns are threefold: first, there is no attempt at an analytical understanding, making the breadth of the results difficult to judge; second, the numerical exploration is restricted to a very narrow class of random matrices, further hampering a good appreciation of the results' breadth; and third, it feels as if the effect of response rate variation was a second- or even third-order effect, and thus only of minor importance in explaining the stability of large complex systems. Below I elaborate on each of these concerns in turn.
 
+Author response to Reviewer 1 comment 1
+================================================================================
+
+I thank Reviewer 2 for their helpful comments. In my revision, I have provided more analytical context, expanded the types of networks explored (see also Author response to Reviewer 1 comment 3), and further clarified the role response rate variation. I explain these changes in more detail with the reviewers elaborated concerns below. 
+
+Reviewer 2 comment 2
+================================================================================
+
 The results crucially build on the matrices being dangerously close to the stability boundary. At that point, minor fluctuations in the position of the leading eigenvalue can make or break a system. In fact, there are known results on the uncertainty in the leading eigenvalue's position - but, to my knowledge, those are only available for circular matrices (here: constant gamma). I am wondering whether combining those with the methods of Gibbs et al. (2018) could perhaps be used to gain further understanding. In either case, the manuscript would of course be much stronger with analytical results, but I do realize this may be uncharted territory.
+
+Author response to Reviewer 1 comment 1
+================================================================================
+
+I appreciate these comments, and have tried to provide a more analytical explanation of the changes introduced by \gamma (line XXX). In making these changes, I have slightly adjusted the notation so that the text is more readable. 
+
+As Reviewer 2 correctly points out, my focus is on finite values of S and \sigma, in which complexity is gradually increased until it is dangerously close to the stability boundary. Given this focus, analytically demonstrating my central result (that variation in $X$ when $M = XA$ increases stability) would require some sort of comparison between the probability distributions of eigenvalues for $M$ and $A$. For circular matrices in which elements are i.i.d ($A$), it has been proved that eigenvalues are distributed uniformly within a known boundary of support of the spectral density (Tao and Vu 2010). While recent papers have found the support for more general types of random matrices that include the form $M = AX$ (e.g, Gibbs et al. 2018; Neri and Metz 2012; Ahmadian et al. 2015), to the best of my understanding, finding the actual density of eigenvalues within the support has not been attempted. This likely matters because for finite S, even though the real boundary of the support might be positive for both $M$ and $A$ (implying instability as $S \to \infty$; Grilli et al. 2017), the right most eigenvalue for a system still might be less than zero.
+
+My approach follows others with similar goals (Sinha 2005).
+
+
+
+Others have found the support
+
+
+
+Reviewer 2 is correct that analytical results here are uncharted territory, despite 
+
+In recent papers, analytical solutions have been provided to find the support of the spectral densities of matrices of the form $M = XA$, 
+
+
+
+
+
+
+This is unique, as most studies make the simplifying assumption of \sigma = \sqrt{S} such that the circular matrix has a radius of unity. 
+
+Ideally, an analytical proof could demonstrate the uncertainty in the position of the leading eigenvalue at finite S, which would likely require knowledge of the distribution of M = \gamma A for arbitrary values of \sigma and S.
+
+
+
+
+For matrices of the form $M = XA$, Gibbs et al. (2018) do find the boundaries of support for spectral densities. 
+
+
+My focus is uniquely on a finite S. This is important, as Ahmadian et al. (2015) showed that any realisation of the eigenvalue distribution for a matrix of the form Z = M + LJR approaches the expected distribution as S \to infty. 
+
+
+Elements of M = XA are no longer independent.
 
 Since numerical explorations are used in lieu of analytical ones, I would look at a broader class of matrices M. For example, the average pairwise correlation rho between the (i,j)th and (j,i) th matrix entries is known to strongly affect the local stability of a random matrix - in the large S limit, the leading eigenvalue converges to 
 
