@@ -96,7 +96,7 @@ where gamma is an S-component vector, diag(gamma) is the diagonal matrix with ga
 
 The manuscript is very clear and its results were easily reproducible. My concerns are threefold: first, there is no attempt at an analytical understanding, making the breadth of the results difficult to judge; second, the numerical exploration is restricted to a very narrow class of random matrices, further hampering a good appreciation of the results' breadth; and third, it feels as if the effect of response rate variation was a second- or even third-order effect, and thus only of minor importance in explaining the stability of large complex systems. Below I elaborate on each of these concerns in turn.
 
-Author response to Reviewer 1 comment 1
+Author response to Reviewer 2 comment 1
 ================================================================================
 
 I thank Reviewer 2 for their helpful comments. In my revision, I have provided more analytical context, expanded the types of networks explored (see also Author response to Reviewer 1 comment 3), and further clarified the role response rate variation. I explain these changes in more detail with the reviewers elaborated concerns below. 
@@ -106,44 +106,17 @@ Reviewer 2 comment 2
 
 The results crucially build on the matrices being dangerously close to the stability boundary. At that point, minor fluctuations in the position of the leading eigenvalue can make or break a system. In fact, there are known results on the uncertainty in the leading eigenvalue's position - but, to my knowledge, those are only available for circular matrices (here: constant gamma). I am wondering whether combining those with the methods of Gibbs et al. (2018) could perhaps be used to gain further understanding. In either case, the manuscript would of course be much stronger with analytical results, but I do realize this may be uncharted territory.
 
-Author response to Reviewer 1 comment 1
+Author response to Reviewer 2 comment 2
 ================================================================================
 
 I appreciate these comments, and have tried to provide a more analytical explanation of the changes introduced by \gamma (line XXX). In making these changes, I have slightly adjusted the notation so that the text is more readable. 
 
-As Reviewer 2 correctly points out, my focus is on finite values of S and \sigma, in which complexity is gradually increased until it is dangerously close to the stability boundary. Given this focus, analytically demonstrating my central result (that variation in $X$ when $M = XA$ increases stability) would require some sort of comparison between the probability distributions of eigenvalues for $M$ and $A$. For circular matrices in which elements are i.i.d ($A$), it has been proved that eigenvalues are distributed uniformly within a known boundary of support of the spectral density (Tao and Vu 2010). While recent papers have found the support for more general types of random matrices that include the form $M = AX$ (e.g, Gibbs et al. 2018; Neri and Metz 2012; Ahmadian et al. 2015), to the best of my understanding, finding the actual density of eigenvalues within the support has not been attempted. This likely matters because for finite S, even though the real boundary of the support might be positive for both $M$ and $A$ (implying instability as $S \to \infty$; Grilli et al. 2017), the right most eigenvalue for a system still might be less than zero.
+As Reviewer 2 correctly points out, my focus is on finite values of S and \sigma, in which complexity is gradually increased until it is dangerously close to the stability boundary. Given this focus, analytically demonstrating my central result (that variation in $X$ when $M = XA$ increases the stability of $M$), would require some sort of comparison between the probability distributions of eigenvalues for $M$ and $A$. For circular matrices in which elements are i.i.d ($A$), it has been proved that eigenvalues are distributed uniformly within a known boundary of support of the spectral density (Tao and Vu 2010). While recent papers have found the support for more general types of random matrices that include the form $M = AX$ (e.g, Gibbs et al. 2018; Neri and Metz 2012; Ahmadian et al. 2015), to the best of my understanding, finding the actual density of eigenvalues within the support has not been attempted. This likely matters because for finite S, even though the real boundary of the support might be positive for both $M$ and $A$ (implying instability as $S \to \infty$; Grilli et al. 2017), the right most eigenvalue for a system still might be less than zero.
 
-My approach follows others with similar goals (Sinha 2005).
+Reviewer 2 is correct that this is uncharted territory, and after carefully considering the possibility of analytical demonstration of my manuscript's results, I am convinced that such a demonstration is beyond the scope of this manuscript. My approach follows others with similar objectives. For example, Sinha (2005) also used a numerical approach to understand the stability of small-world networks (in contrast to the classic random networks of May).
 
-
-
-Others have found the support
-
-
-
-Reviewer 2 is correct that analytical results here are uncharted territory, despite 
-
-In recent papers, analytical solutions have been provided to find the support of the spectral densities of matrices of the form $M = XA$, 
-
-
-
-
-
-
-This is unique, as most studies make the simplifying assumption of \sigma = \sqrt{S} such that the circular matrix has a radius of unity. 
-
-Ideally, an analytical proof could demonstrate the uncertainty in the position of the leading eigenvalue at finite S, which would likely require knowledge of the distribution of M = \gamma A for arbitrary values of \sigma and S.
-
-
-
-
-For matrices of the form $M = XA$, Gibbs et al. (2018) do find the boundaries of support for spectral densities. 
-
-
-My focus is uniquely on a finite S. This is important, as Ahmadian et al. (2015) showed that any realisation of the eigenvalue distribution for a matrix of the form Z = M + LJR approaches the expected distribution as S \to infty. 
-
-
-Elements of M = XA are no longer independent.
+Reviewer 2 comment 3
+================================================================================
 
 Since numerical explorations are used in lieu of analytical ones, I would look at a broader class of matrices M. For example, the average pairwise correlation rho between the (i,j)th and (j,i) th matrix entries is known to strongly affect the local stability of a random matrix - in the large S limit, the leading eigenvalue converges to 
 
@@ -151,13 +124,24 @@ $\lambda = \sqrt{SV}*(+\rho)$.
 
 I did some preliminary exploration of having different rho values, and this did not change the Author's results. So adding this new aspect to the manuscript would strengthen its results. I would also maybe consider matrices with even more structure - e.g., varying diagonal entries in M, or having different means/variances in the top and bottom triangles (corresponding to food webs with cascade structures; Allesina et al. 2015 Nature Communications).
 
+Author response to Reviewer 2 comment 3
+================================================================================
+
+These were very helpful comments, and I am especially grateful to Reviewer 2 for doing a bit of preliminary exploration themselves to suggest improvements. I have now run simulations for different values of $\rho$, as suggested. Reviewer 2 is correct that the nonzero $\rho$ values do not change my results, but an analysis of stability across $\rho$ values also revealed an interesting pattern. While the relationship between $\rho$ and the leading eigenvalue is linear for circular matrices ($A$), it is convex when $\gamma$ is included such that $M = \gamma A$. I have now included these results into the main text of the manuscript, as I believe that they are important. 
+
+As suggested, I also considered matrices with even more structure. Specifically, I have simulated three broad classes of structured networks that are widespread in physical, social, and biological systems. These include food webs with cascade structures (e.g., Williams and Martinez 2000), small-world networks (Watts and Strogatz 1998), and scale-free networks (Albert and Barab\'{a}si 2002).
+
+Reviewer 2 comment 4
+================================================================================
+
 Finally, the general relevance of the results is hampered by being confined to a narrow parameter space, and even there the fraction of occurrences where var(gamma) makes a difference is minuscule. Looking at Figure 3, the only cases in which there is an appreciable effect of a variance in the gammas is when only a small handful of the matrices end up being stable in the first place. As such, var(gamma) only makes a difference when there is not much difference to be made anyway, because the vast majority of matrices end up unstable regardless of the magnitude of var(gamma). In light of this, I would be much more careful with the manuscript's framing - in particular, I would change the title to express better that we are dealing with second-order effects, and would not say in the Abstract that system stability is "markedly increased" by variation in the gammas. 
 
+Author response to Reviewer 2 comment 4
+================================================================================
 
+While I agree that the effect of $var(\gamma)$ is restricted to a small proportion systems at the margins of stability, I would argue that this effect is actually of quite general relevance because of the breadth of complex systems to which my results apply. Addressing Reviewer 2's previous comment helped emphasise this; the effect of variation in $\gamma$ on stability, while small in overall magnitude, is predicted to be general across any physical, social, or biological network. Since nearly all such networks will have components that vary in the rate at which they respond to perturbation, my results contribute to a general understanding of system stability.
 
-
-
-
+I have revised the writing to more carefully frame the manuscript's key results (line XXX). This includes a change of the title, which now makes it more clear that the effects on stability are small while retaining an emphasis on generality across systems. I have also removed the word "markedly" from the abstract (line XXX). 
 
 
 
@@ -173,17 +157,6 @@ Finally, the general relevance of the results is hampered by being confined to a
 
 Reviewer 3 commments
 ================================================================================
-
-This manuscript describe the effect of variation in the response rate of individual systems to the stability of a complex system by A. Bradley Duthie. The manuscript is well-written and the calculations, codes and so on sound technically correct, but I have problem to see the importance of the response rates to understand the stability of the systems.
-
-In my opinion 3 main questions are more important in all these discussions:
-
-1. The diagonal of the matrix, thinking in species interactions, represents the intraspecific interactions in the same species, and in the study of the stability is the main point because it gives us the center of the cloud of eigenvalues. In these study, as many all of them, is taken as -1. All infraspecific interactions in every species are negatives and equal? It is difficult to agree with this idea.
-
-2. In these discussions the author use random matrix to implement complex systems. Again it is difficult to understand how a random matrix can represent a complex system. If we think in species again, different ecological interactions have different distributions, has can be observed in the paper of Tang and I Sundstrand that the random matrices can be a perfect null model, but nothing more.
-
-3. I can understand the importance of the study of the responds rates to understand the stability of the matrices. Maybe I am wrong but sound like the author is comparing apples and oranges.
-
 
 Remarks to the author:
 
