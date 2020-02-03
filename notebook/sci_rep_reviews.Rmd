@@ -158,19 +158,38 @@ Author response to Reviewer 3 commment 2
 
 The diagonal of the matrix $M$ models component self-regulation, such as species carrying capacity in an ecological community. The relationship between diagonal elements of $M$ and stability is well-known for large circular matrices (e.g., Tang et al. 2014; Allesina and Tang 2015), in which the mean value of diagonal elements determines the center of the eigenvalue distribution on the real axis as $S \to \infty$.
 
-Theoretical studies of community stability assign negative diagonal values (typically -1) to make the simplifying assumption that components of the system are self-regulating (May 1972; Sinha 2005; Allesina and Tang 2012; Grilli et al. 2017; Song and Saavedra 2018; Stone 2018). If components are not self-regulating, then the system will almost never be stable. I tried this very early on in the process of investigating the effects of $\gamma$ by allowing diagonal elements to be sampled in the same way as off-diagonals: from a normal distribution centred at zero (data are here, note that the tables show the information in a bit more of a confusing format that in the SI: https://github.com/bradduthie/RandomMatrixStability/blob/dfe6f8e0225733c94348bc9e0dad6218c59cc109/notebook/sim_results_old/oldest/mat_dat.csv). The effect of $\gamma$ on increasing stability is retained, but stability of all systems drops to zero out of one million given size $S > 14$. And in the random systems that are found to be stable, all diagonal elements are nearly always negative (or, rarely, with one or two very low positive values).
+Theoretical studies of community stability assign negative diagonal values (typically -1) to make the simplifying assumption that components of the system are self-regulating (e.g., May 1972, 1973; Sinha 2005; Allesina and Tang 2012; Grilli et al. 2017; Song and Saavedra 2018; Stone 2018). If individual components are not self-regulating, then the system will almost never be stable. I tried this very early on in the process of investigating the effects of $\gamma$ by allowing diagonal elements to be sampled in the same way as off-diagonals: from a normal distribution centred at zero (data are here, note that the tables show the information in a bit more of a confusing format that in the SI: https://github.com/bradduthie/RandomMatrixStability/blob/dfe6f8e0225733c94348bc9e0dad6218c59cc109/notebook/sim_results_old/oldest/mat_dat.csv). The effect of $\gamma$ on increasing stability is retained, but stability of all systems drops to zero out of one million given size $S > 14$. And in the random systems that are found to be stable, all diagonal elements are nearly always negative (or, rarely, with one or two very low positive values). In other words, if diagonal elements were randomly sampled from a distribution with positive support, then the only systems that would be stable would be those that by chance had all (or nearly all) diagonal elements.
 
+Hence, in this paper and nearly all related papers, when assessing stability, it makes sense to assume that individual system components are self-regulating. But this is not necessarily just a simplifying assumption to avoid unnecessary computations. In the case of ecological species, a positive intraspecific interaction value does not make sense. This would imply that the species being modelled did not compete with itself and had no carrying capacity (because intraspecific competition is directly related to carrying capacity). Since infinite growth is clearly unrealistic, ecological systems represented by random matrices really should have negative diagonal elements.
 
+Unequal diagonal elements could be used, but doing so would only be expected to add some variation around the expected centre of eigenvalue distributions, and would not change my primary result concerning the effect of $\gamma$ (note that this would lead to the same results as mentioned above where diagonal elements were sampled in the same way as off diagonals, but with more total stable systems since the mean diagonal value would be less lower). 
 
+I have tried to clarify and more clearly state the assumption of self-regulation in my revision (line XXX).
 
-
-
-
-
+Reviewer 3 commment 3
+================================================================================
 
 2. In these discussions the author use random matrix to implement complex systems. Again it is difficult to understand how a random matrix can represent a complex system. If we think in species again, different ecological interactions have different distributions, has can be observed in the paper of Tang and I Sundstrand that the random matrices can be a perfect null model, but nothing more.
 
+Author response to Reviewer 3 commment 3
+================================================================================
+
+Reviewer 3 is correct that random matrices are an ideal null model for understanding stability in complex systems such as communities of species. In this manuscript, I use the random matrix approach as a null model to investigate the role played by a property of nearly all complex systems (component response variation) in affecting stability. This approach to investigating stability in complex systems has been used widely since May (1972), and has been refined to more specifically to reflect the properties of systems with a particular structure (e.g., specific ecological interactions; Allesina and Tang 2012). My revision now more extensively simulates the structures of real-world networks, including the cascade foode web model  (e.g., Williams and Martinez 2000), small-world networks (Watts and Strogatz 1998), and scale-free networks (Albert and Barab\'{a}si 2002; see also Author response to Reviewer 2 comment 3).
+
+I have tried to clarify the role of random matrices as a null model of complex system stability (line XXX).
+
+Reviewer 3 commment 4
+================================================================================
+
 3. I can understand the importance of the study of the responds rates to understand the stability of the matrices. Maybe I am wrong but sound like the author is comparing apples and oranges.
+
+Author response to Reviewer 3 commment 4
+================================================================================
+
+Component response rates can be modelled using a diagonal matrix in which elements correspond to the rate at which individual system components respond to perturbations in the system (Patel et al. 2018). Hence, such a diagonal matrix $\gamma$ can be multiplied by a random matrix representing a complex system $A$ to produce a complex system in which component response rates vary, $M = \gamma A$. By doing an eigenanalysis on $M$ versus $A$, it is possible to understand how response rates affect stability. Hence, I am not comparing apples and oranges; response rates of components have a clear and important role in complex system stability that can be investigated with the mathematical techniques used in this manuscript. I have tried to explain this role more clearly in my revision (line XXX).
+
+Reviewer 3 commment 5
+================================================================================
 
 Other minor questions.
 
@@ -180,6 +199,58 @@ H.J. Sommers, A. Crisanti, H. Sompolinsky, and Y. Stein, Spectrum of Large Rando
 
 S.E. Townsend, D.T. Haydon, and L. Matthews, On the generality of stability-complexity relationships in Lotka-Volterra ecosystems, J. Theor. Biol. 267, 243 (2010).
 
-A. Mougi, and M. Kondoh, Diversity of Interaction Types and Ecolog- ical Community Stability, Science 337, 349 (2012).
+A. Mougi, and M. Kondoh, Diversity of Interaction Types and Ecological Community Stability, Science 337, 349 (2012).
 
-K.Z. Coyte, J. Schluter, and K.R. Foster, The ecology of the micro- biome: Networks, competition, and stability, Science 350, 663 (2015).
+K.Z. Coyte, J. Schluter, and K.R. Foster, The ecology of the microbiome: Networks, competition, and stability, Science 350, 663 (2015).
+
+
+Author response to Reviewer 3 commment 3
+================================================================================
+
+I thank Reviewer 3 for pointing out these articles. I have cited them where appropriate (lines XXX).
+
+
+Author References within Review
+================================================================================
+
+Ahmadian, Y., Fumarola, F., & Miller, K. D. (2015). Properties of networks with partially structured and partially random connectivity. Physical Review E - Statistical, Nonlinear, and Soft Matter Physics, 91(1), 012820. https://doi.org/10.1103/PhysRevE.91.012820
+
+Albert, R., & Barab\'{a}si, A. L. (2002). Statistical mechanics of complex networks. Reviews of Modern Physics, 74(1), 47–97. https://doi.org/10.1103/RevModPhys.74.47
+
+Allesina, S., & Tang, S. (2012). Stability criteria for complex ecosystems. Nature, 483(7388), 205–208. https://doi.org/10.1038/nature10832
+
+Allesina, S., & Tang, S. (2015). The stability–complexity relationship at age 40: a random matrix perspective. Population Ecology, 63–75. https://doi.org/10.1007/s10144-014-0471-0
+
+Dougoud, M., Vinckenbosch, L., Rohr, R., Bersier, L.-F., & Mazza, C. (2018). The feasibility of equilibria in large ecosystems: a primary but neglected concept in the complexity-stability debate. PLOS Computational Biology, 14(2), e1005988. Retrieved from http://arxiv.org/abs/1612.06735
+
+Gibbs, T., Grilli, J., Rogers, T., & Allesina, S. (2017). The effect of population abundances on the stability of large random ecosystems. Arxiv. Retrieved from http://arxiv.org/abs/1708.08837
+
+Grilli, J., Adorisio, M., Suweis, S., Barabás, G., Banavar, J. R., Allesina, S., & Maritan, A. (2017). Feasibility and coexistence of large ecological communities. Nature Communications, 8. https://doi.org/10.1038/ncomms14389
+
+May, R. M. (1972). Will a large complex system be stable? Nature, 238, 413–414.
+
+May, R. M. (1973). Qualitative stability in model ecosystems. Ecology, 54(3), 638–641. https://doi.org/10.2307/1935352
+
+Neri, I., & Metz, F. L. (2012). Spectra of sparse non-Hermitian random matrices: An analytical solution. Physical Review Letters, 109(3). https://doi.org/10.1103/PhysRevLett.109.030602
+
+Patel, S., Cortez, M. H., & Schreiber, S. J. (2018). Partitioning the effects of eco-evolutionary feedbacks on community stability. American Naturalist, 191(3), 1–29. https://doi.org/10.1101/104505
+
+Sinha, S. (2005). Complexity vs. stability in small-world networks. Physica A: Statistical Mechanics and Its Applications, 346(1-2 SPEC. ISS.), 147–153. https://doi.org/10.1016/j.physa.2004.08.062
+
+Song, C., & Saavedra, S. (2018). Will a small randomly assembled community be feasible and stable? Ecology, 99(3), 743–751. https://doi.org/10.1002/ecy.2125
+
+Stone, L. (2018). The feasibility and stability of large complex biological networks: a random matrix approach. Scientific Reports, 8, 8246. https://doi.org/10.1101/223651
+
+Tang, S., & Allesina, S. (2014). Reactivity and stability of large ecosystems. Frontiers in Ecology and Evolution, 2(June), 1–8. https://doi.org/10.3389/fevo.2014.00021
+
+Tao, T., & Vu, V. (2010). Random matrices: Universality of ESDs and the circular law. Annals of Probability, 38(5), 2023–2065. https://doi.org/10.1214/10-AOP534
+
+Watts, D. J., & Strogatz, S. H. (1998). Collective dynamics of “small world” networks. Nature, 393(June), 440–442.
+
+Williams, R. J., & Martinez, N. D. (2000). Simple rules yield complex food webs. Nature, 404(6774), 180–183. https://doi.org/10.1038/35004572
+
+
+
+
+
+
