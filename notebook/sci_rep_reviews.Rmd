@@ -17,7 +17,6 @@ I have taken the following actions:
 
 
 
-
 Reviewer 1 comment 1
 ================================================================================
 
@@ -77,14 +76,6 @@ Reviewer 1 is correct that the line illustrates the conditional probability that
 
 I have explained the result shown by the black line of Figures 3 and 4 now more clearly in my revision (line XXX).
 
-
-
-
-
-
-
-
-
 Reviewer 2 comment 1
 ================================================================================
 
@@ -143,19 +134,7 @@ While I agree that the effect of $var(\gamma)$ is restricted to a small proporti
 
 I have revised the writing to more carefully frame the manuscript's key results (line XXX). This includes a change of the title, which now makes it more clear that the effects on stability are small while retaining an emphasis on generality across systems. I have also removed the word "markedly" from the abstract (line XXX). 
 
-
-
-
-
-
-
-
-
-
-
-
-
-Reviewer 3 commments
+Reviewer 3 commment 1
 ================================================================================
 
 Remarks to the author:
@@ -164,7 +143,30 @@ This manuscript describe the effect of variation in the response rate of individ
 
 In my opinion 3 main questions are more important in all these discussions:
 
+Author response to Reviewer 3 commment 1
+================================================================================
+
+I thank Reviewer 3 for their review, including their comment on the quality of the writing and verification that the calculations and and code are technically correct. In my revision, in line with the comments of the other two reviewers, I have improved the way in which the importance of my results are communicated. I address Reviewer 3's main three questions below.
+
+Reviewer 3 commment 2
+================================================================================
+
 1. The diagonal of the matrix, thinking in species interactions, represents the intraspecific interactions in the same species, and in the study of the stability is the main point because it gives us the center of the cloud of eigenvalues. In these study, as many all of them, is taken as -1. All infraspecific interactions in every species are negatives and equal? It is difficult to agree with this idea.
+
+Author response to Reviewer 3 commment 2
+================================================================================
+
+The diagonal of the matrix $M$ models component self-regulation, such as species carrying capacity in an ecological community. The relationship between diagonal elements of $M$ and stability is well-known for large circular matrices (e.g., Tang et al. 2014; Allesina and Tang 2015), in which the mean value of diagonal elements determines the center of the eigenvalue distribution on the real axis as $S \to \infty$.
+
+Theoretical studies of community stability assign negative diagonal values (typically -1) to make the simplifying assumption that components of the system are self-regulating (May 1972; Sinha 2005; Allesina and Tang 2012; Grilli et al. 2017; Song and Saavedra 2018; Stone 2018). If components are not self-regulating, then the system will almost never be stable. I tried this very early on in the process of investigating the effects of $\gamma$ by allowing diagonal elements to be sampled in the same way as off-diagonals: from a normal distribution centred at zero (data are here, note that the tables show the information in a bit more of a confusing format that in the SI: https://github.com/bradduthie/RandomMatrixStability/blob/dfe6f8e0225733c94348bc9e0dad6218c59cc109/notebook/sim_results_old/oldest/mat_dat.csv). The effect of $\gamma$ on increasing stability is retained, but stability of all systems drops to zero out of one million given size $S > 14$. And in the random systems that are found to be stable, all diagonal elements are nearly always negative (or, rarely, with one or two very low positive values).
+
+
+
+
+
+
+
+
 
 2. In these discussions the author use random matrix to implement complex systems. Again it is difficult to understand how a random matrix can represent a complex system. If we think in species again, different ecological interactions have different distributions, has can be observed in the paper of Tang and I Sundstrand that the random matrices can be a perfect null model, but nothing more.
 
