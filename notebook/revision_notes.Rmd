@@ -166,6 +166,7 @@ The effect of $\gamma$ does not necessarily result in a circular eigenvalue spec
 Stability also decreases with increasing $\rho$ such that $\max(\Re(\lambda)) \approx \sigma_{M}\sqrt{SC}\left(1 + \rho\right)$. When $\rho$ values are negative, such as when $\textbf{M}$ models a predator-prey system in which $M_{ij}$ and $M_{ji}$ have opposing signs, stability is expected to increase [@Allesina2012]. When elements of $\gamma$ vary independently, the magnitude of $\rho$ is decreased because $\sigma^{2}_{\gamma}$ increases the variance of $M_{ij}$ without affecting the covariance between $M_{ij}$ and $M_{ji}$, 
 
 $$\rho = \frac{cov(M_{ij}, M_{ji})}{\sigma^{2}_{A}(1 + \sigma^{2}_{\gamma})}.$$ 
+
 Because $\gamma$ does not affect $cov(M_{ij}, M_{ji})$, the sign of $\rho$ remains unchanged.
 
 
