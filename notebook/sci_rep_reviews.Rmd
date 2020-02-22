@@ -13,7 +13,7 @@ I have taken the following actions:
 
 2. Run simulations across multiple structured network types to confirm the robustness of results. Network types include (a) cascade food webs, (b) small world networks, and (c) scale-free network.
 
-
+3. Rewrite the manuscript, or the relevant parts of it.
 
 
 
