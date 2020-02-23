@@ -287,7 +287,16 @@ pr_st       <- pr_st[,-1];
 Results
 --------------------------------------------------------------------------------
 
-**Component response rates of random complex systems**. Rows in $\mathbf{M}$ define how a given component $i$ is affected by other components of the system, meaning that the rate of component response time can be modelled by multiplying all row elements by a real scalar value $\gamma_{i}$ [@Patel2018]. The distribution of $\gamma$ over $S$ components thereby models the distribution of component response rates.  <!--- Replace the below with some more informative text concerning the variation that $\var(gamma})$ adds to the system $M$ overall. This might require starting with just $M = A$ as an explanation. Borrowing the text from revision_notes.Rmd below --->
+**Component response rates of random complex systems**. Complex systems $\mathbf{M}$ are built from two matrices, one modelling component interactions ($\mathbf{A}$), and second modelling component response rates ($\gamma$). Both $\mathbf{A}$ and $\gamma$ are square $S \times S$ matrices. Rows in $\mathbf{A}$ define how a given component $i$ is affected by each component $j$ in the system, including itself (where $i = j$). Off-diagonal elments of $\mathbf{A}$ are independent and identically distributed (i.i.d), and diagonal elements are set to $A_{ii} = -1$ as in May [@May1972]. Diagonal elements of $\gamma$ are positive, and off-diagonal elements are set to zero (i.e. $\gamma$ is a diagonal matrix with positive support). The distribution of $\gamma$ over $S$ components thereby models the distribution of component response rates. The dynamics of the entire system $\mathbf{M}$ can be defined as follows [@Patel2018],
+
+\begin{equation} \label{defM}
+M = \gamma A.
+\end{equation}
+
+Equation \ref{defM} thereby serves as a null model to investigate how varying component response rates affect complex systems.
+
+
+ <!--- Replace the below with some more informative text concerning the variation that $\var(gamma})$ adds to the system $M$ overall. This might require starting with just $M = A$ as an explanation. Borrowing the text from revision_notes.Rmd below --->
 
 <!--- The current Figure 1 should be replaced by the new figure first shown in revision_notes.Rmd --->
 
@@ -309,8 +318,6 @@ The increase caused by $\sigma^{2}_\gamma$ can be visualised from the eigenvalue
 --->
 
 
-<!--- Remove this instructive example; replace it with something better. This entire paragraph and the code underneath it can be deleted. --->
-An instructive example compares one $\mathbf{M}$ where $\gamma_{i} = 1$ for all $i$ in $S$ to the same $\mathbf{M}$ when half of $\gamma_{i} = 1.95$ and half of $\gamma_{i} = 0.05$. This models one system in which $\gamma$ is invariant and one in which $\gamma$ varies, but systems are otherwise identical (note that mean $\gamma_{i} = 1$ in both cases). I assume $S = 200$, $C = 0.05$, and $\sigma = 0.4$; diagonal elements are set to $-1$ and non-zero off-diagonal elements are drawn randomly from $\mathcal{N}(0, \sigma^{2})$. Rows are then multiplied by $\gamma_{i}$ to generate $\mathbf{M}$. When $\gamma_{i} = 1$, eigenvalues of $\mathbf{M}$ are distributed uniformly within a circle centred at ($-1, 0$) with a radius of `r round(sigma*sqrt(S*C), digits = 3)` (Fig. 1a). Hence, the real components of eigenvalues are highly unlikely to all be negative when all $\gamma_{i} = 1$. But when $\gamma_{i}$ values are separated into two groups, eigenvalues are no longer uniformly distributed (Fig. 1b). Instead, two distinct clusters of eigenvalues appear (red circles in Fig. 1b), one centred at ($-1.95, 0$) and the other centred at ($-0.05, 0$). The former has a large radius, but the real components have shifted to the left (in comparison to when $\gamma = 1$), while the latter cluster has a smaller radius, but real components have shifted to the right; all $\Re({\lambda}) < 0$. Overall, for 1 million randomly assembled $\mathbf{M}$, this division between slow and fast component response rates results in more stable systems: `r sum(pr_st[,1])` stable given $\gamma = 1$ versus `r sum(pr_st[,2])` stable given $\gamma = \{1.95, 0.5\}$.
 
 ```{r echo = FALSE}
 S     <- 1000;
