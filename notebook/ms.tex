@@ -117,15 +117,17 @@ Despite recent interest in the relationship between system properties
 and stability, the effect of variation in the response rate of
 individual system components remains unconsidered. Here I vary the
 component response rates (\(\boldsymbol{\gamma}\)) of randomly generated
-complex systems. I show that when component response rates vary, the
-potential for system stability is markedly increased. Variation in
-\(\boldsymbol{\gamma}\) is especially important for stability in highly
-complex systems, in which the probability of stability would otherwise
-be negligible. At such extremes of simulated system complexity, the
-largest stable complex systems would be unstable if not for
-\(\boldsymbol{Var(\gamma)}\). My results therefore reveal a previously
-unconsidered aspect of system stability that is likely to be pervasive
-across all realistic complex systems.
+complex systems. I use numerical simulations to show that when component
+response rates vary, the potential for system stability is markedly
+increased. These results are robust to common network structures,
+including small-world and scale-free networks, and cascade food webs.
+Variation in \(\boldsymbol{\gamma}\) is especially important for
+stability in highly complex systems, in which the probability of
+stability would otherwise be negligible. At such extremes of simulated
+system complexity, the largest stable complex systems would be unstable
+if not for \(\boldsymbol{Var(\gamma)}\). My results therefore reveal a
+previously unconsidered aspect of system stability that is likely to be
+pervasive across all realistic complex systems.
 
 \subsection{Introduction}\label{introduction}
 
@@ -192,10 +194,16 @@ networks, is likely to vary. The effect of such variance on stability
 has not been investigated in complex systems theory. Intuitively,
 variation in \(\gamma\) might be expected to decrease system stability
 by introducing a new source of variation into the system and thereby
-increasing \(\sigma\). Here I show why, despite higher \(\sigma\),
+increasing \(\sigma\). Here I show that, despite higher \(\sigma\),
 realistic complex systems (such that \(S\) is high but finite) are
 actually more likely to be stable if their individual component response
-rates vary
+rates vary. My results are robust across commonly observed network
+structures, including
+random\textsuperscript{\protect\hyperlink{ref-May1972}{1}},
+small-world\textsuperscript{\protect\hyperlink{ref-Watts1998}{15}},
+scale-free\textsuperscript{\protect\hyperlink{ref-Albert2002}{16}},
+cascade food
+web\textsuperscript{\protect\hyperlink{ref-Williams2000}{17}} networks.
 
 \subsection{Results}\label{results}
 
@@ -204,33 +212,34 @@ rates vary
 components of the system, meaning that the rate of component response
 time can be modelled by multiplying all row elements by a real scalar
 value
-\(\gamma_{i}\)\textsuperscript{\protect\hyperlink{ref-Patel2018}{15}}.
+\(\gamma_{i}\)\textsuperscript{\protect\hyperlink{ref-Patel2018}{18}}.
 The distribution of \(\gamma\) over \(S\) components thereby models the
-distribution of component response rates. An instructive example
-compares one \(\mathbf{M}\) where \(\gamma_{i} = 1\) for all \(i\) in
-\(S\) to the same \(\mathbf{M}\) when half of \(\gamma_{i} = 1.95\) and
-half of \(\gamma_{i} = 0.05\). This models one system in which
-\(\gamma\) is invariant and one in which \(\gamma\) varies, but systems
-are otherwise identical (note that mean \(\gamma_{i} = 1\) in both
-cases). I assume \(S = 200\), \(C = 0.05\), and \(\sigma = 0.4\);
-diagonal elements are set to \(-1\) and non-zero off-diagonal elements
-are drawn randomly from \(\mathcal{N}(0, \sigma^{2})\). Rows are then
-multiplied by \(\gamma_{i}\) to generate \(\mathbf{M}\). When
-\(\gamma_{i} = 1\), eigenvalues of \(\mathbf{M}\) are distributed
-uniformly within a circle centred at (\(-1, 0\)) with a radius of 1.265
-(Fig. 1a). Hence, the real components of eigenvalues are highly unlikely
-to all be negative when all \(\gamma_{i} = 1\). But when \(\gamma_{i}\)
-values are separated into two groups, eigenvalues are no longer
-uniformly distributed (Fig. 1b). Instead, two distinct clusters of
-eigenvalues appear (red circles in Fig. 1b), one centred at
-(\(-1.95, 0\)) and the other centred at (\(-0.05, 0\)). The former has a
-large radius, but the real components have shifted to the left (in
-comparison to when \(\gamma = 1\)), while the latter cluster has a
-smaller radius, but real components have shifted to the right; all
-\(\Re({\lambda}) < 0\). Overall, for 1 million randomly assembled
-\(\mathbf{M}\), this division between slow and fast component response
-rates results in more stable systems: 1 stable given \(\gamma = 1\)
-versus 32 stable given \(\gamma = \{1.95, 0.5\}\).
+distribution of component response rates.
+
+An instructive example compares one \(\mathbf{M}\) where
+\(\gamma_{i} = 1\) for all \(i\) in \(S\) to the same \(\mathbf{M}\)
+when half of \(\gamma_{i} = 1.95\) and half of \(\gamma_{i} = 0.05\).
+This models one system in which \(\gamma\) is invariant and one in which
+\(\gamma\) varies, but systems are otherwise identical (note that mean
+\(\gamma_{i} = 1\) in both cases). I assume \(S = 200\), \(C = 0.05\),
+and \(\sigma = 0.4\); diagonal elements are set to \(-1\) and non-zero
+off-diagonal elements are drawn randomly from
+\(\mathcal{N}(0, \sigma^{2})\). Rows are then multiplied by
+\(\gamma_{i}\) to generate \(\mathbf{M}\). When \(\gamma_{i} = 1\),
+eigenvalues of \(\mathbf{M}\) are distributed uniformly within a circle
+centred at (\(-1, 0\)) with a radius of 1.265 (Fig. 1a). Hence, the real
+components of eigenvalues are highly unlikely to all be negative when
+all \(\gamma_{i} = 1\). But when \(\gamma_{i}\) values are separated
+into two groups, eigenvalues are no longer uniformly distributed (Fig.
+1b). Instead, two distinct clusters of eigenvalues appear (red circles
+in Fig. 1b), one centred at (\(-1.95, 0\)) and the other centred at
+(\(-0.05, 0\)). The former has a large radius, but the real components
+have shifted to the left (in comparison to when \(\gamma = 1\)), while
+the latter cluster has a smaller radius, but real components have
+shifted to the right; all \(\Re({\lambda}) < 0\). Overall, for 1 million
+randomly assembled \(\mathbf{M}\), this division between slow and fast
+component response rates results in more stable systems: 1 stable given
+\(\gamma = 1\) versus 32 stable given \(\gamma = \{1.95, 0.5\}\).
 
 Higher stability in systems with variation in \(\gamma\) can be observed
 by sampling \(\gamma_{i}\) values from various distributions. I focus on
@@ -245,7 +254,7 @@ expected\textsuperscript{\protect\hyperlink{ref-Tao2010}{14}}, when
 \(\gamma = 1\), eigenvalues are distributed uniformly in a circle
 centred at (\(-1, 0\)) with a radius of \(\sigma\sqrt{SC} =\) 2.828.
 Uniform variation in \(\gamma\) leads to a non-uniform distribution of
-eigenvalues\textsuperscript{\protect\hyperlink{ref-Ahmadian2015}{16}--\protect\hyperlink{ref-Stone2017}{18}},
+eigenvalues\textsuperscript{\protect\hyperlink{ref-Ahmadian2015}{19}--\protect\hyperlink{ref-Stone2017}{21}},
 some of which are clustered locally near the centre of the distribution,
 but others of which are spread outside the former radius of 2.828 (Fig
 2b). The clustering and spreading of eigenvalues introduced by
@@ -279,7 +288,7 @@ genetic algorithm. Genetic algorithms are heuristic tools that mimic
 evolution by natural selection, and are useful when the space of
 potential solutions (in this case, possible combinations of \(\gamma\)
 values leading to stability in a complex system) is too large to search
-exhaustively\textsuperscript{\protect\hyperlink{ref-Hamblin2013}{19}}.
+exhaustively\textsuperscript{\protect\hyperlink{ref-Hamblin2013}{22}}.
 Generations of selection on \(\gamma\) value combinations to minimise
 \(\max\left(\Re(\lambda)\right)\) demonstrated the potential for
 \(Var(\gamma)\) to increase system stability. Across
@@ -296,11 +305,11 @@ systems in which individual system components represent the density of
 some tangible quantity, it is relevant to consider the feasibility of
 the system. Feasibilility assumes that values of all components are
 positive at
-equilibrium\textsuperscript{\protect\hyperlink{ref-Grilli2017}{5},\protect\hyperlink{ref-Dougoud2018}{20},\protect\hyperlink{ref-Song2018}{21}}.
+equilibrium\textsuperscript{\protect\hyperlink{ref-Grilli2017}{5},\protect\hyperlink{ref-Dougoud2018}{23},\protect\hyperlink{ref-Song2018}{24}}.
 This is of particular interest for ecological communities because
 population density (\(N\)) cannot take negative values, meaning that
 ecological systems need to be feasible for stability to be biologically
-realistic\textsuperscript{\protect\hyperlink{ref-Dougoud2018}{20}}.
+realistic\textsuperscript{\protect\hyperlink{ref-Dougoud2018}{23}}.
 While my results are intended to be general to all complex systems, and
 not restricted to species networks, I have also performed a feasibility
 analysis on all matrices \(\mathbf{M}\) tested for stability, and
@@ -312,7 +321,7 @@ population density in this analysis, but instead as a fundamental
 property of species life history such as expected generation time.
 Feasibility was unaffected by \(Var(\gamma)\) and instead occurred with
 a fixed probability of \(1/2^{S}\), consistent with a recent proof by
-Serván et al.\textsuperscript{\protect\hyperlink{ref-Servan2018}{22}}
+Serván et al.\textsuperscript{\protect\hyperlink{ref-Servan2018}{25}}
 (see Supplementary Information). Hence, for pure interacting species
 networks, variation in component response rate (i.e., species generation
 time) does not affect stability at biologically realistic species
@@ -348,13 +357,13 @@ of the system matrix to become negative, but might also increase the
 real components of eigenvalues.
 
 My focus is distinct from Gibbs et
-al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{17}}, who applied
+al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{20}}, who applied
 the same mathematical framework to investigate how a diagonal matrix
 \(\mathbf{X}\) (equivalent to \(\gamma\) in my model) affects the
 stability of a community matrix \(\mathbf{M}\) given an interaction
 matrix \(\mathbf{A}\) within a generalised Lotka-Volterra model, where
 \(\mathbf{M} = \mathbf{XA}\). Gibbs et
-al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{17}} analytically
+al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{20}} analytically
 demonstrated that the effect of \(\mathbf{X}\) on system stability
 decreases exponentially as system size becomes arbitrarily large
 (\(S \to \infty\)) for a given magnitude of complexity
@@ -388,7 +397,7 @@ feasible, meaning that stability was not increased when component values
 were also restricted to being positive at equilibrium. Feasibility is
 important to consider, particularly for the study of ecological networks
 of
-species\textsuperscript{\protect\hyperlink{ref-Grilli2017}{5},\protect\hyperlink{ref-Stone2017}{18},\protect\hyperlink{ref-Dougoud2018}{20},\protect\hyperlink{ref-Servan2018}{22}}
+species\textsuperscript{\protect\hyperlink{ref-Grilli2017}{5},\protect\hyperlink{ref-Stone2017}{21},\protect\hyperlink{ref-Dougoud2018}{23},\protect\hyperlink{ref-Servan2018}{25}}
 because population densities cannot realistically be negative. My
 results therefore suggest that variation in the rate of population
 responses to perturbation (e.g., due to differences in generation time
@@ -396,7 +405,7 @@ among species) is unlikely to be critical to the stability of purely
 multi-species interaction networks (see also Supplementary Information).
 Nevertheless, ecological interactions do not exist in isolation in
 empirical
-systems\textsuperscript{\protect\hyperlink{ref-Patel2018}{15}}, but
+systems\textsuperscript{\protect\hyperlink{ref-Patel2018}{18}}, but
 instead interact with evolutionary, abiotic, or social-economic systems.
 The relevance of component response rate for complex system stability
 should therefore not be ignored in the broader context of ecological
@@ -404,9 +413,9 @@ communities.
 
 A general mathematical framework encompassing shifts in eigenvalue
 distributions caused by a vector \(\gamma\) has been
-investigated\textsuperscript{\protect\hyperlink{ref-Ahmadian2015}{16}}
+investigated\textsuperscript{\protect\hyperlink{ref-Ahmadian2015}{19}}
 and recently applied to questions concerning species density and
-feasibility\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{17},\protect\hyperlink{ref-Stone2017}{18}},
+feasibility\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{20},\protect\hyperlink{ref-Stone2017}{21}},
 but \(\gamma\) has not been interpreted as rates of response of
 individual system components to perturbation. My model focuses on
 component response rates for systems of a finite size, in which
@@ -427,7 +436,7 @@ synthesis of eco-evolutionary feedbacks on community stability, Patel et
 al. model a system that includes a vector of potentially changing
 species densities (\(\mathbf{N}\)) and a vector of potentially evolving
 traits
-(\(\mathbf{x}\))\textsuperscript{\protect\hyperlink{ref-Patel2018}{15}}.
+(\(\mathbf{x}\))\textsuperscript{\protect\hyperlink{ref-Patel2018}{18}}.
 For any species \(i\) or trait \(j\), change in species density
 (\(N_{i}\)) or trait value (\(x_{j}\)) with time (\(t\)) is a function
 of the vectors \(\mathbf{N}\) and \(\mathbf{x}\),
@@ -441,24 +450,24 @@ effects of all species densities and trait values on the density of a
 species \(i\) and the value of trait \(j\), respectively. Patel et al.
 were interested in stability when the evolution of traits was relatively
 slow or fast in comparison with the change in species
-densities\textsuperscript{\protect\hyperlink{ref-Patel2018}{15}}, and
+densities\textsuperscript{\protect\hyperlink{ref-Patel2018}{18}}, and
 this is modulated in the above by the scalar \(\epsilon\). The value of
 \(\epsilon\) thereby determines the timescale separation between ecology
 and evolution, with high \(\epsilon\) modelling relatively fast
 evolution and low \(\epsilon\) modelling relative slow
-evolution\textsuperscript{\protect\hyperlink{ref-Patel2018}{15}}.
+evolution\textsuperscript{\protect\hyperlink{ref-Patel2018}{18}}.
 
 I use the same principle that Patel et al. use to modulate the relative
 rate of evolution to modulate rates of component responses for \(S\)
 components. Following
-May\textsuperscript{\protect\hyperlink{ref-May1972}{1},\protect\hyperlink{ref-May1973}{23}},
+May\textsuperscript{\protect\hyperlink{ref-May1972}{1},\protect\hyperlink{ref-May1973}{26}},
 the value of a component \(i\) at time \(t\) (\(v_{i}(t)\)) is affected
 by the value of \(j\) (\(v_{j}(t)\)) and \(j\)'s marginal effect on
 \(i\) (\(a_{ij}\)), and by \(i\)'s response rate (\(\gamma_{i}\)),
 
 \[\frac{dv_{i}(t)}{dt} = \gamma_{i} \sum_{j=1}^{S}a_{ij}v_{j}(t).\]
 
-In matrix notation\textsuperscript{\protect\hyperlink{ref-May1973}{23}},
+In matrix notation\textsuperscript{\protect\hyperlink{ref-May1973}{26}},
 
 \[\frac{d\mathbf{v}(t)}{dt} = \mathbf{\gamma} \mathbf{A}\mathbf{v}(t).\]
 
@@ -466,7 +475,7 @@ In the above, \(\mathbf{\gamma}\) is a diagonal matrix in which elements
 correspond to individual component response rates. Therefore,
 \(\mathbf{M} = \mathbf{\gamma} \mathbf{A}\) defines the values of system
 components and can be analysed using the techniques of
-May\textsuperscript{\protect\hyperlink{ref-May1972}{1},\protect\hyperlink{ref-Ahmadian2015}{16},\protect\hyperlink{ref-May1973}{23}}.
+May\textsuperscript{\protect\hyperlink{ref-May1972}{1},\protect\hyperlink{ref-Ahmadian2015}{19},\protect\hyperlink{ref-May1973}{26}}.
 In these analyses, row means of \(\mathbf{A}\) are expected to be
 identical, but variation around this expectation will naturally arise
 due to random sampling of \(\mathbf{A}\) off-diagonal elements and
@@ -486,7 +495,7 @@ but even rounding \(\gamma_{i}\) to reasonable values would result in a
 search space too large to practically explore. Under these conditions,
 genetic algorithms are highly useful tools for finding practical
 solutions by mimicking the process of biological
-evolution\textsuperscript{\protect\hyperlink{ref-Hamblin2013}{19}}. In
+evolution\textsuperscript{\protect\hyperlink{ref-Hamblin2013}{22}}. In
 this case, the practical solution is finding vectors of
 \(\mathbf{\gamma}\) that decrease the most positive real eigenvalue of
 \(\mathbf{M}\). The genetic algorithm used achieves this by initialising
@@ -526,7 +535,7 @@ was defined as \(W_{\gamma} = -\max\left(\Re(\lambda)\right)\) for
 \(\mathbf{M}\)).
 
 \textbf{System feasibility}. Dougoud et
-al.\textsuperscript{\protect\hyperlink{ref-Dougoud2018}{20}} identify
+al.\textsuperscript{\protect\hyperlink{ref-Dougoud2018}{23}} identify
 the following feasibility criteria for ecological systems characterised
 by \(S\) interacting species with varying densities in a generalised
 Lotka-Volterra model,
@@ -547,12 +556,12 @@ above, a diagonal matrix of -1s (\(\theta \mathbf{I}\)) is added to
 affecting species interactions (i.e., the expression \((CS)^{-\delta}\)
 relates to May's\textsuperscript{\protect\hyperlink{ref-May1972}{1}}
 stability
-criterion\textsuperscript{\protect\hyperlink{ref-Dougoud2018}{20}} by
+criterion\textsuperscript{\protect\hyperlink{ref-Dougoud2018}{23}} by
 \(\frac{\sigma}{(CS)^{-\delta}}\sqrt{SC} < 1\), and hence for my
 purposes \((CS)^{-\delta} = 1\)). Given
 \(\mathbf{A} = \theta\mathbf{I + J}\), the above criteria is therefore
 reduced to the below (see
-also\textsuperscript{\protect\hyperlink{ref-Servan2018}{22}}),
+also\textsuperscript{\protect\hyperlink{ref-Servan2018}{25}}),
 
 \[\mathbf{n^{*} = -A^{-1}r}.\]
 
@@ -647,50 +656,62 @@ Communications} \textbf{8,} 1--7 (2017).
 circular law. \emph{Annals of Probability} \textbf{38,} 2023--2065
 (2010).
 
+\hypertarget{ref-Watts1998}{}
+15. Watts, D. J. \& Strogatz, S. H. Collective dynamics of 'small world'
+networks. \emph{Nature} \textbf{393,} 440--442 (1998).
+
+\hypertarget{ref-Albert2002}{}
+16. Albert, R. \& Barabási, A. L. Statistical mechanics of complex
+networks. \emph{Reviews of Modern Physics} \textbf{74,} 47--97 (2002).
+
+\hypertarget{ref-Williams2000}{}
+17. Williams, R. J. \& Martinez, N. D. Simple rules yield complex food
+webs. \emph{Nature} \textbf{404,} 180--183 (2000).
+
 \hypertarget{ref-Patel2018}{}
-15. Patel, S., Cortez, M. H. \& Schreiber, S. J. Partitioning the
+18. Patel, S., Cortez, M. H. \& Schreiber, S. J. Partitioning the
 effects of eco-evolutionary feedbacks on community stability.
 \emph{American Naturalist} \textbf{191,} 1--29 (2018).
 
 \hypertarget{ref-Ahmadian2015}{}
-16. Ahmadian, Y., Fumarola, F. \& Miller, K. D. Properties of networks
+19. Ahmadian, Y., Fumarola, F. \& Miller, K. D. Properties of networks
 with partially structured and partially random connectivity.
 \emph{Physical Review E - Statistical, Nonlinear, and Soft Matter
 Physics} \textbf{91,} 012820 (2015).
 
 \hypertarget{ref-Gibbs2017}{}
-17. Gibbs, T., Grilli, J., Rogers, T. \& Allesina, S. The effect of
+20. Gibbs, T., Grilli, J., Rogers, T. \& Allesina, S. The effect of
 population abundances on the stability of large random ecosystems.
 \emph{Physical Review E - Statistical, Nonlinear, and Soft Matter
 Physics} \textbf{98,} 022410 (2018).
 
 \hypertarget{ref-Stone2017}{}
-18. Stone, L. The feasibility and stability of large complex biological
+21. Stone, L. The feasibility and stability of large complex biological
 networks: a random matrix approach. \emph{Scientific Reports}
 \textbf{8,} 8246 (2018).
 
 \hypertarget{ref-Hamblin2013}{}
-19. Hamblin, S. On the practical usage of genetic algorithms in ecology
+22. Hamblin, S. On the practical usage of genetic algorithms in ecology
 and evolution. \emph{Methods in Ecology and Evolution} \textbf{4,}
 184--194 (2013).
 
 \hypertarget{ref-Dougoud2018}{}
-20. Dougoud, M., Vinckenbosch, L., Rohr, R., Bersier, L.-F. \& Mazza, C.
+23. Dougoud, M., Vinckenbosch, L., Rohr, R., Bersier, L.-F. \& Mazza, C.
 The feasibility of equilibria in large ecosystems: a primary but
 neglected concept in the complexity-stability debate. \emph{PLOS
 Computational Biology} \textbf{14,} e1005988 (2018).
 
 \hypertarget{ref-Song2018}{}
-21. Song, C. \& Saavedra, S. Will a small randomly assembled community
+24. Song, C. \& Saavedra, S. Will a small randomly assembled community
 be feasible and stable? \emph{Ecology} \textbf{99,} 743--751 (2018).
 
 \hypertarget{ref-Servan2018}{}
-22. Serván, C. A., Capitán, J. A., Grilli, J., Morrison, K. E. \&
+25. Serván, C. A., Capitán, J. A., Grilli, J., Morrison, K. E. \&
 Allesina, S. Coexistence of many species in random ecosystems.
 \emph{Nature Ecology and Evolution} \textbf{2,} 1237--1242 (2018).
 
 \hypertarget{ref-May1973}{}
-23. May, R. M. Qualitative stability in model ecosystems. \emph{Ecology}
+26. May, R. M. Qualitative stability in model ecosystems. \emph{Ecology}
 \textbf{54,} 638--641 (1973).
 
 \clearpage
@@ -733,7 +754,7 @@ system where \(S = 1000\), \(C = 0.05\), and \(\sigma = 0.4\).
 interaction strengths (\(\sigma^{2}\)) but also creates a cluster of
 eigenvalues toward the distribution's centre (-1, 0). Blue elipses in
 both panels show the circle centred on the distribution in panel a.
-Proportions of \(\Re(\lambda) < 0\) are 0.723 and 0.737 for a and b,
+Proportions of \(\Re(\lambda) < 0\) are 0.724 and 0.736 for a and b,
 respectively.
 
 \includegraphics{ms_files/figure-latex/unnamed-chunk-13-1.pdf}
