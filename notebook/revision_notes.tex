@@ -72,7 +72,7 @@
 \usepackage{titling}
 
 % Create subtitle command for use in maketitle
-\providecommand{\subtitle}[1]{
+\newcommand{\subtitle}[1]{
   \posttitle{
     \begin{center}\large#1\end{center}
     }
@@ -104,9 +104,8 @@ UK, FK9 4LA}
 \begin{document}
 \maketitle
 
-\hypertarget{effects-of-correlations-interactions}{%
 \section{Effects of correlations
-interactions}\label{effects-of-correlations-interactions}}
+interactions}\label{effects-of-correlations-interactions}
 
 If the off-diagonal elements of \(\textbf{A}\) are sampled independently
 from an identical distribution, then \(\max(\Re(\lambda))\) for
@@ -151,21 +150,22 @@ within a circle of a radius \(\sigma^{2}_{M}\sqrt{S}\) and
 
 The effect of \(\gamma\) does not necessarily result in a circular
 eigenvalue spectra of \(\textbf{M}\). In both panels of Figure 1,
-\(S =\) 400 and \(\sigma_{A} = 1/\sqrt{S}\). In Figures 1a,b and 1c,d,
+\(S =\) 400 and \(\sigma_{A} = 1/\sqrt{S}\). In Figures 1a, b and 1c, d,
 \(d = 0\) and \(d = 1\), respectively, causing the eigenvalue spectra of
 \(\textbf{A}\) to differ on the real axis (Figure a,c). Figure panels b
 and c show eigenvalue spectra after \(\gamma\) is included such that
-\(M = \gamma A\), where elements of \(\gamma\) are drawn from a uniform
-distribution \(\gamma \sim \mathcal{U}(0, 2)\). In both cases,
-\(\sigma^{2}_{A} =\) 0.05 and \(\sigma^{2}_{\gamma} =\) 0.0031.
-Nevertheless, the change in eigenvalue spectra caused by \(\gamma\) can
-affect \(\max(\Re(\lambda))\) and therefore system stability.
+\(\textbf{M} = \gamma \textbf{A}\), where elements of \(\gamma\) are
+drawn from a uniform distribution \(\gamma \sim \mathcal{U}(0, 2)\). In
+both cases, \(\sigma^{2}_{A} =\) 0.05 and \(\sigma^{2}_{\gamma} =\)
+0.0032. Nevertheless, the change in eigenvalue spectra caused by
+\(\gamma\) can affect \(\max(\Re(\lambda))\) and therefore system
+stability.
 
 Stability also decreases with increasing \(\rho\) such that
 \(\max(\Re(\lambda)) \approx \sigma_{M}\sqrt{SC}\left(1 + \rho\right)\).
-Hence, when \(\rho\) values are negative, such as when \(\textbf{M}\)
-models a predator-prey system in which \(M_{ij}\) and \(M_{ji}\) have
-opposing signs, stability is expected to
+When \(\rho\) values are negative, such as when \(\textbf{M}\) models a
+predator-prey system in which \(M_{ij}\) and \(M_{ji}\) have opposing
+signs, stability is expected to
 increase\textsuperscript{\protect\hyperlink{ref-Allesina2012}{2}}. When
 elements of \(\gamma\) vary independently, the magnitude of \(\rho\) is
 decreased because \(\sigma^{2}_{\gamma}\) increases the variance of
@@ -173,11 +173,11 @@ decreased because \(\sigma^{2}_{\gamma}\) increases the variance of
 \(M_{ji}\),
 
 \[\rho = \frac{cov(M_{ij}, M_{ji})}{\sigma^{2}_{A}(1 + \sigma^{2}_{\gamma})}.\]
+
 Because \(\gamma\) does not affect \(cov(M_{ij}, M_{ji})\), the sign of
 \(\rho\) remains unchanged.
 
-\hypertarget{more-down}{%
-\section{More down}\label{more-down}}
+\section{More down}\label{more-down}
 
 The figure below shows the relationship between \(\sigma_{\gamma}\) and
 the radius of the circle in which eigenvalue spectra are contained given
@@ -248,9 +248,8 @@ addition of \(\gamma\), since \(E[\gamma_{ii}] = 1\). Elements of
 2, meaning that no covariance should be induced betwen \(M_{ij}\) and
 \(M_{ji}\).
 
-\hypertarget{role-of-correlated-matrices-in-stabilisation}{%
 \section{Role of correlated matrices in
-stabilisation}\label{role-of-correlated-matrices-in-stabilisation}}
+stabilisation}\label{role-of-correlated-matrices-in-stabilisation}
 
 In complex systems represented by large random matrices, correlation
 between matrix elements \(A_{ij}\) and \(A_{ji}\) affects the
@@ -311,7 +310,7 @@ the difference in \(\rho\) between systems with versus without
 
 When \(\textbf{A}\) was stabilised by \(Var(\gamma)\), the change in
 \(\rho\) was normally distributed around 4.8394472\(\times 10^{-6}\)
-(95\% CIs: -75.9050127\(\times 10^{-6}\), 84.5804827\(\times 10^{-6}\)).
+(95\% CIs: -80.284156\(\times 10^{-6}\), 86.1295891\(\times 10^{-6}\)).
 Hence, decreasing the correlation between \(\textbf{A}_{ij}\) and
 \(\textbf{A}_{ji}\) was not by itself the cause of stability. For a
 clearer picture of the effect of \(\gamma\), it is useful to show the
@@ -362,27 +361,26 @@ relationship given variation in component response rates (i.e., the
 diagonal matrix contains elements drawn from a random uniform
 distribution between 0 and 2, so \(\textbf{M} = \gamma\textbf{A}\)).
 
-\hypertarget{references}{%
-\section*{References}\label{references}}
+\section*{References}\label{references}
 \addcontentsline{toc}{section}{References}
 
 \hypertarget{refs}{}
-\leavevmode\hypertarget{ref-Tang2014b}{}%
+\hypertarget{ref-Tang2014b}{}
 1. Tang, S. \& Allesina, S. Reactivity and stability of large
 ecosystems. \emph{Frontiers in Ecology and Evolution} \textbf{2,} 1--8
 (2014).
 
-\leavevmode\hypertarget{ref-Allesina2012}{}%
+\hypertarget{ref-Allesina2012}{}
 2. Allesina, S. \& Tang, S. Stability criteria for complex ecosystems.
 \emph{Nature} \textbf{483,} 205--208 (2012).
 
-\leavevmode\hypertarget{ref-Allesina2015a}{}%
+\hypertarget{ref-Allesina2015a}{}
 3. Allesina, S. \& Tang, S. The stability--complexity relationship at
 age 40: a random matrix perspective. \emph{Population Ecology} 63--75
 (2015).
 doi:\href{https://doi.org/10.1007/s10144-014-0471-0}{10.1007/s10144-014-0471-0}
 
-\leavevmode\hypertarget{ref-Gibbs2017}{}%
+\hypertarget{ref-Gibbs2017}{}
 4. Gibbs, T., Grilli, J., Rogers, T. \& Allesina, S. The effect of
 population abundances on the stability of large random ecosystems.
 \emph{Physical Review E - Statistical, Nonlinear, and Soft Matter
