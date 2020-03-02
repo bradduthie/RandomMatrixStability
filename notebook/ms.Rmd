@@ -323,8 +323,7 @@ If $\rho < 0$, such as when $\textbf{M}$ models a predator-prey system in which 
 
 Neverthless, numerical simulations reveal that $\sigma^{2}_{\gamma} > 0$ results in a nonlinear relationship between $\rho$ and $\max(\Re(\lambda))$, which can sometimes increase the stability of the system.
 
-
-**Numerical simulations**. I used numerical simulations to isolate the effect of $\sigma_{\gamma}$ on system stability by comparing the same $\textbf{M} = \gamma \textbf{A}$ given $\sigma_{\gamma} > 0$ versus $\sigma_{\gamma} = 0$. Values of $\gamma_{ii}$ were sampled from a uniform distribution where $\gamma \sim \mathcal{U}(0, 2)$ (see Supplementary Information for other distributions, which give similar results). For $\sigma_{\gamma} = 0$, diagonal elements were standardised to the mean value of sampled $\gamma_{ii}$ so that $E[d]$ of $\textbf{M}$ were identical. 
+**Numerical simulations**. I used numerical simulations to isolate the effect of $\sigma_{\gamma}$ on system stability by comparing the same $\textbf{M} = \gamma \textbf{A}$ given $\sigma_{\gamma} > 0$ versus $\sigma_{\gamma} = 0$ across a rane of parameter combinations. Values of $\gamma_{ii}$ were sampled from a uniform distribution where $\gamma \sim \mathcal{U}(0, 2)$ (see Supplementary Information for other distributions, which give similar results). For $\sigma_{\gamma} = 0$, diagonal elements were standardised to the mean value of sampled $\gamma_{ii}$ so that $E[d]$ of $\textbf{M}$ were identical. 
 
 
 
@@ -389,9 +388,6 @@ A1vec       <- as.vector(A1_vm[1:500,]);
 A1vec       <- A1vec[is.na(A1vec) == FALSE];
 ```
 
-
-<!--- Some of this paragraph can be removed. Some of the middle can focus on the new Figure 1 panels C and D, which illustrate the effect of gamma on the eigenvalue spectra. The rest, focusing on the results, can be retained.--->
-Higher stability in systems with variation in $\gamma$ can be observed by sampling $\gamma_{i}$ values from various distributions. I focus on a uniform distribution where $\gamma \sim \mathcal{U}(0, 2)$ (see Supplementary Information for other distributions, which give similar results). <!--- Cut from here ---> As with the case of $\gamma = \{1.95, 0.5\}$ (Fig. 1b), mean $\gamma = 1$ when $\gamma \sim \mathcal{U}(0, 2)$, allowing comparison of $\mathbf{M}$ before and after the addition of variation in component response rate. Figure 2 shows a comparison of eigenvalue distributions given $S = 1000$, $C = 0.05$, and $\sigma = 0.4$. <!--- end cut here, but now refer to Figure 1 panels C and D ---> As expected [@Tao2010], when $\gamma = 1$, eigenvalues are distributed uniformly in a circle centred at ($-1, 0$) with a radius of $\sigma\sqrt{SC} =$ `r round(sigma*sqrt(S*C), digits = 3)`. Uniform variation in $\gamma$ leads to a non-uniform distribution of eigenvalues [@Ahmadian2015; @Gibbs2017; @Stone2017], some of which are clustered locally near the centre of the distribution, but others of which are spread outside the former radius of `r round(sigma*sqrt(S*C), digits = 3)` (Fig 2b). The clustering and spreading of eigenvalues introduced by $Var(\gamma)$ can destabilise previously stable systems or stabilise systems that are otherwise unstable. But where systems are otherwise too complex to be stable given $\gamma = 1$, the effect of $Var(\gamma)$ can often lead to stability above May's [@May1972; @Allesina2012] threshold $\sigma\sqrt{SC} < 1$. <!--- Okay, so most can be retained --->
 
 ```{r, echo = FALSE}
 dat <- read.csv(file = "sim_results/C_1/random_all.csv");
