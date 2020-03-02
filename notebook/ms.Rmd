@@ -293,9 +293,9 @@ Results
 M = \gamma A.
 \end{equation}
 
-Equation \ref{defM} thereby serves as a null model to investigate how variation in component response rate ($\sigma_{\gamma}$) affects complex systems. In the absence of such variation ($\sigma_{\gamma} = 0$), $\gamma$ is set to the identity matrix (diagonal elements all equal 1) and $\textbf{M} = \textbf{A}$. Under these conditions, eigenvalues of $\textbf{M}$ are distributed uniformly [@Tao2010] in a circle centred at $(-d, 0)$ with a radius of $\sigma_{M} \sqrt{SC}$ [@May1972] (Figure 1a).
+Equation \ref{defM} thereby serves as a null model to investigate how variation in component response rate ($\sigma_{\gamma}$) affects complex systems. In the absence of such variation ($\sigma_{\gamma} = 0$), $\gamma$ is set to the identity matrix (diagonal elements all equal 1) and $\mathbf{M} = \mathbf{A}$. Under these conditions, eigenvalues of $\mathbf{M}$ are distributed uniformly [@Tao2010] in a circle centred at $(-d, 0)$ with a radius of $\sigma_{M} \sqrt{SC}$ [@May1972] (Figure 1a).
 
-**Analytical considerations of $\textbf{\gamma}$ effects on \textbf{M}$**. The value of $\max(\Re(\lambda))$, and therefore system stability, can be estimated from five properties of $\textbf{M}$ [@Tang2014b]. These properties include (1) system size ($S$), (2) mean self-regulation of components ($d$), (3) mean interaction strength between components ($\mu$), (4) the standard deviation between component interaction strengths ($\sigma_{M}$), and (5) the correlation of interaction strengths between components, $M_{ij}$ and $M_{ji}$ ($\rho$). Positive $\sigma_{\gamma}$ does not change $S$, nor does it necessarily change $E[d]$ or $E[\mu]$. What $\sigma_{\gamma}$ does change is the total variation in component interaction strengths ($\sigma_{M}$), and $\rho$. Introducing variation in $\gamma$ increases the total variation in the system. Variation of the off-diagonal elements in $\textbf{M}$ is described by the joint variation of two random variables,
+**Analytical considerations of $\mathbf{\gamma}$ effects on $\mathbf{M}$**. The value of $\max(\Re(\lambda))$, and therefore system stability, can be estimated from five properties of $\mathbf{M}$ [@Tang2014b]. These properties include (1) system size ($S$), (2) mean self-regulation of components ($d$), (3) mean interaction strength between components ($\mu$), (4) the standard deviation between component interaction strengths ($\sigma_{M}$), and (5) the correlation of interaction strengths between components, $M_{ij}$ and $M_{ji}$ ($\rho$). Positive $\sigma_{\gamma}$ does not change $S$, nor does it necessarily change $E[d]$ or $E[\mu]$. What $\sigma_{\gamma}$ does change is the total variation in component interaction strengths ($\sigma_{M}$), and $\rho$. Introducing variation in $\gamma$ increases the total variation in the system. Variation of the off-diagonal elements in $\mathbf{M}$ is described by the joint variation of two random variables,
 
 \begin{equation} \label{var_full}
 \sigma^{2}_{M} = \sigma^{2}_{A}\sigma^{2}_{\gamma} + \sigma^{2}_{A}E[\gamma_{i}]^{2}+\sigma^{2}_{\gamma}E[A_{ij}]^{2}.
@@ -323,7 +323,7 @@ If $\rho < 0$, such as when $\textbf{M}$ models a predator-prey system in which 
 
 Neverthless, numerical simulations reveal that $\sigma^{2}_{\gamma} > 0$ results in a nonlinear relationship between $\rho$ and $\max(\Re(\lambda))$, which can sometimes increase the stability of the system.
 
-**Numerical simulations of random $\textbf{M}$ with and without $\textbf{\sigma_{\gamma}}$**. I used numerical simulations to isolate the effect of $\sigma_{\gamma}$ on system stability by comparing the same $\textbf{M} = \gamma \textbf{A}$ given $\sigma_{\gamma} > 0$ versus $\sigma_{\gamma} = 0$ across a rane of parameter combinations. Values of $\gamma_{ii}$ were sampled from a uniform distribution where $\gamma \sim \mathcal{U}(0, 2)$ (see Supplementary Information for other distributions, which give similar results). For $\sigma_{\gamma} = 0$, diagonal elements were standardised to the mean value of sampled $\gamma_{ii}$ so that $E[d]$ of $\textbf{M}$ were identical. 
+**Numerical simulations of random $\mathbf{M}$ with and without $\mathbf{\sigma_{\gamma}}$**. I used numerical simulations to isolate the effect of $\sigma_{\gamma}$ on system stability by comparing the same $\textbf{M} = \gamma \textbf{A}$ given $\sigma_{\gamma} > 0$ versus $\sigma_{\gamma} = 0$ across a rane of parameter combinations. Values of $\gamma_{ii}$ were sampled from a uniform distribution where $\gamma \sim \mathcal{U}(0, 2)$ (see Supplementary Information for other distributions, which give similar results). For $\sigma_{\gamma} = 0$, diagonal elements were standardised to the mean value of sampled $\gamma_{ii}$ so that $E[d]$ of $\textbf{M}$ were identical. 
 
 **Simulation of random $\mathbf{M}$ across $\mathbf{\rho}$**
 
@@ -638,27 +638,58 @@ A0vec       <- as.vector(A0_vm);
 A0vec       <- A0vec[is.na(A0vec) == FALSE];
 ```
 
-**Figure 2: Distributions of eigenvalues before (a) and after (b) introducing variation in component response rate ($\boldsymbol{\gamma}$) in complex systems.** Each panel show the same system where $S = 1000$, $C = 0.05$, and $\sigma = 0.4$. **a.** Eigenvalues plotted in the absence of $Var(\gamma)$ where $E[\gamma] = 1$, versus **b.** eigenvalues plotted given $\gamma \sim \mathcal{U}(0, 2)$, which increases the variance of interaction strengths ($\sigma^{2}$) but also creates a cluster of eigenvalues toward the distribution's centre (-1, 0). Blue elipses in both panels show the circle centred on the distribution in panel a. Proportions of $\Re(\lambda) < 0$ are `r sum(A0_r < 0) / length(A0_r)` and `r sum(A1_r < 0) / length(A1_r)` for a and b, respectively.
+**Figure 2: Insert a new caption here**.
 
-```{r, eval = TRUE, echo = FALSE, fig.height = 6, fig.width = 9}
-par(mfrow = c(1, 2), mar = c(0.5, 0.5, 0.5, 0.5), oma = c(5, 5, 0, 0));
-plot(A0_r, A0_i, xlim = c(-6, 2.25), ylim = c(-5,4.25), pch = 4, cex = 0.7,
-     xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, asp = 1, 
-     col = "dodgerblue4");
-vl <- seq(from = 0, to = 2*pi, by = 0.001);
-x0 <- sqrt(1000) * sd(A0vec) * cos(vl) + mean(diag(A0));
-y0 <- sqrt(1000) * sd(A0vec) * sin(vl);
-text(x = -5.5, y = 4, labels = "a", cex = 2);
-points(x = x0, y = y0, type = "l", lwd = 3, col = "blue");
-points(A0_r, A0_i, col = "dodgerblue4",pch = 4, cex = 0.7);
-plot(A1_r, A1_i, xlim = c(-6, 2.25), ylim = c(-5,4.25), pch = 4, cex = 0.7,
-     xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, asp = 1, 
-     col = "firebrick", yaxt = "n");
-text(x = -5.5, y = 4, labels = "b", cex = 2);
-points(x = x0, y = y0, type = "l", lwd = 3, lty = "solid", col = "blue");
-points(A1_r, A1_i, col = "firebrick", pch = 4, cex = 0.7);
-mtext(side = 1, "Real", outer = TRUE, line = 3, cex = 2);
-mtext(side = 2, "Imaginary", outer = TRUE, line = 2.5, cex = 2);
+```{r, echo = FALSE, fig.height = 6, fig.width = 6}
+sim_rhos <- read.csv(file = "sim_results/rhos/sim_rhos.csv");
+par(mar = c(5, 5, 1, 1));
+plot(x = sim_rhos[,1], y = sim_rhos[,20], type = "b", pch = 20, lwd = 2,
+     xlab = expression(paste("Correlation between A"[ij]," and A"[ji], 
+                             " (",rho,")")),
+     ylab = "Real part of leading eigenvalue", col = "dodgerblue4",
+     ylim = c(min(sim_rhos[,22:25]), max(sim_rhos[,22:25])),
+     cex.lab = 1.25, cex.axis = 1.25);
+mbox <- function(x0, x1, y0, y1){
+    xx <- seq(from=x0, to=x1, length.out = 100);
+    yy <- seq(from=y0, to=y1, length.out = 100);
+    xd <- c(rep(x0, 100), xx, rep(x1,100), rev(xx));
+    yd <- c(yy, rep(y1,100), rev(yy), rep(y0, 100));
+    return(list(x=xd, y=yd));
+}
+more_stable_1 <- sim_rhos[,21] - sim_rhos[,20]
+more_stable_2 <- which(more_stable_1 < 0);
+min_x         <- min(more_stable_2);
+max_x         <- max(more_stable_2);
+shade_box     <- mbox(x0 = sim_rhos[min_x, 1], x1 = sim_rhos[max_x, 1], 
+                      y0 = -12, y1 = 15);
+polygon(x = shade_box$x, y = shade_box$y, col = "grey80", border = NA);
+abline(h = 0, lwd = 0.8, lty = "dotted", col = "black");
+for(i in 1:dim(sim_rhos)[1]){
+    lines(x = c(sim_rhos[i,1], sim_rhos[i,15]), col = "purple",
+          y = c(sim_rhos[i,20], sim_rhos[i,21]), lwd = 1.5);
+}
+arrows(x0 = sim_rhos[,1], x1 = sim_rhos[,1], y0 = sim_rhos[,20], 
+       y1 = sim_rhos[,22], angle = 90, length = 0.05, lwd = 1, col = "dodgerblue4");
+arrows(x0 = sim_rhos[,1], x1 = sim_rhos[,1], y0 = sim_rhos[,20], 
+       y1 = sim_rhos[,23], angle = 90, length = 0.05, lwd = 1, col = "dodgerblue4");
+arrows(x0 = sim_rhos[,15], x1 = sim_rhos[,15], y0 = sim_rhos[,21], 
+       y1 = sim_rhos[,24], angle = 90, length = 0.05, lwd = 1, col = "firebrick");
+arrows(x0 = sim_rhos[,15], x1 = sim_rhos[,15], y0 = sim_rhos[,21], 
+       y1 = sim_rhos[,25], angle = 90, length = 0.05, lwd = 1, col = "firebrick");
+points(x = sim_rhos[,1], y = sim_rhos[,20], type = "b", pch = 20, lwd = 3,
+       col = "dodgerblue4");
+points(x = sim_rhos[,15], y = sim_rhos[,21], type = "b", pch = 15, lwd = 3,
+       col = "firebrick");
+points(x = sim_rhos[,1], y = sim_rhos[,20], type = "l", pch = 20, lwd = 3,
+       col = "dodgerblue4");
+points(x = sim_rhos[,15], y = sim_rhos[,21], type = "l", pch = 15, lwd = 3,
+       col = "firebrick");
+legend("topleft", fill = c("dodgerblue4", "firebrick"), cex = 1.5,
+       legend = c(expression(paste("Var(",gamma,") = 0")), 
+                  expression(paste("Var(",gamma,") = 1/3"))),
+       bg = "white");
+box();
+# Note that the 1/3 comes from the definition of unif distr. from 0 to 2.
 ```
 
 \clearpage

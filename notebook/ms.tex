@@ -232,11 +232,17 @@ Equation \ref{defM} thereby serves as a null model to investigate how
 variation in component response rate (\(\sigma_{\gamma}\)) affects
 complex systems. In the absence of such variation
 (\(\sigma_{\gamma} = 0\)), \(\gamma\) is set to the identity matrix
-(diagonal elements all equal 1) and \(\textbf{M} = \textbf{A}\).
+(diagonal elements all equal 1) and \(\mathbf{M} = \mathbf{A}\). Under
+these conditions, eigenvalues of \(\mathbf{M}\) are distributed
+uniformly\textsuperscript{\protect\hyperlink{ref-Tao2010}{14}} in a
+circle centred at \((-d, 0)\) with a radius of
+\(\sigma_{M} \sqrt{SC}\)\textsuperscript{\protect\hyperlink{ref-May1972}{1}}
+(Figure 1a).
 
-\textbf{Analytical considerations}. The value of \(\max(\Re(\lambda))\),
-and therefore system stability, can be estimated from five properties of
-\(\textbf{M}\)\textsuperscript{\protect\hyperlink{ref-Tang2014b}{19}}.
+\textbf{Analytical considerations of \(\mathbf{\gamma}\) effects on
+\(\mathbf{M}\)}. The value of \(\max(\Re(\lambda))\), and therefore
+system stability, can be estimated from five properties of
+\(\mathbf{M}\)\textsuperscript{\protect\hyperlink{ref-Tang2014b}{19}}.
 These properties include (1) system size (\(S\)), (2) mean
 self-regulation of components (\(d\)), (3) mean interaction strength
 between components (\(\mu\)), (4) the standard deviation between
@@ -247,7 +253,7 @@ correlation of interaction strengths between components, \(M_{ij}\) and
 \(\sigma_{\gamma}\) does change is the total variation in component
 interaction strengths (\(\sigma_{M}\)), and \(\rho\). Introducing
 variation in \(\gamma\) increases the total variation in the system.
-Variation of the off-diagonal elements in \(\textbf{M}\) is described by
+Variation of the off-diagonal elements in \(\mathbf{M}\) is described by
 the joint variation of two random variables,
 
 \begin{equation} \label{var_full}
@@ -267,64 +273,49 @@ eigenvalue spectra of \(\textbf{A}\) versus
 \(C = 1\), the distribution of eigenvalues of \(\textbf{A}\) and
 \(\textbf{M}\) lie within a circle of a radius
 \(\sigma^{2}_{A}\sqrt{S}\) and \(\sigma^{2}_{M}\sqrt{S}\), respectively
-(Figure 1a vs.~1b). When components are self-regulating (e.g.,
-\(d = -1\)), positive \(\sigma^{2}_\gamma\) changes the distribution of
-eigenvalues, potentially affecting stability (Figure 1c vs.~1d).
+(Figure 1a vs.~1b). If \(d \neq 0\), positive \(\sigma^{2}_\gamma\)
+changes the distribution of
+eigenvalues\textsuperscript{\protect\hyperlink{ref-Ahmadian2015}{20}--\protect\hyperlink{ref-Stone2017}{22}},
+potentially affecting stability (Figure 1c vs.~1d).
 
 Given \(\sigma^{2}_\gamma = 0\), \(\max(\Re(\lambda))\) decrease
-linearly with \(\rho\) such that,
+linearly with \(\rho\) such
+that\textsuperscript{\protect\hyperlink{ref-Tang2014c}{23}},
 
 \begin{equation} \label{rho_stab}
 \max(\Re(\lambda)) \approx \sigma_{M}\sqrt{SC}\left(1 + \rho\right).
 \end{equation}
 
-When \(\rho\) values are negative, such as when \(\textbf{M}\) models a
-predator-prey system in which \(M_{ij}\) and \(M_{ji}\) have opposing
-signs, stability is expected to
-increase\textsuperscript{\protect\hyperlink{ref-Allesina2012}{2}}. When
-elements of \(\gamma\) vary independently, the magnitude of \(\rho\) is
-decreased because \(\sigma^{2}_{\gamma}\) increases the variance of
-\(M_{ij}\) without affecting the covariance between \(M_{ij}\) and
-\(M_{ji}\),
+If \(\rho < 0\), such as when \(\textbf{M}\) models a predator-prey
+system in which \(M_{ij}\) and \(M_{ji}\) have opposing signs, stability
+increases\textsuperscript{\protect\hyperlink{ref-Allesina2012}{2}}. If
+diagonal elements of \(\gamma\) vary independently, the magnitude of
+\(\rho\) is decreased because \(\sigma^{2}_{\gamma}\) increases the
+variance of \(M_{ij}\) without affecting the expected covariance between
+\(M_{ij}\) and \(M_{ji}\),
 
 \begin{equation} \label{rho_def}
 \rho = \frac{cov(M_{ij}, M_{ji})}{\sigma^{2}_{A}(1 + \sigma^{2}_{\gamma})}.
 \end{equation}
 
-Because \(\gamma\) does not affect \(cov(M_{ij}, M_{ji})\), the sign of
-\(\rho\) remains unchanged.
+Neverthless, numerical simulations reveal that
+\(\sigma^{2}_{\gamma} > 0\) results in a nonlinear relationship between
+\(\rho\) and \(\max(\Re(\lambda))\), which can sometimes increase the
+stability of the system.
 
-\textbf{Numerical simulations}. I used numerical simulations to isolate
-the effect of \(\sigma_{\gamma}\) on the stability of
-\(\textbf{M} = \gamma \textbf{A}\) by comparing \(\sigma_{\gamma} > 0\)
-versus \(\sigma_{\gamma} = 0\). Values of \(\gamma_{ii}\) were sampled
-such that \(E[d]\) and \(E[\mu]\) also remained unchanged (in practice,
-diagonal elements of \(\textbf{M}\) were standardised so that mean
-values were identical before and after adding \(\gamma\)).
+\textbf{Numerical simulations of random \(\mathbf{M}\) with and without
+\(\mathbf{\sigma_{\gamma}}\)}. I used numerical simulations to isolate
+the effect of \(\sigma_{\gamma}\) on system stability by comparing the
+same \(\textbf{M} = \gamma \textbf{A}\) given \(\sigma_{\gamma} > 0\)
+versus \(\sigma_{\gamma} = 0\) across a rane of parameter combinations.
+Values of \(\gamma_{ii}\) were sampled from a uniform distribution where
+\(\gamma \sim \mathcal{U}(0, 2)\) (see Supplementary Information for
+other distributions, which give similar results). For
+\(\sigma_{\gamma} = 0\), diagonal elements were standardised to the mean
+value of sampled \(\gamma_{ii}\) so that \(E[d]\) of \(\textbf{M}\) were
+identical.
 
-Higher stability in systems with variation in \(\gamma\) can be observed
-by sampling \(\gamma_{i}\) values from various distributions. I focus on
-a uniform distribution where \(\gamma \sim \mathcal{U}(0, 2)\) (see
-Supplementary Information for other distributions, which give similar
-results). As with the case of \(\gamma = \{1.95, 0.5\}\) (Fig. 1b), mean
-\(\gamma = 1\) when \(\gamma \sim \mathcal{U}(0, 2)\), allowing
-comparison of \(\mathbf{M}\) before and after the addition of variation
-in component response rate. Figure 2 shows a comparison of eigenvalue
-distributions given \(S = 1000\), \(C = 0.05\), and \(\sigma = 0.4\). As
-expected\textsuperscript{\protect\hyperlink{ref-Tao2010}{14}}, when
-\(\gamma = 1\), eigenvalues are distributed uniformly in a circle
-centred at (\(-1, 0\)) with a radius of \(\sigma\sqrt{SC} =\) 2.828.
-Uniform variation in \(\gamma\) leads to a non-uniform distribution of
-eigenvalues\textsuperscript{\protect\hyperlink{ref-Ahmadian2015}{20}--\protect\hyperlink{ref-Stone2017}{22}},
-some of which are clustered locally near the centre of the distribution,
-but others of which are spread outside the former radius of 2.828 (Fig
-2b). The clustering and spreading of eigenvalues introduced by
-\(Var(\gamma)\) can destabilise previously stable systems or stabilise
-systems that are otherwise unstable. But where systems are otherwise too
-complex to be stable given \(\gamma = 1\), the effect of \(Var(\gamma)\)
-can often lead to stability above
-May's\textsuperscript{\protect\hyperlink{ref-May1972}{1},\protect\hyperlink{ref-Allesina2012}{2}}
-threshold \(\sigma\sqrt{SC} < 1\).
+\textbf{Simulation of random \(\mathbf{M}\) across \(\mathbf{\rho}\)}
 
 \textbf{Simulation of random \(\mathbf{M}\) across \(\mathbf{S}\)}. To
 investigate the effect of \(Var(\gamma)\) on stability across systems of
@@ -349,7 +340,7 @@ genetic algorithm. Genetic algorithms are heuristic tools that mimic
 evolution by natural selection, and are useful when the space of
 potential solutions (in this case, possible combinations of \(\gamma\)
 values leading to stability in a complex system) is too large to search
-exhaustively\textsuperscript{\protect\hyperlink{ref-Hamblin2013}{23}}.
+exhaustively\textsuperscript{\protect\hyperlink{ref-Hamblin2013}{24}}.
 Generations of selection on \(\gamma\) value combinations to minimise
 \(\max\left(\Re(\lambda)\right)\) demonstrated the potential for
 \(Var(\gamma)\) to increase system stability. Across
@@ -366,11 +357,11 @@ systems in which individual system components represent the density of
 some tangible quantity, it is relevant to consider the feasibility of
 the system. Feasibilility assumes that values of all components are
 positive at
-equilibrium\textsuperscript{\protect\hyperlink{ref-Grilli2017}{5},\protect\hyperlink{ref-Dougoud2018}{24},\protect\hyperlink{ref-Song2018}{25}}.
+equilibrium\textsuperscript{\protect\hyperlink{ref-Grilli2017}{5},\protect\hyperlink{ref-Dougoud2018}{25},\protect\hyperlink{ref-Song2018}{26}}.
 This is of particular interest for ecological communities because
 population density (\(N\)) cannot take negative values, meaning that
 ecological systems need to be feasible for stability to be biologically
-realistic\textsuperscript{\protect\hyperlink{ref-Dougoud2018}{24}}.
+realistic\textsuperscript{\protect\hyperlink{ref-Dougoud2018}{25}}.
 While my results are intended to be general to all complex systems, and
 not restricted to species networks, I have also performed a feasibility
 analysis on all matrices \(\mathbf{M}\) tested for stability, and
@@ -382,7 +373,7 @@ population density in this analysis, but instead as a fundamental
 property of species life history such as expected generation time.
 Feasibility was unaffected by \(Var(\gamma)\) and instead occurred with
 a fixed probability of \(1/2^{S}\), consistent with a recent proof by
-Serván et al.\textsuperscript{\protect\hyperlink{ref-Servan2018}{26}}
+Serván et al.\textsuperscript{\protect\hyperlink{ref-Servan2018}{27}}
 (see Supplementary Information). Hence, for pure interacting species
 networks, variation in component response rate (i.e., species generation
 time) does not affect stability at biologically realistic species
@@ -458,7 +449,7 @@ feasible, meaning that stability was not increased when component values
 were also restricted to being positive at equilibrium. Feasibility is
 important to consider, particularly for the study of ecological networks
 of
-species\textsuperscript{\protect\hyperlink{ref-Grilli2017}{5},\protect\hyperlink{ref-Stone2017}{22},\protect\hyperlink{ref-Dougoud2018}{24},\protect\hyperlink{ref-Servan2018}{26}}
+species\textsuperscript{\protect\hyperlink{ref-Grilli2017}{5},\protect\hyperlink{ref-Stone2017}{22},\protect\hyperlink{ref-Dougoud2018}{25},\protect\hyperlink{ref-Servan2018}{27}}
 because population densities cannot realistically be negative. My
 results therefore suggest that variation in the rate of population
 responses to perturbation (e.g., due to differences in generation time
@@ -521,14 +512,14 @@ evolution\textsuperscript{\protect\hyperlink{ref-Patel2018}{18}}.
 I use the same principle that Patel et al. use to modulate the relative
 rate of evolution to modulate rates of component responses for \(S\)
 components. Following
-May\textsuperscript{\protect\hyperlink{ref-May1972}{1},\protect\hyperlink{ref-May1973}{27}},
+May\textsuperscript{\protect\hyperlink{ref-May1972}{1},\protect\hyperlink{ref-May1973}{28}},
 the value of a component \(i\) at time \(t\) (\(v_{i}(t)\)) is affected
 by the value of \(j\) (\(v_{j}(t)\)) and \(j\)'s marginal effect on
 \(i\) (\(a_{ij}\)), and by \(i\)'s response rate (\(\gamma_{i}\)),
 
 \[\frac{dv_{i}(t)}{dt} = \gamma_{i} \sum_{j=1}^{S}a_{ij}v_{j}(t).\]
 
-In matrix notation\textsuperscript{\protect\hyperlink{ref-May1973}{27}},
+In matrix notation\textsuperscript{\protect\hyperlink{ref-May1973}{28}},
 
 \[\frac{d\mathbf{v}(t)}{dt} = \mathbf{\gamma} \mathbf{A}\mathbf{v}(t).\]
 
@@ -536,7 +527,7 @@ In the above, \(\mathbf{\gamma}\) is a diagonal matrix in which elements
 correspond to individual component response rates. Therefore,
 \(\mathbf{M} = \mathbf{\gamma} \mathbf{A}\) defines the values of system
 components and can be analysed using the techniques of
-May\textsuperscript{\protect\hyperlink{ref-May1972}{1},\protect\hyperlink{ref-Ahmadian2015}{20},\protect\hyperlink{ref-May1973}{27}}.
+May\textsuperscript{\protect\hyperlink{ref-May1972}{1},\protect\hyperlink{ref-Ahmadian2015}{20},\protect\hyperlink{ref-May1973}{28}}.
 In these analyses, row means of \(\mathbf{A}\) are expected to be
 identical, but variation around this expectation will naturally arise
 due to random sampling of \(\mathbf{A}\) off-diagonal elements and
@@ -556,7 +547,7 @@ but even rounding \(\gamma_{i}\) to reasonable values would result in a
 search space too large to practically explore. Under these conditions,
 genetic algorithms are highly useful tools for finding practical
 solutions by mimicking the process of biological
-evolution\textsuperscript{\protect\hyperlink{ref-Hamblin2013}{23}}. In
+evolution\textsuperscript{\protect\hyperlink{ref-Hamblin2013}{24}}. In
 this case, the practical solution is finding vectors of
 \(\mathbf{\gamma}\) that decrease the most positive real eigenvalue of
 \(\mathbf{M}\). The genetic algorithm used achieves this by initialising
@@ -596,7 +587,7 @@ was defined as \(W_{\gamma} = -\max\left(\Re(\lambda)\right)\) for
 \(\mathbf{M}\)).
 
 \textbf{System feasibility}. Dougoud et
-al.\textsuperscript{\protect\hyperlink{ref-Dougoud2018}{24}} identify
+al.\textsuperscript{\protect\hyperlink{ref-Dougoud2018}{25}} identify
 the following feasibility criteria for ecological systems characterised
 by \(S\) interacting species with varying densities in a generalised
 Lotka-Volterra model,
@@ -617,12 +608,12 @@ above, a diagonal matrix of -1s (\(\theta \mathbf{I}\)) is added to
 affecting species interactions (i.e., the expression \((CS)^{-\delta}\)
 relates to May's\textsuperscript{\protect\hyperlink{ref-May1972}{1}}
 stability
-criterion\textsuperscript{\protect\hyperlink{ref-Dougoud2018}{24}} by
+criterion\textsuperscript{\protect\hyperlink{ref-Dougoud2018}{25}} by
 \(\frac{\sigma}{(CS)^{-\delta}}\sqrt{SC} < 1\), and hence for my
 purposes \((CS)^{-\delta} = 1\)). Given
 \(\mathbf{A} = \theta\mathbf{I + J}\), the above criteria is therefore
 reduced to the below (see
-also\textsuperscript{\protect\hyperlink{ref-Servan2018}{26}}),
+also\textsuperscript{\protect\hyperlink{ref-Servan2018}{27}}),
 
 \[\mathbf{n^{*} = -A^{-1}r}.\]
 
@@ -756,74 +747,46 @@ Physics} \textbf{98,} 022410 (2018).
 networks: a random matrix approach. \emph{Scientific Reports}
 \textbf{8,} 8246 (2018).
 
+\hypertarget{ref-Tang2014c}{}
+23. Tang, S., Pawar, S. \& Allesina, S. Correlation between interaction
+strengths drives stability in large ecological networks. \textbf{17,}
+1094--1100 (2014).
+
 \hypertarget{ref-Hamblin2013}{}
-23. Hamblin, S. On the practical usage of genetic algorithms in ecology
+24. Hamblin, S. On the practical usage of genetic algorithms in ecology
 and evolution. \emph{Methods in Ecology and Evolution} \textbf{4,}
 184--194 (2013).
 
 \hypertarget{ref-Dougoud2018}{}
-24. Dougoud, M., Vinckenbosch, L., Rohr, R., Bersier, L.-F. \& Mazza, C.
+25. Dougoud, M., Vinckenbosch, L., Rohr, R., Bersier, L.-F. \& Mazza, C.
 The feasibility of equilibria in large ecosystems: a primary but
 neglected concept in the complexity-stability debate. \emph{PLOS
 Computational Biology} \textbf{14,} e1005988 (2018).
 
 \hypertarget{ref-Song2018}{}
-25. Song, C. \& Saavedra, S. Will a small randomly assembled community
+26. Song, C. \& Saavedra, S. Will a small randomly assembled community
 be feasible and stable? \emph{Ecology} \textbf{99,} 743--751 (2018).
 
 \hypertarget{ref-Servan2018}{}
-26. Serván, C. A., Capitán, J. A., Grilli, J., Morrison, K. E. \&
+27. Serván, C. A., Capitán, J. A., Grilli, J., Morrison, K. E. \&
 Allesina, S. Coexistence of many species in random ecosystems.
 \emph{Nature Ecology and Evolution} \textbf{2,} 1237--1242 (2018).
 
 \hypertarget{ref-May1973}{}
-27. May, R. M. Qualitative stability in model ecosystems. \emph{Ecology}
+28. May, R. M. Qualitative stability in model ecosystems. \emph{Ecology}
 \textbf{54,} 638--641 (1973).
 
 \clearpage
 
-\textbf{Figure 1: Example distribution of eigenvalues before (a) and
-after (b) separating a randomly generated complex system into fast
-(\(\boldsymbol{\gamma} = 1.95\)) and slow
-(\(\boldsymbol{\gamma} = 0.05\)) component response rates.} Each panel
-shows the same system where \(S = 200\), \(C = 0.05\), and
-\(\sigma = 0.4\), and in each case \(E[\gamma] = 1\) (i.e., only the
-distribution of \(\gamma\) differs between panels). \textbf{a.}
-Eigenvalues plotted when all \(\gamma = 1\); distributions of points are
-uniformly distributed within the blue circle with a radius of
-\(\sigma\sqrt{SC} =\) 1.238 centred at -1 on the real axis. \textbf{b.}
-Eigenvalues plotted when half \(\gamma = 1.95\) and half
-\(\gamma = 0.05\); distributions of points can be partitioned into one
-large circle centred at \(\gamma = -1.95\) and one small circle centred
-at \(\gamma = -0.05\). In a, the maximum real eigenvalue
-\(\max\left(\Re(\lambda)\right) =\) 0.2344871, while in b
-\(\max\left(\Re(\lambda)\right) =\) -0.0002273135, meaning that the
-complex system in b but not a is stable because in b
-\(\max\left(\Re(\lambda)\right) < 0\). In 1 million randomly generated
-complex systems under the same parameter values, 1 was stable when
-\(\gamma = 1\) while 32 were stable when \(\gamma = \{1.95, 0.05\}\).
-Overall, complex systems that are separated into fast versus slow
-components tend to be more stable than otherwise identical systems with
-identical component response rates.
+\textbf{Figure 1: Insert a new legend here}
 
-\includegraphics{ms_files/figure-latex/unnamed-chunk-10-1.pdf}
+\includegraphics{ms_files/figure-latex/unnamed-chunk-8-1.pdf}
 
 \clearpage
 
-\textbf{Figure 2: Distributions of eigenvalues before (a) and after (b)
-introducing variation in component response rate
-(\(\boldsymbol{\gamma}\)) in complex systems.} Each panel show the same
-system where \(S = 1000\), \(C = 0.05\), and \(\sigma = 0.4\).
-\textbf{a.} Eigenvalues plotted in the absence of \(Var(\gamma)\) where
-\(E[\gamma] = 1\), versus \textbf{b.} eigenvalues plotted given
-\(\gamma \sim \mathcal{U}(0, 2)\), which increases the variance of
-interaction strengths (\(\sigma^{2}\)) but also creates a cluster of
-eigenvalues toward the distribution's centre (-1, 0). Blue elipses in
-both panels show the circle centred on the distribution in panel a.
-Proportions of \(\Re(\lambda) < 0\) are 0.727 and 0.733 for a and b,
-respectively.
+\textbf{Figure 2: Insert a new caption here}.
 
-\includegraphics{ms_files/figure-latex/unnamed-chunk-13-1.pdf}
+\includegraphics{ms_files/figure-latex/unnamed-chunk-11-1.pdf}
 
 \clearpage
 
@@ -842,7 +805,7 @@ presence of \(Var(\gamma)\), respectively. The black line shows the
 proportion of systems that are stable when \(Var(\gamma) > 0\), but
 would be unstable if \(Var(\gamma) = 0\).
 
-\includegraphics{ms_files/figure-latex/unnamed-chunk-15-1.pdf}
+\includegraphics{ms_files/figure-latex/unnamed-chunk-13-1.pdf}
 
 \clearpage
 
@@ -864,7 +827,7 @@ stability. The black line shows the proportion of systems that are
 stable when component response rate is targeted to increase stability,
 but would not be stable if \(Var(\gamma) = 0\).
 
-\includegraphics{ms_files/figure-latex/unnamed-chunk-16-1.pdf}
+\includegraphics{ms_files/figure-latex/unnamed-chunk-14-1.pdf}
 
 
 \end{document}
