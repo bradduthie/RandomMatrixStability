@@ -293,7 +293,7 @@ Results
 M = \gamma A.
 \end{equation}
 
-Equation \ref{defM} thereby serves as a null model to investigate how variation in component response rate ($\sigma_{\gamma}$) affects complex systems. In the absence of such variation ($\sigma_{\gamma} = 0$), $\gamma$ is set to the identity matrix (diagonal elements all equal 1) and $\textbf{M} = \textbf{A}$. 
+Equation \ref{defM} thereby serves as a null model to investigate how variation in component response rate ($\sigma_{\gamma}$) affects complex systems. In the absence of such variation ($\sigma_{\gamma} = 0$), $\gamma$ is set to the identity matrix (diagonal elements all equal 1) and $\textbf{M} = \textbf{A}$. Under these conditions, eigenvalues of $\textbf{M}$ are distributed uniformly [@Tao2010] in a circle centred at $(-d, 0)$ with a radius of $\sigma_{M} \sqrt{SC}$ [@May1972] (Figure 1a).
 
 **Analytical considerations**. The value of $\max(\Re(\lambda))$, and therefore system stability, can be estimated from five properties of $\textbf{M}$ [@Tang2014b]. These properties include (1) system size ($S$), (2) mean self-regulation of components ($d$), (3) mean interaction strength between components ($\mu$), (4) the standard deviation between component interaction strengths ($\sigma_{M}$), and (5) the correlation of interaction strengths between components, $M_{ij}$ and $M_{ji}$ ($\rho$). Positive $\sigma_{\gamma}$ does not change $S$, nor does it necessarily change $E[d]$ or $E[\mu]$. What $\sigma_{\gamma}$ does change is the total variation in component interaction strengths ($\sigma_{M}$), and $\rho$. Introducing variation in $\gamma$ increases the total variation in the system. Variation of the off-diagonal elements in $\textbf{M}$ is described by the joint variation of two random variables,
 
@@ -307,25 +307,26 @@ Given $E[\gamma_{i}] = 1$ and $E[A_{ij}] = 0$, equation \ref{var_full} can be si
 \sigma^{2}_{M} = \sigma^{2}_{A}(1 + \sigma^{2}_{\gamma}).
 \end{equation}
 
-The increase caused by $\sigma^{2}_\gamma$ can be visualised from the eigenvalue spectra of $\textbf{A}$ versus $\textbf{M} = \gamma\textbf{A}$ (Figure 1). Given $d = 0$ and $C = 1$, the distribution of eigenvalues of $\textbf{A}$ and $\textbf{M}$ lie within a circle of a radius $\sigma^{2}_{A}\sqrt{S}$ and $\sigma^{2}_{M}\sqrt{S}$, respectively (Figure 1a vs. 1b). When components are self-regulating (e.g., $d = -1$), positive $\sigma^{2}_\gamma$ changes the distribution of eigenvalues, potentially affecting stability (Figure 1c vs. 1d).
+The increase caused by $\sigma^{2}_\gamma$ can be visualised from the eigenvalue spectra of $\textbf{A}$ versus $\textbf{M} = \gamma\textbf{A}$ (Figure 1). Given $d = 0$ and $C = 1$, the distribution of eigenvalues of $\textbf{A}$ and $\textbf{M}$ lie within a circle of a radius $\sigma^{2}_{A}\sqrt{S}$ and $\sigma^{2}_{M}\sqrt{S}$, respectively (Figure 1a vs. 1b). If $d \neq 0$, positive $\sigma^{2}_\gamma$ changes the distribution of eigenvalues [@Ahmadian2015; @Gibbs2017; @Stone2017], potentially affecting stability (Figure 1c vs. 1d).
 
-Given $\sigma^{2}_\gamma = 0$, $\max(\Re(\lambda))$ decrease linearly with $\rho$ such that,
+Given $\sigma^{2}_\gamma = 0$, $\max(\Re(\lambda))$ decrease linearly with $\rho$ such that [@Tang2014c],
 
 \begin{equation} \label{rho_stab}
 \max(\Re(\lambda)) \approx \sigma_{M}\sqrt{SC}\left(1 + \rho\right).
 \end{equation}
 
-When $\rho$ values are negative, such as when $\textbf{M}$ models a predator-prey system in which $M_{ij}$ and $M_{ji}$ have opposing signs, stability is expected to increase [@Allesina2012]. When elements of $\gamma$ vary independently, the magnitude of $\rho$ is decreased because $\sigma^{2}_{\gamma}$ increases the variance of $M_{ij}$ without affecting the covariance between $M_{ij}$ and $M_{ji}$, 
+If $\rho < 0$, such as when $\textbf{M}$ models a predator-prey system in which $M_{ij}$ and $M_{ji}$ have opposing signs, stability increases [@Allesina2012]. If diagonal elements of $\gamma$ vary independently, the magnitude of $\rho$ is decreased because $\sigma^{2}_{\gamma}$ increases the variance of $M_{ij}$ without affecting the expected covariance between $M_{ij}$ and $M_{ji}$, 
 
 \begin{equation} \label{rho_def}
 \rho = \frac{cov(M_{ij}, M_{ji})}{\sigma^{2}_{A}(1 + \sigma^{2}_{\gamma})}.
 \end{equation}
 
-Because $\gamma$ does not affect $cov(M_{ij}, M_{ji})$, the sign of $\rho$ remains unchanged. 
+Neverthless, numerical simulations reveal that $\sigma^{2}_{\gamma} > 0$ results in a nonlinear relationship between $\rho$ and $\max(\Re(\lambda))$, which can sometimes increase the stability of the system.
 
 
+**Numerical simulations**. I used numerical simulations to isolate the effect of $\sigma_{\gamma}$ on system stability by comparing the same $\textbf{M} = \gamma \textbf{A}$ given $\sigma_{\gamma} > 0$ versus $\sigma_{\gamma} = 0$. Values of $\gamma_{ii}$ were sampled from a uniform distribution where $\gamma \sim \mathcal{U}(0, 2)$ (see Supplementary Information for other distributions, which give similar results). For $\sigma_{\gamma} = 0$, diagonal elements were standardised to the mean value of sampled $\gamma_{ii}$ so that $E[d]$ of $\textbf{M}$ were identical. 
 
-**Numerical simulations**. I used numerical simulations to isolate the effect of $\sigma_{\gamma}$ on the stability of $\textbf{M} = \gamma \textbf{A}$ by comparing $\sigma_{\gamma} > 0$ versus $\sigma_{\gamma} = 0$. Values of $\gamma_{ii}$ were sampled such that $E[d]$ and $E[\mu]$ also remained unchanged (in practice, diagonal elements of $\textbf{M}$ were standardised so that mean values were identical before and after adding $\gamma$). 
+
 
  <!--- Replace the below with some more informative text concerning the variation that $\var(gamma})$ adds to the system $M$ overall. This might require starting with just $M = A$ as an explanation. Borrowing the text from revision_notes.Rmd below --->
 
@@ -443,6 +444,8 @@ A general mathematical framework encompassing shifts in eigenvalue distributions
 
 Methods
 --------------------------------------------------------------------------------
+
+<!---  (in practice, diagonal elements of $\textbf{M}$ were standardised so that mean values were identical before and after adding $\gamma$) --->
 
 **Component response rate variation ($\mathbf{\gamma}$)**. In a synthesis of eco-evolutionary feedbacks on community stability, Patel et al. model a system that includes a vector of potentially changing species densities ($\mathbf{N}$) and a vector of potentially evolving traits ($\mathbf{x}$) [@Patel2018]. For any species $i$ or trait $j$, change in species density ($N_{i}$) or trait value ($x_{j}$) with time ($t$) is a function of the vectors $\mathbf{N}$ and $\mathbf{x}$,
 
