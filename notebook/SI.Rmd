@@ -32,6 +32,7 @@ biblio-style: apalike
 ---
 
 ```{r, echo = FALSE}
+source(file = "../R/Figures_3_4.R");
 source(file = "R_old/sim_mat.R");
 source(file = "R_old/plot_figs.R");
 ```
@@ -90,7 +91,7 @@ dat <- read.csv(file = "sim_results/C_1/random_all.csv");
 dat <- dat[,-1]; # Extra row-indicating column removed
 ```
 
-Figure 3 of the main text reports the number of stable random complex systems found over 1 million iterations. The table below shows the results for all simulations of random $\mathbf{M}$ matrices at $\sigma = 0.4$ and $C = 1$ given a range of $S = \{2, 3, ..., 49, 50\}$. In this table, the `A0` refers to matrices where $\gamma = 1$, while `A1` refers to matrices after $Var(\gamma)$ is added and $\gamma \sim \mathcal{U}(0, 2)$. Each row summarises data for a given $S$ over 1 million randomly simulated $\mathbf{M}$ (`A0` and `A1`). The column `A0_unstable` shows the number of `A0` matrices that are unstable, and the column `A0_stable` shows the number of `A0` matrices that are stable (these two columns sum to 1 million). Similarly, the column `A1_unstable` shows the number of `A1` matrices that are unstable and `A1_stable` shows the number that are stable. The columns `A1_stabilised` and `A1_destabilised` show how many `A0` matrices were stabilised or destabilised, respectively, by $Var(\gamma)$.
+Figure 4 of the main text reports the number of stable random complex systems found over 1 million iterations. The table below shows the results for all simulations of random $\mathbf{M}$ matrices at $\sigma = 0.4$ and $C = 1$ given a range of $S = \{2, 3, ..., 49, 50\}$. In this table, the `A0` refers to matrices where $\gamma = 1$, while `A1` refers to matrices after $Var(\gamma)$ is added and $\gamma \sim \mathcal{U}(0, 2)$. Each row summarises data for a given $S$ over 1 million randomly simulated $\mathbf{M}$ (`A0` and `A1`). The column `A0_unstable` shows the number of `A0` matrices that are unstable, and the column `A0_stable` shows the number of `A0` matrices that are stable (these two columns sum to 1 million). Similarly, the column `A1_unstable` shows the number of `A1` matrices that are unstable and `A1_stable` shows the number that are stable. The columns `A1_stabilised` and `A1_destabilised` show how many `A0` matrices were stabilised or destabilised, respectively, by $Var(\gamma)$.
 
 ```{r, echo = FALSE}
 library(knitr);
@@ -103,7 +104,15 @@ Overall, the ratio of stable `A1` matrices to stable `A0` matrices found is grea
 Stability given targeted manipulation of $\gamma$ (genetic algorithm) {#ga}
 ================================================================================
 
-Figure 4 of the main text reports the number of stable random complex systems found over 100000 using the genetic algorithm to maximise stability with a vector $\mathbf{\gamma}$. Stability results for 100000 $\mathbf{M}$ for each $S$ from 2-40 are shown below. Results for `A0` indicate systems in which $\gamma = 1$, while `A1` refers to systems in which the genetic algorithm searched for a set of $\gamma$ values that stabilised the system. 
+The figure below compares the stability of large complex systems given $\boldsymbol{\gamma = 1}$ versus targeted manipulation of $\gamma$ elements. For each $S$, 100000 complex systems are randomly generated. Stability of each complex system is tested given variation in $\gamma$ using a genetic algorithm to maximise the effect of $\gamma$ values on increasing stability, as compared to stability in an otherwise identical system in which $\gamma$ is the same for all components. Blue bars show the number of stable systems in the absence of component response rate variation, while red bars show the number of stable systems that can be generated if component response rate is varied to maximise system stability. The black line shows the proportion of systems that are stable when component response rate is targeted to increase stability, but would not be stable if $\sigma^{2}_{\gamma} = 0$. The y-axis shows the $\ln$ number of systems that are stable across $S = \{1, 2, ..., 39, 40\}$ for $C = 1$, and the proportion of systems wherein a targeted search of $\gamma$ values successfully resulted in system stability. 
+
+```{r, eval = TRUE, echo = FALSE, fig.width = 9, fig.height = 7}
+dat <- read.csv(file = "sim_results/evolved/evo_results.csv");
+dat <- dat[,-1];
+plot_stable_4(dat);
+```
+
+Stability results are also shown in the table below. Results for `A0` indicate systems in which $\gamma = 1$, while `A1` refers to systems in which the genetic algorithm searched for a set of $\gamma$ values that stabilised the system. 
 
 ```{r, echo = FALSE}
 get_top_evo_out <- function(evo_out, size){
