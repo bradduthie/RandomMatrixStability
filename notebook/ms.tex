@@ -793,9 +793,9 @@ distributed within a circle centred at the origin with a radius of
 including variation in the response rates of \(S\) components,
 represented by the diagonal matrix \(\gamma\), such that
 \(\mathbf{M} = \gamma\mathbf{A}\). Elements of \(\gamma\) are randomly
-sampled from a uniform distribution of \(\min = 0\) and \(\max = 2\).
-Eigenvalues of \(\mathbf{M}\) are distributed non-uniformly within a
-circle centred at the origin with a radius of
+sampled from a uniform distribution from \(\min = 0\) to \(\max = 2\).
+Eigenvalues of \(\mathbf{M}\) are then distributed non-uniformly within
+a circle centred at the origin with a radius of
 \(\sqrt{\sigma^{2}_{A}(1 + \sigma^{2}_{\gamma})S} \approx\) 1.17.
 (\(\textbf{c}\)) A different random system \(\mathbf{A}\) constructed
 from the same parameters as in \(\textbf{a}\), except with diagonal
@@ -807,7 +807,26 @@ including variation in component response rates, sampled from
 
 \clearpage
 
-\textbf{Figure 2: Insert a new caption here}.
+\textbf{Figure 2: Complex system correlation versus stability with and
+without variation in component response rates}. Each point represents
+10000 replicate numerical simulations of a random complex system
+\(\mathbf{M} = \gamma \mathbf{A}\) with a fixed correlation between
+off-diagonal elements \(A_{ij}\) and \(A_{ji}\) (\(\rho\), x-axis).
+Where real parts of eigenvalues of \(\mathbf{M}\) are negative (y-axis),
+\(\mathbf{M}\) is stable (black dotted line). Blue circles show systems
+in the absence of variation in component response rates
+(\(\sigma_{\gamma} = 0\)). Red squares show systems in which
+\(\sigma_{\gamma} = 1/3\). Arrows show the range of real parts of
+leading eigenvalues observed. Because \(\gamma\) decreases the magnitude
+of \(\rho\), purple lines are included to link replicate simulations
+before (blue circles) and after (red squares) including \(\gamma\). The
+range of \(\rho\) values in which \(\gamma\) decreases the mean real
+part of the leading eigenvalue is indicated with grey shading. In all
+simulations, system size and connectence were set to \(S = 25\) and
+\(C = 1\), respectively. Off-diagonal elements of \(\textbf{A}\) were
+randomly sampled from \(A_{ij} \sim \mathcal{N}(0, 0.4)\), and diagonal
+elements were set to \(-1\). Elements of
+\(\gamma \sim \mathcal{U}(0, 2)\).
 
 \includegraphics{ms_files/figure-latex/unnamed-chunk-12-1.pdf}
 
