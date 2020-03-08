@@ -322,12 +322,11 @@ If $\rho < 0$, such as when $\textbf{M}$ models a predator-prey system in which 
 
 **Simulation of random $\mathbf{M}$ across $\mathbf{\rho}$**
 
-umerical simulations reveal that $\sigma^{2}_{\gamma} > 0$ results in a nonlinear relationship between $\rho$ and $\max(\Re(\lambda))$, which can sometimes increase the stability of the system.
+Numerical simulations reveal that $\sigma^{2}_{\gamma} > 0$ results in a nonlinear relationship between $\rho$ and $\max(\Re(\lambda))$, which can sometimes increase the stability of the system.
 
 
  <!--- Replace the below with some more informative text concerning the variation that $\var(gamma})$ adds to the system $M$ overall. This might require starting with just $M = A$ as an explanation. Borrowing the text from revision_notes.Rmd below --->
 
-<!--- The current Figure 1 should be replaced by the new figure first shown in revision_notes.Rmd --->
 
 
 <!---
@@ -394,21 +393,12 @@ dat <- dat[,-1];
 
 **Simulation of random $\mathbf{M}$ across $\mathbf{S}$**. To investigate the effect of $Var(\gamma)$ on stability across systems of varying complexity, I simulated random $\mathbf{M}$ matrices at $\sigma = 0.4$ and $C = 1$ across $S = \{2, 3, ..., 49, 50\}$. One million $\mathbf{M}$ were simulated for each $S$, and the stability of $\mathbf{M}$ was assessed given $\gamma = 1$ versus $\gamma \sim \mathcal{U}(0, 2)$. For all $S > 10$, I found that the number of stable random systems was higher given $Var(\gamma)$ than when $\gamma = 1$ (Fig. 3; see Supplementary Information for full table of results), and that the difference between the probabilities of observing a stable system increased with an increase in $S$. In other words, the potential for $Var(\gamma)$ to affect stability increased with system complexity and was most relevant for systems on the cusp of being too complex to be realistically stable. For the highest values of $S$, nearly all systems that were stable given $Var(\gamma)$ would not have been stable given $\gamma = 1$.
 
-<!--- Here a new section is needed --->
-<!--- 
-
-**Effects of $\gamma$ and correlated interactions on stability**
-
-This is going to require that a new figure be inserted showing correlation versus stability. Some general points about how $rho$ is known to affect stability is also needed, but this should not be too difficult to explain in a sentence or two. 
-
---->
-
 <!--- Another new section is needed --->
 <!--- 
 
 **Effects of $\gamma$ on structured networks**
 
-This will report results for small-world, scale-free, and cascade food-webs. It will also briefly mention random predator-prey, mutualist, and competitor networks. These resutls will require a small table, at least.
+This will report results for small-world, scale-free, and cascade food-webs. It will also briefly mention random predator-prey, mutualist, and competitor networks. These results will require a small table, at least.
 
 --->
 
