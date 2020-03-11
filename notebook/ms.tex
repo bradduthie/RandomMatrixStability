@@ -312,9 +312,35 @@ realistic for a finite system.
 
 \textbf{Simulation of random \(\mathbf{M}\) across \(\mathbf{\rho}\)}
 
-Numerical simulations reveal that \(\sigma^{2}_{\gamma} > 0\) results in
-a nonlinear relationship between \(\rho\) and \(\max(\Re(\lambda))\),
-which can sometimes increase the stability of the system.
+Ten thousand numerical simulations of \(\mathbf{M}\) revealed that
+\(\sigma^{2}_{\gamma} > 0\) results in a nonlinear relationship between
+\(\rho\) and \(\max(\Re(\lambda))\), which can sometimes increase the
+stability of the system. Figure 2 shows a comparison of
+\(\max(\Re(\lambda))\) across \(\rho\) values when
+\(\sigma^{2}_{\gamma} = 0\) versus \(\sigma^{2}_{\gamma} = 1/3\) given
+\(S = 25\) and \(\sigma = 0.4\). For \(-0.4 \leq \rho \leq 0.7\) (shaded
+region of Figure 2), expected \(\max(\Re(\lambda))\) was lower given
+\(\sigma^{2}_{\gamma} = 1/3\). For \(\rho \geq -0.1\), the range of
+\(\max(\Re(\lambda))\) values observed given
+\(\sigma^{2}_{\gamma} = 1/3\) also had a lower bound, which included
+negative values for \(\rho = -0.1\) and \(\rho = 0\). Hence, across a
+wide range of system correlations, variation in the response rate of
+system components had a stabilising effect.
+
+The stabilising effect of \(\sigma^{2}_{\gamma}\) across \(\rho\)
+increased with increasing \(S\). Figure 3 shows 10000 numerical
+simulations of \(\mathbf{M}\) for \(\sigma^{2}_{\gamma} = 0\) versus
+\(\sigma^{2}_{\gamma} = 1/3\) across increasing \(S\) given
+\(\sigma = 0.2\) (\(\sigma\) has been lowered here to better illustrate
+the effect of \(S\); note that now given \(S = 25\),
+\(1 = \sigma\sqrt{SC}\)). For relatively small systems (\(S \leq 25\)),
+positive \(\sigma^{2}_{\gamma}\) never decreased the expected
+\(\max(\Re(\lambda))\). But as \(S\) increased, the curvilinear
+relationship between \(\rho\) and \(\max(\Re(\lambda))\) resulted in
+\(\mathbf{M}\) with lower expected \(\max(\Re(\lambda))\) for low
+magnitudes of \(\rho\). In turn, as \(S\) increased, and systems became
+more complex, positive \(\sigma^{2}_{\gamma}\) increased the proportion
+of numerical simulations that were observed to be stable (see below).
 
 \textbf{Simulation of random \(\mathbf{M}\) across \(\mathbf{S}\)}. To
 investigate the effect of \(Var(\gamma)\) on stability across systems of
@@ -791,7 +817,7 @@ represented by the diagonal matrix \(\gamma\), such that
 sampled from a uniform distribution from \(\min = 0\) to \(\max = 2\).
 Eigenvalues of \(\mathbf{M}\) are then distributed non-uniformly within
 a circle centred at the origin with a radius of
-\(\sqrt{\sigma^{2}_{A}(1 + \sigma^{2}_{\gamma})S} \approx\) 1.14.
+\(\sqrt{\sigma^{2}_{A}(1 + \sigma^{2}_{\gamma})S} \approx\) 1.17.
 (\(\textbf{c}\)) A different random system \(\mathbf{A}\) constructed
 from the same parameters as in \(\textbf{a}\), except with diagonal
 values of \(-1\). (\(\textbf{d}\)) The same system \(\textbf{c}\) after
@@ -832,8 +858,9 @@ system sizes}. In each panel, 10000 random complex systems
 \(\mathbf{M} = \gamma \mathbf{A}\) are simulated for each correlation
 \(\rho = \{-0.90, -0.85, ..., 0.85, 0.90 \}\) between off-diagonal
 elements \(A_{ij}\) and \(A_{ji}\). Lines show the expected real part of
-the leading eigenvalues of \(\mathbf{M}\) (red squares) versus
-\(\mathbf{A}\) (blue circles) across \(\rho\), where negative values
+the leading eigenvalues of \(\mathbf{M}\) (red squares;
+\(\sigma^{2}_{\gamma} = 1/3\)) versus \(\mathbf{A}\) (blue circles;
+\(\sigma^{2}_{\gamma} = 0\)) across \(\rho\), where negative values
 (below the dotted black line) indicate system stability. Differences
 between lines thereby show the effect of component response rate
 variation (\(\gamma\)) on system stability across system correlations
