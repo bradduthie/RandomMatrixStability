@@ -62,7 +62,6 @@ Supplemental Information table of contents
 
 
 - [Stability across increasing $S$](#IncrS) 
-- [Stability given targeted manipulation of $\gamma$ (genetic algorithm)](#ga)
 - [Stability of ecological networks](#ecological) 
     - [Competitor networks](#competition) 
     - [Mutualist networks](#mutualism) 
@@ -79,6 +78,7 @@ Supplemental Information table of contents
     - [$\sigma$ = 0.6](#sigma6)
 - [Sensitivity of distribution of $\gamma$](#gam_dist)
 - [Feasibility of complex systems](#Feasibility)
+- [Stability given targeted manipulation of $\gamma$ (genetic algorithm)](#ga)
 - [Consistency with Gibbs et al. (2018)](#Gibbs)
 - [Effects of matrix correlations](#rhos)
 
@@ -100,84 +100,6 @@ kable(d_tab);
 ```
 
 Overall, the ratio of stable `A1` matrices to stable `A0` matrices found is greater than 1 whenever $S > 10$ (compare column 5 to column 3), and this ratio increases with increasing $S$ (column 1). Hence, more randomly created complex systems ($\mathbf{M}$) are stable given variation in $\gamma$ than when $\gamma = 1$. Note that feasibility results were omitted for the table above, but are [reported below](#Feasibility).
-
-Stability given targeted manipulation of $\gamma$ (genetic algorithm) {#ga}
-================================================================================
-
-The figure below compares the stability of large complex systems given $\boldsymbol{\gamma = 1}$ versus targeted manipulation of $\gamma$ elements. For each $S$, 100000 complex systems are randomly generated. Stability of each complex system is tested given variation in $\gamma$ using a genetic algorithm to maximise the effect of $\gamma$ values on increasing stability, as compared to stability in an otherwise identical system in which $\gamma$ is the same for all components. Blue bars show the number of stable systems in the absence of component response rate variation, while red bars show the number of stable systems that can be generated if component response rate is varied to maximise system stability. The black line shows the proportion of systems that are stable when component response rate is targeted to increase stability, but would not be stable if $\sigma^{2}_{\gamma} = 0$. The y-axis shows the $\ln$ number of systems that are stable across $S = \{1, 2, ..., 39, 40\}$ for $C = 1$, and the proportion of systems wherein a targeted search of $\gamma$ values successfully resulted in system stability. 
-
-```{r, eval = TRUE, echo = FALSE, fig.width = 9, fig.height = 7}
-dat <- read.csv(file = "sim_results/evolved/evo_results.csv");
-dat <- dat[,-1];
-plot_stable_4(dat);
-```
-
-Stability results are also shown in the table below. Results for `A0` indicate systems in which $\gamma = 1$, while `A1` refers to systems in which the genetic algorithm searched for a set of $\gamma$ values that stabilised the system. 
-
-```{r, echo = FALSE}
-get_top_evo_out <- function(evo_out, size){
-    highest <- max(evo_out);
-    gammas  <- NULL;
-    while(size > 0){
-        pos <- which(evo_out == highest);
-        len <- length(pos);
-        nli <- NULL;
-        for(i in 1:len){
-            start          <- pos[i] + 1;
-            end            <- pos[i] + highest;
-            gammas[[size]] <- evo_out[start:end];
-            size           <- size - 1;
-            if(size == 0){
-                break;
-            }
-        }
-        highest <- highest - 1;
-    }
-    return(gammas);
-}
-plot_evo_out <- function(evo_out){
-    gammas <- get_top_evo_out(evo_out, size = 9);
-    for(i in 1:9){
-        gammas[[i]] <- 2 * gammas[[i]]; # Account for mistake in return
-    }
-    par(mfrow = c(3, 3), mar = c(0.5, 0.5, 0.5, 0.5), oma = c(5, 5, 1, 1));
-    hist(gammas[[1]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
-         xaxt = "n", xlim = c(0, 2.1));
-    hist(gammas[[2]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
-         xaxt = "n", yaxt = "n", xlim = c(0, 2.1));
-    hist(gammas[[3]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
-         xaxt = "n", yaxt = "n", xlim = c(0, 2.1));
-    hist(gammas[[4]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
-         xaxt = "n", xlim = c(0, 2.1));
-    hist(gammas[[5]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
-         xaxt = "n", yaxt = "n", xlim = c(0, 2.1));
-    hist(gammas[[6]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
-         xaxt = "n", yaxt = "n", xlim = c(0, 2.1));
-    hist(gammas[[7]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
-         xlim = c(0, 2.1));
-    hist(gammas[[8]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
-         yaxt = "n", xlim = c(0, 2.1));
-    hist(gammas[[9]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
-         yaxt = "n", xlim = c(0, 2.1));
-    mtext(side = 1, outer = TRUE, line = 3, cex = 1.5,
-          text = expression(paste("Component response rate (",gamma,")")));
-    mtext(side = 2, text = "Frequency", outer = TRUE, line = 3, cex = 1.5);
-}
-evo_res <- read.csv(file = "sim_results/evolved/evo_results.csv");
-evo_res <- evo_res[,-1];
-kable(evo_res);
-```
-
-The distributions of nine $\gamma$ vectors from the highest $S$ values are shown below. This comparison shows the high number of stable $\mathbf{M}$ that can be produced through a targeted search of $\gamma$ values, and suggests that many otherwise unstable systems could potentially be stabilised by an informed manipulation of their component response times. Such a possibility might conceivably reduce the dimensionality of problems involving stability in social-ecological or economic systems.
-
-Distributions of $\gamma$ values in vectors for the highest values of $S$ are shown below. 
-
-```{r, fig.height = 4, fig.width = 6, echo = FALSE}
-evo_out <- scan(file = "sim_results/evolved/evo_out.txt");
-plot_evo_out(evo_out);
-```
-
-The distribution of $\gamma$ values found by the genetic algorithm is uniform. A uniform distribution was used to initialise $\gamma$ values, so there is therefore no evidence that a particular distribution of $\gamma$ is likely to be found to stabilise a matrix $\mathbf{M}$. 
 
 Stability of ecological networks {#ecological}
 ================================================================================
@@ -438,6 +360,83 @@ kable(feas_tab);
 
 Hence, in general, $Var(\gamma)$ does not appear to affect feasibility in pure species interaction networks [@Servan2018].
 
+Stability given targeted manipulation of $\gamma$ (genetic algorithm) {#ga}
+================================================================================
+
+The figure below compares the stability of large complex systems given $\boldsymbol{\gamma = 1}$ versus targeted manipulation of $\gamma$ elements. For each $S$, 100000 complex systems are randomly generated. Stability of each complex system is tested given variation in $\gamma$ using a genetic algorithm to maximise the effect of $\gamma$ values on increasing stability, as compared to stability in an otherwise identical system in which $\gamma$ is the same for all components. Blue bars show the number of stable systems in the absence of component response rate variation, while red bars show the number of stable systems that can be generated if component response rate is varied to maximise system stability. The black line shows the proportion of systems that are stable when component response rate is targeted to increase stability, but would not be stable if $\sigma^{2}_{\gamma} = 0$. The y-axis shows the $\ln$ number of systems that are stable across $S = \{1, 2, ..., 39, 40\}$ for $C = 1$, and the proportion of systems wherein a targeted search of $\gamma$ values successfully resulted in system stability. 
+
+```{r, eval = TRUE, echo = FALSE, fig.width = 9, fig.height = 7}
+dat <- read.csv(file = "sim_results/evolved/evo_results.csv");
+dat <- dat[,-1];
+plot_stable_4(dat);
+```
+
+Stability results are also shown in the table below. Results for `A0` indicate systems in which $\gamma = 1$, while `A1` refers to systems in which the genetic algorithm searched for a set of $\gamma$ values that stabilised the system. 
+
+```{r, echo = FALSE}
+get_top_evo_out <- function(evo_out, size){
+    highest <- max(evo_out);
+    gammas  <- NULL;
+    while(size > 0){
+        pos <- which(evo_out == highest);
+        len <- length(pos);
+        nli <- NULL;
+        for(i in 1:len){
+            start          <- pos[i] + 1;
+            end            <- pos[i] + highest;
+            gammas[[size]] <- evo_out[start:end];
+            size           <- size - 1;
+            if(size == 0){
+                break;
+            }
+        }
+        highest <- highest - 1;
+    }
+    return(gammas);
+}
+plot_evo_out <- function(evo_out){
+    gammas <- get_top_evo_out(evo_out, size = 9);
+    for(i in 1:9){
+        gammas[[i]] <- 2 * gammas[[i]]; # Account for mistake in return
+    }
+    par(mfrow = c(3, 3), mar = c(0.5, 0.5, 0.5, 0.5), oma = c(5, 5, 1, 1));
+    hist(gammas[[1]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
+         xaxt = "n", xlim = c(0, 2.1));
+    hist(gammas[[2]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
+         xaxt = "n", yaxt = "n", xlim = c(0, 2.1));
+    hist(gammas[[3]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
+         xaxt = "n", yaxt = "n", xlim = c(0, 2.1));
+    hist(gammas[[4]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
+         xaxt = "n", xlim = c(0, 2.1));
+    hist(gammas[[5]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
+         xaxt = "n", yaxt = "n", xlim = c(0, 2.1));
+    hist(gammas[[6]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
+         xaxt = "n", yaxt = "n", xlim = c(0, 2.1));
+    hist(gammas[[7]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
+         xlim = c(0, 2.1));
+    hist(gammas[[8]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
+         yaxt = "n", xlim = c(0, 2.1));
+    hist(gammas[[9]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
+         yaxt = "n", xlim = c(0, 2.1));
+    mtext(side = 1, outer = TRUE, line = 3, cex = 1.5,
+          text = expression(paste("Component response rate (",gamma,")")));
+    mtext(side = 2, text = "Frequency", outer = TRUE, line = 3, cex = 1.5);
+}
+evo_res <- read.csv(file = "sim_results/evolved/evo_results.csv");
+evo_res <- evo_res[,-1];
+kable(evo_res);
+```
+
+The distributions of nine $\gamma$ vectors from the highest $S$ values are shown below. This comparison shows the high number of stable $\mathbf{M}$ that can be produced through a targeted search of $\gamma$ values, and suggests that many otherwise unstable systems could potentially be stabilised by an informed manipulation of their component response times. Such a possibility might conceivably reduce the dimensionality of problems involving stability in social-ecological or economic systems.
+
+Distributions of $\gamma$ values in vectors for the highest values of $S$ are shown below. 
+
+```{r, fig.height = 4, fig.width = 6, echo = FALSE}
+evo_out <- scan(file = "sim_results/evolved/evo_out.txt");
+plot_evo_out(evo_out);
+```
+
+The distribution of $\gamma$ values found by the genetic algorithm is uniform. A uniform distribution was used to initialise $\gamma$ values, so there is therefore no evidence that a particular distribution of $\gamma$ is likely to be found to stabilise a matrix $\mathbf{M}$. 
 
 Consistency with Gibbs et al. (2018) {#Gibbs}
 ===============================================================================
