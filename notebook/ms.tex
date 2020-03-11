@@ -72,7 +72,7 @@
 \usepackage{titling}
 
 % Create subtitle command for use in maketitle
-\providecommand{\subtitle}[1]{
+\newcommand{\subtitle}[1]{
   \posttitle{
     \begin{center}\large#1\end{center}
     }
@@ -108,8 +108,7 @@ UK, FK9 4LA}
 neural networks, financial networks, system stability, random matrix
 theory
 
-\hypertarget{abstract}{%
-\subsection{Abstract}\label{abstract}}
+\subsection{Abstract}\label{abstract}
 
 The stability of a complex system generally decreases with increasing
 system size and interconnectivity, a counterintuitive result of
@@ -130,8 +129,7 @@ if not for \(\boldsymbol{Var(\gamma)}\). My results therefore reveal a
 previously unconsidered aspect of system stability that is likely to be
 pervasive across all realistic complex systems.
 
-\hypertarget{introduction}{%
-\subsection{Introduction}\label{introduction}}
+\subsection{Introduction}\label{introduction}
 
 In 1972, May\textsuperscript{\protect\hyperlink{ref-May1972}{1}} first
 demonstrated that randomly assembled systems of sufficient complexity
@@ -207,8 +205,7 @@ scale-free\textsuperscript{\protect\hyperlink{ref-Albert2002}{16}},
 cascade food
 web\textsuperscript{\protect\hyperlink{ref-Williams2000}{17}} networks.
 
-\hypertarget{results}{%
-\subsection{Results}\label{results}}
+\subsection{Results}\label{results}
 
 \textbf{Component response rates of random complex systems}. Complex
 systems \(\mathbf{M}\) are built from two matrices, one modelling
@@ -294,30 +291,30 @@ increases\textsuperscript{\protect\hyperlink{ref-Allesina2012}{2}}. If
 diagonal elements of \(\gamma\) vary independently, the magnitude of
 \(\rho\) is decreased because \(\sigma^{2}_{\gamma}\) increases the
 variance of \(M_{ij}\) without affecting the expected covariance between
-\(M_{ij}\) and \(M_{ji}\),
-
-\begin{equation} \label{rho_def}
-\rho = \frac{cov(M_{ij}, M_{ji})}{\sigma^{2}_{A}(1 + \sigma^{2}_{\gamma})}.
-\end{equation}
-
-Neverthless, numerical simulations reveal that
-\(\sigma^{2}_{\gamma} > 0\) results in a nonlinear relationship between
-\(\rho\) and \(\max(\Re(\lambda))\), which can sometimes increase the
-stability of the system.
+\(M_{ij}\) and \(M_{ji}\).
 
 \textbf{Numerical simulations of random \(\mathbf{M}\) with and without
-\(\mathbf{\sigma_{\gamma}}\)}. I used numerical simulations to isolate
-the effect of \(\sigma_{\gamma}\) on system stability by comparing the
-same \(\textbf{M} = \gamma \textbf{A}\) given \(\sigma_{\gamma} > 0\)
-versus \(\sigma_{\gamma} = 0\) across a rane of parameter combinations.
-Values of \(\gamma_{ii}\) were sampled from a uniform distribution where
-\(\gamma \sim \mathcal{U}(0, 2)\) (see Supplementary Information for
-other distributions, which give similar results). For
-\(\sigma_{\gamma} = 0\), diagonal elements were standardised to the mean
-value of sampled \(\gamma_{ii}\) so that \(E[d]\) of \(\textbf{M}\) were
-identical.
+\(\mathbf{\sigma^{2}_{\gamma}}\)}. I used numerical simulations and
+eigenanalysis to test how variation in \(\gamma\) affects stability in
+random matrices with known properties, comparing the stability of
+\(\textbf{A}\) versus \(\mathbf{M} = \gamma\mathbf{A}\). Values of
+\(\gamma\) were sampled from a uniform distribution where
+\(\gamma_{i} \sim \mathcal{U}(0, 2)\) and \(\sigma^{2}_{\gamma} = 1/3\)
+(see Supplementary Information for other distributions, which give
+similar results). Diagonal elements of simulated \(\mathbf{A}\) were
+standardised to the mean value of sampled \(\gamma\) so that \(E[d]\) of
+\(\textbf{M}\) and \(\textbf{M}\) were guaranteed to be identical. Here
+I focus on the effect of \(\gamma\) across values of \(\rho\), and for
+increasing system sizes (\(S\)) in random and structured networks. By
+increasing \(S\), the objective is to determine the effect of \(\gamma\)
+as system complexity increases toward the boundary at which stability is
+realistic for a finite system.
 
 \textbf{Simulation of random \(\mathbf{M}\) across \(\mathbf{\rho}\)}
+
+Numerical simulations reveal that \(\sigma^{2}_{\gamma} > 0\) results in
+a nonlinear relationship between \(\rho\) and \(\max(\Re(\lambda))\),
+which can sometimes increase the stability of the system.
 
 \textbf{Simulation of random \(\mathbf{M}\) across \(\mathbf{S}\)}. To
 investigate the effect of \(Var(\gamma)\) on stability across systems of
@@ -381,8 +378,7 @@ networks, variation in component response rate (i.e., species generation
 time) does not affect stability at biologically realistic species
 densities.
 
-\hypertarget{discussion}{%
-\subsection{Discussion}\label{discussion}}
+\subsection{Discussion}\label{discussion}
 
 I have shown that the stability of complex systems might often be
 contigent upon variation in the response rates of their individual
@@ -484,12 +480,11 @@ maintaining stability in many highly complex empirical systems. These
 results are broadly applicable for understanding the stability of
 complex networks across the physical, life, and social sciences.
 
-\hypertarget{methods}{%
-\subsection{Methods}\label{methods}}
+\subsection{Methods}\label{methods}
 
 \textbf{Component response rate variation (\(\mathbf{\gamma}\))}. In a
 synthesis of eco-evolutionary feedbacks on community stability, Patel et
-al.~model a system that includes a vector of potentially changing
+al. model a system that includes a vector of potentially changing
 species densities (\(\mathbf{N}\)) and a vector of potentially evolving
 traits
 (\(\mathbf{x}\))\textsuperscript{\protect\hyperlink{ref-Patel2018}{18}}.
@@ -503,9 +498,9 @@ of the vectors \(\mathbf{N}\) and \(\mathbf{x}\),
 
 In the above, \(f_{i}\) and \(g_{j}\) are functions that define the
 effects of all species densities and trait values on the density of a
-species \(i\) and the value of trait \(j\), respectively. Patel et
-al.~were interested in stability when the evolution of traits was
-relatively slow or fast in comparison with the change in species
+species \(i\) and the value of trait \(j\), respectively. Patel et al.
+were interested in stability when the evolution of traits was relatively
+slow or fast in comparison with the change in species
 densities\textsuperscript{\protect\hyperlink{ref-Patel2018}{18}}, and
 this is modulated in the above by the scalar \(\epsilon\). The value of
 \(\epsilon\) thereby determines the timescale separation between ecology
@@ -513,7 +508,7 @@ and evolution, with high \(\epsilon\) modelling relatively fast
 evolution and low \(\epsilon\) modelling relative slow
 evolution\textsuperscript{\protect\hyperlink{ref-Patel2018}{18}}.
 
-I use the same principle that Patel et al.~use to modulate the relative
+I use the same principle that Patel et al. use to modulate the relative
 rate of evolution to modulate rates of component responses for \(S\)
 components. Following
 May\textsuperscript{\protect\hyperlink{ref-May1972}{1},\protect\hyperlink{ref-May1973}{28}},
@@ -649,134 +644,134 @@ and data are accessible on
 \textbf{References}
 
 \hypertarget{refs}{}
-\leavevmode\hypertarget{ref-May1972}{}%
+\hypertarget{ref-May1972}{}
 1. May, R. M. Will a large complex system be stable? \emph{Nature}
 \textbf{238,} 413--414 (1972).
 
-\leavevmode\hypertarget{ref-Allesina2012}{}%
+\hypertarget{ref-Allesina2012}{}
 2. Allesina, S. \& Tang, S. Stability criteria for complex ecosystems.
 \emph{Nature} \textbf{483,} 205--208 (2012).
 
-\leavevmode\hypertarget{ref-Mougi2012}{}%
+\hypertarget{ref-Mougi2012}{}
 3. Mougi, A. \& Kondoh, M. Diversity of interaction types and ecological
 community stability. \emph{Science} \textbf{337,} 349--351 (2012).
 
-\leavevmode\hypertarget{ref-Allesina2015}{}%
+\hypertarget{ref-Allesina2015}{}
 4. Allesina, S. \emph{et al.} Predicting the stability of large
 structured food webs. \emph{Nature Communications} \textbf{6,} 7842
 (2015).
 
-\leavevmode\hypertarget{ref-Grilli2017}{}%
+\hypertarget{ref-Grilli2017}{}
 5. Grilli, J. \emph{et al.} Feasibility and coexistence of large
 ecological communities. \emph{Nature Communications} \textbf{8,} (2017).
 
-\leavevmode\hypertarget{ref-Gray2008}{}%
+\hypertarget{ref-Gray2008}{}
 6. Gray, R. T. \& Robinson, P. A. Stability and synchronization of
 random brain networks with a distribution of connection strengths.
 \emph{Neurocomputing} \textbf{71,} 1373--1387 (2008).
 
-\leavevmode\hypertarget{ref-Gray2009}{}%
+\hypertarget{ref-Gray2009}{}
 7. Gray, R. T. \& Robinson, P. A. Stability of random brain networks
 with excitatory and inhibitory connections. \emph{Neurocomputing}
 \textbf{72,} 1849--1858 (2009).
 
-\leavevmode\hypertarget{ref-Rosenfeld2009}{}%
+\hypertarget{ref-Rosenfeld2009}{}
 8. Rosenfeld, S. Patterns of stochastic behavior in dynamically unstable
 high-dimensional biochemical networks. \emph{Gene Regulation and Systems
 Biology} \textbf{3,} 1--10 (2009).
 
-\leavevmode\hypertarget{ref-MacArthur2010}{}%
+\hypertarget{ref-MacArthur2010}{}
 9. MacArthur, B. D., Sanchez-Garcia, R. J. \& Ma'ayan, A. Microdynamics
 and criticality of adaptive regulatory networks. \emph{Physics Review
 Letters} \textbf{104,} 168701 (2010).
 
-\leavevmode\hypertarget{ref-May2008}{}%
+\hypertarget{ref-May2008}{}
 10. May, R. M., Levin, S. A. \& Sugihara, G. Complex systems: Ecology
 for bankers. \emph{Nature} \textbf{451,} 893--895 (2008).
 
-\leavevmode\hypertarget{ref-Haldane2011}{}%
+\hypertarget{ref-Haldane2011}{}
 11. Haldane, A. G. \& May, R. M. Systemic risk in banking ecosystems.
 \emph{Nature} \textbf{469,} 351--355 (2011).
 
-\leavevmode\hypertarget{ref-Suweis2014}{}%
+\hypertarget{ref-Suweis2014}{}
 12. Suweis, S. \& D'Odorico, P. Early warning signs in social-ecological
 networks. \emph{PLoS ONE} \textbf{9,} (2014).
 
-\leavevmode\hypertarget{ref-Bardoscia2017}{}%
+\hypertarget{ref-Bardoscia2017}{}
 13. Bardoscia, M., Battiston, S., Caccioli, F. \& Caldarelli, G.
 Pathways towards instability in financial networks. \emph{Nature
 Communications} \textbf{8,} 1--7 (2017).
 
-\leavevmode\hypertarget{ref-Tao2010}{}%
+\hypertarget{ref-Tao2010}{}
 14. Tao, T. \& Vu, V. Random matrices: Universality of ESDs and the
 circular law. \emph{Annals of Probability} \textbf{38,} 2023--2065
 (2010).
 
-\leavevmode\hypertarget{ref-Watts1998}{}%
+\hypertarget{ref-Watts1998}{}
 15. Watts, D. J. \& Strogatz, S. H. Collective dynamics of 'small world'
 networks. \emph{Nature} \textbf{393,} 440--442 (1998).
 
-\leavevmode\hypertarget{ref-Albert2002}{}%
+\hypertarget{ref-Albert2002}{}
 16. Albert, R. \& Barabási, A. L. Statistical mechanics of complex
 networks. \emph{Reviews of Modern Physics} \textbf{74,} 47--97 (2002).
 
-\leavevmode\hypertarget{ref-Williams2000}{}%
+\hypertarget{ref-Williams2000}{}
 17. Williams, R. J. \& Martinez, N. D. Simple rules yield complex food
 webs. \emph{Nature} \textbf{404,} 180--183 (2000).
 
-\leavevmode\hypertarget{ref-Patel2018}{}%
+\hypertarget{ref-Patel2018}{}
 18. Patel, S., Cortez, M. H. \& Schreiber, S. J. Partitioning the
 effects of eco-evolutionary feedbacks on community stability.
 \emph{American Naturalist} \textbf{191,} 1--29 (2018).
 
-\leavevmode\hypertarget{ref-Tang2014b}{}%
+\hypertarget{ref-Tang2014b}{}
 19. Tang, S. \& Allesina, S. Reactivity and stability of large
 ecosystems. \emph{Frontiers in Ecology and Evolution} \textbf{2,} 1--8
 (2014).
 
-\leavevmode\hypertarget{ref-Ahmadian2015}{}%
+\hypertarget{ref-Ahmadian2015}{}
 20. Ahmadian, Y., Fumarola, F. \& Miller, K. D. Properties of networks
 with partially structured and partially random connectivity.
 \emph{Physical Review E - Statistical, Nonlinear, and Soft Matter
 Physics} \textbf{91,} 012820 (2015).
 
-\leavevmode\hypertarget{ref-Gibbs2017}{}%
+\hypertarget{ref-Gibbs2017}{}
 21. Gibbs, T., Grilli, J., Rogers, T. \& Allesina, S. The effect of
 population abundances on the stability of large random ecosystems.
 \emph{Physical Review E - Statistical, Nonlinear, and Soft Matter
 Physics} \textbf{98,} 022410 (2018).
 
-\leavevmode\hypertarget{ref-Stone2017}{}%
+\hypertarget{ref-Stone2017}{}
 22. Stone, L. The feasibility and stability of large complex biological
 networks: a random matrix approach. \emph{Scientific Reports}
 \textbf{8,} 8246 (2018).
 
-\leavevmode\hypertarget{ref-Tang2014c}{}%
+\hypertarget{ref-Tang2014c}{}
 23. Tang, S., Pawar, S. \& Allesina, S. Correlation between interaction
 strengths drives stability in large ecological networks. \textbf{17,}
 1094--1100 (2014).
 
-\leavevmode\hypertarget{ref-Hamblin2013}{}%
+\hypertarget{ref-Hamblin2013}{}
 24. Hamblin, S. On the practical usage of genetic algorithms in ecology
 and evolution. \emph{Methods in Ecology and Evolution} \textbf{4,}
 184--194 (2013).
 
-\leavevmode\hypertarget{ref-Dougoud2018}{}%
+\hypertarget{ref-Dougoud2018}{}
 25. Dougoud, M., Vinckenbosch, L., Rohr, R., Bersier, L.-F. \& Mazza, C.
 The feasibility of equilibria in large ecosystems: a primary but
 neglected concept in the complexity-stability debate. \emph{PLOS
 Computational Biology} \textbf{14,} e1005988 (2018).
 
-\leavevmode\hypertarget{ref-Song2018}{}%
+\hypertarget{ref-Song2018}{}
 26. Song, C. \& Saavedra, S. Will a small randomly assembled community
 be feasible and stable? \emph{Ecology} \textbf{99,} 743--751 (2018).
 
-\leavevmode\hypertarget{ref-Servan2018}{}%
+\hypertarget{ref-Servan2018}{}
 27. Serván, C. A., Capitán, J. A., Grilli, J., Morrison, K. E. \&
 Allesina, S. Coexistence of many species in random ecosystems.
 \emph{Nature Ecology and Evolution} \textbf{2,} 1237--1242 (2018).
 
-\leavevmode\hypertarget{ref-May1973}{}%
+\hypertarget{ref-May1973}{}
 28. May, R. M. Qualitative stability in model ecosystems. \emph{Ecology}
 \textbf{54,} 638--641 (1973).
 
@@ -796,7 +791,7 @@ represented by the diagonal matrix \(\gamma\), such that
 sampled from a uniform distribution from \(\min = 0\) to \(\max = 2\).
 Eigenvalues of \(\mathbf{M}\) are then distributed non-uniformly within
 a circle centred at the origin with a radius of
-\(\sqrt{\sigma^{2}_{A}(1 + \sigma^{2}_{\gamma})S} \approx\) 1.16.
+\(\sqrt{\sigma^{2}_{A}(1 + \sigma^{2}_{\gamma})S} \approx\) 1.14.
 (\(\textbf{c}\)) A different random system \(\mathbf{A}\) constructed
 from the same parameters as in \(\textbf{a}\), except with diagonal
 values of \(-1\). (\(\textbf{d}\)) The same system \(\textbf{c}\) after
