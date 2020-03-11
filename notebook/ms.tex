@@ -203,7 +203,8 @@ random\textsuperscript{\protect\hyperlink{ref-May1972}{1}},
 small-world\textsuperscript{\protect\hyperlink{ref-Watts1998}{15}},
 scale-free\textsuperscript{\protect\hyperlink{ref-Albert2002}{16}},
 cascade food
-web\textsuperscript{\protect\hyperlink{ref-Williams2000}{17}} networks.
+web\textsuperscript{\protect\hyperlink{ref-Solow1998}{17},\protect\hyperlink{ref-Williams2000}{18}}
+networks.
 
 \subsection{Results}\label{results}
 
@@ -222,7 +223,7 @@ to zero (i.e. \(\gamma\) is a diagonal matrix with positive support).
 The distribution of \(\gamma\) over \(S\) components thereby models the
 distribution of component response rates. The dynamics of the entire
 system \(\mathbf{M}\) can be defined as
-follows\textsuperscript{\protect\hyperlink{ref-Patel2018}{18}},
+follows\textsuperscript{\protect\hyperlink{ref-Patel2018}{19}},
 
 \begin{equation} \label{defM}
 M = \gamma A.
@@ -237,12 +238,12 @@ these conditions, eigenvalues of \(\mathbf{M}\) are distributed
 uniformly\textsuperscript{\protect\hyperlink{ref-Tao2010}{14}} in a
 circle centred at \((-d, 0)\) with a radius of
 \(\sigma_{M} \sqrt{SC}\)\textsuperscript{\protect\hyperlink{ref-May1972}{1}}
-(Figure 1a).
+(Fig. 1a).
 
 \textbf{Effect of \(\mathbf{\sigma^{2}_{\gamma}}\) on \(\mathbf{M}\)
 (co)variation}. The value of \(\Re(\lambda_{max})\), and therefore
 system stability, can be estimated from five properties of
-\(\mathbf{M}\)\textsuperscript{\protect\hyperlink{ref-Tang2014b}{19}}.
+\(\mathbf{M}\)\textsuperscript{\protect\hyperlink{ref-Tang2014b}{20}}.
 These properties include (1) system size (\(S\)), (2) mean
 self-regulation of components (\(d\)), (3) mean interaction strength
 between components (\(\mu\)), (4) the standard deviation between
@@ -269,20 +270,20 @@ Given \(E[\gamma_{i}] = 1\) and \(E[A_{ij}] = 0\), equation
 
 The increase caused by \(\sigma^{2}_\gamma\) can be visualised from the
 eigenvalue spectra of \(\textbf{A}\) versus
-\(\textbf{M} = \gamma\textbf{A}\) (Figure 1). Given \(d = 0\) and
+\(\textbf{M} = \gamma\textbf{A}\) (Fig. 1). Given \(d = 0\) and
 \(C = 1\), the distribution of eigenvalues of \(\textbf{A}\) and
 \(\textbf{M}\) lie within a circle of a radius \(\sigma_{A}\sqrt{S}\)
-and \(\sigma_{M}\sqrt{S}\), respectively (Figure 1a vs.~1b). If
+and \(\sigma_{M}\sqrt{S}\), respectively (Fig. 1a vs.~1b). If
 \(d \neq 0\), positive \(\sigma^{2}_\gamma\) changes the distribution of
-eigenvalues\textsuperscript{\protect\hyperlink{ref-Ahmadian2015}{20}--\protect\hyperlink{ref-Stone2017}{22}},
-potentially affecting stability (Figure 1c vs.~1d).
+eigenvalues\textsuperscript{\protect\hyperlink{ref-Ahmadian2015}{21}--\protect\hyperlink{ref-Stone2017}{23}},
+potentially affecting stability (Fig. 1c vs.~1d).
 
 Given \(\sigma^{2}_\gamma = 0\), \(\Re(\lambda_{max})\) decrease
 linearly with \(\rho\) such
-that\textsuperscript{\protect\hyperlink{ref-Tang2014c}{23}},
+that\textsuperscript{\protect\hyperlink{ref-Tang2014c}{24}},
 
 \begin{equation} \label{rho_stab}
-\max(\Re(\lambda)) \approx \sigma_{M}\sqrt{SC}\left(1 + \rho\right).
+\Re(\lambda_{max}) \approx \sigma_{M}\sqrt{SC}\left(1 + \rho\right).
 \end{equation}
 
 If \(\rho < 0\), such as when \(\textbf{M}\) models a predator-prey
@@ -318,21 +319,21 @@ Ten thousand numerical simulations of \(\mathbf{M}\) revealed that
 stability of the system. Figure 2 shows a comparison of
 \(\Re(\lambda_{max})\) across \(\rho\) values when
 \(\sigma^{2}_{\gamma} = 0\) versus \(\sigma^{2}_{\gamma} = 1/3\) given
-\(S = 25\) and \(\sigma = 0.4\). For \(-0.4 \leq \rho \leq 0.7\) (shaded
-region of Figure 2), expected \(\Re(\lambda_{max})\) was lower given
-\(\sigma^{2}_{\gamma} = 1/3\). For \(\rho \geq -0.1\), the range of
-\(\Re(\lambda_{max})\) values observed given
-\(\sigma^{2}_{\gamma} = 1/3\) also had a lower bound, which included
-negative values for \(\rho = -0.1\) and \(\rho = 0\). Hence, across a
-wide range of system correlations, variation in the response rate of
-system components had a stabilising effect.
+\(S = 25\), \(C = 1\), and \(\sigma = 0.4\). For
+\(-0.4 \leq \rho \leq 0.7\) (shaded region of Fig. 2), expected
+\(\Re(\lambda_{max})\) was lower given \(\sigma^{2}_{\gamma} = 1/3\).
+For \(\rho \geq -0.1\), the range of \(\Re(\lambda_{max})\) values
+observed given \(\sigma^{2}_{\gamma} = 1/3\) also had a lower bound,
+which included negative values for \(\rho = -0.1\) and \(\rho = 0\).
+Hence, across a wide range of system correlations, variation in the
+response rate of system components had a stabilising effect.
 
 The stabilising effect of \(\sigma^{2}_{\gamma}\) across \(\rho\)
 increased with increasing \(S\). Figure 3 shows 10000 numerical
 simulations of \(\mathbf{M}\) for \(\sigma^{2}_{\gamma} = 0\) versus
-\(\sigma^{2}_{\gamma} = 1/3\) across increasing \(S\) given
-\(\sigma = 0.2\) (\(\sigma\) has been lowered here to better illustrate
-the effect of \(S\); note that now given \(S = 25\),
+\(\sigma^{2}_{\gamma} = 1/3\) across increasing \(S\) given \(C = 1\)
+and \(\sigma = 0.2\) (\(\sigma\) has been lowered here to better
+illustrate the effect of \(S\); note that now given \(S = 25\),
 \(1 = \sigma\sqrt{SC}\)). For relatively small systems (\(S \leq 25\)),
 positive \(\sigma^{2}_{\gamma}\) never decreased the expected
 \(\Re(\lambda_{max})\). But as \(S\) increased, the curvilinear
@@ -343,49 +344,98 @@ more complex, positive \(\sigma^{2}_{\gamma}\) increased the proportion
 of numerical simulations that were observed to be stable (see below).
 
 \textbf{Simulation of random \(\mathbf{M}\) across \(\mathbf{S}\)}. To
-investigate the effect of \(Var(\gamma)\) on stability across systems of
-varying complexity, I simulated random \(\mathbf{M}\) matrices at
-\(\sigma = 0.4\) and \(C = 1\) across \(S = \{2, 3, ..., 49, 50\}\). One
-million \(\mathbf{M}\) were simulated for each \(S\), and the stability
-of \(\mathbf{M}\) was assessed given \(\gamma = 1\) versus
-\(\gamma \sim \mathcal{U}(0, 2)\). For all \(S > 10\), I found that the
-number of stable random systems was higher given \(Var(\gamma)\) than
-when \(\gamma = 1\) (Fig. 3; see Supplementary Information for full
-table of results), and that the difference between the probabilities of
-observing a stable system increased with an increase in \(S\). In other
-words, the potential for \(Var(\gamma)\) to affect stability increased
-with system complexity and was most relevant for systems on the cusp of
-being too complex to be realistically stable. For the highest values of
-\(S\), nearly all systems that were stable given \(Var(\gamma)\) would
-not have been stable given \(\gamma = 1\).
+investigate the effect of \(\sigma^{2}_{\gamma}\) on stability across
+systems of varying complexity, I simulated random \(\mathbf{M}\)
+matrices at \(\sigma = 0.4\) and \(C = 1\) across
+\(S = \{2, 3, ..., 49, 50\}\). One million \(\mathbf{M}\) were simulated
+for each \(S\), and the stability of \(\mathbf{M}\) was assessed given
+\(\gamma = 1\) (\(\sigma^{2}_{\gamma} = 0\)) versus
+\(\gamma \sim \mathcal{U}(0, 2)\) (\(\sigma^{2}_{\gamma} = 1/3\)). For
+all \(S > 10\), I found that the number of stable random systems was
+higher given \(\sigma^{2}_{\gamma} > 0\) than when
+\(\sigma^{2}_{\gamma} = 0\) (Fig. 3; see Supplementary Information for
+full table of results), and that the difference between the
+probabilities of observing a stable system increased with an increase in
+\(S\). In other words, the potential for \(\sigma^{2}_{\gamma}\) to
+affect stability increased with system complexity and was most relevant
+for systems on the cusp of being too complex to be realistically stable.
+For the highest values of \(S\), nearly all systems that were stable
+given varying \(\gamma\) would not have been stable given
+\(\gamma = 1\).
 
-\textbf{Targeted manipulation of \(\mathbf{\gamma}\)}. To further
-investigate the potential of \(Var(\gamma)\) to be stabilising, I used a
-genetic algorithm. Genetic algorithms are heuristic tools that mimic
-evolution by natural selection, and are useful when the space of
-potential solutions (in this case, possible combinations of \(\gamma\)
-values leading to stability in a complex system) is too large to search
-exhaustively\textsuperscript{\protect\hyperlink{ref-Hamblin2013}{24}}.
-Generations of selection on \(\gamma\) value combinations to minimise
-\(\Re(\lambda_{max})\) demonstrated the potential for \(Var(\gamma)\) to
-increase system stability. Across \(S = \{2, 3, ..., 39, 40\}\), sets of
-\(\gamma\) values were found that resulted in stable systems with
-probabilities that were up to four orders of magnitude higher than when
-\(\gamma = 1\) (Fig. 4), meaning that stability could often be achieved
-by manipulating \(S\) \(\gamma\) values rather than \(S \times S\)
-\(\mathbf{M}\) elements (i.e., by manipulating component response rates
-rather than interactions between components).
+I also simulated 100000 \(\mathbf{M}\) for three types of random
+networks that are typically interpreted as differing interspecific
+ecological interaction
+types\textsuperscript{\protect\hyperlink{ref-Allesina2012}{2},\protect\hyperlink{ref-Allesina2011}{25}}.
+These interactions types are competitive, mutualist, or predator-prey,
+as modelled by off-diagonal elements of \(\mathbf{M}\) that are
+constrained to be negative, positive, or paired such that if
+\(A_{ij} > 0\) then \(A_{ji} < 0\),
+respectively\textsuperscript{\protect\hyperlink{ref-Allesina2012}{2}}
+(but are otherwise identical to the purely random \(\mathbf{M}\)). As
+\(S\) increased, a higher number of stable systems were observed given
+\(\sigma^{2}_{\gamma}>0\) versus \(\sigma^{2}_{\gamma}=0\) for
+competitor and predator-prey, but not mutualist, systems. A higher
+number of stable systems were observed whenever \(S > 12\) and
+\(S > 40\) for competitive and predator-prey systems, respectively (note
+that \(\rho < 0\) by definition for predator-prey systems, making
+stability more likely overall). The stability of mutualist systems was
+never affected by \(\sigma^{2}_{\gamma}\).
+
+The effect of \(\sigma^{2}_{\gamma}\) on stability did not change
+qualitatively across values of \(C\), \(\sigma\), or different
+distributions of \(\gamma\) (see Supporting Information).
+
+\textbf{Simulation of structured \(\mathbf{M}\) across \(\mathbf{S}\)}.
+To investigate how \(\sigma^{2}_{\gamma}\) affects the stability of
+commonly observed network structures, I simulated 1 million
+\(\textbf{M}\) for
+small-world\textsuperscript{\protect\hyperlink{ref-Watts1998}{15}},
+scale-free\textsuperscript{\protect\hyperlink{ref-Albert2002}{16}}, and
+cascade food
+web\textsuperscript{\protect\hyperlink{ref-Solow1998}{17},\protect\hyperlink{ref-Williams2000}{18}}
+networks. In all of these networks, rules determining the presence or
+absence of an interaction between components \(i\) and \(j\) constrained
+the overall structure of the network. In small-world networks,
+interactions between components are constrained so that the expected
+degree of separation between any two components increases in proportion
+to \(\log(S)\)\textsuperscript{\protect\hyperlink{ref-Watts1998}{15}}.
+In scale-free networks, the number of components with which a focal
+component interacts follows a power law; typically a few components have
+many interactions while most components have few
+interactions\textsuperscript{\protect\hyperlink{ref-Albert2002}{16}}. In
+cascade food webs, species are ranked and interactions are constrained
+such that a species \(i\) can only feed on \(j\) if the rank of
+\(i > j\).
+
+Network structure did not strongly modulate the effect that
+\(\sigma^{2}_{\gamma}\) had on stability. For comparable magnitudes of
+complexity, structured networks still had a higher number of stable
+\(\mathbf{M}\) for \(\sigma^{2}_{\gamma}>0\) compared to
+\(\sigma^{2}_{\gamma}=0\). For random networks, positive
+\(\sigma^{2}_{\gamma}\) increased stability given \(S > 10\)
+(\(\sigma = 0.4\) and \(C = 1\)), and therefore complexity
+\(\sigma \sqrt{SC} \gtrapprox 1.26\). This threshold of complexity was
+comparable for small-world networks, and slightly lower for scale-free
+networks (note that algorithms for generating small-world and scale-free
+networks necessarily led to varying \(C\), see methods). Varying
+\(\gamma\) increased stability in cascade food webs for \(S > 27\), and
+therefore at a relatively low complexity magnitudes compared to random
+predator-prey networks. Overall, network structure does not greatly
+change the effect that \(\sigma^{2}_{\gamma}\) has on increasing the
+upper bound of complexity within which stability might reasonably be
+observed.
 
 \textbf{System feasibility given \(\mathbf{Var(\gamma)}\)} For complex
 systems in which individual system components represent the density of
 some tangible quantity, it is relevant to consider the feasibility of
 the system. Feasibilility assumes that values of all components are
 positive at
-equilibrium\textsuperscript{\protect\hyperlink{ref-Grilli2017}{5},\protect\hyperlink{ref-Dougoud2018}{25},\protect\hyperlink{ref-Song2018}{26}}.
+equilibrium\textsuperscript{\protect\hyperlink{ref-Grilli2017}{5},\protect\hyperlink{ref-Dougoud2018}{26},\protect\hyperlink{ref-Song2018}{27}}.
 This is of particular interest for ecological communities because
 population density (\(N\)) cannot take negative values, meaning that
 ecological systems need to be feasible for stability to be biologically
-realistic\textsuperscript{\protect\hyperlink{ref-Dougoud2018}{25}}.
+realistic\textsuperscript{\protect\hyperlink{ref-Dougoud2018}{26}}.
 While my results are intended to be general to all complex systems, and
 not restricted to species networks, I have also performed a feasibility
 analysis on all matrices \(\mathbf{M}\) tested for stability, and
@@ -395,13 +445,32 @@ communities\textsuperscript{\protect\hyperlink{ref-Allesina2012}{2}}
 Information). I emphasise that \(\gamma\) is not interpreted as
 population density in this analysis, but instead as a fundamental
 property of species life history such as expected generation time.
-Feasibility was unaffected by \(Var(\gamma)\) and instead occurred with
-a fixed probability of \(1/2^{S}\), consistent with a recent proof by
-Serván et al.\textsuperscript{\protect\hyperlink{ref-Servan2018}{27}}
-(see Supplementary Information). Hence, for pure interacting species
+Feasibility was unaffected by \(\sigma^{2}_{\gamma}\) and instead
+occurred with a fixed probability of \(1/2^{S}\), consistent with a
+recent proof by Serván et
+al.\textsuperscript{\protect\hyperlink{ref-Servan2018}{28}} (see
+Supplementary Information). Hence, for pure interacting species
 networks, variation in component response rate (i.e., species generation
 time) does not affect stability at biologically realistic species
 densities.
+
+\textbf{Targeted manipulation of \(\mathbf{\gamma}\)}. To further
+investigate the potential of \(\sigma^{2}_{\gamma}\) to be stabilising,
+I used a genetic algorithm. Genetic algorithms are heuristic tools that
+mimic evolution by natural selection, and are useful when the space of
+potential solutions (in this case, possible combinations of \(\gamma\)
+values leading to stability in a complex system) is too large to search
+exhaustively\textsuperscript{\protect\hyperlink{ref-Hamblin2013}{29}}.
+Generations of selection on \(\gamma\) value combinations to minimise
+\(\Re(\lambda_{max})\) demonstrated the potential for
+\(\sigma^{2}_{\gamma}\) to increase system stability. Across
+\(S = \{2, 3, ..., 39, 40\}\), sets of \(\gamma\) values were found that
+resulted in stable systems with probabilities that were up to four
+orders of magnitude higher than when \(\gamma = 1\) (see Supplementary
+Information), meaning that stability could often be achieved by
+manipulating \(S\) \(\gamma\) values rather than \(S \times S\)
+\(\mathbf{M}\) elements (i.e., by manipulating component response rates
+rather than interactions between components).
 
 \subsection{Discussion}\label{discussion}
 
@@ -433,13 +502,13 @@ of the system matrix to become negative, but might also increase the
 real components of eigenvalues.
 
 My focus is distinct from Gibbs et
-al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{21}}, who applied
+al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{22}}, who applied
 the same mathematical framework to investigate how a diagonal matrix
 \(\mathbf{X}\) (equivalent to \(\gamma\) in my model) affects the
 stability of a community matrix \(\mathbf{M}\) given an interaction
 matrix \(\mathbf{A}\) within a generalised Lotka-Volterra model, where
 \(\mathbf{M} = \mathbf{XA}\). Gibbs et
-al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{21}} analytically
+al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{22}} analytically
 demonstrated that the effect of \(\mathbf{X}\) on system stability
 decreases exponentially as system size becomes arbitrarily large
 (\(S \to \infty\)) for a given magnitude of complexity
@@ -473,7 +542,7 @@ feasible, meaning that stability was not increased when component values
 were also restricted to being positive at equilibrium. Feasibility is
 important to consider, particularly for the study of ecological networks
 of
-species\textsuperscript{\protect\hyperlink{ref-Grilli2017}{5},\protect\hyperlink{ref-Stone2017}{22},\protect\hyperlink{ref-Dougoud2018}{25},\protect\hyperlink{ref-Servan2018}{27}}
+species\textsuperscript{\protect\hyperlink{ref-Grilli2017}{5},\protect\hyperlink{ref-Stone2017}{23},\protect\hyperlink{ref-Dougoud2018}{26},\protect\hyperlink{ref-Servan2018}{28}}
 because population densities cannot realistically be negative. My
 results therefore suggest that variation in the rate of population
 responses to perturbation (e.g., due to differences in generation time
@@ -481,7 +550,7 @@ among species) is unlikely to be critical to the stability of purely
 multi-species interaction networks (see also Supplementary Information).
 Nevertheless, ecological interactions do not exist in isolation in
 empirical
-systems\textsuperscript{\protect\hyperlink{ref-Patel2018}{18}}, but
+systems\textsuperscript{\protect\hyperlink{ref-Patel2018}{19}}, but
 instead interact with evolutionary, abiotic, or social-economic systems.
 The relevance of component response rate for complex system stability
 should therefore not be ignored in the broader context of ecological
@@ -489,9 +558,9 @@ communities.
 
 A general mathematical framework encompassing shifts in eigenvalue
 distributions caused by a vector \(\gamma\) has been
-investigated\textsuperscript{\protect\hyperlink{ref-Ahmadian2015}{20}}
+investigated\textsuperscript{\protect\hyperlink{ref-Ahmadian2015}{21}}
 and recently applied to questions concerning species density and
-feasibility\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{21},\protect\hyperlink{ref-Stone2017}{22}},
+feasibility\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{22},\protect\hyperlink{ref-Stone2017}{23}},
 but \(\gamma\) has not been interpreted as rates of response of
 individual system components to perturbation. My model focuses on
 component response rates for systems of a finite size, in which
@@ -512,7 +581,7 @@ synthesis of eco-evolutionary feedbacks on community stability, Patel et
 al. model a system that includes a vector of potentially changing
 species densities (\(\mathbf{N}\)) and a vector of potentially evolving
 traits
-(\(\mathbf{x}\))\textsuperscript{\protect\hyperlink{ref-Patel2018}{18}}.
+(\(\mathbf{x}\))\textsuperscript{\protect\hyperlink{ref-Patel2018}{19}}.
 For any species \(i\) or trait \(j\), change in species density
 (\(N_{i}\)) or trait value (\(x_{j}\)) with time (\(t\)) is a function
 of the vectors \(\mathbf{N}\) and \(\mathbf{x}\),
@@ -526,24 +595,24 @@ effects of all species densities and trait values on the density of a
 species \(i\) and the value of trait \(j\), respectively. Patel et al.
 were interested in stability when the evolution of traits was relatively
 slow or fast in comparison with the change in species
-densities\textsuperscript{\protect\hyperlink{ref-Patel2018}{18}}, and
+densities\textsuperscript{\protect\hyperlink{ref-Patel2018}{19}}, and
 this is modulated in the above by the scalar \(\epsilon\). The value of
 \(\epsilon\) thereby determines the timescale separation between ecology
 and evolution, with high \(\epsilon\) modelling relatively fast
 evolution and low \(\epsilon\) modelling relative slow
-evolution\textsuperscript{\protect\hyperlink{ref-Patel2018}{18}}.
+evolution\textsuperscript{\protect\hyperlink{ref-Patel2018}{19}}.
 
 I use the same principle that Patel et al. use to modulate the relative
 rate of evolution to modulate rates of component responses for \(S\)
 components. Following
-May\textsuperscript{\protect\hyperlink{ref-May1972}{1},\protect\hyperlink{ref-May1973}{28}},
+May\textsuperscript{\protect\hyperlink{ref-May1972}{1},\protect\hyperlink{ref-May1973}{30}},
 the value of a component \(i\) at time \(t\) (\(v_{i}(t)\)) is affected
 by the value of \(j\) (\(v_{j}(t)\)) and \(j\)'s marginal effect on
 \(i\) (\(a_{ij}\)), and by \(i\)'s response rate (\(\gamma_{i}\)),
 
 \[\frac{dv_{i}(t)}{dt} = \gamma_{i} \sum_{j=1}^{S}a_{ij}v_{j}(t).\]
 
-In matrix notation\textsuperscript{\protect\hyperlink{ref-May1973}{28}},
+In matrix notation\textsuperscript{\protect\hyperlink{ref-May1973}{30}},
 
 \[\frac{d\mathbf{v}(t)}{dt} = \mathbf{\gamma} \mathbf{A}\mathbf{v}(t).\]
 
@@ -551,7 +620,7 @@ In the above, \(\mathbf{\gamma}\) is a diagonal matrix in which elements
 correspond to individual component response rates. Therefore,
 \(\mathbf{M} = \mathbf{\gamma} \mathbf{A}\) defines the values of system
 components and can be analysed using the techniques of
-May\textsuperscript{\protect\hyperlink{ref-May1972}{1},\protect\hyperlink{ref-Ahmadian2015}{20},\protect\hyperlink{ref-May1973}{28}}.
+May\textsuperscript{\protect\hyperlink{ref-May1972}{1},\protect\hyperlink{ref-Ahmadian2015}{21},\protect\hyperlink{ref-May1973}{30}}.
 In these analyses, row means of \(\mathbf{A}\) are expected to be
 identical, but variation around this expectation will naturally arise
 due to random sampling of \(\mathbf{A}\) off-diagonal elements and
@@ -571,7 +640,7 @@ but even rounding \(\gamma_{i}\) to reasonable values would result in a
 search space too large to practically explore. Under these conditions,
 genetic algorithms are highly useful tools for finding practical
 solutions by mimicking the process of biological
-evolution\textsuperscript{\protect\hyperlink{ref-Hamblin2013}{24}}. In
+evolution\textsuperscript{\protect\hyperlink{ref-Hamblin2013}{29}}. In
 this case, the practical solution is finding vectors of
 \(\mathbf{\gamma}\) that decrease the most positive real eigenvalue of
 \(\mathbf{M}\). The genetic algorithm used achieves this by initialising
@@ -610,7 +679,7 @@ fitness increase between generations was less than 0.01 (where fitness
 was defined as \(W_{\gamma} = -\Re(\lambda_{max})\) for \(\mathbf{M}\)).
 
 \textbf{System feasibility}. Dougoud et
-al.\textsuperscript{\protect\hyperlink{ref-Dougoud2018}{25}} identify
+al.\textsuperscript{\protect\hyperlink{ref-Dougoud2018}{26}} identify
 the following feasibility criteria for ecological systems characterised
 by \(S\) interacting species with varying densities in a generalised
 Lotka-Volterra model,
@@ -631,12 +700,12 @@ above, a diagonal matrix of -1s (\(\theta \mathbf{I}\)) is added to
 affecting species interactions (i.e., the expression \((CS)^{-\delta}\)
 relates to May's\textsuperscript{\protect\hyperlink{ref-May1972}{1}}
 stability
-criterion\textsuperscript{\protect\hyperlink{ref-Dougoud2018}{25}} by
+criterion\textsuperscript{\protect\hyperlink{ref-Dougoud2018}{26}} by
 \(\frac{\sigma}{(CS)^{-\delta}}\sqrt{SC} < 1\), and hence for my
 purposes \((CS)^{-\delta} = 1\)). Given
 \(\mathbf{A} = \theta\mathbf{I + J}\), the above criteria is therefore
 reduced to the below (see
-also\textsuperscript{\protect\hyperlink{ref-Servan2018}{27}}),
+also\textsuperscript{\protect\hyperlink{ref-Servan2018}{28}}),
 
 \[\mathbf{n^{*} = -A^{-1}r}.\]
 
@@ -739,64 +808,73 @@ networks. \emph{Nature} \textbf{393,} 440--442 (1998).
 16. Albert, R. \& Barabási, A. L. Statistical mechanics of complex
 networks. \emph{Reviews of Modern Physics} \textbf{74,} 47--97 (2002).
 
+\hypertarget{ref-Solow1998}{}
+17. Solow, A. R. \& Beet, A. R. On lumping species in food webs.
+\emph{Ecology} \textbf{79,} 2013--2018 (1998).
+
 \hypertarget{ref-Williams2000}{}
-17. Williams, R. J. \& Martinez, N. D. Simple rules yield complex food
+18. Williams, R. J. \& Martinez, N. D. Simple rules yield complex food
 webs. \emph{Nature} \textbf{404,} 180--183 (2000).
 
 \hypertarget{ref-Patel2018}{}
-18. Patel, S., Cortez, M. H. \& Schreiber, S. J. Partitioning the
+19. Patel, S., Cortez, M. H. \& Schreiber, S. J. Partitioning the
 effects of eco-evolutionary feedbacks on community stability.
 \emph{American Naturalist} \textbf{191,} 1--29 (2018).
 
 \hypertarget{ref-Tang2014b}{}
-19. Tang, S. \& Allesina, S. Reactivity and stability of large
+20. Tang, S. \& Allesina, S. Reactivity and stability of large
 ecosystems. \emph{Frontiers in Ecology and Evolution} \textbf{2,} 1--8
 (2014).
 
 \hypertarget{ref-Ahmadian2015}{}
-20. Ahmadian, Y., Fumarola, F. \& Miller, K. D. Properties of networks
+21. Ahmadian, Y., Fumarola, F. \& Miller, K. D. Properties of networks
 with partially structured and partially random connectivity.
 \emph{Physical Review E - Statistical, Nonlinear, and Soft Matter
 Physics} \textbf{91,} 012820 (2015).
 
 \hypertarget{ref-Gibbs2017}{}
-21. Gibbs, T., Grilli, J., Rogers, T. \& Allesina, S. The effect of
+22. Gibbs, T., Grilli, J., Rogers, T. \& Allesina, S. The effect of
 population abundances on the stability of large random ecosystems.
 \emph{Physical Review E - Statistical, Nonlinear, and Soft Matter
 Physics} \textbf{98,} 022410 (2018).
 
 \hypertarget{ref-Stone2017}{}
-22. Stone, L. The feasibility and stability of large complex biological
+23. Stone, L. The feasibility and stability of large complex biological
 networks: a random matrix approach. \emph{Scientific Reports}
 \textbf{8,} 8246 (2018).
 
 \hypertarget{ref-Tang2014c}{}
-23. Tang, S., Pawar, S. \& Allesina, S. Correlation between interaction
+24. Tang, S., Pawar, S. \& Allesina, S. Correlation between interaction
 strengths drives stability in large ecological networks. \textbf{17,}
 1094--1100 (2014).
 
-\hypertarget{ref-Hamblin2013}{}
-24. Hamblin, S. On the practical usage of genetic algorithms in ecology
-and evolution. \emph{Methods in Ecology and Evolution} \textbf{4,}
-184--194 (2013).
+\hypertarget{ref-Allesina2011}{}
+25. Allesina, S. \& Levine, J. M. A competitive network theory of
+species diversity. \emph{Proceedings of the National Academy of Sciences
+of the United States of America} \textbf{108,} 5638--5642 (2011).
 
 \hypertarget{ref-Dougoud2018}{}
-25. Dougoud, M., Vinckenbosch, L., Rohr, R., Bersier, L.-F. \& Mazza, C.
+26. Dougoud, M., Vinckenbosch, L., Rohr, R., Bersier, L.-F. \& Mazza, C.
 The feasibility of equilibria in large ecosystems: a primary but
 neglected concept in the complexity-stability debate. \emph{PLOS
 Computational Biology} \textbf{14,} e1005988 (2018).
 
 \hypertarget{ref-Song2018}{}
-26. Song, C. \& Saavedra, S. Will a small randomly assembled community
+27. Song, C. \& Saavedra, S. Will a small randomly assembled community
 be feasible and stable? \emph{Ecology} \textbf{99,} 743--751 (2018).
 
 \hypertarget{ref-Servan2018}{}
-27. Serván, C. A., Capitán, J. A., Grilli, J., Morrison, K. E. \&
+28. Serván, C. A., Capitán, J. A., Grilli, J., Morrison, K. E. \&
 Allesina, S. Coexistence of many species in random ecosystems.
 \emph{Nature Ecology and Evolution} \textbf{2,} 1237--1242 (2018).
 
+\hypertarget{ref-Hamblin2013}{}
+29. Hamblin, S. On the practical usage of genetic algorithms in ecology
+and evolution. \emph{Methods in Ecology and Evolution} \textbf{4,}
+184--194 (2013).
+
 \hypertarget{ref-May1973}{}
-28. May, R. M. Qualitative stability in model ecosystems. \emph{Ecology}
+30. May, R. M. Qualitative stability in model ecosystems. \emph{Ecology}
 \textbf{54,} 638--641 (1973).
 
 \clearpage
@@ -815,7 +893,7 @@ represented by the diagonal matrix \(\gamma\), such that
 sampled from a uniform distribution from \(\min = 0\) to \(\max = 2\).
 Eigenvalues of \(\mathbf{M}\) are then distributed non-uniformly within
 a circle centred at the origin with a radius of
-\(\sqrt{\sigma^{2}_{A}(1 + \sigma^{2}_{\gamma})S} \approx\) 1.18.
+\(\sqrt{\sigma^{2}_{A}(1 + \sigma^{2}_{\gamma})S} \approx\) 1.12.
 (\(\textbf{c}\)) A different random system \(\mathbf{A}\) constructed
 from the same parameters as in \(\textbf{a}\), except with diagonal
 values of \(-1\). (\(\textbf{d}\)) The same system \(\textbf{c}\) after
