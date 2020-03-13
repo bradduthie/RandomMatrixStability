@@ -210,20 +210,20 @@ networks.
 \subsection{Results}\label{results}
 
 \textbf{Component response rates of random complex systems}. Complex
-systems \(\mathbf{M}\) are built from two matrices, one modelling
+systems (\(\mathbf{M}\)) are built from two matrices, one modelling
 component interactions (\(\mathbf{A}\)), and second modelling component
 response rates (\(\gamma\)). Both \(\mathbf{A}\) and \(\gamma\) are
 square \(S \times S\) matrices. Rows in \(\mathbf{A}\) define how a
 given component \(i\) is affected by each component \(j\) in the system,
-including itself (where \(i = j\)). Off-diagonal elments of
+including itself (where \(i = j\)). Off-diagonal elements of
 \(\mathbf{A}\) are independent and identically distributed (i.i.d), and
 diagonal elements are set to \(A_{ii} = -1\) as in
 May\textsuperscript{\protect\hyperlink{ref-May1972}{1}}. Diagonal
 elements of \(\gamma\) are positive, and off-diagonal elements are set
 to zero (i.e. \(\gamma\) is a diagonal matrix with positive support).
-The distribution of \(\gamma\) over \(S\) components thereby models the
-distribution of component response rates. The dynamics of the entire
-system \(\mathbf{M}\) can be defined as
+The distribution of \(diag(\gamma)\) over \(S\) components thereby
+models the distribution of component response rates. The dynamics of the
+entire system \(\mathbf{M}\) can be defined as
 follows\textsuperscript{\protect\hyperlink{ref-Patel2018}{19}},
 
 \begin{equation} \label{defM}
@@ -231,14 +231,14 @@ M = \gamma A.
 \end{equation}
 
 Equation \ref{defM} thereby serves as a null model to investigate how
-variation in component response rate (\(\sigma_{\gamma}\)) affects
+variation in component response rate (\(\sigma^{2}_{\gamma}\)) affects
 complex systems. In the absence of such variation
-(\(\sigma_{\gamma} = 0\)), \(\gamma\) is set to the identity matrix
+(\(\sigma^{2}_{\gamma} = 0\)), \(\gamma\) is set to the identity matrix
 (diagonal elements all equal 1) and \(\mathbf{M} = \mathbf{A}\). Under
 these conditions, eigenvalues of \(\mathbf{M}\) are distributed
 uniformly\textsuperscript{\protect\hyperlink{ref-Tao2010}{14}} in a
 circle centred at \((-d, 0)\) with a radius of
-\(\sigma_{M} \sqrt{SC}\)\textsuperscript{\protect\hyperlink{ref-May1972}{1}}
+\(\sigma \sqrt{SC}\)\textsuperscript{\protect\hyperlink{ref-May1972}{1}}
 (Fig. 1a).
 
 \textbf{Effect of \(\mathbf{\sigma^{2}_{\gamma}}\) on \(\mathbf{M}\)
@@ -247,30 +247,31 @@ system stability, can be estimated from five properties of
 \(\mathbf{M}\)\textsuperscript{\protect\hyperlink{ref-Tang2014b}{20}}.
 These properties include (1) system size (\(S\)), (2) mean
 self-regulation of components (\(d\)), (3) mean interaction strength
-between components (\(\mu\)), (4) the standard deviation between
-component interaction strengths (\(\sigma_{M}\)), and (5) the
-correlation of interaction strengths between components, \(M_{ij}\) and
-\(M_{ji}\) (\(\rho\)). Positive \(\sigma_{\gamma}\) does not change
-\(S\), nor does it necessarily change \(E[d]\) or \(E[\mu]\). What
-\(\sigma_{\gamma}\) does change is the total variation in component
-interaction strengths (\(\sigma_{M}\)), and \(\rho\). Introducing
+between components (\(\mu\)), (4) the variance of between component
+interaction strengths (hereafter \(\sigma^{2}_{M}\), to distinguish from
+\(\sigma^{2}_{A}\) and \(\sigma^{2}_{\gamma}\)), and (5) the correlation
+of interaction strengths between components, \(M_{ij}\) and \(M_{ji}\)
+(\(\rho\)). Positive \(\sigma^{2}_{\gamma}\) does not change \(S\), nor
+does it necessarily change \(E[d]\) or \(E[\mu]\). What
+\(\sigma^{2}_{\gamma}\) does change is the total variation in component
+interaction strengths (\(\sigma^{2}_{M}\)), and \(\rho\). Introducing
 variation in \(\gamma\) increases the total variation in the system.
-Variation of the off-diagonal elements in \(\mathbf{M}\) is described by
+Variation in the off-diagonal elements of \(\mathbf{M}\) is described by
 the joint variation of two random variables,
 
 \begin{equation} \label{var_full}
 \sigma^{2}_{M} = \sigma^{2}_{A}\sigma^{2}_{\gamma} + \sigma^{2}_{A}E[\gamma_{i}]^{2}+\sigma^{2}_{\gamma}E[A_{ij}]^{2}.
 \end{equation}
 
-Given \(E[\gamma_{i}] = 1\) and \(E[A_{ij}] = 0\), equation
-\ref{var_full} can be simplified,
+Given \(E[\gamma_{i}] = 1\) and \(E[A_{ij}] = 0\), Eq. \ref{var_full}
+can be simplified,
 
 \begin{equation} \label{var_reduced}
 \sigma^{2}_{M} = \sigma^{2}_{A}(1 + \sigma^{2}_{\gamma}).
 \end{equation}
 
-The increase caused by \(\sigma^{2}_\gamma\) can be visualised from the
-eigenvalue spectra of \(\textbf{A}\) versus
+The increase in \(\sigma^{2}_{M}\) caused by \(\sigma^{2}_\gamma\) can
+be visualised from the eigenvalue spectra of \(\textbf{A}\) versus
 \(\textbf{M} = \gamma\textbf{A}\) (Fig. 1). Given \(d = 0\) and
 \(C = 1\), the distribution of eigenvalues of \(\textbf{A}\) and
 \(\textbf{M}\) lie within a circle of a radius \(\sigma_{A}\sqrt{S}\)
@@ -279,7 +280,7 @@ and \(\sigma_{M}\sqrt{S}\), respectively (Fig. 1a vs.~1b). If
 eigenvalues\textsuperscript{\protect\hyperlink{ref-Ahmadian2015}{21}--\protect\hyperlink{ref-Stone2017}{23}},
 potentially affecting stability (Fig. 1c vs.~1d).
 
-Given \(\sigma^{2}_\gamma = 0\), \(\Re(\lambda_{max})\) decrease
+Given \(\sigma^{2}_\gamma = 0\), \(\Re(\lambda_{max})\) decreases
 linearly with \(\rho\) such
 that\textsuperscript{\protect\hyperlink{ref-Tang2014c}{24}},
 
@@ -293,7 +294,7 @@ increases\textsuperscript{\protect\hyperlink{ref-Allesina2012}{2}}. If
 diagonal elements of \(\gamma\) vary independently, the magnitude of
 \(\rho\) is decreased because \(\sigma^{2}_{\gamma}\) increases the
 variance of \(M_{ij}\) without affecting the expected covariance between
-\(M_{ij}\) and \(M_{ji}\).
+\(M_{ij}\) and \(M_{ji}\) (Figure 2).
 
 \textbf{Numerical simulations of random systems with and without
 \(\mathbf{\sigma^{2}_{\gamma}}\)}. I used numerical simulations and
@@ -303,14 +304,14 @@ random matrices with known properties, comparing the stability of
 \(\gamma\) were sampled from a uniform distribution where
 \(\gamma_{i} \sim \mathcal{U}(0, 2)\) and \(\sigma^{2}_{\gamma} = 1/3\)
 (see Supplementary Information for other \(\gamma\) distributions, which
-gave similar results). Diagonal elements of simulated \(\mathbf{A}\)
-were standardised to the mean value of sampled \(\gamma\) so that
-\(E[d]\) of \(\textbf{M}\) and \(\textbf{M}\) were guaranteed to be
-identical. Here I focus on the effect of \(\gamma\) across values of
-\(\rho\), and for increasing system sizes (\(S\)) in random and
-structured networks. By increasing \(S\), the objective is to determine
-the effect of \(\gamma\) as system complexity increases toward the
-boundary at which stability is realistic for a finite system.
+gave similar results). In all simulations, diagonal elements were
+standardised to ensure that \(-d\) between individual \(\textbf{A}\) and
+\(\textbf{M}\) pairs were identical (also note that
+\(E[\gamma_{i}] = 1\)). First I focus on the effect of \(\gamma\) across
+values of \(\rho\), then for increasing system sizes (\(S\)) in random
+and structured networks. By increasing \(S\), the objective is to
+determine the effect of \(\gamma\) as system complexity increases toward
+the boundary at which stability is realistic for a finite system.
 
 \textbf{Simulation of random \(\mathbf{M}\) across \(\mathbf{\rho}\)}
 
@@ -887,7 +888,7 @@ components, represented by the diagonal matrix \(\gamma\), such that
 sampled from a uniform distribution from \(\min = 0\) to \(\max = 2\).
 Eigenvalues of \(\mathbf{M}\) are then distributed non-uniformly within
 a circle centred at the origin with a radius of
-\(\sqrt{\sigma^{2}_{A}(1 + \sigma^{2}_{\gamma})S} \approx\) 1.21.
+\(\sqrt{\sigma^{2}_{A}(1 + \sigma^{2}_{\gamma})S} \approx\) 1.14.
 (\(\textbf{c}\)) A different random system \(\mathbf{A}\) constructed
 from the same parameters as in \(\textbf{a}\), except with diagonal
 values of \(-1\). (\(\textbf{d}\)) The same system \(\textbf{c}\) after
