@@ -571,19 +571,19 @@ the physical, life, and social sciences.
 
 \subsection{Methods}\label{methods}
 
-\textbf{Component response rate variation (\(\mathbf{\gamma}\))}. In a
+\textbf{Component response rate (\(\mathbf{\gamma}\)) variation}. In a
 synthesis of eco-evolutionary feedbacks on community stability, Patel et
 al. model a system that includes a vector of potentially changing
-species densities (\(\mathbf{N}\)) and a vector of potentially evolving
+species densities (\(\mathbf{n}\)) and a vector of potentially evolving
 traits
 (\(\mathbf{x}\))\textsuperscript{\protect\hyperlink{ref-Patel2018}{19}}.
 For any species \(i\) or trait \(j\), change in species density
-(\(N_{i}\)) or trait value (\(x_{j}\)) with time (\(t\)) is a function
-of the vectors \(\mathbf{N}\) and \(\mathbf{x}\),
+(\(n_{i}\)) or trait value (\(x_{j}\)) with time (\(t\)) is a function
+of the vectors \(\mathbf{n}\) and \(\mathbf{x}\),
 
-\[\frac{dN_{i}}{dt} = N_{i}f_{i}(\mathbf{N}, \mathbf{x}),\]
+\[\frac{dn_{i}}{dt} = n_{i}f_{i}(\mathbf{n}, \mathbf{x}),\]
 
-\[\frac{dx_{j}}{dt} = \epsilon g_{j}(\mathbf{N}, \mathbf{x}).\]
+\[\frac{dx_{j}}{dt} = \epsilon g_{j}(\mathbf{n}, \mathbf{x}).\]
 
 In the above, \(f_{i}\) and \(g_{j}\) are functions that define the
 effects of all species densities and trait values on the density of a
@@ -613,8 +613,8 @@ In matrix notation\textsuperscript{\protect\hyperlink{ref-May1973}{30}},
 
 In the above, \(\mathbf{\gamma}\) is a diagonal matrix in which elements
 correspond to individual component response rates. Therefore,
-\(\mathbf{M} = \mathbf{\gamma} \mathbf{A}\) defines the values of system
-components and can be analysed using the techniques of
+\(\mathbf{M} = \mathbf{\gamma} \mathbf{A}\) defines the change in values
+of system components and can be analysed using the techniques of
 May\textsuperscript{\protect\hyperlink{ref-May1972}{1},\protect\hyperlink{ref-Ahmadian2015}{21},\protect\hyperlink{ref-May1973}{30}}.
 In these analyses, row means of \(\mathbf{A}\) are expected to be
 identical, but variation around this expectation will naturally arise
@@ -625,53 +625,6 @@ attributable to \(\mathbf{\gamma}\), especially at high \(S\). Variation
 in \(\mathbf{\gamma}\) specifically isolates the effects of differing
 component response rates, hence causing differences in expected
 \(\mathbf{M}\) row means.
-
-\textbf{Genetic algorithm}. Ideally, to investigate the potential of
-\(Var(\gamma)\) for increasing the proportion of stable complex systems,
-the search space of all possible \(\gamma\) vectors would be evaluated
-for each unique \(\mathbf{M = \gamma A}\). This is technically
-impossible because \(\gamma_{i}\) can take any real value between 0-2,
-but even rounding \(\gamma_{i}\) to reasonable values would result in a
-search space too large to practically explore. Under these conditions,
-genetic algorithms are highly useful tools for finding practical
-solutions by mimicking the process of biological
-evolution\textsuperscript{\protect\hyperlink{ref-Hamblin2013}{29}}. In
-this case, the practical solution is finding vectors of
-\(\mathbf{\gamma}\) that decrease the most positive real eigenvalue of
-\(\mathbf{M}\). The genetic algorithm used achieves this by initialising
-a large population of 1000 different potential \(\mathbf{\gamma}\)
-vectors and allowing this population to evolve through a process of
-mutation, crossover (swaping \(\gamma_{i}\) values between vectors),
-selection, and reproduction until either a \(\mathbf{\gamma}\) vector is
-found where all \(\Re(\lambda) < 0\) or some ``giving up'' critiera is
-met.
-
-For each \(S = \{2, 3, ..., 39, 40\}\), the genetic algorithm was run
-for 100000 random \(\mathbf{M}\) (\(\sigma = 0.4\), \(C = 1\)). The
-genetic algorithm was initialised with a population of 1000 different
-\(\mathbf{\gamma}\) vectors with elements sampled i.i.d from
-\(\gamma_{i} \sim \mathcal{U}(0, 2)\). Eigenanalysis was performed on
-the \(\mathbf{M}\) resulting from each \(\mathbf{\gamma}\) vector, and
-the 20 \(\mathbf{\gamma}\) vectors resulting in \(\mathbf{M}\) with the
-lowest \(\Re(\lambda_{max})\) each produced 50 clonal offspring with
-subsequent random mutation and crossover between the resulting new
-generation of 1000 \(\mathbf{\gamma}\) vectors. Mutation of each
-\(\gamma_{i}\) in a \(\mathbf{\gamma}\) vector occurred with a
-probability of 0.2, resulting in a mutation effect of size
-\(\mathcal{N}(0, 0.02)\) being added to generate the newly mutated
-\(\gamma_{i}\) (any \(\gamma_{i}\) values that mutated below zero were
-multiplied by \(-1\), and any values that mutated above 2 were set to
-2). Crossover occurred between two sets of 100 \(\mathbf{\gamma}\)
-vectors paired in each generation; vectors were randomly sampled with
-replacement among but not within sets. Vector pairs selected for
-crossover swapped all elements between and including two \(\gamma_{i}\)
-randomly selected with replacement (this allowed for reversal of vector
-element positions during crossover; e.g.,
-\(\{\gamma_{4}, \gamma_{5}, \gamma_{6}, \gamma_{7}\} \to \{\gamma_{7}, \gamma_{6}, \gamma_{5}, \gamma_{4}\}\)
-). The genetic algorithm terminated if a stable \(\mathbf{M}\) was
-found, 20 generations occurred, or if the mean \(\mathbf{\gamma}\)
-fitness increase between generations was less than 0.01 (where fitness
-was defined as \(W_{\gamma} = -\Re(\lambda_{max})\) for \(\mathbf{M}\)).
 
 \textbf{System feasibility}. Dougoud et
 al.\textsuperscript{\protect\hyperlink{ref-Dougoud2018}{26}} identify
@@ -699,8 +652,8 @@ criterion\textsuperscript{\protect\hyperlink{ref-Dougoud2018}{26}} by
 \(\frac{\sigma}{(CS)^{-\delta}}\sqrt{SC} < 1\), and hence for my
 purposes \((CS)^{-\delta} = 1\)). Given
 \(\mathbf{A} = \theta\mathbf{I + J}\), the above criteria is therefore
-reduced to the below (see
-also\textsuperscript{\protect\hyperlink{ref-Servan2018}{28}}),
+reduced to the below (see also Serván et
+al.\textsuperscript{\protect\hyperlink{ref-Servan2018}{28}}),
 
 \[\mathbf{n^{*} = -A^{-1}r}.\]
 
@@ -709,6 +662,53 @@ therefore evaluated \(\mathbf{-M^{-1}r}\) (\(\mathbf{r}\) elements were
 sampled i.i.d. from \(r_{i} \sim \mathcal{N}(0, 0.4^{2})\)). Feasibility
 is satisfied if all of the elements of the resulting vector are
 positive.
+
+\textbf{Genetic algorithm}. Ideally, to investigate the potential of
+\(\sigma^{2}_{\gamma}\) for increasing the proportion of stable complex
+systems, the search space of all possible \(\gamma\) vectors would be
+evaluated for each unique \(\mathbf{M = \gamma A}\). This is technically
+impossible because \(\gamma_{i}\) can take any real value between 0-2,
+but even rounding \(\gamma_{i}\) to reasonable values would result in a
+search space too large to practically explore. Under these conditions,
+genetic algorithms are highly useful tools for finding practical
+solutions by mimicking the process of biological
+evolution\textsuperscript{\protect\hyperlink{ref-Hamblin2013}{29}}. In
+this case, the practical solution is finding vectors of
+\(\mathbf{\gamma}\) that decrease the most positive real eigenvalue of
+\(\mathbf{M}\). The genetic algorithm used achieves this by initialising
+a large population of 1000 different potential \(\mathbf{\gamma}\)
+vectors and allowing this population to evolve through a process of
+mutation, crossover (swaping \(\gamma_{i}\) values between vectors),
+selection, and reproduction until either a \(\mathbf{\gamma}\) vector is
+found where all \(\Re(\lambda) < 0\) or some ``giving up'' critiera is
+met.
+
+For each \(S = \{2, 3, ..., 39, 40\}\), the genetic algorithm was run
+for 100000 random \(\mathbf{M = \gamma A}\) (\(\sigma_{A} = 0.4\),
+\(C = 1\)). The genetic algorithm was initialised with a population of
+1000 different \(\mathbf{\gamma}\) vectors with elements sampled i.i.d
+from \(\gamma_{i} \sim \mathcal{U}(0, 2)\). Eigenanalysis was performed
+on the \(\mathbf{M}\) resulting from each \(\mathbf{\gamma}\) vector,
+and the 20 \(\mathbf{\gamma}\) vectors resulting in \(\mathbf{M}\) with
+the lowest \(\Re(\lambda_{max})\) each produced 50 clonal offspring with
+subsequent random mutation and crossover between the resulting new
+generation of 1000 \(\mathbf{\gamma}\) vectors. Mutation of each
+\(\gamma_{i}\) in a \(\mathbf{\gamma}\) vector occurred with a
+probability of 0.2, resulting in a mutation effect of size
+\(\mathcal{N}(0, 0.02)\) being added to generate the newly mutated
+\(\gamma_{i}\) (any \(\gamma_{i}\) values that mutated below zero were
+multiplied by \(-1\), and any values that mutated above 2 were set to
+2). Crossover occurred between two sets of 100 \(\mathbf{\gamma}\)
+vectors paired in each generation; vectors were randomly sampled with
+replacement among but not within sets. Vector pairs selected for
+crossover swapped all elements between and including two \(\gamma_{i}\)
+randomly selected with replacement (this allowed for reversal of vector
+element positions during crossover; e.g.,
+\(\{\gamma_{4}, \gamma_{5}, \gamma_{6}, \gamma_{7}\} \to \{\gamma_{7}, \gamma_{6}, \gamma_{5}, \gamma_{4}\}\)
+). The genetic algorithm terminated if a stable \(\mathbf{M}\) was
+found, 20 generations occurred, or if the mean \(\mathbf{\gamma}\)
+fitness increase between generations was less than 0.01 (where fitness
+was defined as \(W_{\gamma} = -\Re(\lambda_{max})\) for \(\mathbf{M}\)).
 
 \textbf{Acknowledgements:} I am supported by a Leverhulme Trust Early
 Career Fellowship (ECF-2016-376). Conversations with L. Bussière and N.
@@ -880,15 +880,15 @@ Each panel shows the real (x-axis) and imaginary (y-axis) parts of
 (\(\textbf{a}\)) A system represented by a matrix \(\mathbf{A}\), in
 which all elements are sampled from a normal distribution with
 \(\mu = 0\) and \(\sigma_{A} = 1/\sqrt{S}\). Points are uniformly
-distributed within a circle centred at the origin with a radius of
-\(\sigma_{A} \sqrt{S} = 1\). (\(\textbf{b}\)) The same system as
+distributed within the blue circle centred at the origin with a radius
+of \(\sigma_{A} \sqrt{S} = 1\). (\(\textbf{b}\)) The same system as
 \(\textbf{a}\) after including variation in the response rates of \(S\)
 components, represented by the diagonal matrix \(\gamma\), such that
 \(\mathbf{M} = \gamma\mathbf{A}\). Elements of \(\gamma\) are randomly
 sampled from a uniform distribution from \(\min = 0\) to \(\max = 2\).
 Eigenvalues of \(\mathbf{M}\) are then distributed non-uniformly within
-a circle centred at the origin with a radius of
-\(\sqrt{\sigma^{2}_{A}(1 + \sigma^{2}_{\gamma})S} \approx\) 1.14.
+the red circle centred at the origin with a radius of
+\(\sqrt{\sigma^{2}_{A}(1 + \sigma^{2}_{\gamma})S} \approx\) 1.17.
 (\(\textbf{c}\)) A different random system \(\mathbf{A}\) constructed
 from the same parameters as in \(\textbf{a}\), except with diagonal
 values of \(-1\). (\(\textbf{d}\)) The same system \(\textbf{c}\) after
@@ -949,7 +949,7 @@ to \(-1\). Elements of \(\gamma\) were sampled such that
 variation in component response rate (\(\boldsymbol{\gamma}\)).} The
 \(\ln\) number of systems that are stable across different system sizes
 (\(S = \{2, 3, ..., 49, 50 \}\)) given \(C = 1\), and the proportion of
-systems in which variation in \(\gamma\) is critical for system
+systems for which variation in \(\gamma\) is critical for system
 stability. For each \(S\), 1 million complex systems are randomly
 generated. Stability of each complex system is tested given variation in
 \(\gamma\) by randomly sampling \(\gamma \sim \mathcal{U}(0, 2)\).

@@ -381,8 +381,8 @@ plot_stables <- function(dat, S_s = 32){
          cex = 1, col = "black", yaxs="i");
     points(x = x1, y = y1, lwd = 2, type = "l", col = "black");
     axis(side = 4, at = c(0, 0.2, 0.4, 0.6, 0.8, 1.0), cex.axis = 1.5);
-    legend("topleft", c(expression(paste(gamma," = 1")), 
-                        expression(paste("Var(",gamma,")"))), 
+    legend("topleft", c(expression(paste(sigma[gamma]^2," = 0")), 
+                        expression(paste(sigma[gamma]^2," = 1/3"))), 
            pch=15, col=c("grey80","grey40"), cex = 1.5, horiz = TRUE);
     #=================================
     mtext(side = 1, text = "System size (S)", cex = 2, outer = TRUE, 
