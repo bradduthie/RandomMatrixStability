@@ -315,29 +315,29 @@ the boundary at which stability is realistic for a finite system.
 
 \textbf{Simulation of random \(\mathbf{M}\) across \(\mathbf{\rho}\)}
 
-Ten thousand numerical simulations of \(\mathbf{M}\) revealed that
+Numerical simulations of \(\mathbf{M}\) revealed that
 \(\sigma^{2}_{\gamma}\) results in a nonlinear relationship between
 \(\rho\) and \(\Re(\lambda_{max})\), which can sometimes increase the
 stability of the system. Figure 2 shows a comparison of
 \(\Re(\lambda_{max})\) across \(\rho\) values for \(\mathbf{A}\)
 (\(\sigma^{2}_{\gamma} = 0\)) versus \(\mathbf{M}\)
 (\(\sigma^{2}_{\gamma} = 1/3\)) given \(S = 25\), \(C = 1\), and
-\(\sigma = 0.4\). For \(-0.4 \leq \rho \leq 0.7\) (shaded region of Fig.
-2), expected \(\Re(\lambda_{max})\) was lower in \(\mathbf{M}\) than
-\(\mathbf{A}\). For \(\rho \geq -0.1\), the lower bound of the range of
-\(\Re(\lambda_{max})\) values also decreased given
+\(\sigma_{A} = 0.4\). For \(-0.4 \leq \rho \leq 0.7\) (shaded region of
+Fig. 2), expected \(\Re(\lambda_{max})\) was lower in \(\mathbf{M}\)
+than \(\mathbf{A}\). For \(\rho \geq -0.1\), the lower bound of the
+range of \(\Re(\lambda_{max})\) values also decreased given
 \(\sigma^{2}_{\gamma}\), resulting in negative \(\Re(\lambda_{max})\) in
 \(\mathbf{M}\) for \(\rho = -0.1\) and \(\rho = 0\). Hence, across a
 wide range of system correlations, variation in the response rate of
 system components had a stabilising effect.
 
 The stabilising effect of \(\sigma^{2}_{\gamma}\) across \(\rho\)
-increased with increasing \(S\). Figure 3 shows 10000 numerical
-simulations of \(\mathbf{M}\) across increasing \(S\) given \(C = 1\)
-and \(\sigma = 0.2\) (\(\sigma\) has been lowered here to better
+increased with increasing \(S\). Figure 3 shows numerical simulations of
+\(\mathbf{M}\) across increasing \(S\) given \(C = 1\) and
+\(\sigma_{A} = 0.2\) (\(\sigma_{A}\) has been lowered here to better
 illustrate the effect of \(S\); note that now given \(S = 25\),
-\(1 = \sigma\sqrt{SC}\)). For relatively small systems (\(S \leq 25\)),
-\(\sigma^{2}_{\gamma}\) never decreased the expected
+\(1 = \sigma_{A}\sqrt{SC}\)). For relatively small systems
+(\(S \leq 25\)), \(\sigma^{2}_{\gamma}\) never decreased the expected
 \(\Re(\lambda_{max})\). But as \(S\) increased, the curvilinear
 relationship between \(\rho\) and \(\Re(\lambda_{max})\) decreased
 expected \(\Re(\lambda_{max})\) for \(\mathbf{M}\) given low magnitudes
@@ -347,14 +347,14 @@ simulations that were observed to be stable (see below).
 
 \textbf{Simulation of random \(\mathbf{M}\) across \(\mathbf{S}\)}. To
 investigate the effect of \(\sigma^{2}_{\gamma}\) on stability across
-systems of varying complexity, I simulated random
-\(\mathbf{M = \gamma A}\) matrices at \(\sigma = 0.4\) and \(C = 1\)
+systems of increasing complexity, I simulated random
+\(\mathbf{M = \gamma A}\) matrices at \(\sigma_{A} = 0.4\) and \(C = 1\)
 across \(S = \{2, 3, ..., 49, 50\}\). One million \(\mathbf{M}\) were
 simulated for each \(S\), and the stability of \(\mathbf{A}\) vesus
 \(\mathbf{M}\) was assessed given \(\gamma_{i} \sim \mathcal{U}(0, 2)\)
 (\(\sigma^{2}_{\gamma} = 1/3\)). For all \(S > 10\), I found that the
 number of stable random systems was higher in \(\mathbf{M}\) than
-\(\mathbf{A}\) (Fig. 3; see Supplementary Information for full table of
+\(\mathbf{A}\) (Fig. 4; see Supplementary Information for full table of
 results), and that the difference between the probabilities of observing
 a stable system increased with an increase in \(S\). In other words, the
 potential for \(\sigma^{2}_{\gamma}\) to affect stability increased with
@@ -364,44 +364,44 @@ nearly all systems that were stable given varying \(\gamma\) would not
 have been stable given \(\gamma = 1\).
 
 I also simulated 100000 \(\mathbf{M = \gamma A}\) for three types of
-random networks that are typically interpreted as differing
-interspecific ecological interaction
-types\textsuperscript{\protect\hyperlink{ref-Allesina2012}{2},\protect\hyperlink{ref-Allesina2011}{25}}.
-These interactions types are competitive, mutualist, or predator-prey,
+random networks that are typically interpreted as modelling three types
+of interspecific ecological
+interactions\textsuperscript{\protect\hyperlink{ref-Allesina2012}{2},\protect\hyperlink{ref-Allesina2011}{25}}.
+These interaction types are competitive, mutualist, and predator-prey,
 as modelled by off-diagonal elements that are constrained to be
 negative, positive, or paired such that if \(A_{ij} > 0\) then
 \(A_{ji} < 0\),
 respectively\textsuperscript{\protect\hyperlink{ref-Allesina2012}{2}}
 (but are otherwise identical to the purely random \(\mathbf{A}\)). As
 \(S\) increased, a higher number of stable \(\mathbf{M}\) relative to
-\(\mathbf{A}\) were observed for competitor and predator-prey, but not
-mutualist, systems. A higher number of stable systems were observed
+\(\mathbf{A}\) was observed for competitor and predator-prey, but not
+mutualist, systems. A higher number of stable systems was observed
 whenever \(S > 12\) and \(S > 40\) for competitive and predator-prey
 systems, respectively (note that \(\rho < 0\) for predator-prey systems,
 making stability more likely overall). The stability of mutualist
 systems was never affected by \(\sigma^{2}_{\gamma}\).
 
 The effect of \(\sigma^{2}_{\gamma}\) on stability did not change
-qualitatively across values of \(C\), \(\sigma\), or different
+qualitatively across values of \(C\), \(\sigma_{A}\), or for different
 distributions of \(\gamma\) (see Supporting Information).
 
 \textbf{Simulation of structured \(\mathbf{M}\) across \(\mathbf{S}\)}.
 To investigate how \(\sigma^{2}_{\gamma}\) affects the stability of
-commonly observed network structures, I simulated 1 million
+commonly observed network structures, I simulated one million
 \(\mathbf{M = \gamma A}\) for
 small-world\textsuperscript{\protect\hyperlink{ref-Watts1998}{15}},
 scale-free\textsuperscript{\protect\hyperlink{ref-Albert2002}{16}}, and
 cascade food
 web\textsuperscript{\protect\hyperlink{ref-Solow1998}{17},\protect\hyperlink{ref-Williams2000}{18}}
 networks. In all of these networks, rules determining the presence or
-absence of an interaction between components \(i\) and \(j\) constrained
+absence of an interaction between components \(i\) and \(j\) constrain
 the overall structure of the network. In small-world networks,
 interactions between components are constrained so that the expected
 degree of separation between any two components increases in proportion
 to \(\log(S)\)\textsuperscript{\protect\hyperlink{ref-Watts1998}{15}}.
-In scale-free networks, the number of components with which a focal
-component interacts follows a power law; typically a few components have
-many interactions while most components have few
+In scale-free networks, the distribution of the number of components
+with which a focal component interacts follows a power law; a few
+components have many interactions while most components have few
 interactions\textsuperscript{\protect\hyperlink{ref-Albert2002}{16}}. In
 cascade food webs, species are ranked and interactions are constrained
 such that a species \(i\) can only feed on \(j\) if the rank of
@@ -413,7 +413,7 @@ complexity, structured networks still had a higher number of stable
 \(\mathbf{M}\) than \(\mathbf{A}\). For random networks,
 \(\sigma^{2}_{\gamma}\) increased stability given \(S > 10\)
 (\(\sigma = 0.4\) and \(C = 1\)), and therefore complexity
-\(\sigma \sqrt{SC} \gtrapprox 1.26\). This threshold of complexity,
+\(\sigma_{A} \sqrt{SC} \gtrapprox 1.26\). This threshold of complexity,
 above which more \(\mathbf{M}\) than \(\mathbf{A}\) were stable, was
 comparable for small-world networks, and slightly lower for scale-free
 networks (note that algorithms for generating small-world and scale-free
@@ -425,11 +425,11 @@ greatly change the effect that \(\sigma^{2}_{\gamma}\) had on increasing
 the upper bound of complexity within which stability might reasonably be
 observed.
 
-\textbf{System feasibility given \(\mathbf{Var(\gamma)}\)} For complex
-systems in which individual system components represent the density of
-some tangible quantity, it is relevant to consider the feasibility of
-the system. Feasibilility assumes that values of all components are
-positive at
+\textbf{System feasibility given \(\mathbf{\sigma^{2}_{\gamma}}\)} For
+complex systems in which individual system components represent the
+density of some tangible quantity, it is relevant to consider the
+feasibility of the system. Feasibilility assumes that values of all
+components are positive at
 equilibrium\textsuperscript{\protect\hyperlink{ref-Grilli2017}{5},\protect\hyperlink{ref-Dougoud2018}{26},\protect\hyperlink{ref-Song2018}{27}}.
 This is of particular interest for ecological communities because
 population density (\(N\)) cannot take negative values, meaning that
@@ -490,13 +490,13 @@ response rates to a particular system does not increase the probability
 that the system will be stable. Rather, highly complex systems that are
 observed to be stable are more likely to have varying component response
 rates, and for this variation to be critical to their stability (Fig.
-3). This is caused by the shift to a non-uniform distribution of
-eigenvalues that occurs by introducing \(Var(\gamma)\) (Fig. 1b, 2b),
+4). This is caused by the shift to a non-uniform distribution of
+eigenvalues that occurs by introducing variation in \(\gamma\) (Fig. 1),
 which can sometimes cause all of the real components of the eigenvalues
 of the system matrix to become negative, but might also increase the
 real components of eigenvalues.
 
-My focus is distinct from Gibbs et
+My focus here is distinct from Gibbs et
 al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{22}}, who applied
 the same mathematical framework to investigate how a diagonal matrix
 \(\mathbf{X}\) (equivalent to \(\gamma\) in my model) affects the
@@ -516,20 +516,6 @@ rate variation increases the upper bound of complexity at which
 stability can be realistically observed, meaning that highly complex
 systems are more likely than not to vary in their component response
 rates, and for this variation to be critical for system stability.
-
-The potential importance of component response rate variation was most
-evident from the results of simulations in which the genetic algorithm
-was used in attempt to maximise the probability of system stability. The
-probability that some combination of component response rates could be
-found to stabilise the system was shown to be up to four orders of
-magnitude higher than the background probabilities of stability in the
-absence of any component response rate variation. Instead of
-manipulating the \(S \times S\) interactions between system components,
-it might therefore be possible to manipulate only the \(S\) response
-rates of individual system components to achieve stability. Hence,
-managing the response rates of system components in a targeted way could
-potentially facilitate the stabilisation of complex systems through a
-reduction in dimensionality.
 
 Interestingly, while complex systems were more likely to be stable given
 variation in component response rate, they were not more likely to be
@@ -551,8 +537,22 @@ The relevance of component response rate for complex system stability
 should therefore not be ignored in the broader context of ecological
 communities.
 
+The potential importance of component response rate variation was most
+evident from the results of simulations in which the genetic algorithm
+was used in attempt to maximise the probability of system stability. The
+probability that some combination of component response rates could be
+found to stabilise the system was shown to be up to four orders of
+magnitude higher than the background probabilities of stability in the
+absence of any component response rate variation. Instead of
+manipulating the \(S \times S\) interactions between system components,
+it might therefore be possible to manipulate only the \(S\) response
+rates of individual system components to achieve stability. Hence,
+managing the response rates of system components in a targeted way could
+potentially facilitate the stabilisation of complex systems through a
+reduction in dimensionality.
+
 A general mathematical framework encompassing shifts in eigenvalue
-distributions caused by a vector \(\gamma\) has been
+distributions caused by a diagona matrix \(\gamma\) has been
 investigated\textsuperscript{\protect\hyperlink{ref-Ahmadian2015}{21}}
 and recently applied to questions concerning species density and
 feasibility\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{22},\protect\hyperlink{ref-Stone2017}{23}},
@@ -563,11 +563,11 @@ complexity is high but not yet high enough to make the probability of
 stability unrealistically low for actual empirical systems. For this
 upper range of system size, randomly assembled complex systems are more
 likely to be stable if their component response rates vary (e.g.,
-\(10 < S < 30\) for parameter values in Fig. 3). Overall, I suggest that
-variation in component response rate might therefore be critical for
-maintaining stability in many highly complex empirical systems. These
-results are broadly applicable for understanding the stability of
-complex networks across the physical, life, and social sciences.
+\(10 < S < 30\) for parameter values in Fig. 4). Variation in component
+response rate might therefore be critical for maintaining stability in
+many highly complex empirical systems. These results are broadly
+applicable for understanding the stability of complex networks across
+the physical, life, and social sciences.
 
 \subsection{Methods}\label{methods}
 
