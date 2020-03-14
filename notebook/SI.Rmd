@@ -35,6 +35,7 @@ biblio-style: apalike
 source(file = "../R/Figures_3_4.R");
 source(file = "R_old/sim_mat.R");
 source(file = "R_old/plot_figs.R");
+source(file = "../R/utilities.R")
 ```
 
 ********************************************************************************
@@ -77,6 +78,7 @@ Supplemental Information table of contents
     - [$\sigma$ = 0.5](#sigma5)
     - [$\sigma$ = 0.6](#sigma6)
 - [Sensitivity of distribution of $\gamma$](#gam_dist)
+- [Structured network construction](#structured)
 - [Feasibility of complex systems](#Feasibility)
 - [Stability given targeted manipulation of $\gamma$ (genetic algorithm)](#ga)
 - [Consistency with Gibbs et al. (2018)](#Gibbs)
@@ -344,6 +346,36 @@ kable(fourdists);
 ```
 
 In comparison to the uniform distribution (a), proportionally fewer random systems are found with the exponential distribution (b), while more are found with the beta (c) and gamma (d) distributions.
+
+Structured network construction {#structured}
+================================================================================
+
+Example of a small-world network
+
+```{r, echo = FALSE}
+source("../R/small_world.R");
+par(mfrow = c(1, 2), mar = c(5, 5, 1, 1));
+swn <- create_swn(S = 72, K = 12, beta = 0.01);
+visualise_network(swn);
+swn <- create_swn(S = 72, K = 12, beta = 0.1);
+visualise_network(swn);
+```
+
+Example of a scale-free network
+
+```{r, echo = FALSE}
+source("../R/scale_free.R");
+sfn <- create_sfn(S = 72, m = 3);
+par(mfrow = c(1, 2), mar = c(5, 5, 1, 1));
+visualise_network(sfn);
+dd_dat       <- sfn;
+diag(dd_dat) <- 0;
+deg_dist     <- apply(X = dd_dat, MARGIN = 1, FUN = sum);
+hist(deg_dist, main = "", xlab = "Component interactions",
+     ylab = "Frequency", cex.lab = 1.25, cex.axis = 1.25,
+     col = "grey", breaks = 20);
+```
+
 
 Feasibility of complex systems {#Feasibility}
 ================================================================================
