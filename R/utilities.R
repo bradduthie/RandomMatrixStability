@@ -125,7 +125,7 @@ get_C <- function(mat){
 #'@export
 visualise_network <- function(mat){
     N  <- dim(mat)[1];
-    rd <- seq(from = 0, to = 2*pi, length = N);
+    rd <- seq(from = 0, to = 2*pi, length = N + 1);
     yy <- sin(rd);
     xx <- cos(rd);
     par(bty = "n");
