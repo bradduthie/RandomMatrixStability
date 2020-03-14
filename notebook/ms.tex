@@ -670,7 +670,21 @@ combinations of \(S = \{24, 48, 72, 96, 120, 144, 168\}\) and
 \(\beta = \{0, 0.01, 0.1, 0.25, 1\}\).
 
 Scale-free networks were constructed using the method of Albert and
-Barabási\textsuperscript{\protect\hyperlink{ref-Albert2002}{16}}.
+Barabási\textsuperscript{\protect\hyperlink{ref-Albert2002}{16}}. First,
+a saturated network (all components interact with each other) of size
+\(m \leq S\) was created. New components were then added sequentially to
+the network; each newly added component was set to interact with \(m\)
+randomly selected existing components. When the system size reached
+\(S\), the distribution of the number of total interactions that
+components had followed a power-law
+tail\textsuperscript{\protect\hyperlink{ref-Albert2002}{16}}. The
+resulting network was represented by an \(S \times S\) binary matrix
+\(\mathbf{G}\), where 1s and 0s represent the presence and absence of an
+interaction, respectively. As with small-world networks, a random matrix
+\(\mathbf{J}\) was generated, and
+\(\mathbf{A} = \mathbf{J} \odot \mathbf{G}\). Diagonal were set to
+\(-1\). I simulated across all combinations of
+\(S = \{24, 48, 72, 96, 120\}\) and \(m = \{2, 3, ..., 11, 12\}\).
 
 \textbf{System feasibility}. Dougoud et
 al.\textsuperscript{\protect\hyperlink{ref-Dougoud2018}{26}} identify
@@ -938,7 +952,7 @@ components, represented by the diagonal matrix \(\gamma\), such that
 sampled from a uniform distribution from \(\min = 0\) to \(\max = 2\).
 Eigenvalues of \(\mathbf{M}\) are then distributed non-uniformly within
 the red circle centred at the origin with a radius of
-\(\sqrt{\sigma^{2}_{A}(1 + \sigma^{2}_{\gamma})S} \approx\) 1.14.
+\(\sqrt{\sigma^{2}_{A}(1 + \sigma^{2}_{\gamma})S} \approx\) 1.15.
 (\(\textbf{c}\)) A different random system \(\mathbf{A}\) constructed
 from the same parameters as in \(\textbf{a}\), except with diagonal
 values of \(-1\). (\(\textbf{d}\)) The same system \(\textbf{c}\) after
