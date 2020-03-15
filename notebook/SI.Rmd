@@ -92,7 +92,7 @@ dat <- read.csv(file = "sim_results/C_1/random_all.csv");
 dat <- dat[,-1]; # Extra row-indicating column removed
 ```
 
-Figure 4 of the main text reports the number of stable random complex systems found over 1 million iterations. The table below shows the results for all simulations of random $\mathbf{M}$ matrices at $\sigma = 0.4$ and $C = 1$ given a range of $S = \{2, 3, ..., 49, 50\}$. In this table, the `A0` refers to matrices where $\gamma = 1$, while `A1` refers to matrices after $Var(\gamma)$ is added and $\gamma \sim \mathcal{U}(0, 2)$. Each row summarises data for a given $S$ over 1 million randomly simulated $\mathbf{M}$ (`A0` and `A1`). The column `A0_unstable` shows the number of `A0` matrices that are unstable, and the column `A0_stable` shows the number of `A0` matrices that are stable (these two columns sum to 1 million). Similarly, the column `A1_unstable` shows the number of `A1` matrices that are unstable and `A1_stable` shows the number that are stable. The columns `A1_stabilised` and `A1_destabilised` show how many `A0` matrices were stabilised or destabilised, respectively, by $Var(\gamma)$.
+Figure 4 of the main text reports the number of stable random complex systems found over 1 million iterations. The table below shows the results for all simulations of random $\mathbf{M}$ matrices at $\sigma = 0.4$ and $C = 1$ given a range of $S = \{2, 3, ..., 49, 50\}$. In this table, the `A` refers to $\mathbf{A}$ matrices where $\gamma = 1$, while `M` refers to $\mathbf{M}$ matrices after $\sigma^{2}_{\gamma}$ is added and $\gamma \sim \mathcal{U}(0, 2)$. Each row summarises data for a given $S$ over 1 million randomly simulated $\mathbf{M}$. The column `A_unstable` shows the number of $\mathbf{A}$ matrices that are unstable, and the column `A_stable` shows the number of $\mathbf{A}$ matrices that are stable (these two columns sum to 1 million). Similarly, the column `M_unstable` shows the number of $\mathbf{M}$ matrices that are unstable and `M_stable` shows the number that are stable. The columns `A_stabilised` and `A_destabilised` show how many $\mathbf{M}$ matrices were stabilised or destabilised, respectively, by $\sigma^{2}_{\gamma}$.
 
 ```{r, echo = FALSE}
 library(knitr);
@@ -100,7 +100,7 @@ d_tab <- dat[,1:7];
 kable(d_tab);
 ```
 
-Overall, the ratio of stable `A1` matrices to stable `A0` matrices found is greater than 1 whenever $S > 10$ (compare column 5 to column 3), and this ratio increases with increasing $S$ (column 1). Hence, more randomly created complex systems ($\mathbf{M}$) are stable given variation in $\gamma$ than when $\gamma = 1$. Note that feasibility results were omitted for the table above, but are [reported below](#Feasibility).
+Overall, the ratio of stable $\mathbf{A}$ matrices to stable $\mathbf{M}$ matrices found is greater than 1 whenever $S > 10$ (compare column 5 to column 3), and this ratio increases with increasing $S$ (column 1). Hence, more randomly created complex systems ($\mathbf{M}$) are stable given variation in $\gamma$ than when $\gamma = 1$. Note that feasibility results were omitted for the table above, but are [reported below](#Feasibility).
 
 Stability of ecological networks {#ecological}
 ================================================================================
@@ -138,7 +138,7 @@ mdat <- read.csv(file = "sim_results/ecology/mutualism_C_1.csv");
 pdat <- read.csv(file = "sim_results/ecology/pred-prey_C_1.csv");
 ```
 
-The following tables for restricted ecological communities can therefore be compared with the random $\mathbf{M}$ [results above](#IncrS) (but note that counts from systems with comparable probabilities of stability will be an order of magnitude lower in the tables below due to the smaller number of $\mathbf{M}$ matrices generated). As with the [results above](#IncrS), in the tables below, `A0` refers to matrices when $\gamma = 1$ and `A1` refers to matrices after $Var(\gamma)$ is added. The column `A0_unstable` shows the number of `A0` matrices that are unstable, and the column `A0_stable` shows the number of `A0` matrices that are stable (these two columns sum to 100000). Similarly, the column `A1_unstable` shows the number of `A1` matrices that are unstable and `A1_stable` shows the number that are stable. The columns `A1_stabilised` and `A1_destabilised` show how many `A0` matrices were stabilised or destabilised, respectively, by $Var(\gamma)$.
+The following tables for restricted ecological communities can therefore be compared with the random $\mathbf{M}$ [results above](#IncrS) (but note that counts from systems with comparable probabilities of stability will be an order of magnitude lower in the tables below due to the smaller number of $\mathbf{M}$ matrices generated). As with the [results above](#IncrS), in the tables below, `A` refers to matrices $\mathbf{A}$ when $\gamma = 1$ and `M` refers to matrices after $\sigma^{2}_{\gamma}$ is added. The column `A_unstable` shows the number of $\mathbf{A}$ matrices that are unstable, and the column `A_stable` shows the number of $\mathbf{A}$ matrices that are stable (these two columns sum to 100000). Similarly, the column `M_unstable` shows the number of $\mathbf{M}$ matrices that are unstable and `A1_stable` shows the number that are stable. The columns `A_stabilised` and `A_destabilised` show how many $\mathbf{A}$ matrices were stabilised or destabilised, respectively, by $\sigma^{2}_{\gamma}$.
 
 <a name="competition">**Competition**</a>
 
@@ -167,12 +167,12 @@ pd_tab <- pdat[,2:8];
 kable(pd_tab);
 ```
 
-Overall, as expected [@Allesina2012], predator-prey communities are relatively stable while mutualist communties are highly unstable. But interestingly, while $Var(\gamma)$ stabilises predator-prey and competitor communities, it does not stabilise mutualist communities. This is unsurprising because purely mutualist communities are characterised by a very positive[@Allesina2012] leading $\Re(\lambda)$, and it is highly unlikely that $Var(\gamma)$ alone will shift all real parts of eigenvalues to negative values.
+Overall, as expected [@Allesina2012], predator-prey communities are relatively stable while mutualist communties are highly unstable. But interestingly, while $\sigma^{2}_{\gamma}$ stabilises predator-prey and competitor communities, it does not stabilise mutualist communities. This is unsurprising because purely mutualist communities are characterised by a very positive[@Allesina2012] leading $\Re(\lambda)$, and it is highly unlikely that $\sigma^{2}_{\gamma}$ alone will shift all real parts of eigenvalues to negative values.
 
 Sensitivity of connectance (C) values {#connectance}
 ================================================================================
 
-In the main text, for simplicity, I assumed connectance values of $C = 1$, meaning that all off-diagonal elements of a matrix $\mathbf{M}$ were potentially nonzero and sampled from a normal distribution $\mathcal{N}(0, \sigma^{2})$ where $\sigma = 0.4$. Here I present four tables showing the number of stable communities given $C = \{0.3, 0. 5, 0.7, 0.9 \}$. In all cases, uniform variation in component response rate ($\gamma \sim \mathcal{U}(0, 2)$) led to a higher number of stable communities than when $\gamma$ did not vary ($\gamma = 1$). In contrast to the main text, 100000 rather than 1 million $\mathbf{M}$ were simulated. As with the results on [stability with increasing $S$](#IncrS) shown above, in the tables below `A0` refers to matrices when $\gamma = 1$, and `A1` refers to matrices after $Var(\gamma)$ is added. The column `A0_unstable` shows the number of `A0` matrices that are unstable, and the column `A0_stable` shows the number of `A0` matrices that are stable (these two columns sum to 100000). Similarly, the column `A1_unstable` shows the number of `A1` matrices that are unstable and `A1_stable` shows the number that are stable. The columns `A1_stabilised` and `A1_destabilised` show how many `A0` matrices were stabilised or destabilised, respectively, by $Var(\gamma)$.
+In the main text, for simplicity, I assumed connectance values of $C = 1$, meaning that all off-diagonal elements of a matrix $\mathbf{M}$ were potentially nonzero and sampled from a normal distribution $\mathcal{N}(0, \sigma^{2})$ where $\sigma = 0.4$. Here I present four tables showing the number of stable communities given $C = \{0.3, 0. 5, 0.7, 0.9 \}$. In all cases, uniform variation in component response rate ($\gamma \sim \mathcal{U}(0, 2)$) led to a higher number of stable communities than when $\gamma$ did not vary ($\gamma = 1$). In contrast to the main text, 100000 rather than 1 million $\mathbf{M}$ were simulated. As with the results on [stability with increasing $S$](#IncrS) shown above, in the tables below `A` refers to $\mathbf{A}$ matrices when $\gamma = 1$, and `M` refers to $\mathbf{M}$ matrices after $\sigma^{2}_{\gamma}$ is added. The column `A_unstable` shows the number of $\mathbf{A}$ matrices that are unstable, and the column `A_stable` shows the number of $\mathbf{A}$ matrices that are stable (these two columns sum to 100000). Similarly, the column `M_unstable` shows the number of $\mathbf{M}$ matrices that are unstable and `M_stable` shows the number that are stable. The columns `A_stabilised` and `A_destabilised` show how many $\mathbf{A}$ matrices were stabilised or destabilised, respectively, by $\sigma^{2}_{\gamma}$.
 
 ```{r, echo = FALSE}
 C3dat <- read.csv(file = "sim_results/C_other/rand_c-0pt3.csv");
@@ -186,7 +186,7 @@ C9dat <- read.csv(file = "sim_results/C_other/rand_c-0pt9.csv");
 
 ```{r, echo = FALSE}
 C3dat   <- C3dat[,-1];
-C3d_tab <- C3dat[,1:8];
+C3d_tab <- C3dat[,1:7];
 kable(C3d_tab);
 ```
 
@@ -194,7 +194,7 @@ kable(C3d_tab);
 
 ```{r, echo = FALSE}
 C5dat   <- C5dat[,-1];
-C5d_tab <- C5dat[,1:8];
+C5d_tab <- C5dat[,1:7];
 kable(C5d_tab);
 ```
 
@@ -202,7 +202,7 @@ kable(C5d_tab);
 
 ```{r, echo = FALSE}
 C7dat   <- C7dat[,-1];
-C7d_tab <- C7dat[,1:8];
+C7d_tab <- C7dat[,1:7];
 kable(C7d_tab);
 ```
 
@@ -210,14 +210,14 @@ kable(C7d_tab);
 
 ```{r, echo = FALSE}
 C9dat   <- C9dat[,-1];
-C9d_tab <- C9dat[,1:8];
+C9d_tab <- C9dat[,1:7];
 kable(C9d_tab);
 ```
 
 Sensitivity of interaction strength ($\sigma$) values {#sigma}  
 ================================================================================
 
-Results below show stability results given varying interaction strengths ($\sigma$) for $C = 0.05$ (note that system size $S$ values are larger and increase by 10 with increasing rows). In the tables below (as [above](#IncrS)), `A0` and `A1` refers to matrices for $\gamma = 1$ and $Var(\gamma)$, respectively.
+Results below show stability results given varying interaction strengths ($\sigma$) for $C = 0.05$ (note that system size $S$ values are larger and increase by 10 with increasing rows). In the tables below (as [above](#IncrS)), `A` and `M` refers to matrices for $\gamma = 1$ and $\sigma^{2}_{\gamma}$, respectively.
 
 
 ```{r, echo = FALSE}
@@ -412,8 +412,6 @@ kable(sfn[,use]);
 
 As in small-world networks, the mean $C$ is shown, along with the mean complexities of $\mathbf{A}$ and $\mathbf{M}$. Like all other networks, $\sigma^{2}_\gamma$ increases the stability of scale-free networks given sufficiently complexity, but the complexity requires seems to be relatively low.
 
-
-
 Feasibility of complex systems {#Feasibility}
 ================================================================================
 
@@ -427,7 +425,7 @@ colnames(feas_tab)[1] <- "S";
 kable(feas_tab);
 ```
 
-Hence, in general, $Var(\gamma)$ does not appear to affect feasibility in pure species interaction networks [@Servan2018].
+Hence, in general, $\sigma^{2}_{\gamma}$ does not appear to affect feasibility in pure species interaction networks [@Servan2018].
 
 Stability given targeted manipulation of $\gamma$ (genetic algorithm) {#ga}
 ================================================================================
@@ -440,7 +438,7 @@ dat <- dat[,-1];
 plot_stable_4(dat);
 ```
 
-Stability results are also shown in the table below. Results for `A0` indicate systems in which $\gamma = 1$, while `A1` refers to systems in which the genetic algorithm searched for a set of $\gamma$ values that stabilised the system. 
+Stability results are also shown in the table below. Results for `A` indicate systems in which $\gamma = 1$, while `M` refers to systems in which the genetic algorithm searched for a set of $\gamma$ values that stabilised the system. 
 
 ```{r, echo = FALSE}
 get_top_evo_out <- function(evo_out, size){
@@ -521,7 +519,7 @@ $$\mathbf{M} = \mathbf{\gamma A}.$$
 I focused on the probability of observing a stable versus unstable system given variation in $\mathbf{\gamma}$ as system complexity ($\sigma\sqrt{SC}$) increased. I increased system complexity by holding $C$ and $\sigma$ constant and incrementally increasing $S$ to obtain numerical results. In contrast, Gibbs et al. [@Gibbs2017] applied analytical techniques to instead focus on a different question concerning the effect of $\mathbf{\gamma}$ on the stability of $\mathbf{M}$ given $\mathbf{A}$ as $S \to \infty$, with $\sigma$ scaled so that $\sigma = 1/\sqrt{S}$. Under such scaling, Gibbs et al. [@Gibbs2017] showed that the effect of $\gamma$ on stability should decrease exponentially as $S$ increases, which I demonstrate below by running simulations in which $\sigma = 1/\sqrt{S}$. 
 
 ```{r, echo = FALSE}
-load("../data/constant_complexity.rda");
+constant_complexity <- read.csv("sim_results/constant_complexity.csv")
 kable(constant_complexity);
 ```
 
