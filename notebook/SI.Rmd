@@ -267,9 +267,9 @@ In the main text, I considered a uniform distribution of component response rate
 
 ********************************************************************************
 
-**Distributions of component response rate ($\boldsymbol{\gamma}$) values in complex systems.** The stabilities of simulated complex systems with these $\gamma$ distributions are compared to otherwise identical complex systems with a fixed component response rate of $\gamma = 1$ across different system sizes ($S$; i.e., component numbers) given a unit $\gamma$ standard deviation ($\sigma_{\gamma} = 1$) for b-d. Distributions are as follows: (a) uniform, (b) exponential, (c) beta ($\alpha = 0.5$ and $\beta = 0.5$), and (d) gamma ($k = 2$ and $\theta = 2$). Each panel shows 1 million randomly generated $\gamma$ values.
+**Distributions of component response rate ($\boldsymbol{\gamma}$) values in complex systems.** The stabilities of simulated complex systems with these $\gamma$ distributions are compared to identical systems in which $\gamma = 1$ across different system sizes ($S$; i.e., component numbers) given a unit $\gamma$ standard deviation ($\sigma_{\gamma} = 1$) for b-d. Distributions are as follows: (a) uniform, (b) exponential, (c) beta ($\alpha = 0.5$ and $\beta = 0.5$), and (d) gamma ($k = 2$ and $\theta = 2$). Each panel shows 1 million randomly generated $\gamma$ values.
 
-```{r, eval = TRUE, echo = FALSE, fig.height = 7, fig.width = 6}
+```{r, eval = TRUE, echo = FALSE, fig.height = 4, fig.width = 4, fig.align="center"}
 make_gammas <- function(nn = 10, distribution = 1, mn = 1, sdd = 1){
     if(distribution == 0){
         dat          <- rep(x = mn, times = nn);
@@ -301,35 +301,35 @@ show_gammas <- function(nn = 1000000, sdd = 1, mn = 10){
     y2 <- make_gammas(nn = nn, distribution = 2, sdd = sdd, mn = mn);
     y3 <- make_gammas(nn = nn, distribution = 3, sdd = sdd, mn = mn);
     y4 <- make_gammas(nn = nn, distribution = 4, sdd = sdd, mn = mn);
-    par(mfrow = c(2, 2), oma = c(6, 6, 1, 1), mar = c(4, 0.5, 0.5, 0.5));
+    par(mfrow = c(2, 2), oma = c(4, 4, 1, 1), mar = c(2, 0.5, 0.5, 0.5));
     h1 <- hist(y1, breaks = 1000, plot = FALSE);
-    hist(y1, breaks = 1000, yaxt = "n", main = "", xlab = "", cex.axis = 1.5,
+    hist(y1, breaks = 1000, yaxt = "n", main = "", xlab = "", cex.axis = 1.15,
          ylim = c(0, max(h1$counts)*1.2));
-    mtext("a", adj = 0, line = -2.3, cex = 2, 
+    mtext("a", adj = 0, line = -1.3, cex = 1.2, 
           at = par("usr")[1]+0.90*diff(par("usr")[1:2]));
     box();
     h2 <- hist(y2, breaks = 1000, plot = FALSE);
-    hist(y2, breaks = 1000, yaxt = "n", main = "", xlab = "", cex.axis = 1.5,
+    hist(y2, breaks = 1000, yaxt = "n", main = "", xlab = "", cex.axis = 1.15,
          ylim = c(0, max(h2$counts)*1.2));
-    mtext("b", adj = 0, line = -2.3, cex = 2, 
+    mtext("b", adj = 0, line = -1.3, cex = 1.2, 
           at = par("usr")[1]+0.90*diff(par("usr")[1:2]));
     box();
     h3 <- hist(y3, breaks = 1000, plot = FALSE);
-    hist(y3, breaks = 1000, yaxt = "n", main = "", xlab = "", cex.axis = 1.5,
+    hist(y3, breaks = 1000, yaxt = "n", main = "", xlab = "", cex.axis = 1.15,
          ylim = c(0, max(h3$counts)*1.2));
-    mtext("c", adj = 0, line = -2.3, cex = 2, 
+    mtext("c", adj = 0, line = -1.3, cex = 1.2, 
           at = par("usr")[1]+0.90*diff(par("usr")[1:2]));
     box();
     h4 <- hist(y4, breaks = 1000, plot = FALSE);
-    hist(y4, breaks = 1000, yaxt = "n", main = "", xlab = "", cex.axis = 1.5,
+    hist(y4, breaks = 1000, yaxt = "n", main = "", xlab = "", cex.axis = 1.15,
          ylim = c(0, max(h4$counts)*1.2));
-    mtext("d", adj = 0, line = -2.3, cex = 2, 
+    mtext("d", adj = 0, line = -1.3, cex = 1.2, 
           at = par("usr")[1]+0.90*diff(par("usr")[1:2]));
     box();
     mtext(expression(paste("Component ",gamma," value")),
-          outer=TRUE,side=1,line=3.0,cex=2);
+          outer=TRUE,side=1,line=1.0,cex=1.25);
     mtext(expression(paste("Relative frequency")),
-          outer=TRUE,side=2,line=2.5,cex=2);
+          outer=TRUE,side=2,line=1.5,cex=1.25);
 }
 
 show_gammas();
@@ -354,7 +354,7 @@ I tested the stability of one million random, small-world, scale-free, and casca
 \vspace{2mm}
 
 
-```{r, echo = FALSE, fig.height = 6, fig.width = 6, fig.align = "center"}
+```{r, echo = FALSE, fig.height = 5, fig.width = 5, fig.align = "center"}
 A0_dat <- rnorm(n = 20 * 20, mean = 2, sd = 0);
 A0     <- matrix(data = A0_dat, nrow = 20, ncol = 20);
 visualise_network(A0);
@@ -385,12 +385,11 @@ use <- c(1:6, 19:21);
 kable(swn[,use]);
 ```
 
-In the above, the mean $C$, complexity of $\mathbf{A}$, and complexity of $\mathbf{M}$ are also shown.
+In the above, the mean $C$, complexity of $\mathbf{A}$, and complexity of $\mathbf{M}$ are also shown. For similar magnitudes of complexity as in random networks of $\sigma\sqrt{SC} \gtrapprox 1.26$, variation in $\gamma$ typically results in more stable than unstable systems.
 
+Scale-free networks are also not saturated, but are defined by an interaction number distribution that follows a power law. In other words, a small number of components interact with many other components, while most components interact with only a small number of other components. Scale-free networks can be built by adding new components, one by one, to an existing system, with each newly added component interacting with a randomly selected subset of $m$ existing components. The network on the left below shows an example of a scale-free network in which $m = 3$. The histogram on the right shows the number of other components with which each component interacts.
 
-Example of a scale-free network
-
-```{r, echo = FALSE}
+```{r, echo = FALSE, fig.align = "center"}
 source("../R/scale_free.R");
 sfn <- create_sfn(S = 72, m = 3);
 par(mfrow = c(1, 2), mar = c(5, 5, 1, 1));
@@ -402,6 +401,17 @@ hist(deg_dist, main = "", xlab = "Component interactions",
      ylab = "Frequency", cex.lab = 1.25, cex.axis = 1.25,
      col = "grey", breaks = 20);
 ```
+
+The table below shows how $\sigma^{2}_\gamma$ affects stability across different scale-free networks with different $S$ and $m$ values.
+
+```{r, echo = FALSE, fig.align = "center"}
+sfn <- read.csv(file = "sim_results/sfn/sfn.csv"); # Change when new results are in
+use <- c(1:6, 19:21);
+kable(sfn[,use]);
+```
+
+As in small-world networks, the mean $C$ is shown, along with the mean complexities of $\mathbf{A}$ and $\mathbf{M}$. Like all other networks, $\sigma^{2}_\gamma$ increases the stability of scale-free networks given sufficiently complexity, but the complexity requires seems to be relatively low.
+
 
 
 Feasibility of complex systems {#Feasibility}
