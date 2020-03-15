@@ -76,7 +76,7 @@ plot_stable_4 <- function(dat, S_s = 40){
     points(x = x1, y = y1, lwd = 2, type = "l", col = "black");
     axis(side = 4, at = c(0, 0.2, 0.4, 0.6, 0.8, 1.0), cex.axis = 1.5);
     legend("topleft", c(expression(paste(sigma[gamma]^2," = 0")), 
-                        expression(paste(sigma[gamma]^2," = 0"))), 
+                        expression(paste(sigma[gamma]^2," > 0"))), 
            pch=15, col=c("dodgerblue4","firebrick"), cex = 1.5, horiz = TRUE);
     #=================================
     mtext(side = 1, text = "System size (S)", cex = 2, outer = TRUE, 
