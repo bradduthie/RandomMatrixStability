@@ -346,12 +346,27 @@ kable(fourdists);
 
 In comparison to the uniform distribution (a), proportionally fewer random systems are found with the exponential distribution (b), while more are found with the beta (c) and gamma (d) distributions.
 
-Structured network construction {#structured}
+Stability of structured networks {#structured}
 ================================================================================
 
-Example of a small-world network
+I tested the stability of one million random, small-world, scale-free, and cascade food web networks. Each of these networks is structured differently. In the main text, the random networks and cascade food webs that I built were saturated ($C = 1$), meaning that every component was connected to, and interacted with, every other component.
 
-```{r, echo = FALSE}
+\vspace{2mm}
+
+
+```{r, echo = FALSE, fig.height = 6, fig.width = 6, fig.align = "center"}
+A0_dat <- rnorm(n = 20 * 20, mean = 2, sd = 0);
+A0     <- matrix(data = A0_dat, nrow = 20, ncol = 20);
+visualise_network(A0);
+```
+
+\vspace{2mm}
+
+Small-world networks, in contrast, are not saturated. They are instead defined by components that interact mostly with other closely neighbouring components, but have a proportion of interactions ($\beta$) that are instead between non-neighbours. Two small-world networks are shown below.
+
+\vspace{2mm}
+
+```{r, echo = FALSE, fig.align = "center"}
 source("../R/small_world.R");
 par(mfrow = c(1, 2), mar = c(5, 5, 1, 1));
 swn <- create_swn(S = 72, K = 12, beta = 0.01);
@@ -359,6 +374,19 @@ visualise_network(swn);
 swn <- create_swn(S = 72, K = 12, beta = 0.1);
 visualise_network(swn);
 ```
+
+\vspace{2mm}
+
+The small-world network on the left shows a system in which $\beta = 0.01$, while the small-world network on the right shows one in which $\beta = 0.1$. At the extremes of $\beta = 0$ and $\beta = 1$, networks are regular and random, respectively. The table below shows how $\sigma^{2}_\gamma$ affects stability in small world networks across different values of $S$ and $\beta$.
+
+```{r, echo = FALSE, fig.align = "center"}
+swn <- read.csv(file = "sim_results/swn/old/swn.csv"); # Change when new results are in
+use <- c(1:6, 19:21);
+kable(swn[,use]);
+```
+
+In the above, the mean $C$, complexity of $\mathbf{A}$, and complexity of $\mathbf{M}$ are also shown.
+
 
 Example of a scale-free network
 
