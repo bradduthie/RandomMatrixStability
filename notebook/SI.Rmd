@@ -78,11 +78,10 @@ Supplemental Information table of contents
     - [$\sigma$ = 0.5](#sigma5)
     - [$\sigma$ = 0.6](#sigma6)
 - [Sensitivity of distribution of $\gamma$](#gam_dist)
-- [Structured network construction](#structured)
+- [Stability of structured networks](#structured)
 - [Feasibility of complex systems](#Feasibility)
 - [Stability given targeted manipulation of $\gamma$ (genetic algorithm)](#ga)
 - [Consistency with Gibbs et al. (2018)](#Gibbs)
-- [Effects of matrix correlations](#rhos)
 
 
 Stability across increasing $S$ {#IncrS}
@@ -653,9 +652,6 @@ Finally, $S = 1000$ is shown below. Again, the density of eigenvalues per unit r
 ```{r, echo = FALSE, fig.height = 3.9}
 comp_dens(S = 1000, C = 0.0625, sigma = 0.4);
 ```
-
-Effects of matrix correlations
-================================================================================
 
 
 References
