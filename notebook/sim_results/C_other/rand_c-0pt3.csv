@@ -1,4 +1,4 @@
-,N,A0_unstable,A0_stable,A1_unstable,A1_stable,A1_stabilised,A1_destabilised,A0_infeasible,A0_feasible,A1_infeasible,A1_feasible,A1_made_feasible,A1_made_infeasible
+,S,A_unstable,A_stable,M_unstable,M_stable,A_stabilised,A_destabilised,A_infeasible,A_feasible,M_infeasible,M_feasible,A_made_feasible,A_made_infeasible
 1,2,5,99995,5,99995,0,0,75110,24890,75113,24887,1063,1066
 2,3,6,99994,6,99994,0,0,87526,12474,87670,12330,1421,1565
 3,4,24,99976,24,99976,0,0,93713,6287,93772,6228,1385,1444
