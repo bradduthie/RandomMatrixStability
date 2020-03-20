@@ -79,19 +79,18 @@
 }
 
 \setlength{\droptitle}{-2em}
-
   \title{Component response rate variation underlies the stability of complex
 systems}
-    \pretitle{\vspace{\droptitle}\centering\huge}
+  \pretitle{\vspace{\droptitle}\centering\huge}
   \posttitle{\par}
-    \author{A. Bradley Duthie (
+  \author{A. Bradley Duthie (
 \href{mailto:alexander.duthie@stir.ac.uk}{\nolinkurl{alexander.duthie@stir.ac.uk}}
 )}
-    \preauthor{\centering\large\emph}
+  \preauthor{\centering\large\emph}
   \postauthor{\par}
-      \predate{\centering\large\emph}
+  \predate{\centering\large\emph}
   \postdate{\par}
-    \date{Biological and Environmental Sciences, University of Stirling, Stirling,
+  \date{Biological and Environmental Sciences, University of Stirling, Stirling,
 UK, FK9 4LA}
 
 \usepackage{amsmath}
@@ -212,30 +211,32 @@ networks.
 \textbf{Component response rates of random complex systems}. Complex
 systems (\(\mathbf{M}\)) are built from two matrices, one modelling
 component interactions (\(\mathbf{A}\)), and second modelling component
-response rates (\(\gamma\)). Both \(\mathbf{A}\) and \(\gamma\) are
-square \(S \times S\) matrices. Rows in \(\mathbf{A}\) define how a
-given component \(i\) is affected by each component \(j\) in the system,
-including itself (where \(i = j\)). Off-diagonal elements of
-\(\mathbf{A}\) are independent and identically distributed (i.i.d), and
-diagonal elements are set to \(A_{ii} = -1\) as in
-May\textsuperscript{\protect\hyperlink{ref-May1972}{1}}. Diagonal
-elements of \(\gamma\) are positive, and off-diagonal elements are set
-to zero (i.e. \(\gamma\) is a diagonal matrix with positive support).
-The distribution of \(diag(\gamma)\) over \(S\) components thereby
-models the distribution of component response rates. The dynamics of the
-entire system \(\mathbf{M}\) can be defined as
+response rates (\(\boldsymbol{\gamma}\)). Both \(\mathbf{A}\) and
+\(\boldsymbol{\gamma}\) are square \(S \times S\) matrices. Rows in
+\(\mathbf{A}\) define how a given component \(i\) is affected by each
+component \(j\) in the system, including itself (where \(i = j\)).
+Off-diagonal elements of \(\mathbf{A}\) are independent and identically
+distributed (i.i.d), and diagonal elements are set to \(A_{ii} = -1\) as
+in May\textsuperscript{\protect\hyperlink{ref-May1972}{1}}. Diagonal
+elements of \(\boldsymbol{\gamma}\) are positive, and off-diagonal
+elements are set to zero (i.e. \(\boldsymbol{\gamma}\) is a diagonal
+matrix with positive support). The distribution of
+\(diag(\boldsymbol{\gamma})\) over \(S\) components thereby models the
+distribution of component response rates. The dynamics of the entire
+system \(\mathbf{M}\) can be defined as
 follows\textsuperscript{\protect\hyperlink{ref-Patel2018}{19}},
 
 \begin{equation} \label{defM}
-M = \gamma A.
+\mathbf{M} = \boldsymbol{\gamma} \mathbf{A}.
 \end{equation}
 
 Equation \ref{defM} thereby serves as a null model to investigate how
 variation in component response rate (\(\sigma^{2}_{\gamma}\)) affects
 complex systems. In the absence of such variation
-(\(\sigma^{2}_{\gamma} = 0\)), \(\gamma\) is set to the identity matrix
-(diagonal elements all equal 1) and \(\mathbf{M} = \mathbf{A}\). Under
-these conditions, eigenvalues of \(\mathbf{M}\) are distributed
+(\(\sigma^{2}_{\gamma} = 0\)), \(\boldsymbol{\gamma}\) is set to the
+identity matrix (diagonal elements all equal 1) and
+\(\mathbf{M} = \mathbf{A}\). Under these conditions, eigenvalues of
+\(\mathbf{M}\) are distributed
 uniformly\textsuperscript{\protect\hyperlink{ref-Tao2010}{14}} in a
 circle centred at \((-d, 0)\) with a radius of
 \(\sigma \sqrt{SC}\)\textsuperscript{\protect\hyperlink{ref-May1972}{1}}
@@ -272,8 +273,8 @@ can be simplified,
 
 The increase in \(\sigma^{2}_{M}\) caused by \(\sigma^{2}_\gamma\) can
 be visualised from the eigenvalue spectra of \(\textbf{A}\) versus
-\(\textbf{M} = \gamma\textbf{A}\) (Fig. 1). Given \(d = 0\) and
-\(C = 1\), the distribution of eigenvalues of \(\textbf{A}\) and
+\(\textbf{M} = \boldsymbol{\gamma}\textbf{A}\) (Fig. 1). Given \(d = 0\)
+and \(C = 1\), the distribution of eigenvalues of \(\textbf{A}\) and
 \(\textbf{M}\) lie within a circle of a radius \(\sigma_{A}\sqrt{S}\)
 and \(\sigma_{M}\sqrt{S}\), respectively (Fig. 1a vs.~1b). If
 \(d \neq 0\), positive \(\sigma^{2}_\gamma\) changes the distribution of
@@ -291,10 +292,10 @@ that\textsuperscript{\protect\hyperlink{ref-Tang2014c}{24}},
 If \(\rho < 0\), such as when \(\textbf{M}\) models a predator-prey
 system in which \(M_{ij}\) and \(M_{ji}\) have opposing signs, stability
 increases\textsuperscript{\protect\hyperlink{ref-Allesina2012}{2}}. If
-diagonal elements of \(\gamma\) vary independently, the magnitude of
-\(\rho\) is decreased because \(\sigma^{2}_{\gamma}\) increases the
-variance of \(M_{ij}\) without affecting the expected covariance between
-\(M_{ij}\) and \(M_{ji}\) (Figure 2).
+diagonal elements of \(\boldsymbol{\gamma}\) vary independently, the
+magnitude of \(\rho\) is decreased because \(\sigma^{2}_{\gamma}\)
+increases the variance of \(M_{ij}\) without affecting the expected
+covariance between \(M_{ij}\) and \(M_{ji}\) (Figure 2).
 
 \textbf{Numerical simulations of random systems with and without
 \(\mathbf{\sigma^{2}_{\gamma}}\)}. I used numerical simulations and
@@ -449,7 +450,7 @@ networks, variation in component response rate (i.e., species generation
 time) does not affect stability at biologically realistic species
 densities.
 
-\textbf{Targeted manipulation of \(\mathbf{\gamma}\)}. To further
+\textbf{Targeted manipulation of \(\boldsymbol{\gamma}\)}. To further
 investigate the potential of \(\sigma^{2}_{\gamma}\) to be stabilising,
 I used a genetic algorithm. Genetic algorithms are heuristic tools that
 mimic evolution by natural selection, and are useful when the space of
@@ -499,10 +500,10 @@ real components of eigenvalues.
 My focus here is distinct from Gibbs et
 al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{22}}, who applied
 the same mathematical framework to investigate how a diagonal matrix
-\(\mathbf{X}\) (equivalent to \(\gamma\) in my model) affects the
-stability of a community matrix \(\mathbf{M}\) given an interaction
-matrix \(\mathbf{A}\) within a generalised Lotka-Volterra model, where
-\(\mathbf{M} = \mathbf{XA}\). Gibbs et
+\(\mathbf{X}\) (equivalent to \(\boldsymbol{\gamma}\) in my model)
+affects the stability of a community matrix \(\mathbf{M}\) given an
+interaction matrix \(\mathbf{A}\) within a generalised Lotka-Volterra
+model, where \(\mathbf{M} = \mathbf{XA}\). Gibbs et
 al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{22}} analytically
 demonstrated that the effect of \(\mathbf{X}\) on system stability
 decreases exponentially as system size becomes arbitrarily large
@@ -552,15 +553,16 @@ potentially facilitate the stabilisation of complex systems through a
 reduction in dimensionality.
 
 A general mathematical framework encompassing shifts in eigenvalue
-distributions caused by a diagona matrix \(\gamma\) has been
+distributions caused by a diagonal matrix \(\boldsymbol{\gamma}\) has
+been
 investigated\textsuperscript{\protect\hyperlink{ref-Ahmadian2015}{21}}
 and recently applied to questions concerning species density and
 feasibility\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{22},\protect\hyperlink{ref-Stone2017}{23}},
-but \(\gamma\) has not been interpreted as rates of response of
-individual system components to perturbation. My model focuses on
-component response rates for systems of a finite size, in which
-complexity is high but not yet high enough to make the probability of
-stability unrealistically low for actual empirical systems. For this
+but \(\boldsymbol{\gamma}\) has not been interpreted as rates of
+response of individual system components to perturbation. My model
+focuses on component response rates for systems of a finite size, in
+which complexity is high but not yet high enough to make the probability
+of stability unrealistically low for actual empirical systems. For this
 upper range of system size, randomly assembled complex systems are more
 likely to be stable if their component response rates vary (e.g.,
 \(10 < S < 30\) for parameter values in Fig. 4). Variation in component
@@ -571,9 +573,9 @@ the physical, life, and social sciences.
 
 \subsection{Methods}\label{methods}
 
-\textbf{Component response rate (\(\mathbf{\gamma}\)) variation}. In a
-synthesis of eco-evolutionary feedbacks on community stability, Patel et
-al. model a system that includes a vector of potentially changing
+\textbf{Component response rate (\(\boldsymbol{\gamma}\)) variation}. In
+a synthesis of eco-evolutionary feedbacks on community stability, Patel
+et al. model a system that includes a vector of potentially changing
 species densities (\(\mathbf{n}\)) and a vector of potentially evolving
 traits
 (\(\mathbf{x}\))\textsuperscript{\protect\hyperlink{ref-Patel2018}{19}}.
@@ -609,22 +611,22 @@ by the value of \(j\) (\(v_{j}(t)\)) and \(j\)'s marginal effect on
 
 In matrix notation\textsuperscript{\protect\hyperlink{ref-May1973}{30}},
 
-\[\frac{d\mathbf{v}(t)}{dt} = \mathbf{\gamma} \mathbf{A}\mathbf{v}(t).\]
+\[\frac{d\mathbf{v}(t)}{dt} = \boldsymbol{\gamma} \mathbf{A}\mathbf{v}(t).\]
 
-In the above, \(\mathbf{\gamma}\) is a diagonal matrix in which elements
-correspond to individual component response rates. Therefore,
-\(\mathbf{M} = \mathbf{\gamma} \mathbf{A}\) defines the change in values
-of system components and can be analysed using the techniques of
+In the above, \(\boldsymbol{\gamma}\) is a diagonal matrix in which
+elements correspond to individual component response rates. Therefore,
+\(\mathbf{M} = \boldsymbol{\gamma} \mathbf{A}\) defines the change in
+values of system components and can be analysed using the techniques of
 May\textsuperscript{\protect\hyperlink{ref-May1972}{1},\protect\hyperlink{ref-Ahmadian2015}{21},\protect\hyperlink{ref-May1973}{30}}.
 In these analyses, row means of \(\mathbf{A}\) are expected to be
 identical, but variation around this expectation will naturally arise
 due to random sampling of \(\mathbf{A}\) off-diagonal elements and
 finite \(S\). In simulations, the total variation in \(\mathbf{M}\) row
 means that is attributable to \(\mathbf{A}\) is small relative to that
-attributable to \(\mathbf{\gamma}\), especially at high \(S\). Variation
-in \(\mathbf{\gamma}\) specifically isolates the effects of differing
-component response rates, hence causing differences in expected
-\(\mathbf{M}\) row means.
+attributable to \(\boldsymbol{\gamma}\), especially at high \(S\).
+Variation in \(\boldsymbol{\gamma}\) specifically isolates the effects
+of differing component response rates, hence causing differences in
+expected \(\mathbf{M}\) row means.
 
 \textbf{Construction of random and structured networks}. I used the R
 programming language for all numerical simulations and
@@ -632,8 +634,8 @@ analyses\textsuperscript{\protect\hyperlink{ref-Rproject}{31}}. Purely
 random networks were generated by sampling off-diagonal elements from an
 i.i.d \(A_{ij} \sim \mathcal{N}(0, 0.4)\) with a probability \(C\)
 (unsampled elements were set to zero). Diagonal elements \(A_{ii}\) were
-set to \(-1\). Elements of \(\gamma\) were simulated i.i.d. from a
-distribution with positive support (typically
+set to \(-1\). Elements of \(\boldsymbol{\gamma}\) were simulated i.i.d.
+from a distribution with positive support (typically
 \(\gamma_{i} \sim \mathcal{U}(0, 2)\)). Random \(\mathbf{A}\) matrices
 with correlated elements \(A_{ij}\) and \(A_{ji}\) were built using
 Cholesky decomposition. Competitor networks in which off-diagonal
@@ -687,7 +689,7 @@ interaction, respectively. As with small-world networks, a random matrix
 \(-1\). I simulated scale-free networks across all combinations of
 \(S = \{24, 48, 72, 96, 120\}\) and \(m = \{2, 3, ..., 11, 12\}\).
 
-Cascade food-webs were constructed following Solow and
+Cascade food webs were constructed following Solow and
 Beet\textsuperscript{\protect\hyperlink{ref-Solow1998}{17}}. First, a
 random matrix \(\mathbf{A}\) was generated with off-diagonal elements
 sampled i.i.d so that \(A_{ij} \sim \mathcal{N}(0, 0.4)\). Each
@@ -740,48 +742,49 @@ positive.
 
 \textbf{Genetic algorithm}. Ideally, to investigate the potential of
 \(\sigma^{2}_{\gamma}\) for increasing the proportion of stable complex
-systems, the search space of all possible \(\gamma\) vectors would be
-evaluated for each unique \(\mathbf{M = \gamma A}\). This is technically
-impossible because \(\gamma_{i}\) can take any real value between 0-2,
-but even rounding \(\gamma_{i}\) to reasonable values would result in a
-search space too large to practically explore. Under these conditions,
-genetic algorithms are highly useful tools for finding practical
-solutions by mimicking the process of biological
+systems, the search space of all possible \(diag(\boldsymbol{\gamma})\)
+vectors would be evaluated for each unique \(\mathbf{M = \gamma A}\).
+This is technically impossible because \(\gamma_{i}\) can take any real
+value between 0-2, but even rounding \(\gamma_{i}\) to reasonable values
+would result in a search space too large to practically explore. Under
+these conditions, genetic algorithms are highly useful tools for finding
+practical solutions by mimicking the process of biological
 evolution\textsuperscript{\protect\hyperlink{ref-Hamblin2013}{29}}. In
 this case, the practical solution is finding vectors of
-\(\mathbf{\gamma}\) that decrease the most positive real eigenvalue of
-\(\mathbf{M}\). The genetic algorithm used achieves this by initialising
-a large population of 1000 different potential \(\mathbf{\gamma}\)
-vectors and allowing this population to evolve through a process of
-mutation, crossover (swaping \(\gamma_{i}\) values between vectors),
-selection, and reproduction until either a \(\mathbf{\gamma}\) vector is
-found where all \(\Re(\lambda) < 0\) or some ``giving up'' critiera is
-met.
+\(diag(\boldsymbol{\gamma})\) that decrease the most positive real
+eigenvalue of \(\mathbf{M}\). The genetic algorithm used achieves this
+by initialising a large population of 1000 different potential
+\(diag(\boldsymbol{\gamma})\) vectors and allowing this population to
+evolve through a process of mutation, crossover (swaping \(\gamma_{i}\)
+values between vectors), selection, and reproduction until either a
+\(diag(\boldsymbol{\gamma})\) vector is found where all
+\(\Re(\lambda) < 0\) or some ``giving up'' critiera is met.
 
 For each \(S = \{2, 3, ..., 39, 40\}\), the genetic algorithm was run
 for 100000 random \(\mathbf{M = \gamma A}\) (\(\sigma_{A} = 0.4\),
 \(C = 1\)). The genetic algorithm was initialised with a population of
-1000 different \(\mathbf{\gamma}\) vectors with elements sampled i.i.d
-from \(\gamma_{i} \sim \mathcal{U}(0, 2)\). Eigenanalysis was performed
-on the \(\mathbf{M}\) resulting from each \(\mathbf{\gamma}\) vector,
-and the 20 \(\mathbf{\gamma}\) vectors resulting in \(\mathbf{M}\) with
-the lowest \(\Re(\lambda_{max})\) each produced 50 clonal offspring with
-subsequent random mutation and crossover between the resulting new
-generation of 1000 \(\mathbf{\gamma}\) vectors. Mutation of each
-\(\gamma_{i}\) in a \(\mathbf{\gamma}\) vector occurred with a
+1000 different \(diag(\boldsymbol{\gamma})\) vectors with elements
+sampled i.i.d from \(\gamma_{i} \sim \mathcal{U}(0, 2)\). Eigenanalysis
+was performed on the \(\mathbf{M}\) resulting from each
+\(\boldsymbol{\gamma}\), and the 20 \(diag(\boldsymbol{\gamma})\)
+vectors resulting in \(\mathbf{M}\) with the lowest
+\(\Re(\lambda_{max})\) each produced 50 clonal offspring with subsequent
+random mutation and crossover between the resulting new generation of
+1000 \(diag(\boldsymbol{\gamma})\) vectors. Mutation of each
+\(\gamma_{i}\) in a \(diag(\boldsymbol{\gamma})\) vector occurred with a
 probability of 0.2, resulting in a mutation effect of size
 \(\mathcal{N}(0, 0.02)\) being added to generate the newly mutated
 \(\gamma_{i}\) (any \(\gamma_{i}\) values that mutated below zero were
 multiplied by \(-1\), and any values that mutated above 2 were set to
-2). Crossover occurred between two sets of 100 \(\mathbf{\gamma}\)
-vectors paired in each generation; vectors were randomly sampled with
-replacement among but not within sets. Vector pairs selected for
-crossover swapped all elements between and including two \(\gamma_{i}\)
-randomly selected with replacement (this allowed for reversal of vector
-element positions during crossover; e.g.,
+2). Crossover occurred between two sets of 100
+\(diag(\boldsymbol{\gamma})\) vectors paired in each generation; vectors
+were randomly sampled with replacement among but not within sets. Vector
+pairs selected for crossover swapped all elements between and including
+two \(\gamma_{i}\) randomly selected with replacement (this allowed for
+reversal of vector element positions during crossover; e.g.,
 \(\{\gamma_{4}, \gamma_{5}, \gamma_{6}, \gamma_{7}\} \to \{\gamma_{7}, \gamma_{6}, \gamma_{5}, \gamma_{4}\}\)
 ). The genetic algorithm terminated if a stable \(\mathbf{M}\) was
-found, 20 generations occurred, or if the mean \(\mathbf{\gamma}\)
+found, 20 generations occurred, or if the mean \(\boldsymbol{\gamma}\)
 fitness increase between generations was less than 0.01 (where fitness
 was defined as \(W_{\gamma} = -\Re(\lambda_{max})\) for \(\mathbf{M}\)).
 
@@ -967,7 +970,7 @@ components, represented by the diagonal matrix \(\gamma\), such that
 sampled from a uniform distribution from \(\min = 0\) to \(\max = 2\).
 Eigenvalues of \(\mathbf{M}\) are then distributed non-uniformly within
 the red circle centred at the origin with a radius of
-\(\sqrt{\sigma^{2}_{A}(1 + \sigma^{2}_{\gamma})S} \approx\) 1.11.
+\(\sqrt{\sigma^{2}_{A}(1 + \sigma^{2}_{\gamma})S} \approx\) 1.13.
 (\(\textbf{c}\)) A different random system \(\mathbf{A}\) constructed
 from the same parameters as in \(\textbf{a}\), except with diagonal
 values of \(-1\). (\(\textbf{d}\)) The same system \(\textbf{c}\) after
@@ -1038,7 +1041,9 @@ in an otherwise identical system in which
 show the number of stable systems in the absence and presence of
 \(\sigma^{2}_{\gamma}\), respectively. The black line shows the
 proportion of systems that are stable when \(\sigma^{2}_{\gamma}>0\),
-but would be unstable if \(\sigma^{2}_{\gamma}=0\).
+but would be unstable if \(\sigma^{2}_{\gamma}=0\) (i.e., the
+conditional probability that \(\mathbf{A}\) is unstable given that
+\(\mathbf{M}\) is stable).
 
 \includegraphics{ms_files/figure-latex/unnamed-chunk-15-1.pdf}
 
