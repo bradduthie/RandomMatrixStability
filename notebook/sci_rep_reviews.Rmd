@@ -72,9 +72,9 @@ unstable given that DA-id is stable ? I think that this point should be explaine
 Author response to Reviewer 1 comment 3
 ================================================================================
 
-Reviewer 1 is correct that the line illustrates the conditional probability that $A$ is unstable given that $\gamma A$ is stable. In other words, the proportion of complex systems found to be stable, but which would have been unstable if it were not for the variation in component response rates. 
+Reviewer 1 is correct that the line illustrates the conditional probability that $A$ is unstable given that $M = \gamma A$ is stable. In other words, the proportion of complex systems found to be stable, but which would have been unstable if it were not for the variation in component response rates. 
 
-I have explained the result shown by the black line of Figures 3 and 4 now more clearly in my revision (line XXX).
+I have explained the result shown by the black line of Figures 3 (now 4), and the former figure 4 (now in the SI), now more clearly in my revision (line XXX).
 
 Reviewer 2 comment 1
 ================================================================================
