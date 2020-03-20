@@ -405,12 +405,23 @@ hist(deg_dist, main = "", xlab = "Component interactions",
 The table below shows how $\sigma^{2}_\gamma$ affects stability across different scale-free networks with different $S$ and $m$ values.
 
 ```{r, echo = FALSE, fig.align = "center"}
-sfn <- read.csv(file = "sim_results/sfn/sfn.csv"); # Change when new results are in
+sfn <- read.csv(file = "sim_results/sfn/sfn.csv"); 
 use <- c(1:6, 19:21);
 kable(sfn[,use]);
 ```
 
-As in small-world networks, the mean $C$ is shown, along with the mean complexities of $\mathbf{A}$ and $\mathbf{M}$. Like all other networks, $\sigma^{2}_\gamma$ increases the stability of scale-free networks given sufficiently complexity, but the complexity requires seems to be relatively low.
+As in small-world networks, the mean $C$ is shown, along with the mean complexities of $\mathbf{A}$ and $\mathbf{M}$. Like all other networks, $\sigma^{2}_\gamma$ increases the stability of scale-free networks given sufficiently high complexity. 
+
+Cascade food webs are saturated, and similar to predator-prey random networks. What distinguishes them from predator-prey networks is that cascade food webs are also defined by intactions in which components are ranked such that if the rank of $i > j$, then $A_{ij} < 0$ and $A_{ji} > 0$. In other words, if interpreting components as ecological species, species can only feed off of a species of lower rank. The table below shows how $\sigma^{2}_\gamma$ affects stability across system sizes in cascade food webs.
+
+```{r, echo = FALSE, fig.align = "center"}
+csc <- read.csv(file = "sim_results/ecology/cascade_C_1.csv"); 
+use <- c(1:5, 18:19);
+kable(csc[,use]);
+```
+
+Cascade food webs are more likely to be stable than small-world or scale-free networks at equivalent magnitudes of complexity (note that $C = 1$ for all above rows). A higher number of stable $\mathbf{M}$ than $\mathbf{A}$ was found given $S \geq 27$.
+
 
 Feasibility of complex systems {#Feasibility}
 ================================================================================
