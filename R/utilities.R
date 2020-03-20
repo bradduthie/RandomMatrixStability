@@ -155,7 +155,48 @@ add_C_stats <- function(sim){
     return(new_all_res);
 }
 
-
+#' Produce a vector (gamma) from one of four distributions
+#' 
+#' Returns  a vector (gamma) from one of four distributions.
+#'
+#'@return A vector sampled from one of four distributions
+#'@param nn The number of elements in the vector
+#'@param distribution The distribution from which elements will be sampled, 
+#'including (0) a repeated value with no variance, (1) a uniform distribution
+#'of min 0 and max 1, (2) an exponential distribution, (3) a beta distribution
+#'with parameters alpha = 0.5 and beta = 0.5, or (4) a gamma distribution with
+#'shape and scale parameters equal to k = 2 and theta = 2.
+#'@param mn The mean value of the distribution (only for distribution 0)
+#'@param sdd The standard deviatoin of the distribution (only for distributions
+#'2-4).
+#'@examples
+#'eg_gams  <- make_gammas(n = 20, distribution = 3, sdd = 1);
+#'@export
+make_gammas <- function(nn = 10, distribution = 1, mn = 1, sdd = 1){
+    if(distribution == 0){
+        dat          <- rep(x = mn, times = nn);
+    }
+    if(distribution == 1){
+        mval         <- 2;
+        dat          <- runif(n = nn, min = 0, max = mval);
+    }
+    if(distribution == 2){
+        dat          <- rexp(n = nn);
+        dat          <- sdd * ((dat - mean(dat)) / sd(dat));
+        dat          <- dat - min(dat) + min(abs(dat));
+    }
+    if(distribution == 3){
+        dat          <- rbeta(n = nn, shape1 = 0.5, shape2 = 0.5);
+        dat          <- sdd * ((dat - mean(dat)) / sd(dat));
+        dat          <- dat - min(dat) + min(abs(dat));
+    }
+    if(distribution == 4){
+        dat          <- rgamma(n = nn, shape = 2, scale = 2);
+        dat          <- sdd * ((dat - mean(dat)) / sd(dat));
+        dat          <- dat - min(dat) + min(abs(dat));
+    }
+    return(dat);
+}
 
 #' Get variance of interaction strengths
 #' 
