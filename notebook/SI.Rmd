@@ -40,7 +40,7 @@ source(file = "../R/utilities.R")
 
 ********************************************************************************
 
-**This supplemental information supports the manuscript "Component response rate variation drives stability in large complex systems" with additional analyses to support its conclusions. All text, code, and data underlying this manuscript are publicly available on [GitHub](https://github.com/bradduthie/RandomMatrixStability) as part of the RandomMatrixStability R package.**
+**This supplemental information supports the manuscript "Component response rate variation underlies the stability of complex systems" with additional analyses to support its conclusions. All text, code, and data underlying this manuscript are publicly available on [GitHub](https://github.com/bradduthie/RandomMatrixStability) as part of the RandomMatrixStability R package.**
 
 The [RandomMatrixStability package](https://github.com/bradduthie/RandomMatrixStability) includes all functions and tools for recreating the text, this supplemental information, and running all code; additional documentation is also provided for package functions. The RandomMatrixStability package is available on [GitHub](https://github.com/bradduthie/RandomMatrixStability); to download it, the  [`devtools` library](https://cran.r-project.org/web/packages/devtools/index.html) is needed.
 
@@ -63,7 +63,7 @@ Supplemental Information table of contents
 
 
 - [Stability across increasing $S$](#IncrS) 
-- [Stability of ecological networks](#ecological) 
+- [Stability of random ecological networks](#ecological) 
     - [Competitor networks](#competition) 
     - [Mutualist networks](#mutualism) 
     - [Predator-prey networks](#pred-prey) 
@@ -92,7 +92,7 @@ dat <- read.csv(file = "sim_results/C_1/random_all.csv");
 dat <- dat[,-1]; # Extra row-indicating column removed
 ```
 
-Figure 4 of the main text reports the number of stable random complex systems found over 1 million iterations. The table below shows the results for all simulations of random $\mathbf{M}$ matrices at $\sigma = 0.4$ and $C = 1$ given a range of $S = \{2, 3, ..., 49, 50\}$. In this table, the `A` refers to $\mathbf{A}$ matrices where $\gamma = 1$, while `M` refers to $\mathbf{M}$ matrices after $\sigma^{2}_{\gamma}$ is added and $\gamma \sim \mathcal{U}(0, 2)$. Each row summarises data for a given $S$ over 1 million randomly simulated $\mathbf{M}$. The column `A_unstable` shows the number of $\mathbf{A}$ matrices that are unstable, and the column `A_stable` shows the number of $\mathbf{A}$ matrices that are stable (these two columns sum to 1 million). Similarly, the column `M_unstable` shows the number of $\mathbf{M}$ matrices that are unstable and `M_stable` shows the number that are stable. The columns `A_stabilised` and `A_destabilised` show how many $\mathbf{M}$ matrices were stabilised or destabilised, respectively, by $\sigma^{2}_{\gamma}$.
+Figure 4 of the main text reports the number of stable random complex systems found over 1 million iterations. The table below shows the results for all simulations of random $\mathbf{M}$ matrices at $\sigma_{A} = 0.4$ and $C = 1$ given a range of $S = \{2, 3, ..., 49, 50\}$. In this table, the `A` refers to $\mathbf{A}$ matrices where $\gamma = 1$, while `M` refers to $\mathbf{M}$ matrices after $\sigma^{2}_{\gamma}$ is added and $\gamma \sim \mathcal{U}(0, 2)$. Each row summarises data for a given $S$ over 1 million randomly simulated $\mathbf{M}$. The column `A_unstable` shows the number of $\mathbf{A}$ matrices that are unstable, and the column `A_stable` shows the number of $\mathbf{A}$ matrices that are stable (these two columns sum to 1 million). Similarly, the column `M_unstable` shows the number of $\mathbf{M}$ matrices that are unstable and `M_stable` shows the number that are stable. The columns `A_stabilised` and `A_destabilised` show how many $\mathbf{M}$ matrices were stabilised or destabilised, respectively, by $\sigma^{2}_{\gamma}$.
 
 ```{r, echo = FALSE}
 library(knitr);
@@ -102,7 +102,7 @@ kable(d_tab);
 
 Overall, the ratio of stable $\mathbf{A}$ matrices to stable $\mathbf{M}$ matrices found is greater than 1 whenever $S > 10$ (compare column 5 to column 3), and this ratio increases with increasing $S$ (column 1). Hence, more randomly created complex systems ($\mathbf{M}$) are stable given variation in $\gamma$ than when $\gamma = 1$. Note that feasibility results were omitted for the table above, but are [reported below](#Feasibility).
 
-Stability of ecological networks {#ecological}
+Stability of random ecological networks {#ecological}
 ================================================================================
 
 While the foundational work of May[@May1972] applies broadly to complex networks, much attention has been given specifically to ecological networks of interacting species. In these networks, the matrix $\mathbf{A}$ is interpreted as a community matrix and each row and column is interpreted as a single species. The per capita effect that the density of any species $i$ has on the population dynamics of species $j$ is found in $A_{ij}$, meaning that $\mathbf{A}$ holds the effects of pair-wise interactions between $S$ species[@Allesina2012; @Allesina2015]. While May's original work[@May1972] considered only randomly assembled communities, recent work has specifically looked at more restricted ecological communities including competitive networks (all off-diagonal elements of $\mathbf{A}$ are negative), mutualist networks (all off-diagonal elements of $\mathbf{A}$ are positive), and predator-prey networks (for any pair of $i$ and $j$, the effect of $i$ on $j$ is negative and $j$ on $i$ is positive, or vice versa)[@Allesina2012; @Allesina2015]. In general, competitor and mutualist networks tend to be unstable, while predator-prey networks tend to be highly stabilising[@Allesina2012].
@@ -172,7 +172,7 @@ Overall, as expected [@Allesina2012], predator-prey communities are relatively s
 Sensitivity of connectance (C) values {#connectance}
 ================================================================================
 
-In the main text, for simplicity, I assumed connectance values of $C = 1$, meaning that all off-diagonal elements of a matrix $\mathbf{M}$ were potentially nonzero and sampled from a normal distribution $\mathcal{N}(0, \sigma^{2})$ where $\sigma = 0.4$. Here I present four tables showing the number of stable communities given $C = \{0.3, 0. 5, 0.7, 0.9 \}$. In all cases, uniform variation in component response rate ($\gamma \sim \mathcal{U}(0, 2)$) led to a higher number of stable communities than when $\gamma$ did not vary ($\gamma = 1$). In contrast to the main text, 100000 rather than 1 million $\mathbf{M}$ were simulated. As with the results on [stability with increasing $S$](#IncrS) shown above, in the tables below `A` refers to $\mathbf{A}$ matrices when $\gamma = 1$, and `M` refers to $\mathbf{M}$ matrices after $\sigma^{2}_{\gamma}$ is added. The column `A_unstable` shows the number of $\mathbf{A}$ matrices that are unstable, and the column `A_stable` shows the number of $\mathbf{A}$ matrices that are stable (these two columns sum to 100000). Similarly, the column `M_unstable` shows the number of $\mathbf{M}$ matrices that are unstable and `M_stable` shows the number that are stable. The columns `A_stabilised` and `A_destabilised` show how many $\mathbf{A}$ matrices were stabilised or destabilised, respectively, by $\sigma^{2}_{\gamma}$.
+In the main text, for simplicity, I assumed connectance values of $C = 1$, meaning that all off-diagonal elements of a matrix $\mathbf{M}$ were potentially nonzero and sampled from a normal distribution $\mathcal{N}(0, \sigma^{2}_{A})$ where $\sigma_{A} = 0.4$. Here I present four tables showing the number of stable communities given $C = \{0.3, 0. 5, 0.7, 0.9 \}$. In all cases, uniform variation in component response rate ($\gamma_{i} \sim \mathcal{U}(0, 2)$) led to a higher number of stable communities than when $\gamma$ did not vary ($\gamma_{i} = 1$). In contrast to the main text, 100000 rather than 1 million $\mathbf{M}$ were simulated. As with the results on [stability with increasing $S$](#IncrS) shown above, in the tables below `A` refers to $\mathbf{A}$ matrices when $\gamma = 1$, and `M` refers to $\mathbf{M}$ matrices after $\sigma^{2}_{\gamma}$ is added. The column `A_unstable` shows the number of $\mathbf{A}$ matrices that are unstable, and the column `A_stable` shows the number of $\mathbf{A}$ matrices that are stable (these two columns sum to 100000). Similarly, the column `M_unstable` shows the number of $\mathbf{M}$ matrices that are unstable and `M_stable` shows the number that are stable. The columns `A_stabilised` and `A_destabilised` show how many $\mathbf{A}$ matrices were stabilised or destabilised, respectively, by $\sigma^{2}_{\gamma}$.
 
 ```{r, echo = FALSE}
 C3dat <- read.csv(file = "sim_results/C_other/rand_c-0pt3.csv");
@@ -214,10 +214,10 @@ C9d_tab <- C9dat[,1:7];
 kable(C9d_tab);
 ```
 
-Sensitivity of interaction strength ($\sigma$) values {#sigma}  
+Sensitivity of interaction strength ($\sigma_{A}$) values {#sigma}  
 ================================================================================
 
-Results below show stability results given varying interaction strengths ($\sigma$) for $C = 0.05$ (note that system size $S$ values are larger and increase by 10 with increasing rows). In the tables below (as [above](#IncrS)), `A` and `M` refers to matrices for $\gamma = 1$ and $\sigma^{2}_{\gamma}$, respectively.
+Results below show stability results given varying interaction strengths ($\sigma_{A}$) for $C = 0.05$ (note that system size $S$ values are larger and increase by 10 with increasing rows). In the tables below (as [above](#IncrS)), `A` and `M` refers to matrices for $\gamma = 1$ and $\sigma^{2}_{\gamma}$, respectively.
 
 
 ```{r, echo = FALSE}
@@ -227,7 +227,7 @@ S5dat <- read.csv(file = "sim_results/C_0pt05/sim_SD_0pt5.csv");
 S6dat <- read.csv(file = "sim_results/C_0pt05/sim_SD_0pt6.csv");
 ```
 
-<a name="sigma3">**Interaction strength $\mathbf{\sigma = 0.3}$**</a>
+<a name="sigma3">**Interaction strength $\mathbf{\sigma_{A} = 0.3}$**</a>
 
 ```{r, echo = FALSE}
 S3dat   <- S3dat[,-1];
@@ -235,7 +235,7 @@ S3d_tab <- S3dat[,1:7];
 kable(S3d_tab);
 ```
 
-<a name="sigma4">**Interaction strength $\mathbf{\sigma = 0.4}$**</a>
+<a name="sigma4">**Interaction strength $\mathbf{\sigma_{A} = 0.4}$**</a>
 
 ```{r, echo = FALSE}
 S4dat   <- S4dat[,-1];
@@ -243,7 +243,7 @@ S4d_tab <- S4dat[,1:7];
 kable(S4d_tab);
 ```
 
-<a name="sigma5">**Interaction strength $\mathbf{\sigma = 0.5}$**</a>
+<a name="sigma5">**Interaction strength $\mathbf{\sigma_{A} = 0.5}$**</a>
 
 ```{r, echo = FALSE}
 S5dat   <- S5dat[,-1];
@@ -251,7 +251,7 @@ S5d_tab <- S5dat[,1:7];
 kable(S5d_tab);
 ```
 
-<a name="sigma6">**Interaction strength $\mathbf{\sigma = 0.6}$**</a>
+<a name="sigma6">**Interaction strength $\mathbf{\sigma_{A} = 0.6}$**</a>
 
 ```{r, echo = FALSE}
 S6dat   <- S6dat[,-1];
