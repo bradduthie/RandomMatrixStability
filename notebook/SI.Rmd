@@ -172,7 +172,7 @@ Overall, as expected [@Allesina2012], predator-prey communities are relatively s
 Sensitivity of connectance (C) values {#connectance}
 ================================================================================
 
-In the main text, for simplicity, I assumed connectance values of $C = 1$, meaning that all off-diagonal elements of a matrix $\mathbf{M}$ were potentially nonzero and sampled from a normal distribution $\mathcal{N}(0, \sigma^{2}_{A})$ where $\sigma_{A} = 0.4$. Here I present four tables showing the number of stable communities given $C = \{0.3, 0. 5, 0.7, 0.9 \}$. In all cases, uniform variation in component response rate ($\gamma_{i} \sim \mathcal{U}(0, 2)$) led to a higher number of stable communities than when $\gamma$ did not vary ($\gamma_{i} = 1$). In contrast to the main text, 100000 rather than 1 million $\mathbf{M}$ were simulated. As with the results on [stability with increasing $S$](#IncrS) shown above, in the tables below `A` refers to $\mathbf{A}$ matrices when $\gamma = 1$, and `M` refers to $\mathbf{M}$ matrices after $\sigma^{2}_{\gamma}$ is added. The column `A_unstable` shows the number of $\mathbf{A}$ matrices that are unstable, and the column `A_stable` shows the number of $\mathbf{A}$ matrices that are stable (these two columns sum to 100000). Similarly, the column `M_unstable` shows the number of $\mathbf{M}$ matrices that are unstable and `M_stable` shows the number that are stable. The columns `A_stabilised` and `A_destabilised` show how many $\mathbf{A}$ matrices were stabilised or destabilised, respectively, by $\sigma^{2}_{\gamma}$.
+In the main text, for simplicity, I assumed connectance values of $C = 1$, meaning that all off-diagonal elements of a matrix $\mathbf{M}$ were potentially nonzero and sampled from a normal distribution $\mathcal{N}(0, \sigma^{2}_{A})$ where $\sigma_{A} = 0.4$. Here I present four tables showing the number of stable communities given $C = \{0.3, 0. 5, 0.7, 0.9 \}$. In all cases, uniform variation in component response rate ($\gamma \sim \mathcal{U}(0, 2)$) led to a higher number of stable communities than when $\gamma$ did not vary ($\gamma_{i} = 1$). In contrast to the main text, 100000 rather than 1 million $\mathbf{M}$ were simulated. As with the results on [stability with increasing $S$](#IncrS) shown above, in the tables below `A` refers to $\mathbf{A}$ matrices when $\gamma = 1$, and `M` refers to $\mathbf{M}$ matrices after $\sigma^{2}_{\gamma}$ is added. The column `A_unstable` shows the number of $\mathbf{A}$ matrices that are unstable, and the column `A_stable` shows the number of $\mathbf{A}$ matrices that are stable (these two columns sum to 100000). Similarly, the column `M_unstable` shows the number of $\mathbf{M}$ matrices that are unstable and `M_stable` shows the number that are stable. The columns `A_stabilised` and `A_destabilised` show how many $\mathbf{A}$ matrices were stabilised or destabilised, respectively, by $\sigma^{2}_{\gamma}$.
 
 ```{r, echo = FALSE}
 C3dat <- read.csv(file = "sim_results/C_other/rand_c-0pt3.csv");
@@ -349,7 +349,7 @@ In comparison to the uniform distribution (a), proportionally fewer random syste
 Stability of structured networks {#structured}
 ================================================================================
 
-I tested the stability of one million random, small-world, scale-free, and cascade food web networks. Each of these networks is structured differently. In the main text, the random networks and cascade food webs that I built were saturated ($C = 1$), meaning that every component was connected to, and interacted with, every other component.
+I tested the stability of one million random, small-world, scale-free, and cascade food web networks for different network parameters. Each of these networks is structured differently. In the main text, the random networks and cascade food webs that I built were saturated ($C = 1$), meaning that every component was connected to, and interacted with, every other component (see immediately below).
 
 \vspace{2mm}
 
@@ -362,7 +362,7 @@ visualise_network(A0);
 
 \vspace{2mm}
 
-Small-world networks, in contrast, are not saturated. They are instead defined by components that interact mostly with other closely neighbouring components, but have a proportion of interactions ($\beta$) that are instead between non-neighbours. Two small-world networks are shown below.
+Small-world networks, in contrast, are not saturated. They are instead defined by components that interact mostly with other closely neighbouring components, but have a proportion of interactions ($\beta$) that are instead between non-neighbours [@Watts1998]. Two small-world networks are shown below.
 
 \vspace{2mm}
 
@@ -387,7 +387,7 @@ kable(swn[,use]);
 
 In the above, the mean $C$, complexity of $\mathbf{A}$, and complexity of $\mathbf{M}$ are also shown. For similar magnitudes of complexity as in random networks of $\sigma\sqrt{SC} \gtrapprox 1.26$, variation in $\gamma$ typically results in more stable than unstable systems.
 
-Scale-free networks are also not saturated, but are defined by an interaction number distribution that follows a power law. In other words, a small number of components interact with many other components, while most components interact with only a small number of other components. Scale-free networks can be built by adding new components, one by one, to an existing system, with each newly added component interacting with a randomly selected subset of $m$ existing components. The network on the left below shows an example of a scale-free network in which $m = 3$. The histogram on the right shows the number of other components with which each component interacts.
+Scale-free networks are also not saturated, but are defined by an interaction frequency distribution that follows a power law. In other words, a small number of components interact with many other components, while most components interact with only a small number of other components. Scale-free networks can be built by adding new components, one by one, to an existing system, with each newly added component interacting with a randomly selected subset of $m$ existing components [@Albert2002]. The network on the left below shows an example of a scale-free network in which $m = 3$. The histogram on the right shows the number of other components with which each component interacts.
 
 ```{r, echo = FALSE, fig.align = "center"}
 source("../R/scale_free.R");
@@ -412,7 +412,7 @@ kable(sfn[,use]);
 
 As in small-world networks, the mean $C$ is shown, along with the mean complexities of $\mathbf{A}$ and $\mathbf{M}$. Like all other networks, $\sigma^{2}_\gamma$ increases the stability of scale-free networks given sufficiently high complexity. 
 
-Cascade food webs are saturated, and similar to predator-prey random networks. What distinguishes them from predator-prey networks is that cascade food webs are also defined by intactions in which components are ranked such that if the rank of $i > j$, then $A_{ij} < 0$ and $A_{ji} > 0$. In other words, if interpreting components as ecological species, species can only feed off of a species of lower rank. The table below shows how $\sigma^{2}_\gamma$ affects stability across system sizes in cascade food webs.
+Cascade food webs are saturated, and similar to predator-prey random networks. What distinguishes them from predator-prey networks is that cascade food webs are also defined by intactions in which components are ranked such that if the rank of $i > j$, then $A_{ij} < 0$ and $A_{ji} > 0$ [@Solow1998; @Williams2000]. In other words, if interpreting components as ecological species, species can only feed off of a species of lower rank. The table below shows how $\sigma^{2}_\gamma$ affects stability across system sizes in cascade food webs.
 
 ```{r, echo = FALSE, fig.align = "center"}
 csc <- read.csv(file = "sim_results/ecology/cascade_C_1.csv"); 
@@ -441,7 +441,7 @@ Hence, in general, $\sigma^{2}_{\gamma}$ does not appear to affect feasibility i
 Stability given targeted manipulation of $\gamma$ (genetic algorithm) {#ga}
 ================================================================================
 
-The figure below compares the stability of large complex systems given $\boldsymbol{\gamma = 1}$ versus targeted manipulation of $\gamma$ elements. For each $S$, 100000 complex systems are randomly generated. Stability of each complex system is tested given variation in $\gamma$ using a genetic algorithm to maximise the effect of $\gamma$ values on increasing stability, as compared to stability in an otherwise identical system in which $\gamma$ is the same for all components. Blue bars show the number of stable systems in the absence of component response rate variation, while red bars show the number of stable systems that can be generated if component response rate is varied to maximise system stability. The black line shows the proportion of systems that are stable when component response rate is targeted to increase stability, but would not be stable if $\sigma^{2}_{\gamma} = 0$. The y-axis shows the $\ln$ number of systems that are stable across $S = \{1, 2, ..., 39, 40\}$ for $C = 1$, and the proportion of systems wherein a targeted search of $\gamma$ values successfully resulted in system stability. 
+The figure below compares the stability of large complex systems given $\gamma = 1$ versus targeted manipulation of $\gamma$ elements. For each $S$, 100000 complex systems are randomly generated. Stability of each complex system is tested given variation in $\gamma$ using a genetic algorithm to maximise the effect of $\gamma$ values on increasing stability, as compared to stability in an otherwise identical system in which $\gamma$ is the same for all components. Blue bars show the number of stable systems in the absence of component response rate variation, while red bars show the number of stable systems that can be generated if component response rate is varied to maximise system stability. The black line shows the proportion of systems that are stable when component response rate is targeted to increase stability, but would not be stable if $\sigma^{2}_{\gamma} = 0$. The y-axis shows the $\ln$ number of systems that are stable across $S = \{1, 2, ..., 39, 40\}$ for $C = 1$, and the proportion of systems wherein a targeted search of $\gamma$ values successfully resulted in system stability. 
 
 ```{r, eval = TRUE, echo = FALSE, fig.width = 9, fig.height = 7}
 dat <- read.csv(file = "sim_results/evolved/evo_results.csv");
@@ -507,8 +507,6 @@ kable(evo_res);
 
 The distributions of nine $\gamma$ vectors from the highest $S$ values are shown below. This comparison shows the high number of stable $\mathbf{M}$ that can be produced through a targeted search of $\gamma$ values, and suggests that many otherwise unstable systems could potentially be stabilised by an informed manipulation of their component response times. Such a possibility might conceivably reduce the dimensionality of problems involving stability in social-ecological or economic systems.
 
-Distributions of $\gamma$ values in vectors for the highest values of $S$ are shown below. 
-
 ```{r, fig.height = 4, fig.width = 6, echo = FALSE}
 evo_out <- scan(file = "sim_results/evolved/evo_out.txt");
 plot_evo_out(evo_out);
@@ -523,7 +521,7 @@ The question that I address in the main text is distinct from that of Gibbs et a
 
 $$\mathbf{M} = \mathbf{XA}.$$
 
-Mathematically, the above is identical to my model in the main text where the system $\mathbf{M}$ is defined by component interaction strengths $\mathbf{A}$ and individual component response rates $\mathbf{\gamma}$,
+Mathematically, the above is identical to my model in the main text where the system $\mathbf{M}$ is defined by component interaction strengths $\mathbf{A}$ and individual component response rates $\boldsymbol{\gamma}$,
 
 $$\mathbf{M} = \mathbf{\gamma A}.$$
 

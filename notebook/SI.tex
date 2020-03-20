@@ -606,7 +606,7 @@ distribution \(\mathcal{N}(0, \sigma^{2}_{A})\) where
 \(\sigma_{A} = 0.4\). Here I present four tables showing the number of
 stable communities given \(C = \{0.3, 0. 5, 0.7, 0.9 \}\). In all cases,
 uniform variation in component response rate
-(\(\gamma_{i} \sim \mathcal{U}(0, 2)\)) led to a higher number of stable
+(\(\gamma \sim \mathcal{U}(0, 2)\)) led to a higher number of stable
 communities than when \(\gamma\) did not vary (\(\gamma_{i} = 1\)). In
 contrast to the main text, 100000 rather than 1 million \(\mathbf{M}\)
 were simulated. As with the results on
@@ -1071,10 +1071,11 @@ more are found with the beta (c) and gamma (d) distributions.
 networks}\label{structured}}
 
 I tested the stability of one million random, small-world, scale-free,
-and cascade food web networks. Each of these networks is structured
-differently. In the main text, the random networks and cascade food webs
-that I built were saturated (\(C = 1\)), meaning that every component
-was connected to, and interacted with, every other component.
+and cascade food web networks for different network parameters. Each of
+these networks is structured differently. In the main text, the random
+networks and cascade food webs that I built were saturated (\(C = 1\)),
+meaning that every component was connected to, and interacted with,
+every other component (see immediately below).
 
 \vspace{2mm}
 
@@ -1085,8 +1086,9 @@ was connected to, and interacted with, every other component.
 Small-world networks, in contrast, are not saturated. They are instead
 defined by components that interact mostly with other closely
 neighbouring components, but have a proportion of interactions
-(\(\beta\)) that are instead between non-neighbours. Two small-world
-networks are shown below.
+(\(\beta\)) that are instead between
+non-neighbours\textsuperscript{\protect\hyperlink{ref-Watts1998}{4}}.
+Two small-world networks are shown below.
 
 \vspace{2mm}
 
@@ -1187,15 +1189,16 @@ variation in \(\gamma\) typically results in more stable than unstable
 systems.
 
 Scale-free networks are also not saturated, but are defined by an
-interaction number distribution that follows a power law. In other
+interaction frequency distribution that follows a power law. In other
 words, a small number of components interact with many other components,
 while most components interact with only a small number of other
 components. Scale-free networks can be built by adding new components,
 one by one, to an existing system, with each newly added component
 interacting with a randomly selected subset of \(m\) existing
-components. The network on the left below shows an example of a
-scale-free network in which \(m = 3\). The histogram on the right shows
-the number of other components with which each component interacts.
+components\textsuperscript{\protect\hyperlink{ref-Albert2002}{5}}. The
+network on the left below shows an example of a scale-free network in
+which \(m = 3\). The histogram on the right shows the number of other
+components with which each component interacts.
 
 \begin{center}\includegraphics{SI_files/figure-latex/unnamed-chunk-26-1} \end{center}
 
@@ -1330,10 +1333,11 @@ Cascade food webs are saturated, and similar to predator-prey random
 networks. What distinguishes them from predator-prey networks is that
 cascade food webs are also defined by intactions in which components are
 ranked such that if the rank of \(i > j\), then \(A_{ij} < 0\) and
-\(A_{ji} > 0\). In other words, if interpreting components as ecological
-species, species can only feed off of a species of lower rank. The table
-below shows how \(\sigma^{2}_\gamma\) affects stability across system
-sizes in cascade food webs.
+\(A_{ji} > 0\)\textsuperscript{\protect\hyperlink{ref-Solow1998}{6},\protect\hyperlink{ref-Williams2000}{7}}.
+In other words, if interpreting components as ecological species,
+species can only feed off of a species of lower rank. The table below
+shows how \(\sigma^{2}_\gamma\) affects stability across system sizes in
+cascade food webs.
 
 \begin{longtable}[]{@{}rrrrrrr@{}}
 \toprule
@@ -1514,17 +1518,17 @@ A\_made\_feasible & A\_made\_infeasible\tabularnewline
 
 Hence, in general, \(\sigma^{2}_{\gamma}\) does not appear to affect
 feasibility in pure species interaction
-networks\textsuperscript{\protect\hyperlink{ref-Servan2018}{4}}.
+networks\textsuperscript{\protect\hyperlink{ref-Servan2018}{8}}.
 
 \hypertarget{ga}{\section{\texorpdfstring{Stability given targeted
 manipulation of \(\gamma\) (genetic
 algorithm)}{Stability given targeted manipulation of \textbackslash{}gamma (genetic algorithm)}}\label{ga}}
 
 The figure below compares the stability of large complex systems given
-\(\boldsymbol{\gamma = 1}\) versus targeted manipulation of \(\gamma\)
-elements. For each \(S\), 100000 complex systems are randomly generated.
-Stability of each complex system is tested given variation in \(\gamma\)
-using a genetic algorithm to maximise the effect of \(\gamma\) values on
+\(\gamma = 1\) versus targeted manipulation of \(\gamma\) elements. For
+each \(S\), 100000 complex systems are randomly generated. Stability of
+each complex system is tested given variation in \(\gamma\) using a
+genetic algorithm to maximise the effect of \(\gamma\) values on
 increasing stability, as compared to stability in an otherwise identical
 system in which \(\gamma\) is the same for all components. Blue bars
 show the number of stable systems in the absence of component response
@@ -1602,9 +1606,6 @@ component response times. Such a possibility might conceivably reduce
 the dimensionality of problems involving stability in social-ecological
 or economic systems.
 
-Distributions of \(\gamma\) values in vectors for the highest values of
-\(S\) are shown below.
-
 \includegraphics{SI_files/figure-latex/unnamed-chunk-32-1.pdf}
 
 The distribution of \(\gamma\) values found by the genetic algorithm is
@@ -1617,7 +1618,7 @@ of \(\gamma\) is likely to be found to stabilise a matrix
 (2018)}\label{Gibbs}}
 
 The question that I address in the main text is distinct from that of
-Gibbs et al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{5}}, who
+Gibbs et al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{9}}, who
 focused instead on the effect of a diagonal matrix of biological species
 densities \(\mathbf{X}\) on a community matrix \(\mathbf{M}\) given a
 species interaction matrix \(\mathbf{A}\). This is modelled as below,
@@ -1627,7 +1628,7 @@ species interaction matrix \(\mathbf{A}\). This is modelled as below,
 Mathematically, the above is identical to my model in the main text
 where the system \(\mathbf{M}\) is defined by component interaction
 strengths \(\mathbf{A}\) and individual component response rates
-\(\mathbf{\gamma}\),
+\(\boldsymbol{\gamma}\),
 
 \[\mathbf{M} = \mathbf{\gamma A}.\]
 
@@ -1636,12 +1637,12 @@ system given variation in \(\mathbf{\gamma}\) as system complexity
 (\(\sigma\sqrt{SC}\)) increased. I increased system complexity by
 holding \(C\) and \(\sigma\) constant and incrementally increasing \(S\)
 to obtain numerical results. In contrast, Gibbs et
-al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{5}} applied
+al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{9}} applied
 analytical techniques to instead focus on a different question
 concerning the effect of \(\mathbf{\gamma}\) on the stability of
 \(\mathbf{M}\) given \(\mathbf{A}\) as \(S \to \infty\), with \(\sigma\)
 scaled so that \(\sigma = 1/\sqrt{S}\). Under such scaling, Gibbs et
-al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{5}} showed that
+al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{9}} showed that
 the effect of \(\gamma\) on stability should decrease exponentially as
 \(S\) increases, which I demonstrate below by running simulations in
 which \(\sigma = 1/\sqrt{S}\).
@@ -1708,15 +1709,15 @@ A\_destabilised\tabularnewline
 Above table results can be compared to those of the
 \protect\hyperlink{IncrS}{main results}. Note that 100000 (not 1
 million), simulations are run to confirm consistency with Gibbs et
-al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{5}}. The
+al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{9}}. The
 difference between my model and Gibbs et
-al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{5}} is that in the
+al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{9}} is that in the
 latter, \(\sigma\sqrt{SC} = 1\) remains constant with increasing \(S\).
 In the former, \(\sigma\sqrt{SC}\) increases with \(S\), so the expected
 complexity of the system also increases accordingly. Consequently, for
 the scaled \(\sigma\) in the table above, systems are not more likely to
 be stabilised by \(\gamma\) as \(S\) increases, consistent with Gibbs et
-al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{5}}. Note that
+al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{9}}. Note that
 overall stability does decrease with increasing \(S\) due to the
 increased density of eigenvalues (see below).
 
@@ -1730,13 +1731,13 @@ increased density of eigenvalues (see below).
 
 \textbf{Complexity as a function of \(S\) in the main text (solid)
 versus in Gibbs et
-al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{5}} (dashed).}
+al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{9}} (dashed).}
 
 When the complexity is scaled to \(\sigma\sqrt{SC} = 1\), an increase in
 \(S\) increases the eigenvalue density within a circle with a unit
 radius centred at \((-1, 0)\) on the complex plane. As \(S \to \infty\),
 this circle becomes increasingly saturated. Gibbs et
-al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{5}} showed that a
+al.\textsuperscript{\protect\hyperlink{ref-Gibbs2017}{9}} showed that a
 diagonal matrix \(\mathbf{\gamma}\) will have an exponentially
 decreasing effect on stability with increasing \(S\). Increasing \(S\)
 is visualised below, first with a system size \(S = 100\).
@@ -1812,13 +1813,29 @@ assured to be greater than zero.
 structured food webs. \emph{Nature Communications} \textbf{6,} 7842
 (2015).
 
+\hypertarget{ref-Watts1998}{}
+4. Watts, D. J. \& Strogatz, S. H. Collective dynamics of 'small world'
+networks. \emph{Nature} \textbf{393,} 440--442 (1998).
+
+\hypertarget{ref-Albert2002}{}
+5. Albert, R. \& Barabási, A. L. Statistical mechanics of complex
+networks. \emph{Reviews of Modern Physics} \textbf{74,} 47--97 (2002).
+
+\hypertarget{ref-Solow1998}{}
+6. Solow, A. R. \& Beet, A. R. On lumping species in food webs.
+\emph{Ecology} \textbf{79,} 2013--2018 (1998).
+
+\hypertarget{ref-Williams2000}{}
+7. Williams, R. J. \& Martinez, N. D. Simple rules yield complex food
+webs. \emph{Nature} \textbf{404,} 180--183 (2000).
+
 \hypertarget{ref-Servan2018}{}
-4. Serván, C. A., Capitán, J. A., Grilli, J., Morrison, K. E. \&
+8. Serván, C. A., Capitán, J. A., Grilli, J., Morrison, K. E. \&
 Allesina, S. Coexistence of many species in random ecosystems.
 \emph{Nature Ecology and Evolution} \textbf{2,} 1237--1242 (2018).
 
 \hypertarget{ref-Gibbs2017}{}
-5. Gibbs, T., Grilli, J., Rogers, T. \& Allesina, S. The effect of
+9. Gibbs, T., Grilli, J., Rogers, T. \& Allesina, S. The effect of
 population abundances on the stability of large random ecosystems.
 \emph{Physical Review E - Statistical, Nonlinear, and Soft Matter
 Physics} \textbf{98,} 022410 (2018).
