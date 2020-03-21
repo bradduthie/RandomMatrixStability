@@ -6,6 +6,7 @@
 #' are constructed using the method of Albert and Barab\'{a}si (Reviews of 
 #' Modern Physics, Vo. 74, 2002). Off-diagonal elements have a mean of 'mn' and 
 #' a standard deviation of 'sigma'.
+#' 
 #'@return A table of stability results, where rows summarise for each component
 #'number (S) the number of stable or unstable (also, feasible and infeasible)
 #'random matrices produced.
@@ -25,10 +26,10 @@
 #'@param mn Mean interaction strength among network elements
 #'@param dval Self-regulation of network elements (1 by default)
 #'@examples
-#'rand_gen_sfn(S = 24, mvals = c(2, 4), iters = 4);
+#'rand_gen_sfn(S = 24, m_vals = c(2, 4), iters = 4);
 #'@export
 rand_gen_sfn <- function(S, m_vals, iters, int_type = 0, rmx = 0.4, sigma = 0.4, 
-                         mn = 0, dval = 1){
+                         mn = 0, dval = 1, g_dist = 1, g_mn = 1, g_sd = 1){
     tot_res <- NULL;
     fea_res <- NULL;
     real_Cs <- NULL;
@@ -55,10 +56,14 @@ rand_gen_sfn <- function(S, m_vals, iters, int_type = 0, rmx = 0.4, sigma = 0.4,
             real_Cs[[i]][iter, 3] <- get_C(sfn);
             A0       <- A0 * sfn;
             diag(A0) <- -1 * dval;
-            gam1     <- runif(n = S, min = 0, max = 2);
-            A1       <- A0 * gam1;
-            A0       <- A0 * mean(gam1);
-            A0_stb   <- max(Re(eigen(A0)$values)) < 0;
+            gam1     <- make_gammas(S, g_dist, g_mn, g_sd);
+            gm       <- matrix(data = 0, nrow = S, ncol = S);
+            diag(gm) <- gam1;
+            A1       <- gm %*% A0;
+            g0       <- matrix(data = 0, nrow = S, ncol = S);
+            diag(g0) <- -1 * mean(diag(A1)); # Note: This standardisation will
+            A0       <- g0 %*% A0; # not affect stability, but I think helps
+            A0_stb   <- max(Re(eigen(A0)$values)) < 0; # readers' interpretation
             A1_stb   <- max(Re(eigen(A1)$values)) < 0;
             A0_fea   <- min(-1*solve(A0) %*% r_vec) > 0;
             A1_fea   <- min(-1*solve(A1) %*% r_vec) > 0;

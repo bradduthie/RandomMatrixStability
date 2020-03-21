@@ -32,7 +32,8 @@
 #'rand_gen_swn(max_sp = 16, iters = 4);
 #'@export
 rand_gen_swn <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 4,
-                         sigma = 0.4, Kdiv = 2, beta = 0.2, mn = 0, dval = 1){
+                         sigma = 0.4, Kdiv = 2, beta = 0.2, mn = 0, dval = 1,
+                         g_dist = 1, g_mn = 1, g_sd = 1){
     tot_res <- NULL;
     fea_res <- NULL;
     real_Cs <- NULL;
@@ -63,10 +64,14 @@ rand_gen_swn <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 4,
             A0       <- A0 * C_mat;
             A0       <- A0 * swn;
             diag(A0) <- -1 * dval;
-            gam1     <- runif(n = sp_try[i], min = 0, max = 2);
-            A1       <- A0 * gam1;
-            A0       <- A0 * mean(gam1);
-            A0_stb   <- max(Re(eigen(A0)$values)) < 0;
+            gam1     <- make_gammas(sp_try[i], g_dist, g_mn, g_sd);
+            gm       <- matrix(data = 0, nrow = sp_try[i], ncol = sp_try[i]);
+            diag(gm) <- gam1;
+            A1       <- gm %*% A0;
+            g0       <- matrix(data = 0, nrow = sp_try[i], ncol = sp_try[i]);
+            diag(g0) <- -1 * mean(diag(A1)); # Note: This standardisation will
+            A0       <- g0 %*% A0; # not affect stability, but I think helps
+            A0_stb   <- max(Re(eigen(A0)$values)) < 0; # readers' interpretation
             A1_stb   <- max(Re(eigen(A1)$values)) < 0;
             A0_fea   <- min(-1*solve(A0) %*% r_vec) > 0;
             A1_fea   <- min(-1*solve(A1) %*% r_vec) > 0;

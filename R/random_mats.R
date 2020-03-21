@@ -20,11 +20,15 @@
 #'@param sigma Standard deviation of interaction strength among network elements
 #'@param mn Mean interaction strength among network elements
 #'@param dval Self-regulation of network elements (1 by default)
+#'@param g_dist Gamma distribution to be used (1 by default)
+#'@param g_mn Mean value of gamma distribution (only for g_dist 0)
+#'@param g_sd Standard deviation of gamma distribution (only for g_dist 2-4)
 #'@examples
 #'rand_gen_var(max_sp = 2, iters = 4);
 #'@export
 rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 1,
-                         sigma = 0.4, mn = 0, dval = 1){
+                         sigma = 0.4, mn = 0, dval = 1, g_dist = 1, g_mn = 1, 
+                         g_sd = 1){
     tot_res <- NULL;
     fea_res <- NULL;
     rho_res <- NULL;
@@ -51,12 +55,16 @@ rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 1,
                                ncol = sp_try[i]);
             A0       <- A0 * C_mat;
             diag(A0) <- -1 * dval;
-            gam1     <- runif(n = sp_try[i], min = 0, max = 2);
-            A1       <- A0 * gam1;
-            A0       <- A0 * mean(gam1);
-            A0_stb   <- max(Re(eigen(A0)$values)) < 0;
-            A1_stb   <- max(Re(eigen(A1)$values)) < 0;
-            A0_fea   <- min(-1*solve(A0) %*% r_vec) > 0;
+            gam1     <- make_gammas(sp_try[i], g_dist, g_mn, g_sd);
+            gm       <- matrix(data = 0, nrow = sp_try[i], ncol = sp_try[i]);
+            diag(gm) <- gam1;
+            A1       <- gm %*% A0;
+            g0       <- matrix(data = 0, nrow = sp_try[i], ncol = sp_try[i]);
+            diag(g0) <- -1 * mean(diag(A1)); # Note: This standardisation will
+            A0       <- g0 %*% A0; # not affect stability, but I think helps
+            A0_stb   <- max(Re(eigen(A0)$values)) < 0; # readers' interpretation
+            A1_stb   <- max(Re(eigen(A1)$values)) < 0; 
+            A0_fea   <- min(-1*solve(A0) %*% r_vec) > 0; 
             A1_fea   <- min(-1*solve(A1) %*% r_vec) > 0;
             A0_rho   <- mat_rho(A0);
             A1_rho   <- mat_rho(A1);
