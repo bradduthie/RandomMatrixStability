@@ -1,26 +1,14 @@
-Header, Description
-S, The system size
-A_unstable, Number of A that were unstable
-A_stable, Number of A that were stable
-M_unstable, Number of M that were unstable
-M_stable, Number of M that were stable
-A_stabilised, Number of A stabilised by gamma
-A_destabilised, Number of A destabilised by gamma
-A_infeasible, Number of A that were infeasible
-A_feasible, Number of A that were feasible
-M_infeasible, Number of M that were infeasible
-M_feasible, Number of M that were feasible
-A_made_feasible, Number of A made feasible by gamma
-A_made_infeasible, Number of A made infeasible by gamma
-A_rho, Correlation between elements A[i,j] and A[j,i]
-M_rho, Correlation between elements M[i,j] and M[j,i]
-rho_diff, Difference between A and M rho values
-rho_abs, Difference between A and M rho magnitudes
-complex_A, Complexity of A
-complex_M, Complexity of M
-A_eig, Expected real part of leading A eigenvalue
-M_eig, Expected real part of leading M eigenvalue
-LR_A, Lowest obs. real part of leading A eigenvalue
-UR_A, Highest obs. real part of leading A eigenvalue
-LR_M, Lowest obs. real part of leading M eigenvalue
-UR_M, Highest obs. real part of leading M eigenvalue
+"Header", "Description", "Header_cont.", "Description_cont."
+"S", "The system size", "A_rho", "Corr. between elements A[ij] and A[ji]"
+"A_unstable", "No. of A that were unstable", "M_rho", "Corr. between elements M[ij] and M[ji]"
+"A_stable", "No. of A that were stable", "rho_diff", "Diff. between A and M rho values"
+"M_unstable", "No. of M that were unstable", "rho_abs", "Diff. between A and M rho magnitudes"
+"M_stable", "No. of M that were stable", "complex_A", "Complexity of A"
+"A_stabilised", "No. of A stabilised by gamma", "complex_M", "Complexity of M"
+"A_destabilised", "No. of A destabilised by gamma", "A_eig", "Expected real part of leading A eigenvalue"
+"A_infeasible", "No. of A that were infeasible", "M_eig", "Expected real part of leading M eigenvalue"
+"A_feasible", "No. of A that were feasible", "LR_A", "Lowest obs. real part of leading A eigenvalue"
+"M_infeasible", "No. of M that were infeasible", "UR_A", "Highest obs. real part of leading A eigenvalue"
+"M_feasible", "No. of M that were feasible", "LR_M", "Lowest obs. real part of leading M eigenvalue"
+"A_made_feasible", "No. of A made feasible by gamma", "UR_M", "Highest obs. real part of leading M eigenvalue"
+"A_made_infeasible", "No. of A made infeasible by gamma",,
