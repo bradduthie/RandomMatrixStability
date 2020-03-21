@@ -62,7 +62,7 @@ Evo_rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1){
         }
         print(i);
     }
-    all_res <- summarise_randmat(tot_res = tot_res, fea_res = fea_res);
+    all_res <- summarise_randmat_ga(tot_res = tot_res, fea_res = fea_res);
     return(all_res);
 }
 
@@ -160,7 +160,7 @@ crossover <- function(inds, pr = 0.1){
 #'sim_ga      <- Evo_rand_gen_var(from = 2, to = 2, iters = 1);
 #'sum_rand_ga <- summarise_randmat_ga(sim_ga$tot_res, sim_ga$fea_res);
 #'@export
-summarise_randmat <- function(tot_res, fea_res){
+summarise_randmat_ga <- function(tot_res, fea_res){
     sims    <- length(tot_res);
     all_res <- matrix(data = 0, nrow = sims, ncol = 7);
     for(i in 1:sims){
@@ -178,8 +178,8 @@ summarise_randmat <- function(tot_res, fea_res){
         all_res[i, 6]  <- sum(stabled);
         all_res[i, 7]  <- sum(unstabled);
     }
-    colnames(all_res) <- c("N", "A0_unstable", "A0_stable", "A1_unstable",
-                           "A1_stable", "A1_stabilised", "A1_destabilised");
+    colnames(all_res) <- c("S", "A_unstable", "A_stable", "M_unstable",
+                           "M_stable", "A_stabilised", "A_destabilised");
     return(all_res);
 }
 
@@ -249,10 +249,4 @@ plot_evo_out <- function(evo_out){
           text = expression(paste("Component response rate (",gamma,")")));
     mtext(side = 2, text = "Frequency", outer = TRUE, line = 3, cex = 1.5);
 }
-
-
-
-
-
-
 
