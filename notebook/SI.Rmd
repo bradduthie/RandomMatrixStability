@@ -33,12 +33,9 @@ biblio-style: apalike
 
 ```{r, echo = FALSE}
 source(file = "../R/Figures_3_4.R");
-source(file = "R_old/sim_mat.R");
-source(file = "R_old/plot_figs.R");
 source(file = "../R/utilities.R")
 ```
 
-********************************************************************************
 
 **This supplemental information supports the manuscript "Component response rate variation underlies the stability of complex systems" with additional analyses to support its conclusions. All text, code, and data underlying this manuscript are publicly available on [GitHub](https://github.com/bradduthie/RandomMatrixStability) as part of the RandomMatrixStability R package.**
 
@@ -55,8 +52,6 @@ The code below installs the RandomMatrixStability package using devtools.
 install_github("bradduthie/RandomMatrixStability");
 ```
 
-
-********************************************************************************
 
 Supplemental Information table of contents
 ================================================================================
@@ -82,14 +77,15 @@ Supplemental Information table of contents
 - [Feasibility of complex systems](#Feasibility)
 - [Stability given targeted manipulation of $\gamma$ (genetic algorithm)](#ga)
 - [Consistency with Gibbs et al. (2018)](#Gibbs)
+- [Reproducing simulation results](#repr)
+- [Literature cited](#ref)
 
 
 Stability across increasing $S$ {#IncrS}
 ===============================================================================
 
 ```{r, echo = FALSE}
-dat <- read.csv(file = "sim_results/C_1/random_all.csv");
-dat <- dat[,-1]; # Extra row-indicating column removed
+dat <- read.csv(file = "../inst/extdata/random_all.csv");
 ```
 
 Figure 4 of the main text reports the number of stable random complex systems found over 1 million iterations. The table below shows the results for all simulations of random $\mathbf{M}$ matrices at $\sigma_{A} = 0.4$ and $C = 1$ given a range of $S = \{2, 3, ..., 49, 50\}$. In this table, the `A` refers to $\mathbf{A}$ matrices where $\gamma = 1$, while `M` refers to $\mathbf{M}$ matrices after $\sigma^{2}_{\gamma}$ is added and $\gamma \sim \mathcal{U}(0, 2)$. Each row summarises data for a given $S$ over 1 million randomly simulated $\mathbf{M}$. The column `A_unstable` shows the number of $\mathbf{A}$ matrices that are unstable, and the column `A_stable` shows the number of $\mathbf{A}$ matrices that are stable (these two columns sum to 1 million). Similarly, the column `M_unstable` shows the number of $\mathbf{M}$ matrices that are unstable and `M_stable` shows the number that are stable. The columns `A_stabilised` and `A_destabilised` show how many $\mathbf{M}$ matrices were stabilised or destabilised, respectively, by $\sigma^{2}_{\gamma}$.
@@ -133,9 +129,9 @@ species_interactions <- function(mat, type = 0){
 The number of stable $\mathbf{M = \gamma A}$ systems was estimated [exactly as it was](#IncrS) in the main text for random matrices for values of $S$ from 2 to 50 (100 in the case of the relatively more stable predator-prey interactions), except that only 100000 random $\mathbf{M}$ were generated instead of 1 million. 
 
 ```{r, echo = FALSE}
-cdat <- read.csv(file = "sim_results/ecology/competition_C_1.csv");
-mdat <- read.csv(file = "sim_results/ecology/mutualism_C_1.csv");
-pdat <- read.csv(file = "sim_results/ecology/pred-prey_C_1.csv");
+cdat <- read.csv(file = "../inst/extdata/competition_C_1.csv");
+mdat <- read.csv(file = "../inst/extdata/mutualism_C_1.csv");
+pdat <- read.csv(file = "../inst/extdata/pred-prey_C_1.csv");
 ```
 
 The following tables for restricted ecological communities can therefore be compared with the random $\mathbf{M}$ [results above](#IncrS) (but note that counts from systems with comparable probabilities of stability will be an order of magnitude lower in the tables below due to the smaller number of $\mathbf{M}$ matrices generated). As with the [results above](#IncrS), in the tables below, `A` refers to matrices $\mathbf{A}$ when $\gamma = 1$ and `M` refers to matrices after $\sigma^{2}_{\gamma}$ is added. The column `A_unstable` shows the number of $\mathbf{A}$ matrices that are unstable, and the column `A_stable` shows the number of $\mathbf{A}$ matrices that are stable (these two columns sum to 100000). Similarly, the column `M_unstable` shows the number of $\mathbf{M}$ matrices that are unstable and `A1_stable` shows the number that are stable. The columns `A_stabilised` and `A_destabilised` show how many $\mathbf{A}$ matrices were stabilised or destabilised, respectively, by $\sigma^{2}_{\gamma}$.
@@ -175,17 +171,16 @@ Sensitivity of connectance (C) values {#connectance}
 In the main text, for simplicity, I assumed connectance values of $C = 1$, meaning that all off-diagonal elements of a matrix $\mathbf{M}$ were potentially nonzero and sampled from a normal distribution $\mathcal{N}(0, \sigma^{2}_{A})$ where $\sigma_{A} = 0.4$. Here I present four tables showing the number of stable communities given $C = \{0.3, 0. 5, 0.7, 0.9 \}$. In all cases, uniform variation in component response rate ($\gamma \sim \mathcal{U}(0, 2)$) led to a higher number of stable communities than when $\gamma$ did not vary ($\gamma_{i} = 1$). In contrast to the main text, 100000 rather than 1 million $\mathbf{M}$ were simulated. As with the results on [stability with increasing $S$](#IncrS) shown above, in the tables below `A` refers to $\mathbf{A}$ matrices when $\gamma = 1$, and `M` refers to $\mathbf{M}$ matrices after $\sigma^{2}_{\gamma}$ is added. The column `A_unstable` shows the number of $\mathbf{A}$ matrices that are unstable, and the column `A_stable` shows the number of $\mathbf{A}$ matrices that are stable (these two columns sum to 100000). Similarly, the column `M_unstable` shows the number of $\mathbf{M}$ matrices that are unstable and `M_stable` shows the number that are stable. The columns `A_stabilised` and `A_destabilised` show how many $\mathbf{A}$ matrices were stabilised or destabilised, respectively, by $\sigma^{2}_{\gamma}$.
 
 ```{r, echo = FALSE}
-C3dat <- read.csv(file = "sim_results/C_other/rand_c-0pt3.csv");
-C5dat <- read.csv(file = "sim_results/C_other/rand_c-0pt5.csv");
-C7dat <- read.csv(file = "sim_results/C_other/rand_c-0pt7.csv");
-C9dat <- read.csv(file = "sim_results/C_other/rand_c-0pt9.csv");
+C3dat <- read.csv(file = "../inst/extdata/rand_c-0pt3.csv");
+C5dat <- read.csv(file = "../inst/extdata/rand_c-0pt5.csv");
+C7dat <- read.csv(file = "../inst/extdata/rand_c-0pt7.csv");
+C9dat <- read.csv(file = "../inst/extdata/rand_c-0pt9.csv");
 ```
 
 
 <a name="connect3">**Connectance $\mathbf{C = 0.3}$**</a>
 
 ```{r, echo = FALSE}
-C3dat   <- C3dat[,-1];
 C3d_tab <- C3dat[,1:7];
 kable(C3d_tab);
 ```
@@ -193,7 +188,6 @@ kable(C3d_tab);
 <a name="connect5">**Connectance $\mathbf{C = 0.5}$**</a>
 
 ```{r, echo = FALSE}
-C5dat   <- C5dat[,-1];
 C5d_tab <- C5dat[,1:7];
 kable(C5d_tab);
 ```
@@ -201,7 +195,6 @@ kable(C5d_tab);
 <a name="connect7">**Connectance $\mathbf{C = 0.7}$**</a>
 
 ```{r, echo = FALSE}
-C7dat   <- C7dat[,-1];
 C7d_tab <- C7dat[,1:7];
 kable(C7d_tab);
 ```
@@ -209,7 +202,6 @@ kable(C7d_tab);
 <a name="connect9">**Connectance $\mathbf{C = 0.9}$**</a>
 
 ```{r, echo = FALSE}
-C9dat   <- C9dat[,-1];
 C9d_tab <- C9dat[,1:7];
 kable(C9d_tab);
 ```
@@ -221,16 +213,15 @@ Results below show stability results given varying interaction strengths ($\sigm
 
 
 ```{r, echo = FALSE}
-S3dat <- read.csv(file = "sim_results/C_0pt05/sim_SD_0pt3.csv");
-S4dat <- read.csv(file = "sim_results/C_0pt05/sim_SD_0pt4.csv");
-S5dat <- read.csv(file = "sim_results/C_0pt05/sim_SD_0pt5.csv");
-S6dat <- read.csv(file = "sim_results/C_0pt05/sim_SD_0pt6.csv");
+S3dat <- read.csv(file = "../inst/extdata/sim_SD_0pt3.csv");
+S4dat <- read.csv(file = "../inst/extdata/sim_SD_0pt4.csv");
+S5dat <- read.csv(file = "../inst/extdata/sim_SD_0pt5.csv");
+S6dat <- read.csv(file = "../inst/extdata/sim_SD_0pt6.csv");
 ```
 
 <a name="sigma3">**Interaction strength $\mathbf{\sigma_{A} = 0.3}$**</a>
 
 ```{r, echo = FALSE}
-S3dat   <- S3dat[,-1];
 S3d_tab <- S3dat[,1:7];
 kable(S3d_tab);
 ```
@@ -238,7 +229,6 @@ kable(S3d_tab);
 <a name="sigma4">**Interaction strength $\mathbf{\sigma_{A} = 0.4}$**</a>
 
 ```{r, echo = FALSE}
-S4dat   <- S4dat[,-1];
 S4d_tab <- S4dat[,1:7];
 kable(S4d_tab);
 ```
@@ -246,7 +236,6 @@ kable(S4d_tab);
 <a name="sigma5">**Interaction strength $\mathbf{\sigma_{A} = 0.5}$**</a>
 
 ```{r, echo = FALSE}
-S5dat   <- S5dat[,-1];
 S5d_tab <- S5dat[,1:7];
 kable(S5d_tab);
 ```
@@ -254,7 +243,6 @@ kable(S5d_tab);
 <a name="sigma6">**Interaction strength $\mathbf{\sigma_{A} = 0.6}$**</a>
 
 ```{r, echo = FALSE}
-S6dat   <- S6dat[,-1];
 S6d_tab <- S6dat[,1:7];
 kable(S6d_tab);
 ```
@@ -380,12 +368,12 @@ visualise_network(swn);
 The small-world network on the left shows a system in which $\beta = 0.01$, while the small-world network on the right shows one in which $\beta = 0.1$. At the extremes of $\beta = 0$ and $\beta = 1$, networks are regular and random, respectively. The table below shows how $\sigma^{2}_\gamma$ affects stability in small world networks across different values of $S$ and $\beta$.
 
 ```{r, echo = FALSE, fig.align = "center"}
-swn <- read.csv(file = "sim_results/swn/old/swn.csv"); # Change when new results are in
-use <- c(1:6, 19:21);
+swn <- read.csv(file = "../inst/extdata/swn.csv"); 
+use <- c(1:6, 19:20, 27);
 kable(swn[,use]);
 ```
 
-In the above, the mean $C$, complexity of $\mathbf{A}$, and complexity of $\mathbf{M}$ are also shown. For similar magnitudes of complexity as in random networks of $\sigma\sqrt{SC} \gtrapprox 1.26$, variation in $\gamma$ typically results in more stable than unstable systems.
+In the above, the complexity of $\mathbf{A}$ and $\mathbf{M}$, and the mean $C$, are also shown. For similar magnitudes of complexity as in random networks of $\sigma\sqrt{SC} \gtrapprox 1.26$, variation in $\gamma$ typically results in more stable than unstable systems.
 
 Scale-free networks are also not saturated, but are defined by an interaction frequency distribution that follows a power law. In other words, a small number of components interact with many other components, while most components interact with only a small number of other components. Scale-free networks can be built by adding new components, one by one, to an existing system, with each newly added component interacting with a randomly selected subset of $m$ existing components [@Albert2002]. The network on the left below shows an example of a scale-free network in which $m = 3$. The histogram on the right shows the number of other components with which each component interacts.
 
@@ -405,7 +393,7 @@ hist(deg_dist, main = "", xlab = "Component interactions",
 The table below shows how $\sigma^{2}_\gamma$ affects stability across different scale-free networks with different $S$ and $m$ values.
 
 ```{r, echo = FALSE, fig.align = "center"}
-sfn <- read.csv(file = "sim_results/sfn/sfn.csv"); 
+sfn <- read.csv(file = "../inst/extdata/sfn.csv"); 
 use <- c(1:6, 19:21);
 kable(sfn[,use]);
 ```
@@ -415,7 +403,7 @@ As in small-world networks, the mean $C$ is shown, along with the mean complexit
 Cascade food webs are saturated, and similar to predator-prey random networks. What distinguishes them from predator-prey networks is that cascade food webs are also defined by intactions in which components are ranked such that if the rank of $i > j$, then $A_{ij} < 0$ and $A_{ji} > 0$ [@Solow1998; @Williams2000]. In other words, if interpreting components as ecological species, species can only feed off of a species of lower rank. The table below shows how $\sigma^{2}_\gamma$ affects stability across system sizes in cascade food webs.
 
 ```{r, echo = FALSE, fig.align = "center"}
-csc <- read.csv(file = "sim_results/ecology/cascade_C_1.csv"); 
+csc <- read.csv(file = "../inst/extdata/cascade_C_1.csv"); 
 use <- c(1:5, 18:19);
 kable(csc[,use]);
 ```
@@ -429,11 +417,9 @@ Feasibility of complex systems {#Feasibility}
 When feasibility was evaluated with and without variation in $\gamma$, there was no increase in stability for $\mathbf{M}$ where $\gamma$ varied as compared to where $\gamma = 1$. Results below illustrate this result, which was general to all other simulations performed. 
 
 ```{r, echo = FALSE}
-dat      <- read.csv(file = "sim_results/C_1/random_all.csv");
-dat      <- dat[,-1]; # Extra row-indicating column removed
-feas_tab <- cbind(dat[,1], dat[,8:13]);
-colnames(feas_tab)[1] <- "S";
-kable(feas_tab);
+dat      <- read.csv(file = "../inst/extdata/random_all.csv");
+feas_tab <- c(1, 8:13);
+kable(dat[,feas_tab]);
 ```
 
 Hence, in general, $\sigma^{2}_{\gamma}$ does not appear to affect feasibility in pure species interaction networks [@Servan2018].
@@ -444,9 +430,8 @@ Stability given targeted manipulation of $\gamma$ (genetic algorithm) {#ga}
 The figure below compares the stability of large complex systems given $\gamma = 1$ versus targeted manipulation of $\gamma$ elements. For each $S$, 100000 complex systems are randomly generated. Stability of each complex system is tested given variation in $\gamma$ using a genetic algorithm to maximise the effect of $\gamma$ values on increasing stability, as compared to stability in an otherwise identical system in which $\gamma$ is the same for all components. Blue bars show the number of stable systems in the absence of component response rate variation, while red bars show the number of stable systems that can be generated if component response rate is varied to maximise system stability. The black line shows the proportion of systems that are stable when component response rate is targeted to increase stability, but would not be stable if $\sigma^{2}_{\gamma} = 0$. The y-axis shows the $\ln$ number of systems that are stable across $S = \{1, 2, ..., 39, 40\}$ for $C = 1$, and the proportion of systems wherein a targeted search of $\gamma$ values successfully resulted in system stability. 
 
 ```{r, eval = TRUE, echo = FALSE, fig.width = 9, fig.height = 7}
-dat <- read.csv(file = "sim_results/evolved/evo_results.csv");
-dat <- dat[,-1];
-plot_stable_4(dat);
+evo_dat <- read.csv(file = "../inst/extdata/evo_results.csv");
+plot_stables(evo_dat, S_s = 40);
 ```
 
 Stability results are also shown in the table below. Results for `A` indicate systems in which $\gamma = 1$, while `M` refers to systems in which the genetic algorithm searched for a set of $\gamma$ values that stabilised the system. 
@@ -500,15 +485,13 @@ plot_evo_out <- function(evo_out){
           text = expression(paste("Component response rate (",gamma,")")));
     mtext(side = 2, text = "Frequency", outer = TRUE, line = 3, cex = 1.5);
 }
-evo_res <- read.csv(file = "sim_results/evolved/evo_results.csv");
-evo_res <- evo_res[,-1];
-kable(evo_res);
+kable(evo_dat);
 ```
 
 The distributions of nine $\gamma$ vectors from the highest $S$ values are shown below. This comparison shows the high number of stable $\mathbf{M}$ that can be produced through a targeted search of $\gamma$ values, and suggests that many otherwise unstable systems could potentially be stabilised by an informed manipulation of their component response times. Such a possibility might conceivably reduce the dimensionality of problems involving stability in social-ecological or economic systems.
 
 ```{r, fig.height = 4, fig.width = 6, echo = FALSE}
-evo_out <- scan(file = "sim_results/evolved/evo_out.txt");
+evo_out <- scan(file = "../inst/extdata/evo_out.txt");
 plot_evo_out(evo_out);
 ```
 
@@ -528,7 +511,7 @@ $$\mathbf{M} = \mathbf{\gamma A}.$$
 I focused on the probability of observing a stable versus unstable system given variation in $\mathbf{\gamma}$ as system complexity ($\sigma\sqrt{SC}$) increased. I increased system complexity by holding $C$ and $\sigma$ constant and incrementally increasing $S$ to obtain numerical results. In contrast, Gibbs et al. [@Gibbs2017] applied analytical techniques to instead focus on a different question concerning the effect of $\mathbf{\gamma}$ on the stability of $\mathbf{M}$ given $\mathbf{A}$ as $S \to \infty$, with $\sigma$ scaled so that $\sigma = 1/\sqrt{S}$. Under such scaling, Gibbs et al. [@Gibbs2017] showed that the effect of $\gamma$ on stability should decrease exponentially as $S$ increases, which I demonstrate below by running simulations in which $\sigma = 1/\sqrt{S}$. 
 
 ```{r, echo = FALSE}
-constant_complexity <- read.csv("sim_results/constant_complexity.csv")
+constant_complexity <- read.csv("../inst/extdata/constant_complexity.csv")
 kable(constant_complexity);
 ```
 
@@ -698,7 +681,36 @@ Finally, $S = 1000$ is shown below. Again, the density of eigenvalues per unit r
 comp_dens(S = 1000, C = 0.0625, sigma = 0.4);
 ```
 
+\clearpage
 
-References
+Reproducing simulation results {#repr}
 ================================================================================
+
+All results in the main text and the literature cited can be reproduced using the [RandomMatrixStability](https://github.com/bradduthie/RandomMatrixStability) R package, which can be downloaded as instructed at the beginning of this Supplemental Information document. The most relevant R functions for reproducing simulations include the following:
+
+1. `rand_gen_var`: Simulates random complex systems and cascade food webs
+2. `rand_rho_var`: Simulates random complex systems across a fixed correlation of $\rho = cor(A_{ij}, A_{ji})$
+3. `rand_gen_swn`: Simulates randomly generated small-world networks
+4. `rand_gen_sfn`: Simulates randomly generated scale-free networks
+5. `Evo_rand_gen_var`: Use a genetic algorithm to find stable random complex systems
+
+For the functions 1-4 above, R output will be a table of results. Below describes the headers of this table to more clearly explain what is being reported.
+
+\footnotesize
+
+```{r, echo = FALSE}
+header_descriptions <- read.csv("../inst/extdata/header_descriptions.csv")
+kable(header_descriptions);
+```
+
+\normalsize
+
+Note that output from `Evo_rand_gen_var` only includes the first seven rows of the table above, and `rand_gen_var` does not include $C$ (which can be defind as an argument). All results presented here and in the main text are available in the [inst/extdata](https://github.com/bradduthie/RandomMatrixStability/tree/master/inst/extdata) folder of the [RandomMatrixStability](https://github.com/bradduthie/RandomMatrixStability) R package.
+
+
+Literature cited {#ref}
+================================================================================
+
+
+
 

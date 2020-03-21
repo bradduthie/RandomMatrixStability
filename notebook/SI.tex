@@ -145,8 +145,6 @@ UK, FK9 4LA
 \begin{document}
 \maketitle
 
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
 \textbf{This supplemental information supports the manuscript
 ``Component response rate variation underlies the stability of complex
 systems'' with additional analyses to support its conclusions. All text,
@@ -180,8 +178,6 @@ devtools.
 \KeywordTok{install_github}\NormalTok{(}\StringTok{"bradduthie/RandomMatrixStability"}\NormalTok{);}
 \end{Highlighting}
 \end{Shaded}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
 \section{Supplemental Information table of
 contents}\label{supplemental-information-table-of-contents}
@@ -244,6 +240,10 @@ contents}\label{supplemental-information-table-of-contents}
   \(\gamma\) (genetic algorithm)}
 \item
   \protect\hyperlink{Gibbs}{Consistency with Gibbs et al. (2018)}
+\item
+  \protect\hyperlink{repr}{Reproducing simulation results}
+\item
+  \protect\hyperlink{ref}{Literature cited}
 \end{itemize}
 
 \hypertarget{IncrS}{\section{\texorpdfstring{Stability across increasing
@@ -1109,84 +1109,83 @@ beta & S & A\_unstable & A\_stable & M\_unstable & M\_stable &
 complex\_A & complex\_M & C\tabularnewline
 \midrule
 \endhead
-0.00 & 24 & 17442 & 982558 & 17489 & 982511 & 0.1695021 & 0.1941223 &
+0.00 & 24 & 17388 & 982612 & 17446 & 982554 & 0.5748066 & 0.6582632 &
 0.1304348\tabularnewline
-0.00 & 48 & 257013 & 742987 & 259517 & 740483 & 0.2355489 & 0.2711380 &
+0.00 & 48 & 258024 & 741976 & 260579 & 739421 & 0.8073918 & 0.9294192 &
 0.1063830\tabularnewline
-0.00 & 72 & 715587 & 284413 & 723082 & 276918 & 0.2866561 & 0.3304009 &
+0.00 & 72 & 715036 & 284964 & 722639 & 277361 & 0.9860840 & 1.1364805 &
 0.0985915\tabularnewline
-0.00 & 96 & 961817 & 38183 & 963276 & 36724 & 0.3299115 & 0.3804889 &
+0.00 & 96 & 961434 & 38566 & 962788 & 37212 & 1.1369395 & 1.3110263 &
 0.0947368\tabularnewline
-0.00 & 120 & 998976 & 1024 & 998812 & 1188 & 0.3681518 & 0.4246688 &
+0.00 & 120 & 999008 & 992 & 998857 & 1143 & 1.2700387 & 1.4649832 &
 0.0924370\tabularnewline
-0.00 & 144 & 999998 & 2 & 999991 & 9 & 0.4027471 & 0.4646754 &
+0.00 & 144 & 999997 & 3 & 999994 & 6 & 1.3903192 & 1.6041216 &
 0.0909091\tabularnewline
-0.00 & 168 & 1000000 & 0 & 1000000 & 0 & 0.4345714 & 0.5014674 &
+0.00 & 168 & 1000000 & 0 & 1000000 & 0 & 1.5010334 & 1.7320676 &
 0.0898204\tabularnewline
-0.01 & 24 & 17386 & 982614 & 17433 & 982567 & 0.1695343 & 0.1941452 &
-0.1304321\tabularnewline
-0.01 & 48 & 255369 & 744631 & 257956 & 742044 & 0.2355569 & 0.2711250 &
-0.1063798\tabularnewline
-0.01 & 72 & 708407 & 291593 & 716019 & 283981 & 0.2866423 & 0.3303843 &
+0.01 & 24 & 17673 & 982327 & 17720 & 982280 & 0.5747156 & 0.6581503 &
+0.1304319\tabularnewline
+0.01 & 48 & 255038 & 744962 & 257647 & 742353 & 0.8073388 & 0.9292952 &
+0.1063800\tabularnewline
+0.01 & 72 & 708892 & 291108 & 716829 & 283171 & 0.9859457 & 1.1363940 &
 0.0985884\tabularnewline
-0.01 & 96 & 960591 & 39409 & 961685 & 38315 & 0.3299322 & 0.3804641 &
+0.01 & 96 & 960635 & 39365 & 961876 & 38124 & 1.1370640 & 1.3112193 &
 0.0947337\tabularnewline
-0.01 & 120 & 998991 & 1009 & 998813 & 1187 & 0.3681428 & 0.4246683 &
-0.0924339\tabularnewline
-0.01 & 144 & 999997 & 3 & 999993 & 7 & 0.4027696 & 0.4646907 &
+0.01 & 120 & 999040 & 960 & 998794 & 1206 & 1.2698715 & 1.4648280 &
+0.0924338\tabularnewline
+0.01 & 144 & 999997 & 3 & 999994 & 6 & 1.3901601 & 1.6039285 &
 0.0909060\tabularnewline
-0.01 & 168 & 1000000 & 0 & 1000000 & 0 & 0.4345881 & 0.5014852 &
-0.0898172\tabularnewline
-0.10 & 24 & 20408 & 979592 & 20478 & 979522 & 0.1692658 & 0.1937917 &
-0.1302962\tabularnewline
-0.10 & 48 & 238101 & 761899 & 240787 & 759213 & 0.2351005 & 0.2705892 &
-0.1062307\tabularnewline
-0.10 & 72 & 680138 & 319862 & 685524 & 314476 & 0.2861156 & 0.3297663 &
-0.0984350\tabularnewline
-0.10 & 96 & 961691 & 38309 & 959740 & 40260 & 0.3293218 & 0.3797666 &
-0.0945786\tabularnewline
-0.10 & 120 & 999544 & 456 & 999282 & 718 & 0.3674529 & 0.4238479 &
-0.0922777\tabularnewline
-0.10 & 144 & 999999 & 1 & 999999 & 1 & 0.4019505 & 0.4637655 &
-0.0907492\tabularnewline
-0.10 & 168 & 1000000 & 0 & 1000000 & 0 & 0.4337704 & 0.5005276 &
+0.01 & 168 & 1000000 & 0 & 1000000 & 0 & 1.5009490 & 1.7319739 &
+0.0898173\tabularnewline
+0.10 & 24 & 20382 & 979618 & 20455 & 979545 & 0.5742520 & 0.6573563 &
+0.1302974\tabularnewline
+0.10 & 48 & 237747 & 762253 & 240370 & 759630 & 0.8066604 & 0.9284434 &
+0.1062311\tabularnewline
+0.10 & 72 & 679874 & 320126 & 685575 & 314425 & 0.9849695 & 1.1352553 &
+0.0984349\tabularnewline
+0.10 & 96 & 961984 & 38016 & 960128 & 39872 & 1.1358912 & 1.3097957 &
+0.0945788\tabularnewline
+0.10 & 120 & 999546 & 454 & 999275 & 725 & 1.2687142 & 1.4634587 &
+0.0922779\tabularnewline
+0.10 & 144 & 1000000 & 0 & 1000000 & 0 & 1.3890356 & 1.6025900 &
+0.0907489\tabularnewline
+0.10 & 168 & 1000000 & 0 & 1000000 & 0 & 1.4994818 & 1.7302649 &
 0.0896598\tabularnewline
-0.25 & 24 & 23923 & 976077 & 24031 & 975969 & 0.1680052 & 0.1922420 &
-0.1296696\tabularnewline
-0.25 & 48 & 228389 & 771611 & 231312 & 768688 & 0.2331850 & 0.2683721 &
-0.1055242\tabularnewline
-0.25 & 72 & 666374 & 333626 & 668472 & 331528 & 0.2836431 & 0.3268807 &
-0.0977062\tabularnewline
-0.25 & 96 & 966462 & 33538 & 961616 & 38384 & 0.3263952 & 0.3763783 &
-0.0938386\tabularnewline
-0.25 & 120 & 999759 & 241 & 999510 & 490 & 0.3642255 & 0.4201168 &
-0.0915315\tabularnewline
-0.25 & 144 & 1000000 & 0 & 999999 & 1 & 0.3983171 & 0.4595509 &
-0.0899989\tabularnewline
-0.25 & 168 & 1000000 & 0 & 1000000 & 0 & 0.4298720 & 0.4960198 &
-0.0889060\tabularnewline
-1.00 & 24 & 26159 & 973841 & 26309 & 973691 & 0.1588024 & 0.1815081 &
-0.1249673\tabularnewline
-1.00 & 48 & 211700 & 788300 & 214607 & 785393 & 0.2154544 & 0.2478696 &
-0.0991369\tabularnewline
-1.00 & 72 & 613966 & 386034 & 615862 & 384138 & 0.2602685 & 0.2998802 &
-0.0908174\tabularnewline
-1.00 & 96 & 943949 & 56051 & 936840 & 63160 & 0.2984622 & 0.3441159 &
-0.0867075\tabularnewline
-1.00 & 120 & 999134 & 866 & 998351 & 1649 & 0.3323169 & 0.3833061 &
-0.0842580\tabularnewline
-1.00 & 144 & 1000000 & 0 & 999997 & 3 & 0.3630114 & 0.4187917 &
-0.0826318\tabularnewline
-1.00 & 168 & 1000000 & 0 & 1000000 & 0 & 0.3913277 & 0.4515183 &
-0.0814745\tabularnewline
+0.25 & 24 & 23654 & 976346 & 23775 & 976225 & 0.5722185 & 0.6546853 &
+0.1296712\tabularnewline
+0.25 & 48 & 228318 & 771682 & 231208 & 768792 & 0.8033257 & 0.9244966 &
+0.1055259\tabularnewline
+0.25 & 72 & 666982 & 333018 & 669104 & 330896 & 0.9808676 & 1.1304109 &
+0.0977066\tabularnewline
+0.25 & 96 & 966456 & 33544 & 961545 & 38455 & 1.1307841 & 1.3039452 &
+0.0938392\tabularnewline
+0.25 & 120 & 999749 & 251 & 999507 & 493 & 1.2632327 & 1.4571506 &
+0.0915316\tabularnewline
+0.25 & 144 & 1000000 & 0 & 1000000 & 0 & 1.3827642 & 1.5953248 &
+0.0899987\tabularnewline
+0.25 & 168 & 1000000 & 0 & 1000000 & 0 & 1.4926700 & 1.7224506 &
+0.0889064\tabularnewline
+1.00 & 24 & 26331 & 973669 & 26478 & 973522 & 0.5561013 & 0.6356655 &
+0.1249651\tabularnewline
+1.00 & 48 & 211199 & 788801 & 214154 & 785846 & 0.7720342 & 0.8881302 &
+0.0991370\tabularnewline
+1.00 & 72 & 613621 & 386379 & 615771 & 384229 & 0.9394912 & 1.0825566 &
+0.0908153\tabularnewline
+1.00 & 96 & 943191 & 56809 & 936396 & 63604 & 1.0812364 & 1.2466510 &
+0.0867047\tabularnewline
+1.00 & 120 & 999157 & 843 & 998396 & 1604 & 1.2065026 & 1.3916458 &
+0.0842561\tabularnewline
+1.00 & 144 & 1000000 & 0 & 999997 & 3 & 1.3199179 & 1.5227509 &
+0.0826325\tabularnewline
+1.00 & 168 & 1000000 & 0 & 1000000 & 0 & 1.4243560 & 1.6434386 &
+0.0814738\tabularnewline
 \bottomrule
 \end{longtable}
 
-In the above, the mean \(C\), complexity of \(\mathbf{A}\), and
-complexity of \(\mathbf{M}\) are also shown. For similar magnitudes of
-complexity as in random networks of \(\sigma\sqrt{SC} \gtrapprox 1.26\),
-variation in \(\gamma\) typically results in more stable than unstable
-systems.
+In the above, the complexity of \(\mathbf{A}\) and \(\mathbf{M}\), and
+the mean \(C\), are also shown. For similar magnitudes of complexity as
+in random networks of \(\sigma\sqrt{SC} \gtrapprox 1.26\), variation in
+\(\gamma\) typically results in more stable than unstable systems.
 
 Scale-free networks are also not saturated, but are defined by an
 interaction frequency distribution that follows a power law. In other
@@ -1207,119 +1206,119 @@ different scale-free networks with different \(S\) and \(m\) values.
 
 \begin{longtable}[]{@{}rrrrrrrrr@{}}
 \toprule
-S & M & A\_unstable & A\_stable & M\_unstable & M\_stable & complex\_A &
+m & S & A\_unstable & A\_stable & M\_unstable & M\_stable & complex\_A &
 complex\_M & C\tabularnewline
 \midrule
 \endhead
-24 & 2 & 152791 & 847209 & 156034 & 843966 & 0.7891257 & 0.9034663 &
+2 & 24 & 152791 & 847209 & 156034 & 843966 & 0.7891257 & 0.9034663 &
 0.1648551\tabularnewline
-24 & 3 & 320481 & 679519 & 326351 & 673649 & 0.9566487 & 1.0967499 &
+3 & 24 & 320481 & 679519 & 326351 & 673649 & 0.9566487 & 1.0967499 &
 0.2409420\tabularnewline
-24 & 4 & 504433 & 495567 & 504826 & 495174 & 1.0922870 & 1.2532761 &
+4 & 24 & 504433 & 495567 & 504826 & 495174 & 1.0922870 & 1.2532761 &
 0.3134058\tabularnewline
-24 & 5 & 670676 & 329324 & 660426 & 339574 & 1.2073054 & 1.3857169 &
+5 & 24 & 670676 & 329324 & 660426 & 339574 & 1.2073054 & 1.3857169 &
 0.3822464\tabularnewline
-24 & 6 & 798637 & 201363 & 779345 & 220655 & 1.3067095 & 1.5004508 &
+6 & 24 & 798637 & 201363 & 779345 & 220655 & 1.3067095 & 1.5004508 &
 0.4474638\tabularnewline
-24 & 7 & 884082 & 115918 & 862215 & 137785 & 1.3942577 & 1.6013368 &
+7 & 24 & 884082 & 115918 & 862215 & 137785 & 1.3942577 & 1.6013368 &
 0.5090580\tabularnewline
-24 & 8 & 936190 & 63810 & 915630 & 84370 & 1.4722315 & 1.6908563 &
+8 & 24 & 936190 & 63810 & 915630 & 84370 & 1.4722315 & 1.6908563 &
 0.5670290\tabularnewline
-24 & 9 & 964868 & 35132 & 948297 & 51703 & 1.5414455 & 1.7707292 &
+9 & 24 & 964868 & 35132 & 948297 & 51703 & 1.5414455 & 1.7707292 &
 0.6213768\tabularnewline
-24 & 10 & 981460 & 18540 & 967911 & 32089 & 1.6030044 & 1.8417459 &
+10 & 24 & 981460 & 18540 & 967911 & 32089 & 1.6030044 & 1.8417459 &
 0.6721014\tabularnewline
-24 & 11 & 989838 & 10162 & 980232 & 19768 & 1.6586511 & 1.9059313 &
+11 & 24 & 989838 & 10162 & 980232 & 19768 & 1.6586511 & 1.9059313 &
 0.7192029\tabularnewline
-24 & 12 & 994393 & 5607 & 987436 & 12564 & 1.7081503 & 1.9628898 &
+12 & 24 & 994393 & 5607 & 987436 & 12564 & 1.7081503 & 1.9628898 &
 0.7626812\tabularnewline
-48 & 2 & 303963 & 696037 & 310053 & 689947 & 0.7946875 & 0.9132519 &
+2 & 48 & 303963 & 696037 & 310053 & 689947 & 0.7946875 & 0.9132519 &
 0.0828901\tabularnewline
-48 & 3 & 577855 & 422145 & 579996 & 420004 & 0.9685494 & 1.1141445 &
+3 & 48 & 577855 & 422145 & 579996 & 420004 & 0.9685494 & 1.1141445 &
 0.1227837\tabularnewline
-48 & 4 & 810001 & 189999 & 799132 & 200868 & 1.1122992 & 1.2799335 &
+4 & 48 & 810001 & 189999 & 799132 & 200868 & 1.1122992 & 1.2799335 &
 0.1617908\tabularnewline
-48 & 5 & 938004 & 61996 & 924613 & 75387 & 1.2369960 & 1.4236817 &
+5 & 48 & 938004 & 61996 & 924613 & 75387 & 1.2369960 & 1.4236817 &
 0.1999113\tabularnewline
-48 & 6 & 984975 & 15025 & 976433 & 23567 & 1.3478291 & 1.5514420 &
+6 & 48 & 984975 & 15025 & 976433 & 23567 & 1.3478291 & 1.5514420 &
 0.2371454\tabularnewline
-48 & 7 & 997160 & 2840 & 994005 & 5995 & 1.4473792 & 1.6663763 &
+7 & 48 & 997160 & 2840 & 994005 & 5995 & 1.4473792 & 1.6663763 &
 0.2734929\tabularnewline
-48 & 8 & 999584 & 416 & 998590 & 1410 & 1.5385445 & 1.7716359 &
+8 & 48 & 999584 & 416 & 998590 & 1410 & 1.5385445 & 1.7716359 &
 0.3089539\tabularnewline
-48 & 9 & 999955 & 45 & 999707 & 293 & 1.6227742 & 1.8687074 &
+9 & 48 & 999955 & 45 & 999707 & 293 & 1.6227742 & 1.8687074 &
 0.3435284\tabularnewline
-48 & 10 & 999992 & 8 & 999939 & 61 & 1.7006157 & 1.9583879 &
+10 & 48 & 999992 & 8 & 999939 & 61 & 1.7006157 & 1.9583879 &
 0.3772163\tabularnewline
-48 & 11 & 999999 & 1 & 999990 & 10 & 1.7731759 & 2.0420990 &
+11 & 48 & 999999 & 1 & 999990 & 10 & 1.7731759 & 2.0420990 &
 0.4100177\tabularnewline
-48 & 12 & 1000000 & 0 & 999999 & 1 & 1.8410402 & 2.1203112 &
+12 & 48 & 1000000 & 0 & 999999 & 1 & 1.8410402 & 2.1203112 &
 0.4419326\tabularnewline
-72 & 2 & 427243 & 572757 & 434600 & 565400 & 0.7964226 & 0.9166566 &
+2 & 72 & 427243 & 572757 & 434600 & 565400 & 0.7964226 & 0.9166566 &
 0.0553599\tabularnewline
-72 & 3 & 741345 & 258655 & 739020 & 260980 & 0.9723446 & 1.1195788 &
+3 & 72 & 741345 & 258655 & 739020 & 260980 & 0.9723446 & 1.1195788 &
 0.0823552\tabularnewline
-72 & 4 & 931043 & 68957 & 921145 & 78855 & 1.1188220 & 1.2888100 &
+4 & 72 & 931043 & 68957 & 921145 & 78855 & 1.1188220 & 1.2888100 &
 0.1089593\tabularnewline
-72 & 5 & 989644 & 10356 & 984372 & 15628 & 1.2466268 & 1.4361875 &
+5 & 72 & 989644 & 10356 & 984372 & 15628 & 1.2466268 & 1.4361875 &
 0.1351721\tabularnewline
-72 & 6 & 999131 & 869 & 997914 & 2086 & 1.3604666 & 1.5674966 &
+6 & 72 & 999131 & 869 & 997914 & 2086 & 1.3604666 & 1.5674966 &
 0.1609937\tabularnewline
-72 & 7 & 999946 & 54 & 999804 & 196 & 1.4642496 & 1.6872501 &
+7 & 72 & 999946 & 54 & 999804 & 196 & 1.4642496 & 1.6872501 &
 0.1864241\tabularnewline
-72 & 8 & 999999 & 1 & 999988 & 12 & 1.5596340 & 1.7974044 &
+8 & 72 & 999999 & 1 & 999988 & 12 & 1.5596340 & 1.7974044 &
 0.2114632\tabularnewline
-72 & 9 & 1000000 & 0 & 999999 & 1 & 1.6482181 & 1.8994441 &
+9 & 72 & 1000000 & 0 & 999999 & 1 & 1.6482181 & 1.8994441 &
 0.2361111\tabularnewline
-72 & 10 & 1000000 & 0 & 1000000 & 0 & 1.7307859 & 1.9947150 &
+10 & 72 & 1000000 & 0 & 1000000 & 0 & 1.7307859 & 1.9947150 &
 0.2603678\tabularnewline
-72 & 11 & 1000000 & 0 & 1000000 & 0 & 1.8086766 & 2.0847262 &
+11 & 72 & 1000000 & 0 & 1000000 & 0 & 1.8086766 & 2.0847262 &
 0.2842332\tabularnewline
-72 & 12 & 1000000 & 0 & 1000000 & 0 & 1.8817533 & 2.1689764 &
+12 & 72 & 1000000 & 0 & 1000000 & 0 & 1.8817533 & 2.1689764 &
 0.3077074\tabularnewline
-96 & 2 & 527633 & 472367 & 535188 & 464812 & 0.7974024 & 0.9183557 &
+2 & 96 & 527633 & 472367 & 535188 & 464812 & 0.7974024 & 0.9183557 &
 0.0415570\tabularnewline
-96 & 3 & 842274 & 157726 & 837756 & 162244 & 0.9741293 & 1.1224709 &
+3 & 96 & 842274 & 157726 & 837756 & 162244 & 0.9741293 & 1.1224709 &
 0.0619518\tabularnewline
-96 & 4 & 975834 & 24166 & 969478 & 30522 & 1.1220115 & 1.2931371 &
+4 & 96 & 975834 & 24166 & 969478 & 30522 & 1.1220115 & 1.2931371 &
 0.0821272\tabularnewline
-96 & 5 & 998391 & 1609 & 996991 & 3009 & 1.2511287 & 1.4422331 &
+5 & 96 & 998391 & 1609 & 996991 & 3009 & 1.2511287 & 1.4422331 &
 0.1020833\tabularnewline
-96 & 6 & 999955 & 45 & 999838 & 162 & 1.3669903 & 1.5757699 &
+6 & 96 & 999955 & 45 & 999838 & 162 & 1.3669903 & 1.5757699 &
 0.1218202\tabularnewline
-96 & 7 & 999999 & 1 & 999996 & 4 & 1.4725862 & 1.6977057 &
+7 & 96 & 999999 & 1 & 999996 & 4 & 1.4725862 & 1.6977057 &
 0.1413377\tabularnewline
-96 & 8 & 1000000 & 0 & 1000000 & 0 & 1.5699145 & 1.8099762 &
+8 & 96 & 1000000 & 0 & 1000000 & 0 & 1.5699145 & 1.8099762 &
 0.1606360\tabularnewline
-96 & 9 & 1000000 & 0 & 1000000 & 0 & 1.6606162 & 1.9146804 &
+9 & 96 & 1000000 & 0 & 1000000 & 0 & 1.6606162 & 1.9146804 &
 0.1797149\tabularnewline
-96 & 10 & 1000000 & 0 & 1000000 & 0 & 1.7457971 & 2.0129344 &
+10 & 96 & 1000000 & 0 & 1000000 & 0 & 1.7457971 & 2.0129344 &
 0.1985746\tabularnewline
-96 & 11 & 1000000 & 0 & 1000000 & 0 & 1.8260368 & 2.1055559 &
+11 & 96 & 1000000 & 0 & 1000000 & 0 & 1.8260368 & 2.1055559 &
 0.2172149\tabularnewline
-96 & 12 & 1000000 & 0 & 1000000 & 0 & 1.9018608 & 2.1929362 &
+12 & 96 & 1000000 & 0 & 1000000 & 0 & 1.9018608 & 2.1929362 &
 0.2356360\tabularnewline
-120 & 2 & 609563 & 390437 & 616036 & 383964 & 0.7979355 & 0.9194404 &
+2 & 120 & 609563 & 390437 & 616036 & 383964 & 0.7979355 & 0.9194404 &
 0.0332633\tabularnewline
-120 & 3 & 904064 & 95936 & 899040 & 100960 & 0.9753815 & 1.1243251 &
+3 & 120 & 904064 & 95936 & 899040 & 100960 & 0.9753815 & 1.1243251 &
 0.0496499\tabularnewline
-120 & 4 & 991710 & 8290 & 988410 & 11590 & 1.1239922 & 1.2957520 &
+4 & 120 & 991710 & 8290 & 988410 & 11590 & 1.1239922 & 1.2957520 &
 0.0658964\tabularnewline
-120 & 5 & 999781 & 219 & 999477 & 523 & 1.2539362 & 1.4458518 &
+5 & 120 & 999781 & 219 & 999477 & 523 & 1.2539362 & 1.4458518 &
 0.0820028\tabularnewline
-120 & 6 & 999999 & 1 & 999981 & 19 & 1.3707937 & 1.5806987 &
+6 & 120 & 999999 & 1 & 999981 & 19 & 1.3707937 & 1.5806987 &
 0.0979692\tabularnewline
-120 & 7 & 1000000 & 0 & 999999 & 1 & 1.4775366 & 1.7038860 &
+7 & 120 & 1000000 & 0 & 999999 & 1 & 1.4775366 & 1.7038860 &
 0.1137955\tabularnewline
-120 & 8 & 1000000 & 0 & 1000000 & 0 & 1.5762636 & 1.8177236 &
+8 & 120 & 1000000 & 0 & 1000000 & 0 & 1.5762636 & 1.8177236 &
 0.1294818\tabularnewline
-120 & 9 & 1000000 & 0 & 1000000 & 0 & 1.6680647 & 1.9238257 &
+9 & 120 & 1000000 & 0 & 1000000 & 0 & 1.6680647 & 1.9238257 &
 0.1450280\tabularnewline
-120 & 10 & 1000000 & 0 & 1000000 & 0 & 1.7545110 & 2.0233838 &
+10 & 120 & 1000000 & 0 & 1000000 & 0 & 1.7545110 & 2.0233838 &
 0.1604342\tabularnewline
-120 & 11 & 1000000 & 0 & 1000000 & 0 & 1.8363882 & 2.1178385 &
+11 & 120 & 1000000 & 0 & 1000000 & 0 & 1.8363882 & 2.1178385 &
 0.1757003\tabularnewline
-120 & 12 & 1000000 & 0 & 1000000 & 0 & 1.9135798 & 2.2069806 &
+12 & 120 & 1000000 & 0 & 1000000 & 0 & 1.9135798 & 2.2069806 &
 0.1908263\tabularnewline
 \bottomrule
 \end{longtable}
@@ -1796,8 +1795,90 @@ assured to be greater than zero.
 
 \includegraphics{SI_files/figure-latex/unnamed-chunk-44-1.pdf}
 
-\section*{References}\label{references}
-\addcontentsline{toc}{section}{References}
+\clearpage
+
+\hypertarget{repr}{\section{Reproducing simulation results}\label{repr}}
+
+All results in the main text and the literature cited can be reproduced
+using the
+\href{https://github.com/bradduthie/RandomMatrixStability}{RandomMatrixStability}
+R package, which can be downloaded as instructed at the beginning of
+this Supplemental Information document. The most relevant R functions
+for reproducing simulations include the following:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \texttt{rand\_gen\_var}: Simulates random complex systems and cascade
+  food webs
+\item
+  \texttt{rand\_rho\_var}: Simulates random complex systems across a
+  fixed correlation of \(\rho = cor(A_{ij}, A_{ji})\)
+\item
+  \texttt{rand\_gen\_swn}: Simulates randomly generated small-world
+  networks
+\item
+  \texttt{rand\_gen\_sfn}: Simulates randomly generated scale-free
+  networks
+\item
+  \texttt{Evo\_rand\_gen\_var}: Use a genetic algorithm to find stable
+  random complex systems
+\end{enumerate}
+
+For the functions 1-4 above, R output will be a table of results. Below
+describes the headers of this table to more clearly explain what is
+being reported.
+
+\footnotesize
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule
+Header & Description & Header\_cont. & Description\_cont.\tabularnewline
+\midrule
+\endhead
+S & The system size & A\_rho & Corr. between elements A{[}ij{]} and
+A{[}ji{]}\tabularnewline
+A\_unstable & No. of A that were unstable & M\_rho & Corr. between
+elements M{[}ij{]} and M{[}ji{]}\tabularnewline
+A\_stable & No. of A that were stable & rho\_diff & Diff. between A and
+M rho values\tabularnewline
+M\_unstable & No. of M that were unstable & rho\_abs & Diff. between A
+and M rho magnitudes\tabularnewline
+M\_stable & No. of M that were stable & complex\_A & Complexity of
+A\tabularnewline
+A\_stabilised & No. of A stabilised by gamma & complex\_M & Complexity
+of M\tabularnewline
+A\_destabilised & No. of A destabilised by gamma & A\_eig & Expected
+real part of leading A eigenvalue\tabularnewline
+A\_infeasible & No. of A that were infeasible & M\_eig & Expected real
+part of leading M eigenvalue\tabularnewline
+A\_feasible & No. of A that were feasible & LR\_A & Lowest obs. real
+part of leading A eigenvalue\tabularnewline
+M\_infeasible & No. of M that were infeasible & UR\_A & Highest obs.
+real part of leading A eigenvalue\tabularnewline
+M\_feasible & No. of M that were feasible & LR\_M & Lowest obs. real
+part of leading M eigenvalue\tabularnewline
+A\_made\_feasible & No. of A made feasible by gamma & UR\_M & Highest
+obs. real part of leading M eigenvalue\tabularnewline
+A\_made\_infeasible & No. of A made infeasible by gamma & C & Obs.
+network connectance\tabularnewline
+\bottomrule
+\end{longtable}
+
+\normalsize
+
+Note that output from \texttt{Evo\_rand\_gen\_var} only includes the
+first seven rows of the table above, and \texttt{rand\_gen\_var} does
+not include \(C\) (which can be defind as an argument). All results
+presented here and in the main text are available in the
+\href{https://github.com/bradduthie/RandomMatrixStability/tree/master/inst/extdata}{inst/extdata}
+folder of the
+\href{https://github.com/bradduthie/RandomMatrixStability}{RandomMatrixStability}
+R package.
+
+\hypertarget{ref}{\section*{Literature cited}\label{ref}}
+\addcontentsline{toc}{section}{Literature cited}
 
 \hypertarget{refs}{}
 \hypertarget{ref-May1972}{}
