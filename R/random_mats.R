@@ -29,7 +29,11 @@ rand_gen_var <- function(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 1,
     fea_res <- NULL;
     rho_res <- NULL;
     cmplxty <- NULL;
-    sp_try  <- seq(from = by, to = max_sp, by = by);
+    ini_S   <- 2;
+    if(by > ini_S){
+        ini_S <- by;
+    }
+    sp_try  <- seq(from = ini_S, to = max_sp, by = by);
     for(i in 1:length(sp_try)){
         iter           <- iters;
         tot_res[[i]]   <- matrix(data = 0, nrow = iter, ncol = 7);
@@ -184,12 +188,12 @@ summarise_randmat <- function(tot_res, fea_res, rho_res, cmplxty){
         all_res[i, 22:23] <- range(rho_res[[i]][,5]);
         all_res[i, 24:25] <- range(rho_res[[i]][,6]);
     }
-    cnames <- c("N", "A0_unstable", "A0_stable", "A1_unstable", "A1_stable", 
-                "A1_stabilised", "A1_destabilised", "A0_infeasible", 
-                "A0_feasible", "A1_infeasible", "A1_feasible", 
-                "A1_made_feasible", "A1_made_infeasible", "A0_rho", "A1_rho",
-                "rho_diff", "rho_abs", "complex_A0", "complex_A1", "A0_eig",
-                "A1_eig", "LCI_A0", "UCI_A0", "LCI_A1", "UCI_A1");
+    cnames <- c("S", "A_unstable", "A_stable", "M_unstable", "M_stable", 
+                "A_stabilised", "A_destabilised", "A_infeasible", 
+                "A_feasible", "M_infeasible", "M_feasible", 
+                "A_made_feasible", "A_made_infeasible", "A_rho", "M_rho",
+                "rho_diff", "rho_abs", "complex_A", "complex_M", "A_eig",
+                "M_eig", "LR_A", "UR_A", "LR_M", "UR_M");
     colnames(all_res) <- cnames;
     return(all_res);
 }
