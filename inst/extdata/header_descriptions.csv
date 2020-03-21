@@ -1,0 +1,26 @@
+Header, Description
+S, The system size
+A_unstable, Number of A that were unstable
+A_stable, Number of A that were stable
+M_unstable, Number of M that were unstable
+M_stable, Number of M that were stable
+A_stabilised, Number of A stabilised by gamma
+A_destabilised, Number of A destabilised by gamma
+A_infeasible, Number of A that were infeasible
+A_feasible, Number of A that were feasible
+M_infeasible, Number of M that were infeasible
+M_feasible, Number of M that were feasible
+A_made_feasible, Number of A made feasible by gamma
+A_made_infeasible, Number of A made infeasible by gamma
+A_rho, Correlation between elements A[i,j] and A[j,i]
+M_rho, Correlation between elements M[i,j] and M[j,i]
+rho_diff, Difference between A and M rho values
+rho_abs, Difference between A and M rho magnitudes
+complex_A, Complexity of A
+complex_M, Complexity of M
+A_eig, Expected real part of leading A eigenvalue
+M_eig, Expected real part of leading M eigenvalue
+LR_A, Lowest obs. real part of leading A eigenvalue
+UR_A, Highest obs. real part of leading A eigenvalue
+LR_M, Lowest obs. real part of leading M eigenvalue
+UR_M, Highest obs. real part of leading M eigenvalue
