@@ -11,4 +11,4 @@
 "M_infeasible", "No. of M that were infeasible", "UR_A", "Highest obs. real part of leading A eigenvalue"
 "M_feasible", "No. of M that were feasible", "LR_M", "Lowest obs. real part of leading M eigenvalue"
 "A_made_feasible", "No. of A made feasible by gamma", "UR_M", "Highest obs. real part of leading M eigenvalue"
-"A_made_infeasible", "No. of A made infeasible by gamma",,
+"A_made_infeasible", "No. of A made infeasible by gamma", "C", "Obs. network connectance"
