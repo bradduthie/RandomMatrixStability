@@ -18,7 +18,7 @@ plot_stables <- function(dat, S_s = 32){
     barplot(log_bar_dat, beside = TRUE, col = c("dodgerblue4", "firebrick"),
             names.arg = dat[Ns,1], ylim = c(0, 16), xlab = "",
             ylab = "Ln number of stable communities", cex.lab = 1, 
-            cex.axis = 1.25, xlim = c(1, 94), cex.names = 1, yaxt = "n");
+            cex.axis = 1.25, xlim = c(1, 3*S_s), cex.names = 1, yaxt = "n");
     axis(side = 2, at = c(0, 2, 4, 6, 8, 10, 12, 14), cex.axis = 1.5);
     box(lwd = 2);
     par(new = TRUE);
@@ -64,7 +64,7 @@ plot_stable_4 <- function(dat, S_s = 40){
     barplot(log_bar_dat, beside = TRUE, col = c("dodgerblue4", "firebrick"),
             names.arg = dat[Ns,1], ylim = c(0, 16), xlab = "",
             ylab = "Ln number of stable communities", cex.lab = 1, 
-            cex.axis = 1.25, xlim = c(1, 94), cex.names = 1, yaxt = "n");
+            cex.axis = 1.25, xlim = c(1, S_s*3), cex.names = 1, yaxt = "n");
     axis(side = 2, at = c(0, 2, 4, 6, 8, 10, 12, 14), cex.axis = 1.5);
     box(lwd = 2);
     par(new = TRUE);
