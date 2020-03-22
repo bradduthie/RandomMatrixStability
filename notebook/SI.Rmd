@@ -325,11 +325,11 @@ show_gammas();
 
 ********************************************************************************
 
-The same 100000 $\mathbf{M}$ matrices were used to investigate stability when applying each of these different distributions of $\gamma$ values. The table below shows the number of $\mathbf{M}$ that were unstable (_unst) and stable (_stbl) for the exponential (Exp), beta, and gamma distributions.
+The stability of $\mathbf{A}$ versus $\mathbf{M}$ was investigated for each of the distributions of $\gamma$ shown in panels b-d above. The table below shows the number of $\mathbf{A}$ versus $\mathbf{M}$ that were stable for the exponential (exp), beta, and gamma distributions.
 
 ```{r, echo = FALSE}
-fourdists <- read.csv(file = "sim_results/different_distr/four_distr_rand.csv");
-kable(fourdists);
+g_dsts <- read.csv("../inst/extdata/g_dsts.csv");
+kable(g_dsts);
 ```
 
 In comparison to the uniform distribution (a), proportionally fewer random systems are found with the exponential distribution (b), while more are found with the beta (c) and gamma (d) distributions.
