@@ -68,7 +68,7 @@ Author response to Reviewer 1 comment 3
 
 Reviewer 1 is correct that the line illustrates the conditional probability that $A$ is unstable given that $M = \gamma A$ is stable. In other words, the proportion of complex systems found to be stable, but which would have been unstable if it were not for the variation in component response rates. 
 
-I have explained the result shown by the black line of Figures 3 (now 4), and the former figure 4 (now in the SI), now more clearly in my revision (L417).
+I have explained the result shown by the black line of Figures 3 (now 4), and the former figure 4 (now in the SI), now more clearly in my revision (L420).
 
 Reviewer 2 comment 1
 ================================================================================
@@ -152,13 +152,13 @@ Author response to Reviewer 3 commment 2
 
 The diagonal of the matrix $M$ models component self-regulation, such as species carrying capacity in an ecological community. The relationship between diagonal elements of $M$ and stability is well-known for large circular matrices (e.g., Tang et al. 2014; Allesina and Tang 2015), in which the mean value of diagonal elements determines the center of the eigenvalue distribution on the real axis as $S \to \infty$.
 
-Theoretical studies of community stability assign negative diagonal values (typically -1) to make the simplifying assumption that components of the system are self-regulating (e.g., May 1972, 1973; Sinha 2005; Allesina and Tang 2012; Grilli et al. 2017; Song and Saavedra 2018; Stone 2018). If individual components are not self-regulating, then the system will almost never be stable. I tried this very early on in the process of investigating the effects of $\gamma$ by allowing diagonal elements to be sampled in the same way as off-diagonals: from a normal distribution centred at zero (data are here, note that the tables show the information in a bit more of a confusing format that in the SI, which was subsequently improved prior to submission: https://github.com/bradduthie/RandomMatrixStability/blob/dfe6f8e0225733c94348bc9e0dad6218c59cc109/notebook/sim_results_old/oldest/mat_dat.csv). The effect of $\gamma$ on increasing stability is retained, but stability of all systems drops to zero out of one million given size $S > 14$. And in the random systems that are found to be stable, all diagonal elements are nearly always negative (or, rarely, with one or two very low positive values). In other words, if diagonal elements were randomly sampled from a distribution with positive support, then the only systems that would be stable would be those that by chance had all (or nearly all) negative diagonal elements.
+Theoretical studies of community stability assign negative diagonal values (typically -1) to make the simplifying assumption that components of the system are self-regulating (e.g., May 1972, 1973; Sinha 2005; Allesina and Tang 2012; Grilli et al. 2017; Song and Saavedra 2018; Stone 2018). If individual components are not self-regulating, then the system will almost never be stable. I tried this very early on in the process of investigating the effects of $\gamma$ by allowing diagonal elements to be sampled in the same way as off-diagonals: from a normal distribution centred at zero (data are here, note that the tables show the information in a bit more of a confusing format that in the SI, which was subsequently improved prior to my original submission: https://github.com/bradduthie/RandomMatrixStability/blob/dfe6f8e0225733c94348bc9e0dad6218c59cc109/notebook/sim_results_old/oldest/mat_dat.csv). The effect of $\gamma$ on increasing stability is retained, but stability of all systems drops to zero out of one million given size $S > 14$. And in the random systems that are found to be stable, all diagonal elements are nearly always negative (or, rarely, with one or two very low positive values). In other words, if diagonal elements were randomly sampled from a distribution with positive support, then the only systems that would be stable would be those that by chance had all (or nearly all) negative diagonal elements.
 
 Hence, in this paper and nearly all related papers, when assessing stability, it makes sense to assume that individual system components are self-regulating. But this is not necessarily just a simplifying assumption to avoid unnecessary computations. In the case of ecological species, a positive intraspecific interaction value does not make sense. This would imply that the species being modelled did not compete with itself and had no carrying capacity (because intraspecific competition is directly and inversely related to carrying capacity). Since infinite growth is clearly unrealistic, ecological systems represented by random matrices really should have negative diagonal elements.
 
 Unequal diagonal elements could be used, but doing so would only be expected to add some variation around the expected centre of eigenvalue distributions, and would not change my primary result concerning the effect of $\gamma$ (note that this would lead to the same results as mentioned above where diagonal elements were sampled in the same way as off diagonals, but with more total stable systems since the mean diagonal value would be less lower). 
 
-I have tried to clarify and more clearly state the assumption of self-regulation in my revision (line XXX).
+I have tried to clarify and more clearly state the assumption of self-regulation in my revision (paragraphs starting on L28 and L65).
 
 Reviewer 3 commment 3
 ================================================================================
@@ -170,7 +170,7 @@ Author response to Reviewer 3 commment 3
 
 Reviewer 3 is correct that random matrices are an ideal null model for understanding stability in complex systems such as communities of species. In this manuscript, I use the random matrix approach as a null model to investigate the role played by a property of nearly all complex systems (component response variation) in affecting stability. This approach to investigating stability in complex systems has been used widely since May (1972), and has been refined to more specifically to reflect the properties of systems with a particular structure (e.g., specific ecological interactions; Allesina and Tang 2012). My revision now more extensively simulates the structures of real-world networks, including the cascade foode web model  (e.g., Williams and Martinez 2000), small-world networks (Watts and Strogatz 1998), and scale-free networks (Albert and Barab\'{a}si 2002; see also Author response to Reviewer 2 comment 3).
 
-I have tried to clarify the role of random matrices as a null model of complex system stability (line XXX).
+I have tried to clarify the role of random matrices as a null model of complex system stability (L53-L64).
 
 Reviewer 3 commment 4
 ================================================================================
@@ -180,7 +180,7 @@ Reviewer 3 commment 4
 Author response to Reviewer 3 commment 4
 ================================================================================
 
-Component response rates can be modelled using a diagonal matrix in which elements correspond to the rate at which individual system components respond to perturbations in the system (Patel et al. 2018). Hence, such a diagonal matrix $\gamma$ can be multiplied by a random matrix representing a complex system $A$ to produce a complex system in which component response rates vary, $M = \gamma A$. By doing an eigenanalysis on $M$ versus $A$, it is possible to understand how response rates affect stability. Hence, I am not comparing apples and oranges; response rates of components have a clear and important role in complex system stability that can be investigated with the mathematical techniques used in this manuscript. I have tried to explain this role more clearly in my revision (line XXX).
+Component response rates can be modelled using a diagonal matrix in which elements correspond to the rate at which individual system components respond to perturbations in the system (Patel et al. 2018). Hence, such a diagonal matrix $\gamma$ can be multiplied by a random matrix representing a complex system $A$ to produce a complex system in which component response rates vary, $M = \gamma A$. By doing an eigenanalysis on $M$ versus $A$, it is possible to understand how response rates affect stability. Hence, I am not comparing apples and oranges; response rates of components have a clear and important role in complex system stability that can be investigated with the mathematical techniques used in this manuscript. I have tried to explain this role more clearly in my revision by more clearly presenting results in terms of differences between the matrices $A$ and $M$ (this affected many areas throughout the text and SI, with clarification of the comparison presented in L82-L89).
 
 Reviewer 3 commment 5
 ================================================================================
@@ -201,7 +201,7 @@ K.Z. Coyte, J. Schluter, and K.R. Foster, The ecology of the microbiome: Network
 Author response to Reviewer 3 commment 3
 ================================================================================
 
-I thank Reviewer 3 for pointing out these articles. I have cited them where appropriate (lines XXX).
+I thank Reviewer 3 for pointing out these articles. I have cited them where appropriate (L25, L69, L323, L325, and L367).
 
 
 Author References within Review
