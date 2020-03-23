@@ -1,0 +1,716 @@
+---
+title: "Component response rate variation underlies the stability of highly complex finite systems"
+author: "A. Bradley Duthie"
+date: Biological and Environmental Sciences, University of Stirling, Stirling, UK,
+  FK9 4LA alexander.duthie@stir.ac.uk
+output:
+  pdf_document:
+    fig_caption: yes
+    keep_tex: yes
+  html_document: default
+  word_document:
+    fig_caption: yes
+    pandoc_args:
+    - --csl
+    - evolution.csl
+    reference_docx: docx_template.docx
+bibliography: references.bib
+header-includes:
+- \usepackage{amsmath}
+- \usepackage{natbib}
+- \usepackage{lineno}
+- \usepackage[utf8]{inputenc}
+- \usepackage{float}
+- \linenumbers
+- \bibliographystyle{amnatnat}
+linestretch: 1
+link-citations: yes
+linkcolor: blue
+csl: nature.csl
+subtitle: Supplemental Information
+biblio-style: apalike
+---
+
+```{r, echo = FALSE}
+source(file = "../R/Figures_3_4.R");
+source(file = "../R/utilities.R")
+```
+
+
+**This supplemental information supports the manuscript "Component response rate variation underlies the stability of complex systems" with additional analyses to support its conclusions. All text, code, and data underlying this manuscript are publicly available on [GitHub](https://github.com/bradduthie/RandomMatrixStability) as part of the RandomMatrixStability R package.**
+
+The [RandomMatrixStability package](https://github.com/bradduthie/RandomMatrixStability) includes all functions and tools for recreating the text, this supplemental information, and running all code; additional documentation is also provided for package functions. The RandomMatrixStability package is available on [GitHub](https://github.com/bradduthie/RandomMatrixStability); to download it, the  [`devtools` library](https://cran.r-project.org/web/packages/devtools/index.html) is needed.
+
+```{r, eval = FALSE}
+install.packages("devtools");
+library(devtools);
+```
+
+The code below installs the RandomMatrixStability package using devtools.
+
+```{r, eval = FALSE}
+install_github("bradduthie/RandomMatrixStability");
+```
+
+
+Supplemental Information table of contents
+================================================================================
+
+
+- [Stability across increasing $S$](#IncrS) 
+- [Stability of random ecological networks](#ecological) 
+    - [Competitor networks](#competition) 
+    - [Mutualist networks](#mutualism) 
+    - [Predator-prey networks](#pred-prey) 
+- [Sensitivity of connectance (C) values](#connectance)
+    - [C = 0.3](#connect3)
+    - [C = 0.5](#connect5)
+    - [C = 0.7](#connect7)
+    - [C = 0.9](#connect9)
+- [Large networks of $C = 0.05$ across $S$ and $\sigma$](#sigma)  
+    - [$\sigma$ = 0.3](#sigma3)
+    - [$\sigma$ = 0.4](#sigma4)
+    - [$\sigma$ = 0.5](#sigma5)
+    - [$\sigma$ = 0.6](#sigma6)
+- [Sensitivity of distribution of $\gamma$](#gam_dist)
+- [Stability of structured networks](#structured)
+- [Feasibility of complex systems](#Feasibility)
+- [Stability given targeted manipulation of $\gamma$ (genetic algorithm)](#ga)
+- [Consistency with Gibbs et al. (2018)](#Gibbs)
+- [Reproducing simulation results](#repr)
+- [Literature cited](#ref)
+
+
+Stability across increasing $S$ {#IncrS}
+===============================================================================
+
+```{r, echo = FALSE}
+dat <- read.csv(file = "../inst/extdata/random_all.csv");
+```
+
+Figure 4 of the main text reports the number of stable random complex systems found over 1 million iterations. The table below shows the results for all simulations of random $\mathbf{M}$ matrices at $\sigma_{A} = 0.4$ and $C = 1$ given a range of $S = \{2, 3, ..., 49, 50\}$. In this table, the `A` refers to $\mathbf{A}$ matrices where $\gamma = 1$, while `M` refers to $\mathbf{M}$ matrices after $\sigma^{2}_{\gamma}$ is added and $\gamma \sim \mathcal{U}(0, 2)$. Each row summarises data for a given $S$ over 1 million randomly simulated $\mathbf{M}$. The column `A_unstable` shows the number of $\mathbf{A}$ matrices that are unstable, and the column `A_stable` shows the number of $\mathbf{A}$ matrices that are stable (these two columns sum to 1 million). Similarly, the column `M_unstable` shows the number of $\mathbf{M}$ matrices that are unstable and `M_stable` shows the number that are stable. The columns `A_stabilised` and `A_destabilised` show how many $\mathbf{M}$ matrices were stabilised or destabilised, respectively, by $\sigma^{2}_{\gamma}$.
+
+```{r, echo = FALSE}
+library(knitr);
+d_tab <- dat[,1:7];
+kable(d_tab);
+```
+
+Overall, the ratio of stable $\mathbf{A}$ matrices to stable $\mathbf{M}$ matrices found is greater than 1 whenever $S > 10$ (compare column 5 to column 3), and this ratio increases with increasing $S$ (column 1). Hence, more randomly created complex systems ($\mathbf{M}$) are stable given variation in $\gamma$ than when $\gamma = 1$. Note that feasibility results were omitted for the table above, but are [reported below](#Feasibility).
+
+Stability of random ecological networks {#ecological}
+================================================================================
+
+While the foundational work of May[@May1972] applies broadly to complex networks, much attention has been given specifically to ecological networks of interacting species. In these networks, the matrix $\mathbf{A}$ is interpreted as a community matrix and each row and column is interpreted as a single species. The per capita effect that the density of any species $i$ has on the population dynamics of species $j$ is found in $A_{ij}$, meaning that $\mathbf{A}$ holds the effects of pair-wise interactions between $S$ species[@Allesina2012; @Allesina2015]. While May's original work[@May1972] considered only randomly assembled communities, recent work has specifically looked at more restricted ecological communities including competitive networks (all off-diagonal elements of $\mathbf{A}$ are negative), mutualist networks (all off-diagonal elements of $\mathbf{A}$ are positive), and predator-prey networks (for any pair of $i$ and $j$, the effect of $i$ on $j$ is negative and $j$ on $i$ is positive, or vice versa)[@Allesina2012; @Allesina2015]. In general, competitor and mutualist networks tend to be unstable, while predator-prey networks tend to be highly stabilising[@Allesina2012].
+
+I investigated competitor, mutualist, and predator-prey networks following Allesina et al.[@Allesina2012]. To create these networks, I first generated a random matrix $\mathbf{A}$, then changed the elements of $\mathbf{A}$ accordingly. If $\mathbf{A}$ was a competitive network, then the sign of any positive off-diagonal elements was reversed to be negative. If $\mathbf{A}$ was a mutualist network, then the sign of any positive off-diagonal elements was reversed to be positive. And if $\mathbf{A}$ was a predator-prey network, then all $i$ and $j$ pairs of elements were checked; any pairs of the same sign were changed so that one was negative and the other was positive. 
+
+```{r, echo = FALSE}
+species_interactions <- function(mat, type = 0){
+    if(type == 1){
+        mat[mat > 0] <- -1*mat[mat > 0];
+    }
+    if(type == 2){
+        mat[mat < 0] <- -1*mat[mat < 0];
+    }
+    if(type == 3){
+        for(i in 1:dim(mat)[1]){
+            for(j in 1:dim(mat)[2]){
+                if(mat[i, j] * mat[j, i] > 0){
+                    mat[j, i] <- -1 * mat[j, i];
+                }
+            }
+        }
+    }
+    return(mat);
+} # Note: -1 values are added in the diagonal later
+```
+
+The number of stable $\mathbf{M = \gamma A}$ systems was estimated [exactly as it was](#IncrS) in the main text for random matrices for values of $S$ from 2 to 50 (100 in the case of the relatively more stable predator-prey interactions), except that only 100000 random $\mathbf{M}$ were generated instead of 1 million. 
+
+```{r, echo = FALSE}
+cdat <- read.csv(file = "../inst/extdata/competition_C_1.csv");
+mdat <- read.csv(file = "../inst/extdata/mutualism_C_1.csv");
+pdat <- read.csv(file = "../inst/extdata/pred-prey_C_1.csv");
+```
+
+The following tables for restricted ecological communities can therefore be compared with the random $\mathbf{M}$ [results above](#IncrS) (but note that counts from systems with comparable probabilities of stability will be an order of magnitude lower in the tables below due to the smaller number of $\mathbf{M}$ matrices generated). As with the [results above](#IncrS), in the tables below, `A` refers to matrices $\mathbf{A}$ when $\gamma = 1$ and `M` refers to matrices after $\sigma^{2}_{\gamma}$ is added. The column `A_unstable` shows the number of $\mathbf{A}$ matrices that are unstable, and the column `A_stable` shows the number of $\mathbf{A}$ matrices that are stable (these two columns sum to 100000). Similarly, the column `M_unstable` shows the number of $\mathbf{M}$ matrices that are unstable and `A1_stable` shows the number that are stable. The columns `A_stabilised` and `A_destabilised` show how many $\mathbf{A}$ matrices were stabilised or destabilised, respectively, by $\sigma^{2}_{\gamma}$.
+
+<a name="competition">**Competition**</a>
+
+Results for competitor interaction networks are shown below
+
+```{r, echo = FALSE}
+cd_tab <- cdat[,2:8];
+kable(cd_tab);
+```
+
+<a name="mutualism">**Mutualism**</a>
+
+Results for mutualist interaction networks are shown below
+
+```{r, echo = FALSE}
+md_tab <- mdat[,2:8];
+kable(md_tab);
+```
+
+<a name="pred-prey">**Predator-prey**</a>
+
+Results for predator-prey interaction networks are shown below
+
+```{r, echo = FALSE}
+pd_tab <- pdat[,2:8];
+kable(pd_tab);
+```
+
+Overall, as expected [@Allesina2012], predator-prey communities are relatively stable while mutualist communties are highly unstable. But interestingly, while $\sigma^{2}_{\gamma}$ stabilises predator-prey and competitor communities, it does not stabilise mutualist communities. This is unsurprising because purely mutualist communities are characterised by a very positive[@Allesina2012] leading $\Re(\lambda)$, and it is highly unlikely that $\sigma^{2}_{\gamma}$ alone will shift all real parts of eigenvalues to negative values.
+
+Sensitivity of connectance (C) values {#connectance}
+================================================================================
+
+In the main text, for simplicity, I assumed connectance values of $C = 1$, meaning that all off-diagonal elements of a matrix $\mathbf{M}$ were potentially nonzero and sampled from a normal distribution $\mathcal{N}(0, \sigma^{2}_{A})$ where $\sigma_{A} = 0.4$. Here I present four tables showing the number of stable communities given $C = \{0.3, 0. 5, 0.7, 0.9 \}$. In all cases, uniform variation in component response rate ($\gamma \sim \mathcal{U}(0, 2)$) led to a higher number of stable communities than when $\gamma$ did not vary ($\gamma_{i} = 1$). In contrast to the main text, 100000 rather than 1 million $\mathbf{M}$ were simulated. As with the results on [stability with increasing $S$](#IncrS) shown above, in the tables below `A` refers to $\mathbf{A}$ matrices when $\gamma = 1$, and `M` refers to $\mathbf{M}$ matrices after $\sigma^{2}_{\gamma}$ is added. The column `A_unstable` shows the number of $\mathbf{A}$ matrices that are unstable, and the column `A_stable` shows the number of $\mathbf{A}$ matrices that are stable (these two columns sum to 100000). Similarly, the column `M_unstable` shows the number of $\mathbf{M}$ matrices that are unstable and `M_stable` shows the number that are stable. The columns `A_stabilised` and `A_destabilised` show how many $\mathbf{A}$ matrices were stabilised or destabilised, respectively, by $\sigma^{2}_{\gamma}$.
+
+```{r, echo = FALSE}
+C3dat <- read.csv(file = "../inst/extdata/rand_c-0pt3.csv");
+C5dat <- read.csv(file = "../inst/extdata/rand_c-0pt5.csv");
+C7dat <- read.csv(file = "../inst/extdata/rand_c-0pt7.csv");
+C9dat <- read.csv(file = "../inst/extdata/rand_c-0pt9.csv");
+```
+
+
+<a name="connect3">**Connectance $\mathbf{C = 0.3}$**</a>
+
+```{r, echo = FALSE}
+C3d_tab <- C3dat[,1:7];
+kable(C3d_tab);
+```
+
+<a name="connect5">**Connectance $\mathbf{C = 0.5}$**</a>
+
+```{r, echo = FALSE}
+C5d_tab <- C5dat[,1:7];
+kable(C5d_tab);
+```
+
+<a name="connect7">**Connectance $\mathbf{C = 0.7}$**</a>
+
+```{r, echo = FALSE}
+C7d_tab <- C7dat[,1:7];
+kable(C7d_tab);
+```
+
+<a name="connect9">**Connectance $\mathbf{C = 0.9}$**</a>
+
+```{r, echo = FALSE}
+C9d_tab <- C9dat[,1:7];
+kable(C9d_tab);
+```
+
+Sensitivity of interaction strength ($\sigma_{A}$) values {#sigma}  
+================================================================================
+
+Results below show stability results given varying interaction strengths ($\sigma_{A}$) for $C = 0.05$ (note that system size $S$ values are larger and increase by 10 with increasing rows). In the tables below (as [above](#IncrS)), `A` and `M` refers to matrices for $\gamma = 1$ and $\sigma^{2}_{\gamma}$, respectively.
+
+
+```{r, echo = FALSE}
+S3dat <- read.csv(file = "../inst/extdata/sim_SD_0pt3.csv");
+S4dat <- read.csv(file = "../inst/extdata/sim_SD_0pt4.csv");
+S5dat <- read.csv(file = "../inst/extdata/sim_SD_0pt5.csv");
+S6dat <- read.csv(file = "../inst/extdata/sim_SD_0pt6.csv");
+```
+
+<a name="sigma3">**Interaction strength $\mathbf{\sigma_{A} = 0.3}$**</a>
+
+```{r, echo = FALSE}
+S3d_tab <- S3dat[,1:7];
+kable(S3d_tab);
+```
+
+<a name="sigma4">**Interaction strength $\mathbf{\sigma_{A} = 0.4}$**</a>
+
+```{r, echo = FALSE}
+S4d_tab <- S4dat[,1:7];
+kable(S4d_tab);
+```
+
+<a name="sigma5">**Interaction strength $\mathbf{\sigma_{A} = 0.5}$**</a>
+
+```{r, echo = FALSE}
+S5d_tab <- S5dat[,1:7];
+kable(S5d_tab);
+```
+
+<a name="sigma6">**Interaction strength $\mathbf{\sigma_{A} = 0.6}$**</a>
+
+```{r, echo = FALSE}
+S6d_tab <- S6dat[,1:7];
+kable(S6d_tab);
+```
+
+
+Sensitivity of distribution of $\gamma$ {#gam_dist}
+================================================================================
+
+In the main text, I considered a uniform distribution of component response rates $\gamma \sim \mathcal{U}(0, 2)$. The number of unstable and stable $\mathbf{M}$ matrices are reported in [a table above](#IncrS) across different values of $S$. Here I show complementary results for three different distributions including an exponential, beta, and gamma distribution of $\gamma$ values. The shape of these distributions is shown in the figure below.
+
+********************************************************************************
+
+**Distributions of component response rate ($\boldsymbol{\gamma}$) values in complex systems.** The stabilities of simulated complex systems with these $\gamma$ distributions are compared to identical systems in which $\gamma = 1$ across different system sizes ($S$; i.e., component numbers) given a unit $\gamma$ standard deviation ($\sigma_{\gamma} = 1$) for b-d. Distributions are as follows: (a) uniform, (b) exponential, (c) beta ($\alpha = 0.5$ and $\beta = 0.5$), and (d) gamma ($k = 2$ and $\theta = 2$). Each panel shows 1 million randomly generated $\gamma$ values.
+
+```{r, eval = TRUE, echo = FALSE, fig.height = 4, fig.width = 4, fig.align="center"}
+make_gammas <- function(nn = 10, distribution = 1, mn = 1, sdd = 1){
+    if(distribution == 0){
+        dat          <- rep(x = mn, times = nn);
+    }
+    if(distribution == 1){
+        mval         <- 2;
+        dat          <- runif(n = nn, min = 0, max = mval);
+    }
+    if(distribution == 2){
+        dat          <- rexp(n = nn);
+        dat          <- sdd * ((dat - mean(dat)) / sd(dat));
+        dat          <- dat - min(dat) + min(abs(dat));
+    }
+    if(distribution == 3){
+        dat          <- rbeta(n = nn, shape1 = 0.5, shape2 = 0.5);
+        dat          <- sdd * ((dat - mean(dat)) / sd(dat));
+        dat          <- dat - min(dat) + min(abs(dat));
+    }
+    if(distribution == 4){
+        dat          <- rgamma(n = nn, shape = 2, scale = 2);
+        dat          <- sdd * ((dat - mean(dat)) / sd(dat));
+        dat          <- dat - min(dat) + min(abs(dat));
+    }
+    return(dat);
+}
+
+show_gammas <- function(nn = 1000000, sdd = 1, mn = 10){
+    y1 <- make_gammas(nn = nn, distribution = 1, sdd = sdd, mn = mn);
+    y2 <- make_gammas(nn = nn, distribution = 2, sdd = sdd, mn = mn);
+    y3 <- make_gammas(nn = nn, distribution = 3, sdd = sdd, mn = mn);
+    y4 <- make_gammas(nn = nn, distribution = 4, sdd = sdd, mn = mn);
+    par(mfrow = c(2, 2), oma = c(4, 4, 1, 1), mar = c(2, 0.5, 0.5, 0.5));
+    h1 <- hist(y1, breaks = 1000, plot = FALSE);
+    hist(y1, breaks = 1000, yaxt = "n", main = "", xlab = "", cex.axis = 1.15,
+         ylim = c(0, max(h1$counts)*1.2));
+    mtext("a", adj = 0, line = -1.3, cex = 1.2, 
+          at = par("usr")[1]+0.90*diff(par("usr")[1:2]));
+    box();
+    h2 <- hist(y2, breaks = 1000, plot = FALSE);
+    hist(y2, breaks = 1000, yaxt = "n", main = "", xlab = "", cex.axis = 1.15,
+         ylim = c(0, max(h2$counts)*1.2));
+    mtext("b", adj = 0, line = -1.3, cex = 1.2, 
+          at = par("usr")[1]+0.90*diff(par("usr")[1:2]));
+    box();
+    h3 <- hist(y3, breaks = 1000, plot = FALSE);
+    hist(y3, breaks = 1000, yaxt = "n", main = "", xlab = "", cex.axis = 1.15,
+         ylim = c(0, max(h3$counts)*1.2));
+    mtext("c", adj = 0, line = -1.3, cex = 1.2, 
+          at = par("usr")[1]+0.90*diff(par("usr")[1:2]));
+    box();
+    h4 <- hist(y4, breaks = 1000, plot = FALSE);
+    hist(y4, breaks = 1000, yaxt = "n", main = "", xlab = "", cex.axis = 1.15,
+         ylim = c(0, max(h4$counts)*1.2));
+    mtext("d", adj = 0, line = -1.3, cex = 1.2, 
+          at = par("usr")[1]+0.90*diff(par("usr")[1:2]));
+    box();
+    mtext(expression(paste("Component ",gamma," value")),
+          outer=TRUE,side=1,line=1.0,cex=1.25);
+    mtext(expression(paste("Relative frequency")),
+          outer=TRUE,side=2,line=1.5,cex=1.25);
+}
+
+show_gammas();
+```
+
+********************************************************************************
+
+The stability of $\mathbf{A}$ versus $\mathbf{M}$ was investigated for each of the distributions of $\gamma$ shown in panels b-d above. The table below shows the number of $\mathbf{A}$ versus $\mathbf{M}$ that were stable for the exponential (exp), beta, and gamma distributions.
+
+```{r, echo = FALSE}
+g_dsts <- read.csv("../inst/extdata/g_dsts.csv");
+kable(g_dsts);
+```
+
+In comparison to the uniform distribution (a), proportionally fewer random systems are found with the exponential distribution (b), while more are found with the beta (c) and gamma (d) distributions.
+
+Stability of structured networks {#structured}
+================================================================================
+
+I tested the stability of one million random, small-world, scale-free, and cascade food web networks for different network parameters. Each of these networks is structured differently. In the main text, the random networks and cascade food webs that I built were saturated ($C = 1$), meaning that every component was connected to, and interacted with, every other component (see immediately below).
+
+\vspace{2mm}
+
+
+```{r, echo = FALSE, fig.height = 5, fig.width = 5, fig.align = "center"}
+A0_dat <- rnorm(n = 20 * 20, mean = 2, sd = 0);
+A0     <- matrix(data = A0_dat, nrow = 20, ncol = 20);
+visualise_network(A0);
+```
+
+\vspace{2mm}
+
+Small-world networks, in contrast, are not saturated. They are instead defined by components that interact mostly with other closely neighbouring components, but have a proportion of interactions ($\beta$) that are instead between non-neighbours [@Watts1998]. Two small-world networks are shown below.
+
+\vspace{2mm}
+
+```{r, echo = FALSE, fig.align = "center"}
+source("../R/small_world.R");
+par(mfrow = c(1, 2), mar = c(5, 5, 1, 1));
+swn <- create_swn(S = 72, K = 12, beta = 0.01);
+visualise_network(swn);
+swn <- create_swn(S = 72, K = 12, beta = 0.1);
+visualise_network(swn);
+```
+
+\vspace{2mm}
+
+The small-world network on the left shows a system in which $\beta = 0.01$, while the small-world network on the right shows one in which $\beta = 0.1$. At the extremes of $\beta = 0$ and $\beta = 1$, networks are regular and random, respectively. The table below shows how $\sigma^{2}_\gamma$ affects stability in small world networks across different values of $S$ and $\beta$.
+
+```{r, echo = FALSE, fig.align = "center"}
+swn <- read.csv(file = "../inst/extdata/swn.csv"); 
+use <- c(1:6, 19:20, 27);
+kable(swn[,use]);
+```
+
+In the above, the complexity of $\mathbf{A}$ and $\mathbf{M}$, and the mean $C$, are also shown. For similar magnitudes of complexity as in random networks of $\sigma\sqrt{SC} \gtrapprox 1.26$, variation in $\gamma$ typically results in more stable than unstable systems.
+
+Scale-free networks are also not saturated, but are defined by an interaction frequency distribution that follows a power law. In other words, a small number of components interact with many other components, while most components interact with only a small number of other components. Scale-free networks can be built by adding new components, one by one, to an existing system, with each newly added component interacting with a randomly selected subset of $m$ existing components [@Albert2002]. The network on the left below shows an example of a scale-free network in which $m = 3$. The histogram on the right shows the number of other components with which each component interacts.
+
+```{r, echo = FALSE, fig.align = "center"}
+source("../R/scale_free.R");
+sfn <- create_sfn(S = 72, m = 3);
+par(mfrow = c(1, 2), mar = c(5, 5, 1, 1));
+visualise_network(sfn);
+dd_dat       <- sfn;
+diag(dd_dat) <- 0;
+deg_dist     <- apply(X = dd_dat, MARGIN = 1, FUN = sum);
+hist(deg_dist, main = "", xlab = "Component interactions",
+     ylab = "Frequency", cex.lab = 1.25, cex.axis = 1.25,
+     col = "grey", breaks = 20);
+```
+
+The table below shows how $\sigma^{2}_\gamma$ affects stability across different scale-free networks with different $S$ and $m$ values.
+
+```{r, echo = FALSE, fig.align = "center"}
+sfn <- read.csv(file = "../inst/extdata/sfn.csv"); 
+use <- c(1:6, 19:21);
+kable(sfn[,use]);
+```
+
+As in small-world networks, the mean $C$ is shown, along with the mean complexities of $\mathbf{A}$ and $\mathbf{M}$. Like all other networks, $\sigma^{2}_\gamma$ increases the stability of scale-free networks given sufficiently high complexity. 
+
+Cascade food webs are saturated, and similar to predator-prey random networks. What distinguishes them from predator-prey networks is that cascade food webs are also defined by intactions in which components are ranked such that if the rank of $i > j$, then $A_{ij} < 0$ and $A_{ji} > 0$ [@Solow1998; @Williams2000]. In other words, if interpreting components as ecological species, species can only feed off of a species of lower rank. The table below shows how $\sigma^{2}_\gamma$ affects stability across system sizes in cascade food webs.
+
+```{r, echo = FALSE, fig.align = "center"}
+csc <- read.csv(file = "../inst/extdata/cascade_C_1.csv"); 
+use <- c(1:5, 18:19);
+kable(csc[,use]);
+```
+
+Cascade food webs are more likely to be stable than small-world or scale-free networks at equivalent magnitudes of complexity (note that $C = 1$ for all above rows). A higher number of stable $\mathbf{M}$ than $\mathbf{A}$ was found given $S \geq 27$.
+
+
+Feasibility of complex systems {#Feasibility}
+================================================================================
+
+When feasibility was evaluated with and without variation in $\gamma$, there was no increase in stability for $\mathbf{M}$ where $\gamma$ varied as compared to where $\gamma = 1$. Results below illustrate this result, which was general to all other simulations performed. 
+
+```{r, echo = FALSE}
+dat      <- read.csv(file = "../inst/extdata/random_all.csv");
+feas_tab <- c(1, 8:13);
+kable(dat[,feas_tab]);
+```
+
+Hence, in general, $\sigma^{2}_{\gamma}$ does not appear to affect feasibility in pure species interaction networks [@Servan2018].
+
+Stability given targeted manipulation of $\gamma$ (genetic algorithm) {#ga}
+================================================================================
+
+The figure below compares the stability of large complex systems given $\gamma = 1$ versus targeted manipulation of $\gamma$ elements. For each $S$, 100000 complex systems are randomly generated. Stability of each complex system is tested given variation in $\gamma$ using a genetic algorithm to maximise the effect of $\gamma$ values on increasing stability, as compared to stability in an otherwise identical system in which $\gamma$ is the same for all components. Blue bars show the number of stable systems in the absence of component response rate variation, while red bars show the number of stable systems that can be generated if component response rate is varied to maximise system stability. The black line shows the proportion of systems that are stable when component response rate is targeted to increase stability, but would not be stable if $\sigma^{2}_{\gamma} = 0$. The y-axis shows the $\ln$ number of systems that are stable across $S = \{1, 2, ..., 39, 40\}$ for $C = 1$, and the proportion of systems wherein a targeted search of $\gamma$ values successfully resulted in system stability. 
+
+```{r, eval = TRUE, echo = FALSE, fig.width = 9, fig.height = 7}
+evo_dat <- read.csv(file = "../inst/extdata/evo_results.csv");
+plot_stables(evo_dat, S_s = 40);
+```
+
+Stability results are also shown in the table below. Results for `A` indicate systems in which $\gamma = 1$, while `M` refers to systems in which the genetic algorithm searched for a set of $\gamma$ values that stabilised the system. 
+
+```{r, echo = FALSE}
+get_top_evo_out <- function(evo_out, size){
+    highest <- max(evo_out);
+    gammas  <- NULL;
+    while(size > 0){
+        pos <- which(evo_out == highest);
+        len <- length(pos);
+        nli <- NULL;
+        for(i in 1:len){
+            start          <- pos[i] + 1;
+            end            <- pos[i] + highest;
+            gammas[[size]] <- evo_out[start:end];
+            size           <- size - 1;
+            if(size == 0){
+                break;
+            }
+        }
+        highest <- highest - 1;
+    }
+    return(gammas);
+}
+plot_evo_out <- function(evo_out){
+    gammas <- get_top_evo_out(evo_out, size = 9);
+    for(i in 1:9){
+        gammas[[i]] <- 2 * gammas[[i]]; # Account for mistake in return
+    }
+    par(mfrow = c(3, 3), mar = c(0.5, 0.5, 0.5, 0.5), oma = c(5, 5, 1, 1));
+    hist(gammas[[1]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
+         xaxt = "n", xlim = c(0, 2.1));
+    hist(gammas[[2]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
+         xaxt = "n", yaxt = "n", xlim = c(0, 2.1));
+    hist(gammas[[3]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
+         xaxt = "n", yaxt = "n", xlim = c(0, 2.1));
+    hist(gammas[[4]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
+         xaxt = "n", xlim = c(0, 2.1));
+    hist(gammas[[5]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
+         xaxt = "n", yaxt = "n", xlim = c(0, 2.1));
+    hist(gammas[[6]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
+         xaxt = "n", yaxt = "n", xlim = c(0, 2.1));
+    hist(gammas[[7]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
+         xlim = c(0, 2.1));
+    hist(gammas[[8]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
+         yaxt = "n", xlim = c(0, 2.1));
+    hist(gammas[[9]], main = "", breaks = 20, col = "grey", ylim = c(0, 6),
+         yaxt = "n", xlim = c(0, 2.1));
+    mtext(side = 1, outer = TRUE, line = 3, cex = 1.5,
+          text = expression(paste("Component response rate (",gamma,")")));
+    mtext(side = 2, text = "Frequency", outer = TRUE, line = 3, cex = 1.5);
+}
+kable(evo_dat);
+```
+
+The distributions of nine $\gamma$ vectors from the highest $S$ values are shown below. This comparison shows the high number of stable $\mathbf{M}$ that can be produced through a targeted search of $\gamma$ values, and suggests that many otherwise unstable systems could potentially be stabilised by an informed manipulation of their component response times. Such a possibility might conceivably reduce the dimensionality of problems involving stability in social-ecological or economic systems.
+
+```{r, fig.height = 4, fig.width = 6, echo = FALSE}
+evo_out <- scan(file = "../inst/extdata/evo_out.txt");
+plot_evo_out(evo_out);
+```
+
+The distribution of $\gamma$ values found by the genetic algorithm is uniform. A uniform distribution was used to initialise $\gamma$ values, so there is therefore no evidence that a particular distribution of $\gamma$ is likely to be found to stabilise a matrix $\mathbf{M}$. 
+
+Consistency with Gibbs et al. (2018) {#Gibbs}
+===============================================================================
+
+The question that I address in the main text is distinct from that of Gibbs et al. [@Gibbs2017], who focused instead on the effect of a diagonal matrix of biological species densities $\mathbf{X}$ on a community matrix $\mathbf{M}$ given a species interaction matrix $\mathbf{A}$. This is modelled as below,
+
+$$\mathbf{M} = \mathbf{XA}.$$
+
+Mathematically, the above is identical to my model in the main text where the system $\mathbf{M}$ is defined by component interaction strengths $\mathbf{A}$ and individual component response rates $\boldsymbol{\gamma}$,
+
+$$\mathbf{M} = \mathbf{\gamma A}.$$
+
+I focused on the probability of observing a stable versus unstable system given variation in $\mathbf{\gamma}$ as system complexity ($\sigma\sqrt{SC}$) increased. I increased system complexity by holding $C$ and $\sigma$ constant and incrementally increasing $S$ to obtain numerical results. In contrast, Gibbs et al. [@Gibbs2017] applied analytical techniques to instead focus on a different question concerning the effect of $\mathbf{\gamma}$ on the stability of $\mathbf{M}$ given $\mathbf{A}$ as $S \to \infty$, with $\sigma$ scaled so that $\sigma = 1/\sqrt{S}$. Under such scaling, Gibbs et al. [@Gibbs2017] showed that the effect of $\gamma$ on stability should decrease exponentially as $S$ increases, which I demonstrate below by running simulations in which $\sigma = 1/\sqrt{S}$. 
+
+```{r, echo = FALSE}
+constant_complexity <- read.csv("../inst/extdata/constant_complexity.csv")
+kable(constant_complexity);
+```
+
+Above table results can be compared to those of the [main results](#IncrS). Note that 100000 (not 1 million), simulations are run to confirm consistency with Gibbs et al. [@Gibbs2017]. The difference between my model and Gibbs et al. [@Gibbs2017] is that in the latter, $\sigma\sqrt{SC} = 1$ remains constant with increasing $S$. In the former, $\sigma\sqrt{SC}$ increases with $S$, so the expected complexity of the system also increases accordingly. Consequently, for the scaled $\sigma$ in the table above, systems are not more likely to be stabilised by $\gamma$ as $S$ increases, consistent with Gibbs et al. [@Gibbs2017]. Note that overall stability does decrease with increasing $S$ due to the increased density of eigenvalues (see below).
+
+```{r, echo = FALSE, fig.height = 4, fig.width = 4, fig.align = "center", fig.cap = "",  fig.pos="H"}
+S_vals     <- 2:32;
+complexity <- 0.4 * sqrt(S_vals);
+par(mfrow = c(1, 1), mar = c(5, 5, 1, 1), oma = c(0.2, 0.2, 0.2, 0.2));
+plot(x = S_vals, y = complexity, type = "l", lwd = 2, xlab = "System size (S)",
+     ylab = expression(paste("System complexity (",sigma,sqrt(SC),")")),
+     cex.lab = 1.5, cex.axis = 1.5);
+abline(h = 1, lwd = 2, lty = "dashed");
+```
+
+**Complexity as a function of $S$ in the main text (solid) versus in Gibbs et al. [@Gibbs2017] (dashed).**
+
+When the complexity is scaled to $\sigma\sqrt{SC} = 1$, an increase in $S$ increases the eigenvalue density within a circle with a unit radius centred at $(-1, 0)$ on the complex plane. As $S \to \infty$, this circle becomes increasingly saturated. Gibbs et al. [@Gibbs2017] showed that a diagonal matrix $\mathbf{\gamma}$ will have an exponentially decreasing effect on stability with increasing $S$. Increasing $S$ is visualised below, first with a system size $S = 100$. 
+
+```{r, echo = FALSE}
+comp_scale <- function(S, C = 1, sigma = 0.4){
+  complx <- sigma * sqrt(S * C);
+  A_comp <- NULL;
+  A_dat  <- rnorm(n = S * S, mean = 0, sd = sigma);
+  A_mat  <- matrix(data = A_dat, nrow = S);
+  C_dat  <- rbinom(n = S * S, size = 1, prob = C);
+  C_mat  <- matrix(data = C_dat, nrow = S, ncol = S);
+  A_mat     <- A_mat * C_mat;
+  gammas <- runif(n = S, min = 0, max = 2);
+  mu_gam <- mean(gammas);
+  diag(A_mat) <- -1;
+  A1     <- gammas * A_mat;
+  A0     <- mu_gam * A_mat;
+  A0_e   <- eigen(A0)$values;
+  A0_r   <- Re(A0_e);
+  A0_i   <- Im(A0_e);
+  A1_e   <- eigen(A1)$values;
+  A1_r   <- Re(A1_e);
+  A1_i   <- Im(A1_e);
+  A0_vm       <- A0;
+  diag(A0_vm) <- NA;
+  A0vec       <- as.vector(A0_vm);
+  A0vec       <- A0vec[is.na(A0vec) == FALSE];
+  A1_vm       <- A1;
+  diag(A1_vm) <- NA;
+  A1vec       <- as.vector(A1_vm);
+  A1vec       <- A1vec[is.na(A1vec) == FALSE];
+  par(mfrow = c(1, 2), mar = c(0.5, 0.5, 0.5, 0.5), oma = c(5, 5, 0, 0));
+  plot(A0_r, A0_i, xlim = c(-2.75 * complx, 0.5 * complx), 
+       ylim = c(-1.5,1.5), pch = 4, 
+       cex = 0.7, xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, 
+       asp = 1, col = "dodgerblue4");
+  abline(v = 0, lty = "dotted");
+  vl <- seq(from = 0, to = 2*pi, by = 0.001);
+  x0 <- sqrt(S*C) * sigma * cos(vl) - 1;
+  y0 <- sqrt(S*C) * sigma * sin(vl);
+  x1 <- sqrt(S*C) * sigma * cos(vl) - 1;
+  y1 <- sqrt(S*C) * sigma * sin(vl);
+  text(x = -15.5, y = 19, labels = "a", cex = 2);
+  points(x = x0, y = y0, type = "l", lwd = 3, col = "dodgerblue4");
+  plot(A1_r, A1_i, xlim = c(-2.75*complx, 0.5*complx), 
+       ylim = c(-1.5, 1.5), pch = 4, 
+       cex = 0.7, xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, 
+       asp = 1, col = "firebrick", yaxt = "n");
+  abline(v = 0, lty = "dotted");
+  text(x = -15.5, y = 19, labels = "b", cex = 2);
+  mtext(side = 1, "Real", outer = TRUE, line = 3, cex = 2);
+  mtext(side = 2, "Imaginary", outer = TRUE, line = 2.5, cex = 2);
+}
+```
+
+```{r, echo = FALSE, fig.height = 3.9}
+comp_scale(S = 100, C = 1, sigma = 1 / sqrt(100));
+```
+
+The left panel above shows the distribution of eigenvalues; the blue ellipse shows the unit radius within which eigenvalues are expected to be contained. The right panel shows how eigenvalue distributions change given $\gamma \sim \mathcal{U}(0,2)$. The vertical dotted line shows the threshold of stability, $\Re = 0$. Increasing to $S = 200$, the scaling $\sigma = 1 / \sqrt{S}$ maintains the expected distribution of eigenvalues but increases eigenvalue density.
+
+```{r, echo = FALSE, fig.height = 3.9}
+comp_scale(S = 200, C = 1, sigma = 1 / sqrt(200));
+```
+
+We can increase the system size to $S = 500$ and see the corresponding increase in eigenvalue density.
+
+```{r, echo = FALSE, fig.height = 3.9}
+comp_scale(S = 500, C = 1, sigma = 1 / sqrt(500));
+```
+
+Finally, below shows a increase in system size to $S = 1000$.
+
+```{r, echo = FALSE, fig.height = 3.9}
+comp_scale(S = 1000, C = 1, sigma = 1 / sqrt(1000));
+```
+
+In contrast, in the model of the main text, the complexity of system is not scaled to $\sigma\sqrt{SC} = 1$. Rather, the density of eigenvalues within a circle centred at $(-1, 0)$ with a radius $\sigma\sqrt{SC}$ is held constant such that there are $S / \pi(\sigma\sqrt{SC})^2$ eigenvalues per unit area of the circle. As $S$ increases, so does the expected complexity of the system, but the density of eigenvalues remains finite causing error around this expectation. Below shows a system where $S = 100$, $C = 0.0625$, and $\sigma = 0.4$, where $\sigma \sqrt{SC} = 1$ (identical to the first example distribution above in which $S = 100$ and $\sigma = 1/\sqrt{S}$).
+
+```{r, echo = FALSE}
+comp_dens <- function(S, C = 1, sigma = 0.4){
+  complx <- sigma * sqrt(S * C);
+  A_comp <- NULL;
+  A_dat  <- rnorm(n = S * S, mean = 0, sd = sigma);
+  A_mat  <- matrix(data = A_dat, nrow = S);
+  C_dat  <- rbinom(n = S * S, size = 1, prob = C);
+  C_mat  <- matrix(data = C_dat, nrow = S, ncol = S);
+  A_mat     <- A_mat * C_mat;
+  gammas <- runif(n = S, min = 0, max = 2);
+  mu_gam <- mean(gammas);
+  diag(A_mat) <- -1;
+  A1     <- gammas * A_mat;
+  A0     <- mu_gam * A_mat;
+  A0_e   <- eigen(A0)$values;
+  A0_r   <- Re(A0_e);
+  A0_i   <- Im(A0_e);
+  A1_e   <- eigen(A1)$values;
+  A1_r   <- Re(A1_e);
+  A1_i   <- Im(A1_e);
+  A0_vm       <- A0;
+  diag(A0_vm) <- NA;
+  A0vec       <- as.vector(A0_vm);
+  A0vec       <- A0vec[is.na(A0vec) == FALSE];
+  A1_vm       <- A1;
+  diag(A1_vm) <- NA;
+  A1vec       <- as.vector(A1_vm);
+  A1vec       <- A1vec[is.na(A1vec) == FALSE];
+  par(mfrow = c(1, 2), mar = c(0.5, 0.5, 0.5, 0.5), oma = c(5, 5, 0, 0));
+  plot(A0_r, A0_i, xlim = c(-5, 3), 
+       ylim = c(-4,4), pch = 4, 
+       cex = 0.7, xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, 
+       asp = 1, col = "dodgerblue4");
+  abline(v = 0, lty = "dotted");
+  vl <- seq(from = 0, to = 2*pi, by = 0.001);
+  x0 <- sqrt(S*C) * sigma * cos(vl) - 1;
+  y0 <- sqrt(S*C) * sigma * sin(vl);
+  x1 <- sqrt(S*C) * sigma * cos(vl) - 1;
+  y1 <- sqrt(S*C) * sigma * sin(vl);
+  text(x = -15.5, y = 19, labels = "a", cex = 2);
+  points(x = x0, y = y0, type = "l", lwd = 3, col = "dodgerblue4");
+  plot(A1_r, A1_i, xlim = c(-4, 4), 
+       ylim = c(-1.5, 1.5), pch = 4, 
+       cex = 0.7, xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, 
+       asp = 1, col = "firebrick", yaxt = "n");
+  abline(v = 0, lty = "dotted");
+  text(x = -15.5, y = 19, labels = "b", cex = 2);
+  mtext(side = 1, "Real", outer = TRUE, line = 3, cex = 2);
+  mtext(side = 2, "Imaginary", outer = TRUE, line = 2.5, cex = 2);
+}
+```
+
+```{r, echo = FALSE, fig.height = 3.9}
+comp_dens(S = 100, C = 0.0625, sigma = 0.4);
+```
+
+Now when $S$ is increased to $200$ while keeping $C = 0.0625$ and $\sigma = 0.4$, the area of the circle within which eigenvalues are contained increases to keep the density of eigenvalues constant. 
+
+```{r, echo = FALSE, fig.height = 3.9}
+comp_dens(S = 200, C = 0.0625, sigma = 0.4);
+```
+
+Note that the expected distribution of eigenvalues increases so that the threshold $\Re = 0$ is exceeded. Below, system size is increased to $S = 500$.
+
+```{r, echo = FALSE, fig.height = 3.9}
+comp_dens(S = 500, C = 0.0625, sigma = 0.4);
+```
+
+Finally, $S = 1000$ is shown below. Again, the density of eigenvalues per unit remains constant at ca 2, but the system has increased in complexity such that some real components of eigenvalues are almost assured to be greater than zero.
+
+```{r, echo = FALSE, fig.height = 3.9}
+comp_dens(S = 1000, C = 0.0625, sigma = 0.4);
+```
+
+\clearpage
+
+Reproducing simulation results {#repr}
+================================================================================
+
+All results in the main text and the literature cited can be reproduced using the [RandomMatrixStability](https://github.com/bradduthie/RandomMatrixStability) R package, which can be downloaded as instructed at the beginning of this Supplemental Information document. The most relevant R functions for reproducing simulations include the following:
+
+1. `rand_gen_var`: Simulates random complex systems and cascade food webs
+2. `rand_rho_var`: Simulates random complex systems across a fixed correlation of $\rho = cor(A_{ij}, A_{ji})$
+3. `rand_gen_swn`: Simulates randomly generated small-world networks
+4. `rand_gen_sfn`: Simulates randomly generated scale-free networks
+5. `Evo_rand_gen_var`: Use a genetic algorithm to find stable random complex systems
+
+For the functions 1-4 above, R output will be a table of results. Below describes the headers of this table to more clearly explain what is being reported.
+
+\footnotesize
+
+```{r, echo = FALSE}
+header_descriptions <- read.csv("../inst/extdata/header_descriptions.csv")
+kable(header_descriptions);
+```
+
+\normalsize
+
+Note that output from `Evo_rand_gen_var` only includes the first seven rows of the table above, and `rand_gen_var` does not include $C$ (which can be defind as an argument). All results presented here and in the main text are available in the [inst/extdata](https://github.com/bradduthie/RandomMatrixStability/tree/master/inst/extdata) folder of the [RandomMatrixStability](https://github.com/bradduthie/RandomMatrixStability) R package.
+
+
+Literature cited {#ref}
+================================================================================
+
+
+
+

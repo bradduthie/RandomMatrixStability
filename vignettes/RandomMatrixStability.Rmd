@@ -1,22 +1,37 @@
 ---
-title: "Component response rate variation drives stability in large complex systems"
-author: "A. Bradley Duthie"
+title: "Component response rate variation underlies the stability of highly complex finite systems"
+author: "A. Bradley Duthie    ( alexander.duthie@stir.ac.uk )"
 date: Biological and Environmental Sciences, University of Stirling, Stirling, UK,
-  FK9 4LA alexander.duthie@stir.ac.uk
+  FK9 4LA
 output:
   pdf_document:
     fig_caption: yes
+    keep_tex: yes
   html_document: default
+  word_document:
+    fig_caption: yes
+    pandoc_args:
+    - --csl
+    - nature.csl
+    reference_docx: docx_template.docx
+bibliography: references.bib
 header-includes:
-linestretch: 
+- \usepackage{amsmath}
+- \usepackage{natbib}
+- \usepackage{lineno}
+- \usepackage[utf8]{inputenc}
+- \linenumbers
+- \bibliographystyle{amnatnat}
+linestretch: 1
 link-citations: yes
 linkcolor: blue
-bibliography: references.bib
 csl: nature.csl
+biblio-style: apalike
 ---
 
 <!---
-Current word count: 1672
+Abstract current word count: 
+Text current word count: 
 --->
 
 <!---
@@ -27,110 +42,264 @@ arxiv comand: tar cvfz filename.tgz filename.tex filename_files
 https://gist.github.com/JJ/ef9d3d8f1142df064bd5
 --->
 
+
+
+
 ```{r, echo = FALSE}
-source(file = "R_old/sim_mat.R");
-source(file = "R_old/plot_figs.R");
+source(file = "../R/utilities.R");
+source(file = "../R/random_mats.R");
 ```
 
-********************************************************************************
+```{r, echo = FALSE}
+# Temporary place for revised functions
+plot_Fig_1 <- function(A0, A1){
+    S_val       <- dim(A0)[1];
+    A0_e        <- eigen(A0)$values;
+    A0_r        <- Re(A0_e);
+    A0_i        <- Im(A0_e);
+    A1_e        <- eigen(A1)$values;
+    A1_r        <- Re(A1_e);
+    A1_i        <- Im(A1_e);
+    A0_vm       <- A0;
+    diag(A0_vm) <- NA;
+    A0vec       <- as.vector(t(A0_vm));
+    A0vec       <- A0vec[is.na(A0vec) == FALSE];
+    A1_vm       <- A1;
+    diag(A1_vm) <- NA;
+    A1vec       <- as.vector(t(A1_vm));
+    A1vec       <- A1vec[is.na(A1vec) == FALSE];
+    fhalf       <- 1:(0.5*length(A1vec));
+    shalf       <- (0.5*length(A1vec)+1):length(A1vec);
+    par(mfrow = c(1, 2), mar = c(0.5, 0.5, 0.5, 0.5), oma = c(5, 5, 0, 0));
+    plot(A0_r, A0_i, xlim = c(-3.7, 0.3), ylim = c(-2, 2), pch = 4, cex = 0.7,
+         xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, asp = 1);
+    vl   <- seq(from = 0, to = 2*pi, by = 0.001);
+    A0x0 <- sqrt(S_val) * sd(A0vec) * cos(vl) + mean(diag(A0));
+    A0y0 <- sqrt(S_val) * sd(A0vec) * sin(vl);
+    text(x = -3.5, y = 2.25, labels = "a", cex = 2);
+    points(x = A0x0, y = A0y0, type = "l", lwd = 3, col = "dodgerblue4");
+    points(A0_r, A0_i, pch = 4, cex = 0.7);
+    plot(A1_r, A1_i, xlim = c(-3.7, 0.3), ylim = c(-2, 2), pch = 4, cex = 0.7,
+         xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, asp = 1, 
+         col = "dodgerblue4", yaxt = "n");
+    vl <- seq(from = 0, to = 2*pi, by = 0.001);
+    A0x1a <- sqrt(0.5*S_val) * sd(A1vec[fhalf]) * cos(vl) + 
+                 mean(diag(A1)[1:(0.5*S_val)]);
+    A0y1a <- sqrt(S_val) * sd(A1vec[fhalf]) * sin(vl);
+    #points(x = A0x1a, y = A0y1a, type = "l", lwd = 3, col = "grey");
+    A0x1b <- sqrt(0.5*S_val) * sd(A1vec[shalf]) * cos(vl) + 
+        mean( diag(A1)[( (0.5*S_val) + 1 ):S_val] );
+    A0y1b <- sqrt(0.5*S_val) * sd(A1vec[shalf]) * sin(vl);
+    #points(x = A0x1b, y = A0y1b, type = "l", lwd = 3, col = "grey");
+    points(A1_r[1:S_val], A1_i[1:S_val],pch = 4, cex = 0.7, col = "firebrick");   
+    text(x = -3.5, y = 2.25, labels = "b", cex = 2);
+    mtext(side = 1, "Real", outer = TRUE, line = 3, cex = 2);
+    mtext(side = 2, "Imaginary", outer = TRUE, line = 2.5, cex = 2);
+}
 
-**The stability of a complex system generally decreases with increasing system size, as is demonstrated by random matrix theory [@May1972; @Allesina2012]. This counter-intuitive result, first shown by May [@May1972], is broadly relevant for understanding the dynamics and persistence of systems such as ecological [@May1972; @Allesina2012], neurological [@Gray2008; @Gray2009], biochemical [@Rosenfeld2009; @MacArthur2010] and socio-economic [@Haldane2011; @Suweis2014; @Bardoscia2017] networks. Much attention has especially been given to the stability of ecological communities such as food webs or mutualist networks, with recent work investigating how different community structures affect stability [@Allesina2012; @Mougi2012; @Allesina2015a; @Gao2016; @Grilli2017; @Patel2018]. But more broadly, stabilising mechanisms in complex systems remain under-developed, and the effect of variation in the response rate of individual system components remains an open problem [@Allesina2015]. Here I show that when components of a complex system respond to system perturbation at different rates ($\boldsymbol{\gamma}$), the potential for system stability is markedly increased. Stability is caused by the clustering of some eigenvalues toward the centre of eigenvalue distributions despite the destabilising effect of higher interaction strength variation ($\boldsymbol{\sigma^{2}}$). This effect of variation in $\boldsymbol{\gamma}$ becomes increasingly important as system size increases, to the extent that the largest stable complex systems would otherwise be unstable if not for $\boldsymbol{Var(\gamma)}$. My results therefore reveal a previously unconsidered driver of system stability that is likely to be pervasive across all complex systems. Future research in complex systems should therefore account for the varying response rates of individual system components when assessing whole system stability.** 
+plot_Fig_2 <- function(){
+    A_comp <- NULL;
+    A_dat  <- rnorm(n = 1000000, mean = 0, sd = 0.4);
+    A_mat  <- matrix(data = A_dat, nrow = 1000);
+    C_dat  <- rbinom(n = 1000 * 1000, size = 1, prob = 1);
+    C_mat  <- matrix(data = C_dat, nrow = 1000, ncol = 1000);
+    A_mat     <- A_mat * C_mat;
+    gammas <- runif(n = 1000, min = 0, max = 2);
+    mu_gam <- mean(gammas);
+    diag(A_mat) <- -1;
+    A1     <- gammas * A_mat;
+    A0     <- mu_gam * A_mat;
+    A0_e   <- eigen(A0)$values;
+    A0_r   <- Re(A0_e);
+    A0_i   <- Im(A0_e);
+    A1_e   <- eigen(A1)$values;
+    A1_r   <- Re(A1_e);
+    A1_i   <- Im(A1_e);
+    A0_vm       <- A0;
+    diag(A0_vm) <- NA;
+    A0vec       <- as.vector(A0_vm);
+    A0vec       <- A0vec[is.na(A0vec) == FALSE];
+    A1_vm       <- A1;
+    diag(A1_vm) <- NA;
+    A1vec       <- as.vector(A1_vm);
+    A1vec       <- A1vec[is.na(A1vec) == FALSE];
+    par(mfrow = c(1, 2), mar = c(0.5, 0.5, 0.5, 0.5), oma = c(5, 5, 0, 0));
+    plot(A0_r, A0_i, xlim = c(-16.5, 15.5), ylim = c(-16.5,15.5), pch = 4, 
+         cex = 0.7, xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, 
+         asp = 1, col = "dodgerblue4");
+    vl <- seq(from = 0, to = 2*pi, by = 0.001);
+    x0 <- sqrt(1000) * sd(A0vec) * cos(vl) + mean(diag(A0));
+    y0 <- sqrt(1000) * sd(A0vec) * sin(vl);
+    x1 <- sqrt(1000) * sd(A1vec) * cos(vl) + mean(diag(A1));
+    y1 <- sqrt(1000) * sd(A1vec) * sin(vl);
+    text(x = -15.5, y = 19, labels = "a", cex = 2);
+    points(x = x0, y = y0, type = "l", lwd = 3, col = "dodgerblue4");
+    points(x = x1, y = y1, type = "l", col = "red", lwd = 3, lty = "dashed");
+    plot(A1_r, A1_i, xlim = c(-16.5, 15.5), ylim = c(-16.5,15.5), pch = 4, 
+         cex = 0.7, xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, 
+         asp = 1, col = "firebrick", yaxt = "n");
+    text(x = -15.5, y = 19, labels = "b", cex = 2);
+    points(x = x1, y = y1, type = "l", col = "firebrick", lwd = 3);
+    points(x = x0, y = y0, type = "l", lwd = 3, lty = "dashed");
+    mtext(side = 1, "Real", outer = TRUE, line = 3, cex = 2);
+    mtext(side = 2, "Imaginary", outer = TRUE, line = 2.5, cex = 2);
+}
 
-In 1972, May [@May1972] first demonstrated that randomly assembled systems of sufficient complexity are almost inevitably unstable given infinitesimally small perturbations. Complexity in this case is defined by the size of the system (i.e., the number of potentially interacting components; $S$), its connectance (i.e., the probability that one component will interact with another; $C$), and the variance of interaction strengths ($\sigma^{2}$)[@Allesina2012]. May's finding that the probability of local stability falls to near zero given a sufficiently high threshold of $\sigma\sqrt{SC}$ has profound consequences across multiple disciplines, raising the question of how complex systems in, e.g., ecology[@Mougi2012; @Allesina2012; @Allesina2015; @Grilli2017] or banking [@May2008; @Haldane2011; @Bardoscia2017] are predicted to persist or change.
+plot_stables <- function(dat, S_s = 32){
+    Ns          <- 1:S_s;
+    par(oma = c(6, 6, 1, 6), mar = c(0.5, 0.5, 0.5, 0.5));
+    #=================================
+    bar_dat                      <- t(cbind(dat[Ns,3], dat[Ns,5]));
+    log_bar_dat                  <- log(bar_dat);
+    log_bar_dat[log_bar_dat < 0] <- 0; 
+    barplot(log_bar_dat, beside = TRUE, col = c("dodgerblue4", "firebrick"),
+            names.arg = dat[Ns,1], ylim = c(0, 16), xlab = "",
+            ylab = "Ln number of stable communities", cex.lab = 1, 
+            cex.axis = 1.25, xlim = c(1, 94), cex.names = 1, yaxt = "n");
+    axis(side = 2, at = c(0, 2, 4, 6, 8, 10, 12, 14), cex.axis = 1.5);
+    box(lwd = 2);
+    par(new = TRUE);
+    y1     <- dat[1:S_s,6] / (dat[1:S_s,5]);
+    x1     <- seq(from = 2.132, to = 15.1112, length = S_s);
+    plot(x = x1, y = y1, xaxt = "n", yaxt = "n", lwd = 2, ylim = c(0, 1.1),
+         xlab = "", ylab = "", type = "b", xlim = c(2, 15), pch = 20, 
+         cex = 1, col = "black", yaxs="i");
+    points(x = x1, y = y1, lwd = 2, type = "l", col = "black");
+    axis(side = 4, at = c(0, 0.2, 0.4, 0.6, 0.8, 1.0), cex.axis = 1.5);
+    legend("topleft", c(expression(paste(gamma," = 1")), 
+                        expression(paste("Var(",gamma,")"))), 
+           pch=15, col=c("dodgerblue4","firebrick"), cex = 1.5, horiz = TRUE);
+    #=================================
+    mtext(side = 1, text = "System size (S)", cex = 2, outer = TRUE, 
+          line = 3.0);
+    mtext(side = 2, text = "Ln number of stable systems", cex = 2, 
+          outer = TRUE, line = 3.5);
+    mtext(side = 4, text = expression(
+        paste("Pr. of systems stable due to Var(",gamma,")")),
+        cex = 2, outer = TRUE, line = 3.5);
+}
 
-Randomly assembled complex systems can be represented as large square matrices ($M$) with $S$ components (e.g., species[@Allesina2012] or banks[@Haldane2011]). One element of such a matrix, $M_{ij}$, defines how component $j$ affects component $i$ in the system at a point of equilibrium[@Allesina2012]. Off-diagonal elements ($i \neq j$) therefore define interactions between components, while diagonal elements ($i = j$) define component self-regulation (e.g., carrying capacity in ecological communities). Traditionally, off-diagonal elements are assigned non-zero values with a probability $C$, which are sampled from a distribution with variance $\sigma^{2}$; diagonal elements are set to -1[@May1972; @Allesina2012; @Allesina2015]. Local system stability is assessed using eigenanalysis, with the system being stable if the real parts of all eigenvalues ($\lambda$) of $M$ are negative ($\max\left(\Re(\lambda)\right) < 0$)[@May1972; @Allesina2012]. In a large system (high $S$), eigenvalues are distributed uniformly[@Tao2010] within a circle centred at $\Re = -1$ (the mean value of diagonal elements) and $\Im = 0$, with a radius of $\sigma\sqrt{SC}$[@May1972; @Allesina2012; @Allesina2015] (Figs 1a and 2a). Local stability of randomly assembled systems therefore becomes increasingly unlikely as $S$, $C$, and $\sigma^{2}$ increase.
+plot_stable_4 <- function(dat, S_s = 39){
+    Ns          <- 1:S_s;
+    par(oma = c(6, 6, 1, 6), mar = c(0.5, 0.5, 0.5, 0.5));
+    #=================================
+    bar_dat                      <- t(cbind(dat[Ns,3], dat[Ns,5]));
+    log_bar_dat                  <- log(bar_dat);
+    log_bar_dat[log_bar_dat < 0] <- 0; 
+    barplot(log_bar_dat, beside = TRUE, col = c("dodgerblue4", "firebrick"),
+            names.arg = dat[Ns,1], ylim = c(0, 14), xlab = "",
+            ylab = "Ln number of stable communities", cex.lab = 1, 
+            cex.axis = 1.25, xlim = c(1, 116), cex.names = 1, yaxt = "n");
+    axis(side = 2, at = c(0, 2, 4, 6, 8, 10, 12), cex.axis = 1.5);
+    box(lwd = 2);
+    par(new = TRUE);
+    y1     <- dat[1:S_s,6] / (dat[1:S_s,5]);
+    x1     <- seq(from = 2.132, to = 15.1112, length = S_s);
+    plot(x = x1, y = y1, xaxt = "n", yaxt = "n", lwd = 2, ylim = c(0, 1.1),
+         xlab = "", ylab = "", type = "b", xlim = c(2, 15), pch = 20, 
+         cex = 1, col = "black", yaxs="i");
+    points(x = x1, y = y1, lwd = 2, type = "l", col = "black");
+    axis(side = 4, at = c(0, 0.2, 0.4, 0.6, 0.8, 1.0), cex.axis = 1.5);
+    legend("topleft", c(expression(paste(gamma," = 1")), 
+                        expression(paste("Var(",gamma,")"))), 
+           pch=15, col=c("dodgerblue4","firebrick"), cex = 1.5, horiz = TRUE);
+    #=================================
+    mtext(side = 1, text = "System size (S)", cex = 2, outer = TRUE, 
+          line = 3.0);
+    mtext(side = 2, text = "Ln number of stable systems", cex = 2, 
+          outer = TRUE, line = 3.5);
+    mtext(side = 4, text = expression(
+        paste("Pr. of systems stable due to Var(",gamma,")")),
+        cex = 2, outer = TRUE, line = 3.5);
+}
+```
 
-May's[@May1972; @Allesina2012] stability criterion $\sigma\sqrt{SC} < 1$ assumes that individual components respond to perturbations of the system at the same rate ($\gamma$), but this is highly unlikely in any complex system. In ecological communities, for example, the rate at which population density changes following perturbation will depend on the generation time of individuals, which might vary by orders of magnitude among species. Species with short generation times will respond quickly (high $\gamma$) to perturbations relative to species with long generation times (low $\gamma$). Similarly, the speed at which individual banks respond to perturbations in financial networks, or individuals or institutions respond to perturbations in complex social networks, is likely to vary. The effect of such variance has not been investigated in complex systems theory. Intuitively, variation in $\gamma$ might be expected to decrease system stability by introducing a new source of variation into the system and thereby increasing $\sigma$. Here I show why, despite higher $\sigma$, complex systems in which $\gamma$ varies are actually more likely to be stable, especially when $S$ is high.  
+
+
+**Key words:** Ecological networks, gene-regulatory networks, neural networks, financial networks, system stability, random matrix theory
+
+
+Abstract
+--------------------------------------------------------------------------------
+
+The stability of a complex system generally decreases with increasing system size and interconnectivity, a counterintuitive result of widespread importance across the physical, life, and social sciences. Despite recent interest in the relationship between system properties and stability, the effect of variation in response rate across system components remains unconsidered. Here I vary the component response rates ($\boldsymbol{\gamma}$) of randomly generated complex systems. I use numerical simulations to show that when component response rates vary, the potential for system stability increases. These results are robust to common network structures, including small-world and scale-free networks, and cascade food webs. Variation in $\boldsymbol{\gamma}$ is especially important for stability in highly complex systems, in which the probability of stability would otherwise be negligible. At such extremes of simulated system complexity, the largest stable complex systems would be unstable if not for variation in $\boldsymbol{\gamma}$. My results therefore reveal a previously unconsidered aspect of system stability that is likely to be pervasive across all realistic complex systems.
+
+Introduction
+--------------------------------------------------------------------------------
+
+In 1972, May [@May1972] first demonstrated that randomly assembled systems of sufficient complexity are almost inevitably unstable given infinitesimally small perturbations. Complexity in this case is defined by the size of the system (i.e., the number of potentially interacting components; $S$), its connectance (i.e., the probability that one component will interact with another; $C$), and the variance of interaction strengths ($\sigma^{2}$) [@Allesina2012]. May's finding that the probability of local stability falls to near zero given a sufficiently high threshold of $\sigma\sqrt{SC}$ is broadly relevant for understanding the dynamics and persistence of systems such as ecological [@May1972; @Townsend2010a; @Allesina2012; @Mougi2012; @Allesina2015; @Grilli2017], neurological [@Gray2008; @Gray2009], biochemical [@Rosenfeld2009; @MacArthur2010], and socio-economic [e.g., banking; @May2008; @Haldane2011; @Suweis2014; @Bardoscia2017] networks. As such, identifying general principles that affect stability in complex systems is of wide-ranging importance.
+
+Randomly assembled complex systems can be represented as large square matrices ($\mathbf{M}$) with $S$ components (e.g., networks of species [@Allesina2012] or banks [@Haldane2011]). One element of such a matrix, $M_{ij}$, defines how component $j$ affects component $i$ in the system at a point of equilibrium [@Allesina2012]. Off-diagonal elements ($i \neq j$) therefore define interactions between components, while diagonal elements ($i = j$) define component self-regulation (e.g., carrying capacity in ecological communities). Traditionally, off-diagonal elements are assigned non-zero values with a probability $C$, which are sampled from a distribution with variance $\sigma^{2}$; diagonal elements are set to $-1$ [@May1972; @Allesina2012; @Allesina2015]. Local system stability is assessed using eigenanalysis on $\mathbf{M}$, with the system being stable if the real parts of all eigenvalues ($\lambda$), and therefore the leading eigenvalue ($\lambda_{max}$), are negative ($\Re(\lambda_{max}) < 0$) [@May1972; @Allesina2012]. In a large system (high $S$), eigenvalues are distributed uniformly [@Tao2010] within a circle centred at $\Re = -d$ ($-d$ is the mean value of diagonal elements) and $\Im = 0$, with a radius of $\sigma\sqrt{SC}$ [@May1972; @Allesina2012; @Allesina2015] (Fig. 1a). Local stability of randomly assembled systems therefore becomes increasingly unlikely as $S$, $C$, and $\sigma$ increase.
+
+May's [@May1972; @Allesina2012] stability criterion $\sigma\sqrt{SC} < d$ assumes that the expected response rates ($\gamma$) of individual components to perturbations of the system are identical, but this is highly unlikely in any complex system. In ecological communities, for example, the rate at which population density changes following perturbation will depend on the generation time of organisms, which might vary by orders of magnitude among species. Species with short generation times will respond quickly (high $\gamma$) to perturbations relative to species with long generation times (low $\gamma$). Similarly, the speed at which individual banks respond to perturbations in financial networks, or individuals or institutions respond to perturbations in complex social networks, is likely to vary. The effect of such variance on stability has not been investigated in complex systems theory. Intuitively, variation in $\gamma$ ($\sigma^{2}_{\gamma}$) might be expected to decrease system stability by introducing a new source of variation into the system and thereby increasing $\sigma$. Here I show that, despite higher $\sigma$, realistic complex systems (in which $S$ is high but finite) are actually more likely to be stable if their individual component response rates vary. My results are robust across commonly observed network structures, including random [@May1972], small-world [@Watts1998], scale-free [@Albert2002], cascade food web [@Solow1998; @Williams2000] networks. 
 
 ```{r echo = FALSE}
 S     <- 200;
 C     <- 0.05;
 sigma <- 0.4;
-pr_st <- read.csv(file = "sim_results/bi_gamma/bi_pr_st.csv");
-pr_st <- pr_st[,-1];
 ```
 
-********************************************************************************
 
-```{r, echo = FALSE}
-A0 <- read.csv(file = "sim_results/bi_gamma/S200_A0.csv");
-A0 <- as.matrix(A0[,-1]);
-A1 <- read.csv(file = "sim_results/bi_gamma/S200_A1.csv");
-A1 <- as.matrix(A1[,-1]);
 
-A0_e   <- eigen(A0)$values;
-A0_r   <- Re(A0_e);
-A0_i   <- Im(A0_e);
-A1_e   <- eigen(A1)$values;
-A1_r   <- Re(A1_e);
-A1_i   <- Im(A1_e);
+Results
+--------------------------------------------------------------------------------
 
-A0_vm       <- A0;
-diag(A0_vm) <- NA;
-A0vec       <- as.vector(t(A0_vm));
-A0vec       <- A0vec[is.na(A0vec) == FALSE];
-A1_vm       <- A1;
-diag(A1_vm) <- NA;
-A1vec       <- as.vector(t(A1_vm));
-A1vec       <- A1vec[is.na(A1vec) == FALSE];
-fhalf       <- 1:(0.5*length(A1vec));
-shalf       <- (0.5*length(A1vec)+1):length(A1vec);
-pr_st       <- read.csv(file = "sim_results/bi_gamma/bi_pr_st.csv");
-pr_st       <- pr_st[,-1];
-```
+**Component response rates of random complex systems**. Complex systems ($\mathbf{M}$) are built from two matrices, one modelling component interactions ($\mathbf{A}$), and second modelling component response rates ($\boldsymbol{\gamma}$). Both $\mathbf{A}$ and $\boldsymbol{\gamma}$ are square $S \times S$ matrices. Rows in $\mathbf{A}$ define how a given component $i$ is affected by each component $j$ in the system, including itself (where $i = j$). Off-diagonal elements of $\mathbf{A}$ are independent and identically distributed (i.i.d), and diagonal elements are set to $A_{ii} = -1$ as in May [@May1972]. Diagonal elements of $\boldsymbol{\gamma}$ are positive, and off-diagonal elements are set to zero (i.e. $\boldsymbol{\gamma}$ is a diagonal matrix with positive support). The distribution of $diag(\boldsymbol{\gamma})$ over $S$ components thereby models the distribution of component response rates. The dynamics of the entire system $\mathbf{M}$ can be defined as follows [@Patel2018],
 
-**Figure 1: Example distribution of eigenvalues before (a) and after (b) separating a randomly generated complex system into fast ($\boldsymbol{\gamma} = 1.95$) and slow ($\boldsymbol{\gamma} = 0.05$) component response rates.** Each panel shows the same system where $S = 200$, $C = 0.05$, and $\sigma = 0.4$, and in each case $E[\gamma] = 1$ (i.e., only $Var(\gamma)$ differs between panels).  **a.** Eigenvalues plotted when all $\gamma = 1$; points are uniformly distributed within the grey circle with a radius of $\sigma\sqrt{SC} =$ `r round(sqrt(200) * sd(A0vec), digits =3)` centred at -1 on the real axis. **b.** Eigenvalues plotted when half $\gamma = 1.95$ and half $\gamma = 0.05$; distributions of points can be partitioned into one large circle with a radius of of $\sigma\sqrt{SC} =$ `r round(sqrt(100) * sd(A1vec[fhalf]), digits = 3)` centred at $\gamma = -1.95$ and one small circle with a radius of $\sigma\sqrt{SC} =$ `r round(sqrt(100) * sd(A1vec[shalf]), digits = 3)` centred at $\gamma = -0.05$. In a, the maximum real eigenvalue $\max\left(\Re(\lambda)\right) =$ `r format(max(A0_r), scientific = FALSE)`, while in b $\max\left(\Re(\lambda)\right) =$ `r format(max(A1_r), scientific = FALSE)`, meaning that the complex system in b but not a is stable because in b $\max\left(\Re(\lambda)\right) < 0$. In 1 million randomly generated complex systems under the same parameter values, `r sum(pr_st[,1])` was stable when $\gamma = 1$ while `r sum(pr_st[,2])` were stable when $\gamma = \{1.95, 0.05\}$. Overall, complex systems that are separated into fast versus slow components tend to be more stable than otherwise identical systems with identical component response rates.
+\begin{equation} \label{defM}
+\mathbf{M} = \boldsymbol{\gamma} \mathbf{A}.
+\end{equation}
 
-```{r, eval = TRUE, echo = FALSE, fig.height = 6, fig.width = 9}
-par(mfrow = c(1, 2), mar = c(0.5, 0.5, 0.5, 0.5), oma = c(5, 5, 0, 0));
-plot(A0_r, A0_i, xlim = c(-3.7, 0.3), ylim = c(-2, 2), pch = 4, cex = 0.7,
-     xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, asp = 1);
-vl <- seq(from = 0, to = 2*pi, by = 0.001);
-A0x0 <- sqrt(200) * sd(A0vec) * cos(vl) + mean(diag(A0));
-A0y0 <- sqrt(200) * sd(A0vec) * sin(vl);
-text(x = -3.5, y = 2.25, labels = "a", cex = 2);
-points(x = A0x0, y = A0y0, type = "l", lwd = 3, col = "grey");
-points(A0_r, A0_i, pch = 4, cex = 0.7);
+Equation \ref{defM} thereby serves as a null model to investigate how variation in component response rate ($\sigma^{2}_{\gamma}$) affects complex systems. In the absence of such variation ($\sigma^{2}_{\gamma} = 0$), $\boldsymbol{\gamma}$ is set to the identity matrix (diagonal elements all equal 1) and $\mathbf{M} = \mathbf{A}$. Under these conditions, eigenvalues of $\mathbf{M}$ are distributed uniformly [@Tao2010] in a circle centred at $(-d, 0)$ with a radius of $\sigma \sqrt{SC}$ [@May1972] (Fig. 1a).
 
-plot(A1_r, A1_i, xlim = c(-3.7, 0.3), ylim = c(-2, 2), pch = 4, cex = 0.7,
-     xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, asp = 1, 
-     col = "black", yaxt = "n");
+**Effect of $\mathbf{\sigma^{2}_{\gamma}}$ on $\mathbf{M}$ (co)variation**. The value of $\Re(\lambda_{max})$, and therefore system stability, can be estimated from five properties of $\mathbf{M}$ [@Tang2014b]. These properties include (1) system size ($S$), (2) mean self-regulation of components ($d$), (3) mean interaction strength between components ($\mu$), (4) the variance of between component interaction strengths (hereafter $\sigma^{2}_{M}$, to distinguish from $\sigma^{2}_{A}$ and $\sigma^{2}_{\gamma}$), and (5) the correlation of interaction strengths between components, $M_{ij}$ and $M_{ji}$ ($\rho$) [@Sommers1988]. Positive $\sigma^{2}_{\gamma}$ does not change $S$, nor does it necessarily change $E[d]$ or $E[\mu]$. What $\sigma^{2}_{\gamma}$ does change is the total variation in component interaction strengths ($\sigma^{2}_{M}$), and $\rho$. Introducing variation in $\gamma$ increases the total variation in the system. Variation in the off-diagonal elements of $\mathbf{M}$ is described by the joint variation of two random variables,
 
-vl <- seq(from = 0, to = 2*pi, by = 0.001);
-A0x1a <- sqrt(100) * sd(A1vec[fhalf]) * cos(vl) + mean(diag(A1)[1:100]);
-A0y1a <- sqrt(100) * sd(A1vec[fhalf]) * sin(vl);
-points(x = A0x1a, y = A0y1a, type = "l", lwd = 3, col = "grey");
-A0x1b <- sqrt(100) * sd(A1vec[shalf]) * cos(vl) + mean(diag(A1)[101:200]);
-A0y1b <- sqrt(100) * sd(A1vec[shalf]) * sin(vl);
-points(x = A0x1b, y = A0y1b, type = "l", lwd = 3, col = "grey");
+\begin{equation} \label{var_full}
+\sigma^{2}_{M} = \sigma^{2}_{A}\sigma^{2}_{\gamma} + \sigma^{2}_{A}E[\gamma_{i}]^{2}+\sigma^{2}_{\gamma}E[A_{ij}]^{2}.
+\end{equation}
 
-points(A1_r[1:100], A1_i[1:100],pch = 4, cex = 0.7);   
+Given $E[\gamma_{i}] = 1$ and $E[A_{ij}] = 0$, Eq. \ref{var_full} can be simplified,
 
-text(x = -3.5, y = 2.25, labels = "b", cex = 2);
-mtext(side = 1, "Real", outer = TRUE, line = 3, cex = 2);
-mtext(side = 2, "Imaginary", outer = TRUE, line = 2.5, cex = 2);
-```
+\begin{equation} \label{var_reduced}
+\sigma^{2}_{M} = \sigma^{2}_{A}(1 + \sigma^{2}_{\gamma}).
+\end{equation}
 
-********************************************************************************
+The increase in $\sigma^{2}_{M}$ caused by $\sigma^{2}_\gamma$ can be visualised from the eigenvalue spectra of $\textbf{A}$ versus $\textbf{M} = \boldsymbol{\gamma}\textbf{A}$ (Fig. 1). Given $d = 0$ and $C = 1$, the distribution of eigenvalues of $\textbf{A}$ and $\textbf{M}$ lie within a circle of a radius $\sigma_{A}\sqrt{S}$ and $\sigma_{M}\sqrt{S}$, respectively (Fig. 1a vs. 1b). If $d \neq 0$, positive $\sigma^{2}_\gamma$ changes the distribution of eigenvalues [@Ahmadian2015; @Gibbs2017; @Stone2017], potentially affecting stability (Fig. 1c vs. 1d).
 
-Rows in $M$ define how a given component $i$ is affected by other components of the system, meaning that the rate of component response time can be modelled by multiplying all row elements by a real scalar value $\gamma_{i}$[@Patel2018] (see Supplementary Information for details). The distribution of $\gamma$ over $S$ components thereby models the distribution of component response rates. An instructive example compares one $M$ when $\gamma_{i} = 1$ for all $i$ in $S$ to the same $M$ when half of $\gamma_{i} = 1.95$ and half of $\gamma_{i} = 0.05$. This models one system in which $\gamma$ is invariant and one in which $\gamma$ varies, but systems are otherwise identical (note $E[\gamma_{i}] = 1$ in both cases). I assume $S = 200$, $C = 0.05$, and $\sigma = 0.4$; diagonal elements are set to $-1$ and non-zero off-diagonal elements are drawn randomly from $\mathcal{N}(0, \sigma^{2})$. Rows are then multiplied by $\gamma_{i}$ to generate $M$. When $\gamma_{i} = 1$, eigenvalues of $M$ are distributed uniformly within a circle centred at ($-1, 0$) with a radius of `r round(sigma*sqrt(S*C), digits = 3)` (Fig. 1a). Hence, the real components of eigenvalues are highly unlikely to all be negative when all $\gamma_{i} = 1$. But when $\gamma_{i}$ values are separated into two groups, eigenvalues are no longer uniformly distributed (Fig. 1b). Instead, two distinct clusters of eigenvalues appear (grey circles in Fig. 1b), one centred at ($-1.95, 0$) and the other centred at ($-0.05, 0$). The former has a large radius, but the real components have shifted to the left (in comparison to when $\gamma = 1$) and all $\Re({\lambda}) < 0$. The latter cluster has real components that have shifted to the right, but has a smaller radius. Overall, for 1 million randomly assembled $M$, this division between slow and fast component response rates results in more stable systems: `r sum(pr_st[,1])` stable given $\gamma = 1$ versus `r sum(pr_st[,2])` stable given $\gamma = \{1.95, 0.5\}$.
+Given $\sigma^{2}_\gamma = 0$, $\Re(\lambda_{max})$ decreases linearly with $\rho$ such that [@Tang2014c],
+
+\begin{equation} \label{rho_stab}
+\Re(\lambda_{max}) \approx \sigma_{M}\sqrt{SC}\left(1 + \rho\right).
+\end{equation}
+
+If $\rho < 0$, such as when $\textbf{M}$ models a predator-prey system in which $M_{ij}$ and $M_{ji}$ have opposing signs, stability increases [@Allesina2012]. If diagonal elements of $\boldsymbol{\gamma}$ vary independently, the magnitude of $\rho$ is decreased because $\sigma^{2}_{\gamma}$ increases the variance of $M_{ij}$ without affecting the expected covariance between $M_{ij}$ and $M_{ji}$ (Figure 2).
+
+**Numerical simulations of random systems with and without $\mathbf{\sigma^{2}_{\gamma}}$**. I used numerical simulations and eigenanalysis to test how variation in $\gamma$ affects stability in random matrices with known properties, comparing the stability of $\textbf{A}$ versus $\mathbf{M} = \gamma\mathbf{A}$. Values of $\gamma$ were sampled from a uniform distribution where $\gamma_{i} \sim \mathcal{U}(0, 2)$ and $\sigma^{2}_{\gamma} = 1/3$ (see Supplementary Information for other $\gamma$ distributions, which gave similar results). In all simulations, diagonal elements were standardised to ensure that $-d$ between individual $\textbf{A}$ and $\textbf{M}$ pairs were identical (also note that $E[\gamma_{i}] = 1$). First I focus on the effect of $\gamma$ across values of $\rho$, then for increasing system sizes ($S$) in random and structured networks. By increasing $S$, the objective is to determine the effect of $\gamma$ as system complexity increases toward the boundary at which stability is realistic for a finite system.
+
+**Simulation of random $\mathbf{M}$ across $\mathbf{\rho}$**
+
+Numerical simulations of $\mathbf{M}$ revealed that $\sigma^{2}_{\gamma}$ results in a nonlinear relationship between $\rho$ and $\Re(\lambda_{max})$, which can sometimes increase the stability of the system. Figure 2 shows a comparison of $\Re(\lambda_{max})$ across $\rho$ values for $\mathbf{A}$ ($\sigma^{2}_{\gamma} = 0$) versus $\mathbf{M}$ ($\sigma^{2}_{\gamma} = 1/3$) given $S = 25$, $C = 1$, and $\sigma_{A} = 0.4$. For $-0.4 \leq \rho \leq 0.7$ (shaded region of Fig. 2), expected $\Re(\lambda_{max})$ was lower in $\mathbf{M}$ than $\mathbf{A}$. For $\rho \geq -0.1$, the lower bound of the range of $\Re(\lambda_{max})$ values also decreased given $\sigma^{2}_{\gamma}$, resulting in negative $\Re(\lambda_{max})$ in $\mathbf{M}$ for $\rho = -0.1$ and $\rho = 0$. Hence, across a wide range of system correlations, variation in the response rate of system components had a stabilising effect. 
+
+The stabilising effect of $\sigma^{2}_{\gamma}$ across $\rho$ increased with increasing $S$. Figure 3 shows numerical simulations of $\mathbf{M}$ across increasing $S$ given $C = 1$ and $\sigma_{A} = 0.2$ ($\sigma_{A}$ has been lowered here to better illustrate the effect of $S$; note that now given $S = 25$, $1 = \sigma_{A}\sqrt{SC}$). For relatively small systems ($S \leq 25$), $\sigma^{2}_{\gamma}$ never decreased the expected $\Re(\lambda_{max})$. But as $S$ increased, the curvilinear relationship between $\rho$ and $\Re(\lambda_{max})$ decreased expected $\Re(\lambda_{max})$ for $\mathbf{M}$ given low magnitudes of $\rho$. In turn, as $S$ increased, and systems became more complex, $\sigma^{2}_{\gamma}$ increased the proportion of numerical simulations that were observed to be stable (see below).
+
 
 ```{r echo = FALSE}
 S     <- 1000;
-C     <- 1;
+C     <- 0.05;
 sigma <- 0.4;
 ```
 
-********************************************************************************
 
 ```{r, echo = FALSE}
 A_comp <- NULL;
 A_dat  <- rnorm(n = 1000000, mean = 0, sd = 0.4);
 A_mat  <- matrix(data = A_dat, nrow = 1000);
-C_dat  <- rbinom(n = 1000 * 1000, size = 1, prob = 1);
+C_dat  <- rbinom(n = 1000 * 1000, size = 1, prob = 0.05);
 C_mat  <- matrix(data = C_dat, nrow = 1000, ncol = 1000);
 A_mat     <- A_mat * C_mat;
-gammas <- runif(n = 1000, min = 0, max = 2);
+A_mat  <- species_interactions(A_mat, type = 0);
+gammas <- c(rep(0.05, 500), rep(1.95, 500));
+
 mu_gam <- mean(gammas);
 diag(A_mat) <- -1;
 A1     <- gammas * A_mat;
@@ -148,71 +317,424 @@ A0vec       <- as.vector(A0_vm);
 A0vec       <- A0vec[is.na(A0vec) == FALSE];
 A1_vm       <- A1;
 diag(A1_vm) <- NA;
-A1vec       <- as.vector(A1_vm);
+A1vec       <- as.vector(A1_vm[1:500,]);
 A1vec       <- A1vec[is.na(A1vec) == FALSE];
 ```
 
-**Figure 2: Distributions of eigenvalues before (a) and after (b) introducing variation in component response rate ($\boldsymbol{\gamma}$) in complex systems.** Each panel shows the same system where $S = 1000$, $C = 1$, and $\sigma = 0.4$. **a.** Eigenvalues plotted in the absence of $Var(\gamma)$ where $E[\gamma] = 1$, versus **b.** eigenvalues plotted given $\gamma \sim \mathcal{U}(0, 2)$, which increases the variance of interaction strengths ($\sigma^{2}$) but clusters eigenvalues toward the distribution's centre (-1, 0). Black and red elipses in both panels show the circle centred on the distribution in panels a and b, respectively, which have a radius of $\sigma \sqrt{SC}$. Proportions of $\Re(\lambda) < 0$ are `r sum(A0_r < 0) / length(A0_r)` and `r sum(A1_r < 0) / length(A1_r)` for a and b, respectively.
-
-```{r, eval = TRUE, echo = FALSE, fig.height = 6, fig.width = 9}
-par(mfrow = c(1, 2), mar = c(0.5, 0.5, 0.5, 0.5), oma = c(5, 5, 0, 0));
-plot(A0_r, A0_i, xlim = c(-16.5, 15.5), ylim = c(-16.5,15.5), pch = 4, cex = 0.7,
-     xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, asp = 1);
-vl <- seq(from = 0, to = 2*pi, by = 0.001);
-x0 <- sqrt(1000) * sd(A0vec) * cos(vl) + mean(diag(A0));
-y0 <- sqrt(1000) * sd(A0vec) * sin(vl);
-x1 <- sqrt(1000) * sd(A1vec) * cos(vl) + mean(diag(A1));
-y1 <- sqrt(1000) * sd(A1vec) * sin(vl);
-text(x = -15.5, y = 19, labels = "a", cex = 2);
-points(x = x0, y = y0, type = "l", lwd = 3);
-points(x = x1, y = y1, type = "l", col = "red", lwd = 3, lty = "dashed");
-plot(A1_r, A1_i, xlim = c(-16.5, 15.5), ylim = c(-16.5,15.5), pch = 4, cex = 0.7,
-     xlab = "", ylab = "", cex.lab = 1.5, cex.axis = 1.5, asp = 1, col = "red",
-     yaxt = "n");
-text(x = -15.5, y = 19, labels = "b", cex = 2);
-points(x = x1, y = y1, type = "l", col = "red", lwd = 3)
-points(x = x0, y = y0, type = "l", lwd = 3, lty = "dashed");
-mtext(side = 1, "Real", outer = TRUE, line = 3, cex = 2);
-mtext(side = 2, "Imaginary", outer = TRUE, line = 2.5, cex = 2);
-```
-
-********************************************************************************
-
-Higher stability in systems with variation in $\gamma$ can be observed by sampling $\gamma_{i}$ values from various distributions. I now focus on a uniform distribution where $\gamma \sim \mathcal{U}(0, 2)$ (see Supplementary Information for other distributions, which give similar results). As with the case of $\gamma = \{1.95, 0.5\}$ (Fig. 1b), $E[\gamma] = 1$ when $\gamma \sim \mathcal{U}(0, 2)$, allowing comparison of $M$ before and after variation in component response rate. Figure 2 shows a comparison of eigenvalue distributions given $S = 1000$, $C = 1$, and $\sigma = 0.4$. As expected [@Tao2010], when $\gamma = 1$, eigenvalues are distributed uniformly in a circle centred at ($-1, 0$) with a radius of $\sigma\sqrt{SC} =$ `r round(sigma*sqrt(S*C), digits = 3)`. Uniform variation in $\gamma$ leads to a non-uniform distribution of eigenvalues, some of which are clustered tightly around the centre of the distribution, but others of which are spread outside the former radius of `r round(sigma*sqrt(S*C), digits = 3)` (red circle Fig 2b). This larger radius occurs because the addition of $Var(\gamma)$ increases the realised $\sigma$ of $M$. The clustering and spreading of eigenvalues introduced by $Var(\gamma)$ can destabilise previously stable systems or stabilise systems that are otherwise unstable. But where systems are otherwise too complex to be stable given $\gamma = 1$, the effect of $Var(\gamma)$ can often lead to stability above May's[@May1972; @Allesina2012] threshold of $\sigma\sqrt{SC} > 1$.
 
 ```{r, echo = FALSE}
-dat <- read.csv(file = "sim_results/C_1/random_all.csv");
-dat <- dat[,-1];
+dat <- read.csv(file = "../inst/extdata/random_all.csv");
 ```
 
-********************************************************************************
+**Simulation of random $\mathbf{M}$ across $\mathbf{S}$**. To investigate the effect of $\sigma^{2}_{\gamma}$ on stability across systems of increasing complexity, I simulated random $\mathbf{M = \gamma A}$ matrices at $\sigma_{A} = 0.4$ and $C = 1$ across $S = \{2, 3, ..., 49, 50\}$. One million $\mathbf{M}$ were simulated for each $S$, and the stability of $\mathbf{A}$ vesus $\mathbf{M}$ was assessed given $\gamma_{i} \sim \mathcal{U}(0, 2)$ ($\sigma^{2}_{\gamma} = 1/3$). For all $S > 10$, I found that the number of stable random systems was higher in $\mathbf{M}$ than $\mathbf{A}$ (Fig. 4; see Supplementary Information for full table of results), and that the difference between the probabilities of observing a stable system increased with an increase in $S$. In other words, the potential for $\sigma^{2}_{\gamma}$ to affect stability increased with system complexity and was most relevant for systems on the cusp of being too complex to be realistically stable. For the highest values of $S$, nearly all systems that were stable given varying $\gamma$ would not have been stable given $\gamma = 1$.
 
-**Figure 3: Stability of large complex systems with and without variation in component response rate($\boldsymbol{\gamma}$).** Y-axes show the $\ln$ number of systems that are stable across different system sizes ($S$) given $C = 1$ (left axis), and the proportion of systems in which variation in $\gamma$ is critical for system stability (right axis). For each $S$, 1 million complex systems are randomly generated. Stability of each complex system is tested given variation in $\gamma$ by randomly sampling $\gamma \sim \mathcal{U}(0, 2)$. Stability given $Var(\gamma)$ is then compared to stability in an otherwise identical system in which $\gamma = E[\mathcal{U}(0, 2)]$ for all components. Light and dark grey bars show the number of stable systems in the absence versus presence of $Var(\gamma)$, respectively. The black line shows the proportion of systems that are stable when $Var(\gamma) > 0$, but would be unstable if $Var(\gamma) = 0$.
+I also simulated 100000 $\mathbf{M = \gamma A}$ for three types of random networks that are typically interpreted as modelling three types of interspecific ecological interactions [@Allesina2011; @Allesina2012]. These interaction types are competitive, mutualist, and predator-prey, as modelled by off-diagonal elements that are constrained to be negative, positive, or paired such that if $A_{ij} > 0$ then $A_{ji} < 0$, respectively [@Allesina2012] (but are otherwise identical to the purely random $\mathbf{A}$). As $S$ increased, a higher number of stable $\mathbf{M}$ relative to $\mathbf{A}$ was observed for competitor and predator-prey, but not mutualist, systems. A higher number of stable systems was observed whenever $S > 12$ and $S > 40$ for competitive and predator-prey systems, respectively (note that $\rho < 0$ for predator-prey systems, making stability more likely overall). The stability of mutualist systems was never affected by $\sigma^{2}_{\gamma}$. 
 
-```{r, eval = TRUE, echo = FALSE, fig.width = 9, fig.height = 7}
-dat <- read.csv(file = "sim_results/C_1/random_all.csv");
-dat <- dat[,-1];
-plot_stables(dat);
-```
+The effect of $\sigma^{2}_{\gamma}$ on stability did not change qualitatively across values of $C$, $\sigma_{A}$, or for different distributions of $\gamma$ (see Supporting Information).
 
-********************************************************************************
+**Simulation of structured $\mathbf{M}$ across $\mathbf{S}$**. To investigate how $\sigma^{2}_{\gamma}$ affects the stability of commonly observed network structures, I simulated one million $\mathbf{M = \gamma A}$ for small-world [@Watts1998], scale-free [@Albert2002], and cascade food web [@Solow1998; @Williams2000] networks. In all of these networks, rules determining the presence or absence of an interaction between components $i$ and $j$ constrain the overall structure of the network. In small-world networks, interactions between components are constrained so that the expected degree of separation between any two components increases in proportion to $\log(S)$ [@Watts1998]. In scale-free networks, the distribution of the number of components with which a focal component interacts follows a power law; a few components have many interactions while most components have few interactions [@Albert2002]. In cascade food webs, species are ranked and interactions are constrained such that a species $i$ can only feed on $j$ if the rank of $i > j$. 
 
-To investigate the effect of $Var(\gamma)$ on system stability, I simulated random $M$ matrices at $\sigma = 0.4$ and $C = 1$ across $S$ ranging from 2-32. One million $M$ were simulated for each $S$, and the stability of $M$ was assessed given $\gamma = 1$ versus $\gamma \sim \mathcal{U}(0, 2)$. I found that the number of stable random systems was consistently higher given $Var(\gamma)$ than when $\gamma = 1$ (Fig. 3), and that the difference between the probabilities of observing a stable system increased with an increase in $S$; i.e., the potential for $Var(\gamma)$ to drive stability increased with system complexity. For the highest values of $S$, nearly all systems that were stable given $Var(\gamma)$ would not have been stable given $\gamma = 1$ (see Supplementary Information for full results). This suggests that the stability of large systems might be dependent upon variation in the response rate of their individual components, meaning that factors such as generation time (in ecological networks), transaction speed (in economic networks), or communication speed (in social networks) needs to be considered when investigating the stability of complex systems.
+Network structure did not strongly modulate the effect that $\sigma^{2}_{\gamma}$ had on stability. For comparable magnitudes of complexity, structured networks still had a higher number of stable $\mathbf{M}$ than $\mathbf{A}$. For random networks, $\sigma^{2}_{\gamma}$ increased stability given $S > 10$ ($\sigma = 0.4$ and $C = 1$), and therefore complexity $\sigma_{A} \sqrt{SC} \gtrapprox 1.26$. This threshold of complexity, above which more $\mathbf{M}$ than $\mathbf{A}$ were stable, was comparable for small-world networks, and slightly lower for scale-free networks (note that algorithms for generating small-world and scale-free networks necessarily led to varying $C$; see methods). Varying $\gamma$ increased stability in cascade food webs for $S > 27$, and therefore at a relatively low complexity magnitudes compared to random predator-prey networks ($S > 40$). Overall, network structure did not greatly change the effect that $\sigma^{2}_{\gamma}$ had on increasing the upper bound of complexity within which stability might reasonably be observed.
 
-It is important to point out that $Var(\gamma)$ is not stabilising per se; that is, adding variation in $\gamma$ to a particular system $M$ does not necessarily increase the probability that the system will be stable (see Supplementary Information). Rather, systems that are observed to be stable are more likely to vary in $\gamma$, and for this $Var(\gamma)$ to be critical to their stability. This is caused by the shift in the distribution of eigenvalues that occurs by introducing $Var(\gamma)$ (Fig. 1b, 2b), which can sometimes result in all $\Re(\lambda) < 0$ but might also increase $\Re(\lambda)$ values. 
+**System feasibility given $\mathbf{\sigma^{2}_{\gamma}}$** For complex systems in which individual system components represent the density of some tangible quantity, it is relevant to consider the feasibility of the system. Feasibilility assumes that values of all components are positive at equilibrium [@Grilli2017; @Dougoud2018; @Song2018]. This is of particular interest for ecological communities because population density ($N$) cannot take negative values, meaning that ecological systems need to be feasible for stability to be biologically realistic [@Dougoud2018]. While my results are intended to be general to all complex systems, and not restricted to species networks, I have also performed a feasibility analysis on all matrices tested for stability. I emphasise that $\gamma$ is not interpreted as population density in this analysis, but instead as a fundamental property of species life history such as expected generation time. Feasibility was unaffected by $\sigma^{2}_{\gamma}$ and instead occurred with a fixed probability of $1/2^{S}$, consistent with a recent proof by Serv&aacute;n et al. [@Servan2018] (see Supplementary Information). Hence, for pure interacting species networks, variation in component response rate (i.e., species generation time) does not affect stability at biologically realistic species densities. 
 
-To further investigate the potential of $Var(\gamma)$ to be stabilising, I used a genetic algorithm (the space of possible $\gamma$ values was too large to search exhaustively[@Hamblin2013]; see Supplementary Information). For each of 40000 random $M$ ($\sigma = 0.4$, $C = 1$), the genetic algorithm initialised 1000 different sets of $\gamma \sim \mathcal{U}(0, 2)$ values of size $S$. Eigenanalysis was performed on $M$ using each set of $\gamma$ values, and the 20 sets with the lowest $\max\left(\Re(\lambda)\right)$ each produced 50 clonal offspring with subsequent mutation and crossover between the resulting new population of 1000 $\gamma$ sets. The genetic algorithm terminated if a stable $M$ was found, 20 generations occurred, or a convergence criteria of minimum fitness increase between generations was satisfied. Across $S = \{2, 3, ..., 39, 40\}$, sets of $\gamma$ values were found that resulted in stable systems with probabilities that were up to four orders of magnitude higher than when $\gamma = 1$ (see Supplementary Information), meaning that stability could often be achieved by manipulating $S$ $\gamma$ values rather than $S \times S$ $M$ elements. Hence, managing the response rates of system components in a targetted way can potentially facilitate the stabilisation of complex systems through a reduction in dimensionality. 
-
-I have focused broadly on random complex systems, but it is also worthwhile to consider more restricted interactions such as those of specific ecological networks[@Allesina2012]. These include systems in which all interactions are negative (competitive networks), positive (mutualist networks), or $i$ and $j$ pairs have opposing signs (predator-prey networks). In general, competitive and mutualist networks tend to be destabilising, and predator-prey networks tend to be stabilising[@Allesina2011]. When $Var(\gamma)$ is applied to each, the proportion of stable competitive and predator-prey networks increases, but the proportion of stable mutualist networks does not (see Supplementary Information). Additionally, when each component of $M$ is interpreted as a unique species and given a random intrinsic growth rate[@Dougoud2018], feasibility is not increased by $Var(\gamma)$, suggesting that variation in species generation time might be unlikely to drive stability in purely multi-species networks (see Supplementary Information).
-
-My results show that complex systems are more likely to be stable when the response rates of system components vary. These results are broadly applicable to complex biological and social networks.
-
-**Acknowledgements:** I am supported by a Leverhulme Trust Early Career Fellowship (ECF-2016-376). Conversations with L. Bussi&#xe8;re and N. Bunnefeld, and helpful comments from J. J. Cusack and I. L. Jones, improved the quality of this work. 
+**Targeted manipulation of $\boldsymbol{\gamma}$**. To further investigate the potential of $\sigma^{2}_{\gamma}$ to be stabilising, I used a genetic algorithm. Genetic algorithms are heuristic tools that mimic evolution by natural selection, and are useful when the space of potential solutions (in this case, possible combinations of $\gamma$ values leading to stability in a complex system) is too large to search exhaustively [@Hamblin2013]. Generations of selection on $\gamma$ value combinations to minimise $\Re(\lambda_{max})$ demonstrated the potential for $\sigma^{2}_{\gamma}$ to increase system stability. Across $S = \{2, 3, ..., 39, 40\}$, sets of $\gamma$ values were found that resulted in stable systems with probabilities that were up to four orders of magnitude higher than when $\gamma = 1$ (see Supplementary Information), meaning that stability could often be achieved by manipulating $S$ $\gamma$ values rather than $S \times S$ $\mathbf{M}$ elements (i.e., by manipulating component response rates rather than interactions between components). 
 
 
-********************************************************************************
+Discussion
+--------------------------------------------------------------------------------
+
+I have shown that the stability of complex systems might often be contigent upon variation in the response rates of their individual components, meaning that factors such as rate of trait evolution (in biological networks), transaction speed (in economic networks), or communication speed (in social networks) need to be considered when investigating the stability of complex systems. Variation in component response rate is more likely to be critical for stability in systems that are especially complex, and it can ultimately increase the probability that system stability is observed above that predicted by May's [@May1972] classically derived $\sigma \sqrt{SC}$ criterion. The logic outlined here is general, and potentially applies to any complex system in which individual system components can vary in their reaction rates to system perturbation.
+
+It is important to recognise that variation in component response rate is not stabilising per se; that is, adding variation in component response rates to a particular system does not increase the probability that the system will be stable. Rather, highly complex systems that are observed to be stable are more likely to have varying component response rates, and for this variation to be critical to their stability (Fig. 4). This is caused by the shift to a non-uniform distribution of eigenvalues that occurs by introducing variation in $\gamma$ (Fig. 1), which can sometimes cause all of the real components of the eigenvalues of the system matrix to become negative, but might also increase the real components of eigenvalues. 
+
+My focus here is distinct from Gibbs et al. [@Gibbs2017], who applied the same mathematical framework to investigate how a diagonal matrix $\mathbf{X}$ (equivalent to $\boldsymbol{\gamma}$ in my model) affects the stability of a community matrix $\mathbf{M}$ given an interaction matrix $\mathbf{A}$ within a generalised Lotka-Volterra model, where $\mathbf{M} = \mathbf{XA}$. Gibbs et al. [@Gibbs2017] analytically demonstrated that the effect of $\mathbf{X}$ on system stability decreases exponentially as system size becomes arbitrarily large ($S \to \infty$) for a given magnitude of complexity $\sigma\sqrt{SC}$. My numerical results do not contradict this prediction because I did not scale $\sigma = 1 / \sqrt{S}$, but instead fixed $\sigma$ and increased $S$ to thereby increase total system complexity (see Supplemental Information for results simulated across $\sigma$ and $C$). Overall, I show that component response rate variation increases the upper bound of complexity at which stability can be realistically observed, meaning that highly complex systems are more likely than not to vary in their component response rates, and for this variation to be critical for system stability.
+
+Interestingly, while complex systems were more likely to be stable given variation in component response rate, they were not more likely to be feasible, meaning that stability was not increased when component values were also restricted to being positive at equilibrium. Feasibility is important to consider, particularly for the study of ecological networks of species [@Stone2017; @Grilli2017; @Dougoud2018; @Servan2018] because population densities cannot realistically be negative. My results therefore suggest that variation in the rate of population responses to perturbation (e.g., due to differences in generation time among species) is unlikely to be critical to the stability of purely multi-species interaction networks (see also Supplementary Information). Nevertheless, ecological interactions do not exist in isolation in empirical systems [@Patel2018], but instead interact with evolutionary, abiotic, or social-economic systems. The relevance of component response rate for complex system stability should therefore not be ignored in the broader context of ecological communities.
+
+The potential importance of component response rate variation was most evident from the results of simulations in which the genetic algorithm was used in attempt to maximise the probability of system stability. The probability that some combination of component response rates could be found to stabilise the system was shown to be up to four orders of magnitude higher than the background probabilities of stability in the absence of any component response rate variation. Instead of manipulating the $S \times S$ interactions between system components, it might therefore be possible to manipulate only the $S$ response rates of individual system components to achieve stability. Hence, managing the response rates of system components in a targeted way could potentially facilitate the stabilisation of complex systems through a reduction in dimensionality. 
+
+A general mathematical framework encompassing shifts in eigenvalue distributions caused by a diagonal matrix $\boldsymbol{\gamma}$ has been investigated [@Ahmadian2015] and recently applied to questions concerning species density and feasibility [@Gibbs2017; @Stone2017], but $\boldsymbol{\gamma}$ has not been interpreted as rates of response of individual system components to perturbation. My model focuses on component response rates for systems of a finite size, in which complexity is high but not yet high enough to make the probability of stability unrealistically low for actual empirical systems. For this upper range of system size, randomly assembled complex systems are more likely to be stable if their component response rates vary (e.g., $10 < S < 30$ for parameter values in Fig. 4). Variation in component response rate might therefore be critical for maintaining stability in many highly complex empirical systems. These results are broadly applicable for understanding the stability of complex networks across the physical, life, and social sciences.
+
+Methods
+--------------------------------------------------------------------------------
+
+**Component response rate ($\boldsymbol{\gamma}$) variation**. In a synthesis of eco-evolutionary feedbacks on community stability, Patel et al. model a system that includes a vector of potentially changing species densities ($\mathbf{n}$) and a vector of potentially evolving traits ($\mathbf{x}$) [@Patel2018]. For any species $i$ or trait $j$, change in species density ($n_{i}$) or trait value ($x_{j}$) with time ($t$) is a function of the vectors $\mathbf{n}$ and $\mathbf{x}$,
+
+$$\frac{dn_{i}}{dt} = n_{i}f_{i}(\mathbf{n}, \mathbf{x}),$$
+
+$$\frac{dx_{j}}{dt} = \epsilon g_{j}(\mathbf{n}, \mathbf{x}).$$
+
+In the above, $f_{i}$ and $g_{j}$ are functions that define the effects of all species densities and trait values on the density of a species $i$ and the value of trait $j$, respectively. Patel et al. were interested in stability when the evolution of traits was relatively slow or fast in comparison with the change in species densities [@Patel2018], and this is modulated in the above by the scalar $\epsilon$. The value of $\epsilon$ thereby determines the timescale separation between ecology and evolution, with high $\epsilon$ modelling relatively fast evolution and low $\epsilon$ modelling relative slow evolution [@Patel2018]. 
+
+I use the same principle that Patel et al. use to modulate the relative rate of evolution to modulate rates of component responses for $S$ components. Following May [@May1972; @May1973], the value of a component $i$ at time $t$ ($v_{i}(t)$) is affected by the value of $j$ ($v_{j}(t)$) and $j$'s marginal effect on $i$ ($a_{ij}$), and by $i$'s response rate ($\gamma_{i}$),
+
+$$\frac{dv_{i}(t)}{dt} = \gamma_{i} \sum_{j=1}^{S}a_{ij}v_{j}(t).$$
+
+In matrix notation [@May1973],
+
+$$\frac{d\mathbf{v}(t)}{dt} = \boldsymbol{\gamma} \mathbf{A}\mathbf{v}(t).$$
+
+In the above, $\boldsymbol{\gamma}$ is a diagonal matrix in which elements correspond to individual component response rates. Therefore, $\mathbf{M} = \boldsymbol{\gamma} \mathbf{A}$ defines the change in values of system components and can be analysed using the techniques of May [@May1972; @May1973; @Ahmadian2015]. In these analyses, row means of $\mathbf{A}$ are expected to be identical, but variation around this expectation will naturally arise due to random sampling of $\mathbf{A}$ off-diagonal elements and finite $S$. In simulations, the total variation in $\mathbf{M}$ row means that is attributable to $\mathbf{A}$ is small relative to that attributable to $\boldsymbol{\gamma}$, especially at high $S$. Variation in $\boldsymbol{\gamma}$ specifically isolates the effects of differing component response rates, hence causing differences in expected $\mathbf{M}$ row means.
+
+**Construction of random and structured networks**. I used the R programming language for all numerical simulations and analyses [@Rproject]. Purely random networks were generated by sampling off-diagonal elements from an i.i.d $A_{ij} \sim \mathcal{N}(0, 0.4)$ with a probability $C$ (unsampled elements were set to zero). Diagonal elements $A_{ii}$ were set to $-1$. Elements of $\boldsymbol{\gamma}$ were simulated i.i.d. from a distribution with positive support (typically $\gamma_{i} \sim \mathcal{U}(0, 2)$). Random $\mathbf{A}$ matrices with correlated elements $A_{ij}$ and $A_{ji}$ were built using Cholesky decomposition. Competitor networks in which off-diagonal elements $A_{ij} \geq 0$ were constructed by first building a random $\mathbf{A}$, then flipping the sign of any elements in which $A_{ij} < 0$. Similarly, mutualist networks were constructed by building a random $\mathbf{A}$, then flipping the sign of elements where $A_{ij} > 0$. Predator-prey networks were constructed by first buing a random $\mathbf{A}$, then flipping the sign of either $A_{ij}$ or $A_{ji}$ if $A_{ij} \times A_{ji} > 0$.
+
+Small-world networks were constructed using the method of Watts and Strogatz [@Watts1998]. First, a regular network [@Watts1998] was created such that components were arranged in a circle. Each component was initially set to interact with its $k/2$ closest neighbouring components on each side, where $k$ was an even natural number (e.g., for $k = 2$ the regular network forms a ring in which each component interacts with its two adjacent neighbours; see Supplemental Material for examples). Each interaction between a focal component and its neighbour was then removed and replaced with with a probability of $\beta$. In replacement, a new component was randomly selected to interact with the focal component; selection was done with equal probability among all but the focal component. The resulting small-world network was represented by a square $S \times S$ binary matrix $\mathbf{B}$ in which 1s represented interactions between components and 0s represented the absence of an interaction. A new random matrix $\mathbf{J}$ was then generated with elements $J_{ij}$ sampled i.i.d. from $\mathcal{N}(0, 0.4)$. To build the interaction matrix $\mathbf{A}$, I used element-wise multiplication $\mathbf{A} = \mathbf{J} \odot \mathbf{B}$, then set $diag(\mathbf{A}) = -1$. I set $k = S/12$ and simulated small-world networks across all combinations of $S = \{24, 48, 72, 96, 120, 144, 168\}$ and $\beta = \{0, 0.01, 0.1, 0.25, 1\}$.
+
+Scale-free networks were constructed using the method of Albert and Barab&aacute;si [@Albert2002]. First, a saturated network (all components interact with each other) of size $m \leq S$ was created. New components were then added sequentially to the network; each newly added component was set to  interact with $m$ randomly selected existing components. When the system size reached $S$, the distribution of the number of total interactions that components had followed a power-law tail [@Albert2002]. The resulting network was represented by an $S \times S$ binary matrix $\mathbf{G}$, where 1s and 0s represent the presence and absence of an interaction, respectively. As with small-world networks, a random matrix $\mathbf{J}$ was generated, and $\mathbf{A} = \mathbf{J} \odot \mathbf{G}$. Diagonal were set to $-1$. I simulated scale-free networks across all combinations of $S = \{24, 48, 72, 96, 120\}$ and $m = \{2, 3, ..., 11, 12\}$.
+
+Cascade food webs were constructed following Solow and Beet [@Solow1998]. First, a random matrix $\mathbf{A}$ was generated with off-diagonal elements sampled i.i.d so that $A_{ij} \sim \mathcal{N}(0, 0.4)$. Each component in the system was ranked from $1$ to $S$. If component $i$ had a higher rank than component $j$ and $A_{ij} < 0$, then $A_{ij}$ was multiplied by $-1$. If $i$ had a lower rank than $j$ and $A_{ji} < 0$, then $A_{ji}$ was multiplied by $-1$. In practice, this resulted in a matrix $\mathbf{A}$ with negative and positive values in the lower and upper triangles, respectively. Diagonal elements of $\mathbf{A}$ were set to $-1$ and $C = 1$. I simulated cascade food webs across all combinations of $S = \{2, 3, ..., 59, 60\}$.
+
+**System feasibility**. Dougoud et al. [@Dougoud2018] identify the following feasibility criteria for ecological systems characterised by $S$ interacting species with varying densities in a generalised Lotka-Volterra model,
+
+$$\mathbf{n^{*}} = -\left(\theta \mathbf{I} + (CS)^{-\delta}\mathbf{J} \right)^{-1}\mathbf{r}.$$
+
+In the above, $\mathbf{n^{*}}$ is the vector of species densities at equilibrium. Feasibility is satisfied if all elements in $\mathbf{n^{*}}$ are positive. The matrix $\mathbf{I}$ is the identity matrix, and the value $\theta$ is the strength of intraspecific competition (diagonal elements). Diagonal values are set to $-1$, so $\theta = -1$. The variable $\delta$ is a normalisation parameter that modulates the strength of interactions ($\sigma$) for $\mathbf{J}$. Implicitly, here $\delta = 0$ underlying strong interactions. Hence, $(CS)^{-\delta} = 1$, so in the above, a diagonal matrix of -1s ($\theta \mathbf{I}$) is added to $\mathbf{J}$, which has a diagonal of all zeros and an off-diagonal affecting species interactions (i.e., the expression $(CS)^{-\delta}$ relates to May's [@May1972] stability criterion [@Dougoud2018] by $\frac{\sigma}{(CS)^{-\delta}}\sqrt{SC} < 1$, and hence for my purposes $(CS)^{-\delta} = 1$). Given $\mathbf{A} = \theta\mathbf{I + J}$, the above criteria is therefore reduced to the below (see also Serv&aacute;n et al. [@Servan2018]),
+
+$$\mathbf{n^{*} = -A^{-1}r}.$$
+
+To check the feasibility criteria for $\mathbf{M = \gamma A}$, I therefore evaluated $\mathbf{-M^{-1}r}$ ($\mathbf{r}$ elements were sampled i.i.d. from $r_{i} \sim \mathcal{N}(0, 0.4^{2})$). Feasibility is satisfied if all of the elements of the resulting vector are positive.
+
+**Genetic algorithm**. Ideally, to investigate the potential of $\sigma^{2}_{\gamma}$ for increasing the proportion of stable complex systems, the search space of all possible $diag(\boldsymbol{\gamma})$ vectors would be evaluated for each unique $\mathbf{M = \gamma A}$. This is technically impossible because $\gamma_{i}$ can take any real value between 0-2, but even rounding $\gamma_{i}$ to reasonable values would result in a search space too large to practically explore. Under these conditions, genetic algorithms are highly useful tools for finding practical solutions by mimicking the process of biological evolution [@Hamblin2013]. In this case, the practical solution is finding vectors of $diag(\boldsymbol{\gamma})$ that decrease the most positive real eigenvalue of $\mathbf{M}$. The genetic algorithm used achieves this by initialising a large population of 1000 different potential $diag(\boldsymbol{\gamma})$ vectors and allowing this population to evolve through a process of mutation, crossover (swaping $\gamma_{i}$ values between vectors), selection, and reproduction until either a $diag(\boldsymbol{\gamma})$ vector is found where all $\Re(\lambda) < 0$ or some "giving up" critiera is met.
+
+For each $S = \{2, 3, ..., 39, 40\}$, the genetic algorithm was run for 100000 random $\mathbf{M = \gamma A}$ ($\sigma_{A} = 0.4$, $C = 1$). The genetic algorithm was initialised with a population of 1000 different $diag(\boldsymbol{\gamma})$ vectors with elements sampled i.i.d from $\gamma_{i} \sim \mathcal{U}(0, 2)$. Eigenanalysis was performed on the $\mathbf{M}$ resulting from each $\boldsymbol{\gamma}$, and the 20 $diag(\boldsymbol{\gamma})$ vectors resulting in $\mathbf{M}$ with the lowest $\Re(\lambda_{max})$ each produced 50 clonal offspring with subsequent random mutation and crossover between the resulting new generation of 1000 $diag(\boldsymbol{\gamma})$ vectors. Mutation of each $\gamma_{i}$ in a $diag(\boldsymbol{\gamma})$ vector occurred with a probability of 0.2, resulting in a mutation effect of size $\mathcal{N}(0, 0.02)$ being added to generate the newly mutated $\gamma_{i}$ (any $\gamma_{i}$ values that mutated below zero were multiplied by $-1$, and any values that mutated above 2 were set to 2). Crossover occurred between two sets of 100 $diag(\boldsymbol{\gamma})$ vectors paired in each generation; vectors were randomly sampled with replacement among but not within sets. Vector pairs selected for crossover swapped all elements between and including two $\gamma_{i}$ randomly selected with replacement (this allowed for reversal of vector element positions during crossover; e.g., $\{\gamma_{4}, \gamma_{5}, \gamma_{6}, \gamma_{7}\} \to \{\gamma_{7}, \gamma_{6}, \gamma_{5}, \gamma_{4}\}$ ). The genetic algorithm terminated if a stable $\mathbf{M}$ was found, 20 generations occurred, or if the mean $\boldsymbol{\gamma}$ fitness increase between generations was less than 0.01 (where fitness was defined as $W_{\gamma} = -\Re(\lambda_{max})$ for $\mathbf{M}$).
+
+**Acknowledgements:** I am supported by a Leverhulme Trust Early Career Fellowship (ECF-2016-376). Conversations with L. Bussi&#xe8;re and N. Bunnefeld, and comments from J. J. Cusack and I. L. Jones, improved the quality of this work. 
+
+**Supplementary Information:** Full tables of stability results for simulations across different system size ($S$) values, ecological community types, connectance ($C$) values, interaction strengths ($\sigma$), and $\gamma$ distributions are provided as supplementary material. An additional table also shows results for how feasibility changes across $S$. All code and simulation outputs are publicly available as part of the RandomMatrixStability package on GitHub (https://github.com/bradduthie/RandomMatrixStability).
+
+**Additional Information:** The author declares no competing interests. All work was carried out by A. Bradley Duthie, and all code and data are accessible on [GitHub](https://github.com/bradduthie/RandomMatrixStability).
 
 **References**
 
 <div id="refs"></div>
 
+\clearpage
+
+```{r, fig.width = 7, fig.height = 7, echo = FALSE}
+S     <- 400;
+C     <- 1;
+dval  <- 0;
+sigma <- 1/(1*sqrt(S));
+a     <- 0;
+b     <- 2;
+mn    <- 0;
+
+A_dat  <- rnorm(n = S * S, mean = mn, sd = sigma);
+A_mat  <- matrix(data = A_dat, nrow = S);
+C_dat  <- rbinom(n = S * S, size = 1, prob = C);
+C_mat  <- matrix(data = C_dat, nrow = S, ncol = S);
+A_mat  <- A_mat * C_mat;
+gammas <- runif(n = S, min = a, max = b);
+vargam <- (1/12) * (b-a)^2;
+
+diag(A_mat) <- dval;
+A1     <- gammas * A_mat;
+A0     <- A_mat;
+A0     <- A0 * mean(gammas);
+A0_e   <- eigen(A0)$values;
+A0_r   <- Re(A0_e);
+A0_i   <- Im(A0_e);
+A1_e   <- eigen(A1)$values;
+A1_r   <- Re(A1_e);
+A1_i   <- Im(A1_e);
+
+joint_var <- ((sigma^2) * vargam) + ((sigma^2) * mean(gammas)^2) + 
+             (vargam * (dval*mn)^2);
+```
+
+**Figure 1: Eigenvalue distributions of random complex systems.** Each panel shows the real (x-axis) and imaginary (y-axis) parts of $S =$ `r S` eigenvalues from random $S \times S$ matrices. ($\textbf{a}$) A system represented by a matrix $\mathbf{A}$, in which all elements are sampled from a normal distribution with $\mu = 0$ and $\sigma_{A} = 1/\sqrt{S}$. Points are uniformly distributed within the blue circle centred at the origin with a radius of $\sigma_{A} \sqrt{S} = 1$. ($\textbf{b}$) The same system as $\textbf{a}$ after including variation in the response rates of $S$ components, represented by the diagonal matrix $\gamma$, such that $\mathbf{M} = \gamma\mathbf{A}$. Elements of $\gamma$ are randomly sampled from a uniform distribution from $\min = 0$ to $\max = 2$. Eigenvalues of $\mathbf{M}$ are then distributed non-uniformly within the red circle centred at the origin with a radius of $\sqrt{\sigma^{2}_{A}(1 + \sigma^{2}_{\gamma})S} \approx$ `r round(sqrt(joint_var) * sqrt(S), digits = 2);`. ($\textbf{c}$) A different random system $\mathbf{A}$ constructed from the same parameters as in $\textbf{a}$, except with diagonal values of $-1$. ($\textbf{d}$) The same system $\textbf{c}$ after including variation in component response rates, sampled from $\mathcal{U}(0, 2)$ as in $\textbf{b}$.
+
+```{r, fig.width = 7, fig.height = 7, echo = FALSE}
+par(mfrow = c(2, 2), mar = c(0.5, 0.5, 0.5, 0.5), oma = c(5, 5, 0.2, 0.2));
+plot(A0_r, A0_i, pch = 4, cex = 0.7, xlab = "", ylab = "", cex.lab = 1.3, 
+     cex.axis = 1.25, asp = 1, col = "dodgerblue4", xlim = c(-3, 1.5),
+     xaxt = "n", ylim = c(-1.5, 1.5));
+vl        <- seq(from = 0, to = 2*pi, by = 0.001);
+A0x1a     <- mean(gammas) * sigma * sqrt(S) * cos(vl) + mean(diag(A0));
+A0y1a     <- mean(gammas) * sigma * sqrt(S) * sin(vl);
+points(x = A0x1a, y = A0y1a, type = "l", lwd = 3, col = "dodgerblue4");
+text(x = -2.75, y = 1.75, labels = "a", cex = 2);
+
+plot(A1_r, A1_i, pch = 4, cex = 0.7, xlab = "", ylab = "", cex.lab = 1.3, 
+     cex.axis = 1.25, asp = 1, col = "firebrick", xlim = c(-3, 1.5),
+     xaxt = "n", yaxt = "n", ylim = c(-1.5, 1.5));
+crad      <- sqrt(joint_var) * sqrt(S);
+A1x1a     <- crad * cos(vl) + mean(diag(A1));
+A1y1a     <- crad * sin(vl);
+points(x = A1x1a, y = A1y1a, type = "l", lwd = 3, col = "firebrick");
+text(x = -2.75, y = 1.75, labels = "b", cex = 2);
+
+calc_var <- A1;
+diag(calc_var) <- NA;
+calc_var  <- as.numeric(calc_var);
+cvar1 <- var(calc_var[!is.na(calc_var)]);
+
+################################################################################
+################################################################################
+
+S     <- 400;
+C     <- 1;
+dval  <- -1;
+sigma <- 1/(1*sqrt(S));
+a     <- 0;
+b     <- 2;
+mn    <- 0;
+
+A_dat  <- rnorm(n = S * S, mean = mn, sd = sigma);
+A_mat  <- matrix(data = A_dat, nrow = S);
+C_dat  <- rbinom(n = S * S, size = 1, prob = C);
+C_mat  <- matrix(data = C_dat, nrow = S, ncol = S);
+A_mat  <- A_mat * C_mat;
+gammas <- runif(n = S, min = a, max = b);
+vargam <- (1/12) * (b-a)^2;
+
+diag(A_mat) <- dval;
+A1     <- gammas * A_mat;
+A0     <- A_mat;
+A0     <- A0 * mean(gammas);
+A0_e   <- eigen(A0)$values;
+A0_r   <- Re(A0_e);
+A0_i   <- Im(A0_e);
+A1_e   <- eigen(A1)$values;
+A1_r   <- Re(A1_e);
+A1_i   <- Im(A1_e);
+
+joint_var <- ((sigma^2) * vargam) + ((sigma^2) * mean(gammas)^2) + 
+             (vargam * (dval*mn)^2);
+
+plot(A0_r, A0_i, pch = 4, cex = 0.7, xlab = "", ylab = "", cex.lab = 1.3, 
+     cex.axis = 1.25, asp = 1, col = "dodgerblue4", ylim = c(-1.5, 1.5),
+     xlim = c(-3, 1.5));
+A0x1a     <- mean(gammas) * sigma * sqrt(S) * cos(vl) + mean(diag(A0));
+A0y1a     <- mean(gammas) * sigma * sqrt(S) * sin(vl);
+points(x = A0x1a, y = A0y1a, type = "l", lwd = 3, col = "dodgerblue4");
+text(x = -2.75, y = 1.75, labels = "c", cex = 2);
+
+plot(A1_r, A1_i, pch = 4, cex = 0.7, xlab = "", ylab = "", cex.lab = 1.3, 
+     cex.axis = 1.25, asp = 1, col = "firebrick", yaxt = "n", 
+     xlim = c(-3, 1.5), ylim = c(-1.5, 1.5));
+text(x = -2.75, y = 1.75, labels = "d", cex = 2);
+
+calc_var <- A1;
+diag(calc_var) <- NA;
+calc_var  <- as.numeric(calc_var);
+cvar2 <- var(calc_var[!is.na(calc_var)]);
+
+mtext(side = 1, "Real", outer = TRUE, line = 3, cex = 2);
+mtext(side = 2, "Imaginary", outer = TRUE, line = 2.5, cex = 2);
+```
+
+
+\clearpage
+
+
+```{r echo = FALSE}
+S     <- 1000;
+C     <- 1;
+sigma <- 0.4;
+```
+
+```{r, echo = FALSE}
+A_comp <- NULL;
+A_dat  <- rnorm(n = 1000000, mean = 0, sd = 0.4);
+A_mat  <- matrix(data = A_dat, nrow = 1000);
+C_dat  <- rbinom(n = 1000 * 1000, size = 1, prob = 0.05);
+C_mat  <- matrix(data = C_dat, nrow = 1000, ncol = 1000);
+A_mat  <- A_mat * C_mat;
+A_mat  <- species_interactions(A_mat, type = 0);
+gammas <- runif(n = 1000, min = 0, max = 2);
+
+mu_gam <- mean(gammas);
+diag(A_mat) <- -1;
+A1     <- gammas * A_mat;
+A0     <- mu_gam * A_mat;
+A0_e   <- eigen(A0)$values;
+A0_r   <- Re(A0_e);
+A0_i   <- Im(A0_e);
+A1_e   <- eigen(A1)$values;
+A1_r   <- Re(A1_e);
+A1_i   <- Im(A1_e);
+
+A0_vm       <- A0;
+diag(A0_vm) <- NA;
+A0vec       <- as.vector(A0_vm);
+A0vec       <- A0vec[is.na(A0vec) == FALSE];
+```
+
+**Figure 2: Complex system correlation versus stability with and without variation in component response rates**. Each point represents 10000 replicate numerical simulations of a random complex system $\mathbf{M} = \gamma \mathbf{A}$ with a fixed correlation between off-diagonal elements $A_{ij}$ and $A_{ji}$ ($\rho$, x-axis). Where real parts of eigenvalues of $\mathbf{M}$ are negative (y-axis), $\mathbf{M}$ is stable (black dotted line). Blue circles show systems in the absence of variation in component response rates ($\sigma^{2}_{\gamma} = 0$). Red squares show systems in which $\sigma^{2}_{\gamma} = 1/3$. Arrows show the range of real parts of leading eigenvalues observed. Because $\gamma$ decreases the magnitude of $\rho$, purple lines are included to link replicate simulations before (blue circles) and after (red squares) including $\gamma$. The range of $\rho$ values in which $\gamma$ decreases the mean real part of the leading eigenvalue is indicated with grey shading. In all simulations, system size and connectence were set to $S = 25$ and $C = 1$, respectively. Off-diagonal elements of $\textbf{A}$ were randomly sampled from $A_{ij} \sim \mathcal{N}(0, 0.4)$, and diagonal elements were set to $-1$. Elements of $\gamma$ were sampled, $\gamma_{i} \sim \mathcal{U}(0, 2)$.
+
+```{r, echo = FALSE, fig.height = 6, fig.width = 6}
+sim_rhos <- read.csv(file = "../inst/extdata/rhos/sim_rhos.csv");
+par(mar = c(5, 5, 1, 1));
+plot(x = sim_rhos[,1], y = sim_rhos[,20], type = "b", pch = 20, lwd = 2,
+     xlab = expression(paste("Correlation between A"[ij]," and A"[ji], 
+                             " (",rho,")")),
+     ylab = "Real part of leading eigenvalue", col = "dodgerblue4",
+     ylim = c(min(sim_rhos[,22:25]), max(sim_rhos[,22:25])),
+     cex.lab = 1.25, cex.axis = 1.25);
+mbox <- function(x0, x1, y0, y1){
+    xx <- seq(from=x0, to=x1, length.out = 100);
+    yy <- seq(from=y0, to=y1, length.out = 100);
+    xd <- c(rep(x0, 100), xx, rep(x1,100), rev(xx));
+    yd <- c(yy, rep(y1,100), rev(yy), rep(y0, 100));
+    return(list(x=xd, y=yd));
+}
+more_stable_1 <- sim_rhos[,21] - sim_rhos[,20]
+more_stable_2 <- which(more_stable_1 < 0);
+min_x         <- min(more_stable_2);
+max_x         <- max(more_stable_2);
+shade_box     <- mbox(x0 = sim_rhos[min_x, 1], x1 = sim_rhos[max_x, 1], 
+                      y0 = -12, y1 = 15);
+polygon(x = shade_box$x, y = shade_box$y, col = "grey80", border = NA);
+abline(h = 0, lwd = 0.8, lty = "dotted", col = "black");
+for(i in 1:dim(sim_rhos)[1]){
+    lines(x = c(sim_rhos[i,1], sim_rhos[i,15]), col = "purple",
+          y = c(sim_rhos[i,20], sim_rhos[i,21]), lwd = 1.5);
+}
+arrows(x0 = sim_rhos[,1], x1 = sim_rhos[,1], y0 = sim_rhos[,20], 
+       y1 = sim_rhos[,22], angle = 90, length = 0.05, lwd = 1, col = "dodgerblue4");
+arrows(x0 = sim_rhos[,1], x1 = sim_rhos[,1], y0 = sim_rhos[,20], 
+       y1 = sim_rhos[,23], angle = 90, length = 0.05, lwd = 1, col = "dodgerblue4");
+arrows(x0 = sim_rhos[,15], x1 = sim_rhos[,15], y0 = sim_rhos[,21], 
+       y1 = sim_rhos[,24], angle = 90, length = 0.05, lwd = 1, col = "firebrick");
+arrows(x0 = sim_rhos[,15], x1 = sim_rhos[,15], y0 = sim_rhos[,21], 
+       y1 = sim_rhos[,25], angle = 90, length = 0.05, lwd = 1, col = "firebrick");
+points(x = sim_rhos[,1], y = sim_rhos[,20], type = "b", pch = 20, lwd = 3,
+       col = "dodgerblue4");
+points(x = sim_rhos[,15], y = sim_rhos[,21], type = "b", pch = 15, lwd = 3,
+       col = "firebrick");
+points(x = sim_rhos[,1], y = sim_rhos[,20], type = "l", pch = 20, lwd = 3,
+       col = "dodgerblue4");
+points(x = sim_rhos[,15], y = sim_rhos[,21], type = "l", pch = 15, lwd = 3,
+       col = "firebrick");
+legend("topleft", fill = c("dodgerblue4", "firebrick"), cex = 1.55,
+       legend = c(expression(paste(sigma[gamma]^2," = 0")), 
+                  expression(paste(sigma[gamma]^2," = 1/3"))),
+       bg = "white", y.intersp = 1.5);
+box();
+# Note that the 1/3 comes from the definition of unif distr. from 0 to 2.
+```
+
+\clearpage
+
+**Figure 3: System correlation versus stability across different system sizes**. In each panel, 10000 random complex systems $\mathbf{M} = \gamma \mathbf{A}$ are simulated for each correlation $\rho = \{-0.90, -0.85, ..., 0.85, 0.90 \}$ between off-diagonal elements $A_{ij}$ and $A_{ji}$. Lines show the expected real part of the leading eigenvalues of $\mathbf{M}$ (red squares; $\sigma^{2}_{\gamma} = 1/3$) versus $\mathbf{A}$ (blue circles; $\sigma^{2}_{\gamma} = 0$) across $\rho$, where negative values (below the dotted black line) indicate system stability. Differences between lines thereby show the effect of component response rate variation ($\gamma$) on system stability across system correlations and sizes ($S$). For all simulations, system connectance was $C = 1$. Off-diagonal elements of $\textbf{A}$ were randomly sampled from $A_{ij} \sim \mathcal{N}(0, 0.2)$, and diagonal elements were set to $-1$. Elements of $\gamma$ were sampled such that $\gamma_{i} \sim \mathcal{U}(0, 2)$, so $\sigma^{2}_{\gamma} = 1/3$.
+
+```{r, echo = FALSE, fig.height = 7.5, fig.width = 6}
+sim10 <- read.csv(file = "../inst/extdata/rhos/sim10.csv");
+sim15 <- read.csv(file = "../inst/extdata/rhos/sim15.csv");
+sim20 <- read.csv(file = "../inst/extdata/rhos/sim20.csv");
+sim25 <- read.csv(file = "../inst/extdata/rhos/sim25.csv");
+sim30 <- read.csv(file = "../inst/extdata/rhos/sim30.csv");
+sim35 <- read.csv(file = "../inst/extdata/rhos/sim35.csv");
+sim40 <- read.csv(file = "../inst/extdata/rhos/sim40.csv");
+sim45 <- read.csv(file = "../inst/extdata/rhos/sim45.csv");
+fstlt <- c(1, dim(sim20)[1]);
+par(mar = c(0.25, 0.25, 0.25, 0.25), mfrow = c(3, 2), oma = c(6, 6, 1, 1));
+plot(x = sim20[,1], y = sim20[,20], type = "l", pch = 20, lwd = 2, xaxt = "n",
+     ylim = c(-1, 1.4), yaxt = "n", col = "dodgerblue4");
+axis(side = 2, at = c(-0.75, 0, 0.75), cex.axis = 1.75);
+points(x = sim20[fstlt, 1], y = sim20[fstlt, 20], pch = 20, cex = 2, 
+       col = "dodgerblue4");
+points(x = sim20[,15], y = sim20[,21], type = "l", lwd = 2, col = "firebrick");
+points(x = sim20[fstlt,15], y = sim20[fstlt,21], pch = 15, cex = 2, 
+       col = "firebrick");
+abline(h = 0, col = "black", lty = "dotted", lwd = 0.8);
+text(x = -0.6, y = 1.2, labels = "S = 20", cex = 2.5);
+plot(x = sim25[,1], y = sim25[,20], type = "l", pch = 20, lwd = 2, xaxt = "n",
+     ylim = c(-1, 1.4), yaxt = "n", cex.axis = 1.75, col = "dodgerblue4");
+points(x = sim25[fstlt, 1], y = sim25[fstlt, 20], pch = 20, cex = 2, 
+       col = "dodgerblue4");
+points(x = sim25[,15], y = sim25[,21], type = "l", lwd = 2, col = "firebrick");
+points(x = sim25[fstlt,15], y = sim25[fstlt,21], pch = 15, cex = 2, 
+       col = "firebrick");
+abline(h = 0, col = "black", lty = "dotted", lwd = 0.8);
+text(x = -0.6, y = 1.2, labels = "S = 25", cex = 2.5);
+plot(x = sim30[,1], y = sim30[,20], type = "l", pch = 20, lwd = 2, xaxt = "n",
+     ylim = c(-1, 1.4), cex.axis = 1.75, col = "dodgerblue4", yaxt = "n");
+points(x = sim30[fstlt, 1], y = sim30[fstlt, 20], pch = 20, cex = 2, 
+       col = "dodgerblue4");
+points(x = sim30[fstlt,15], y = sim30[fstlt,21], pch = 15, cex = 2, 
+       col = "firebrick");
+axis(side = 2, at = c(-0.75, 0, 0.75), cex.axis = 1.75);
+points(x = sim30[,15], y = sim30[,21], type = "l", lwd = 2, col = "firebrick");
+abline(h = 0, col = "black", lty = "dotted", lwd = 0.8);
+text(x = -0.6, y = 1.2, labels = "S = 30", cex = 2.5);
+plot(x = sim35[,1], y = sim35[,20], type = "l", pch = 20, lwd = 2, xaxt = "n",
+     ylim = c(-1, 1.4), yaxt = "n", cex.axis = 1.75, col = "dodgerblue4");
+points(x = sim35[fstlt, 1], y = sim35[fstlt, 20], pch = 20, cex = 2, 
+       col = "dodgerblue4");
+points(x = sim35[,15], y = sim35[,21], type = "l", lwd = 2, col = "firebrick");
+points(x = sim35[fstlt,15], y = sim35[fstlt,21], pch = 15, cex = 2, 
+       col = "firebrick");
+abline(h = 0, col = "black", lty = "dotted", lwd = 0.8);
+text(x = -0.6, y = 1.2, labels = "S = 35", cex = 2.5);
+plot(x = sim40[,1], y = sim40[,20], type = "l", pch = 20, lwd = 2, 
+     ylim = c(-1, 1.4), cex.axis = 1.75, col = "dodgerblue4", yaxt = "n");
+points(x = sim40[fstlt, 1], y = sim40[fstlt, 20], pch = 20, cex = 2, 
+       col = "dodgerblue4");
+axis(side = 2, at = c(-0.75, 0, 0.75), cex.axis = 1.75);
+points(x = sim40[,15], y = sim40[,21], type = "l", lwd = 2,col = "firebrick");
+points(x = sim40[fstlt,15], y = sim40[fstlt,21], pch = 15, cex = 2, 
+       col = "firebrick");
+abline(h = 0, col = "black", lty = "dotted", lwd = 0.8);
+text(x = -0.6, y = 1.2, labels = "S = 40", cex = 2.5);
+plot(x = sim45[,1], y = sim45[,20], type = "l", pch = 20, lwd = 2, 
+     ylim = c(-1, 1.4), yaxt = "n", cex.axis = 1.75, col = "dodgerblue4");
+points(x = sim45[fstlt, 1], y = sim45[fstlt, 20], pch = 20, cex = 2, 
+       col = "dodgerblue4");
+points(x = sim45[,15], y = sim45[,21], type = "l", lwd = 2, col = "firebrick");
+points(x = sim45[fstlt,15], y = sim45[fstlt,21], pch = 15, cex = 2, 
+       col = "firebrick");
+abline(h = 0, col = "black", lty = "dotted", lwd = 0.8);
+text(x = -0.6, y = 1.2, labels = "S = 45", cex = 2.5);
+mtext(text =  expression(paste("E Correlation between A"[ij]," and A"[ji], 
+                               " (",rho,")")), side = 1,
+      line = 4, outer = TRUE, cex = 1.5);
+mtext(text = "E real part of leading eigenvalue", side = 2,
+      line = 3.5, outer = TRUE, cex = 1.5);
+```
+
+
+\clearpage
+
+
+**Figure 4: Stability of large complex systems with and without variation in component response rate ($\boldsymbol{\gamma}$).** The $\ln$ number of systems that are stable across different system sizes ($S = \{2, 3, ..., 49, 50 \}$) given $C = 1$, and the proportion of systems for which variation in $\gamma$ is critical for system stability. For each $S$, 1 million complex systems are randomly generated. Stability of each complex system is tested given variation in $\gamma$ by randomly sampling $\gamma \sim \mathcal{U}(0, 2)$. Stability given $\sigma^{2}_{\gamma}>0$ is then compared to stability in an otherwise identical system in which $\gamma = E[\mathcal{U}(0, 2)]$ for all components. Blue and red bars show the number of stable systems in the absence and presence of $\sigma^{2}_{\gamma}$, respectively. The black line shows the proportion of systems that are stable when $\sigma^{2}_{\gamma}>0$, but would be unstable if $\sigma^{2}_{\gamma}=0$ (i.e., the conditional probability that $\mathbf{A}$ is unstable given that $\mathbf{M}$ is stable).
+
+
+```{r, eval = TRUE, echo = FALSE, fig.width = 9, fig.height = 7}
+plot_stables <- function(dat, S_s = 32){
+    Ns          <- 1:S_s;
+    par(oma = c(6, 6, 1, 6), mar = c(0.5, 0.5, 0.5, 0.5));
+    #=================================
+    bar_dat                      <- t(cbind(dat[Ns,3], dat[Ns,5]));
+    log_bar_dat                  <- log(bar_dat);
+    log_bar_dat[log_bar_dat < 0] <- 0; 
+    barplot(log_bar_dat, beside = TRUE, col = c("dodgerblue4", "firebrick"),
+            names.arg = dat[Ns,1], ylim = c(0, 16), xlab = "",
+            ylab = "Ln number of stable communities", cex.lab = 1, 
+            cex.axis = 1.25, xlim = c(1, 94), cex.names = 1, yaxt = "n");
+    axis(side = 2, at = c(0, 2, 4, 6, 8, 10, 12, 14), cex.axis = 1.5);
+    box(lwd = 2);
+    par(new = TRUE);
+    y1     <- dat[1:S_s,6] / (dat[1:S_s,5]);
+    x1     <- seq(from = 2.132, to = 15.1112, length = S_s);
+    plot(x = x1, y = y1, xaxt = "n", yaxt = "n", lwd = 2, ylim = c(0, 1.1),
+         xlab = "", ylab = "", type = "b", xlim = c(2, 15), pch = 20, 
+         cex = 1, col = "black", yaxs="i");
+    points(x = x1, y = y1, lwd = 2, type = "l", col = "black");
+    axis(side = 4, at = c(0, 0.2, 0.4, 0.6, 0.8, 1.0), cex.axis = 1.5);
+    legend("topleft", c(expression(paste(sigma[gamma]^2," = 0")), 
+                        expression(paste(sigma[gamma]^2," = 1/3"))), 
+           pch=15, col=c("dodgerblue4","firebrick"), cex = 1.5, horiz = TRUE);
+    #=================================
+    mtext(side = 1, text = "System size (S)", cex = 2, outer = TRUE, 
+          line = 3.0);
+    mtext(side = 2, text = "Ln number of stable systems", cex = 2, 
+          outer = TRUE, line = 3.5);
+    mtext(side = 4, text = expression(
+        paste("Pr. of systems stable due to Var(",gamma,")")),
+        cex = 2, outer = TRUE, line = 3.5);
+}
+plot_stables(dat);
+```
