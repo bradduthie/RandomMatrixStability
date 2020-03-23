@@ -1,7 +1,7 @@
 RandomMatrixStability
 ================================================================================
 
-**This R package complements the pre-print "Component response rate variation drives stability in large complex systems" ([https://arxiv.org/abs/1806.01029](https://arxiv.org/abs/1806.01029)). It contains all of the manuscript text and supplemental information, and all code for recreating analyses. The [website](https://bradduthie.github.io/RandomMatrixStability/) includes [documentation](https://bradduthie.github.io/RandomMatrixStability/reference/index.html) for all functions in the package.**
+**This R package complements the pre-print "Component response rate variation underlies the stability of highly complex finite systems" ([https://arxiv.org/abs/1806.01029](https://arxiv.org/abs/1806.01029)). It contains all of the manuscript text and supplemental information, and all code for recreating analyses. The [website](https://bradduthie.github.io/RandomMatrixStability/) includes [documentation](https://bradduthie.github.io/RandomMatrixStability/reference/index.html) for all functions in the package.**
 
 
 ## Installation
@@ -23,4 +23,4 @@ install_github("bradduthie/RandomMatrixStability")
 
 ## Reference
 
-**Duthie, A. B.** Component response rate variation drives stability in large  complex systems. Pre-print: [https://arxiv.org/abs/1806.01029](https://arxiv.org/abs/1806.01029).
+**Duthie, A. B.** Component response rate variation underlies the stability of highly complex finite systems. Pre-print: [https://arxiv.org/abs/1806.01029](https://arxiv.org/abs/1806.01029).
