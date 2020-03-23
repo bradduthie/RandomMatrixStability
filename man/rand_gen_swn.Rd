@@ -5,7 +5,8 @@
 \title{Find stabilised small world networks}
 \usage{
 rand_gen_swn(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 4,
-  sigma = 0.4, Kdiv = 2, beta = 0.2, mn = 0, dval = 1)
+  sigma = 0.4, Kdiv = 2, beta = 0.2, mn = 0, dval = 1, g_dist = 1,
+  g_mn = 1, g_sd = 1)
 }
 \arguments{
 \item{max_sp}{Maximum number of components to randomise}

@@ -5,7 +5,7 @@
 \title{Find stabilised scale-free world networks}
 \usage{
 rand_gen_sfn(S, m_vals, iters, int_type = 0, rmx = 0.4, sigma = 0.4,
-  mn = 0, dval = 1)
+  mn = 0, dval = 1, g_dist = 1, g_mn = 1, g_sd = 1)
 }
 \arguments{
 \item{S}{Number of components to randomise}
@@ -47,5 +47,5 @@ Modern Physics, Vo. 74, 2002). Off-diagonal elements have a mean of 'mn' and
 a standard deviation of 'sigma'.
 }
 \examples{
-rand_gen_sfn(S = 24, mvals = c(2, 4), iters = 4);
+rand_gen_sfn(S = 24, m_vals = c(2, 4), iters = 4);
 }

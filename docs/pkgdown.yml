@@ -3,5 +3,5 @@ pkgdown: 1.0.0
 pkgdown_sha: ~
 articles:
   RandomMatrixStability: RandomMatrixStability.html
-  SI: SI.html
+  Supplemental_Information: Supplemental_Information.html
 

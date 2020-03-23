@@ -1,0 +1,31 @@
+reference:
+  - title: Run simulations
+    contents:
+    - rand_gen_var
+    - rand_gen_swn
+    - rand_gen_sfn
+    - Evo_rand_gen_var
+
+  - title: System building tools
+    contents:
+    - build_rho_mat
+    - create_sfn
+    - create_swn
+    - make_gammas
+    - species_interactions
+
+  - title: Utility functions
+    contents:
+    - get_C
+    - get_complexity
+    - mat_rho
+
+  - title: Plotting functions
+    contents:
+    - visualise_network
+    - show_gammas
+
+navbar:
+  right:
+    - icon: fa-github
+      href: https://github.com/bradduthie/RandomMatrixStability

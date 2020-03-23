@@ -5,7 +5,7 @@
 \title{Find stabilised random systems}
 \usage{
 rand_gen_var(max_sp, iters, int_type = 0, rmx = 0.4, C = 1, by = 1,
-  sigma = 0.4, mn = 0, dval = 1)
+  sigma = 0.4, mn = 0, dval = 1, g_dist = 1, g_mn = 1, g_sd = 1)
 }
 \arguments{
 \item{max_sp}{Maximum number of components to randomise}
@@ -27,6 +27,12 @@ element components.}
 \item{mn}{Mean interaction strength among network elements}
 
 \item{dval}{Self-regulation of network elements (1 by default)}
+
+\item{g_dist}{Gamma distribution to be used (1 by default)}
+
+\item{g_mn}{Mean value of gamma distribution (only for g_dist 0)}
+
+\item{g_sd}{Standard deviation of gamma distribution (only for g_dist 2-4)}
 }
 \value{
 A table of stability results, where rows summarise for each component

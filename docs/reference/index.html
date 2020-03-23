@@ -55,7 +55,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RandomMatrixStability</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.3.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0.0</span>
       </span>
     </div>
 
@@ -81,14 +81,19 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/SI.html">Supplemental Information</a>
+      <a href="../articles/Supplemental_Information.html">Supplemental Information</a>
     </li>
   </ul>
 </li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/bradduthie/RandomMatrixStability">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -114,28 +119,60 @@
     <tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
+          <h2 id="section-run-simulations" class="hasAnchor"><a href="#section-run-simulations" class="anchor"></a>Run simulations</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
       <tr>
         <!--  -->
         <td>
+          <p><code><a href="rand_gen_var.html">rand_gen_var()</a></code> </p>
+        </td>
+        <td><p>Find stabilised random systems</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="rand_gen_swn.html">rand_gen_swn()</a></code> </p>
+        </td>
+        <td><p>Find stabilised small world networks</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="rand_gen_sfn.html">rand_gen_sfn()</a></code> </p>
+        </td>
+        <td><p>Find stabilised scale-free world networks</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
           <p><code><a href="Evo_rand_gen_var.html">Evo_rand_gen_var()</a></code> </p>
         </td>
         <td><p>Run genetic algorithms to find stability</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-system-building-tools" class="hasAnchor"><a href="#section-system-building-tools" class="anchor"></a>System building tools</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="build_rho_mat.html">build_rho_mat()</a></code> </p>
+        </td>
+        <td><p>Build a matrix with a specified correlation structure</p></td>
       </tr><tr>
         <!--  -->
         <td>
-          <p><code><a href="find_bgamma.html">find_bgamma()</a></code> </p>
+          <p><code><a href="create_sfn.html">create_sfn()</a></code> </p>
         </td>
-        <td><p>Find a stabilised system</p></td>
+        <td><p>Build a scale-free network</p></td>
       </tr><tr>
         <!--  -->
         <td>
-          <p><code><a href="get_top_evo_out.html">get_top_evo_out()</a></code> </p>
+          <p><code><a href="create_swn.html">create_swn()</a></code> </p>
         </td>
-        <td><p>Find the component response rate vectors of highest size</p></td>
+        <td><p>Build a small world network</p></td>
       </tr><tr>
         <!--  -->
         <td>
@@ -145,57 +182,55 @@
       </tr><tr>
         <!--  -->
         <td>
-          <p><code><a href="plot_Fig_1.html">plot_Fig_1()</a></code> </p>
+          <p><code><a href="species_interactions.html">species_interactions()</a></code> </p>
         </td>
-        <td><p>Find stable bimodal systems</p></td>
+        <td><p>Restrict component interaction types</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-utility-functions" class="hasAnchor"><a href="#section-utility-functions" class="anchor"></a>Utility functions</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="get_C.html">get_C()</a></code> </p>
+        </td>
+        <td><p>Get the connectance of a network</p></td>
       </tr><tr>
         <!--  -->
         <td>
-          <p><code><a href="plot_Fig_2.html">plot_Fig_2()</a></code> </p>
+          <p><code><a href="get_complexity.html">get_complexity()</a></code> </p>
         </td>
-        <td><p>Plot eigenvalues of a large system</p></td>
+        <td><p>Get the complexity of matrix</p></td>
       </tr><tr>
         <!--  -->
         <td>
-          <p><code><a href="plot_evo_out.html">plot_evo_out()</a></code> </p>
+          <p><code><a href="mat_rho.html">mat_rho()</a></code> </p>
         </td>
-        <td><p>Plot component response rate distributions</p></td>
-      </tr><tr>
+        <td><p>Summarise the correlation of matrix elements</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-plotting-functions" class="hasAnchor"><a href="#section-plotting-functions" class="anchor"></a>Plotting functions</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
         <!--  -->
         <td>
-          <p><code><a href="rand_gen_var.html">rand_gen_var()</a></code> </p>
+          <p><code><a href="visualise_network.html">visualise_network()</a></code> </p>
         </td>
-        <td><p>Find a stabilised system</p></td>
-      </tr><tr>
-        <!--  -->
-        <td>
-          <p><code><a href="rand_mat_ga.html">rand_mat_ga()</a></code> </p>
-        </td>
-        <td><p>Genetic algorithm to find stability</p></td>
+        <td><p>Visualise a network</p></td>
       </tr><tr>
         <!--  -->
         <td>
           <p><code><a href="show_gammas.html">show_gammas()</a></code> </p>
         </td>
         <td><p>Produce figure of gamma distributions</p></td>
-      </tr><tr>
-        <!--  -->
-        <td>
-          <p><code><a href="species_interactions.html">species_interactions()</a></code> </p>
-        </td>
-        <td><p>Restrict component interaction types</p></td>
-      </tr><tr>
-        <!--  -->
-        <td>
-          <p><code><a href="stab_bgamma.html">stab_bgamma()</a></code> </p>
-        </td>
-        <td><p>Find stable bimodal systems</p></td>
-      </tr><tr>
-        <!--  -->
-        <td>
-          <p><code><a href="summarise_randmat.html">summarise_randmat()</a></code> <code><a href="summarise_randmat.html">summarise_randmat()</a></code> </p>
-        </td>
-        <td><p>Summarise random matrix results from genetic algorithm</p></td>
       </tr>
     </tbody>
     </table>
@@ -204,7 +239,10 @@
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-all-functions">All functions</a></li>
+      <li><a href="#section-run-simulations">Run simulations</a></li>
+      <li><a href="#section-system-building-tools">System building tools</a></li>
+      <li><a href="#section-utility-functions">Utility functions</a></li>
+      <li><a href="#section-plotting-functions">Plotting functions</a></li>
     </ul>
   </div>
 </div>

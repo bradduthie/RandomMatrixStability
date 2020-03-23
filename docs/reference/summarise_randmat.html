@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Summarise random matrix results from genetic algorithm — summarise_randmat • RandomMatrixStability</title>
+<title>Summarise random matrix results — summarise_randmat • RandomMatrixStability</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -28,11 +28,9 @@
 
 
 
-<meta property="og:title" content="Summarise random matrix results from genetic algorithm — summarise_randmat" />
+<meta property="og:title" content="Summarise random matrix results — summarise_randmat" />
 
-<meta property="og:description" content="Takes the list output of the Evo_rand_gen_var function and summarises it into
-a useable format.
-Takes the list output of the rand_gen_var function and summarises it into a
+<meta property="og:description" content="Takes the list output of the rand_gen_var function and summarises it into a
 useable format." />
 <meta name="twitter:card" content="summary" />
 
@@ -61,7 +59,7 @@ useable format." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RandomMatrixStability</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.3.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0.0</span>
       </span>
     </div>
 
@@ -87,14 +85,19 @@ useable format." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/SI.html">Supplemental Information</a>
+      <a href="../articles/Supplemental_Information.html">Supplemental Information</a>
     </li>
   </ul>
 </li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/bradduthie/RandomMatrixStability">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -107,23 +110,19 @@ useable format." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Summarise random matrix results from genetic algorithm</h1>
+    <h1>Summarise random matrix results</h1>
     
     <div class="hidden name"><code>summarise_randmat.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Takes the list output of the Evo_rand_gen_var function and summarises it into
-a useable format.</p>
-<p>Takes the list output of the rand_gen_var function and summarises it into a
+    <p>Takes the list output of the rand_gen_var function and summarises it into a
 useable format.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>summarise_randmat</span>(<span class='no'>tot_res</span>, <span class='no'>fea_res</span>)
-
-<span class='fu'>summarise_randmat</span>(<span class='no'>tot_res</span>, <span class='no'>fea_res</span>)</pre>
+    <pre class="usage"><span class='fu'>summarise_randmat</span>(<span class='no'>tot_res</span>, <span class='no'>fea_res</span>, <span class='no'>rho_res</span>, <span class='no'>cmplxty</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -137,23 +136,22 @@ useable format.</p>
       <td><p>The fea_res list output from the rand_gen_var function</p></td>
     </tr>
     <tr>
-      <th>tot_res</th>
-      <td><p>The tot_res list output from the rand_gen_var function</p></td>
+      <th>rho_res</th>
+      <td><p>The rho_res list output from the rand_gen_var function</p></td>
     </tr>
     <tr>
-      <th>fea_res</th>
-      <td><p>The fea_res list output from the rand_gen_var function</p></td>
+      <th>cmplexty</th>
+      <td><p>The cmplxty list output from the rand_gen_var function</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A table of stability and feasibility results.</p>
-<p>A table of stability and feasibility results.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>sim_ga</span>      <span class='kw'>&lt;-</span> <span class='fu'><a href='Evo_rand_gen_var.html'>Evo_rand_gen_var</a></span>(<span class='kw'>from</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>to</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>iters</span> <span class='kw'>=</span> <span class='fl'>1</span>);</div><div class='output co'>#&gt; <span class='error'>Error in Evo_rand_gen_var(from = 2, to = 2, iters = 1): unused arguments (from = 2, to = 2)</span></div><div class='input'><span class='no'>sum_rand_ga</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='summarise_randmat_ga.html'>summarise_randmat_ga</a></span>(<span class='no'>sim_ga</span>$<span class='no'>tot_res</span>, <span class='no'>sim_ga</span>$<span class='no'>fea_res</span>);</div><div class='output co'>#&gt; <span class='error'>Error in summarise_randmat_ga(sim_ga$tot_res, sim_ga$fea_res): could not find function "summarise_randmat_ga"</span></div><div class='input'><span class='no'>eg_rand</span>  <span class='kw'>&lt;-</span> <span class='fu'><a href='rand_gen_var.html'>rand_gen_var</a></span>(<span class='kw'>max_sp</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>iters</span> <span class='kw'>=</span> <span class='fl'>4</span>);</div><div class='output co'>#&gt; [1] 2</div><div class='input'><span class='no'>sum_rand</span> <span class='kw'>&lt;-</span> <span class='fu'>summarise_randmat</span>(<span class='no'>eg_rand</span>$<span class='no'>tot_res</span>, <span class='no'>eg_rand</span>$<span class='no'>fea_res</span>);</div><div class='output co'>#&gt; <span class='error'>Error in eg_rand$tot_res: $ operator is invalid for atomic vectors</span></div></pre>
+    <pre class="examples"><div class='input'><span class='no'>eg_rand</span>  <span class='kw'>&lt;-</span> <span class='fu'><a href='rand_gen_var.html'>rand_gen_var</a></span>(<span class='kw'>max_sp</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>iters</span> <span class='kw'>=</span> <span class='fl'>4</span>);</div><div class='output co'>#&gt; [1] 2</div><div class='input'><span class='no'>sum_rand</span> <span class='kw'>&lt;-</span> <span class='fu'>summarise_randmat</span>(<span class='no'>eg_rand</span>$<span class='no'>tot_res</span>, <span class='no'>eg_rand</span>$<span class='no'>fea_res</span>);</div><div class='output co'>#&gt; <span class='error'>Error in eg_rand$tot_res: $ operator is invalid for atomic vectors</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

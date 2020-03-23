@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Find a stabilised system — rand_gen_var • RandomMatrixStability</title>
+<title>Find stabilised random systems — rand_gen_var • RandomMatrixStability</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -28,11 +28,13 @@
 
 
 
-<meta property="og:title" content="Find a stabilised system — rand_gen_var" />
+<meta property="og:title" content="Find stabilised random systems — rand_gen_var" />
 
 <meta property="og:description" content="Compares random matrices in which variation in component response rate does
 not vary to random matrices in which this variation for 2 to max_sp 
-components." />
+components. This function is to be used for random networks, in which
+off-diagonal elements are randomly sampled from a normal distribution with
+a mean of 'mn' and a standard deviation of 'sigma'." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -60,7 +62,7 @@ components." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RandomMatrixStability</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.3.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0.0</span>
       </span>
     </div>
 
@@ -86,14 +88,19 @@ components." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/SI.html">Supplemental Information</a>
+      <a href="../articles/Supplemental_Information.html">Supplemental Information</a>
     </li>
   </ul>
 </li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/bradduthie/RandomMatrixStability">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -106,7 +113,7 @@ components." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Find a stabilised system</h1>
+    <h1>Find stabilised random systems</h1>
     
     <div class="hidden name"><code>rand_gen_var.Rd</code></div>
     </div>
@@ -115,11 +122,14 @@ components." />
     
     <p>Compares random matrices in which variation in component response rate does
 not vary to random matrices in which this variation for 2 to max_sp 
-components.</p>
+components. This function is to be used for random networks, in which
+off-diagonal elements are randomly sampled from a normal distribution with
+a mean of 'mn' and a standard deviation of 'sigma'.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>rand_gen_var</span>(<span class='no'>max_sp</span>, <span class='no'>iters</span>, <span class='kw'>int_type</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>rmx</span> <span class='kw'>=</span> <span class='fl'>0.4</span>, <span class='kw'>C</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
+    <pre class="usage"><span class='fu'>rand_gen_var</span>(<span class='no'>max_sp</span>, <span class='no'>iters</span>, <span class='kw'>int_type</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>rmx</span> <span class='kw'>=</span> <span class='fl'>0.4</span>, <span class='kw'>C</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>sigma</span> <span class='kw'>=</span> <span class='fl'>0.4</span>, <span class='kw'>mn</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>dval</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>g_dist</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>g_mn</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>g_sd</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -134,16 +144,45 @@ components.</p>
     </tr>
     <tr>
       <th>int_type</th>
-      <td><p>Type of interaction between components (0 is random)</p></td>
+      <td><p>Type of interaction between components including random (0),
+competitor (1), mutualist (2), predator-prey (3), and cascade model (4)</p></td>
     </tr>
     <tr>
       <th>rmx</th>
-      <td><p>Standard deviation of non-zero matrix element components</p></td>
+      <td><p>Standard deviation of population growth rates (for feasibility)</p></td>
     </tr>
     <tr>
       <th>C</th>
       <td><p>Connectedness of matrices (i.e., probability of non-zero matrix 
 element components.</p></td>
+    </tr>
+    <tr>
+      <th>by</th>
+      <td><p>Sequence between component number to randomise (e.g., '2': 2, 4, 6)</p></td>
+    </tr>
+    <tr>
+      <th>sigma</th>
+      <td><p>Standard deviation of interaction strength among network elements</p></td>
+    </tr>
+    <tr>
+      <th>mn</th>
+      <td><p>Mean interaction strength among network elements</p></td>
+    </tr>
+    <tr>
+      <th>dval</th>
+      <td><p>Self-regulation of network elements (1 by default)</p></td>
+    </tr>
+    <tr>
+      <th>g_dist</th>
+      <td><p>Gamma distribution to be used (1 by default)</p></td>
+    </tr>
+    <tr>
+      <th>g_mn</th>
+      <td><p>Mean value of gamma distribution (only for g_dist 0)</p></td>
+    </tr>
+    <tr>
+      <th>g_sd</th>
+      <td><p>Standard deviation of gamma distribution (only for g_dist 2-4)</p></td>
     </tr>
     </table>
     
@@ -155,12 +194,14 @@ random matrices produced.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>rand_gen_var</span>(<span class='kw'>max_sp</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>iters</span> <span class='kw'>=</span> <span class='fl'>4</span>);</div><div class='output co'>#&gt; [1] 2</div><div class='output co'>#&gt;      N A0_unstable A0_stable A1_unstable A1_stable A1_stabilised
-#&gt; [1,] 2           0         4           0         4             0
-#&gt;      A1_destabilised A0_infeasible A0_feasible A1_infeasible A1_feasible
-#&gt; [1,]               0             3           1             3           1
-#&gt;      A1_made_feasible A1_made_infeasible
-#&gt; [1,]                0                  0</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>rand_gen_var</span>(<span class='kw'>max_sp</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>iters</span> <span class='kw'>=</span> <span class='fl'>4</span>);</div><div class='output co'>#&gt; [1] 2</div><div class='output co'>#&gt;      S A_unstable A_stable M_unstable M_stable A_stabilised A_destabilised
+#&gt; [1,] 2          0        4          0        4            0              0
+#&gt;      A_infeasible A_feasible M_infeasible M_feasible A_made_feasible
+#&gt; [1,]            1          3            2          2               0
+#&gt;      A_made_infeasible A_rho M_rho rho_diff rho_abs complex_A complex_M
+#&gt; [1,]                 1    NA    NA       NA      NA 0.6063849 0.6598214
+#&gt;           A_eig      M_eig      LR_A      UR_A      LR_M       UR_M
+#&gt; [1,] -0.9800924 -0.8339077 -1.273938 -0.566677 -1.131708 -0.5553284</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

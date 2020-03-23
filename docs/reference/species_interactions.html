@@ -31,7 +31,7 @@
 <meta property="og:title" content="Restrict component interaction types — species_interactions" />
 
 <meta property="og:description" content="Restricts the interaction types of a matrix to be competitive (1), mutualist
-(2), or predator-prey (3)." />
+(2), predator-prey (3), or cascade model (4)." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -59,7 +59,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RandomMatrixStability</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.0.3.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0.0</span>
       </span>
     </div>
 
@@ -85,14 +85,19 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/SI.html">Supplemental Information</a>
+      <a href="../articles/Supplemental_Information.html">Supplemental Information</a>
     </li>
   </ul>
 </li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/bradduthie/RandomMatrixStability">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -113,7 +118,7 @@
     <div class="ref-description">
     
     <p>Restricts the interaction types of a matrix to be competitive (1), mutualist
-(2), or predator-prey (3).</p>
+(2), predator-prey (3), or cascade model (4).</p>
     
     </div>
 
@@ -128,7 +133,9 @@
     </tr>
     <tr>
       <th>type</th>
-      <td><p>The type of restriction being made</p></td>
+      <td><p>The type of restriction being made. This includes random (0),
+competitor (1), mutualist (2), predator-prey (3), or cascade model food web 
+(4)</p></td>
     </tr>
     </table>
     

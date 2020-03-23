@@ -1,5 +1,5 @@
 ---
-title: "Component response rate variation underlies the stability of highly complex finite systems"
+title: "Supplemental Information"
 author: "A. Bradley Duthie"
 date: Biological and Environmental Sciences, University of Stirling, Stirling, UK,
   FK9 4LA alexander.duthie@stir.ac.uk
@@ -27,7 +27,7 @@ linestretch: 1
 link-citations: yes
 linkcolor: blue
 csl: nature.csl
-subtitle: Supplemental Information
+subtitle: "Component response rate variation underlies the stability of highly complex finite systems"
 biblio-style: apalike
 ---
 
