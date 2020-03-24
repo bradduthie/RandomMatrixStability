@@ -51,10 +51,7 @@ Reviewer 1 comment 4
 
 Comment:
 
-The manuscript is well written. I have just a remark concerning Figures 3 and 4. The black line is
-intended to show the proportion of systems that are stable when the variance is positive but would
-be unstable for zero variance. Is the author considering the conditional probability that A-id is
-unstable given that DA-id is stable ? I think that this point should be explained in more details.
+The manuscript is well written. I have just a remark concerning Figures 3 and 4. The black line is intended to show the proportion of systems that are stable when the variance is positive but would be unstable for zero variance. Is the author considering the conditional probability that A-id is unstable given that DA-id is stable ? I think that this point should be explained in more details.
 
 Author response to Reviewer 1 comment 3
 ================================================================================
@@ -87,7 +84,7 @@ The results crucially build on the matrices being dangerously close to the stabi
 Author response to Reviewer 2 comment 2
 ================================================================================
 
-I appreciate these comments, and have tried to provide a more analytical explanation of the changes introduced by \gamma (L53-L64), including a new subsection explaining the effect of variation in $\gamma$ on the covariation of M (L65-L81). I agree that these analytical results improve the manuscript, and I think that they are particularly useful in setting the stage for the numerical simulations that now follow. In making these changes, I have slightly adjusted the notation so that the text is more readable. 
+I appreciate these comments, and have tried to provide a more analytical explanation of the changes introduced by \gamma (L53-L64), including a new subsection explaining the effect of variation in $\gamma$ on the (co)variation of M (L65-L81). I agree that these analytical results improve the manuscript, and I think that they are particularly useful in setting the stage for the numerical simulations that now follow. In making these changes, I have slightly adjusted the notation so that the text is more readable. 
 
 As Reviewer 2 correctly points out, my focus is on finite values of S and $\sigma$, in which complexity is gradually increased until it is dangerously close to the stability boundary. Given this focus, analytically demonstrating my central result (that variation in $X$ when $M = XA$ increases the probability of finding a stable $M$) would require some sort of comparison between the probability distributions of eigenvalues for $M$ and $A$. For circular matrices in which elements are i.i.d ($A$), it has been proved that eigenvalues are distributed uniformly within a known boundary of support of the spectral density (Tao and Vu 2010). While recent papers have found the support for more general types of random matrices that include the form $M = AX$ (e.g, Gibbs et al. 2018; Neri and Metz 2012; Ahmadian et al. 2015), to the best of my knowledge, finding the actual density of eigenvalues within the support has not been attempted. This likely matters because for finite S, even though the real boundary of the support might be positive for both $M$ and $A$ (implying instability as $S \to \infty$; Grilli et al. 2017), the right-most eigenvalue for a system still might be less than zero.
 
@@ -107,7 +104,7 @@ Author response to Reviewer 2 comment 3
 
 These were very helpful comments, and I have embraced them wholeheartedly in my revision. I am especially grateful to Reviewer 2 for doing a bit of preliminary exploration themselves to suggest improvements. I have now included a full section devoted to the role of $\rho$ on stability, and run simulations for different values of $\rho$, as suggested. Reviewer 2 is correct that the nonzero $\rho$ values do not change my results, but an analysis of stability across $\rho$ values also revealed an interesting pattern. While the relationship between $\rho$ and the leading eigenvalue is linear for circular matrices ($A$), it is convex when $\gamma$ is included such that $M = \gamma A$. I have now included these results into the main text of the manuscript, as I believe that they are important. 
 
-As suggested, I also considered matrices with even more structure, performing a new simulations on each. Specifically, I have simulated three broad classes of structured networks that are widespread in physical, social, and biological systems. These include food webs with cascade structures (e.g., Williams and Martinez 2000), small-world networks (Watts and Strogatz 1998), and scale-free networks (Albert and Barab\'{a}si 2002). Results for these networks are presented in L123-L140, and methods are explained in L247-L273, and in the Supplemental Information. Overall, these structured networks were affected by variation in $\gamma$ in the same way as random networks (increasing stability given sufficiently high complexity).
+As suggested, I also considered matrices with even more structure, performing new simulations on each. Specifically, I have simulated three broad classes of structured networks that are widespread in physical, social, and biological systems. These include food webs with cascade structures (e.g., Williams and Martinez 2000), small-world networks (Watts and Strogatz 1998), and scale-free networks (Albert and Barab\'{a}si 2002). Results for these networks are presented in L123-L140, and methods are explained in L247-L273, and in the Supplemental Information. Overall, these structured networks were affected by variation in $\gamma$ in the same way as random networks (increasing stability given sufficiently high complexity).
 
 Reviewer 2 comment 4
 ================================================================================
