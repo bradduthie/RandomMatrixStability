@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.10.14)  6 MAR 2019 21:53
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.10.14)  26 MAR 2020 21:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -790,54 +790,6 @@ Now handling font encoding PU ...
 Package hyperref Info: Option `colorlinks' set `true' on input line 36.
 Package hyperref Info: Option `breaklinks' set `true' on input line 36.
 
-(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
-Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
-
-(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
-Package: graphics 2016/01/03 v1.0q Standard LaTeX Graphics (DPC,SPQR)
-
-(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
-Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
-)
-(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/graphics.cfg
-File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
-)
-Package graphics Info: Driver file: pdftex.def on input line 95.
-
-(/usr/share/texlive/texmf-dist/tex/latex/pdftex-def/pdftex.def
-File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
-\Gread@gobject=\count114
-))
-\Gin@req@height=\dimen125
-\Gin@req@width=\dimen126
-)
-(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/grffile.sty
-Package: grffile 2012/04/05 v1.16 Extended file name support for graphics (HO)
-Package grffile Info: Option `multidot' is set to `true'.
-Package grffile Info: Option `extendedchars' is set to `false'.
-Package grffile Info: Option `space' is set to `true'.
-Package grffile Info: \Gin@ii of package `graphicx' fixed on input line 486.
-)
-(/usr/share/texlive/texmf-dist/tex/latex/parskip/parskip.sty
-Package: parskip 2001/04/09 non-zero parskip adjustments
-)
-(/usr/share/texlive/texmf-dist/tex/latex/titling/titling.sty
-Package: titling 2009/09/04 v2.1d maketitle typesetting
-\thanksmarkwidth=\skip48
-\thanksmargin=\skip49
-\droptitle=\skip50
-)
-(/usr/share/texlive/texmf-dist/tex/latex/base/fontenc.sty
-Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
-
-(/usr/share/texlive/texmf-dist/tex/latex/base/t1enc.def
-File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
-LaTeX Font Info:    Redeclaring font encoding T1 on input line 48.
-))
-Package hyperref Info: Option `unicode' set `true' on input line 115.
-Package hyperref Info: Option `colorlinks' set `true' on input line 115.
-Package hyperref Info: Option `breaklinks' set `true' on input line 115.
-
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/color.sty
 Package: color 2016/01/03 v1.1b Standard LaTeX Color (DPC)
 
@@ -846,6 +798,10 @@ File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
 Package color Info: Driver file: pdftex.def on input line 143.
 
+(/usr/share/texlive/texmf-dist/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+\Gread@gobject=\count114
+)
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/dvipsnam.def
 File: dvipsnam.def 2015/12/30 v3.0k Driver-dependent file (DPC,SPQR)
 ))
@@ -862,19 +818,19 @@ Style option: `fancyvrb' v2.7a, with DG/SPQR fixes, and firstline=lastline fix
 \FV@OutFile=\write3
 ) (/usr/share/texlive/texmf-dist/tex/latex/framed/framed.sty
 Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
-\OuterFrameSep=\skip51
-\fb@frw=\dimen127
-\fb@frh=\dimen128
-\FrameRule=\dimen129
-\FrameSep=\dimen130
+\OuterFrameSep=\skip48
+\fb@frw=\dimen125
+\fb@frh=\dimen126
+\FrameRule=\dimen127
+\FrameSep=\dimen128
 ) (/usr/share/texlive/texmf-dist/tex/latex/tools/longtable.sty
 Package: longtable 2014/10/28 v4.11 Multi-page Table package (DPC)
-\LTleft=\skip52
-\LTright=\skip53
-\LTpre=\skip54
-\LTpost=\skip55
+\LTleft=\skip49
+\LTright=\skip50
+\LTpre=\skip51
+\LTpost=\skip52
 \LTchunksize=\count118
-\LTcapwidth=\dimen131
+\LTcapwidth=\dimen129
 \LT@head=\box29
 \LT@firsthead=\box30
 \LT@foot=\box31
@@ -887,23 +843,56 @@ Package: longtable 2014/10/28 v4.11 Multi-page Table package (DPC)
 )
 (/usr/share/texlive/texmf-dist/tex/latex/booktabs/booktabs.sty
 Package: booktabs 2005/04/14 v1.61803 publication quality tables
-\heavyrulewidth=\dimen132
-\lightrulewidth=\dimen133
-\cmidrulewidth=\dimen134
-\belowrulesep=\dimen135
-\belowbottomsep=\dimen136
-\aboverulesep=\dimen137
-\abovetopsep=\dimen138
-\cmidrulesep=\dimen139
-\cmidrulekern=\dimen140
-\defaultaddspace=\dimen141
+\heavyrulewidth=\dimen130
+\lightrulewidth=\dimen131
+\cmidrulewidth=\dimen132
+\belowrulesep=\dimen133
+\belowbottomsep=\dimen134
+\aboverulesep=\dimen135
+\abovetopsep=\dimen136
+\cmidrulesep=\dimen137
+\cmidrulekern=\dimen138
+\defaultaddspace=\dimen139
 \@cmidla=\count123
 \@cmidlb=\count124
-\@aboverulesep=\dimen142
-\@belowrulesep=\dimen143
+\@aboverulesep=\dimen140
+\@belowrulesep=\dimen141
 \@thisruleclass=\count125
 \@lastruleclass=\count126
-\@thisrulewidth=\dimen144
+\@thisrulewidth=\dimen142
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2016/01/03 v1.0q Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/graphics.cfg
+File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
+)
+Package graphics Info: Driver file: pdftex.def on input line 95.
+)
+\Gin@req@height=\dimen143
+\Gin@req@width=\dimen144
+)
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/grffile.sty
+Package: grffile 2012/04/05 v1.16 Extended file name support for graphics (HO)
+Package grffile Info: Option `multidot' is set to `true'.
+Package grffile Info: Option `extendedchars' is set to `false'.
+Package grffile Info: Option `space' is set to `true'.
+Package grffile Info: \Gin@ii of package `graphicx' fixed on input line 486.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/parskip/parskip.sty
+Package: parskip 2001/04/09 non-zero parskip adjustments
+)
+(/usr/share/texlive/texmf-dist/tex/latex/titling/titling.sty
+Package: titling 2009/09/04 v2.1d maketitle typesetting
+\thanksmarkwidth=\skip53
+\thanksmargin=\skip54
+\droptitle=\skip55
 )
 (/usr/share/texlive/texmf-dist/tex/latex/natbib/natbib.sty
 Package: natbib 2010/09/13 8.31b (PWD, AO)
@@ -912,56 +901,49 @@ Package: natbib 2010/09/13 8.31b (PWD, AO)
 LaTeX Info: Redefining \cite on input line 694.
 \c@NAT@ctr=\count127
 )
-(/usr/share/texlive/texmf-dist/tex/latex/lineno/lineno.sty
-Package: lineno 2005/11/02 line numbers on paragraphs v4.41
-\linenopenalty=\count128
-\output=\toks26
-\linenoprevgraf=\count129
-\linenumbersep=\dimen145
-\linenumberwidth=\dimen146
-\c@linenumber=\count130
-\c@pagewiselinenumber=\count131
-\c@LN@truepage=\count132
-\c@internallinenumber=\count133
-\c@internallinenumbers=\count134
-\quotelinenumbersep=\dimen147
-\bframerule=\dimen148
-\bframesep=\dimen149
-\bframebox=\box33
-LaTeX Info: Redefining \\ on input line 3056.
-)
+! Undefined control sequence.
+<recently read> \linenumbers 
+                             
+l.140 \linenumbers
+                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
 No file ms.aux.
 \openout1 = `ms.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 213.
-LaTeX Font Info:    ... okay on input line 213.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 213.
-LaTeX Font Info:    ... okay on input line 213.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 213.
-LaTeX Font Info:    ... okay on input line 213.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 213.
-LaTeX Font Info:    ... okay on input line 213.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 213.
-LaTeX Font Info:    ... okay on input line 213.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 213.
-LaTeX Font Info:    ... okay on input line 213.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 213.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 213.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 143.
+LaTeX Font Info:    ... okay on input line 143.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 143.
+LaTeX Font Info:    ... okay on input line 143.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 143.
+LaTeX Font Info:    ... okay on input line 143.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 143.
+LaTeX Font Info:    ... okay on input line 143.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 143.
+LaTeX Font Info:    ... okay on input line 143.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 143.
+LaTeX Font Info:    ... okay on input line 143.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 143.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 143.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 213.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 213.
-LaTeX Font Info:    ... okay on input line 213.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 213.
-LaTeX Font Info:    ... okay on input line 213.
-LaTeX Font Info:    Try loading font information for T1+lmr on input line 213.
+LaTeX Font Info:    ... okay on input line 143.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 143.
+LaTeX Font Info:    ... okay on input line 143.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 143.
+LaTeX Font Info:    ... okay on input line 143.
+LaTeX Font Info:    Try loading font information for T1+lmr on input line 143.
 
 (/usr/share/texmf/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Info: Redefining \microtypecontext on input line 213.
+LaTeX Info: Redefining \microtypecontext on input line 143.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using protrusion set `basicmath'.
@@ -1010,36 +992,36 @@ File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-\AtBeginShipoutBox=\box34
-Package hyperref Info: Link coloring ON on input line 213.
+\AtBeginShipoutBox=\box33
+Package hyperref Info: Link coloring ON on input line 143.
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count135
+\c@section@level=\count128
 )
-LaTeX Info: Redefining \ref on input line 213.
-LaTeX Info: Redefining \pageref on input line 213.
-LaTeX Info: Redefining \nameref on input line 213.
+LaTeX Info: Redefining \ref on input line 143.
+LaTeX Info: Redefining \pageref on input line 143.
+LaTeX Info: Redefining \nameref on input line 143.
 \@outlinefile=\write4
 \openout4 = `ms.out'.
 
 
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count136
-\scratchdimen=\dimen150
-\scratchbox=\box35
-\nofMPsegments=\count137
-\nofMParguments=\count138
-\everyMPshowfont=\toks27
-\MPscratchCnt=\count139
-\MPscratchDim=\dimen151
-\MPnumerator=\count140
-\makeMPintoPDFobject=\count141
-\everyMPtoPDFconversion=\toks28
+\scratchcounter=\count129
+\scratchdimen=\dimen145
+\scratchbox=\box34
+\nofMPsegments=\count130
+\nofMParguments=\count131
+\everyMPshowfont=\toks26
+\MPscratchCnt=\count132
+\MPscratchDim=\dimen146
+\MPnumerator=\count133
+\makeMPintoPDFobject=\count134
+\everyMPtoPDFconversion=\toks27
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
 
@@ -1055,37 +1037,37 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 214.
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 144.
 
 
 (/usr/share/texmf/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 214.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 144.
 
 
 (/usr/share/texmf/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 214
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 144
 .
 
 (/usr/share/texmf/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 214
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 144
 .
 
 (/usr/share/texmf/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 214.
+(Font)              <12> on input line 144.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 214.
+(Font)              <8> on input line 144.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 214.
-LaTeX Font Info:    Try loading font information for U+msa on input line 214.
+(Font)              <6> on input line 144.
+LaTeX Font Info:    Try loading font information for U+msa on input line 144.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
@@ -1093,7 +1075,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 214.
+LaTeX Font Info:    Try loading font information for U+msb on input line 144.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -1102,343 +1084,332 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 231.
+(Font)              <10> on input line 172.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 231.
+(Font)              <7> on input line 172.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 231.
+(Font)              <5> on input line 172.
  [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2]
-<unnamed-chunk-10-1.pdf, id=83, 629.35126pt x 411.5375pt>
-File: unnamed-chunk-10-1.pdf Graphic file (type pdf)
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] <fig1.pdf, id=58, 489.83pt
+ x 485.815pt>
+File: fig1.pdf Graphic file (type pdf)
 
-<use unnamed-chunk-10-1.pdf>
-Package pdftex.def Info: unnamed-chunk-10-1.pdf used on input line 448.
-(pdftex.def)             Requested size: 469.75555pt x 307.17667pt.
- [3 <./unnamed-chunk-10-1.pdf>]
-<unnamed-chunk-13-1.pdf, id=97, 629.35126pt x 411.5375pt>
-File: unnamed-chunk-13-1.pdf Graphic file (type pdf)
+<use fig1.pdf>
+Package pdftex.def Info: fig1.pdf used on input line 251.
+(pdftex.def)             Requested size: 469.76805pt x 465.9175pt.
+ [2
 
-<use unnamed-chunk-13-1.pdf>
-Package pdftex.def Info: unnamed-chunk-13-1.pdf used on input line 484.
-(pdftex.def)             Requested size: 469.75555pt x 307.17667pt.
- [4 <./unnamed-chunk-13-1.pdf>]
-<unnamed-chunk-15-1.pdf, id=110, 611.28375pt x 459.7175pt>
-File: unnamed-chunk-15-1.pdf Graphic file (type pdf)
+ <./fig1.pdf>]
+! Undefined control sequence.
+l.338 \begin{equation} \labe
+                            {var_ref}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
 
-<use unnamed-chunk-15-1.pdf>
-Package pdftex.def Info: unnamed-chunk-15-1.pdf used on input line 517.
+[3] <fig2.pdf, id=106, 405.515pt x 402.50375pt>
+File: fig2.pdf Graphic file (type pdf)
+ <use fig2.pdf>
+Package pdftex.def Info: fig2.pdf used on input line 400.
+(pdftex.def)             Requested size: 401.31876pt x 398.33868pt.
+ [4 <./fig2.pdf>] [5] <fig3.pdf, id=135, 414.54875pt x 519.9425pt>
+File: fig3.pdf Graphic file (type pdf)
+ <use fig3.pdf>
+Package pdftex.def Info: fig3.pdf used on input line 536.
+(pdftex.def)             Requested size: 414.54773pt x 519.94124pt.
+ [6
+
+ <./fig3.pdf>] <fig4.pdf, id=148, 611.28375pt x 459.7175pt>
+File: fig4.pdf Graphic file (type pdf)
+ <use fig4.pdf>
+Package pdftex.def Info: fig4.pdf used on input line 581.
 (pdftex.def)             Requested size: 469.74788pt x 353.27507pt.
- [5 <./unnamed-chunk-15-1.pdf>]
-<unnamed-chunk-16-1.pdf, id=126, 611.28375pt x 459.7175pt>
-File: unnamed-chunk-16-1.pdf Graphic file (type pdf)
-
-<use unnamed-chunk-16-1.pdf>
-Package pdftex.def Info: unnamed-chunk-16-1.pdf used on input line 577.
-(pdftex.def)             Requested size: 469.74788pt x 353.27507pt.
- [6 <./unnamed-chunk-16-1.pdf>] [7] [8] [9]
-[10]
-LaTeX Font Info:    Try loading font information for T1+lmtt on input line 897.
-
+ [7 <./fig4.pdf>] [8] [9] [10] [11] [12] [13]
+LaTeX Font Info:    Try loading font information for T1+lmtt on input line 1150
+.
  (/usr/share/texmf/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 901.
-LaTeX Font Info:    Try loading font information for TS1+lmr on input line 923.
-
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 1154.
+LaTeX Font Info:    Try loading font information for TS1+lmr on input line 1178
+.
 
 (/usr/share/texmf/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <14.4> on input line 978.
- [11
+) [14
 
 ]
-
-Package longtable Warning: Column widths have changed
-(longtable)                in table 1 on input line 1054.
-
-[12]
-
-Package longtable Warning: Column widths have changed
-(longtable)                in table 2 on input line 1122.
-
-[13] <unnamed-chunk-7-1.pdf, id=255, 411.5375pt x 263.98625pt>
-File: unnamed-chunk-7-1.pdf Graphic file (type pdf)
-
-<use unnamed-chunk-7-1.pdf>
-Package pdftex.def Info: unnamed-chunk-7-1.pdf used on input line 1136.
-(pdftex.def)             Requested size: 411.5365pt x 263.9856pt.
- [14 <./unnamed-chunk-7-1.pdf>]
-
-Package longtable Warning: Column widths have changed
-(longtable)                in table 3 on input line 1254.
-
-[15]
-
-Package longtable Warning: Column widths have changed
-(longtable)                in table 4 on input line 1281.
-
-[16]
-
-Package longtable Warning: Column widths have changed
-(longtable)                in table 5 on input line 1393.
-
-[17]
-Overfull \hbox (18.07884pt too wide) in alignment at lines 1433--1438
- [] [] [] [] [] [] [] [] 
- []
-
-
-Overfull \hbox (20.57884pt too wide) in alignment at lines 1438--1459
- [] [] [] [] [] [] [] [] 
- []
-
-
-Overfull \hbox (20.57884pt too wide) in alignment at lines 1459--1479
- [] [] [] [] [] [] [] [] 
- []
-
-[18]
-Overfull \hbox (25.57884pt too wide) in alignment at lines 1479--1500
- [] [] [] [] [] [] [] [] 
- []
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <14.4> on input line 1242.
 
 
 Package longtable Warning: Column widths have changed
-(longtable)                in table 6 on input line 1500.
+(longtable)                in table 1 on input line 1318.
 
+[15
 
-Overfull \hbox (18.07884pt too wide) in alignment at lines 1504--1509
- [] [] [] [] [] [] [] [] 
- []
+] [16]
 
-
-Overfull \hbox (20.57884pt too wide) in alignment at lines 1509--1530
- [] [] [] [] [] [] [] [] 
- []
-
-[19]
-Overfull \hbox (20.57884pt too wide) in alignment at lines 1530--1550
- [] [] [] [] [] [] [] [] 
- []
-
-
-Overfull \hbox (23.91208pt too wide) in alignment at lines 1550--1556
- [] [] [] [] [] [] [] [] 
- []
+Package longtable Warning: Column widths have changed
+(longtable)                in table 2 on input line 1438.
 
 
 Package longtable Warning: Column widths have changed
-(longtable)                in table 7 on input line 1556.
+(longtable)                in table 3 on input line 1465.
 
-
-Overfull \hbox (18.07884pt too wide) in alignment at lines 1560--1565
- [] [] [] [] [] [] [] [] 
- []
-
-
-Overfull \hbox (20.57884pt too wide) in alignment at lines 1565--1586
- [] [] [] [] [] [] [] [] 
- []
-
-
-Overfull \hbox (23.91208pt too wide) in alignment at lines 1586--1604
- [] [] [] [] [] [] [] [] 
- []
-
-[20]
+[17] [18]
 
 Package longtable Warning: Column widths have changed
-(longtable)                in table 8 on input line 1604.
+(longtable)                in table 4 on input line 1577.
 
+[19] [20]
 
-Overfull \hbox (18.07884pt too wide) in alignment at lines 1608--1613
- [] [] [] [] [] [] [] [] 
- []
-
-
-Overfull \hbox (20.57884pt too wide) in alignment at lines 1613--1634
- [] [] [] [] [] [] [] [] 
- []
-
-
-Overfull \hbox (23.91208pt too wide) in alignment at lines 1634--1648
- [] [] [] [] [] [] [] [] 
- []
+Package longtable Warning: Column widths have changed
+(longtable)                in table 5 on input line 1687.
 
 [21]
 
 Package longtable Warning: Column widths have changed
-(longtable)                in table 9 on input line 1648.
-
-
-Package longtable Warning: Column widths have changed
-(longtable)                in table 10 on input line 1699.
+(longtable)                in table 6 on input line 1743.
 
 [22]
 
 Package longtable Warning: Column widths have changed
-(longtable)                in table 11 on input line 1734.
+(longtable)                in table 7 on input line 1791.
 
 
 Package longtable Warning: Column widths have changed
-(longtable)                in table 12 on input line 1763.
+(longtable)                in table 8 on input line 1835.
 
 [23]
 
 Package longtable Warning: Column widths have changed
-(longtable)                in table 13 on input line 1790.
+(longtable)                in table 9 on input line 1887.
 
-<unnamed-chunk-23-1.pdf, id=336, 400.49625pt x 462.72874pt>
+[24]
+
+Package longtable Warning: Column widths have changed
+(longtable)                in table 10 on input line 1922.
+
+
+Package longtable Warning: Column widths have changed
+(longtable)                in table 11 on input line 1951.
+
+
+Package longtable Warning: Column widths have changed
+(longtable)                in table 12 on input line 1978.
+
+[25] <unnamed-chunk-21-1.pdf, id=384, 258.9675pt x 245.91875pt>
+File: unnamed-chunk-21-1.pdf Graphic file (type pdf)
+
+<use unnamed-chunk-21-1.pdf>
+Package pdftex.def Info: unnamed-chunk-21-1.pdf used on input line 2005.
+(pdftex.def)             Requested size: 258.97868pt x 245.92938pt.
+ [26 <./unnamed-chunk-21-1.pdf>]
+
+Package longtable Warning: Column widths have changed
+(longtable)                in table 13 on input line 2056.
+
+<unnamed-chunk-23-1.pdf, id=399, 258.9675pt x 218.8175pt>
 File: unnamed-chunk-23-1.pdf Graphic file (type pdf)
 
 <use unnamed-chunk-23-1.pdf>
-Package pdftex.def Info: unnamed-chunk-23-1.pdf used on input line 1818.
-(pdftex.def)             Requested size: 400.50137pt x 462.73466pt.
- [24] [25 <./unnamed-chunk-23-1.pdf>]
+Package pdftex.def Info: unnamed-chunk-23-1.pdf used on input line 2074.
+(pdftex.def)             Requested size: 258.97078pt x 218.82028pt.
+ [27]
+<unnamed-chunk-24-1.pdf, id=407, 379.4175pt x 227.85126pt>
+File: unnamed-chunk-24-1.pdf Graphic file (type pdf)
+
+<use unnamed-chunk-24-1.pdf>
+Package pdftex.def Info: unnamed-chunk-24-1.pdf used on input line 2087.
+(pdftex.def)             Requested size: 379.42235pt x 227.85416pt.
+ [28 <./unnamed-chunk-23-1.pdf> <./unnamed-chunk-24-1.pdf>]
 
 Package longtable Warning: Column widths have changed
-(longtable)                in table 14 on input line 1869.
+(longtable)                in table 14 on input line 2175.
 
+<unnamed-chunk-26-1.pdf, id=424, 386.44376pt x 296.10625pt>
+File: unnamed-chunk-26-1.pdf Graphic file (type pdf)
 
-Overfull \hbox (6.46632pt too wide) in alignment at lines 1883--1888
- [] [] [] [] [] [] [] 
- []
-
-
-Overfull \hbox (10.91083pt too wide) in alignment at lines 1888--1909
- [] [] [] [] [] [] [] 
- []
-
-
-Overfull \hbox (10.91083pt too wide) in alignment at lines 1909--1929
- [] [] [] [] [] [] [] 
- []
-
-[26]
-Overfull \hbox (10.91083pt too wide) in alignment at lines 1929--1939
- [] [] [] [] [] [] [] 
- []
-
+<use unnamed-chunk-26-1.pdf>
+Package pdftex.def Info: unnamed-chunk-26-1.pdf used on input line 2194.
+(pdftex.def)             Requested size: 386.44281pt x 296.10551pt.
+ [29] [30 <./unnamed-chunk-26-1.pdf>]
 
 Package longtable Warning: Column widths have changed
-(longtable)                in table 15 on input line 1939.
+(longtable)                in table 15 on input line 2316.
 
-[27]
+[31]
 
 Package longtable Warning: Column widths have changed
-(longtable)                in table 16 on input line 2035.
+(longtable)                in table 16 on input line 2437.
 
-[28] <unnamed-chunk-27-1.pdf, id=381, 265.99374pt x 263.98625pt>
-File: unnamed-chunk-27-1.pdf Graphic file (type pdf)
+[32]
 
-<use unnamed-chunk-27-1.pdf>
-Package pdftex.def Info: unnamed-chunk-27-1.pdf used on input line 2053.
-(pdftex.def)             Requested size: 266.00931pt x 264.0017pt.
+Package longtable Warning: Column widths have changed
+(longtable)                in table 17 on input line 2508.
 
-<unnamed-chunk-29-1.pdf, id=384, 452.69125pt x 258.9675pt>
-File: unnamed-chunk-29-1.pdf Graphic file (type pdf)
-
-<use unnamed-chunk-29-1.pdf>
-Package pdftex.def Info: unnamed-chunk-29-1.pdf used on input line 2069.
-(pdftex.def)             Requested size: 452.69014pt x 258.96684pt.
- [29 <./unnamed-chunk-27-1.pdf>]
-<unnamed-chunk-30-1.pdf, id=399, 452.69125pt x 258.9675pt>
+[33] <unnamed-chunk-30-1.pdf, id=460, 611.28375pt x 459.7175pt>
 File: unnamed-chunk-30-1.pdf Graphic file (type pdf)
 
 <use unnamed-chunk-30-1.pdf>
-Package pdftex.def Info: unnamed-chunk-30-1.pdf used on input line 2079.
-(pdftex.def)             Requested size: 452.69014pt x 258.96684pt.
+Package pdftex.def Info: unnamed-chunk-30-1.pdf used on input line 2536.
+(pdftex.def)             Requested size: 469.74788pt x 353.27507pt.
+ [34 <./unnamed-chunk-30-1.pdf>]
 
-<unnamed-chunk-31-1.pdf, id=400, 452.69125pt x 258.9675pt>
-File: unnamed-chunk-31-1.pdf Graphic file (type pdf)
+Package longtable Warning: Column widths have changed
+(longtable)                in table 18 on input line 2589.
 
-<use unnamed-chunk-31-1.pdf>
-Package pdftex.def Info: unnamed-chunk-31-1.pdf used on input line 2084.
-(pdftex.def)             Requested size: 452.69014pt x 258.96684pt.
- [30 <./unnamed-chunk-29-1.pdf> <./unnamed-chunk-30-1.pdf>] <unnamed-chunk-32-1
-.pdf, id=419, 452.69125pt x 258.9675pt>
+<unnamed-chunk-32-1.pdf, id=474, 411.5375pt x 263.98625pt>
 File: unnamed-chunk-32-1.pdf Graphic file (type pdf)
 
 <use unnamed-chunk-32-1.pdf>
-Package pdftex.def Info: unnamed-chunk-32-1.pdf used on input line 2088.
-(pdftex.def)             Requested size: 452.69014pt x 258.96684pt.
+Package pdftex.def Info: unnamed-chunk-32-1.pdf used on input line 2600.
+(pdftex.def)             Requested size: 411.5365pt x 263.9856pt.
+ [35] [36 <./unnamed-chunk-32-1.pdf>]
 
-<unnamed-chunk-34-1.pdf, id=420, 448.67625pt x 258.9675pt>
+Package longtable Warning: Column widths have changed
+(longtable)                in table 19 on input line 2698.
+
+[37] <unnamed-chunk-34-1.pdf, id=506, 265.99374pt x 263.98625pt>
 File: unnamed-chunk-34-1.pdf Graphic file (type pdf)
 
 <use unnamed-chunk-34-1.pdf>
-Package pdftex.def Info: unnamed-chunk-34-1.pdf used on input line 2102.
-(pdftex.def)             Requested size: 448.68884pt x 258.97473pt.
- [31 <./unnamed-chunk-31-1.pdf> <./unnamed-chunk-32-1.pdf>] <unnamed-chunk-35-1
-.pdf, id=440, 448.67625pt x 258.9675pt>
-File: unnamed-chunk-35-1.pdf Graphic file (type pdf)
+Package pdftex.def Info: unnamed-chunk-34-1.pdf used on input line 2716.
+(pdftex.def)             Requested size: 266.00931pt x 264.0017pt.
 
-<use unnamed-chunk-35-1.pdf>
-Package pdftex.def Info: unnamed-chunk-35-1.pdf used on input line 2108.
-(pdftex.def)             Requested size: 448.68884pt x 258.97473pt.
-
-<unnamed-chunk-36-1.pdf, id=441, 448.67625pt x 258.9675pt>
+<unnamed-chunk-36-1.pdf, id=509, 452.69125pt x 258.9675pt>
 File: unnamed-chunk-36-1.pdf Graphic file (type pdf)
 
 <use unnamed-chunk-36-1.pdf>
-Package pdftex.def Info: unnamed-chunk-36-1.pdf used on input line 2114.
-(pdftex.def)             Requested size: 448.68884pt x 258.97473pt.
- [32 <./unnamed-chunk-34-1.pdf> <./unnamed-chunk-35-1.pdf>] <unnamed-chunk-37-1
-.pdf, id=460, 448.67625pt x 258.9675pt>
+Package pdftex.def Info: unnamed-chunk-36-1.pdf used on input line 2733.
+(pdftex.def)             Requested size: 452.69014pt x 258.96684pt.
+ [38 <./unnamed-chunk-34-1.pdf> <./unnamed-chunk-36-1.pdf>] <unnamed-chunk-37-1
+.pdf, id=531, 452.69125pt x 258.9675pt>
 File: unnamed-chunk-37-1.pdf Graphic file (type pdf)
 
 <use unnamed-chunk-37-1.pdf>
-Package pdftex.def Info: unnamed-chunk-37-1.pdf used on input line 2121.
+Package pdftex.def Info: unnamed-chunk-37-1.pdf used on input line 2743.
+(pdftex.def)             Requested size: 452.69014pt x 258.96684pt.
+
+<unnamed-chunk-38-1.pdf, id=532, 452.69125pt x 258.9675pt>
+File: unnamed-chunk-38-1.pdf Graphic file (type pdf)
+
+<use unnamed-chunk-38-1.pdf>
+Package pdftex.def Info: unnamed-chunk-38-1.pdf used on input line 2748.
+(pdftex.def)             Requested size: 452.69014pt x 258.96684pt.
+
+<unnamed-chunk-39-1.pdf, id=533, 452.69125pt x 258.9675pt>
+File: unnamed-chunk-39-1.pdf Graphic file (type pdf)
+
+<use unnamed-chunk-39-1.pdf>
+Package pdftex.def Info: unnamed-chunk-39-1.pdf used on input line 2752.
+(pdftex.def)             Requested size: 452.69014pt x 258.96684pt.
+ [39 <./unnamed-chunk-37-1.pdf> <./unnamed-chunk-38-1.pdf>] <unnamed-chunk-41-1
+.pdf, id=552, 448.67625pt x 258.9675pt>
+File: unnamed-chunk-41-1.pdf Graphic file (type pdf)
+
+<use unnamed-chunk-41-1.pdf>
+Package pdftex.def Info: unnamed-chunk-41-1.pdf used on input line 2766.
 (pdftex.def)             Requested size: 448.68884pt x 258.97473pt.
-pdfTeX warning (ext4): destination with the same identifier (name{refs}) has be
-en already used, duplicate ignored
+
+<unnamed-chunk-42-1.pdf, id=553, 448.67625pt x 258.9675pt>
+File: unnamed-chunk-42-1.pdf Graphic file (type pdf)
+
+<use unnamed-chunk-42-1.pdf>
+Package pdftex.def Info: unnamed-chunk-42-1.pdf used on input line 2772.
+(pdftex.def)             Requested size: 448.68884pt x 258.97473pt.
+ [40 <./unnamed-chunk-39-1.pdf> <./unnamed-chunk-41-1.pdf>] <unnamed-chunk-43-1
+.pdf, id=572, 448.67625pt x 258.9675pt>
+File: unnamed-chunk-43-1.pdf Graphic file (type pdf)
+
+<use unnamed-chunk-43-1.pdf>
+Package pdftex.def Info: unnamed-chunk-43-1.pdf used on input line 2778.
+(pdftex.def)             Requested size: 448.68884pt x 258.97473pt.
+
+<unnamed-chunk-44-1.pdf, id=573, 448.67625pt x 258.9675pt>
+File: unnamed-chunk-44-1.pdf Graphic file (type pdf)
+
+<use unnamed-chunk-44-1.pdf>
+Package pdftex.def Info: unnamed-chunk-44-1.pdf used on input line 2785.
+(pdftex.def)             Requested size: 448.68884pt x 258.97473pt.
+ [41 <./unnamed-chunk-42-1.pdf> <./unnamed-chunk-43-1.pdf>]
+
+Package longtable Warning: Column widths have changed
+(longtable)                in table 20 on input line 2855.
+
+[42 <./unnamed-chunk-44-1.pdf>]pdfTeX warning (ext4): destination with the same
+ identifier (name{refs}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.2126 \hypertarget{refs}{}
+l.2871 \hypertarget{refs}{}
                            pdfTeX warning (ext4): destination with the same ide
 ntifier (name{ref-May1972}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.2127 \hypertarget{ref-May1972}{}
+l.2872 \hypertarget{ref-May1972}{}
                                   pdfTeX warning (ext4): destination with the s
 ame identifier (name{ref-Allesina2012}) has been already used, duplicate ignore
 d
 <to be read again> 
                    \relax 
-l.2131 \hypertarget{ref-Allesina2012}{}
+l.2876 \hypertarget{ref-Allesina2012}{}
                                        pdfTeX warning (ext4): destination with 
 the same identifier (name{ref-Allesina2015}) has been already used, duplicate i
 gnored
 <to be read again> 
                    \relax 
-l.2135 \hypertarget{ref-Allesina2015}{}
-                                        [33 <./unnamed-chunk-36-1.pdf> <./unnam
-ed-chunk-37-1.pdf>]pdfTeX warning (ext4): destination with the same identifier 
-(name{ref-Servan2018}) has been already used, duplicate ignored
+l.2880 \hypertarget{ref-Allesina2015}{}
+                                       pdfTeX warning (ext4): destination with 
+the same identifier (name{ref-Watts1998}) has been already used, duplicate igno
+red
 <to be read again> 
                    \relax 
-l.2140 \hypertarget{ref-Servan2018}{}
+l.2885 \hypertarget{ref-Watts1998}{}
+                                    pdfTeX warning (ext4): destination with the
+ same identifier (name{ref-Albert2002}) has been already used, duplicate ignore
+d
+<to be read again> 
+                   \relax 
+l.2889 \hypertarget{ref-Albert2002}{}
+                                     pdfTeX warning (ext4): destination with th
+e same identifier (name{ref-Solow1998}) has been already used, duplicate ignore
+d
+<to be read again> 
+                   \relax 
+l.2893 \hypertarget{ref-Solow1998}{}
+                                    pdfTeX warning (ext4): destination with the
+ same identifier (name{ref-Williams2000}) has been already used, duplicate igno
+red
+<to be read again> 
+                   \relax 
+l.2897 \hypertarget{ref-Williams2000}{}
+                                       pdfTeX warning (ext4): destination with 
+the same identifier (name{ref-Servan2018}) has been already used, duplicate ign
+ored
+<to be read again> 
+                   \relax 
+l.2901 \hypertarget{ref-Servan2018}{}
                                      pdfTeX warning (ext4): destination with th
 e same identifier (name{ref-Gibbs2017}) has been already used, duplicate ignore
 d
 <to be read again> 
                    \relax 
-l.2145 \hypertarget{ref-Gibbs2017}{}
+l.2906 \hypertarget{ref-Gibbs2017}{}
                                     
 
 Package longtable Warning: Table widths have changed. Rerun LaTeX.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 2151.
-[34]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 2151.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 2914.
+[43]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 2914.
  (./ms.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 2151.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 2151.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 2914.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 2914.
 
 
 
@@ -1448,20 +1419,20 @@ Package rerunfilecheck Warning: File `ms.out' has changed.
 
 Package rerunfilecheck Info: Checksums for `ms.out':
 (rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  6A5FDDAEF68FD31CE1E7BDE073F93C6C;2707.
+(rerunfilecheck)             After:  B562E8111B4409BE0ADE4688E0EA72D5;3494.
 
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 2151.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 2914.
  ) 
 Here is how much of TeX's memory you used:
- 14067 strings out of 493029
- 202445 string characters out of 6136233
- 328951 words of memory out of 5000000
- 17107 multiletter control sequences out of 15000+600000
- 90590 words of font info for 160 fonts, out of 8000000 for 9000
+ 13955 strings out of 493029
+ 200197 string characters out of 6136233
+ 323773 words of memory out of 5000000
+ 16941 multiletter control sequences out of 15000+600000
+ 100521 words of font info for 173 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 35i,6n,37p,262b,440s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 36i,6n,37p,263b,438s stack positions out of 5000i,500n,10000p,200000b,80000s
 pdfTeX warning (dest): name{sigma6} has been referenced but does not exist, r
 eplaced by a fixed one
 
@@ -1497,8 +1468,8 @@ pdfTeX warning (dest): name{competition} has been referenced but does not exist
 
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dvip
 s/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/share/
-texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-math
-sy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}</usr/share/texmf/fon
+texmf/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-
+rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc}</usr/share/texmf/fon
 ts/type1/public/lm/lmbx10.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx12.pf
 b></usr/share/texmf/fonts/type1/public/lm/lmbx7.pfb></usr/share/texmf/fonts/typ
 e1/public/lm/lmex10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi10.pfb></us
@@ -1506,15 +1477,17 @@ r/share/texmf/fonts/type1/public/lm/lmmi12.pfb></usr/share/texmf/fonts/type1/pu
 blic/lm/lmmi5.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi7.pfb></usr/share
 /texmf/fonts/type1/public/lm/lmmib10.pfb></usr/share/texmf/fonts/type1/public/l
 m/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr17.pfb></usr/share/texmf
-/fonts/type1/public/lm/lmr7.pfb></usr/share/texmf/fonts/type1/public/lm/lmri10.
-pfb></usr/share/texmf/fonts/type1/public/lm/lmri12.pfb></usr/share/texmf/fonts/
-type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy5.pfb></
-usr/share/texmf/fonts/type1/public/lm/lmsy7.pfb></usr/share/texmf/fonts/type1/p
-ublic/lm/lmtk10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt10.pfb>
-Output written on ms.pdf (34 pages, 1055013 bytes).
+/fonts/type1/public/lm/lmr7.pfb></usr/share/texmf/fonts/type1/public/lm/lmr8.pf
+b></usr/share/texmf/fonts/type1/public/lm/lmri10.pfb></usr/share/texmf/fonts/ty
+pe1/public/lm/lmri12.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></u
+sr/share/texmf/fonts/type1/public/lm/lmsy5.pfb></usr/share/texmf/fonts/type1/pu
+blic/lm/lmsy7.pfb></usr/share/texmf/fonts/type1/public/lm/lmtk10.pfb></usr/shar
+e/texmf/fonts/type1/public/lm/lmtt10.pfb></usr/share/texlive/texmf-dist/fonts/t
+ype1/public/amsfonts/symbols/msam10.pfb>
+Output written on ms.pdf (43 pages, 1066528 bytes).
 PDF statistics:
- 579 PDF objects out of 1000 (max. 8388607)
- 474 compressed objects within 5 object streams
- 107 named destinations out of 1000 (max. 500000)
- 14412 words of extra memory for PDF output out of 17280 (max. 10000000)
+ 733 PDF objects out of 1000 (max. 8388607)
+ 603 compressed objects within 7 object streams
+ 146 named destinations out of 1000 (max. 500000)
+ 16480 words of extra memory for PDF output out of 17280 (max. 10000000)
 
