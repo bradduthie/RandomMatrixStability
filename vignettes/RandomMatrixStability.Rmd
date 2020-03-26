@@ -415,7 +415,7 @@ Equation \ref{defM} thereby serves as a null model to investigate how variation 
 
 Given $E[\gamma_{i}] = 1$ and $E[A_{ij}] = 0$, Eq. \ref{var_full} can be simplified,
 
-\begin{equation} \label{var_reduced}
+\begin{equation} 
 \sigma^{2}_{M} = \sigma^{2}_{A}(1 + \sigma^{2}_{\gamma}).
 \end{equation}
 
@@ -423,7 +423,7 @@ The increase in $\sigma^{2}_{M}$ caused by $\sigma^{2}_\gamma$ can be visualised
 
 Given $\sigma^{2}_\gamma = 0$, $\Re(\lambda_{max})$ increases linearly with $\rho$ such that [@Tang2014c],
 
-\begin{equation} \label{rho_stab}
+\begin{equation}
 \Re(\lambda_{max}) \approx \sigma_{M}\sqrt{SC}\left(1 + \rho\right).
 \end{equation}
 
