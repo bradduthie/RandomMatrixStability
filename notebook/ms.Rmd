@@ -22,7 +22,7 @@ header-includes:
 - \usepackage[utf8]{inputenc}
 - \linenumbers
 - \bibliographystyle{amnatnat}
-linestretch: 1
+linestretch: 2
 link-citations: yes
 linkcolor: blue
 csl: nature.csl
@@ -260,16 +260,16 @@ Equation \ref{defM} thereby serves as a null model to investigate how variation 
 
 Given $E[\gamma_{i}] = 1$ and $E[A_{ij}] = 0$, Eq. \ref{var_full} can be simplified,
 
-\begin{equation} \label{var_reduced}
-\sigma^{2}_{M} = \sigma^{2}_{A}(1 + \sigma^{2}_{\gamma}).
+\begin{equation} 
+\sigma^{2}_{M} = \sigma^{2}_{A}(1 + \sigma^{2}_{\gamma}). \nonumber
 \end{equation}
 
 The increase in $\sigma^{2}_{M}$ caused by $\sigma^{2}_\gamma$ can be visualised from the eigenvalue spectra of $\textbf{A}$ versus $\textbf{M} = \boldsymbol{\gamma}\textbf{A}$ (Fig. 1). Given $d = 0$ and $C = 1$, the distribution of eigenvalues of $\textbf{A}$ and $\textbf{M}$ lie within a circle of a radius $\sigma_{A}\sqrt{S}$ and $\sigma_{M}\sqrt{S}$, respectively (Fig. 1a vs. 1b). If $d \neq 0$, positive $\sigma^{2}_\gamma$ changes the distribution of eigenvalues [@Ahmadian2015; @Gibbs2017; @Stone2017], potentially affecting stability (Fig. 1c vs. 1d).
 
 Given $\sigma^{2}_\gamma = 0$, $\Re(\lambda_{max})$ increases linearly with $\rho$ such that [@Tang2014c],
 
-\begin{equation} \label{rho_stab}
-\Re(\lambda_{max}) \approx \sigma_{M}\sqrt{SC}\left(1 + \rho\right).
+\begin{equation} 
+\Re(\lambda_{max}) \approx \sigma_{M}\sqrt{SC}\left(1 + \rho\right). \nonumber
 \end{equation}
 
 If $\rho < 0$, such as when $\textbf{M}$ models a predator-prey system in which $M_{ij}$ and $M_{ji}$ have opposing signs, stability increases [@Allesina2012]. If diagonal elements of $\boldsymbol{\gamma}$ vary independently, the magnitude of $\rho$ is decreased because $\sigma^{2}_{\gamma}$ increases the variance of $M_{ij}$ without affecting the expected covariance between $M_{ij}$ and $M_{ji}$ (Figure 2).
