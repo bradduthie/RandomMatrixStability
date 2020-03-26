@@ -96,7 +96,7 @@ d_tab <- dat[,1:7];
 kable(d_tab);
 ```
 
-Overall, the ratio of stable $\mathbf{A}$ matrices to stable $\mathbf{M}$ matrices found is greater than 1 whenever $S > 10$ (compare column 5 to column 3), and this ratio increases with increasing $S$ (column 1). Hence, more randomly created complex systems ($\mathbf{M}$) are stable given variation in $\gamma$ than when $\gamma = 1$. Note that feasibility results were omitted for the table above, but are [reported below](#Feasibility).
+Overall, the ratio of stable $\mathbf{A}$ matrices to stable $\mathbf{M}$ matrices found is greater than 1 whenever $S > 10$ (compare column 3 to column 5), and this ratio increases with increasing $S$ (column 1). Hence, more randomly created complex systems ($\mathbf{M}$) are stable given variation in $\gamma$ than when $\gamma = 1$. Note that feasibility results were omitted for the table above, but are [reported below](#Feasibility).
 
 Stability of random ecological networks {#ecological}
 ================================================================================
@@ -126,7 +126,7 @@ species_interactions <- function(mat, type = 0){
 } # Note: -1 values are added in the diagonal later
 ```
 
-The number of stable $\mathbf{M = \gamma A}$ systems was estimated [exactly as it was](#IncrS) in the main text for random matrices for values of $S$ from 2 to 50 (100 in the case of the relatively more stable predator-prey interactions), except that only 100000 random $\mathbf{M}$ were generated instead of 1 million. 
+The number of stable $\mathbf{M = \gamma A}$ systems was calculated [exactly as it was](#IncrS) for random matrices for values of $S$ from 2 to 50 (100 in the case of the relatively more stable predator-prey interactions), except that only 100000 random $\mathbf{M}$ were generated instead of 1 million. 
 
 ```{r, echo = FALSE}
 cdat <- read.csv(file = "../inst/extdata/competition_C_1.csv");
@@ -134,7 +134,7 @@ mdat <- read.csv(file = "../inst/extdata/mutualism_C_1.csv");
 pdat <- read.csv(file = "../inst/extdata/pred-prey_C_1.csv");
 ```
 
-The following tables for restricted ecological communities can therefore be compared with the random $\mathbf{M}$ [results above](#IncrS) (but note that counts from systems with comparable probabilities of stability will be an order of magnitude lower in the tables below due to the smaller number of $\mathbf{M}$ matrices generated). As with the [results above](#IncrS), in the tables below, `A` refers to matrices $\mathbf{A}$ when $\gamma = 1$ and `M` refers to matrices after $\sigma^{2}_{\gamma}$ is added. The column `A_unstable` shows the number of $\mathbf{A}$ matrices that are unstable, and the column `A_stable` shows the number of $\mathbf{A}$ matrices that are stable (these two columns sum to 100000). Similarly, the column `M_unstable` shows the number of $\mathbf{M}$ matrices that are unstable and `A1_stable` shows the number that are stable. The columns `A_stabilised` and `A_destabilised` show how many $\mathbf{A}$ matrices were stabilised or destabilised, respectively, by $\sigma^{2}_{\gamma}$.
+The following tables for restricted ecological communities can therefore be compared with the random $\mathbf{M}$ [results above](#IncrS) (but note that counts from systems with comparable probabilities of stability will be an order of magnitude lower in the tables below due to the smaller number of $\mathbf{M}$ matrices generated). As with the [results above](#IncrS), in the tables below, `A` refers to matrices $\mathbf{A}$ when $\gamma = 1$ and `M` refers to matrices after $\sigma^{2}_{\gamma}$ is added. The column `A_unstable` shows the number of $\mathbf{A}$ matrices that are unstable, and the column `A_stable` shows the number of $\mathbf{A}$ matrices that are stable (these two columns sum to 100000). Similarly, the column `M_unstable` shows the number of $\mathbf{M}$ matrices that are unstable and `M_stable` shows the number that are stable. The columns `A_stabilised` and `A_destabilised` show how many $\mathbf{A}$ matrices were stabilised or destabilised, respectively, by $\sigma^{2}_{\gamma}$.
 
 <a name="competition">**Competition**</a>
 
@@ -168,7 +168,7 @@ Overall, as expected [@Allesina2012], predator-prey communities are relatively s
 Sensitivity of connectance (C) values {#connectance}
 ================================================================================
 
-In the main text, for simplicity, I assumed connectance values of $C = 1$, meaning that all off-diagonal elements of a matrix $\mathbf{M}$ were potentially nonzero and sampled from a normal distribution $\mathcal{N}(0, \sigma^{2}_{A})$ where $\sigma_{A} = 0.4$. Here I present four tables showing the number of stable communities given $C = \{0.3, 0. 5, 0.7, 0.9 \}$. In all cases, uniform variation in component response rate ($\gamma \sim \mathcal{U}(0, 2)$) led to a higher number of stable communities than when $\gamma$ did not vary ($\gamma_{i} = 1$). In contrast to the main text, 100000 rather than 1 million $\mathbf{M}$ were simulated. As with the results on [stability with increasing $S$](#IncrS) shown above, in the tables below `A` refers to $\mathbf{A}$ matrices when $\gamma = 1$, and `M` refers to $\mathbf{M}$ matrices after $\sigma^{2}_{\gamma}$ is added. The column `A_unstable` shows the number of $\mathbf{A}$ matrices that are unstable, and the column `A_stable` shows the number of $\mathbf{A}$ matrices that are stable (these two columns sum to 100000). Similarly, the column `M_unstable` shows the number of $\mathbf{M}$ matrices that are unstable and `M_stable` shows the number that are stable. The columns `A_stabilised` and `A_destabilised` show how many $\mathbf{A}$ matrices were stabilised or destabilised, respectively, by $\sigma^{2}_{\gamma}$.
+In the main text, for simplicity, I assumed connectance values of $C = 1$, meaning that all off-diagonal elements of a matrix $\mathbf{M}$ were potentially nonzero and sampled from a normal distribution $\mathcal{N}(0, \sigma^{2}_{A})$ where $\sigma_{A} = 0.4$. Here I present four tables showing the number of stable communities given $C = \{0.3, 0. 5, 0.7, 0.9 \}$. In all cases, uniform variation in component response rate ($\gamma \sim \mathcal{U}(0, 2)$) led to a higher number of stable communities than when $\gamma$ did not vary ($\gamma = 1$). In contrast to the main text, 100000 rather than 1 million $\mathbf{M}$ were simulated. As with the results on [stability with increasing $S$](#IncrS) shown above, in the tables below `A` refers to $\mathbf{A}$ matrices when $\gamma = 1$, and `M` refers to $\mathbf{M}$ matrices after $\sigma^{2}_{\gamma}$ is added. The column `A_unstable` shows the number of $\mathbf{A}$ matrices that are unstable, and the column `A_stable` shows the number of $\mathbf{A}$ matrices that are stable (these two columns sum to 100000). Similarly, the column `M_unstable` shows the number of $\mathbf{M}$ matrices that are unstable and `M_stable` shows the number that are stable. The columns `A_stabilised` and `A_destabilised` show how many $\mathbf{A}$ matrices were stabilised or destabilised, respectively, by $\sigma^{2}_{\gamma}$.
 
 ```{r, echo = FALSE}
 C3dat <- read.csv(file = "../inst/extdata/rand_c-0pt3.csv");
@@ -705,7 +705,7 @@ kable(header_descriptions);
 
 \normalsize
 
-Note that output from `Evo_rand_gen_var` only includes the first seven rows of the table above, and `rand_gen_var` does not include $C$ (which can be defind as an argument). All results presented here and in the main text are available in the [inst/extdata](https://github.com/bradduthie/RandomMatrixStability/tree/master/inst/extdata) folder of the [RandomMatrixStability](https://github.com/bradduthie/RandomMatrixStability) R package.
+Note that output from `Evo_rand_gen_var` only includes the first seven rows of the table above, and `rand_gen_var` does not include $C$ (which can be defined as an argument). All results presented here and in the main text are available in the [inst/extdata](https://github.com/bradduthie/RandomMatrixStability/tree/master/inst/extdata) folder of the [RandomMatrixStability](https://github.com/bradduthie/RandomMatrixStability) R package.
 
 
 Literature cited {#ref}
