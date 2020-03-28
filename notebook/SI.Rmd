@@ -27,7 +27,7 @@ linestretch: 1
 link-citations: yes
 linkcolor: blue
 csl: nature.csl
-subtitle: Supplemental Information
+subtitle: Supplementary Information
 biblio-style: apalike
 ---
 
@@ -37,7 +37,7 @@ source(file = "../R/utilities.R")
 ```
 
 
-**This supplemental information supports the manuscript "Component response rate variation underlies the stability of complex systems" with additional analyses to support its conclusions. All text, code, and data underlying this manuscript are publicly available on [GitHub](https://github.com/bradduthie/RandomMatrixStability) as part of the RandomMatrixStability R package.**
+**This supplemental information supports the manuscript "Component response rate variation underlies the stability of highly complex finite systems" with additional analyses to support its conclusions. All text, code, and data underlying this manuscript are publicly available on [GitHub](https://github.com/bradduthie/RandomMatrixStability) as part of the RandomMatrixStability R package.**
 
 The [RandomMatrixStability package](https://github.com/bradduthie/RandomMatrixStability) includes all functions and tools for recreating the text, this supplemental information, and running all code; additional documentation is also provided for package functions. The RandomMatrixStability package is available on [GitHub](https://github.com/bradduthie/RandomMatrixStability); to download it, the  [`devtools` library](https://cran.r-project.org/web/packages/devtools/index.html) is needed.
 
