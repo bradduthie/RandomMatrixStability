@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.10.14)  28 MAR 2020 13:10
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.10.14)  28 MAR 2020 13:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1057,46 +1057,37 @@ dy used, duplicate ignored
                                                   \fi \fi 
 l.299 
       ] [5] [6] [7] [8] [9] [10] [11] [12] [13] [14] [15] [16] [17] [18]
-<ms_files/figure-latex/unnamed-chunk-8-1.pdf, id=231, 489.83pt x 485.815pt>
-File: ms_files/figure-latex/unnamed-chunk-8-1.pdf Graphic file (type pdf)
-
-<use ms_files/figure-latex/unnamed-chunk-8-1.pdf>
-Package pdftex.def Info: ms_files/figure-latex/unnamed-chunk-8-1.pdf used on in
-put line 986.
+<fig1.pdf, id=231, 489.83pt x 485.815pt>
+File: fig1.pdf Graphic file (type pdf)
+ <use fig1.pdf>
+Package pdftex.def Info: fig1.pdf used on input line 986.
 (pdftex.def)             Requested size: 469.76805pt x 465.9175pt.
  [19
 
-] [20 <./ms_files/figure-latex/unnamed-chunk-8-1.pdf>]
-<ms_files/figure-latex/unnamed-chunk-11-1.pdf, id=248, 405.515pt x 402.50375pt>
-File: ms_files/figure-latex/unnamed-chunk-11-1.pdf Graphic file (type pdf)
-<use ms_files/figure-latex/unnamed-chunk-11-1.pdf>
-Package pdftex.def Info: ms_files/figure-latex/unnamed-chunk-11-1.pdf used on i
-nput line 1011.
+] [20 <./fig1.pdf>]
+<fig2.pdf, id=248, 405.515pt x 402.50375pt>
+File: fig2.pdf Graphic file (type pdf)
+ <use fig2.pdf>
+Package pdftex.def Info: fig2.pdf used on input line 1011.
 (pdftex.def)             Requested size: 405.51399pt x 402.50276pt.
  [21
 
-] [22 <./ms_files/figure-latex/unnamed-chunk-11-1.pdf>]
-<ms_files/figure-latex/unnamed-chunk-12-1.pdf, id=266, 414.54875pt x 519.9425pt
->
-File: ms_files/figure-latex/unnamed-chunk-12-1.pdf Graphic file (type pdf)
- <use ms_files/figure-latex/unnamed-chunk-12-1.pdf>
-Package pdftex.def Info: ms_files/figure-latex/unnamed-chunk-12-1.pdf used on i
-nput line 1032.
+] [22 <./fig2.pdf>] <fig3.pdf, id=266, 414.54875pt x 519.9425pt>
+File: fig3.pdf Graphic file (type pdf)
+ <use fig3.pdf>
+Package pdftex.def Info: fig3.pdf used on input line 1032.
 (pdftex.def)             Requested size: 414.54773pt x 519.94124pt.
  [23
 
-] [24 <./ms_files/figure-latex/unnamed-chunk-12-1.pdf>]
-<ms_files/figure-latex/unnamed-chunk-13-1.pdf, id=283, 611.28375pt x 459.7175pt
->
-File: ms_files/figure-latex/unnamed-chunk-13-1.pdf Graphic file (type pdf)
- <use ms_files/figure-latex/unnamed-chunk-13-1.pdf>
-Package pdftex.def Info: ms_files/figure-latex/unnamed-chunk-13-1.pdf used on i
-nput line 1054.
+] [24 <./fig3.pdf>] <fig4.pdf, id=283, 611.28375pt x 459.7175pt>
+File: fig4.pdf Graphic file (type pdf)
+ <use fig4.pdf>
+Package pdftex.def Info: fig4.pdf used on input line 1054.
 (pdftex.def)             Requested size: 469.74788pt x 353.27507pt.
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1057.
  [25
 
- <./ms_files/figure-latex/unnamed-chunk-13-1.pdf>]
+ <./fig4.pdf>]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 1057.
  (./ms.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1057.
@@ -1118,7 +1109,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1057.
  ) 
 Here is how much of TeX's memory you used:
  13310 strings out of 493029
- 191228 string characters out of 6136233
+ 190656 string characters out of 6136233
  294749 words of memory out of 5000000
  16409 multiletter control sequences out of 15000+600000
  85578 words of font info for 154 fonts, out of 8000000 for 9000
@@ -1140,7 +1131,7 @@ ss8.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fo
 nts/type1/public/lm/lmsy5.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy7.pfb
 ></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb>
 
-Output written on ms.pdf (25 pages, 471180 bytes).
+Output written on ms.pdf (25 pages, 471038 bytes).
 PDF statistics:
  379 PDF objects out of 1000 (max. 8388607)
  318 compressed objects within 4 object streams
