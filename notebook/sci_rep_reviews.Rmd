@@ -1,13 +1,12 @@
 ---
 title: "Reviewer Comments (Scientific Reports)"
 author: "Brad Duthie"
-date: "30 December 2019"
 output:
   pdf_document: default
   html_document: default
 ---
 
-
+**I am grateful for the helpful comments of reviewers on a previous version of this manuscript. I respond to these comments point by point below.**
 
 Reviewer 1 comment 1
 ================================================================================
