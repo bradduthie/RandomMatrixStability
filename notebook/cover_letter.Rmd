@@ -1,0 +1,25 @@
+---
+output:
+  pdf_document: default
+---
+
+\fontsize{13}{22}
+\selectfont
+
+Dear Scientific Reports Editorial Board,
+
+Please find attached my revision of the manuscript, "Component response rate variation underlies the stability of highly complex finite systems", which I hope you will further consider for publication as an Article.
+
+My manuscript addresses a question of broad relevance to the physical, life, and social sciences. I demonstrate that when individual components of complex systems vary in the rate at which they respond to system perturbation, the potential for stability is increased.
+
+In my revision, I have carefully considered the comments of three anonymous reviewers. Addressing these reviewer comments has taken longer than initially anticipated, but I believe that the quality of the manuscript has greatly improved for these additional efforts. I now include new analytical and simulation results that investigate the role of system correlation on stability. I also have performed new simulations for commonly observed network structures, including small-world networks, scale-free networks, and cascade food webs. These new results further clarify the key theory, and further demonstrate its generality across complex systems.
+
+In the interest of transparency, the entire history of this project, including all my efforts in revising and addressing reviewer comments, is accessible on GitHub (https://github.com/bradduthie/RandomMatrixStability). An accompanying R package and website (https://bradduthie.github.io/RandomMatrixStability/) is also available with documentation for easily recreating all simulations and analyses. 
+
+I certify that this manuscript is original work and not under review at any other journal or book; a pre-print version of this revised manuscript has been submitted to arXiv (http://arxiv.org/abs/1806.01029).
+
+Sincerely,
+
+A. Bradley Duthie
+
+University of Stirling, Stirling, UK
