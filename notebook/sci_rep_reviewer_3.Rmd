@@ -1,0 +1,32 @@
+---
+title: "Reviewer Comments (Scientific Reports)"
+author: "Brad Duthie"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+Reviewer comments
+================================================================================
+
+Reviewer #3 (Technical Comments to the Author):
+--------------------------------------------------------------------------------
+
+The author has followed the reviewers' recommendations and, in my opinion, has greatly improved the manuscript. I recommend accepting to be published.
+
+Author response to Reviewer #3 comment
+--------------------------------------------------------------------------------
+
+I thank Reviewer 3 for their kind words, and for reviewing this manuscript a second time.
+
+Reviewer #3 minor comment
+--------------------------------------------------------------------------------
+
+Minor comment
+
+in lines 217 and 226 the article has lost el citation of Patel et al.
+
+Author response to Reviewer #3 minor comment
+--------------------------------------------------------------------------------
+
+I have re-inserted the citation on these lines.

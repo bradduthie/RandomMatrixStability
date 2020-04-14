@@ -573,10 +573,10 @@ the physical, life, and social sciences.
 
 \textbf{Component response rate (\(\boldsymbol{\gamma}\)) variation}. In
 a synthesis of eco-evolutionary feedbacks on community stability, Patel
-et al. model a system that includes a vector of potentially changing
+et al.\textsuperscript{\protect\hyperlink{ref-Patel2018}{20}} model a system that includes a vector of potentially changing
 species densities (\(\mathbf{n}\)) and a vector of potentially evolving
 traits
-(\(\mathbf{x}\))\textsuperscript{\protect\hyperlink{ref-Patel2018}{20}}.
+(\(\mathbf{x}\)).
 For any species \(i\) or trait \(j\), change in species density
 (\(n_{i}\)) or trait value (\(x_{j}\)) with time (\(t\)) is a function
 of the vectors \(\mathbf{n}\) and \(\mathbf{x}\),
@@ -587,17 +587,17 @@ of the vectors \(\mathbf{n}\) and \(\mathbf{x}\),
 
 In the above, \(f_{i}\) and \(g_{j}\) are functions that define the
 effects of all species densities and trait values on the density of a
-species \(i\) and the value of trait \(j\), respectively. Patel et al.
+species \(i\) and the value of trait \(j\), respectively. Patel et al.\textsuperscript{\protect\hyperlink{ref-Patel2018}{20}}
 were interested in stability when the evolution of traits was relatively
 slow or fast in comparison with the change in species
-densities\textsuperscript{\protect\hyperlink{ref-Patel2018}{20}}, and
+densities, and
 this is modulated in the above by the scalar \(\epsilon\). The value of
 \(\epsilon\) thereby determines the timescale separation between ecology
 and evolution, with high \(\epsilon\) modelling relatively fast
 evolution and low \(\epsilon\) modelling relative slow
 evolution\textsuperscript{\protect\hyperlink{ref-Patel2018}{20}}.
 
-I use the same principle that Patel et al. use to modulate the relative
+I use the same principle that Patel et al.\textsuperscript{\protect\hyperlink{ref-Patel2018}{20}} use to modulate the relative
 rate of evolution to modulate rates of component responses for \(S\)
 components. Following
 May\textsuperscript{\protect\hyperlink{ref-May1972}{1},\protect\hyperlink{ref-May1973}{32}},
@@ -789,15 +789,6 @@ Career Fellowship (ECF-2016-376). Conversations with L. Bussière and N.
 Bunnefeld, and comments from J. J. Cusack, I. L. Jones, and several anonymous 
 reviewers improved the quality of this work.
 
-\textbf{Supplementary Information:} Full tables of stability results for
-simulations across different system size (\(S\)) values, ecological
-community types, connectance (\(C\)) values, interaction strengths
-(\(\sigma\)), and \(\gamma\) distributions are provided as supplementary
-material. An additional table also shows results for how feasibility
-changes across \(S\). All code and simulation outputs are publicly
-available as part of the RandomMatrixStability package on GitHub
-(\url{https://github.com/bradduthie/RandomMatrixStability}).
-
 \textbf{Additional Information:} The author declares no competing
 interests. All work was carried out by A. Bradley Duthie, and all code
 and data are accessible on
@@ -983,9 +974,6 @@ element values of \(-1\). (\(\textbf{d}\)) The same system
 \(\textbf{c}\) after including variation in component response rates,
 sampled from \(\mathcal{U}(0, 2)\) as in \(\textbf{b}\).
 
-\includegraphics{fig1.pdf}
-
-\clearpage
 
 \textbf{Figure 2: Complex system correlation versus stability with and
 without variation in component response rates}. Each point represents
@@ -1008,9 +996,6 @@ randomly sampled from \(A_{ij} \sim \mathcal{N}(0, 0.4^{2})\), and
 diagonal elements were set to \(-1\). Elements of \(\gamma\) were
 sampled, \(\gamma \sim \mathcal{U}(0, 2)\).
 
-\includegraphics{fig2.pdf}
-
-\clearpage
 
 \textbf{Figure 3: System correlation versus stability across different
 system sizes}. In each panel, 10000 random complex systems
@@ -1029,9 +1014,7 @@ from \(A_{ij} \sim \mathcal{N}(0, 0.2^{2})\), and diagonal elements were
 set to \(-1\). Elements of \(\gamma\) were sampled such that
 \(\gamma \sim \mathcal{U}(0, 2)\), so \(\sigma^{2}_{\gamma} = 1/3\).
 
-\includegraphics{fig3.pdf}
 
-\clearpage
 
 \textbf{Figure 4: Stability of large complex systems with and without
 variation in component response rate (\(\boldsymbol{\gamma}\)).} The
@@ -1050,8 +1033,6 @@ proportion of systems that are stable when \(\sigma^{2}_{\gamma}>0\),
 but would be unstable if \(\sigma^{2}_{\gamma}=0\) (i.e., the
 conditional probability that \(\mathbf{A}\) is unstable given that
 \(\mathbf{M}\) is stable).
-
-\includegraphics{fig4.pdf}
 
 
 \end{document}
