@@ -233,14 +233,14 @@ Each panel shows the real (x-axis) and imaginary (y-axis) parts of
 which all elements are sampled from a normal distribution with
 \(\mu = 0\) and \(\sigma_{A} = 1/\sqrt{S}\). Points are uniformly
 distributed within the blue circle centred at the origin with a radius
-of \(\sigma_{A} \sqrt{S} = 1\). (\(\textbf{b}\)) The same system as
+of \(\sigma_{A} \sqrt{S} = 1\). (\(\textbf{b}\)) The same system as in 
 \(\textbf{a}\) after including variation in the response rates of \(S\)
 components, represented by the diagonal matrix \(\gamma\), such that
 \(\mathbf{M} = \gamma\mathbf{A}\). Elements of \(\gamma\) are randomly
 sampled from a uniform distribution from \(\min = 0\) to \(\max = 2\).
 Eigenvalues of \(\mathbf{M}\) are then distributed non-uniformly within
 the red circle centred at the origin with a radius of
-\(\sqrt{\sigma^{2}_{A}(1 + \sigma^{2}_{\gamma})S} \approx\) 1.17.
+\(\sqrt{\sigma^{2}_{A}(1 + \sigma^{2}_{\gamma})S} \approx\) 1.15.
 (\(\textbf{c}\)) A different random system \(\mathbf{A}\) constructed
 from the same parameters as in \(\textbf{a}\), except with diagonal
 element values of \(-1\). (\(\textbf{d}\)) The same system
@@ -274,8 +274,7 @@ component response rates vary. My results are robust across commonly
 observed network structures, including
 random\textsuperscript{\protect\hyperlink{ref-May1972}{1}},
 small-world\textsuperscript{\protect\hyperlink{ref-Watts1998}{16}},
-scale-free\textsuperscript{\protect\hyperlink{ref-Albert2002}{17}},
-cascade food
+scale-free\textsuperscript{\protect\hyperlink{ref-Albert2002}{17}}, and cascade food
 web\textsuperscript{\protect\hyperlink{ref-Solow1998}{18},\protect\hyperlink{ref-Williams2000}{19}}
 networks.
 
@@ -292,7 +291,7 @@ Off-diagonal elements of \(\mathbf{A}\) are independent and identically
 distributed (i.i.d), and diagonal elements are set to \(A_{ii} = -1\) as
 in May\textsuperscript{\protect\hyperlink{ref-May1972}{1}}. Diagonal
 elements of \(\boldsymbol{\gamma}\) are positive, and off-diagonal
-elements are set to zero (i.e. \(\boldsymbol{\gamma}\) is a diagonal
+elements are set to zero (i.e., \(\boldsymbol{\gamma}\) is a diagonal
 matrix with positive support). The distribution of
 \(diag(\boldsymbol{\gamma})\) over \(S\) components thereby models the
 distribution of component response rates. The dynamics of the entire
@@ -586,7 +585,7 @@ conditional probability that \(\mathbf{A}\) is unstable given that
 \textbf{System feasibility given \(\mathbf{\sigma^{2}_{\gamma}}\)} For
 complex systems in which individual system components represent the
 density of some tangible quantity, it is relevant to consider the
-feasibility of the system. Feasibilility assumes that values of all
+feasibility of the system. Feasibility assumes that values of all
 components are positive at
 equilibrium\textsuperscript{\protect\hyperlink{ref-Grilli2017}{6},\protect\hyperlink{ref-Dougoud2018}{28},\protect\hyperlink{ref-Song2018}{29}}.
 This is of particular interest for ecological communities because
@@ -732,10 +731,10 @@ the physical, life, and social sciences.
 
 \textbf{Component response rate (\(\boldsymbol{\gamma}\)) variation}. In
 a synthesis of eco-evolutionary feedbacks on community stability, Patel
-et al. model a system that includes a vector of potentially changing
+et al.\textsuperscript{\protect\hyperlink{ref-Patel2018}{20}} model a system that includes a vector of potentially changing
 species densities (\(\mathbf{n}\)) and a vector of potentially evolving
 traits
-(\(\mathbf{x}\))\textsuperscript{\protect\hyperlink{ref-Patel2018}{20}}.
+(\(\mathbf{x}\)).
 For any species \(i\) or trait \(j\), change in species density
 (\(n_{i}\)) or trait value (\(x_{j}\)) with time (\(t\)) is a function
 of the vectors \(\mathbf{n}\) and \(\mathbf{x}\),
@@ -746,17 +745,19 @@ of the vectors \(\mathbf{n}\) and \(\mathbf{x}\),
 
 In the above, \(f_{i}\) and \(g_{j}\) are functions that define the
 effects of all species densities and trait values on the density of a
-species \(i\) and the value of trait \(j\), respectively. Patel et al.
+species \(i\) and the value of trait \(j\), respectively. 
+Patel et al.\textsuperscript{\protect\hyperlink{ref-Patel2018}{20}}
 were interested in stability when the evolution of traits was relatively
 slow or fast in comparison with the change in species
-densities\textsuperscript{\protect\hyperlink{ref-Patel2018}{20}}, and
+densities, and
 this is modulated in the above by the scalar \(\epsilon\). The value of
 \(\epsilon\) thereby determines the timescale separation between ecology
 and evolution, with high \(\epsilon\) modelling relatively fast
-evolution and low \(\epsilon\) modelling relative slow
+evolution and low \(\epsilon\) modelling relatively slow
 evolution\textsuperscript{\protect\hyperlink{ref-Patel2018}{20}}.
 
-I use the same principle that Patel et al. use to modulate the relative
+I use the same principle that Patel et al.\textsuperscript{\protect\hyperlink{ref-Patel2018}{20}} 
+use to modulate the relative
 rate of evolution to modulate rates of component responses for \(S\)
 components. Following
 May\textsuperscript{\protect\hyperlink{ref-May1972}{1},\protect\hyperlink{ref-May1973}{32}},
