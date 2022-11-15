@@ -151,3 +151,5 @@ stab_bgamma <- function(S = 200, C = 0.05, Osd = 0.4, iters = 10000){
     }
     return(ress);
 }
+
+# Add a comment at the end.
